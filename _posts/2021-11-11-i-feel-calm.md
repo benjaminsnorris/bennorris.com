@@ -2,9 +2,9 @@
 title: "#60: “I feel calm”"
 date: 2021-11-11 08:48:38-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/i-feel-calm.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/i-feel-calm.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/i-feel-calm.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/i-feel-calm.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/i-feel-calm.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/i-feel-calm.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,14 +14,14 @@ tags:
 
 This week brought **panic attacks**, witnessing a **tender moment of support**, and **reflections on last week’s announcement**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 
 ## Something hard
 
-Last week, [I wrote](https://bennorris.org/2021/11/05/just-say-yes) about the different phases of hobby I’ve been through this year. One other phase that goes up and down is less of a hobby, and more of a coping mechanism, or even a wellness practice—journaling. Writing these weekly updates is a form of journaling and reflection, and has been a helpful and healthy thing for me.
+Last week, [I wrote](https://bennorris.com/2021/11/05/just-say-yes) about the different phases of hobby I’ve been through this year. One other phase that goes up and down is less of a hobby, and more of a coping mechanism, or even a wellness practice—journaling. Writing these weekly updates is a form of journaling and reflection, and has been a helpful and healthy thing for me.
 
 But there are times when I do much more journaling as well. Some I save into [Day One](https://dayoneapp.com/), and some are just for the process of writing and emotion-vomiting, and I don’t want to save or reference them again. In some ways, the amount I am journaling is a barometer of how rough things are.
 
@@ -33,7 +33,7 @@ The biggest piece of my stress and anxiety last week was challenges at home that
 
 All of that piled up to trigger some panic attacks over the weekend. I woke up Sunday morning, thinking things were going pretty well, but within a few minutes realized that I was in for a rough day.
 
-One of the worst parts of panic attacks at home for me is the accompanying guilt and shame. I know those only make it even worse, but it is so hard to fight them off. It becomes a [spiral of doom](https://bennorris.org/2020/10/05/spiral-of-doom). The key seems so clear when reflecting on it after the fact—just stop fighting it. But in the moment, that seems impossible.
+One of the worst parts of panic attacks at home for me is the accompanying guilt and shame. I know those only make it even worse, but it is so hard to fight them off. It becomes a [spiral of doom](https://bennorris.com/2020/10/05/spiral-of-doom). The key seems so clear when reflecting on it after the fact—just stop fighting it. But in the moment, that seems impossible.
 
 Some guilt is natural in a situation like that. Recognizing that my struggles make things harder for my wife and kids is natural and logical. Of course I feel bad about that. The shame is the real problem. When I start turning on myself and ripping myself apart, the anxiety heightens. The shoulds pile up to became a suffocating mountain crushing me.
 
@@ -78,12 +78,12 @@ I want to memorize what she said and use it when I want to help and support, but
 
 > This is really hard. I feel calm. You can be by me.
 
-![I feel calm](https://media.bennorris.org/images/mentalworkhealth/posts/i-feel-calm.jpg){:loading="lazy"}
+![I feel calm](https://media.bennorris.com/images/mentalworkhealth/posts/i-feel-calm.jpg){:loading="lazy"}
 
 
 ## Something else
 
-The response to our [announcement last week](https://bennorris.org/2021/11/05/just-say-yes) of a meditative sketchnote workshop with Mike Rohde and me was overwhelming. It was full within 24 hours and people were asking how to get the content if they weren’t able to attend. We are going to record the workshop and share the video for free, and plan to do another session.
+The response to our [announcement last week](https://bennorris.com/2021/11/05/just-say-yes) of a meditative sketchnote workshop with Mike Rohde and me was overwhelming. It was full within 24 hours and people were asking how to get the content if they weren’t able to attend. We are going to record the workshop and share the video for free, and plan to do another session.
 
 I feel a mix of emotions around the workshop. Top of the list is excitement. These ideas have helped me a great deal, and I am hopeful that they will help others as well. Assuming that they do, I am thrilled that people wanted to participate.
 
@@ -106,5 +106,5 @@ You and I, we deserve love and kindness. And when we allow ourselves to feel it,
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

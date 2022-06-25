@@ -15,7 +15,7 @@ A special episode recorded as part of my OCD treatment. Thoughts on my experienc
 
 [The OCD and Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/)
 
-[Who is Fernando](https://www.bennorris.org/2019/03/26/what-intrusive-thoughts-feel-like)
+[Who is Fernando](https://www.bennorris.com/2019/03/26/what-intrusive-thoughts-feel-like)
 
-<audio controls="controls" src="https://media.bennorris.org/images/bennorris/uploads/2019/15ef6837ed.mp3" />
+<audio controls="controls" src="https://media.bennorris.com/images/bennorris/uploads/2019/15ef6837ed.mp3" />
 

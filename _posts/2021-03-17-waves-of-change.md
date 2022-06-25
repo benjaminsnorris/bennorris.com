@@ -17,7 +17,7 @@ _These weekly updates are an ongoing series in which I share what it is like to 
 ## Something hard
 One of the hardest things about work for me is the people. That is definitely the best part as well. But part of the danger with the people at work is that they leave. It’s not like a family where we are connected for life. And while relationships can continue past common employment, the reality is that things change.
 
-This is something that I dealt with in a significant way a few months ago. First, there were some [voluntary departures](https://bennorris.org/2020/11/02/loss-and-uncertainty). Not long after that came some involuntary departures [in the form of layoffs](https://bennorris.org/2020/11/22/when-therapy-fails).
+This is something that I dealt with in a significant way a few months ago. First, there were some [voluntary departures](https://bennorris.com/2020/11/02/loss-and-uncertainty). Not long after that came some involuntary departures [in the form of layoffs](https://bennorris.com/2020/11/22/when-therapy-fails).
 
 As I dealt with then, so I deal now again with a deep sense of loss. The designer on my team, who has been my partner since our product manager left, and a key leader on our team since it formed, is leaving for a new job. Also one of my good friends who was another engineering manager is leaving.
 
@@ -30,7 +30,7 @@ I realized that part of the reason I have been able to cope with these fairly mo
 
 For years, I had turned nearly all of my life to be digital. I read ebooks for the convenience. I journaled in [Day One](https://dayoneapp.com), which I still often do. I carried my phone with me wherever I went and I tried to capture my life digitally as much as possible.
 
-Lately, I have been moving to more analog materials. Some of it started when I took a week as a [device fast](https://bennorris.org/2021/02/08/happily-being-shot). I still read some things digitally, but I enjoy reading actual books. And I have started writing by hand again. In some ways, I feel like I have rediscovered my first love.
+Lately, I have been moving to more analog materials. Some of it started when I took a week as a [device fast](https://bennorris.com/2021/02/08/happily-being-shot). I still read some things digitally, but I enjoy reading actual books. And I have started writing by hand again. In some ways, I feel like I have rediscovered my first love.
 
 I wrote a great deal growing up. Almost an indescribably amount. You may even call it obsessive. Go figure.
 
@@ -54,4 +54,4 @@ The saying often goes that the only constant is change. I hate sayings like that
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

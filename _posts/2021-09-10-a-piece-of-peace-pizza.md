@@ -2,9 +2,9 @@
 title: "#51 A piece of peace pizza"
 date: 2021-09-10 12:58:00-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/piece-of-peace-pizza.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/piece-of-peace-pizza.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/piece-of-peace-pizza.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/piece-of-peace-pizza.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/piece-of-peace-pizza.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/piece-of-peace-pizza.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,7 +14,7 @@ tags:
 
 Someone close to me was sharing her feelings last week. While not terrible, things were difficult for her. I told her that I hoped she could feel at least a piece of peace. Her near-immediate response was, “A piece of peace pizza.” I knew right away that was the title of my next update.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -52,4 +52,4 @@ And finally, as always, be kind. The people around you have their own frying pan
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

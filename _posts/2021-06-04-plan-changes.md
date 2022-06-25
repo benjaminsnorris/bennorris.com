@@ -9,7 +9,7 @@ category: Mental Work Health
 
 In this week’s update, I share about a change in plans, and the challenge that comes from dealing with the associated emotions.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -24,7 +24,7 @@ Finally, I landed on the idea of using an easel and large pad to draw some examp
 
 When I got to the venue and went to set up for my class, I found that there was indeed a projector and screen. Outwardly, I just laughed and commented on the irony. Inwardly, a wave of distress washed over me. Part of dealing with OCD for me is struggling with any kind of plan change. And this was a challenging one for me. My preparation would have been entirely different if I was going to be able to show a digital presentation. My wife was there with me, and she knew how distressing that kind of change would be to me, and she was supportive and validating. It took a little while before I had composed myself sufficiently to handle the situation.
 
-![Keynote sketchnote](https://media.bennorris.org/images/gospelsketcher/general/may-21-ldshe-stanfield.jpg)
+![Keynote sketchnote](https://media.bennorris.com/images/gospelsketcher/general/may-21-ldshe-stanfield.jpg)
 
 In addition to presenting at the conference, I was looking forward to capturing sketchnotes. I’ve been using my iPad for sketchnoting lately, because it is so much easier to share after completing. And it was a great experience. The speakers were fantastic, and taking sketchnotes was a good way to process and remember what they were saying.
 
@@ -37,7 +37,7 @@ Overall, the classes were some of the most effective sessions I have ever led in
 
 ## Lesson
 
-One constant I can plan on is that plans will change. Even though I know this, every time it happens I still feel some distress. There is no way to predict how much distress will come, but the coping mechanism is the same in all cases. For me, the key is to sit with the emotions, as I wrote about [last week](https://bennorris.org/2021/05/26/cross-stitching-at).
+One constant I can plan on is that plans will change. Even though I know this, every time it happens I still feel some distress. There is no way to predict how much distress will come, but the coping mechanism is the same in all cases. For me, the key is to sit with the emotions, as I wrote about [last week](https://bennorris.com/2021/05/26/cross-stitching-at).
 
 The skill that makes the most difference is [mindfulness](https://en.wikipedia.org/wiki/Mindfulness). It can be easy to fall into fear that the emotion is going to be overwhelmingly painful. The fear of the fear is usually worse than the fear itself. If I can resist the urge to avoid the emotions, and just let them be, I can mindfully digest them.
 
@@ -52,4 +52,4 @@ So during this next week, the challenge is to identify a plan change that comes 
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

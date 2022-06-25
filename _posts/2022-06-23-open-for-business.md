@@ -6,9 +6,9 @@ tags:
 - favorite
 - sketchnotes
 image: 
-  path: https://media.bennorris.org/images/posts/yes-im-open.jpg
-  thumbnail: https://media.bennorris.org/images/posts/thumbnails/yes-im-open.jpg
-gallery_thumb: https://media.bennorris.org/images/thumbs/yes-im-open.jpg
+  path: https://media.bennorris.com/images/posts/yes-im-open.jpg
+  thumbnail: https://media.bennorris.com/images/posts/thumbnails/yes-im-open.jpg
+gallery_thumb: https://media.bennorris.com/images/thumbs/yes-im-open.jpg
 ---
 
 I’m thrilled to announce that **I am now an independent mobile app consultant**, and [am available](https://bsn.design) to take on new projects. 🎉🚀 Can you help me find work?
@@ -19,7 +19,7 @@ I’m thrilled to announce that **I am now an independent mobile app consultant*
 
 For years, I have nursed a secret desire to quit my corporate job and become independent. For various reasons, both real and imagined (e.g. supporting a wife and seven kids, having a sometimes-crippling mental health condition, not deserving success or being good enough), I never allowed myself to pursue this.
 
-At the end of 2021, I made the choice to [leave my stable job](https://bennorris.org/2021/12/30/into-the-unknown) to join a friend in launching a startup. Half a year later, we realized that having me full-time in the startup didn’t make sense, and I [moved to a contractor role](https://bennorris.org/2022/05/06/uncertainty-training).
+At the end of 2021, I made the choice to [leave my stable job](https://bennorris.com/2021/12/30/into-the-unknown) to join a friend in launching a startup. Half a year later, we realized that having me full-time in the startup didn’t make sense, and I [moved to a contractor role](https://bennorris.com/2022/05/06/uncertainty-training).
 
 Because I had already wrestled with the risks and tradeoffs of leaving a stable job when I joined the startup, it felt like much less of a leap to make a go on my own for a bit. I’m comforted by the fact that my skills and experience are currently in demand, so if this doesn’t work out, I should be able to find another full-time job.
 
@@ -34,7 +34,7 @@ First and foremost, **I am a mobile app consultant**. I have been coding off and
 
 But that’s not all I want to do.
 
-My experience with mental health, from living with OCD to presenting and speaking, has ignited a passion for **mental health advocacy** and awareness work. I continue to [write weekly updates](https://bennorris.org/tags/weekly-update/) designed to help reduce the stigma of mental health at work.
+My experience with mental health, from living with OCD to presenting and speaking, has ignited a passion for **mental health advocacy** and awareness work. I continue to [write weekly updates](https://bennorris.com/tags/weekly-update/) designed to help reduce the stigma of mental health at work.
 
 A core hobby and interest of mine is sketchnoting. I have **taught and presented on sketchnotes** for over a decade and love doing that. Conference organizers have brought me out to **sketchnote their conferences** to provide attendees with a visual summary and generate interest. I want to do more of this.
 

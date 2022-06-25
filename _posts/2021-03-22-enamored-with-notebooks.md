@@ -33,18 +33,18 @@ And I hope that I can continue to forgive myself. It’s important to not judge 
 ## Something good
 As I [wrote about](https://world.hey.com/bennorris/leather-menu-covers-6c481711) a few days ago, I love leather. With a passion. I was enamored by the real leather covers for the menus at a restaurant.
 
-Additionally, I commented in my [update last week](https://bennorris.org/2021/03/17/waves-of-change) about how much I love to write, particularly by hand in a notebook.
+Additionally, I commented in my [update last week](https://bennorris.com/2021/03/17/waves-of-change) about how much I love to write, particularly by hand in a notebook.
 
 This week I combined those two loves. I ordered a leather notebook cover, it was made by hand, and arrived at my house all within a few days.
 
-![Leather covered notebook](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/3a9e2cda4e.jpg)
+![Leather covered notebook](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/3a9e2cda4e.jpg)
 
 I am so excited to use this. To touch it. To hold it. To break it in.
 
 Real leather is a good material for my OCD, because it is meant to get scratched or stained. That all adds to the patina. But I have a hard time with something that I love getting damaged. I need to sit in the distress of it not looking pristine. We’ll see how I do.
 
 ## Something else
-As I mentioned in [last week’s update](https://bennorris.org/2021/03/17/waves-of-change), I met with a new psychiatrist this week. Even though I tried to lower my expectations and not get too worked up about it, there was plenty of anxiety this week leading up to it.
+As I mentioned in [last week’s update](https://bennorris.com/2021/03/17/waves-of-change), I met with a new psychiatrist this week. Even though I tried to lower my expectations and not get too worked up about it, there was plenty of anxiety this week leading up to it.
 
 When I met with her, I was impressed. She took a full hour with me, which I have never had with a psychiatrist before. We went over my intake information, and she asked questions to understand things better.
 
@@ -61,4 +61,4 @@ My mood is up this week, and it feels good. Wherever you might be, and however y
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

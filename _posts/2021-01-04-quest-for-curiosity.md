@@ -9,7 +9,7 @@ category: Mental Work Health
 
 In my first weekly update of the new year, I discuss the **difficulty of the holidays**, the **joy of a new project**, and **missing a week**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -18,7 +18,7 @@ Happy New Year! I have always enjoyed this time of year with its feeling of rene
 
 ## Something hard
 
-In some ways, it feels natural that both the hard and the good of this time would be the holidays themselves. As I [wrote about following Thanksgiving](https://bennorris.org/2020/11/30/gratitude-and-panic), often the best approach we can take is one of curiosity. Instead of predetermining how things will go, we can wait and see what experiences come our way.
+In some ways, it feels natural that both the hard and the good of this time would be the holidays themselves. As I [wrote about following Thanksgiving](https://bennorris.com/2020/11/30/gratitude-and-panic), often the best approach we can take is one of curiosity. Instead of predetermining how things will go, we can wait and see what experiences come our way.
 
 For the most part, I was successful in this quest for curiosity. There were some definite rough patches to be sure. One of my secret weapons is wearing noise-canceling headphones. I usually don’t even put any music or podcasts on—I just take advantage of the dampening effect of wearing the headphones so that the noise of a busy household doesn’t get so overwhelming.
 
@@ -51,4 +51,4 @@ There are so many things that I wanted to get done over the holidays that just d
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

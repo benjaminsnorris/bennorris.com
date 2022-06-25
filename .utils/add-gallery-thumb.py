@@ -10,7 +10,7 @@ def adjustFile(file):
     if file.path.__contains__('.DS_Store'):
         return
 
-    image_regex = re.compile('(https://media.bennorris.org/images/.+?\.(jpg|png|jpeg|JPG))')
+    image_regex = re.compile('(https://media.bennorris.com/images/.+?\.(jpg|png|jpeg|JPG))')
     file_read = open(file, 'r', encoding='utf-8')
     file_name = file_read.name
     contents = file_read.read()

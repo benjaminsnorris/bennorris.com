@@ -17,7 +17,7 @@ I had an experience recently where I was on the other end of this phenomenon. In
 
 My mind was taken back to WWDC 2015, when I had the chance to meet \_David Smith, the man behind Developing Perspective. We got to chat for just a minute, and I told him how much his podcast and his willingness to share what he has learned have helped me in my own development career. It was a highlight of the conference for me.
 
-![Meeting David Smith](https://media.bennorris.org/images/posts/david-smith.jpg){:loading="lazy"}
+![Meeting David Smith](https://media.bennorris.com/images/posts/david-smith.jpg){:loading="lazy"}
 *Caleb Hicks, David Smith, Joshua Howland, and me*
 
 From these difference experiences, and from talking with other people, I have some thoughts about how to handle meeting someone with whom you are in one of these lopsided relationships. If you are on the side that believes that you are friends, start with a brief statement explaining how you know the other person. That can go a long way to alleviate an otherwise awkward encounter. If you are on the oblivious side, do your best to make the other person feel comfortable. Recognize that the person who is meeting you feels vulnerable and probably a little intimidated. If you are both introverted developers, chances are neither of you are particularly good at interpersonal interactions, so you will both be awkward together, and that is ok.

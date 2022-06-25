@@ -2,9 +2,9 @@
 title: "#79: Need for journaling"
 date: 2022-04-29 13:20:04-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/need-for-journaling.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/need-for-journaling.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/need-for-journaling.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/need-for-journaling.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/need-for-journaling.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/need-for-journaling.jpg
 layout: mwh
 category: Mental Work Health
 tags:
@@ -16,7 +16,7 @@ tags:
 
 This week, I share the realization I had about **what is missing** in my life right now. Ironically, **it’s something I just removed**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -26,9 +26,9 @@ At the end of last week, I had a couple **demoralizing stints of unproductivity*
 
 But I got almost nothing done.
 
-One of the things I realized Saturday evening is that **I wanted to do some journaling**. I wrote a couple weeks ago about breaking my journaling streak in Day One in [update #77: Breaking streaks](https://bennorris.org/2022/04/15/breaking-streaks). Since then, I had done almost no journaling whatsoever.
+One of the things I realized Saturday evening is that **I wanted to do some journaling**. I wrote a couple weeks ago about breaking my journaling streak in Day One in [update #77: Breaking streaks](https://bennorris.com/2022/04/15/breaking-streaks). Since then, I had done almost no journaling whatsoever.
 
-But it went back further than that. In early March, I wrote about discussing with my therapist how **my nice morning routine had become a compulsion** in [update #72: Losing my routine](https://bennorris.org/2022/03/12/losing-my-routine).
+But it went back further than that. In early March, I wrote about discussing with my therapist how **my nice morning routine had become a compulsion** in [update #72: Losing my routine](https://bennorris.com/2022/03/12/losing-my-routine).
 
 > We talked for a bit about how things that might be good for most people can become dangerous with OCD. **The issue is not the routine itself.** The problem is in allowing my mind to dictate what I must do in order to be able to function in the day. When that happens, I have to challenge it. I have to lean in to the uncertainty. It’s a great routine, and if I’m able to do those things, that’s fantastic. But they are not a right. If they can’t happen on a particular day, that’s ok. Or at least, it has to become ok.
 
@@ -36,9 +36,9 @@ Since then, I have not been doing much of my morning routine. So I have missed t
 
 As a side note, that exact situation illustrates some of the hardest aspects of my OCD. **It attacks things that matter to me.** The biggest area of life where I struggle with compulsions is with family relationships—the most important things for me. Second, OCD latches on to what is significant in my mind and **warps** it. Activities that I want to be doing become imbued with mystical importance, and missing them becomes an existential threat.
 
-Another compounding factor is that **I have started doing engineering work lately**. As I wrote about a few weeks ago in [update #74: Playing first base](https://bennorris.org/2022/03/26/playing-first-base), I realized that I wanted to be doing more of the work in which I have the most experience.
+Another compounding factor is that **I have started doing engineering work lately**. As I wrote about a few weeks ago in [update #74: Playing first base](https://bennorris.com/2022/03/26/playing-first-base), I realized that I wanted to be doing more of the work in which I have the most experience.
 
-Last week, in [update #78: Painful therapy](https://bennorris.org/2022/04/15/breaking-streaks), I processed some of my lack of balance.
+Last week, in [update #78: Painful therapy](https://bennorris.com/2022/04/15/breaking-streaks), I processed some of my lack of balance.
 
 > I enjoyed myself at work more this past week than I have in a while. I also worked way more than I have been. Instead of starting my day with a nice routine, I’ve been jumping in immediately to solve or create something.
 > 
@@ -67,7 +67,7 @@ I commented to my wife that **I am so tired of living at 0 or 100**. It is exhau
 
 There is a part of me that would like to **be more measured**. I would like to be able to do some things in my life partway.
 
-There’s another part of me that wants to just **accept how my brain is** and learn to work with that. I just need to [ride the wave](https://bennorris.org/2017/11/10/riding-the-wave) of each phase as it comes.
+There’s another part of me that wants to just **accept how my brain is** and learn to work with that. I just need to [ride the wave](https://bennorris.com/2017/11/10/riding-the-wave) of each phase as it comes.
 
 Where I’d like to be is a **middle path** between those two extremes. I am working on getting in touch better with what I actually **feel, need, and want** in a given moment.
 

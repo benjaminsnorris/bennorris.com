@@ -11,7 +11,7 @@ category: Mental Work Health
 
 In my update this week, I try something new, and share the **story of a panic attack**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -30,7 +30,7 @@ I pulled open my desk drawer and drew out my cheap spiral burn journal. The swee
 
 The smooth cursive strokes gave way to choppy scrawl as I continued to give voice to my emotions. At first, nothing of consequence emerged, but I expected that. Long practice had taught me that continuing to write without purpose or plan would often lead to thoughts and feelings that lived beneath the surface. Agitation began to spread throughout my body, and I turned off my video in the meeting.
 
-![Notebook on desk](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/3917a0613a.jpg)
+![Notebook on desk](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/3917a0613a.jpg)
 
 Soon, the scrawl devolved into almost illegible scribbling. The agitation increased, until my arms were clenching and releasing, my head inclined one way and then another, and all the while my chest continued to tighten. I tried to keep writing, hoping it would help me identify and process the strong feelings I was experiencing, but it soon became furious scribbles. No words came out my fingertips, just angry cries.
 
@@ -62,4 +62,4 @@ That’s enough for this week. If you can do that, if I can do that, let’s cel
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

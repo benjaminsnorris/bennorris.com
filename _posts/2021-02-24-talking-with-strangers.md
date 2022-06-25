@@ -9,7 +9,7 @@ category: Mental Work Health
 
 In this week’s update, I discuss a **more difficult therapy session**, a **delightful group of sisters**, and an **inspiring TV show**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -19,7 +19,7 @@ My therapy session last Friday was a little more difficult than usual. Often, th
 
 Last week, however, was more of bringing me back down to reality. Over the previous week or two, I had become a little obsessive in acquiring and building Star Wars Lego sets. It wasn’t out of control, or causing serious problems. The furthest it went was driving around to three different Target stores over the course of a couple days to find the sets that were only available at those locations, and then building one or more sets every day.
 
-As I wrote about [last week](https://bennorris.org/2021/02/17/crying-at-tv), I had been thinking about how nice it would be to quit my job and become a truck driver or something that would not require so much mental investment, and would allow me to work with less stress. My therapist assured me that this kind of fantasy is completely normal, especially for someone with OCD. The reality is that it would be giving in to the compulsions to do whatever OCD dictates with my time, and would only lead to misery.
+As I wrote about [last week](https://bennorris.com/2021/02/17/crying-at-tv), I had been thinking about how nice it would be to quit my job and become a truck driver or something that would not require so much mental investment, and would allow me to work with less stress. My therapist assured me that this kind of fantasy is completely normal, especially for someone with OCD. The reality is that it would be giving in to the compulsions to do whatever OCD dictates with my time, and would only lead to misery.
 
 We continued to discuss how I need to just come back to reality and face the life that I have. Dealing with OCD is hard because it adds significant weight to everyday experiences. I am constantly running over past and future events, and evaluating the “right” way for them, so many actions are moralized. This is particularly true with family life. Near the end of the session, my therapist commented that she had been a little more direct and serious with me in order to help me come back down to earth and not allow myself to start floating away in OCD indulgences. It was definitely needed, but still difficult.
 
@@ -37,9 +37,9 @@ I was struck by the power of that simple act of recognizing shared humanity. The
 
 ## Something else
 
-![Ted Lasso](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/5f1055a535.jpg)
+![Ted Lasso](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/5f1055a535.jpg)
 
-Last week, I [wrote about](https://bennorris.org/2021/02/17/crying-at-tv) watching [*All Creatures Great & Small*](https://en.wikipedia.org/wiki/All_Creatures_Great_and_Small_(2020_TV_series)) and the effect it had on me. Well, as we ended that series, I decided to start watching the show [Ted Lasso](https://en.wikipedia.org/wiki/Ted_Lasso_(TV_series)). I had heard good things about it, and was ready for something funny.
+Last week, I [wrote about](https://bennorris.com/2021/02/17/crying-at-tv) watching [*All Creatures Great & Small*](https://en.wikipedia.org/wiki/All_Creatures_Great_and_Small_(2020_TV_series)) and the effect it had on me. Well, as we ended that series, I decided to start watching the show [Ted Lasso](https://en.wikipedia.org/wiki/Ted_Lasso_(TV_series)). I had heard good things about it, and was ready for something funny.
 
 While I have found some humorous moments in it, I would not classify it as a comedy show. To the best of my knowledge, there is no genre that captures this, but I would classify it as a touching show. While it certainly deserves its TV-MA rating with vulgar and crude language, I have been moved by what I’ve seen. The main premise of the show is that the eponymous character consistently sees others as people. In doing this, he is able to begin to overcome extreme odds.
 
@@ -54,7 +54,7 @@ It is good for us to remember that nearly everyone around us in struggling in ma
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
-[^1]: If you are interested, you can read more about [my story](https://bennorris.org/2019/11/09/my-story).
+[^1]: If you are interested, you can read more about [my story](https://bennorris.com/2019/11/09/my-story).

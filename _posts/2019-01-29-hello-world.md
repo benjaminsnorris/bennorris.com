@@ -11,7 +11,7 @@ My first microcast episode is mostly an introduction to me and where I’m at ri
 
 _Links:_
 
-[Coming out 💮](https://www.bennorris.org/2019/01/26/coming-out) (**tl;dr** Hi, I’m Ben, and I have OCD. 👋)
+[Coming out 💮](https://www.bennorris.com/2019/01/26/coming-out) (**tl;dr** Hi, I’m Ben, and I have OCD. 👋)
 
-<audio controls="controls" src="https://media.bennorris.org/images/bennorris/uploads/2019/0a40f46875.mp3" />
+<audio controls="controls" src="https://media.bennorris.com/images/bennorris/uploads/2019/0a40f46875.mp3" />
 

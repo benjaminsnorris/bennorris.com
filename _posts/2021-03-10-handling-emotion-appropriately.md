@@ -28,7 +28,7 @@ I have found that the advice I am most comfortable giving is not what the other 
 
 ## Something good
 
-In my [update last week](https://bennorris.org/2021/03/02/crawling-up-stairs), I shared about a weekend of panic attacks. In my therapy session last week, we discussed those, and realized that one of the events that set it off was some unprocessed emotion. I received a difficult email at work on the Friday before the weekend, and carried that emotion home with me, and never really sat with it or processed it in a healthy way.
+In my [update last week](https://bennorris.com/2021/03/02/crawling-up-stairs), I shared about a weekend of panic attacks. In my therapy session last week, we discussed those, and realized that one of the events that set it off was some unprocessed emotion. I received a difficult email at work on the Friday before the weekend, and carried that emotion home with me, and never really sat with it or processed it in a healthy way.
 
 In contrast, over this past week, there were a couple instances where I took responsibility for my emotions and handled them appropriately. There was a day that I was getting in my car to drive home from work and realized that the stress of the day was weighing heavily on me. I didn’t want to take that home and dump it on my family. I called my wife to check in on how she was doing, and then went back in my office and just wrote for a bit to get out my negative feelings. Then I was able to go home and engage with the family.
 
@@ -37,13 +37,13 @@ On another day, my wife and I had a budget meeting on a date, and then went groc
 
 ## Something else
 
-![HEY World](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/1be69fa767.png)
+![HEY World](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/1be69fa767.png)
 
 A product announcement caught my attention this past week. Basecamp released a feature called [HEY World](https://hey.com/world/). I have been moving over my email to use HEY as I agree with their philosophy on privacy, as well as their focus on user experience and changing our relationship with email. HEY World allows anyone who is a paying customer of the email service to send an email to create a blog post.
 
 This has caused me to stop and think.
 
-For years, I have been trying to blog, and have spent countless hours setting up [different versions](https://bennorris.org/design/) of my site or blog. My current blog is hosted on [Micro.blog](https://micro.blog), which is also a service whose mission and philosophy I strongly support. One of the reasons I moved to Micro.blog was to simplify and remove my ability to tinker. Just having the ability had proved to be a difficult temptation to resist, and I would often succumb and try to get things “just right” for hours.
+For years, I have been trying to blog, and have spent countless hours setting up [different versions](https://bennorris.com/design/) of my site or blog. My current blog is hosted on [Micro.blog](https://micro.blog), which is also a service whose mission and philosophy I strongly support. One of the reasons I moved to Micro.blog was to simplify and remove my ability to tinker. Just having the ability had proved to be a difficult temptation to resist, and I would often succumb and try to get things “just right” for hours.
 
 The premise of HEY World is that you just write. It is not a platform or a social network. There are no comments, no likes, no ads, no featured content. They do make it simple for anyone to subscribe to a mailing list to receive your new posts if desired, and anyone can email you a reply to your post if they want to. It removes all of the management and allows you to focus on a single thing—writing.
 
@@ -60,4 +60,4 @@ Mindfully processing emotions is one of the most important things we can do. So 
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

@@ -10,7 +10,7 @@ A trip to the local rec center can bring more real-life inspiration than watchin
 
 ***
 
-A couple days ago, I recorded a podcast episode about my experience at the rec center called [At Your Own Pace](https://www.bennorris.org/2019/01/31/at-your-own-pace). Yesterday, I took another walk around the rec center track, and wanted to share some additional thoughts.
+A couple days ago, I recorded a podcast episode about my experience at the rec center called [At Your Own Pace](https://www.bennorris.com/2019/01/31/at-your-own-pace). Yesterday, I took another walk around the rec center track, and wanted to share some additional thoughts.
 
 ## People watching
 I noticed more about the people around me this time. Not just the people on the track, but the people played pickleball and basketball down below. The people lifting weights. The people on the stairmasters. The people on the treadmills. As I discussed in my podcast, there is huge variety in the people at the rec center. The track is pretty small, so I saw a number of these people over and over as I walked around.

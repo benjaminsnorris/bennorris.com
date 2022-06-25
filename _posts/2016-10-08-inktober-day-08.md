@@ -1,6 +1,6 @@
 ---
 title:          "Inktober day 8"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/inktober-day-08.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/inktober-day-08.jpg
 date:           2016-10-08 18:31:00-0700
 category:       Sketchnotable
 tags:           inktober
@@ -11,4 +11,4 @@ short:          true
 
 Back and forth and back and forth.
 
-![Rocking chair](https://media.bennorris.org/images/sketchnotable/inktober-2016/inktober-day-08.jpg){:loading="lazy"}
+![Rocking chair](https://media.bennorris.com/images/sketchnotable/inktober-2016/inktober-day-08.jpg){:loading="lazy"}

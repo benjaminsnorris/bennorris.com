@@ -1,6 +1,6 @@
 ---
 title:          "Inktober day 4"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/inktober-day-04.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/inktober-day-04.jpg
 date:           2016-10-04 23:10:00-0700
 category:       Sketchnotable
 tags:           inktober
@@ -11,4 +11,4 @@ short:          true
 
 Sometimes only a bowl of cereal can satisfy.
 
-![Bowl of cereal](https://media.bennorris.org/images/sketchnotable/inktober-2016/inktober-day-04.jpg){:loading="lazy"}
+![Bowl of cereal](https://media.bennorris.com/images/sketchnotable/inktober-2016/inktober-day-04.jpg){:loading="lazy"}

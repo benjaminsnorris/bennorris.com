@@ -9,7 +9,7 @@ category: Mental Work Health
 
 This week brings some thoughts on  a **surprise struggle**, a **parenting win**, and **pragmatic sketching**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -27,7 +27,7 @@ My wife and I decided that the best thing to do would be for me to leave for a b
 
 ## Something good
 
-Since I shared a bit of my thoughts on parenting [last week](https://bennorris.org/2020/10/06/spiral-of-doom/), I thought it was appropriate to share a win from this week, even though this site is more focused on mental health in the workplace. My wife and I had a chance to go to lunch with our oldest, who is 15. Our daughter commented that it was nice to be alone with the two of us, as that rarely happens for her. Typically, she is helping with the younger kids if we are getting some alone time.
+Since I shared a bit of my thoughts on parenting [last week](https://bennorris.com/2020/10/06/spiral-of-doom/), I thought it was appropriate to share a win from this week, even though this site is more focused on mental health in the workplace. My wife and I had a chance to go to lunch with our oldest, who is 15. Our daughter commented that it was nice to be alone with the two of us, as that rarely happens for her. Typically, she is helping with the younger kids if we are getting some alone time.
 
 We enjoyed such a nice time together. I followed up her observation by telling her this was her chance to ask us anything she wanted. I loved her response, which was that she gets plenty of time to ask my wife whatever she wants as they drive around to various events. She did ask some insightful questions, such as what was our favorite year of life, and what it was like to be fifteen.
 
@@ -36,7 +36,7 @@ Her question about what it was like to be her age took us into some mental healt
 
 ## Something else
 
-As I shared a [few weeks ago](https://bennorris.org/2020/09/21/recharging-in-allentown/), I have been wanting to do more sketching lately. This week, I started a [Pragmatic Sketching Masterclass with Eva-Lotta Lamm](https://evalotta.shop/products/pragmatic-sketching), and loved the first session. If you see this in time, I highly recommend that you sign up for part or all of it, whether you are already interested in sketching or not. Years ago, Eva-Lotta was the person through whom I was introduced to sketchnoting, which has become a [big](https://bennorris.org/sketchnotable/) [part](https://bennorris.org/gospelsketcher/) of my life.
+As I shared a [few weeks ago](https://bennorris.com/2020/09/21/recharging-in-allentown/), I have been wanting to do more sketching lately. This week, I started a [Pragmatic Sketching Masterclass with Eva-Lotta Lamm](https://evalotta.shop/products/pragmatic-sketching), and loved the first session. If you see this in time, I highly recommend that you sign up for part or all of it, whether you are already interested in sketching or not. Years ago, Eva-Lotta was the person through whom I was introduced to sketchnoting, which has become a [big](https://bennorris.com/sketchnotable/) [part](https://bennorris.com/gospelsketcher/) of my life.
 
 To be honest, signing up for a sketching class was a bit of pride swallowing for me. I have taught classes on sketching and sketchnoting, and part of me balked at being lumped in with all the other students in a class on a subject where I feel a certain level of competence. What a laugh! After just a few minutes into the class, I realized that I have so far to grow in my abilities and skill, even at some of the most basic things about sketching. I loved that we started with a healthy mix of theory and practice, and I was immediately able to see where I needed some work in my fundamentals.
 
@@ -49,4 +49,4 @@ Take care of yourself out there. Life is stressful these days and we are all goi
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

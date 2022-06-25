@@ -2,9 +2,9 @@
 title: "#53 Staying home"
 date: 2021-09-24 06:52:44-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/stay-at-home-dad.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/stay-at-home-dad.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/stay-at-home-dad.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/stay-at-home-dad.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/stay-at-home-dad.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/stay-at-home-dad.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,14 +14,14 @@ tags:
 
 This update describes **being a stay-at-home parent** for a few days and **sitting in uncertainty**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 
 ## Something hard
 
-Last week, my wife and oldest went to a leadership retreat for a home education conference we have participated in for the past few years. When we attended a few months ago, I taught a couple classes on sketchnotes, which I [wrote about in June](https://bennorris.org/2021/06/04/plan-changes). I took off half the week to stay home with our six other kids while they were gone.
+Last week, my wife and oldest went to a leadership retreat for a home education conference we have participated in for the past few years. When we attended a few months ago, I taught a couple classes on sketchnotes, which I [wrote about in June](https://bennorris.com/2021/06/04/plan-changes). I took off half the week to stay home with our six other kids while they were gone.
 
 Being a stay-at-home parent is hard. Really hard.
 
@@ -64,4 +64,4 @@ I have an even greater respect for people who choose to stay home and raise thei
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

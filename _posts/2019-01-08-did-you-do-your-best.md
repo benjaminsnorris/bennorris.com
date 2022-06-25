@@ -8,7 +8,7 @@ category: General
 excerpt_separator: "<!--more-->"
 ---
 
-I [posted recently](https://bennorris.org/2019/01/06/your-best) an experience that I had with my son:
+I [posted recently](https://bennorris.com/2019/01/06/your-best) an experience that I had with my son:
 
 >  At church today, my six-year-old handed me a piece of his toy and asked me to fix it. After trying for just a bit, I handed it back to him. He looked at it and asked, “Daddy, did you do your best?” Then he looked up at me intently and asked again, “Did you *do your best*?”
 

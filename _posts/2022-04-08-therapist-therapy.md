@@ -2,9 +2,9 @@
 title: "#76: Therapist therapy"
 date: 2022-04-08 09:31:04-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/therapist-therapy.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/therapist-therapy.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/therapist-therapy.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/therapist-therapy.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/therapist-therapy.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/therapist-therapy.jpg
 layout: mwh
 category: Mental Work Health
 tags:
@@ -16,13 +16,13 @@ tags:
 
 This week, I share the story of **providing therapy for my therapist**. Or at least something close to that.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 ## Story
 
-I [shared recently](https://bennorris.org/2022/03/26/playing-first-base) about a difficult therapy session in which my therapist started by having me listen to music that resonated with my emotional state and loosened me up enough to talk. One of the songs we listened to was by [Billie Eilish](https://en.wikipedia.org/wiki/Billie_Eilish), who recently came to Utah on tour.
+I [shared recently](https://bennorris.com/2022/03/26/playing-first-base) about a difficult therapy session in which my therapist started by having me listen to music that resonated with my emotional state and loosened me up enough to talk. One of the songs we listened to was by [Billie Eilish](https://en.wikipedia.org/wiki/Billie_Eilish), who recently came to Utah on tour.
 
 My therapist told me about her experience going to see Billie Eilish in concert. Her daughter had bought tickets early, and was on the second row or so, in seats 3 and 4, but her tickets were in the middle of a section much further back. Before the concert started, she sat down by her daughter, as seats 1 and 2 were not yet occupied. Even though it was a packed house, the people who bought those seats never came, and she was able to watch the whole concert from the front, near the aisle, with an extra seat. As someone with claustrophobia, that made a huge difference in how much she was able to enjoy the concert.
 
@@ -63,7 +63,7 @@ One skill that was discussed repeatedly in my OCD treatment is mindfulness. This
 - Describe
 - Participate
 
-You start by being present in the moment and noticing what your actual experience is. Not what you expect it to be, or what you fear it to be. Practice distancing enough to describe what is happening without judgment. An exercise like the [mindful sketch](https://bennorris.org/mindful-sketch-template/) I developed can help with this. Finally, show up completely. Allow yourself to experience the emotion and sit with it. Then you can move through it.
+You start by being present in the moment and noticing what your actual experience is. Not what you expect it to be, or what you fear it to be. Practice distancing enough to describe what is happening without judgment. An exercise like the [mindful sketch](https://bennorris.com/mindful-sketch-template/) I developed can help with this. Finally, show up completely. Allow yourself to experience the emotion and sit with it. Then you can move through it.
 
 
 ## Challenge

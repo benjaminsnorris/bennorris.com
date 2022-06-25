@@ -1,6 +1,6 @@
 ---
 title: "Certified Scrum Product Owner Course"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/cspo-2011-sketchnote.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/cspo-2011-sketchnote.jpg
 date: 2011-08-30 12:57:48-0600
 tags:
 - sketchnotes
@@ -12,4 +12,4 @@ I attended my third Certified Scrum Product Owner course 29-30 Aug 2011 in Seatt
 
 Here are my sketchnotes from the course:
 
-![Certified Scrum Product Owner Course Sketchnotes](https://media.bennorris.org/images/sketchnotable/general/cspo-2011-sketchnote.jpg){:loading="lazy"}
+![Certified Scrum Product Owner Course Sketchnotes](https://media.bennorris.com/images/sketchnotable/general/cspo-2011-sketchnote.jpg){:loading="lazy"}

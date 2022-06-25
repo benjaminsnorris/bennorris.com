@@ -21,7 +21,7 @@ Panic attacks are a bitch.
 
 This is not a surprise to anyone who has experienced them before, but it was certainly emphasized again this last week.
 
-To back up a bit, I [wrote last week](https://bennorris.org/2021/02/24/talking-with-strangers) about having a harder therapy session than usual. I had already started to feel a bit more down before that, and the session helped to make sure that I was grounded, and maybe pushed me even a little further down.
+To back up a bit, I [wrote last week](https://bennorris.com/2021/02/24/talking-with-strangers) about having a harder therapy session than usual. I had already started to feel a bit more down before that, and the session helped to make sure that I was grounded, and maybe pushed me even a little further down.
 
 Throughout this past week, I found myself looking for an escape. As I’ll write about later, I poured myself into a game that I found. Other than that, nothing was really sticking. As I went in to therapy at the end of last week, we talked about just being down. That is nothing to worry about, and everyone is going to have times like that. As someone with OCD, it can be easy to fixate on something, and often when I don’t have a fixation, there is an urge to find the next thing. We discussed trying to let go of that urge, and just sit in the down-ness and not try to force a change.
 
@@ -46,11 +46,11 @@ One of the biggest lesson that I have learned in my mental health journey, and o
 
 ## Something else - Creaks
 
-![Creaks castle](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/93a58b7bd1.jpg){:loading="lazy"}
+![Creaks castle](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/93a58b7bd1.jpg){:loading="lazy"}
 
 As I mentioned earlier, I sought escape throughout this past week, and I found it in the form of the [Creaks game](https://en.wikipedia.org/wiki/Creaks_(video_game)) from [Animata Design](https://amanita-design.net/index.html). They are the creators of one of my previous favorites, [Machinarium](https://en.wikipedia.org/wiki/Machinarium). I love the sound design, the visual design, and especially the puzzle or challenge design.
 
-![Creaks game](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/a4ae6d933b.jpg){:loading="lazy"}
+![Creaks game](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/a4ae6d933b.jpg){:loading="lazy"}
 
 In this game, you play as a human descending through a maze of rooms in an underground mansion. You encounter aggressive monsters that become harmless inanimate objects when light shines on them. There are bird-like people that initially seem intimidating, but soon are revealed to be friendly, and you work to help them in escaping a giant monster that is tearing apart the mansion.
 
@@ -63,4 +63,4 @@ Here’s to better times ahead. Whether you are in an up time, a down time, or s
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

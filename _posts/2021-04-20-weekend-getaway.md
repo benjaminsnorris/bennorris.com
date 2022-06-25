@@ -39,7 +39,7 @@ While I wouldn’t say that I am challenged to the same level as [Bob Wiley](htt
 
 ## Something else
 
-![Home Town](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/62f3e938a8.jpg)
+![Home Town](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/62f3e938a8.jpg)
 
 One surprise treat that came out of being sick on Sunday was that we discovered a new favorite show. We were desperate for something to distract us, and reading wasn’t keeping our attention. We turned on the TV, but the Food Network was definitely out. We landed on HGTV, and proceeded to watch six straight hours of [Home Town](https://en.wikipedia.org/wiki/Home_Town_(TV_series)).
 
@@ -54,4 +54,4 @@ Thanks to the [peak-end rule](https://en.wikipedia.org/wiki/Peak%E2%80%93end_rul
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

@@ -1,6 +1,6 @@
 ---
 title:          "Inktober day 30"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/inktober-day-30.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/inktober-day-30.jpg
 date:           2016-10-30 14:54:00-0700
 category:       Sketchnotable
 tags:           inktober
@@ -11,4 +11,4 @@ short:          true
 
 “This was clean when I left two minutes ago!”
 
-![Messy room](https://media.bennorris.org/images/sketchnotable/inktober-2016/inktober-day-30.jpg){:loading="lazy"}
+![Messy room](https://media.bennorris.com/images/sketchnotable/inktober-2016/inktober-day-30.jpg){:loading="lazy"}

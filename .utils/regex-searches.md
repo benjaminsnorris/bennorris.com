@@ -3,7 +3,7 @@
 ## glightbox
 
 ### Example
-{{< glightbox src="https://media.bennorris.org/images/gospelsketcher/uploads/2020/7eda015c96.jpg" alt="Conference sketchnotes" gallery="apr-2020">}}
+{{< glightbox src="https://media.bennorris.com/images/gospelsketcher/uploads/2020/7eda015c96.jpg" alt="Conference sketchnotes" gallery="apr-2020">}}
 
 ### Regex
 #### Find
@@ -16,7 +16,7 @@
 ## Image links
 
 ### Example
-<img src="https://media.bennorris.org/images/gospelsketcher/uploads/2020/7eda015c96.jpg" alt="Conference sketchnotes" />
+<img src="https://media.bennorris.com/images/gospelsketcher/uploads/2020/7eda015c96.jpg" alt="Conference sketchnotes" />
 
 ### Regex
 #### Find
@@ -49,7 +49,7 @@
 \(https://www\.mentalworkhealth\.org/(\d{4}/\d{2}/\d{2}/[^.]+?)\.html[^)]*\)
 
 #### Replace
-(https://bennorris.org/$1)
+(https://bennorris.com/$1)
 
 
 ## Post URL Links
@@ -62,7 +62,7 @@
 \{% post_url (\d{4})-(\d{2})-(\d{2})-(\S*) %\}
 
 #### Replace
-https://bennorris.org/$1/$2/$3/$4/
+https://bennorris.com/$1/$2/$3/$4/
 
 
 ## Wrong date
@@ -95,17 +95,17 @@ The start of a new year has traditionally been a time I look forward to and enjo
 (http|https)://www\.bennorris\.blog(.+?)\.html
 
 #### Replace
-https://bennorris.org$2
+https://bennorris.com$2
 
 
 ## Gallery Thumbs
 
 ### Example
-gallery_thumb: https://media.bennorris.org/images/gospelsketcher/general/feb-19-organ-window.png
-gallery_thumb: https://media.bennorris.org/images/gospelsketcher/general-conference/apr-2021/apr-21-1-sat-am.jpg
+gallery_thumb: https://media.bennorris.com/images/gospelsketcher/general/feb-19-organ-window.png
+gallery_thumb: https://media.bennorris.com/images/gospelsketcher/general-conference/apr-2021/apr-21-1-sat-am.jpg
 gallery_thumb:
-- https://media.bennorris.org/images/gospelsketcher/general-conference/oct-2012/oct-12-1-sat-am-00.jpg
-- https://media.bennorris.org/images/gospelsketcher/general-conference/oct-2012/oct-12-1-sat-am.jpg
+- https://media.bennorris.com/images/gospelsketcher/general-conference/oct-2012/oct-12-1-sat-am-00.jpg
+- https://media.bennorris.com/images/gospelsketcher/general-conference/oct-2012/oct-12-1-sat-am.jpg
 ---
 
 ### Regex
@@ -119,11 +119,11 @@ $1thumbs/$2
 ## Mindful Sketch Image links
 
 ### Example
-![Mindful sketch](https://media.bennorris.org/images/mindfulsketch/posts/2022-03-09-1834-mindfulsketch.jpg)
+![Mindful sketch](https://media.bennorris.com/images/mindfulsketch/posts/2022-03-09-1834-mindfulsketch.jpg)
 
 ### Regex
 #### Find
-!\[Mindful sketch\]\(https://media.bennorris.org/images/mindfulsketch/posts/.+?\)
+!\[Mindful sketch\]\(https://media.bennorris.com/images/mindfulsketch/posts/.+?\)
 
 #### Replace
 $0{:loading="lazy"}
@@ -132,11 +132,11 @@ $0{:loading="lazy"}
 ## Move Mindful Sketch Images
 
 ### Example
-https://media.bennorris.org/images/mentalworkhealth/mindfulsketch/2022-03-07-0730-mindfulsketch.jpg
+https://media.bennorris.com/images/mentalworkhealth/mindfulsketch/2022-03-07-0730-mindfulsketch.jpg
 
 ### Regex
 #### Find
-https://media.bennorris.org/images/mentalworkhealth/mindfulsketch/(.+?)-mindfulsketch\.jpg
+https://media.bennorris.com/images/mentalworkhealth/mindfulsketch/(.+?)-mindfulsketch\.jpg
 
 #### Replace
-https://media.bennorris.org/images/mindfulsketch/posts/$1-mindfulsketch.jpg
+https://media.bennorris.com/images/mindfulsketch/posts/$1-mindfulsketch.jpg

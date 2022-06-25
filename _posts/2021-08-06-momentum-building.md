@@ -9,7 +9,7 @@ category: Mental Work Health
 
 In this week’s update, I share about mental health being highlighted by **Ted Lasso**, **Simone Biles**, and **Michael Phelps**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -53,7 +53,7 @@ The answer, as quoted back to him by Coach Beard, is to recognize that people ar
 
 ## Simone Biles
 
-![Simone Biles](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/4392126ee7.jpg)
+![Simone Biles](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/4392126ee7.jpg)
 *(Photo by Laurence Griffiths/Getty Images) 2021 Getty Images*
 
 Next was the news that [Simone Biles withdrew](https://olympics.com/tokyo-2020/en/news/simone-biles-pulls-out-of-team-event-after-one-event) from competition at the Olympics. The [statement from USA Gymnastics](https://twitter.com/USAGym/status/1420266286441922562) read:
@@ -100,7 +100,7 @@ It’s OK to not be OK.
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
-[^1]: I wrote about Ted Lasso and the impact the show had on me [back in February](https://bennorris.org/2021/02/24/talking-with-strangers).
+[^1]: I wrote about Ted Lasso and the impact the show had on me [back in February](https://bennorris.com/2021/02/24/talking-with-strangers).

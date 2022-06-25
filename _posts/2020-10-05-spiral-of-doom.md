@@ -10,7 +10,7 @@ category: Mental Work Health
 
 In my update this week, I discuss **parenting**, **sketchnoting**, and **self-compassion**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -30,9 +30,9 @@ In so many ways, this spiral is similar to many thought loops that I experience 
 
 This past weekend was [General Conference](https://newsroom.churchofjesuschrist.org/article/general-conference) for [The Church of Jesus Christ of Latter-day Saints](https://www.churchofjesuschrist.org/general-conference?lang=eng). This is always a time that we look forward to as a family. It gives us the chance to pause and think about our lives differently, as well as how we can better follow Jesus Christ and treat others as He would.
 
-It worked out this time for me to capture some sketchnotes which is always something I enjoy. You can see them on [Gospel Sketcher](https://bennorris.org/2020/10/04/general-conference-sketchnotes-oct-2020).
+It worked out this time for me to capture some sketchnotes which is always something I enjoy. You can see them on [Gospel Sketcher](https://bennorris.com/2020/10/04/general-conference-sketchnotes-oct-2020).
 
-![General Conference sketchnotes](https://media.bennorris.org/images/gospelsketcher/general-conference/oct-2020/oct-20-intro.jpg){:loading="lazy"}
+![General Conference sketchnotes](https://media.bennorris.com/images/gospelsketcher/general-conference/oct-2020/oct-20-intro.jpg){:loading="lazy"}
 
 
 ## Something else
@@ -54,4 +54,4 @@ I encourage you, as I do myself, to practice more self-compassion. Whether you a
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

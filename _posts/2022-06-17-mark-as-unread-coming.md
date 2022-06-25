@@ -10,11 +10,11 @@ I was reading [Becky Hansmeyer’s great Reflections on WWDC 2022](https://becky
 
 > Other things I’m looking forward to include improved sleep metrics on Apple Watch, new Lock Screen customizations, Messages editing and **mark-as-unread**… (emphasis added)
 
-As I mentioned in my [Mental Work Health update #85](https://bennorris.org/2022/06/17/im-a-sailor), I was gone on a sailing trip last week and missed all of WWDC. In the short catching up I’d done, I had not seen anything about this great feature for Messages.
+As I mentioned in my [Mental Work Health update #85](https://bennorris.com/2022/06/17/im-a-sailor), I was gone on a sailing trip last week and missed all of WWDC. In the short catching up I’d done, I had not seen anything about this great feature for Messages.
 
-A few months ago, [I shared](https://bennorris.org/2022/01/26/mark-as-unread) my strong feelings on the lack of mark-as-unread:
+A few months ago, [I shared](https://bennorris.com/2022/01/26/mark-as-unread) my strong feelings on the lack of mark-as-unread:
 
-[![Mark as unread](https://media.bennorris.org/images/posts/mark-as-unread.jpg){:loading="lazy"}](https://bennorris.org/2022/01/26/mark-as-unread){:.clean}
+[![Mark as unread](https://media.bennorris.com/images/posts/mark-as-unread.jpg){:loading="lazy"}](https://bennorris.com/2022/01/26/mark-as-unread){:.clean}
 
 The core of my argument for why it was an important feature, and why I thought it was being seen and handled incorrectly was as follows:
 

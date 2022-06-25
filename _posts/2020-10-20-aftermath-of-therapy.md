@@ -10,7 +10,7 @@ category: Mental Work Health
 
 This week is all about the experience and fallout of an intense therapy session—**extreme agitation**, the pleasure of a **strong support system**, and the clarity that came through **journaling**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -19,7 +19,7 @@ One of these weeks will surely come and go as a boring series of terrestrial rot
 
 ## Something hard
 
-I was a little surprised after the weekend I had [last week](https://bennorris.org/2020/10/13/an-experienced-beginner/) that things got pretty rough for me again this past weekend. I will write more later about the therapy session I had on Friday that I suspect led to some of my struggles. The odd thing was that I was fine for most of Friday, until the evening. Saturday morning, I woke up extremely agitated. I decided to go on a walk to try and burn off some of the excess adrenaline and cortisol.
+I was a little surprised after the weekend I had [last week](https://bennorris.com/2020/10/13/an-experienced-beginner/) that things got pretty rough for me again this past weekend. I will write more later about the therapy session I had on Friday that I suspect led to some of my struggles. The odd thing was that I was fine for most of Friday, until the evening. Saturday morning, I woke up extremely agitated. I decided to go on a walk to try and burn off some of the excess adrenaline and cortisol.
 
 Throughout the summer, I had been walking almost every day. I decided to take my usual route, and walked from my house along a nearby river for a couple miles and then turned around. Everything was fine until I got close to mile four. I hit a proverbial wall, and slowed way down. I messaged my wife and let her know that I was not doing well, and then had her come pick me up. By the time I made it to her, I was barely shuffling my feet to move forward. It was an odd sensation.
 
@@ -49,7 +49,7 @@ Many of the points raised were running through my mind over the weekend. I have 
 
 After trying for a few minutes, I finally abandoned the attempt as unhelpful. However, a couple days later, I decided to try again. I think it significant that I first tried typing on my iPad, which did not work, and later moved to pen and paper, which proved more helpful. I intentionally chose a loose sheet of paper, and also wrote on top of my own words to further cement the impermanent nature of the writing.
 
-![Journaling](https://media.bennorris.org/images/mentalworkhealth/uploads/2020/ecf9ee5ca5.jpg)
+![Journaling](https://media.bennorris.com/images/mentalworkhealth/uploads/2020/ecf9ee5ca5.jpg)
 
 Through this act of tactile journaling, I realized some important points about my weekend of agitation. One of the biggest lessons was that my agitation came from fear, which is unsurprising. The insight was this:
 
@@ -66,4 +66,4 @@ My hope is that you and I both can find a practice that works and remember to co
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

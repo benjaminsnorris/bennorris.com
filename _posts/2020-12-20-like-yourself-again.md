@@ -9,7 +9,7 @@ category: Mental Work Health
 
 In my regular weekly update, I discuss **feeling like myself again**, renting a **private office**, and supporting my wife in taking a **sick day**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -35,7 +35,7 @@ In therapy a few weeks ago, I discussed working from home. I have long been a st
 
 As we talked more, she suggested that I consider renting an office space and getting some additional separation from the family as I work. The thought had never occurred to me before, but the more that I considered it, the more excited I got. My wife and I looked at a number of places and found an office that seemed perfect. The owner of an accounting firm had recently bought an old tattoo parlor and was renovating it and renting out the back rooms as offices, and I was able to snatch one up.
 
-![New office](https://media.bennorris.org/images/mentalworkhealth/uploads/2020/800c41398c.jpg)
+![New office](https://media.bennorris.com/images/mentalworkhealth/uploads/2020/800c41398c.jpg)
 
 After waiting what felt to me like forever (it was about two and a half weeks), the office was ready this past week, and I was able to move in. There are still some adjustments that I want to make, such as getting a whiteboard, but overall I feel pretty well settled.
 
@@ -57,4 +57,4 @@ Mental health is such an important part of all of our lives, and affects both pe
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

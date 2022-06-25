@@ -9,7 +9,7 @@ tags:
 - reference
 ---
 
-As I [discussed previously](https://bennorris.org/2016/06/02/using-carthage-to-add-third-party-code/), we are using Carthage and Git submodules to manage our dependencies. Since many of the frameworks that we are pulling in are frameworks that we are writing, we sometimes run into an issue where we have changed the version number of a release for a framework to be the same as a previous version. This does not happen often, but can happen if you have made a release, and then later deleted the release and the tag and made a new release pointing to a different commit.
+As I [discussed previously](https://bennorris.com/2016/06/02/using-carthage-to-add-third-party-code/), we are using Carthage and Git submodules to manage our dependencies. Since many of the frameworks that we are pulling in are frameworks that we are writing, we sometimes run into an issue where we have changed the version number of a release for a framework to be the same as a previous version. This does not happen often, but can happen if you have made a release, and then later deleted the release and the tag and made a new release pointing to a different commit.
 
 The problem is that when you update a framework via a Carthage dependency, a local cache of the repo is saved, along with the version number tags. If you change your Cartfile to reference a version number that was previously downloaded, Carthage will use the locally cached version instead of getting the latest update from GitHub.
 

@@ -1,6 +1,6 @@
 ---
 title:          "Inktober day 5"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/inktober-day-05.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/inktober-day-05.jpg
 date:           2016-10-05 13:23:00-0700
 category:       Sketchnotable
 tags:           inktober
@@ -11,4 +11,4 @@ short:          true
 
 Some days, even the rain is not enough.
 
-![Rain storm](https://media.bennorris.org/images/sketchnotable/inktober-2016/inktober-day-05.jpg){:loading="lazy"}
+![Rain storm](https://media.bennorris.com/images/sketchnotable/inktober-2016/inktober-day-05.jpg){:loading="lazy"}

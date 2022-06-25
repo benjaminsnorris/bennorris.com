@@ -9,7 +9,7 @@ category: Mental Work Health
 
 This week I share about **struggling to come home**, the **joy of sketching**, and **finding fun**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -30,9 +30,9 @@ Sometimes the best way to counter obsessive thoughts is to realize that they are
 
 ## Something good
 
-![Sand Hollow Sketch](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/0d101e7f2e.jpg)
+![Sand Hollow Sketch](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/0d101e7f2e.jpg)
 
-One of my favorite activities on our camping trip was sketching the scenery in a few places. A treasured hobby of mine is sketchnoting both [business](https://bennorris.org/sketchnotable/) and [religious](https://bennorris.org/gospelsketcher/) events. My style of drawing is not hyper-realistic—I lack the natural skill for that, and have not been willing to put in the time to practice it enough. I do draw excellent stick figures though.
+One of my favorite activities on our camping trip was sketching the scenery in a few places. A treasured hobby of mine is sketchnoting both [business](https://bennorris.com/sketchnotable/) and [religious](https://bennorris.com/gospelsketcher/) events. My style of drawing is not hyper-realistic—I lack the natural skill for that, and have not been willing to put in the time to practice it enough. I do draw excellent stick figures though.
 
 The act of drawing the landscape was a form of meditation for me. It helped me to be present in the moment, and discard any judgment of what I was seeing or feeling. I sat by my son as he fished for hours and tried to capture what I was seeing. I started by outlining the horizon and some of the main contours, and then filled in the different sections according to what I was seeing. The thought crossed my mind as I added individual dots for the sagebrush that an OCD mind is almost necessary for the approach I took. Without that drive to compulsively finish a repetitive and lengthy task, I couldn’t have done this sketch.
 
@@ -56,4 +56,4 @@ It is always a challenge to return to normal life after a break. This break can 
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

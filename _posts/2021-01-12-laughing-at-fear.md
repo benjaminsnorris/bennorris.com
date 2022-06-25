@@ -9,7 +9,7 @@ category: Mental Work Health
 
 This weekly update shares about **the fear of fear**, **building Legos**, and **the importance of support groups**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -31,7 +31,7 @@ The real problem was not the fear, but the secondary fear—the fear of the fear
 
 ## Something good
 
-![Star Wars Legos](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/d5b0126bce.jpg)
+![Star Wars Legos](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/d5b0126bce.jpg)
 
 One of my favorite times over the past little while has been lunch. For Christmas, my wife gave me a Star Wars Lego set[^1] and I have eagerly anticipated building it. I decided I would challenge myself to not build it all in one go. Maybe that’s not hard for you, but the thought of it was somewhat excruciating for me.
 
@@ -57,7 +57,7 @@ So much of the difficulties we face in our lives are of our own making. We creat
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: The set that I received was the [TIE Striker](https://www.lego.com/en-us/product/tie-striker-75154) with 543 pieces. 😊

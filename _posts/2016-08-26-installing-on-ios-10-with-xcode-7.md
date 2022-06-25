@@ -14,7 +14,7 @@ Like many developers, I was anxious to install iOS 10 on my devices. This summer
 ## The problem
 By default, you cannot install an app from Xcode 7 on a device running iOS 10. You will see an error that reads, “Could not find Developer Disk Image” as shown below.
 
-![Xcode 7 iOS 10 error](https://media.bennorris.org/images/posts/xcode7-error-ios10.png){:loading="lazy"}
+![Xcode 7 iOS 10 error](https://media.bennorris.com/images/posts/xcode7-error-ios10.png){:loading="lazy"}
 
 The problem is that Xcode 7 does not have support for iOS 10. Using Terminal, you can easily see which operating systems Xcode is able to support.
 
@@ -23,7 +23,7 @@ $ cd /Applications/Xcode.app/Content/Developer/Platforms/iPhoneOS.platform/Devic
 $ ls
 ```
 
-![Xcode 7 device support](https://media.bennorris.org/images/posts/xcode-device-support.png){:loading="lazy"}
+![Xcode 7 device support](https://media.bennorris.com/images/posts/xcode-device-support.png){:loading="lazy"}
 
 
 ## The solution
@@ -31,7 +31,7 @@ In order for Xcode 7 to install apps on your device running iOS 10, you first ne
 
 Once that it working, you can look in the Xcode beta device support folder to find iOS 10 support.
 
-![Xcode beta device support](https://media.bennorris.org/images/posts/xcode-beta-device-support.png){:loading="lazy"}
+![Xcode beta device support](https://media.bennorris.com/images/posts/xcode-beta-device-support.png){:loading="lazy"}
 
 There are a couple options to give Xcode 7 the information that it needs. You could copy over the folder containing 10.0 support, but the simplest option is to create a [symbolic link](https://en.wikipedia.org/wiki/Symbolic_link) using the `ln` command in Terminal ([documentation](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/ln.1.html)). As you type this out in Terminal, be sure to use `Tab` to help autocomplete the directory names in order to avoid typos. And naturally, if either Xcode app is in a different place, or the exact version of iOS 10 is different, you will make adjustments for your environment.
 
@@ -41,8 +41,8 @@ $ ln -s
    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport/10.0
 ```
 
-![Xcode device support with link](https://media.bennorris.org/images/posts/xcode-device-support-with-link.png){:loading="lazy"}
+![Xcode device support with link](https://media.bennorris.com/images/posts/xcode-device-support-with-link.png){:loading="lazy"}
 
 After adding the link, you will need to quit and restart Xcode 7. Connect your iOS 10 device, and you should now be able to install and run your app!
 
-![Xcode 7 running on iOS 10](https://media.bennorris.org/images/posts/xcode7-running-on-ios10.png){:loading="lazy"}
+![Xcode 7 running on iOS 10](https://media.bennorris.com/images/posts/xcode7-running-on-ios10.png){:loading="lazy"}

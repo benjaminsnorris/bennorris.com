@@ -9,7 +9,7 @@ category: Mental Work Health
 
 This week, I share about **nailing the holiday**, **recognizing panic attacks**, and **expressing gratitude**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -31,45 +31,45 @@ It was such a great feeling to discuss the day with my wife as we finished up, a
 
 When I woke up on Saturday, I could tell that something was off. Ironically, it was the same feeling I am having right now as I try to write about this. I noticed a knot of anxiety in my chest, and then it dropped down in my legs. Right now, as I am sitting in my chair writing this, my thighs are repeatedly contracting. On Saturday, my calves were tensing up over and over. My wife recognized it as a mild panic attack, and I took a cold shower and then went for a walk in the brisk winter air.
 
-On my personal blog, I have written before about [how panic attacks feel for me](https://www.bennorris.org/2019/03/22/what-physical-panic-attacks-feel-like), but it was not like this. As I think back to when I wrote about that, the kind of anxiety that I am feeling now was a near constant experience for me, and so a panic attack which escalated beyond that was a significant event. It is nice to take a moment and realize how far I have come that the agitation that used to be my constant companion is now uncommon enough to recognize as a mild panic attack.
+On my personal blog, I have written before about [how panic attacks feel for me](https://www.bennorris.com/2019/03/22/what-physical-panic-attacks-feel-like), but it was not like this. As I think back to when I wrote about that, the kind of anxiety that I am feeling now was a near constant experience for me, and so a panic attack which escalated beyond that was a significant event. It is nice to take a moment and realize how far I have come that the agitation that used to be my constant companion is now uncommon enough to recognize as a mild panic attack.
 
 When my wife commented on the situation, she mentioned something that shook me a bit. She said that I have been having one of these more mild panic attacks once to twice a week for the past little while. Additionally, I have been having more major panic attacks where I disconnect a little from reality once to twice a month[^1]. I know that one crucial side effect of OCD is a loss of insight, but I was floored to hear how frequent these struggles have been over the past little while. This is definitely something that I will be discussing more with my therapist and psychiatrist to see how we can manage things a little better.
 
 
 ## Something else
 
-[![Give Thanks](https://media.bennorris.org/images/mentalworkhealth/uploads/2020/ae386aed14.jpg")](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude?lang=eng)
+[![Give Thanks](https://media.bennorris.com/images/mentalworkhealth/uploads/2020/ae386aed14.jpg")](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude?lang=eng)
 
 The leader of my church shared a [blog post and a video message](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude?lang=eng) the Friday before Thanksgiving, in which he invited everyone to make social media their own gratitude journal for seven days. I decided to make a microblog post each day, and found the experience to be uplifting and helpful. I kept wanting to say that I was grateful for my OCD and all that I have learned, but I never felt it. I guess I am not quite there yet.
 
 I thought I would just share each of my posts here.
 
 
-### [Day one](https://www.bennorris.org/2020/11/20/the-right-fit)
+### [Day one](https://www.bennorris.com/2020/11/20/the-right-fit)
 
 > Today, I am grateful to have found a therapist that is the right fit. It makes all the difference. [#GiveThanks](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude)
 
-### [Day two](https://www.bennorris.org/2020/11/22/office-space)
+### [Day two](https://www.bennorris.com/2020/11/22/office-space)
 
 > One thing I am grateful for today is that I found a great small office space to rent to start getting a little more separation between work and home. Looking forward to getting set up and having somewhere to go for work. [#GiveThanks](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude)
 
-### [Day three](https://www.bennorris.org/2020/11/22/use-of-space)
+### [Day three](https://www.bennorris.com/2020/11/22/use-of-space)
 
 > Today I am feeling grateful for my wife and her creative use of space. We have rearranged our small house and it is feeling great to have a quiet spot of our own amidst the chaos. [#GiveThanks](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude)
 
-### [Day four](https://www.bennorris.org/2020/11/23/my-boss)
+### [Day four](https://www.bennorris.com/2020/11/23/my-boss)
 
 > Today, I feel grateful for my boss [Mel Tingey](https://www.linkedin.com/in/meltingey). He is the best leader I have ever had, and is a fantastic support to me. I love working with him and continue to grow and develop as I do. [#GiveThanks](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude)
 
-### [Day five](https://www.bennorris.org/2020/11/24/lego-harry-potter)
+### [Day five](https://www.bennorris.com/2020/11/24/lego-harry-potter)
 
 > Today, I’m feeling grateful for LEGO Harry Potter on the Nintendo Switch. 😆 It’s been a fun way to unwind lately and has good for my mental health. [#GiveThanks](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude)
 
-### [Day six](https://www.bennorris.org/2020/11/25/a-job)
+### [Day six](https://www.bennorris.com/2020/11/25/a-job)
 
 > I feel incredibly grateful for a job today, and especially the one I have with [O.C. Tanner](https://www.octanner.com). As all jobs are, it is hard at times and pushes me to stretch and grow. I get to be with great people and focus on improving the lives of people at work. 🥰 [#GiveThanks](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude)
 
-### [Day seven](https://www.bennorris.org/2020/11/26/my-family)
+### [Day seven](https://www.bennorris.com/2020/11/26/my-family)
 
 >  On this Thanksgiving Day, I am most grateful for my family, especially my fantastic wife. She is a tremendous support and a great partner. I feel so lucky to have her in my life. 😍 [#GiveThanks](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude)
 
@@ -80,7 +80,7 @@ So many of us with mental health challenges struggle even more during the holida
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
-[^1]: I wrote about one of these types of panic attacks [a few weeks ago](https://bennorris.org/2020/11/16/a-slight-breakdown).
+[^1]: I wrote about one of these types of panic attacks [a few weeks ago](https://bennorris.com/2020/11/16/a-slight-breakdown).

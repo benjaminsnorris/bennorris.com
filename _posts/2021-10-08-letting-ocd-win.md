@@ -2,9 +2,9 @@
 title: "#55: Letting OCD win"
 date: 2021-10-08 08:51:45-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/letting-ocd-win.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/letting-ocd-win.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/letting-ocd-win.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/letting-ocd-win.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/letting-ocd-win.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/letting-ocd-win.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,7 +14,7 @@ tags:
 
 This week I share about **letting OCD win**, **enjoying General Conference**, and **seeing friends**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -47,13 +47,13 @@ OCD won out that day. But since I chose to let it win, maybe I actually won?
 
 ## Something good
 
-Last April, I [wrote about](https://bennorris.org/2021/04/13/creating-white-space) watching the biannual [General Conference for our church](https://www.churchofjesuschrist.org/comeuntochrist/article/general-conference-gods-word-for-today). This conference occurred again this past weekend, and it was delightful. We rearranged the house to make it easier for all nine of us to be together, listen to the conference, and engage in different activities. We still have coloring books and puzzles and all manner of debris in the living room on and around our massive table we moved in there.
+Last April, I [wrote about](https://bennorris.com/2021/04/13/creating-white-space) watching the biannual [General Conference for our church](https://www.churchofjesuschrist.org/comeuntochrist/article/general-conference-gods-word-for-today). This conference occurred again this past weekend, and it was delightful. We rearranged the house to make it easier for all nine of us to be together, listen to the conference, and engage in different activities. We still have coloring books and puzzles and all manner of debris in the living room on and around our massive table we moved in there.
 
 General Conference was one of the reasons I wanted to get the new iPad right away. One of my favorite activities with these conferences is to capture sketchnotes. It’s always uncertain whether it will work out. A few years ago, my wife suggested that instead of trying to capture a whole talk in sketchnotes as I was accustomed to doing, I might try doing a synopsis. Each session is two hours, with 6-8 speakers or so, and I pick out one main point that resonated with me from each talk and sketch that. It has made a big difference in my stress level. I am able to easily pause and help with the children or handle any other interruption without the distress of missing things entirely.
 
-![Saturday afternoon sketchnotes](https://media.bennorris.org/images/gospelsketcher/general-conference/oct-2021/oct-21-2-sat-pm.jpg){:loading="lazy"}
+![Saturday afternoon sketchnotes](https://media.bennorris.com/images/gospelsketcher/general-conference/oct-2021/oct-21-2-sat-pm.jpg){:loading="lazy"}
 
-I was so glad I was able to sketchnote again [this time](https://bennorris.org/2021/10/04/general-conference-sketchnotes-oct-2021). I collect all of my religious sketchnotes at [Gospel Sketcher](https://bennorris.org/gospel-sketcher) on this site, and these more specifically with the [General Conference](https://bennorris.org/tags/general-conference/) tag. It has been a great way to engage with meaningful content that brings me peace and comfort, and makes reviewing and sharing much easier.
+I was so glad I was able to sketchnote again [this time](https://bennorris.com/2021/10/04/general-conference-sketchnotes-oct-2021). I collect all of my religious sketchnotes at [Gospel Sketcher](https://bennorris.com/gospel-sketcher) on this site, and these more specifically with the [General Conference](https://bennorris.com/tags/general-conference/) tag. It has been a great way to engage with meaningful content that brings me peace and comfort, and makes reviewing and sharing much easier.
 
 
 ## Something else
@@ -69,5 +69,5 @@ While there were some serious difficulties in this past week, there was so much 
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

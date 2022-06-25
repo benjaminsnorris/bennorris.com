@@ -9,7 +9,7 @@ category: Mental Work Health
 
 Following a difficult week, I share about another **dissociative panic attack**, the healing that comes through **facing uncertainty**, and **frantic website work**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -18,9 +18,9 @@ These weekly updates are proving therapeutic for me during tough times. They are
 
 ## Something hard
 
-I mentioned [last week](https://bennorris.org/2020/11/30/gratitude-and-panic) that over the weekend, I experienced some minor panic attacks. Things continued to be challenging as this week started, and I had an extra session with my therapist on Monday, which was helpful. She helped me realize that I had been burying some strong emotions for the past few weeks, which is a recipe for disaster. My level of agitation decreased over the hour we were able to chat and process. One of the pieces we discussed was that my wife did not need to feel any pressure to assist me during a panic attack—it is up to me to ask for the help that I need, but the best thing my wife or kids can do for me is to give me space.
+I mentioned [last week](https://bennorris.com/2020/11/30/gratitude-and-panic) that over the weekend, I experienced some minor panic attacks. Things continued to be challenging as this week started, and I had an extra session with my therapist on Monday, which was helpful. She helped me realize that I had been burying some strong emotions for the past few weeks, which is a recipe for disaster. My level of agitation decreased over the hour we were able to chat and process. One of the pieces we discussed was that my wife did not need to feel any pressure to assist me during a panic attack—it is up to me to ask for the help that I need, but the best thing my wife or kids can do for me is to give me space.
 
-Later that afternoon, I started a free-writing exercise to try and work through those emotions. Unsurprisingly, the agitation and anxiety boiled over and the writing turned into frantic scribbling, as it did a [few weeks ago](http://bennorris.org/2020/11/16/a-slight-breakdown). After covering both sides of the page, I washed my hands for nearly ten minutes. Upon leaving the bathroom, I was hearing a musical rhythm running through my head, and after a few minutes, I realized I had been dancing back and forth in my bedroom pumping my arms up and down. After a while, my wife opened the door to come in the room and stopped in surprise. When I saw her, I froze and then dashed out of the room into my closet, where I ran in circles in the doorway. After crashing into the frame repeatedly, I ripped off my clothes and jumped in the shower turning the water to full cold to shock my body out of the panic attack, which brought me relief.
+Later that afternoon, I started a free-writing exercise to try and work through those emotions. Unsurprisingly, the agitation and anxiety boiled over and the writing turned into frantic scribbling, as it did a [few weeks ago](http://bennorris.com/2020/11/16/a-slight-breakdown). After covering both sides of the page, I washed my hands for nearly ten minutes. Upon leaving the bathroom, I was hearing a musical rhythm running through my head, and after a few minutes, I realized I had been dancing back and forth in my bedroom pumping my arms up and down. After a while, my wife opened the door to come in the room and stopped in surprise. When I saw her, I froze and then dashed out of the room into my closet, where I ran in circles in the doorway. After crashing into the frame repeatedly, I ripped off my clothes and jumped in the shower turning the water to full cold to shock my body out of the panic attack, which brought me relief.
 
 The next day, I was able to get an appointment with my psychiatrist. As I described what had happened, he asked if my wife could join to provide additional details and insight. He was concerned that my behavior was unpredictable and unusual for me. He asked us to make sure that any extra medication or firearms were inaccessible, and prescribed something to help calm the agitation.
 
@@ -42,13 +42,13 @@ It was almost miraculous what a difference it made to consider the implication o
 
 ## Something else
 
-![Blog illustration](https://media.bennorris.org/images/mentalworkhealth/uploads/2020/0e8c93d0ef.jpg)
+![Blog illustration](https://media.bennorris.com/images/mentalworkhealth/uploads/2020/0e8c93d0ef.jpg)
 
-As often happens to me, I had an idea take hold in my mind this week that would not let go. Suddenly it became urgent that my personal blog was moved to the [bennorris.blog](https://bennorris.blog) URL that I already owned, and the [bennorris.org](https://bennorris.org) URL be used more to explain who I am and what I have done and am doing. I had also used [bsn.design](https://bsn.design) for a blog before my current setup, and decided that I need to convert it to a static site.
+As often happens to me, I had an idea take hold in my mind this week that would not let go. Suddenly it became urgent that my personal blog was moved to the [bennorris.blog](https://bennorris.blog) URL that I already owned, and the [bennorris.com](https://bennorris.com) URL be used more to explain who I am and what I have done and am doing. I had also used [bsn.design](https://bsn.design) for a blog before my current setup, and decided that I need to convert it to a static site.
 
 And so, between Friday and Sunday, I created and launched two new websites, moved my personal blog, and set up my previous sites for reference. One of my favorite parts was the trip down memory lane as I dug through older versions of my sites. I had forgotten how much I enjoyed designing and building a skeuomorphic sketchbook using pure CSS.
 
-![Skeuomorphic sketchbook design](https://bennorris.org/assets/images/sketchbook.jpeg)
+![Skeuomorphic sketchbook design](https://bennorris.com/assets/images/sketchbook.jpeg)
 
 I told my wife that I realized that I was a bit frantic over those days, which did not come as a surprise to her. I enjoy the rush of productivity from these episodes, but they also take a serious toll.
 
@@ -61,4 +61,4 @@ Some of the most important lessons come through painful life experiences. As lon
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

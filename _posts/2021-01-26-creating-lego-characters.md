@@ -9,7 +9,7 @@ category: Mental Work Health
 
 This week’s update covers **pain at inconveniencing others**, the delights of **designing a presentation**, and **communicating with respect**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -35,29 +35,29 @@ One of my favorite things to do is public speaking. Part of what I love so much 
 
 Over the past week, I was asked to prepare a presentation with my thoughts on communication. I wanted to explore the process of creating the presentation.
 
-I have written previously on my [personal blog](https://www.bennorris.org/2020/05/12/remote-work-thoughts) about my perspective on remote working. In that post, I explored a lot of my thoughts on communication, but that wasn’t the focus of the article. As I approached this presentation, I thought I would start by writing out my thoughts. I have found that writing has a way of crystallizing what I am thinking.
+I have written previously on my [personal blog](https://www.bennorris.com/2020/05/12/remote-work-thoughts) about my perspective on remote working. In that post, I explored a lot of my thoughts on communication, but that wasn’t the focus of the article. As I approached this presentation, I thought I would start by writing out my thoughts. I have found that writing has a way of crystallizing what I am thinking.
 
 After writing out my thoughts, I dove into creating the actual presentation. Part of the reason I decided to discuss this in my update this week was the level of work I engaged in. It certainly bordered on obsession. What I have found though, is that OCD truly is a gift and a curse. There are so many parts that make life difficult and painful, but there are also beautiful golden moments when I am able to harness an ability to focus deeply on something to create something of which I can be really proud.
 
-![Image of broken apart character](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/c3afae2c59.jpg)
+![Image of broken apart character](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/c3afae2c59.jpg)
 
 As I started the actual presentation, I decided that I wanted to use LEGO figures to represent different people in the presentation. I loved how they turned out. I thought it would be fun to show a bit of how I created the figures using simple shapes using Keynote. The fun thing about how I built them is that I can easily make changes to the colors of a character, or change the hair for different looks. Geeky, and fun. 🥳
 
 
 ## Something else
 
-Finally, I wanted to share just a bit about my thoughts on communication, and especially how it relates to mental health in the workplace. If you are interested, you can read the entire essay I wrote on communication at [bennorris.org/communication](https://bennorris.org/2021/01/21/communication-synchronicity).
+Finally, I wanted to share just a bit about my thoughts on communication, and especially how it relates to mental health in the workplace. If you are interested, you can read the entire essay I wrote on communication at [bennorris.com/communication](https://bennorris.com/2021/01/21/communication-synchronicity).
 
 > **tl;dr**  
 > Default to asynchronous communication to honor others as people, improve critical thinking, and increase productivity.
 > 
 >> Asynchronous most of the time, synchronous when needed
 
-![Lego characters communicating asynchronously](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/ebfcce9daf.jpg)
+![Lego characters communicating asynchronously](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/ebfcce9daf.jpg)
 
 Just as in my article on remote working, much of my focus was on treating people and not objects. When we engage in synchronous communication and demand immediate answers from people, we start to lose our common humanity. It is much easier to get frustrated and to see others as obstacles blocking us because they are delaying us in moving forward. This kind of frustration can lead to much more serious states of mind and being.
 
-![Treating people as filing cabinets](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/96defbdd9b.jpg)
+![Treating people as filing cabinets](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/96defbdd9b.jpg)
 
 When we are on the receiving end of those requests, life at work can feel overwhelming. We spend all of our time in emergency mode responding to urgent requests. Our time is broken up and interrupted. We feel as if others see us as existing only to provide them with information. Living in a constant emergency mode triggers our body to respond with our flight, fight, or freeze response, which is not healthy or sustainable[^1].
 
@@ -70,7 +70,7 @@ We all need to step back and care enough for ourselves and for others to stop ac
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: This is part of why anxiety disorders, and OCD in my case, are so detrimental. Our alarm system is broken and so our brain is triggering the emergency mode where it is not warranted.

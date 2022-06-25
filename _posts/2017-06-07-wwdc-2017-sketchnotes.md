@@ -1,6 +1,6 @@
 ---
 title: "WWDC 2017 Sketchnotes"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/wwdc-2017-keynote-sketchnotes-01.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/wwdc-2017-keynote-sketchnotes-01.jpg
 date: 2017-06-07 13:18:18-0600
 tags:
 - wwdc
@@ -13,20 +13,20 @@ This year, I had the opportunity to attend WWDC in person. I went for the first 
 
 ### Keynote
 
-[![Wwdc 2017 keynote sketchnotes 01](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-01.jpg)](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-01.jpg)
+[![Wwdc 2017 keynote sketchnotes 01](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-01.jpg)](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-01.jpg)
 
-[![Wwdc 2017 keynote sketchnotes 02](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-02.jpg)](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-02.jpg)
+[![Wwdc 2017 keynote sketchnotes 02](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-02.jpg)](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-02.jpg)
 
-[![Wwdc 2017 keynote sketchnotes 03](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-03.jpg)](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-03.jpg)
+[![Wwdc 2017 keynote sketchnotes 03](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-03.jpg)](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-03.jpg)
 
-[![Wwdc 2017 keynote sketchnotes 04](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-04.jpg)](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-04.jpg)
+[![Wwdc 2017 keynote sketchnotes 04](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-04.jpg)](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-keynote-sketchnotes-04.jpg)
 
 
 ### Michelle Obama Event
 
-[![Wwdc 2017 michelle obama sketchnotes](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-michelle-obama-sketchnotes.jpg)](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-michelle-obama-sketchnotes.jpg)
+[![Wwdc 2017 michelle obama sketchnotes](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-michelle-obama-sketchnotes.jpg)](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-michelle-obama-sketchnotes.jpg)
 
 
 ### The Talk Show Live
 
-[![Wwdc 2017 talk show sketchnotes](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-talk-show-sketchnotes.jpg)](https://media.bennorris.org/images/sketchnotable/wwdc-2017/wwdc-2017-talk-show-sketchnotes.jpg)
+[![Wwdc 2017 talk show sketchnotes](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-talk-show-sketchnotes.jpg)](https://media.bennorris.com/images/sketchnotable/wwdc-2017/wwdc-2017-talk-show-sketchnotes.jpg)

@@ -7,13 +7,13 @@ tags:
 category: General
 ---
 
-![Mindful days](https://media.bennorris.org/images/bennorris/uploads/2019/cd385d0bc1.jpg){:loading="lazy"}
+![Mindful days](https://media.bennorris.com/images/bennorris/uploads/2019/cd385d0bc1.jpg){:loading="lazy"}
 
 The Calm app impressed me this weekend when I broke my streak.
 
 ***
 
-I [posted recently](https://www.bennorris.org/2019/04/16/ninety-days-of-meditation) about my 90 day meditation streak. Last weekend, I missed my meditation on Saturday, which I realized Sunday. Part of my OCD is an obsession for streaks, so when I found that I blew my 90+ day streak, I felt my stomach drop out of my body.
+I [posted recently](https://www.bennorris.com/2019/04/16/ninety-days-of-meditation) about my 90 day meditation streak. Last weekend, I missed my meditation on Saturday, which I realized Sunday. Part of my OCD is an obsession for streaks, so when I found that I blew my 90+ day streak, I felt my stomach drop out of my body.
 
 Part of me wanted to not even meditate on Sunday. “What was the point? I already blew it,” my mind tried to convince me. My wife pointed out that I still had the advantage of everything I learned in those 94 days—I did not lose that by breaking the streak.
 

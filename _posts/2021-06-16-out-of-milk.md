@@ -9,7 +9,7 @@ category: Mental Work Health
 
 The [Holistic Psychologist](https://theholisticpsychologist.com/) said recently, “Wise people have known suffering + transformed it into grace.” Here’s my attempt to become more wise.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -23,7 +23,7 @@ Over the weekend, I decided to try out dairy. I had already reintroduced gluten 
 
 We were out of milk.
 
-Now, back when I was having milk, I tried to make sure we had three or four gallons on hand. With nine people, we go through milk pretty fast. But I hadn't been paying close attention recently. For a few minutes, I was frozen. [Plan changes](https://bennorris.org/2021/06/04/plan-changes), particularly in the morning, are rough on me. I
+Now, back when I was having milk, I tried to make sure we had three or four gallons on hand. With nine people, we go through milk pretty fast. But I hadn't been paying close attention recently. For a few minutes, I was frozen. [Plan changes](https://bennorris.com/2021/06/04/plan-changes), particularly in the morning, are rough on me. I
 told my wife that I was struggling, and she had some good ideas. There was a little bit of milk left that I could drink, I could have a yogurt, or
 there were green smoothies left over that had milk.
 
@@ -50,7 +50,7 @@ It is so easy for me to fall into all-or-nothing thinking. Black and white. Succ
 
 At my wife’s suggestion, I came up into the mountains to be in nature, and do something that I enjoy and that calms me. That is where I am writing this now.
 
-![Writing in the mountains](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/b791273df3.jpg)
+![Writing in the mountains](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/b791273df3.jpg)
 
 There’s something almost magical about being in nature, especially by water. While I know that I will continue to struggle and have challenges, I also know that I have skills to face them.
 
@@ -82,4 +82,4 @@ You are enough.
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

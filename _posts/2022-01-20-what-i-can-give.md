@@ -2,9 +2,9 @@
 title: "#67: What I can give"
 date: 2022-01-20 05:58:28-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/what-i-can-give.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/what-i-can-give.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/what-i-can-give.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/what-i-can-give.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/what-i-can-give.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/what-i-can-give.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -15,7 +15,7 @@ tags:
 
 This week, I share a personal experience that highlights how my OCD gets triggered. Thankfully, the story includes some help from my therapist that provides some hope for the future.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -99,4 +99,4 @@ I have work to do. But for maybe the first time, it feels freeing. As I practice
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

@@ -12,7 +12,7 @@ Our societal concept of a badge of honor for having endured suffering can be det
 
 As as society, we have an infatuation with suffering. I would like to think that it stems from a healthy, compassionate place. We feel intrinsically drawn to suffering, and our hearts go out to those affected. Obviously, this has been exploited in many different ways. Somewhere along the line, our perspective of the value of suffering has warped.
 
-We now find ourselves in a situation where we glorify and revere people who have suffered. The problem is that, at times, these positive reinforcements create environments that foster and encourage unnecessary suffering. I wrote about one of these environments a few weeks ago: [The plague of busyness](https://www.bennorris.org/2019/01/23/the-plague-of-busyness).
+We now find ourselves in a situation where we glorify and revere people who have suffered. The problem is that, at times, these positive reinforcements create environments that foster and encourage unnecessary suffering. I wrote about one of these environments a few weeks ago: [The plague of busyness](https://www.bennorris.com/2019/01/23/the-plague-of-busyness).
 
 Another environment primed for this warped perspective is the world, or industry, of sports. In nearly every game you watch, you will hear either the coach, the players, or the announcers discuss the adversity someone passed through. It’s almost like we believe that victory is not possible, or perhaps not valuable, unless it comes as a result of suffering and adversity.
 

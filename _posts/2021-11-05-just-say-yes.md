@@ -2,9 +2,9 @@
 title: "#59: Just say yes"
 date: 2021-11-05 16:43:53-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/just-say-yes.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/just-say-yes.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/just-say-yes.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/just-say-yes.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/just-say-yes.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/just-say-yes.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,25 +14,25 @@ tags:
 
 This week I share the challenges of a **single-hobby lifestyle**, **owning the dishes**, and an **exciting announcement**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 
 ## Something hard
 
-Hobbies are challenging for me. As I mentioned [last week](https://bennorris.org/2021/10/28/civil-war), I typically only have one at a time. And more often than not, it takes over my life for a time. It starts out fun, but if I lose insight, there is a good chance it will lose its appeal and become a chore. My mind insists on doing more, and thinking about it even more, until the enjoyment evaporates.
+Hobbies are challenging for me. As I mentioned [last week](https://bennorris.com/2021/10/28/civil-war), I typically only have one at a time. And more often than not, it takes over my life for a time. It starts out fun, but if I lose insight, there is a good chance it will lose its appeal and become a chore. My mind insists on doing more, and thinking about it even more, until the enjoyment evaporates.
 
-I wrote about having a “phasic personality” long before I knew about OCD and its effect in my life ([4 years ago!](https://bennorris.org/2017/11/10/riding-the-wave)). This is not a new experience for me. Because I have been writing regularly on this blog, I have a catalog of the various activities. This year, I have gone through the following phases:
+I wrote about having a “phasic personality” long before I knew about OCD and its effect in my life ([4 years ago!](https://bennorris.com/2017/11/10/riding-the-wave)). This is not a new experience for me. Because I have been writing regularly on this blog, I have a catalog of the various activities. This year, I have gone through the following phases:
 
-- [Star Wars](https://bennorris.org/2021/01/12/laughing-at-fear) [Legos](https://bennorris.org/2021/02/02/shipping-an-app)
-- [Coding an app](https://bennorris.org/2021/02/02/shipping-an-app)
-- [Leather notebooks](https://bennorris.org/2021/03/22/enamored-with-notebooks)
-- [Girl Genius web comic](https://bennorris.org/2021/04/13/creating-white-space)
-- [Two Dots game](https://bennorris.org/2021/04/30/designing-indulgently)
-- [Cross](https://bennorris.org/2021/05/26/cross-stitching-at-work) [stitching](https://bennorris.org/2021/06/24/a-rough-week)
-- [Coding](https://bennorris.org/2021/07/02/lie-after-lie) [another app](https://bennorris.org/2021/07/09/oh-the-irony)
-- [Marvel comics](https://bennorris.org/2021/10/28/civil-war)
+- [Star Wars](https://bennorris.com/2021/01/12/laughing-at-fear) [Legos](https://bennorris.com/2021/02/02/shipping-an-app)
+- [Coding an app](https://bennorris.com/2021/02/02/shipping-an-app)
+- [Leather notebooks](https://bennorris.com/2021/03/22/enamored-with-notebooks)
+- [Girl Genius web comic](https://bennorris.com/2021/04/13/creating-white-space)
+- [Two Dots game](https://bennorris.com/2021/04/30/designing-indulgently)
+- [Cross](https://bennorris.com/2021/05/26/cross-stitching-at-work) [stitching](https://bennorris.com/2021/06/24/a-rough-week)
+- [Coding](https://bennorris.com/2021/07/02/lie-after-lie) [another app](https://bennorris.com/2021/07/09/oh-the-irony)
+- [Marvel comics](https://bennorris.com/2021/10/28/civil-war)
 
 There are a couple interesting parts to going through these phases, and to sharing about them. The first is that people connect over them. I have had delightful conversations with people sharing their Lego projects. Many people are passionate about those and excited to be able to discuss them, especially in a work setting. I have seen some amazing cross stitch projects, often spanning months or even years. That kind of longevity blows my mind a bit.
 
@@ -72,11 +72,11 @@ I’ve witnessed how great it can feel.
 
 ## Something else
 
-I mentioned [a couple weeks ago](https://bennorris.org/2021/10/22/impulse-control) that my friend [Mike Rohde](https://rohdesign.com) are starting a project together. We are finally ready to announce it, and I am thrilled.
+I mentioned [a couple weeks ago](https://bennorris.com/2021/10/22/impulse-control) that my friend [Mike Rohde](https://rohdesign.com) are starting a project together. We are finally ready to announce it, and I am thrilled.
 
-Earlier this week, my interview with Mike was released as an episode of the [Sketchnote Army podcast](https://sketchnotearmy.com/blog/2021/11/1/ben-norris). As we chatted together, the idea of using sketchnotes as a form of meditation or mindfulness emerged. I wrote about how that practice had helped me [a couple months ago](https://bennorris.org/2021/09/03/meditative-sketchnoting), and we have been discussing it since.
+Earlier this week, my interview with Mike was released as an episode of the [Sketchnote Army podcast](https://sketchnotearmy.com/blog/2021/11/1/ben-norris). As we chatted together, the idea of using sketchnotes as a form of meditation or mindfulness emerged. I wrote about how that practice had helped me [a couple months ago](https://bennorris.com/2021/09/03/meditative-sketchnoting), and we have been discussing it since.
 
-![Mike and Ben Meditative Sketchnotes](https://media.bennorris.org/images/mentalworkhealth/posts/meditative-sketchnote-workshop.jpg)
+![Mike and Ben Meditative Sketchnotes](https://media.bennorris.com/images/mentalworkhealth/posts/meditative-sketchnote-workshop.jpg)
 
 We are [opening registration today](https://www.eventbrite.com/e/meditative-sketchnoting-workshop-tickets-204255221867) for a free event on November 18 to discuss and practice sketchnotes as a meditative practice.
 
@@ -89,5 +89,5 @@ I hope you are staying above water this week. My emotional legs are getting heav
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

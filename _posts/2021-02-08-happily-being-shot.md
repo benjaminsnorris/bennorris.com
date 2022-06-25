@@ -9,7 +9,7 @@ category: Mental Work Health
 
 In a quick update this week, I discuss **taking a week off**, a **date with my son**, and a **device fast**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -20,14 +20,14 @@ I vacillated on whether to write an update this week, and in the end decided to 
 
 We had a game night this past weekend with my brother- and sister-in-law. Two days later, she let us know that she could not taste or smell and was congested. We decided that we would keep everyone home from everything for a bit and try to make sure that we are not spreading anything nasty.
 
-I had the thought to take the week off work to help with the family. Even though I work remotely, and could have just tried to work from home, I decided that was not a great idea. There was a reason that I got an [office space](http://bennorris.org/2020/12/20/like-yourself-again) to work in. Trying to focus and be productive with the kids running around and the natural sounds and stresses of a large family is exceptionally difficult for me.
+I had the thought to take the week off work to help with the family. Even though I work remotely, and could have just tried to work from home, I decided that was not a great idea. There was a reason that I got an [office space](http://bennorris.com/2020/12/20/like-yourself-again) to work in. Trying to focus and be productive with the kids running around and the natural sounds and stresses of a large family is exceptionally difficult for me.
 
 So for my family’s benefit, and for my own mental health, I am taking the next week off.
 
 
 ## Something good
 
-I [mentioned last week](https://bennorris.org/2021/02/02/shipping-an-app) that I started a new Lego set and included my three-year-old in beginning the project. He continued to ask about it throughout the week and check in on the progress. So on Saturday, I decided to take him on a date to my office to finish. On the drive over, he was giddy.
+I [mentioned last week](https://bennorris.com/2021/02/02/shipping-an-app) that I started a new Lego set and included my three-year-old in beginning the project. He continued to ask about it throughout the week and check in on the progress. So on Saturday, I decided to take him on a date to my office to finish. On the drive over, he was giddy.
 
 > 3yo: “Fank you so much for my date. Dad, I am so excited for my date, with you.”
 > 
@@ -55,7 +55,7 @@ That’s it for this week. I hope that you are happy and healthy and finding way
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: Again, not the epic one of my dream, but the [smaller one](https://www.lego.com/en-us/product/millennium-falcon-75257).

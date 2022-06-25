@@ -1,6 +1,6 @@
 ---
 title: "Digital Learning Day 2012"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/digital-learning-day-sketchnotes.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/digital-learning-day-sketchnotes.jpg
 date: 2012-02-02 06:22:20-0700
 read_time: false
 category: Sketchnotable
@@ -14,4 +14,4 @@ The event was hosted by former West Virginia governor, Bob Wise, and began with 
 
 Here are my sketchnotes of the event.
 
-![Digital Learning Day 2012 Sketchnotes](https://media.bennorris.org/images/sketchnotable/general/digital-learning-day-sketchnotes.jpg){:loading="lazy"}
+![Digital Learning Day 2012 Sketchnotes](https://media.bennorris.com/images/sketchnotable/general/digital-learning-day-sketchnotes.jpg){:loading="lazy"}

@@ -6,13 +6,13 @@ categories:
 tags:
 - sketchnotes
 gallery_thumb:
-- https://media.bennorris.org/images/sketchnotable/thumbs/sweet-setup-plan-year-nov-2021-01.jpg
-- https://media.bennorris.org/images/sketchnotable/thumbs/sweet-setup-plan-year-nov-2021-02.jpg
+- https://media.bennorris.com/images/sketchnotable/thumbs/sweet-setup-plan-year-nov-2021-01.jpg
+- https://media.bennorris.com/images/sketchnotable/thumbs/sweet-setup-plan-year-nov-2021-02.jpg
 short: true
 ---
 
 I have long followed [Shawn Blanc](https://shawnblanc.net), and joined a webinar he hosted today. He shared advice and a framework for planning to incorporate values and vision into practical action. I’m looking forward to jumping in to his framework, and enjoyed capturing some sketchnotes.
 
-![Sweet Setup Sketchnote](https://media.bennorris.org/images/sketchnotable/general/sweet-setup-plan-year-nov-2021-01.jpg)
+![Sweet Setup Sketchnote](https://media.bennorris.com/images/sketchnotable/general/sweet-setup-plan-year-nov-2021-01.jpg)
 
-![Sweet Setup Sketchnote](https://media.bennorris.org/images/sketchnotable/general/sweet-setup-plan-year-nov-2021-02.jpg)
+![Sweet Setup Sketchnote](https://media.bennorris.com/images/sketchnotable/general/sweet-setup-plan-year-nov-2021-02.jpg)

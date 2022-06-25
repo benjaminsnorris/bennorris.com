@@ -2,9 +2,9 @@
 title: "#73: The happy mess"
 date: 2022-03-19 20:05:13-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/the-happy-mess.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/the-happy-mess.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/the-happy-mess.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/the-happy-mess.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/the-happy-mess.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/the-happy-mess.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,14 +14,14 @@ tags:
 
 In this week’s update, I share about **medicinal compliance**, **coaching soccer**, and **enjoying my new job**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 
 ## Something hard
 
-A few weeks ago, I met with my therapist and things were not going well. I have shared some of the struggles of the past month or two in some of my [recent](https://bennorris.org/2022/03/05/spiraling-about-spiraling) [updates](https://bennorris.org/2022/03/12/losing-my-routine).
+A few weeks ago, I met with my therapist and things were not going well. I have shared some of the struggles of the past month or two in some of my [recent](https://bennorris.com/2022/03/05/spiraling-about-spiraling) [updates](https://bennorris.com/2022/03/12/losing-my-routine).
 
 My therapist said that she could tell something was off. I was **more symptomatic** than I had been in many months. My irritation level was high and constant, and I was consistently getting stuck in rigid black-and-white thinking.
 
@@ -56,7 +56,7 @@ Again, I knew she was right as soon as she said it, and I agreed. After the game
 
 Her reply made me laugh out loud:
 
-![No way!](https://media.bennorris.org/images/mentalworkhealth/uploads/2022/no-way.gif){:loading="lazy"}
+![No way!](https://media.bennorris.com/images/mentalworkhealth/uploads/2022/no-way.gif){:loading="lazy"}
 
 > Ya I know
 
@@ -65,7 +65,7 @@ We have had a few games since then and it continues to be a great experience. Th
 
 ## Something else
 
-A few people have asked how my [new job](https://bennorris.org/2021/12/30/into-the-unknown) is going. My answer has been:
+A few people have asked how my [new job](https://bennorris.com/2021/12/30/into-the-unknown) is going. My answer has been:
 
 > I love it so much. And it’s overwhelming. There is so much going on and so much uncertainty.
 
@@ -82,4 +82,4 @@ You have your own struggles right now. I send you compassion and hope that you a
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

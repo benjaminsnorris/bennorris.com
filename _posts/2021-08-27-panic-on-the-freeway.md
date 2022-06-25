@@ -10,7 +10,7 @@ tags:
 
 This update is about a different kind of **panic attack** and illustrates the **uncertainty** inherent in mental illness.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -18,7 +18,7 @@ Changes fascinate me. They can occur abruptly, or slowly over time. Last week wa
 
 ## Story
 
-I had such a pleasant week following my [birthday getaway](https://bennorris.org/2021/08/20/birthday-getaway/). I typically see my therapist on Fridays, but she was out of town. We will often do a phone session in that situation, but I told her I was doing well enough that we could just skip. She was a little surprised, given how tumultuous the [previous week](https://bennorris.org/2021/08/12/angrily-pounding-metal/) had been. I was feeling pretty good about life.
+I had such a pleasant week following my [birthday getaway](https://bennorris.com/2021/08/20/birthday-getaway/). I typically see my therapist on Fridays, but she was out of town. We will often do a phone session in that situation, but I told her I was doing well enough that we could just skip. She was a little surprised, given how tumultuous the [previous week](https://bennorris.com/2021/08/12/angrily-pounding-metal/) had been. I was feeling pretty good about life.
 
 At the beginning of the following week, I got some unexpected news. I was surprised at how well I was able to handle it. The people I was with commented on that as well. It was nice to have a clear reminder of just how far I’ve come in the past few years.
 
@@ -66,7 +66,7 @@ The challenge for me in this coming week, and for you, is to practice utter acce
 ***
 
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: One of the most helpful books I have read was [Hope and Help for Your Nerves](https://amzn.to/3yrCPTG). The audiobook version is not actually a narration of the book, but rather an audio series by Dr. Weekes on the same subject as the book. Highly recommended.

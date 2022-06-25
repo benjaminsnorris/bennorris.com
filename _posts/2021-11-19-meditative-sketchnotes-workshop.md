@@ -14,4 +14,4 @@ short: true
 
 Here is the sketchnote I created during the workshop:
 
-![Mindfulsketch](https://media.bennorris.org/images/mentalworkhealth/posts/meditative-sketchnote-live-example.jpg)
+![Mindfulsketch](https://media.bennorris.com/images/mentalworkhealth/posts/meditative-sketchnote-live-example.jpg)

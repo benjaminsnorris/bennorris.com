@@ -19,7 +19,7 @@ One of my biggest hobbies is sketchnoting, and I post business sketchnotes in [S
 
 ### Bio for introductions
 
-> Ben Norris has been coding off and on for over twenty years. He currently works as engineering manager at O.C. Tanner leading the mobile apps team. He is also a mental health advocate, working to increase awareness and decrease stigma of mental health, especially in the workplace. His regular writing on mental health, family, leadership, and more can be found at bennorris.org.
+> Ben Norris has been coding off and on for over twenty years. He currently works as engineering manager at O.C. Tanner leading the mobile apps team. He is also a mental health advocate, working to increase awareness and decrease stigma of mental health, especially in the workplace. His regular writing on mental health, family, leadership, and more can be found at bennorris.com.
 > 
 > He and his wife live in Lehi, Utah with their seven children, ages 16 down to toddler, whom they have been homeschooling since before it was cool. His hobbies include sketchnoting and wearing noise-cancelling headphones around the house.
 

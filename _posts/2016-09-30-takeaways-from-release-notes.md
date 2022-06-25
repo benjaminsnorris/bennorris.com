@@ -5,10 +5,10 @@ excerpt:        Turning a pleasant fire hose of information into actionable impr
 category:       General
 ---
 
-![Union Station](https://media.bennorris.org/images/posts/indianapolis.jpg){:loading="lazy"}
+![Union Station](https://media.bennorris.com/images/posts/indianapolis.jpg){:loading="lazy"}
 _Old Union Station in Indianapolis_
 
-This week, I attended [Release Notes](https://releasenotes.tv/conference), and it was great. I sketchnoted the talks, and [posted a summary](https://bennorris.org/2016/09/29/release-notes-2016-sketchnotes/) with all of them. Before I came to the conference, my wife asked what I was hoping to get out of it, and my first answer was to meet new people. She was a little surprised by that, and reminded me that networking is not something that I typically enjoy or do particularly well. So I set a goal to talk with at least one person each day for an extended time and get to know them better.
+This week, I attended [Release Notes](https://releasenotes.tv/conference), and it was great. I sketchnoted the talks, and [posted a summary](https://bennorris.com/2016/09/29/release-notes-2016-sketchnotes/) with all of them. Before I came to the conference, my wife asked what I was hoping to get out of it, and my first answer was to meet new people. She was a little surprised by that, and reminded me that networking is not something that I typically enjoy or do particularly well. So I set a goal to talk with at least one person each day for an extended time and get to know them better.
 
 Accomplishing that goal was easier than I had thought, although it still required me to push myself outside of my comfort zone. The conference was organized intentionally for a group of introverted developers who want to meet other people, but are not skilled at that. We had plenty of time between talks to have conversations, and long breaks for lunch and before dinner. It was perfect for me. The other big thing that helped was my sketchnotes. After the first couple talks, people began to notice the sketchnotes, and it was an easy jumping off point to begin conversations with people. It is so much easier when people come up to talk to you instead of the inverse.
 

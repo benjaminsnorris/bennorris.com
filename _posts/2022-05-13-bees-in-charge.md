@@ -2,9 +2,9 @@
 title: "#81: Bees in charge"
 date: 2022-05-13 11:14:47-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/bees-in-charge.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/bees-in-charge.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/bees-in-charge.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/bees-in-charge.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/bees-in-charge.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/bees-in-charge.jpg
 layout: mwh
 category: Mental Work Health
 tags:
@@ -15,13 +15,13 @@ tags:
 
 This week I share about **speaking in church**, **having conversations out loud**, and **standing up to bees**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
-Last week I wrote an article that resonated with many. Since I posted outside of my regular updates, I thought to mention it here. It is the story of [learning to swear](https://bennorris.org/2022/05/02/learning-to-swear).
+Last week I wrote an article that resonated with many. Since I posted outside of my regular updates, I thought to mention it here. It is the story of [learning to swear](https://bennorris.com/2022/05/02/learning-to-swear).
 
-[![Learning to swear](https://media.bennorris.org/images/mentalworkhealth/posts/learning-to-swear.jpg)](https://bennorris.org/2022/05/02/learning-to-swear){:loading="lazy"}
+[![Learning to swear](https://media.bennorris.com/images/mentalworkhealth/posts/learning-to-swear.jpg)](https://bennorris.com/2022/05/02/learning-to-swear){:loading="lazy"}
 
 
 ## Something hard
@@ -51,7 +51,7 @@ How often we do this to ourselves! Even with something that we have done many ti
 
 ## Something good
 
-As I mentioned last week in [update #80: Uncertainty training](https://bennorris.org/2022/05/06/uncertainty-training), I am now in a period of uncertainty at work. I am moving into doing **contracting work**, which is something I have never done full-time. I continue to be pleased with the way in which I have been able to approach the uncertainty.
+As I mentioned last week in [update #80: Uncertainty training](https://bennorris.com/2022/05/06/uncertainty-training), I am now in a period of uncertainty at work. I am moving into doing **contracting work**, which is something I have never done full-time. I continue to be pleased with the way in which I have been able to approach the uncertainty.
 
 One of the wins from this past week was to recognize where I had been having extensive conversations in my mind, but not in actuality. I was surprised by my wife commenting about something that we hadn’t discussed together almost at all. I took some time to think about it and realized that **I had only been talking to her in my mind**.
 
@@ -68,9 +68,9 @@ I know this doesn’t mean that all my concerns are over, and I am recovered fro
 
 **OCD often has a strong genetic component to it.** This has helped me have compassion and empathy for my parents and family before me that struggled in their own ways. And it also has informed my parenting as I realized that my children are likely to struggle as well.
 
-My four-year-old son has exhibited many OCD symptoms. He cried the other day in the car, asking my wife to turn the radio from 100.3 down to “just 100”. I wrote a few months ago about an experience we had with him not getting the kind of milk that he wanted in [update #60: “I feel calm”](https://bennorris.org/2021/11/11/i-feel-calm).
+My four-year-old son has exhibited many OCD symptoms. He cried the other day in the car, asking my wife to turn the radio from 100.3 down to “just 100”. I wrote a few months ago about an experience we had with him not getting the kind of milk that he wanted in [update #60: “I feel calm”](https://bennorris.com/2021/11/11/i-feel-calm).
 
-[![I feel calm](https://media.bennorris.org/images/mentalworkhealth/posts/i-feel-calm.jpg)](https://bennorris.org/2021/11/11/i-feel-calm){:loading="lazy"}
+[![I feel calm](https://media.bennorris.com/images/mentalworkhealth/posts/i-feel-calm.jpg)](https://bennorris.com/2021/11/11/i-feel-calm){:loading="lazy"}
 
 A few days ago, a friend and our two-year-old wanted to go jump on the trampoline in the backyard, but the four-year-old said he couldn’t go. **He was afraid** because he had seen some bees flying around.
 

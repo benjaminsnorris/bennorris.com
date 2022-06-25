@@ -2,9 +2,9 @@
 title: "#86: Mental toll"
 date: 2022-06-24 16:11:31-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/mental-toll.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/mental-toll.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/mental-toll.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/mental-toll.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/mental-toll.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/mental-toll.jpg
 
 layout: mwh
 category: Mental Work Health
@@ -16,16 +16,16 @@ tags:
 
 In this update, I share the **exhausting role of single parenting** for a few days, **success with timeblocking**, and **publicly announcing** my professional transition to being independent.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 
 ## Something hard
 
-Last week, I shared my experience being on a sailing trip in [update #85: I’m a sailor](https://bennorris.org/2022/06/17/im-a-sailor).
+Last week, I shared my experience being on a sailing trip in [update #85: I’m a sailor](https://bennorris.com/2022/06/17/im-a-sailor).
 
-[![I’m a sailor](https://media.bennorris.org/images/mentalworkhealth/posts/i’m-a-sailor.jpg){:loading="lazy"}](https://bennorris.org/2022/06/17/im-a-sailor){:.clean}
+[![I’m a sailor](https://media.bennorris.com/images/mentalworkhealth/posts/i’m-a-sailor.jpg){:loading="lazy"}](https://bennorris.com/2022/06/17/im-a-sailor){:.clean}
 
 When I returned from that trip, I helped my wife get ready for her own trip. She had been asked to be the cook for the three-day girls camp our 15-year-old was attending. Preparing food for the thirty or so people was about the same as getting family dinner together on a Sunday with her parents and siblings and their families, so it seemed manageable.
 
@@ -42,9 +42,9 @@ The few days I had gave me a renewed respect and appreciation for all that my wi
 
 ## Something good
 
-A couple weeks ago, I signed up for the [Accelerator](https://thefocuscourse.com/accelerator/) program at The Focus Course. I have long followed [Shawn Blanc](https://shawnblanc.net) and his work, and attended and sketchnoted one of his webinars last November: [How to Plan Your Year](https://bennorris.org/2021/11/16/how-to-plan-your-year-sketchnotes).
+A couple weeks ago, I signed up for the [Accelerator](https://thefocuscourse.com/accelerator/) program at The Focus Course. I have long followed [Shawn Blanc](https://shawnblanc.net) and his work, and attended and sketchnoted one of his webinars last November: [How to Plan Your Year](https://bennorris.com/2021/11/16/how-to-plan-your-year-sketchnotes).
 
-[![Sweet Setup Sketchnote](https://media.bennorris.org/images/sketchnotable/general/sweet-setup-plan-year-nov-2021-01.jpg){:loading="lazy"}](https://bennorris.org/2021/11/16/how-to-plan-your-year-sketchnotes){:.clean}
+[![Sweet Setup Sketchnote](https://media.bennorris.com/images/sketchnotable/general/sweet-setup-plan-year-nov-2021-01.jpg){:loading="lazy"}](https://bennorris.com/2021/11/16/how-to-plan-your-year-sketchnotes){:.clean}
 
 One technique that I have learned and started to implement has been wonderful—timeblocking. They have a course explaining it on [The Sweet Setup](https://thesweetsetup.com/time/). The essence is to assign each hour a task, whether a scheduled appointment or work to be done.
 
@@ -61,13 +61,13 @@ A solid win.
 
 ## Something else
 
-Readers of these updates already knew about my professional transition, but this week I announced it more publicly: [Open for business](https://bennorris.org/2022/06/23/open-for-business).
+Readers of these updates already knew about my professional transition, but this week I announced it more publicly: [Open for business](https://bennorris.com/2022/06/23/open-for-business).
 
-[![Yes, I’m open](https://media.bennorris.org/images/posts/yes-im-open.jpg){:loading="lazy"}](https://bennorris.org/2022/06/23/open-for-business){:.clean}
+[![Yes, I’m open](https://media.bennorris.com/images/posts/yes-im-open.jpg){:loading="lazy"}](https://bennorris.com/2022/06/23/open-for-business){:.clean}
 
-Close readers may even notice that I cheated a little and just made some small tweaks to my illustration a few weeks ago in [update #82: Yes, we’re open](https://bennorris.org/2022/05/20/yes-were-open).
+Close readers may even notice that I cheated a little and just made some small tweaks to my illustration a few weeks ago in [update #82: Yes, we’re open](https://bennorris.com/2022/05/20/yes-were-open).
 
-[![](https://media.bennorris.org/images/mentalworkhealth/posts/yes-we’re-open.jpg)](https://bennorris.org/2022/05/20/yes-were-open)
+[![](https://media.bennorris.com/images/mentalworkhealth/posts/yes-we’re-open.jpg)](https://bennorris.com/2022/05/20/yes-were-open)
 
 As I tell people about this move, I’m reminded of some of the risks and pitfalls. As I wrote in my announcement, there were some damn good reasons holding me back from doing this before. Things like supporting a wife and seven kids, and having a sometimes-crippling mental health condition.
 

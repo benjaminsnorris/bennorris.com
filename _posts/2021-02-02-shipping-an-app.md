@@ -9,7 +9,7 @@ category: Mental Work Health
 
 My update from this week includes a **grossly overdue vehicle registration**, finally **releasing a major app update**, and **continued Lego-building success**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -37,16 +37,16 @@ Having last minute interruptions or major changes to plans in a day can be hard 
 
 [![Pointedly app](https://media.bsn.design/images/pointedly/PointedlyBanner-min.jpeg)](https://bsn.design/pointedly/)
 
-As teased or referenced for the [past](http://www.mentalworkhealth.org/2021/01/04/quest-for-curiosity.html) [few](https://bennorris.org/2021/01/19/purple-monkey-party) [weeks](https://bennorris.org/2021/01/26/creating-lego-characters), I have been working on a major rewrite of one of my apps. I finally finished in the last week and released the update. I had a definite sense of accomplishment and joy at having completed something that I worked so hard on.
+As teased or referenced for the [past](http://www.mentalworkhealth.org/2021/01/04/quest-for-curiosity.html) [few](https://bennorris.com/2021/01/19/purple-monkey-party) [weeks](https://bennorris.com/2021/01/26/creating-lego-characters), I have been working on a major rewrite of one of my apps. I finally finished in the last week and released the update. I had a definite sense of accomplishment and joy at having completed something that I worked so hard on.
 
-The joy was short-lived. I started getting emails from people who were angry that all of their data was gone when they updated to the new version. This was the exact issue that some of my beta testers had experienced,as I discussed [last week](https://bennorris.org/2021/01/26/creating-lego-characters). “But wait!” I thought. “This is fixed. I know it is! I heard from all my testers that it was working again.” Obviously it wasn’t. I took some time over the weekend to investigate further and found another edge case that I hadn’t accounted for, and emailed back all of the people who had written in. Fortunately the update fixed the issue for everyone, once it was finally approved.[^2]
+The joy was short-lived. I started getting emails from people who were angry that all of their data was gone when they updated to the new version. This was the exact issue that some of my beta testers had experienced,as I discussed [last week](https://bennorris.com/2021/01/26/creating-lego-characters). “But wait!” I thought. “This is fixed. I know it is! I heard from all my testers that it was working again.” Obviously it wasn’t. I took some time over the weekend to investigate further and found another edge case that I hadn’t accounted for, and emailed back all of the people who had written in. Fortunately the update fixed the issue for everyone, once it was finally approved.[^2]
 
 This was such a fun project for me to tackle. This app is a simple replacement for paper and pen to keep score for board games or card games. However, that simplicity has allowed me to be laser-focused on what the app should be and do. It is one of my favorite apps to work on, as well as to use. One of the things that I love most about the app is that it encourages interaction with others. Playing games is almost always a social experience, and that has been a positive thing for me.
 
 
 ## Something else
 
-Building Legos over lunch has continued to be a delightful activity for me, as I wrote first about [a few weeks ago](https://bennorris.org/2021/01/12/laughing-at-fear). I have tackled a few more sets since then[^3], and had a great experience with one over this past weekend.
+Building Legos over lunch has continued to be a delightful activity for me, as I wrote first about [a few weeks ago](https://bennorris.com/2021/01/12/laughing-at-fear). I have tackled a few more sets since then[^3], and had a great experience with one over this past weekend.
 
 My kids know that I have been building Legos at my office, and my newest set (the new [Millennium Falcon](https://www.lego.com/en-us/product/millennium-falcon-75257)) was delivered to my house. My three-year-old asked if he could help me build it. For a moment, my mind froze. The thought of building a Lego set at all with a three-year-old was daunting, and even more so with a set I was really looking forward to building myself. But then I decided that I would be curious and give it a try.
 
@@ -65,7 +65,7 @@ My sincere hope is that you are finding areas of your life where you have progre
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: A good example is “Make Orwell fiction again” among many others. We have often received comments in parking lots from people who enjoy or resonate with them.

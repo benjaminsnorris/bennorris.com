@@ -9,11 +9,11 @@ category: Mental Work Health
 
 My update from this week includes a **nonsensical meal**, an **uplifting 1:1**, and an **evening of sports**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
-Naturally, following a [wonderful week](https://bennorris.org/2020/09/21/recharging-in-allentown/), this past week was more challenging for me. Nothing was terribly difficult or noteworthy—it was a decent week. I struggled at times with focus and motivation, and at other times got in the zone. It was a great reminder to me that things will go all right—not every moment will be amazing or awful.
+Naturally, following a [wonderful week](https://bennorris.com/2020/09/21/recharging-in-allentown/), this past week was more challenging for me. Nothing was terribly difficult or noteworthy—it was a decent week. I struggled at times with focus and motivation, and at other times got in the zone. It was a great reminder to me that things will go all right—not every moment will be amazing or awful.
 
 
 ## Something hard
@@ -57,7 +57,7 @@ I know that all of us face our own moments of mixing mac and cheese and pancakes
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: Ok, technically, I meet with one person on my team monthly, and one of the other engineering managers I meet with biweekly. But that level of accuracy was more complicated than required to convey my point.

@@ -2,9 +2,9 @@
 title: "#63: Limping along"
 date: 2021-12-10 09:03:14-0800
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/limping-along.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/limping-along.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/limping-along.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/limping-along.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/limping-along.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/limping-along.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,13 +14,13 @@ tags:
 
 After missing a week, I share about the struggles of OCD and anxiety getting the better of me for a bit.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 Whew. These past couple weeks have been rough. I decided last week not to try to force myself to write an update. It’s hard to allow myself to do something not 100% and it’s also good for me. And, I could barely function last week, let alone write.
 
-A couple weeks ago, [I shared](https://bennorris.org/2021/11/26/transform-suffering) the wave of emotions I rode in preparing for and conducting the meditative sketchnotes workshop. That was on Thursday November 18. The next day, I met with my therapist and told her I was not doing well. I tried to be more open and honest than I had been for a bit, and shared some of my journal entries over the past while. I have been feeling miserable for a long time—not actively wanting to die, but feeling like I would rather be dead and done with everything. We recognized that I have had similar episodes in the the past, and it is usually tied with not being on the right dose of medication. When my OCD has free reign in my brain it takes so much mental effort to deal with all the looping thoughts that I get run down easily.
+A couple weeks ago, [I shared](https://bennorris.com/2021/11/26/transform-suffering) the wave of emotions I rode in preparing for and conducting the meditative sketchnotes workshop. That was on Thursday November 18. The next day, I met with my therapist and told her I was not doing well. I tried to be more open and honest than I had been for a bit, and shared some of my journal entries over the past while. I have been feeling miserable for a long time—not actively wanting to die, but feeling like I would rather be dead and done with everything. We recognized that I have had similar episodes in the the past, and it is usually tied with not being on the right dose of medication. When my OCD has free reign in my brain it takes so much mental effort to deal with all the looping thoughts that I get run down easily.
 
 So I got in touch with my psychiatrist and made some adjustments. That brought some hope, but also the knowledge that the next little while would be rocky as we made adjustments.
 
@@ -37,7 +37,7 @@ As I learned during my time in an [intensive outpatient program for OCD](https:/
 
 The very next day, my wife commented that it was a relief to hear me sound happy. “Whoa, whoa, let’s not get carried away,” I said. “I wouldn’t go so far as to say I’m happy. But I definitely am a bit better than I have been.”
 
-I have [written before](https://bennorris.org/2020/12/20/like-yourself-again) about sounding like myself again after breaking free of the grip of OCD. It is similar to a fever breaking. There comes a tipping point where I start to improve again. Everything is not solved and back to normal, but things are at least headed that way.
+I have [written before](https://bennorris.com/2020/12/20/like-yourself-again) about sounding like myself again after breaking free of the grip of OCD. It is similar to a fever breaking. There comes a tipping point where I start to improve again. Everything is not solved and back to normal, but things are at least headed that way.
 
 I don’t know where you are at this week, but chances are that you are struggling with your own challenges. I send you compassion. And I offer a reminder to both of us to not stuff down our emotions. We don’t have to react to them immediately and allow them to run our lives. But we do need to acknowledge them and allow ourselves to feel them.
 
@@ -47,4 +47,4 @@ Let’s be kind. Both to those around us, and also to ourselves. We all deserve 
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

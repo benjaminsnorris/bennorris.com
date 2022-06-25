@@ -27,7 +27,7 @@ Another approach is what I want to cover today: integrating with Shared Web Cred
 ### Entitlement
 Xcoce does a great job of simplifying the process of adding entitlements. In order to use shared web credentials, you need to enable the `Associated Domains` entitlement:
 
-![Associated Domains entitlement](https://media.bennorris.org/images/posts/associated-domains.png){:loading="lazy"}
+![Associated Domains entitlement](https://media.bennorris.com/images/posts/associated-domains.png){:loading="lazy"}
 
 Then in place of `example.com`, you need to put your domain. Read through the [documentation](https://developer.apple.com/library/ios/documentation/Security/Reference/SharedWebCredentialsRef/#//apple_ref/doc/uid/TP40014989-CH1-DontLinkElementID_5) for this section to make sure that you do not miss anything.
 
@@ -47,7 +47,7 @@ In order for the association to work, you have to upload a simple JSON file to y
 
 Inside the `apps` array, you should list all of the bundle identifiers for apps that should be able to share passwords from this site. The prefix to the bundle identifier is usually your Team ID. To be sure, pull up the app in [developer.apple.com](https://developer.apple.com/account/ios/identifier/bundle) and copy the prefix from the App ID information.
 
-![App Prefix](https://media.bennorris.org/images/posts/app-prefix.png){:loading="lazy"}
+![App Prefix](https://media.bennorris.com/images/posts/app-prefix.png){:loading="lazy"}
 
 
 ### Safari password
@@ -60,7 +60,7 @@ Since we are focusing on retrieving passwords, and not saving them from the app,
 1. Tap on “Add Password”
 1. Enter your website and a user name and password
 
-![Safari passwords in Simulator](https://media.bennorris.org/images/posts/safari-passwords.jpg){:loading="lazy"}
+![Safari passwords in Simulator](https://media.bennorris.com/images/posts/safari-passwords.jpg){:loading="lazy"}
 
 
 ### Code
@@ -113,7 +113,7 @@ func textFieldDidBeginEditing(textField: UITextField) {
 ### Execution
 Finally, with the code in place, you can run the app again. When the user taps in the username or password field, call your `requestSharedPassword` function, and if everything is set up properly, you will see something like this example from an app I am currently working on:
 
-![Retrieving shared web credentials](https://media.bennorris.org/images/posts/shared-credentials.png){:loading="lazy"}
+![Retrieving shared web credentials](https://media.bennorris.com/images/posts/shared-credentials.png){:loading="lazy"}
 
 
 ## Summary

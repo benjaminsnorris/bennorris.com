@@ -7,7 +7,7 @@ category: General
 excerpt_separator: "<!--more-->"
 ---
 
-![The slipstream of comfort](https://media.bennorris.org/images/bennorris/uploads/2019/652f25136c.jpg)
+![The slipstream of comfort](https://media.bennorris.com/images/bennorris/uploads/2019/652f25136c.jpg)
 
 Great inspiration on making small changes to set yourself apart: [Sunday Firesides: The Slipstream of Comfort - The Art of Manliness](https://www.artofmanliness.com/articles/sunday-firesides-the-slipstream-of-comfort/)
 

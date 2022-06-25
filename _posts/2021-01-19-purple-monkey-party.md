@@ -9,18 +9,18 @@ category: Mental Work Health
 
 In this week’s update, I discuss a **purple monkey birthday party**, a **magical phrase**, and a **tricky programming bug**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
-The start of a new year has traditionally been a time I look forward to and enjoy greatly. In the past, I used to set all manner of detailed goals for the new year. For the past couple of years, I have taken an entirely new approach. My [2019 goals](https://bennorris.org/2019/01/01/my-goals) were to **be intentional**, **be present** and **be curious**. My [2020 goals](https://bennorris.org/2020/01/01/my-goals) were to **make more mistakes**, and **carry less to give more**.
+The start of a new year has traditionally been a time I look forward to and enjoy greatly. In the past, I used to set all manner of detailed goals for the new year. For the past couple of years, I have taken an entirely new approach. My [2019 goals](https://bennorris.com/2019/01/01/my-goals) were to **be intentional**, **be present** and **be curious**. My [2020 goals](https://bennorris.com/2020/01/01/my-goals) were to **make more mistakes**, and **carry less to give more**.
 
 I bring this up partly to encourage myself to decide on my goals for 2021. I think it is a useful activity, and can be an exercise in self compassion. Whatever your goals might be, and whether you set new ones at the beginning of the year, I send you encouragement. May we be kind with ourselves as we strive to become better.
 
 
 ## Something hard
 
-![Purple monkey cake](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/e0065aadec.jpg)
+![Purple monkey cake](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/e0065aadec.jpg)
 
 Over the weekend, we celebrated my daughter’s seventh birthday. She decided that the theme was purple monkeys, and asked her aunt to make a cake to fit. The result was truly spectacular, as is often the case with my sister-in-law. We had a small family party with grandma and grandpa, and had a terrific time.
 
@@ -75,11 +75,11 @@ I think that we all have moments to mourn in our lives when we are not able to d
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: The [AirPods Pro](https://en.wikipedia.org/wiki/AirPods_Pro) have been a lifesaver for me. They fit right in my pocket, so I can have them with me all the time. I just pop them in with the active noise cancelling enabled, and enjoy a muted version of everything around me. For times when I need even more relief, I can put on some quiet music.
 
-[^2]: I [wrote a few weeks ago](https://bennorris.org/2020/12/14/distress-tolerance-sudoku) about the wonderful sudoku app [Good Sudoku](https://www.playgoodsudoku.com/) that I discovered. It is just the right amount of mental engagement without frustration to allow me to zone out for a bit.
+[^2]: I [wrote a few weeks ago](https://bennorris.com/2020/12/14/distress-tolerance-sudoku) about the wonderful sudoku app [Good Sudoku](https://www.playgoodsudoku.com/) that I discovered. It is just the right amount of mental engagement without frustration to allow me to zone out for a bit.
 
 [^3]: My OCD dictates that I clarify here. I have certainly not been perfect at this. It has not been “each time” that I get frustrated that I am able to use my phrase. But it has been often.

@@ -1,6 +1,6 @@
 ---
 title:          "Inktober day 14"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/inktober-day-14.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/inktober-day-14.jpg
 date:           2016-10-14 08:58:00-0700
 category:       Sketchnotable
 tags:           inktober
@@ -11,4 +11,4 @@ short:          true
 
 The best playgrounds are natural.
 
-![Playing in tree](https://media.bennorris.org/images/sketchnotable/inktober-2016/inktober-day-14.jpg){:loading="lazy"}
+![Playing in tree](https://media.bennorris.com/images/sketchnotable/inktober-2016/inktober-day-14.jpg){:loading="lazy"}

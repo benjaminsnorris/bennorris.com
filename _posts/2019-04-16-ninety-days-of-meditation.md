@@ -7,7 +7,7 @@ tags:
 category: Mental Work Health
 ---
 
-![90 day streak](https://media.bennorris.org/images/bennorris/uploads/2019/5c6d29bf1d.jpg){:loading="lazy"}
+![90 day streak](https://media.bennorris.com/images/bennorris/uploads/2019/5c6d29bf1d.jpg){:loading="lazy"}
 
 A reflection on my daily meditation habit over the last three months.
 
@@ -27,7 +27,7 @@ The biggest skill that I have gained from meditation is gentleness. Because I ha
 
 I have learned to accept the impermanence of experiences, particularly emotions. It is much easier to sit with an emotion when you know at a deep level that it will not last forever. This allows you to fully enjoy positive emotions, and not shy away from painful ones. I still have further to go on this road, but as my emotional self learns to trust that nothing will last forever, I am not as reliant on my intellectual self to make a rational pitch.
 
-My [2019 goals](https://www.bennorris.org/2019/01/01/my-2019-goals) are to 1) be intentional, 2) be present, and 3) be curious. A daily meditation practice has helped with all three of these, but especially with being present. I have found myself trying to focus in the shower on the sensations of the water hitting my body, the feel of the steam, and the smell of shampoo, instead of planning for the day. I still feel like an awkward novice, but I am at least more aware of the opportunities to practice.
+My [2019 goals](https://www.bennorris.com/2019/01/01/my-2019-goals) are to 1) be intentional, 2) be present, and 3) be curious. A daily meditation practice has helped with all three of these, but especially with being present. I have found myself trying to focus in the shower on the sensations of the water hitting my body, the feel of the steam, and the smell of shampoo, instead of planning for the day. I still feel like an awkward novice, but I am at least more aware of the opportunities to practice.
 
 As I continue to learn to accept the present moment as it is, I find myself better able to shed expectations and the distress that often accompanies them. Instead, I am able to approach situations with curiosity. Not what *should* happen right now, but what *is* happening right now?
 

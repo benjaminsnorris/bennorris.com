@@ -8,7 +8,7 @@ tags:
 short: true
 ---
 
-![Ben Norris](https://media.bennorris.org/images/sketchnotable/general/sketchnote-army-podcast-2021.jpeg)
+![Ben Norris](https://media.bennorris.com/images/sketchnotable/general/sketchnote-army-podcast-2021.jpeg)
 
 I was interviewed recently for the [Sketchnote Army podcast](https://sketchnotearmy.com/blog/2021/11/1/ben-norris):
 

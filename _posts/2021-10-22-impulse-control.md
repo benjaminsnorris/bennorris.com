@@ -2,9 +2,9 @@
 title: "#57: Impulse control"
 date: 2021-10-22 16:29:35-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/impulse-control.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/impulse-control.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/impulse-control.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/impulse-control.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/impulse-control.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/impulse-control.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,7 +14,7 @@ tags:
 
 This week I share about **acknowledging grief**, **delaying action**, and **making plans with a friend**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -79,7 +79,7 @@ Over the years, we have become friends. He’s one of my last remaining digital-
 
 This summer, he interviewed me for the excellent [Sketchnote Army](https://sketchnotearmy.com) podcast (the episode is not out yet), and we struck up a conversation after the interview. That led to a joint project that we are starting. We’re not ready to share details yet, but it’s getting close.
 
-I was reminded of the lesson I relearned [a couple weeks ago](https://bennorris.org/2021/10/08/letting-ocd-win). Connecting with friends is a huge boost to my mental wellbeing.
+I was reminded of the lesson I relearned [a couple weeks ago](https://bennorris.com/2021/10/08/letting-ocd-win). Connecting with friends is a huge boost to my mental wellbeing.
 
 
 ## Wrap up
@@ -88,5 +88,5 @@ Sitting with emotions continues to be a difficult and important lesson to learn.
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

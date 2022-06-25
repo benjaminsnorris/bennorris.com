@@ -44,4 +44,4 @@ When I was younger, one of my favorite Pixar shorts was “Geri’s game.” I c
 
 This game made me realize how much self-talk matters. Positive self-talk is a skill, and a crucial one to maintain good mental health. I want to work toward the day when I don’t have to compliment the other player to say nice things to myself.
 
-*Update: I had a [rematch](https://www.bennorris.org/2019/02/04/rematch)*
+*Update: I had a [rematch](https://www.bennorris.com/2019/02/04/rematch)*

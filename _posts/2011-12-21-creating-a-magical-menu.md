@@ -8,7 +8,7 @@ Over the past couple months, I have been playing around in <a href="http://www.w
 <h2>Step 1: Picture the dream</h2>
 The first step was to create an image to upload as a header image. I knew that I wanted to eventually create a menu with fun images for each page (menu item), so I began by creating some sketches and combining them into a single image in Photoshop. The theme I was using in WordPress allowed me to upload a header image, so with a bit of fiddling, I finally got it so that the sketches lined up over the menu items. The problem was that the entire image was a big link to the home page. Through some basic usability testing, I found that everyone who used the site tried first to click on the image to get to a page, but then was taken back to the home page.
 
-![Plain menu](https://media.bennorris.org/images/posts/menu/header-menu-plain.png){:loading="lazy"}
+![Plain menu](https://media.bennorris.com/images/posts/menu/header-menu-plain.png){:loading="lazy"}
 
 <h2>Step 2: Stop the trickery</h2>
 Now I had feedback that people enjoyed the sketches, but the site wasn't terribly usable. So I set out to remove the link from the image so that if people tried to click the images, they at least wouldn't be taken to the wrong place. Fortunately, there is a great support forum for WordPress, and I was able to quickly get some help in overriding the CSS. Basically, I removed the header image through the admin console, and then put it back with the following CSS code. And, voila! A non-clickable addition to my menu items looked fun and stopped tricking people.
@@ -30,7 +30,7 @@ Next, I extended the canvas of my image by a factor of three (for me that meant 
 
 Finally, I got down to the real work. The final row was going to become the selected state for me, and that was going to be easier. I just wanted to change the color of the image as well as the page title. The middle row was to become the rollover state. I changed the color of the text, but the images we more complex. This needed to be fun to use, so I wanted to add a little something to each of the images. I sketched out ideas in paper with a Sharpie, and then when I had what I liked, I scanned it in, played in Photoshop until it worked with what I already had, and then I was set. That was the fun part!
 
-![Full menu](https://media.bennorris.org/images/posts/menu/header-menu-full.png){:loading="lazy"}
+![Full menu](https://media.bennorris.com/images/posts/menu/header-menu-full.png){:loading="lazy"}
 
 If you're trying this as well, it's important to note the size of each piece of your sprite. I already knew the height of each row, but I needed to determine the width of each menu item as well. You'll want to write down the width for each item, as you need it in the final step.
 <h3>2. Prepping the page</h3>
@@ -94,4 +94,4 @@ padding:0;
 <h2>Basking in the goodness</h2>
 In the end, I was finally able to enjoy the menu I had dreamed about. Thanks to a lot of help, and a fair amount of trial and error, my sketches came to life!
 
-![Menu rollover](https://media.bennorris.org/images/posts/menu/header-menu-rollover.png){:loading="lazy"}
+![Menu rollover](https://media.bennorris.com/images/posts/menu/header-menu-rollover.png){:loading="lazy"}

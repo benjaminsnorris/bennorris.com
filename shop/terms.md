@@ -61,7 +61,7 @@ For professional therapists, counselors, trainers, coaches, facilitators or cons
 ## Credit
 
 When you are using or referencing the material, always credit the source as: 
-Ben Norris, bennorris.org, or @sketchnotable, sketchnotable.com.
+Ben Norris, bennorris.com, or @sketchnotable, sketchnotable.com.
 
 
 ## Copyright

@@ -2,9 +2,9 @@
 title: "#68: I have value"
 date: 2022-01-29 11:23:17-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/i-have-value.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/i-have-value.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/i-have-value.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/i-have-value.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/i-have-value.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/i-have-value.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,7 +14,7 @@ tags:
 
 This week I share about **learning the song of interpersonal effectiveness**, realizing **I have value without earning it**, and **iterating on an idea**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -46,7 +46,7 @@ This clicked with my brain immediately, and the frustration dissipated. Gone was
 
 ## Something good
 
-This was the first week I’ve really been able to work on my new job. As I [mentioned recently](https://bennorris.org/2021/12/30/into-the-unknown), at the beginning of the year I left my nearly seven years of employment at O.C. Tanner to help launch an educational startup. More accurately, I started working full-time this month, as I've been doing it on the side for the past few months.
+This was the first week I’ve really been able to work on my new job. As I [mentioned recently](https://bennorris.com/2021/12/30/into-the-unknown), at the beginning of the year I left my nearly seven years of employment at O.C. Tanner to help launch an educational startup. More accurately, I started working full-time this month, as I've been doing it on the side for the past few months.
 
 The first week I started we ran an event over the weekend, so the week was mostly a mad dash to get it ready. The second week, we had some sickness go through the family. It was bad enough that my wife needed to take some sick days, so I was home taking care of kids. The third week, I got the sickness and was mostly out of commission.
 
@@ -84,4 +84,4 @@ I have value, and so do you. Just as we are.
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

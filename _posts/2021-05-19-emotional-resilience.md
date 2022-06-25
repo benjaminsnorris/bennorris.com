@@ -9,7 +9,7 @@ category: Mental Work Health
 
 This week, I share about **sitting with emotions**, a **link between creativity and mental health**, and **respect**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -31,7 +31,7 @@ As we are able to be more mindful of our situation and ourselves, we become able
 
 ## Something good
 
-Over the past few weeks, I’ve been listening to some audiobooks. I tend to bounce back and forth between books and podcasts in my driving around. On the camping trip I discussed [recently](https://bennorris.org/2021/05/05/camping-and-sketching), I finished [The Dichotomy of Leadership](https://echelonfront.com/dichotomy-of-leadership/).
+Over the past few weeks, I’ve been listening to some audiobooks. I tend to bounce back and forth between books and podcasts in my driving around. On the camping trip I discussed [recently](https://bennorris.com/2021/05/05/camping-and-sketching), I finished [The Dichotomy of Leadership](https://echelonfront.com/dichotomy-of-leadership/).
 
 Side note: listening to [Jocko](https://en.wikipedia.org/wiki/Jocko_Willink) is some of my most frequently assigned homework from my therapist.
 
@@ -56,7 +56,7 @@ But I have since learned that there is great truth in that statement. The OCD th
 
 ## Something else
 
-We’ve been discussing meetings lately at work, and what we can do to make them more infrequent and better uses of time when they do occur. This is something I feel strongly about, as I [wrote about recently](https://bennorris.org/2021/03/18/holding-fewer-meetings).
+We’ve been discussing meetings lately at work, and what we can do to make them more infrequent and better uses of time when they do occur. This is something I feel strongly about, as I [wrote about recently](https://bennorris.com/2021/03/18/holding-fewer-meetings).
 
 One of the principles we were discussing was to keep anything personal or political out of our meetings. I understood the intent behind this, but disagreed with the phrasing. I think we do ourselves a huge disservice to try to separate our personal and business lives completely, to be someone else at work. We will do our best work if we bring our full selves and share that with others. If we drive out humanity and vulnerability from our work, or from our meetings, everything will suffer. We will operate in a shallow pool, never able to make meaningful connections with those around us.
 
@@ -69,4 +69,4 @@ Whatever life is throwing at us right now, we would be well served to pause and 
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

@@ -2,9 +2,9 @@
 title: "#83: Detached but engaged"
 date: 2022-05-27 10:34:25-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/detached-but-engaged.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/detached-but-engaged.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/detached-but-engaged.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/detached-but-engaged.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/detached-but-engaged.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/detached-but-engaged.jpg
 layout: mwh
 category: Mental Work Health
 tags:
@@ -16,7 +16,7 @@ tags:
 
 This week, I share my **success in a difficult area of my life**, in the hopes of **exploring and extrapolating** some of the lessons to other areas of my life.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -24,17 +24,17 @@ I wanted to share and reflect on an experience without sharing many of the detai
 
 ## Story
 
-My life is in turmoil right now in so many ways. But despite that, **I feel a sense of calm and peacefulness that has been surprising to me**. My situation at work continues to be uncertain and challenging. I wrote a few weeks ago about some of the changes coming my way in [update #80: Uncertainty training](https://bennorris.org/2022/05/06/uncertainty-training).
+My life is in turmoil right now in so many ways. But despite that, **I feel a sense of calm and peacefulness that has been surprising to me**. My situation at work continues to be uncertain and challenging. I wrote a few weeks ago about some of the changes coming my way in [update #80: Uncertainty training](https://bennorris.com/2022/05/06/uncertainty-training).
 
-![Uncertainty training](https://media.bennorris.org/images/mentalworkhealth/posts/uncertainty-training.jpg){:loading="lazy"}
+![Uncertainty training](https://media.bennorris.com/images/mentalworkhealth/posts/uncertainty-training.jpg){:loading="lazy"}
 
-It has been a great experience for me to **sit with the discomfort** of not knowing exactly how things will go. One great help has been turning to journaling occasionally to process my thoughts and feelings. I was thankful to realize that I wanted that in my life again last month in [update #79: Need for journaling](https://bennorris.org/2022/04/29/need-for-journaling).
+It has been a great experience for me to **sit with the discomfort** of not knowing exactly how things will go. One great help has been turning to journaling occasionally to process my thoughts and feelings. I was thankful to realize that I wanted that in my life again last month in [update #79: Need for journaling](https://bennorris.com/2022/04/29/need-for-journaling).
 
-![Need for journaling](https://media.bennorris.org/images/mentalworkhealth/posts/need-for-journaling.jpg){:loading="lazy"}
+![Need for journaling](https://media.bennorris.com/images/mentalworkhealth/posts/need-for-journaling.jpg){:loading="lazy"}
 
-I commented to someone this past week that I continue to be surprised by how calm I am navigating these changes. My **OCD often makes me rigid and inflexible**, and situations like this push me to the breaking point where that rigidity shatters. I have been able to lean into that and still move forward. This past week, I realized that **I have already started doing what I want**, and don’t need to wait for a moment of permission or accomplishment. You can read more about that in [update #82: Yes, we’re open](https://bennorris.org/2022/05/20/yes-were-open).
+I commented to someone this past week that I continue to be surprised by how calm I am navigating these changes. My **OCD often makes me rigid and inflexible**, and situations like this push me to the breaking point where that rigidity shatters. I have been able to lean into that and still move forward. This past week, I realized that **I have already started doing what I want**, and don’t need to wait for a moment of permission or accomplishment. You can read more about that in [update #82: Yes, we’re open](https://bennorris.com/2022/05/20/yes-were-open).
 
-![Yes, we’re open](https://media.bennorris.org/images/mentalworkhealth/posts/yes-we’re-open.jpg){:loading="lazy"}
+![Yes, we’re open](https://media.bennorris.com/images/mentalworkhealth/posts/yes-we’re-open.jpg){:loading="lazy"}
 
 The backdrop for all this uncertainty with work has been **immense challenges with someone close to me**. I have been watching and supporting her for a long time as she confronts the unique challenges of her life.
 

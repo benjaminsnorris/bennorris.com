@@ -1,8 +1,8 @@
 ---
 title: "Responsive Web Design Summit Aug 2012"
 gallery_thumb:
-- https://media.bennorris.org/images/sketchnotable/thumbs/e4h-rwd-2012-sketchnotes-01.jpg
-- https://media.bennorris.org/images/sketchnotable/thumbs/e4h-rwd-2012-sketchnotes-02.jpg
+- https://media.bennorris.com/images/sketchnotable/thumbs/e4h-rwd-2012-sketchnotes-01.jpg
+- https://media.bennorris.com/images/sketchnotable/thumbs/e4h-rwd-2012-sketchnotes-02.jpg
 date: 2012-08-29 10:32:13-0600
 read_time: false
 category: Sketchnotable
@@ -15,6 +15,6 @@ I had the fantastic opportunity to participate in a wonderful virtual conference
 
 Here are my sketchnotes from the event:
 
-![E4H RWD Summit sketchnotes set 1](https://media.bennorris.org/images/sketchnotable/general/e4h-rwd-2012-sketchnotes-01.jpg){:loading="lazy"}
+![E4H RWD Summit sketchnotes set 1](https://media.bennorris.com/images/sketchnotable/general/e4h-rwd-2012-sketchnotes-01.jpg){:loading="lazy"}
 
-![E4H RWD Summit sketchnotes set 2](https://media.bennorris.org/images/sketchnotable/general/e4h-rwd-2012-sketchnotes-02.jpg){:loading="lazy"}
+![E4H RWD Summit sketchnotes set 2](https://media.bennorris.com/images/sketchnotable/general/e4h-rwd-2012-sketchnotes-02.jpg){:loading="lazy"}

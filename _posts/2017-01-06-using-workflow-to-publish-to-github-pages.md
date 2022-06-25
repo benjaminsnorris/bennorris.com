@@ -8,7 +8,7 @@ date: 2017-01-06 08:56:45-0700
 update_date: 2017-11-14 17:00:54-0700
 ---
 
-*Update: I published [a follow-up post](https://bennorris.org/2017/01/12/public-drafts-with-a-github-pages-blog/) about incorporating drafts into the process.*
+*Update: I published [a follow-up post](https://bennorris.com/2017/01/12/public-drafts-with-a-github-pages-blog/) about incorporating drafts into the process.*
 
 ## Microblog posts
 This blog is hosted using [GitHub Pages](https://pages.github.com/), which has worked out extremely well for me. However, there can sometimes be too much friction to get content published, especially short-form microblog posts. Recently, I was talking with [Manton Reece](https://manton.org/) about how to publish Instagram posts to my microblog. He mentioned that he uses [Workflow](https://workflow.is/), a fantastic automation app for iOS, to take an Instagram photo and publish it to his WordPress blog. He wrote [a post](https://www.manton.org/2016/03/blogging-your-photos.html) about his process that was helpful as I looked at how to make this work for my needs. Another big help was a recent series about Workflow on [Canvas](https://www.relay.fm/canvas), a podcast about iPhone and iPad productivity.

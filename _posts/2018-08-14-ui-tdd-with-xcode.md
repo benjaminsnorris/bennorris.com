@@ -19,7 +19,7 @@ to this:
 
 I have really enjoyed the productivity boost this has given us, along with the safety and security of good test coverage and wanted to share this approach with the community. Included below is a PDF of my presentation.
 
-[UI TDD Presentation (5 MB)](https://media.bennorris.org/images/bennorris/uploads/2019/7140e68aef.pdf)
+[UI TDD Presentation (5 MB)](https://media.bennorris.com/images/bennorris/uploads/2019/7140e68aef.pdf)
 
 *Update:* The talk was recorded and can be viewed here:
 

@@ -2,9 +2,9 @@
 title: "#54 Your experience"
 date: 2021-10-01 07:54:45-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/your-experience.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/your-experience.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/your-experience.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/your-experience.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/your-experience.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/your-experience.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,7 +14,7 @@ tags:
 
 In this update, I share the **difficulty of receiving a kind message**, going to a **wonderful event** with a friend, and **personal questions**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -46,7 +46,7 @@ A couple days before the event, we realized that some family activities had come
 
 When my wife couldn’t come, I reached out to one of my good friends to see if he was available and wanted to join me. He was, and we met up for dinner and then enjoyed the event together.
 
-It was a delightful time. I took some [sketchnotes](https://bennorris.org/2021/09/23/minimalists-event-sketchnotes) of the talks they gave, and the question and answer section. That is always an enjoyable activity for me. The event was interesting and the chance to spend time with my friend was a treat.
+It was a delightful time. I took some [sketchnotes](https://bennorris.com/2021/09/23/minimalists-event-sketchnotes) of the talks they gave, and the question and answer section. That is always an enjoyable activity for me. The event was interesting and the chance to spend time with my friend was a treat.
 
 
 ## Something else
@@ -78,4 +78,4 @@ My hope, for you and for me, is to honor the experiences of others. We don’t g
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

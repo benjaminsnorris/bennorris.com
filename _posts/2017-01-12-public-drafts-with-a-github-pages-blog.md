@@ -8,7 +8,7 @@ date: 2017-01-12 08:09:26-0700
 ---
 
 
-I wrote [last week](https://bennorris.org/2017/01/06/using-workflow-to-publish-to-github-pages/) about publishing to a GitHub Pages blog using [Workflow](https://workflow.is) on the iPad. As I worked on writing that post, I realized there was one piece missing from my process: previewing the draft. When I write locally on my computer, I compile the site using [Jekyll commands](https://jekyllrb.com/docs/usage/) and include drafts. Then I can work on a post and make sure that the links all work properly and do a final check before publishing the post. With the Workflow process I created, a post would go straight from iA Writer to being published on my site, and that made me a bit nervous.
+I wrote [last week](https://bennorris.com/2017/01/06/using-workflow-to-publish-to-github-pages/) about publishing to a GitHub Pages blog using [Workflow](https://workflow.is) on the iPad. As I worked on writing that post, I realized there was one piece missing from my process: previewing the draft. When I write locally on my computer, I compile the site using [Jekyll commands](https://jekyllrb.com/docs/usage/) and include drafts. Then I can work on a post and make sure that the links all work properly and do a final check before publishing the post. With the Workflow process I created, a post would go straight from iA Writer to being published on my site, and that made me a bit nervous.
 
 ## Displaying drafts
 Jekyll [already supports drafts](https://jekyllrb.com/docs/drafts/), but the only way to see them is when building locally. As I looked into the easiest way to display drafts on my published site, I realized that I already have a model that would work well. For my [apps](/apps/) and libraries, I am using the [collections feature](https://jekyllrb.com/docs/collections/) of Jekyll. In order to extend the default functionality of drafts to make them public, only a few small changes are needed:
@@ -49,7 +49,7 @@ This ensures that the drafts can be posted without impacting the site or having 
 
 
 ## Add workflows
-All of this work is nice, but without some additions and updates to the workflows I [posted previously](https://bennorris.org/2017/01/06/using-workflow-to-publish-to-github-pages/), this would still require publishing from a computer. As I looked into support for publishing drafts using Workflow, the one piece missing was the ability to send a `DELETE` message to the GitHub API. I asked Workflow support if there was any way to do this and got a fantastic response with a workaround.
+All of this work is nice, but without some additions and updates to the workflows I [posted previously](https://bennorris.com/2017/01/06/using-workflow-to-publish-to-github-pages/), this would still require publishing from a computer. As I looked into support for publishing drafts using Workflow, the one piece missing was the ability to send a `DELETE` message to the GitHub API. I asked Workflow support if there was any way to do this and got a fantastic response with a workaround.
 
 <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr"><a href="https://twitter.com/bsndesign">@bsndesign</a> Here&#39;s a workaround in the mean time: <a href="https://t.co/SeyLjr7Ixr">pic.twitter.com/SeyLjr7Ixr</a></p>&mdash; Workflow (@WorkflowHQ) <a href="https://twitter.com/WorkflowHQ/status/817639735183036416">January 7, 2017</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 

@@ -9,5 +9,5 @@ short: true
 
 A few thoughts and stories about my experience visiting Mexico for the first time.
 
-<audio controls="controls" src="https://media.bennorris.org/images/bennorris/uploads/2019/3495d9c76a.mp3" />
+<audio controls="controls" src="https://media.bennorris.com/images/bennorris/uploads/2019/3495d9c76a.mp3" />
 

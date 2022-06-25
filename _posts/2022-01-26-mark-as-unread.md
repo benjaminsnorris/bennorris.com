@@ -2,9 +2,9 @@
 title: "Mark as unread"
 date: 2022-01-26 10:25:43-0700
 image: 
-  path: https://media.bennorris.org/images/posts/mark-as-unread.jpg
-  thumbnail: https://media.bennorris.org/images/posts/thumbnails/mark-as-unread.jpg
-gallery_thumb: https://media.bennorris.org/images/posts/gallery/mark-as-unread.jpg
+  path: https://media.bennorris.com/images/posts/mark-as-unread.jpg
+  thumbnail: https://media.bennorris.com/images/posts/thumbnails/mark-as-unread.jpg
+gallery_thumb: https://media.bennorris.com/images/posts/gallery/mark-as-unread.jpg
 category: General
 tags:
 - software

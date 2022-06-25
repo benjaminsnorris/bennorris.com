@@ -1,6 +1,6 @@
 ---
 title: "Parenting Class Jan 2012"
-gallery_thumb: https://media.bennorris.org/images/gospelsketcher/general/jan-12-parenting-class.jpg
+gallery_thumb: https://media.bennorris.com/images/gospelsketcher/general/jan-12-parenting-class.jpg
 date: 2012-01-30 13:16:10-0700
 read_time: false
 category: Gospel Sketcher
@@ -14,4 +14,4 @@ I attended a parenting class taught by Kathy Andrizzi on January 27, 2012, and h
 
 I captured the event with sketchnotes and am including them here.
 
-[![Parenting Class Sketchnotes](https://media.bennorris.org/images/gospelsketcher/general/jan-12-parenting-class.jpg "Parenting Class Sketchnotes")](https://media.bennorris.org/images/gospelsketcher/general/jan-12-parenting-class.jpg)
+[![Parenting Class Sketchnotes](https://media.bennorris.com/images/gospelsketcher/general/jan-12-parenting-class.jpg "Parenting Class Sketchnotes")](https://media.bennorris.com/images/gospelsketcher/general/jan-12-parenting-class.jpg)

@@ -6,12 +6,12 @@ tags:
 - sketchnotes
 - mindfulsketch
 - mental health
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/2021-11-27-mindfulsketch.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/2021-11-27-mindfulsketch.jpg
 read_time: false
 word_count: false
 ---
 
-![Mindful sketch](https://media.bennorris.org/images/sketchnotable/mindfulsketch/2021-11-27-mindfulsketch.jpg)
+![Mindful sketch](https://media.bennorris.com/images/sketchnotable/mindfulsketch/2021-11-27-mindfulsketch.jpg)
 
 I started the morning with a helpful exercise. Hoping to make this more of a practice.
 

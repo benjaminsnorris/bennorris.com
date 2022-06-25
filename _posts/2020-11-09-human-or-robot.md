@@ -9,7 +9,7 @@ category: Mental Work Health
 
 In my weekly update, I discuss **saying goodbye**, **progress on a goal**, and a **healthy reminder of my fallibility**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -18,7 +18,7 @@ Here in Utah, we enjoyed a surprisingly warm week for November (before the snow!
 
 ## Something hard
 
-Since becoming an engineering manager, no direct reports had left for a different company until this week. As I mentioned [last week](https://bennorris.org/2020/11/02/loss-and-uncertainty), it was a cause for celebration that the apprentice I hired earlier this year found a full-time role. What I did not anticipate was the emotional toll of dealing with her departure.
+Since becoming an engineering manager, no direct reports had left for a different company until this week. As I mentioned [last week](https://bennorris.com/2020/11/02/loss-and-uncertainty), it was a cause for celebration that the apprentice I hired earlier this year found a full-time role. What I did not anticipate was the emotional toll of dealing with her departure.
 
 My daughter has participated in a couple summer programs, and often comes home grieving the end of a special experience. Trying to validate her pain, I told her that it was natural and healthy for her for feel sad because that exact group would never exist again. They could get together again, but it would never be the same. My daughter and my wife both turned and looked at me, a little incredulous. “Wow, thanks Dad!” Apparently I wasn’t helping.
 
@@ -29,9 +29,9 @@ The final one-on-one with my departing employee was an emotional experience. One
 
 ## Something good
 
-![Carry less to give more goal](https://media.bennorris.org/images/mentalworkhealth/uploads/2020/6729957227.jpg){:loading="lazy"}
+![Carry less to give more goal](https://media.bennorris.com/images/mentalworkhealth/uploads/2020/6729957227.jpg){:loading="lazy"}
 
-As I wrote about [last week](https://bennorris.org/2020/11/02/loss-and-uncertainty), one of my best friends at work is moving on to a new role at a different company. I had an experience with him that highlighted one of my two big goals for 2020. I wrote about these on my [personal blog](https://www.bennorris.org/2020/01/01/my-2020-goals) at the beginning of the year, and have kept them as the wallpaper on my phone and iPad to help me remember. The goals were simple:
+As I wrote about [last week](https://bennorris.com/2020/11/02/loss-and-uncertainty), one of my best friends at work is moving on to a new role at a different company. I had an experience with him that highlighted one of my two big goals for 2020. I wrote about these on my [personal blog](https://www.bennorris.com/2020/01/01/my-2020-goals) at the beginning of the year, and have kept them as the wallpaper on my phone and iPad to help me remember. The goals were simple:
 
 - Make more mistakes
 - Carry less to give more
@@ -42,7 +42,7 @@ What I learned was that there were a couple major problems with my instincts and
 
 Another major problem with my instinctual response is the personal toll it takes on me. In and of itself, that is not really the issue, but it directly leads to the issue. When I am spending my time, energy, and emotional resources invested in the problems of other people, I am too depleted to handle the issues that come up in my own life. For me specifically, as a husband and father of seven, some of the most important emotional weight I need to carry is with my family.
 
-![Family](https://media.bennorris.org/images/mentalworkhealth/uploads/2020/4bdc8bafe6.jpg){:loading="lazy"}
+![Family](https://media.bennorris.com/images/mentalworkhealth/uploads/2020/4bdc8bafe6.jpg){:loading="lazy"}
 
 In my wallpaper that I drew for myself, I included a stick figure-style representation of my family to help me remember the purpose of my goal. I am not trying to carry less emotionally for me. The reason this is important for me is that I need to be able to give more and more regularly to my family. Over the past couple years, since the great breakdown of 2018[^2], there have been numerous times that I have needed to check out from family involvement and recover enough to re-engage. I would like to continue to reduce the need and instances of those emergency breaks.
 
@@ -57,7 +57,7 @@ We went in to the grocery store and did our shopping, and as we went back out to
 
 > It’s nice to see that you’re human, and not a robot.
 
-I just sat frozen in my seat for a couple minutes. To be honest, there was a little part of me rebelling against being called “only human.” This is something that I have wrestled with in the past, and thought I had overcome. Obviously not. I just sat with the emotions swirling around inside me, and tried to recognize what I was feeling. Something that came to mind was a skill that I [wrote about](https://bennorris.org/2020/10/05/spiral-of-doom) around a month ago—self-compassion. There are three aspects to self-compassion, as defined by [Kristin Neff](https://en.wikipedia.org/wiki/Self-compassion):
+I just sat frozen in my seat for a couple minutes. To be honest, there was a little part of me rebelling against being called “only human.” This is something that I have wrestled with in the past, and thought I had overcome. Obviously not. I just sat with the emotions swirling around inside me, and tried to recognize what I was feeling. Something that came to mind was a skill that I [wrote about](https://bennorris.com/2020/10/05/spiral-of-doom) around a month ago—self-compassion. There are three aspects to self-compassion, as defined by [Kristin Neff](https://en.wikipedia.org/wiki/Self-compassion):
 
 - Self-kindness
 - Common humanity
@@ -74,9 +74,9 @@ This week included a lot of growth for me. Living with OCD poses real challenges
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: I had to look and see just how long we had been inside, and used the [Today feature](https://help.dayoneapp.com/en/articles/4303406-today-view) of the excellent journal app [Day One](https://dayoneapp.com) to find out. A bit of OCD showing through? Perhaps.
 
-[^2]: Learn more in [my story](https://bennorris.org/2019/11/09/my-story) if you are interested.
+[^2]: Learn more in [my story](https://bennorris.com/2019/11/09/my-story) if you are interested.

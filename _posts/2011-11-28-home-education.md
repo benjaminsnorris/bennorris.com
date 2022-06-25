@@ -1,8 +1,8 @@
 ---
 title: "Home Education Convention Sketchnotes"
 gallery_thumb:
-- https://media.bennorris.org/images/gospelsketcher/general/jun-11-uhea-sketchnotes-01.jpg
-- https://media.bennorris.org/images/gospelsketcher/general/jun-11-uhea-sketchnotes-02.jpg.jpg
+- https://media.bennorris.com/images/gospelsketcher/general/jun-11-uhea-sketchnotes-01.jpg
+- https://media.bennorris.com/images/gospelsketcher/general/jun-11-uhea-sketchnotes-02.jpg.jpg
 date: 2011-11-28 13:02:40-0700
 read_time: false
 category: Gospel Sketcher
@@ -16,6 +16,6 @@ To kick off our first year, on 4 Jun 2011, we attended the annual Utah Home Educ
 
 I captured the different sessions in sketchnotes and thought I would share them here:
 
-[![UHEA Convention Sketchnotes 1](https://media.bennorris.org/images/gospelsketcher/general/jun-11-uhea-sketchnotes-01.jpg "UHEA Convention Sketchnotes 1")](https://media.bennorris.org/images/gospelsketcher/general/jun-11-uhea-sketchnotes-01.jpg)
+[![UHEA Convention Sketchnotes 1](https://media.bennorris.com/images/gospelsketcher/general/jun-11-uhea-sketchnotes-01.jpg "UHEA Convention Sketchnotes 1")](https://media.bennorris.com/images/gospelsketcher/general/jun-11-uhea-sketchnotes-01.jpg)
 
-[![UHEA Convention Sketchnotes 2](https://media.bennorris.org/images/gospelsketcher/general/jun-11-uhea-sketchnotes-02.jpg.jpg "UHEA Convention Sketchnotes 2")](https://media.bennorris.org/images/gospelsketcher/general/jun-11-uhea-sketchnotes-02.jpg.jpg)
+[![UHEA Convention Sketchnotes 2](https://media.bennorris.com/images/gospelsketcher/general/jun-11-uhea-sketchnotes-02.jpg.jpg "UHEA Convention Sketchnotes 2")](https://media.bennorris.com/images/gospelsketcher/general/jun-11-uhea-sketchnotes-02.jpg.jpg)

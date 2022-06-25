@@ -9,7 +9,7 @@ category: Mental Work Health
 
 This update describes a **week of obsession** as well an illustration of **making progress**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -36,7 +36,7 @@ Luckily, this is a pretty mild obsession to get lost in. I didn’t spend a lot 
 
 ## Something good
 
-I am volunteering again this summer at the [Provo Pioneer Village](http://www.provopioneervillage.org/), something that I wrote about in my [second weekly update](https://bennorris.org/2020/09/08/rebecoming-a-novice). It is a hidden gem with preserved cabins, authentic period artifacts, and volunteer artisans. Guests can have a guided tour through the village and visit an old schoolhouse, a number of pioneer houses, and different kinds of workshops.
+I am volunteering again this summer at the [Provo Pioneer Village](http://www.provopioneervillage.org/), something that I wrote about in my [second weekly update](https://bennorris.com/2020/09/08/rebecoming-a-novice). It is a hidden gem with preserved cabins, authentic period artifacts, and volunteer artisans. Guests can have a guided tour through the village and visit an old schoolhouse, a number of pioneer houses, and different kinds of workshops.
 
 This is my third year as an apprentice blacksmith. One of the guests asked if I am going to be on [Forged in Fire](https://en.wikipedia.org/wiki/Forged_in_Fire_(TV_series)). I wanted to laugh, except he was just trying to be nice, or interested, or something. But no, I am nowhere near that skilled. I have not done any forge work outside of my one night a week volunteering.
 
@@ -44,7 +44,7 @@ Being a blacksmith has given me the opportunity to be a novice again. Even thoug
 
 One approach that I have taken this year is to repeat the same project over and over. I asked our master blacksmith for an appropriate learning project, and he assigned me to make leaf keychains. The process exercises a number of the fundamental skills required in any blacksmithing project, and the time required is pretty minimal. This means that I can create a number of them in an evening and focus on a particular skill, and improving that skill.
 
-![Leaf keychains](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/3a7099f80f.jpg)
+![Leaf keychains](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/3a7099f80f.jpg)
 
 Here are a few that I made in one evening, in the progression in which I made them. The flaws in each are obvious to me, particularly in the earlier ones, but they definitely get better. Being able to see tangible progress, even just in the course of a single evening, is tremendously satisfying.
 
@@ -62,4 +62,4 @@ We are coming up on a holiday weekend here in the U.S., which often brings lots 
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

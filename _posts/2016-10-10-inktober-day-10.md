@@ -1,6 +1,6 @@
 ---
 title:          "Inktober day 10"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/inktober-day-10.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/inktober-day-10.jpg
 date:           2016-10-10 16:37:00-0700
 category:       Sketchnotable
 tags:           inktober
@@ -11,4 +11,4 @@ short:          true
 
 Earn your wings!
 
-![Parachuting](https://media.bennorris.org/images/sketchnotable/inktober-2016/inktober-day-10.jpg){:loading="lazy"}
+![Parachuting](https://media.bennorris.com/images/sketchnotable/inktober-2016/inktober-day-10.jpg){:loading="lazy"}

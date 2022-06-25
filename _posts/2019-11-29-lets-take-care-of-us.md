@@ -10,7 +10,7 @@ The traditional holiday season can be full of joy, but also sorrow and heartache
 
 ***
 
-As I mentioned [last week](https://www.bennorris.org/2019/11/21/promoting-mental-wellness), we had the opportunity to spend some time with our IT department on mental health and wellness. A number of people asked for the slides, and I sent a PDF out right before Thanksgiving. I had the thought that this was a perfect chance to remind everyone about some of the struggles that the holidays can bring.
+As I mentioned [last week](https://www.bennorris.com/2019/11/21/promoting-mental-wellness), we had the opportunity to spend some time with our IT department on mental health and wellness. A number of people asked for the slides, and I sent a PDF out right before Thanksgiving. I had the thought that this was a perfect chance to remind everyone about some of the struggles that the holidays can bring.
 
 I discussed with my therapist this week some anxiety around the family time. She told me that this is a common time for everyone to have an increase in anxiety, especially those who struggle with their mental health. It is important to plan ahead and have some strategies for self-care.
 

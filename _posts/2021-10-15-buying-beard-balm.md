@@ -2,9 +2,9 @@
 title: "#56: Buying beard balm"
 date: 2021-10-15 13:18:07-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/emotion-filled-week.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/emotion-filled-week.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/emotion-filled-week.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/emotion-filled-week.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/emotion-filled-week.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/emotion-filled-week.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,13 +14,13 @@ tags:
 
 This emotion-filled week brought some￼ ￼￼**imposter syndrome**, **beard balm**, and **crying in a movie**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 ## Something hard
 
-Last Monday evening, I had a panic attack. As these things go, it was a mild one, for which I was grateful. It seemed to come out of the blue, which is never actually the case. As I thought through what led up to it, and then discussed with my therapist, it was clear. The previous weekend was [General Conference](https://www.churchofjesuschrist.org/comeuntochrist/article/general-conference-gods-word-for-today), as I [wrote about last week](https://bennorris.org/2021/10/08/letting-ocd-win). While it was a delightful time, it was also stressful. Trying to keep all seven kids getting along while being in close proximity, or at least quiet enough that the rest of us could hear what was going on, was a challenge.
+Last Monday evening, I had a panic attack. As these things go, it was a mild one, for which I was grateful. It seemed to come out of the blue, which is never actually the case. As I thought through what led up to it, and then discussed with my therapist, it was clear. The previous weekend was [General Conference](https://www.churchofjesuschrist.org/comeuntochrist/article/general-conference-gods-word-for-today), as I [wrote about last week](https://bennorris.com/2021/10/08/letting-ocd-win). While it was a delightful time, it was also stressful. Trying to keep all seven kids getting along while being in close proximity, or at least quiet enough that the rest of us could hear what was going on, was a challenge.
 
 But that was not really what led up to the panic attack. Earlier that day, I had a work meeting with my team. We were discussing tackling a problem that I felt inadequate to handle. I recognized during the meeting that I was feeling [imposter syndrome](https://en.wikipedia.org/wiki/Impostor_syndrome). I spoke up and told my team, and others voiced similar concerns. But of course, I didn’t quite believe them. Oh, I believed they had feelings of inadequacy—I didn’t think they were lying. I just didn’t believe they were inadequate. It seemed to me that everyone else knew what was going on, or how to tackle the problem, in ways that I could not live up to.
 
@@ -83,4 +83,4 @@ We all go through so many hard things. You’re probably in the middle of one ri
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

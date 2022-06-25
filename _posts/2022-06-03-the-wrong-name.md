@@ -2,9 +2,9 @@
 title: "#84: The wrong name"
 date: 2022-06-03 12:08:13-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/the-wrong-name.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/the-wrong-name.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/the-wrong-name.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/the-wrong-name.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/the-wrong-name.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/the-wrong-name.jpg
 layout: mwh
 category: Mental Work Health
 tags:
@@ -15,15 +15,15 @@ tags:
 
 This week, I share the **struggles I had at our annual homeschool conference**, the **joys of teaching a class**, and **processing it all with my therapist**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
-This past week, my wife, three oldest kids, and I attended the [Latter-Day Saint Home Educators](https://ldshe.org/) conference. I shared about our experience at the same conference a year ago in [update #37: Plan changes](https://bennorris.org/2021/06/04/plan-changes). There are essentially two conferences happening at the same time—the adults attend one, and the Youth Conference Team organizes classes, speakers, games, and activities for the youth to run in parallel. My oldest daughter was the co-chair of the youth team, so she was in charge of a lot of it, and my wife helped organize the vendors and make the conference financially feasible. This year, I was asked again to give a class to the youth, and had a great time. Each of the sections of my update this week come from my experience at the conference.
+This past week, my wife, three oldest kids, and I attended the [Latter-Day Saint Home Educators](https://ldshe.org/) conference. I shared about our experience at the same conference a year ago in [update #37: Plan changes](https://bennorris.com/2021/06/04/plan-changes). There are essentially two conferences happening at the same time—the adults attend one, and the Youth Conference Team organizes classes, speakers, games, and activities for the youth to run in parallel. My oldest daughter was the co-chair of the youth team, so she was in charge of a lot of it, and my wife helped organize the vendors and make the conference financially feasible. This year, I was asked again to give a class to the youth, and had a great time. Each of the sections of my update this week come from my experience at the conference.
 
-I also took some sketchnotes of some of the keynote talks, which I [shared](https://bennorris.org/2022/05/25/ldshe-opening-keynote-sketchnotes) [on my](https://bennorris.org/2022/05/26/ldshe-liz-simmons-sketchnotes) [website](https://bennorris.org/2022/05/27/ldshe-dan-ralphs-sketchnotes). Here’s one of them:
+I also took some sketchnotes of some of the keynote talks, which I [shared](https://bennorris.com/2022/05/25/ldshe-opening-keynote-sketchnotes) [on my](https://bennorris.com/2022/05/26/ldshe-liz-simmons-sketchnotes) [website](https://bennorris.com/2022/05/27/ldshe-dan-ralphs-sketchnotes). Here’s one of them:
 
-[![LDSHE Liz Simmons Sketchnote](https://media.bennorris.org/images/gospelsketcher/ldshe/2022/ldshe-22-liz-simmons-02.jpg)](https://bennorris.org/2022/05/26/ldshe-liz-simmons-sketchnotes){:loading="lazy"}
+[![LDSHE Liz Simmons Sketchnote](https://media.bennorris.com/images/gospelsketcher/ldshe/2022/ldshe-22-liz-simmons-02.jpg)](https://bennorris.com/2022/05/26/ldshe-liz-simmons-sketchnotes){:loading="lazy"}
 
 
 ## Something hard
@@ -38,24 +38,24 @@ I groused about it for at least ten minutes to my wife. Part of my concern was t
 
 As the conference went on, my symptoms became more pronounced. The sounds started becoming too much for me. Fortunately, I remembered that I had my [new ear plugs](https://us.loopearplugs.com/) with me, which helped a lot. At one point, I decided to head back to our hotel room and take a break for a couple hours and then return. I rested for a bit and got a new high score in Alto’s Odyssey.
 
-![Alto’s Odyssey Score](https://media.bennorris.org/images/mentalworkhealth/posts/altos-odyssey.jpg){:loading="lazy"}
+![Alto’s Odyssey Score](https://media.bennorris.com/images/mentalworkhealth/posts/altos-odyssey.jpg){:loading="lazy"}
 
-One situation surprised me with how difficult it was. As I mentioned in [update #80: Uncertainty Training](https://bennorris.org/2022/05/06/uncertainty-training), I was let go from Factor, the educational startup I started working for at the beginning of the year. As a company, we had signed up to be a sponsor for the conference a few months ago. I helped a little bit with the class that we had to explain to people what our company was and how we help teenagers, and we also had a booth for people to come by and ask questions.
+One situation surprised me with how difficult it was. As I mentioned in [update #80: Uncertainty Training](https://bennorris.com/2022/05/06/uncertainty-training), I was let go from Factor, the educational startup I started working for at the beginning of the year. As a company, we had signed up to be a sponsor for the conference a few months ago. I helped a little bit with the class that we had to explain to people what our company was and how we help teenagers, and we also had a booth for people to come by and ask questions.
 
 Unexpectedly, I found it really difficult to be part of promoting and describing Factor. As I reflected on it later, I realized there was a great deal of pain for me in explaining something that I was no longer part of. I still believe very much in the mission of Factor to help prepare teenagers for life after school, and realized in a much deeper way that I am grieving the loss of this part of my life.
 
 
 ## Something good
 
-Last year, I taught the youth about sketchnoting. I shared some of that experience in [update #37: Plan changes](https://bennorris.org/2021/06/04/plan-changes). This year, I was asked to give a class on making comics. I laughed when I got the request, because this is not something that I have any actual experience in. I decided I would call my class “Stick figure comics” and use some of the same principles from sketchnoting, and talk about some of the basics of comics. I drew heavily on [Scott McCloud](https://en.wikipedia.org/wiki/Scott_McCloud)’s excellent books [Understanding Comics](https://en.wikipedia.org/wiki/Understanding_Comics) and [Making Comics](https://en.wikipedia.org/wiki/Making_Comics) for that part.
+Last year, I taught the youth about sketchnoting. I shared some of that experience in [update #37: Plan changes](https://bennorris.com/2021/06/04/plan-changes). This year, I was asked to give a class on making comics. I laughed when I got the request, because this is not something that I have any actual experience in. I decided I would call my class “Stick figure comics” and use some of the same principles from sketchnoting, and talk about some of the basics of comics. I drew heavily on [Scott McCloud](https://en.wikipedia.org/wiki/Scott_McCloud)’s excellent books [Understanding Comics](https://en.wikipedia.org/wiki/Understanding_Comics) and [Making Comics](https://en.wikipedia.org/wiki/Making_Comics) for that part.
 
-After I started working on preparing the class, I tried pushing myself to draw some comics. An example is from [update #57: Impulse control](https://bennorris.org/2021/10/22/impulse-control):
+After I started working on preparing the class, I tried pushing myself to draw some comics. An example is from [update #57: Impulse control](https://bennorris.com/2021/10/22/impulse-control):
 
-[![Impulse Control](https://media.bennorris.org/images/mentalworkhealth/posts/impulse-control.jpg)](https://bennorris.org/2021/10/22/impulse-control){:loading="lazy"}
+[![Impulse Control](https://media.bennorris.com/images/mentalworkhealth/posts/impulse-control.jpg)](https://bennorris.com/2021/10/22/impulse-control){:loading="lazy"}
 
-A different kind of example was from writing about my morning activities in [update #72: Losing my routine](https://bennorris.org/2022/03/12/losing-my-routine):
+A different kind of example was from writing about my morning activities in [update #72: Losing my routine](https://bennorris.com/2022/03/12/losing-my-routine):
 
-[![Losing my routine](https://media.bennorris.org/images/mentalworkhealth/posts/losing-my-routine.jpg)](https://bennorris.org/2022/03/12/losing-my-routine){:loading="lazy"}
+[![Losing my routine](https://media.bennorris.com/images/mentalworkhealth/posts/losing-my-routine.jpg)](https://bennorris.com/2022/03/12/losing-my-routine){:loading="lazy"}
 
 The class went really well. One girl, Madison, came up at the beginning and told me that she loved my sketchnoting class last year, and showed me her sketchnotes from the conference so far. After my class was over, she told me, “You’re my favorite art teacher.”
 

@@ -12,20 +12,20 @@ The purpose of basic mockups is similar to a sketch on a whiteboard, or a piece 
 ## Enhanced mockups
 The purpose of enhanced mockups is to show that you have a solid idea that is well on its way to becoming reality. This is still not the final version, so as you are discussing it with people, their focus is not on the skin, but rather on the content and functionality. This is a great way to iterate with your graphic designer as you explore the layout and basic look and feel of your site. I have seen that people look at an enhanced mockup and fill in the final polish with their minds, so it allows them to avoid fixating on a small detail that you have done differently than they were expecting. At the same time, they are able to recognize that you are close to implementing something and they can get excited about the end product.
 
-[![Basic Home](https://media.bennorris.org/images/bennorris/uploads/2019/d9483f830e.png "Basic Home")](https://media.bennorris.org/images/bennorris/uploads/2019/d9483f830e.png)
+[![Basic Home](https://media.bennorris.com/images/bennorris/uploads/2019/d9483f830e.png "Basic Home")](https://media.bennorris.com/images/bennorris/uploads/2019/d9483f830e.png)
 *Basic Home*
 
-[![Enhanced Home](https://media.bennorris.org/images/bennorris/uploads/2019/deef0b0412.png "Enhanced Home")](https://media.bennorris.org/images/bennorris/uploads/2019/deef0b0412.png)
+[![Enhanced Home](https://media.bennorris.com/images/bennorris/uploads/2019/deef0b0412.png "Enhanced Home")](https://media.bennorris.com/images/bennorris/uploads/2019/deef0b0412.png)
 *Enhanced Home*
 
-[![Basic Menu](https://media.bennorris.org/images/bennorris/uploads/2019/8e8ef0fc85.png "Basic Menu")](https://media.bennorris.org/images/bennorris/uploads/2019/8e8ef0fc85.png)
+[![Basic Menu](https://media.bennorris.com/images/bennorris/uploads/2019/8e8ef0fc85.png "Basic Menu")](https://media.bennorris.com/images/bennorris/uploads/2019/8e8ef0fc85.png)
 *Basic Menu*
 
-[![Enhanced Menu](https://media.bennorris.org/images/bennorris/uploads/2019/83d60b562d.png "Enhanced Menu")](https://media.bennorris.org/images/bennorris/uploads/2019/83d60b562d.png)
+[![Enhanced Menu](https://media.bennorris.com/images/bennorris/uploads/2019/83d60b562d.png "Enhanced Menu")](https://media.bennorris.com/images/bennorris/uploads/2019/83d60b562d.png)
 *Enhanced Menu*
 
-[![Basic Tools](https://media.bennorris.org/images/bennorris/uploads/2019/b912c09dad.png "Basic Tools")](https://media.bennorris.org/images/bennorris/uploads/2019/b912c09dad.png)
+[![Basic Tools](https://media.bennorris.com/images/bennorris/uploads/2019/b912c09dad.png "Basic Tools")](https://media.bennorris.com/images/bennorris/uploads/2019/b912c09dad.png)
 *Basic Tools*
 
-[![Enhanced Tools](https://media.bennorris.org/images/bennorris/uploads/2019/989ecbfdad.png "Enhanced Tools")](https://media.bennorris.org/images/bennorris/uploads/2019/989ecbfdad.png)
+[![Enhanced Tools](https://media.bennorris.com/images/bennorris/uploads/2019/989ecbfdad.png "Enhanced Tools")](https://media.bennorris.com/images/bennorris/uploads/2019/989ecbfdad.png)
 *Enhanced Tools*

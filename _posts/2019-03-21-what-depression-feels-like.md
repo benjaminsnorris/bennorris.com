@@ -6,11 +6,11 @@ tags:
 category: Mental Work Health
 ---
 
-![Ahch-To Pit](https://media.bennorris.org/images/bennorris/uploads/2019/042a0e7bc6.jpg){:loading="lazy"}
+![Ahch-To Pit](https://media.bennorris.com/images/bennorris/uploads/2019/042a0e7bc6.jpg){:loading="lazy"}
 
 When depression is weighing me down, I feel like I am staring down the dark pit Rey faces on the island of [Ahch-To](https://www.starwars.com/databank/ahch-to).
 
-*Note: This is part of an ongoing series on what mental illness feels like for me. Read the introduction and associated disclaimers [here](https://www.bennorris.org/2019/03/18/what-mental-illness-feels-like).*
+*Note: This is part of an ongoing series on what mental illness feels like for me. Read the introduction and associated disclaimers [here](https://www.bennorris.com/2019/03/18/what-mental-illness-feels-like).*
 
 ***
 
@@ -22,7 +22,7 @@ With that disclaimer, I will state that I have felt the crushing effects of depr
 
 Most of the time that I recognize the pit in my mind, it is accompanied with feelings of hopelessness. When I am staring down into the darkness, it feels like it will never end. My mind revolves around the darkness, and starts telling me that there is no light at the end, and I will never escape these feelings. Those are dark days.
 
-![Water fountain](https://media.bennorris.org/images/bennorris/uploads/2019/819879c945.jpg){:loading="lazy"}
+![Water fountain](https://media.bennorris.com/images/bennorris/uploads/2019/819879c945.jpg){:loading="lazy"}
 
 In the movie, the scene climaxes with a huge fountain of water spurting up through the pit like a geyser and Rey collapsing on the rocks. This seems like it would be the perfect end to one of my depressive episodes. No matter what, I know that I am going to be exhausted, and left gasping for air, either physically or mentally. But to have the sweet cleansing rush of water course through the last bits of my mind feels like the best possible outcome.
 

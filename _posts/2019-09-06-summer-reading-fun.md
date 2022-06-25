@@ -7,7 +7,7 @@ tags:
 category: Mental Work Health
 ---
 
-![4 weeks, 13 books, 9000+ pages](https://media.bennorris.org/images/bennorris/uploads/2019/4ee82c481a.jpg){:loading="lazy"}
+![4 weeks, 13 books, 9000+ pages](https://media.bennorris.com/images/bennorris/uploads/2019/4ee82c481a.jpg){:loading="lazy"}
 
 A month of intense reading led to rediscovered relationships with a number of old friends.
 
@@ -19,7 +19,7 @@ One interesting phenomenon that I noticed as I got back in to these books is my 
 
 Now that I know how OCD feels in my life, it is easier to recognize his presence when he shows up. One of his defining characteristics is a total domination of my mind. That manifests in the cracks of my life. In every spare minute, my mind immediately jumped to my books, and in many of my spare minutes, my eyes jumped to my Kindle, or the app on my phone.
 
-When I finished the first book, there was a definite sense of familiarity, as if I was returning to a comfortable state in which I had lived much of my life. As the month drew on, I realized that I was not happy with the effects this state was having on the rest of my life. I [wrote recently](https://www.bennorris.org/2019/07/30/toilet-reading) about changing my toilet time to reading instead of playing a game, but now that I was compulsively reading my books, I was just as absent from the family.
+When I finished the first book, there was a definite sense of familiarity, as if I was returning to a comfortable state in which I had lived much of my life. As the month drew on, I realized that I was not happy with the effects this state was having on the rest of my life. I [wrote recently](https://www.bennorris.com/2019/07/30/toilet-reading) about changing my toilet time to reading instead of playing a game, but now that I was compulsively reading my books, I was just as absent from the family.
 
 As I wrapped up the series, it provided a natural moment to pause and evaluate. There is a delicate balance to be struck here. On the one hand, I love reading, and enjoy losing myself in a story, completely inhabiting another world, and making new friends. On the other hand, I do not want to feed the OCD side of my brain, and want to make sure that I remain in control of deciding how to spend my time. The month of August was not a complete loss—I was able to engage in a number of important events and activities. The most monumental of those was the birth of a new baby girl in our family, which was a magical experience.
 

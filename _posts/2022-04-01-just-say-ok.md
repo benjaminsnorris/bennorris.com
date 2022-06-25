@@ -2,9 +2,9 @@
 title: "#75: Just say ok"
 date: 2022-04-01 06:51:37-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/just-say-ok.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/just-say-ok.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/just-say-ok.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/just-say-ok.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/just-say-ok.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/just-say-ok.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -15,11 +15,11 @@ tags:
 
 This week’s update shares the story of learning a **magical word** that **unlocks my brain** and allows me to **do more of what I want**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
-I [mentioned last week](https://bennorris.org/2022/03/26/playing-first-base) that my therapist began a session on a particularly difficult day by having me **listen to music**. This is something that we have done a number of times, and it has always been extremely helpful. After a recent session, she had assigned me as homework something funny to watch. When I texted her to report on how well it went, she was glad, but unsurprised.
+I [mentioned last week](https://bennorris.com/2022/03/26/playing-first-base) that my therapist began a session on a particularly difficult day by having me **listen to music**. This is something that we have done a number of times, and it has always been extremely helpful. After a recent session, she had assigned me as homework something funny to watch. When I texted her to report on how well it went, she was glad, but unsurprised.
 
 > I think I might move into solely cinematic/musical/comedic therapy as a new treatment type. Nothing works better. (Plus add Jesus). Ha.
 
@@ -28,7 +28,7 @@ This week, I wanted to share the story of that funny video and how it has **tran
 
 ## Story
 
-To set the context for this story, I will go back to the end of January. Life was stressful for me as I was transitioning to my [new job](https://bennorris.org/2021/12/30/into-the-unknown). I had an experience that threw me completely off, and my therapist worked with me on the skill to recognize and share, “This is what I can give…” I wrote about that in [update #67: What I can give](https://bennorris.org/2022/01/20/what-i-can-give).
+To set the context for this story, I will go back to the end of January. Life was stressful for me as I was transitioning to my [new job](https://bennorris.com/2021/12/30/into-the-unknown). I had an experience that threw me completely off, and my therapist worked with me on the skill to recognize and share, “This is what I can give…” I wrote about that in [update #67: What I can give](https://bennorris.com/2022/01/20/what-i-can-give).
 
 Since that time, I have been working to try and be more **emotionally honest**, both with myself and with my wife.
 
@@ -94,10 +94,10 @@ The goal is not to stop caring about everything. But if I can push myself to **a
 
 Over the coming week, the challenge for me, and for you if you’ll join me, is to **just say “Ok!” more**. If there is a strong and important reason to say no, we won’t do it. But for most everything, let’s go with it. We’ve got this.
 
-![Just say ok](https://media.bennorris.org/images/mentalworkhealth/posts/just-say-ok.jpg)
+![Just say ok](https://media.bennorris.com/images/mentalworkhealth/posts/just-say-ok.jpg)
 
 ***
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

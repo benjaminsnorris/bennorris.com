@@ -38,9 +38,9 @@ The first weekend in April was [General Conference for our church](https://en.wi
 
 One tradition I have with these conferences is to try to sketchnote the talks we hear. For the past few years, I have given up trying to capture all of the points each speaker makes, and instead to do a synopsis of each two hour session, and capture one thing from each speaker. This usually allows me to be more responsive to the needs of my children that invariably come up, while still helping me pay enough attention to get something out of it.
 
-![General Conference sketchnotes](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/4fa792221b.jpg)
+![General Conference sketchnotes](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/4fa792221b.jpg)
 
-Each time that I am able to take sketchnotes, I am reminded of how much I enjoy it. I share the religious sketchnotes I capture at [Gospel Sketcher](https://bennorris.org/gospelsketcher/), and the business-y sketchnotes at [Sketchnotable](https://bennorris.org/sketchnotable/). It feels good to put something out into the world that brought me joy in the creative process without any expectation of something in return. There have been times when I have considered trying to monetize them somehow, but I am much happier just sharing them for free and avoiding the pressure that would come with such an endeavor.
+Each time that I am able to take sketchnotes, I am reminded of how much I enjoy it. I share the religious sketchnotes I capture at [Gospel Sketcher](https://bennorris.com/gospelsketcher/), and the business-y sketchnotes at [Sketchnotable](https://bennorris.com/sketchnotable/). It feels good to put something out into the world that brought me joy in the creative process without any expectation of something in return. There have been times when I have considered trying to monetize them somehow, but I am much happier just sharing them for free and avoiding the pressure that would come with such an endeavor.
 
 
 ## Something else
@@ -56,4 +56,4 @@ I am sure that there are things in your life that bring you joy. It can be all t
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

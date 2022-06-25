@@ -6,7 +6,7 @@ tags: reference
 date: 2017-11-17 12:36:04-0700
 ---
 
-I have [written](https://bennorris.org/2017/01/06/using-workflow-to-publish-to-github-pages/) [before](https://bennorris.org/2017/01/12/public-drafts-with-a-github-pages-blog/) about my attempts to publish to my GitHub Pages blog from iOS. I have recently started using [Working Copy](https://workingcopyapp.com/) to make this even easier. Basically, I am trying to remove all of my excuses in the hopes that I will be more diligent in posting to my blog.
+I have [written](https://bennorris.com/2017/01/06/using-workflow-to-publish-to-github-pages/) [before](https://bennorris.com/2017/01/12/public-drafts-with-a-github-pages-blog/) about my attempts to publish to my GitHub Pages blog from iOS. I have recently started using [Working Copy](https://workingcopyapp.com/) to make this even easier. Basically, I am trying to remove all of my excuses in the hopes that I will be more diligent in posting to my blog.
 
 There are three pieces to my new process that I want to explore:
 

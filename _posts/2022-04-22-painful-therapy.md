@@ -2,9 +2,9 @@
 title: "#78: Painful therapy"
 date: 2022-04-22 07:47:17-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/painful-therapy.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/painful-therapy.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/painful-therapy.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/painful-therapy.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/painful-therapy.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/painful-therapy.jpg
 layout: mwh
 category: Mental Work Health
 tags:
@@ -15,7 +15,7 @@ tags:
 
 This week, I share about a **difficult therapy session**, the **joys of doing what I love for work**, and **striving to find balance.**
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -28,7 +28,7 @@ My therapy session last week was effective, and also painful. It was one of thos
 
 That really is the reason that I go to therapy though. I have done enough treatment that I am not learning new skills. But that doesn’t mean that I effectively apply the skills that I know.
 
-Much of the benefit of therapy is gaining insight into the areas on my life in which I want to change, but am unable to on my own. Over the past three and a half years, I have **built a relationship with my therapist** that allows her to **know me** well enough to quickly spot where I need help, and also to be able to deliver the help in an efficient manner. As I [wrote about a few weeks ago](https://bennorris.org/2022/03/05/spiraling-about-spiraling), she often reminds me, “The meaner I can be, the faster you are going to heal.”
+Much of the benefit of therapy is gaining insight into the areas on my life in which I want to change, but am unable to on my own. Over the past three and a half years, I have **built a relationship with my therapist** that allows her to **know me** well enough to quickly spot where I need help, and also to be able to deliver the help in an efficient manner. As I [wrote about a few weeks ago](https://bennorris.com/2022/03/05/spiraling-about-spiraling), she often reminds me, “The meaner I can be, the faster you are going to heal.”
 
 Knowing that it is helpful **doesn’t stop the hurting**. There is still pain. But the key is that it is **not suffering**. Suffering occurs when the pain doesn’t have a clear purpose. As Viktor Frankl taught in [Man’s Search for Meaning](https://en.wikipedia.org/wiki/Man%27s_Search_for_Meaning):
 
@@ -43,7 +43,7 @@ It’s still not easy, but I know that I am making progress. It’s discouraging
 
 ## Something good
 
-I mentioned a [few weeks ago](https://bennorris.org/2022/03/26/playing-first-base) that I am transitioning my role at work to focus more on engineering. This past week was one of the first in which I was able to dedicate myself to that.
+I mentioned a [few weeks ago](https://bennorris.com/2022/03/26/playing-first-base) that I am transitioning my role at work to focus more on engineering. This past week was one of the first in which I was able to dedicate myself to that.
 
 And I **loved** it!
 
@@ -64,7 +64,7 @@ Balance is so hard.
 
 As I just wrote about, I enjoyed myself at work more this past week than I have in a while. I also worked way more than I have been. Instead of starting my day with a nice routine, I’ve been jumping in immediately to solve or create something.
 
-**It feels good to be flexible** and let go of my “right” view of how my days must go. I wrote about how important that is for me a few weeks ago in update [#72: Losing my routine](https://bennorris.org/2022/03/12/losing-my-routine).
+**It feels good to be flexible** and let go of my “right” view of how my days must go. I wrote about how important that is for me a few weeks ago in update [#72: Losing my routine](https://bennorris.com/2022/03/12/losing-my-routine).
 
 But I also missed some of the things in my routine that I enjoy. When I don’t take any time to think and process my work, and just do the work, I can easily **lose sight of the big picture**. I can get lost down rabbit holes quickly.
 

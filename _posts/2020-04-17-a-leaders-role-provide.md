@@ -6,15 +6,15 @@ tags:
 category: General
 ---
 
-![Provide](https://media.bennorris.org/images/bennorris/uploads/2020/4b4fadf9a0.jpg)
+![Provide](https://media.bennorris.com/images/bennorris/uploads/2020/4b4fadf9a0.jpg)
 
 I believe that the most important roles a leader must serve are to **protect** and **provide**. I want to explore this further by considering how a leader can provide **support**, **clarity**, and **results**.
 
-*Note: This is part of a series sharing my thoughts on leadership. Read the introduction [here](https://www.bennorris.org/2020/04/13/thoughts-on-leadership).*
+*Note: This is part of a series sharing my thoughts on leadership. Read the introduction [here](https://www.bennorris.com/2020/04/13/thoughts-on-leadership).*
 
 ***
 
-In my last installment of my series on leadership, I explored the [role of a leader to **protect**](https://www.bennorris.org/2020/04/15/a-leaders-role-protect). In my opinion, this comprises half of what a leader must do in order to be successful, with the other half being to **provide**. This may be an oversimplification, but it has been helpful for me to think about leadership in simpler terms so that I can better understand how to work to improve.
+In my last installment of my series on leadership, I explored the [role of a leader to **protect**](https://www.bennorris.com/2020/04/15/a-leaders-role-protect). In my opinion, this comprises half of what a leader must do in order to be successful, with the other half being to **provide**. This may be an oversimplification, but it has been helpful for me to think about leadership in simpler terms so that I can better understand how to work to improve.
 
 Again, these thoughts are set to the backdrop of my favorite definition of leadership by [Niel Nickolaisen](https://www.linkedin.com/in/nielnickolaisen), our CIO at O.C. Tanner:
 
@@ -30,7 +30,7 @@ In business, and in life, the role of a leader is similar, although perhaps less
 - Clarity
 - Results
 
-When I originally thought of these principles, I paired them together with those from the [role to **protect**](https://www.bennorris.org/2020/04/15/a-leaders-role-protect). So, a leader will protect individuals and provide them support. A leader will protect the team and provide them clarity. And a leader will protect the company and provide it results. After thinking about these more, I have realized that all of the concepts are more intertwined.
+When I originally thought of these principles, I paired them together with those from the [role to **protect**](https://www.bennorris.com/2020/04/15/a-leaders-role-protect). So, a leader will protect individuals and provide them support. A leader will protect the team and provide them clarity. And a leader will protect the company and provide it results. After thinking about these more, I have realized that all of the concepts are more intertwined.
 
 ### Support
 
@@ -69,4 +69,4 @@ As we as leaders come to embrace our role in honing and tweaking the process, we
 
 **Protecting** and **providing** work seamlessly together to enable us as leaders to perform all of our necessary functions better. As we provide results, we are better able to protect our team, our people, and our company. We can serve as a beacon to follow as well as a shield to defend our people from distraction or outside pressure. Leadership is more important than ever, and I hope that it is helpful for you as it has been for me to distill the role of a leader down to simple terms.
 
-_In the next article in my [series on leadership](https://www.bennorris.org/2020/04/13/thoughts-on-leadership), I will be exploring the [three stages of leadership](https://www.bennorris.org/2020/04/21/stages-of-leadership)._
+_In the next article in my [series on leadership](https://www.bennorris.com/2020/04/13/thoughts-on-leadership), I will be exploring the [three stages of leadership](https://www.bennorris.com/2020/04/21/stages-of-leadership)._

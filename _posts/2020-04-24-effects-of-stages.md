@@ -6,19 +6,19 @@ tags:
 category: General
 ---
 
-![Team](https://media.bennorris.org/images/bennorris/uploads/2020/eff11e3cd3.jpg)
+![Team](https://media.bennorris.com/images/bennorris/uploads/2020/eff11e3cd3.jpg)
 
 Leadership permeates our lives. Good leadership has the ability to uplift, just as poor leadership corrodes. We will consider the effects in terms of **team makeup**, **team perspective**, and **team health**.
 
-*Note: This is part of a series sharing my thoughts on leadership. Read the introduction [here](https://www.bennorris.org/2020/04/13/thoughts-on-leadership).*
+*Note: This is part of a series sharing my thoughts on leadership. Read the introduction [here](https://www.bennorris.com/2020/04/13/thoughts-on-leadership).*
 
 ***
 
-In this final article of my series on leadership, I want to tie everything together. So far, I have written about the [importance of trust](https://www.bennorris.org/2020/04/14/leading-through-trust), a leader’s role to [protect](https://www.bennorris.org/2020/04/15/a-leaders-role-protect) and [provide](https://www.bennorris.org/2020/04/17/a-leaders-role-provide) which both require high trust, and the [three stages of leadership](https://www.bennorris.org/2020/04/21/stages-of-leadership), the highest of which, servant leader, is the only that actually fulfills the roles completely. I want to conclude with the consequences of all of this.
+In this final article of my series on leadership, I want to tie everything together. So far, I have written about the [importance of trust](https://www.bennorris.com/2020/04/14/leading-through-trust), a leader’s role to [protect](https://www.bennorris.com/2020/04/15/a-leaders-role-protect) and [provide](https://www.bennorris.com/2020/04/17/a-leaders-role-provide) which both require high trust, and the [three stages of leadership](https://www.bennorris.com/2020/04/21/stages-of-leadership), the highest of which, servant leader, is the only that actually fulfills the roles completely. I want to conclude with the consequences of all of this.
 
 As I constantly try and help my seven young children understand, we are free to make our own choices, but we do not get to choose the consequences of those choices. Therefore, it is vitally important that we understand the natural results of different courses of action so that we have the ability to influence them.
 
-There are a number of different effects of leadership that we could consider in evaluating the impacts of the stages of leadership. As a quick review of [my last article](https://www.bennorris.org/2020/04/21/stages-of-leadership), those stages are as follows:
+There are a number of different effects of leadership that we could consider in evaluating the impacts of the stages of leadership. As a quick review of [my last article](https://www.bennorris.com/2020/04/21/stages-of-leadership), those stages are as follows:
 
 1. **Cruel tyrant**. Punishes bad behavior.
 2. **Benevolent dictator**. Rewards good behavior.
@@ -87,8 +87,8 @@ As leaders, we are often seeking ways to unblock our teams, or to enable greater
 
 ## Conclusion
 
-When I wrote my series on [what mental illness feels like](https://www.bennorris.org/2019/03/18/what-mental-illness-feels-like) last year, I [commented](https://www.bennorris.org/2019/03/27/finishing-my-series) that it was my best writing so far. I meant that in the context that it was the most impactful and meaningful writing I had done, not necessarily that it exhibited any special skill of mine as a writer.
+When I wrote my series on [what mental illness feels like](https://www.bennorris.com/2019/03/18/what-mental-illness-feels-like) last year, I [commented](https://www.bennorris.com/2019/03/27/finishing-my-series) that it was my best writing so far. I meant that in the context that it was the most impactful and meaningful writing I had done, not necessarily that it exhibited any special skill of mine as a writer.
 
-I feel similarly about this [series on leadership](https://www.bennorris.org/2020/04/13/thoughts-on-leadership). These concepts are some of the most important to me. They have been floating around in my mind for a long time, and it was extremely helpful to be asked to present on them and to be forced to take some time to crystallize them. I feel so strongly about the importance of good leadership, and I have ideas and thoughts about what that means that are ultra-specific to a degree not surprising to anyone who knows me.
+I feel similarly about this [series on leadership](https://www.bennorris.com/2020/04/13/thoughts-on-leadership). These concepts are some of the most important to me. They have been floating around in my mind for a long time, and it was extremely helpful to be asked to present on them and to be forced to take some time to crystallize them. I feel so strongly about the importance of good leadership, and I have ideas and thoughts about what that means that are ultra-specific to a degree not surprising to anyone who knows me.
 
 My sincere hope is that something in this series has been helpful for you. But my primary audience for this is future me. I know that I will need a reminder of these principles that burn so brightly in me right now. Time and life have a way of dulling us, and if we are not intentional, we can lose some of the things that matter most to us now through neglect. Here’s to better leaders everywhere!

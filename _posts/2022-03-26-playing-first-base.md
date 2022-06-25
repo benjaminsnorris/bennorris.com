@@ -2,9 +2,9 @@
 title: "#74: Playing first base"
 date: 2022-03-26 07:30:11-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/playing-first-base.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/playing-first-base.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/playing-first-base.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/playing-first-base.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/playing-first-base.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/playing-first-base.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -16,7 +16,7 @@ layout: mwh
 
 In this up-and-down week, I share about **needing an extra therapy session**, being **flexible at work**, and the **power of free writing**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -27,7 +27,7 @@ Last week’s therapy session was difficult. But I didn’t know that until a fe
 
 The warning signs that it was too much to handle started Sunday. I did a mindful sketch exercise and realized that I was carrying some strong emotions.
 
-![Mindful Sketch](https://media.bennorris.org/images/mindfulsketch/posts/2022-03-20-0840-mindfulsketch.jpg){:loading="lazy"}
+![Mindful Sketch](https://media.bennorris.com/images/mindfulsketch/posts/2022-03-20-0840-mindfulsketch.jpg){:loading="lazy"}
 
 I was taken aback when doing the exercise because I had not yet noticed the emotions in my body.
 
@@ -41,7 +41,7 @@ Monday morning was more of the same. I got up and went to my office, dressed and
 
 In the afternoon, I did another mindful sketch exercise and realized that I was feeling a lot of fear.
 
-![Mindful Sketch](https://media.bennorris.org/images/mindfulsketch/posts/2022-03-21-1442-mindfulsketch.jpg){:loading="lazy"}
+![Mindful Sketch](https://media.bennorris.com/images/mindfulsketch/posts/2022-03-21-1442-mindfulsketch.jpg){:loading="lazy"}
 
 Tuesday was rough. I was again stuck in my chair at my office, shaking and spiking in anxiety. Sometimes I will have an acute panic attack where my body is completely overwhelmed for a few minutes, and then I am left exhausted. More common for me is this type that lingers for a few days.
 
@@ -56,7 +56,7 @@ It’s easy to forget when my body feels out of control that acknowledging my fe
 
 ## Something good
 
-My [new job](https://bennorris.org/2021/12/30/into-the-unknown) has been fantastic. It has also been a source of significant stress. Navigating the change and uncertainty of an early stage startup is challenging. But overall, I have loved it.
+My [new job](https://bennorris.com/2021/12/30/into-the-unknown) has been fantastic. It has also been a source of significant stress. Navigating the change and uncertainty of an early stage startup is challenging. But overall, I have loved it.
 
 There have been a few times when I have checked in with my friend, our founder, to see if I was working on the right thing. He had been building our website and tech needed to run our events, which I owned. I told him I felt like I was letting him down as he was doing what he had hired me to do. He assured me that he was enjoying it and felt good about where we were at.
 
@@ -66,7 +66,7 @@ The next day, I chatted with my friend and boss and told him that I wanted to ex
 
 As we talked, a childhood memory come to mind. I played baseball for a single season. I did well enough on first base to make the all-star team. When I showed up for the first practice, I said that I wanted to try being catcher. It sounded fun. They talked with me, and helped me see that I made the all-star team as a first baseman. That’s what I was good at, and that’s where I should play.
 
-![Baseball player](https://media.bennorris.org/images/mentalworkhealth/uploads/2022/baseball-player.jpeg){:loading="lazy"}
+![Baseball player](https://media.bennorris.com/images/mentalworkhealth/uploads/2022/baseball-player.jpeg){:loading="lazy"}
 
 In the same way, I’ve enjoyed jumping in on something new and learning how to run events. But what I’m experienced at is engineering. It feels good to go back to that.
 
@@ -79,11 +79,11 @@ Another reminder I had this week was of the value of [free writing](https://en.w
 
 Free writing is one of the best forms of journaling for me when I am feeling strong emotions, but am not in touch with what they are. As I force myself to just keep writing, without thinking about what I will write, I often make discoveries.
 
-This is something I have [shared about in the past](https://bennorris.org/2021/03/17/waves-of-change), and I’m sure I will write about again. Somehow I keep forgetting what an [important process](https://bennorris.org/2019/08/23/experiences-over-artifacts) this is for me, and so I regularly have the opportunity to relearn that lesson.
+This is something I have [shared about in the past](https://bennorris.com/2021/03/17/waves-of-change), and I’m sure I will write about again. Somehow I keep forgetting what an [important process](https://bennorris.com/2019/08/23/experiences-over-artifacts) this is for me, and so I regularly have the opportunity to relearn that lesson.
 
 
 ## Wrap up
 
 What a roller coaster of a week for me. From despondent and suicidal on Tuesday, to dancing around the house singing Friday. This was the perfect illustration of a key principle about emotions that my therapist had on her whiteboard for a long time:
 
-![Allow emotions to do what emotions do…pass](https://media.bennorris.org/images/mentalworkhealth/uploads/2022/what-emotions-do.jpg)
+![Allow emotions to do what emotions do…pass](https://media.bennorris.com/images/mentalworkhealth/uploads/2022/what-emotions-do.jpg)

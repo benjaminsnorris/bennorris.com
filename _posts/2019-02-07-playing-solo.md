@@ -11,9 +11,9 @@ My experience playing racquetball by myself, and the surprising effect that I fo
 
 *Links*
 
-[Right vs left](https://www.bennorris.org/2019/02/04/right-vs-left)
+[Right vs left](https://www.bennorris.com/2019/02/04/right-vs-left)
 
-[Rematch](https://www.bennorris.org/2019/02/04/rematch)
+[Rematch](https://www.bennorris.com/2019/02/04/rematch)
 
-<audio controls="controls" src="https://media.bennorris.org/images/bennorris/uploads/2019/c47487fa5e.mp3" />
+<audio controls="controls" src="https://media.bennorris.com/images/bennorris/uploads/2019/c47487fa5e.mp3" />
 

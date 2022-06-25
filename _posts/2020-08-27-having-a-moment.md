@@ -27,6 +27,6 @@ We couldn’t keep going for laughing, so we separated, and I started for him, a
 
 8yo: “Yikes! No, I don’t want that.”
 
-After we talked for a little bit (about [the coupons](https://www.bennorris.org/2020/08/27/thought-not)), he went to leave, and I said, “Now I want to have to have a moment with you.”
+After we talked for a little bit (about [the coupons](https://www.bennorris.com/2020/08/27/thought-not)), he went to leave, and I said, “Now I want to have to have a moment with you.”
 
 8yo: “Ok, but no kissing.”

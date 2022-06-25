@@ -9,7 +9,7 @@ category: Mental Work Health
 
 This week, I share about a conversation that took an unexpected turn, and the reminders of my mental health journey up until now.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -39,7 +39,7 @@ There are still many times that I relapse and find myself succumbing to the rule
 
 The conversation took such a different turn that I was expecting before we started. The interesting thing to me was that by the end, I no longer felt that I needed the advice I was planning to seek. In many ways, I had already given myself the answers that I needed.
 
-There were a couple major takeaways for me. One of the first was my own flexibility. As I discussed [last week](https://bennorris.org/2021/06/04/plan-changes), plans changes are often extremely difficult for me. To engage in a conversation that was the opposite of what I was expecting is a situation that would have been distressing to the point of being almost impossible just a couple years ago.
+There were a couple major takeaways for me. One of the first was my own flexibility. As I discussed [last week](https://bennorris.com/2021/06/04/plan-changes), plans changes are often extremely difficult for me. To engage in a conversation that was the opposite of what I was expecting is a situation that would have been distressing to the point of being almost impossible just a couple years ago.
 
 The second takeaway builds on the first, and that was a perspective of how far I have come. Two years ago, I had just graduated from the intensive outpatient program. A year before that, I was oblivious to the fact that my mental health was about to explode, and I would become nearly crippled for a time. For me to be able to look back on my situation with some detachment and identify the pieces of my recovery that were crucial is a major win.
 
@@ -56,4 +56,4 @@ As always, a healthy dose of compassion goes a long way. We need to extend that 
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

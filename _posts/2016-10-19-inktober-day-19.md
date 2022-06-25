@@ -1,6 +1,6 @@
 ---
 title:          "Inktober day 19"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/inktober-day-19.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/inktober-day-19.jpg
 date:           2016-10-19 22:30:00-0700
 category:       Sketchnotable
 tags:           inktober
@@ -11,4 +11,4 @@ short:          true
 
 Even the magic of your first flight doesn’t stop you missing home.
 
-![First flight](https://media.bennorris.org/images/sketchnotable/inktober-2016/inktober-day-19.jpg){:loading="lazy"}
+![First flight](https://media.bennorris.com/images/sketchnotable/inktober-2016/inktober-day-19.jpg){:loading="lazy"}

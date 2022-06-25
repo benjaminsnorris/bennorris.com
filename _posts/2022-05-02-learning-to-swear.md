@@ -3,9 +3,9 @@ title: "Learning to swear"
 date: 2022-05-02 09:47:18-0600
 category: Mental Work Health
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/learning-to-swear.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/learning-to-swear.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/learning-to-swear.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/learning-to-swear.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/learning-to-swear.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/learning-to-swear.jpg
 tags:
 - mental health
 - sketchnotes
@@ -77,13 +77,13 @@ I told them I had learned **it was fucked up** what my brain was doing to me.
 
 Each person that I worked up the courage to say that to was **a small victory**. I still felt each time like my stomach dropped out from under me. But there was also a little thrill. I had actually said “fuck.” Out loud. And **I didn’t burn** on the spot.
 
-As I learned more about OCD, I found it helpful to externalize the thoughts a bit. I started calling my OCD “Fernando”, which I explained more in a post about [how intrusive thoughts feel](https://bennorris.org/2019/03/26/what-intrusive-thoughts-feel-like).
+As I learned more about OCD, I found it helpful to externalize the thoughts a bit. I started calling my OCD “Fernando”, which I explained more in a post about [how intrusive thoughts feel](https://bennorris.com/2019/03/26/what-intrusive-thoughts-feel-like).
 
 What I didn’t tell everyone was his full name—“Fucking Fernando”. That was reserved for people I trusted more.
 
 When I started my intensive outpatient program at [The OCD and Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/), I found other people who also had [scrupulosity](https://en.wikipedia.org/wiki/Scrupulosity). One of the exposures that we had to do to challenge our mental rules was to play the card game [Bullshit](https://en.wikipedia.org/wiki/Cheat_(game)), and we had to yell out “Bullshit!” as loud as we could to challenge someone. **Seeing other people struggle with swearing in the same way I did was validating.** This was something that OCD was blowing up out of proportion.
 
-As I progressed in my treatment and neared graduation, one of my last exposures was to perform some standup comedy. I had written about my acceptance of the fact that [I am not that funny](https://bennorris.org/2019/04/01/not-a-comedian), and **I had to risk failure**. To enhance the exposure, I volunteered to do my routine for the whole department at work. I included a joke with profanity as an additional exposure:
+As I progressed in my treatment and neared graduation, one of my last exposures was to perform some standup comedy. I had written about my acceptance of the fact that [I am not that funny](https://bennorris.com/2019/04/01/not-a-comedian), and **I had to risk failure**. To enhance the exposure, I volunteered to do my routine for the whole department at work. I included a joke with profanity as an additional exposure:
 
 > The registration on our 12-passenger van had expired, and my wife was nervous to drive it. I told her that if she got pulled over, she just needed to tell the police, “Fuck off! I’ve got six kids in here.”
 > 
@@ -100,7 +100,7 @@ You can watch the full nineteen minutes here:
 
 These days, I’m much more comfortable with myself. If I hear, or even say, a swear word, it no longer shocks me. **This has allowed me to enjoy things that I couldn’t have before.**
 
-[Ted Lasso](https://en.wikipedia.org/wiki/Ted_Lasso_(TV_series)) is a good example of that. A few years ago, I never could have handled the language. But now that I can sit with it, **‌[I was able to enjoy](https://bennorris.org/2021/02/24/talking-with-strangers#something-else) a truly uplifting show.‌**‌
+[Ted Lasso](https://en.wikipedia.org/wiki/Ted_Lasso_(TV_series)) is a good example of that. A few years ago, I never could have handled the language. But now that I can sit with it, **‌[I was able to enjoy](https://bennorris.com/2021/02/24/talking-with-strangers#something-else) a truly uplifting show.‌**‌
 
 Board games, and even video games, now draw out quite a bit of profanity from me. That was how my siblings learned that I swear now. I have always been competitive, and while I have learned to tone it down, I still feel strongly when playing.
 

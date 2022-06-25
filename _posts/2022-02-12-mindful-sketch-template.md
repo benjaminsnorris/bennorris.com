@@ -2,9 +2,9 @@
 title: "#70: Mindful Sketch Template"
 date: 2022-02-12 16:19:40-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/mindful-sketch-template.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/mindful-sketch-template.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/mindful-sketch-template.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/mindful-sketch-template.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/mindful-sketch-template.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/mindful-sketch-template.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -15,7 +15,7 @@ tags:
 
 This week I talk about **navigating the emotions of a big plan change**, announce the **release of an exciting project**, and share my discovery of the **power of virtual whiteboarding**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -26,20 +26,20 @@ One of the most difficult parts of my week was a major surprise. As I have menti
 
 With this surprise, I felt strong emotions in addition to the distress that is my constant change companion. I’m not going to share details of the situation, but it was a real challenge for me.
 
-![Processed emotions](https://media.bennorris.org/images/mentalworkhealth/posts/processed-emotions.jpg){:loading="lazy"}
+![Processed emotions](https://media.bennorris.com/images/mentalworkhealth/posts/processed-emotions.jpg){:loading="lazy"}
 
 One of the best things that I did was to take some time to identify and process my emotions. The images above show some of my emotional state over the past few days. Having some skills to sit with my feelings allowed me to move forward in positive and productive ways.
 
 
 ## Something good
 
-The images that I shared above of my emotional processing are from a new tool that I have finalized this week. I am thrilled about this! This is what I was teasing a [couple weeks ago](https://bennorris.org/2022/01/29/i-have-value) when I mentioned being excited to share what I had been iterating on.
+The images that I shared above of my emotional processing are from a new tool that I have finalized this week. I am thrilled about this! This is what I was teasing a [couple weeks ago](https://bennorris.com/2022/01/29/i-have-value) when I mentioned being excited to share what I had been iterating on.
 
-![Mindful Sketch Template](https://media.bennorris.org/images/bennorris/mindful-sketch-template.jpg){:loading="lazy"}
+![Mindful Sketch Template](https://media.bennorris.com/images/bennorris/mindful-sketch-template.jpg){:loading="lazy"}
 
-I call it the [Mindful Sketch Template](https://bennorris.org/mindful-sketch-template/).
+I call it the [Mindful Sketch Template](https://bennorris.com/mindful-sketch-template/).
 
-This came out of ideas I shared a few months ago in the [Meditative Sketchnoting workshop with Mike Rohde](https://bennorris.org/2021/11/19/meditative-sketchnotes-workshop). I had talked about how to use sketchnotes as a mindful practice to not just be in the present moment with content from a speaker, but rather with your own mental and emotional state.
+This came out of ideas I shared a few months ago in the [Meditative Sketchnoting workshop with Mike Rohde](https://bennorris.com/2021/11/19/meditative-sketchnotes-workshop). I had talked about how to use sketchnotes as a mindful practice to not just be in the present moment with content from a speaker, but rather with your own mental and emotional state.
 
 The past few weeks, I have been iterating on the template and trying different layouts and different prompts. The current version has been extremely useful for me in a couple different ways.
 
@@ -72,7 +72,7 @@ This was an exhausting and exhilarating process. I couldn’t believe that I had
 
 ## Wrap up
 
-It is always exciting to ship something, and I feel like that’s where I’m at with the [Mindful Sketch Template](https://bennorris.org/mindful-sketch-template/). I have been working on it for a few months, and it feels great to finally share it with the world. I hope that it can help other people as much as it has helped me.
+It is always exciting to ship something, and I feel like that’s where I’m at with the [Mindful Sketch Template](https://bennorris.com/mindful-sketch-template/). I have been working on it for a few months, and it feels great to finally share it with the world. I hope that it can help other people as much as it has helped me.
 
 Whether you give the template a try or not, I encourage you to find a regular mindfulness practice. The benefits of getting in touch with yourself regularly are immense. I have noticed much greater resilience in myself. When I know that I have a good tool to process big and difficult emotions, they aren’t so scary.
 
@@ -82,4 +82,4 @@ We are probably all facing disruptions and unexpected changes to our plans right
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

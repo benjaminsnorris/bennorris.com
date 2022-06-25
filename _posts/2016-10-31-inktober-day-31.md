@@ -1,6 +1,6 @@
 ---
 title:          "Inktober day 31"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/inktober-day-31.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/inktober-day-31.jpg
 date:           2016-10-31 20:37:00-0700
 category:       Sketchnotable
 tags:           inktober
@@ -11,4 +11,4 @@ short:          true
 
 One of the most important nights of the year to have someone you trust with you. 🎃
 
-![Trick or treating](https://media.bennorris.org/images/sketchnotable/inktober-2016/inktober-day-31.jpg){:loading="lazy"}
+![Trick or treating](https://media.bennorris.com/images/sketchnotable/inktober-2016/inktober-day-31.jpg){:loading="lazy"}

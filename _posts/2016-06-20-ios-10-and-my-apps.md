@@ -57,7 +57,7 @@ Most of the newly announced technologies in iOS 10 are not a great fit for Point
 
 
 ## Whimmy
-[Whimmy](https://bennorris.org/apps/whimmy/) is an app I created together with [Stotion](http://stotion.com/) to make it easier to get together with the people that matter in your life. You can send an invite with a fuse that fills up once the capacity is reached and avoid the back-and-forth of text or email. The app is on iPhone, Apple Watch, web, and an Android beta.
+[Whimmy](https://bennorris.com/apps/whimmy/) is an app I created together with [Stotion](http://stotion.com/) to make it easier to get together with the people that matter in your life. You can send an invite with a fuse that fills up once the capacity is reached and avoid the back-and-forth of text or email. The app is on iPhone, Apple Watch, web, and an Android beta.
 
 ### [SiriKit](https://developer.apple.com/sirikit/)
 I was so excited to hear some of the details for SiriKit because I knew it would be a great fit for Whimmy. You would not necessarily use Whimmy as your preferred messaging app to contact someone because it is more focused around events. We designed it from the beginning to streamline the process of creating and responding to invites, and integrating with Siri is a natural extension of that. My only concern is honing the experience to get all of the right information through Siri. Currently, an invite includes recipients, message, location, capacity limit, and an expiration limit. That feels like a large number of data points to capture through Siri, so we will have to see how it feels.
@@ -83,7 +83,7 @@ Whimmy has not been under active development for quite some time, but the potent
 
 
 ## Recite
-[Recite](https://bennorris.org/apps/recite/) is an iOS app to facilitate memorizing scriptures, quotes, and other short passages. It is currently an iPhone app with an Apple Watch app, again with completely local data.
+[Recite](https://bennorris.com/apps/recite/) is an iOS app to facilitate memorizing scriptures, quotes, and other short passages. It is currently an iPhone app with an Apple Watch app, again with completely local data.
 
 ### [CloudKit Sharing](https://developer.apple.com/icloud/)
 This is another app for which I have wanted to add some kind of syncing. I built the app for my family to use in our morning devotional, and it has worked really well for that, as long as I am home. However, since it cannot be shared, my wife is not able to use it if I am not there, and I have wanted to fix that. So I think CloudKit Sharing will be a great fit here as well.

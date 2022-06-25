@@ -9,7 +9,7 @@ category: Mental Work Health
 
 In this update, I share **details of the new app** I have been creating, and the **deep irony** of become obsessed with making it.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -29,7 +29,7 @@ My new app, the one that caused two straight weeks of panic attacks due to my ob
 
 My assignment in therapy last week was to not work on the app at all for a week. My therapist said that I would feel some distress for a couple days, but removing the immense guilt from giving in to the compulsions would was quickly overcome it. The relief was immediate.
 
-![OCD ERP app](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/fe5b8e9a81.png)
+![OCD ERP app](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/fe5b8e9a81.png)
 
 The focus of the app is on facilitating [exposure response prevention therapy](https://en.wikipedia.org/wiki/Exposure_therapy). This is the gold standard of treatment for OCD, and is helpful for many other anxiety disorders. However, the therapy must be done appropriately. If people hear about it and naively try to face their fears over and over, it may not be of therapeutic value. Accordingly, the app does not perform any treatment or suggest any specific action. It is intended as a tool to assist in treatment administered by a trained professional.
 
@@ -43,4 +43,4 @@ My hope is to be able to help in someone's journey of healing as well as staying
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

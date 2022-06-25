@@ -2,9 +2,9 @@
 title: "#65: Into the unknown"
 date: 2021-12-30 16:27:21-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/into-the-unknown.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/into-the-unknown.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/into-the-unknown.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/into-the-unknown.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/into-the-unknown.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/into-the-unknown.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,7 +14,7 @@ tags:
 
 As 2021 concludes, so too does a major chapter in my career. This week I share about my journey of the last seven years and what is coming next.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -26,9 +26,9 @@ Because of where I was at in my career, and needing to support a family with fiv
 
 After a year and a half, I reluctantly became an engineering manager. We grew our team from two to eight engineers, and I grappled with conflicting desires to be a leader and an individual contributor. In the summer of 2018, [Mel Tingey](https://www.linkedin.com/in/meltingey/), soon to become my boss and one of my dearest friends, took me to lunch. I had been planning on asking him to move me into a role where I could experiment and innovate in our mobile apps and try out cool things. Instead, he asked me to become the manager of the mobile team. I recognized an opportunity to preserve our culture and shape the mobile team and apps into something that excited me more, and I accepted.
 
-I made a presentation to give to Mel and his boss explaining how I saw the mobile team operating, and laying out some of my requests, and they agreed to all of it. We soon had a dedicated product manager, [Ashley Roberts](https://www.linkedin.com/in/ashrob/), and designer, [Jason Parry](https://www.linkedin.com/in/jasonlparry/). The three of us became the best leadership team I have ever been part of in my career. We dreamed and researched and argued and compromised and learned and built and tested and iterated and with an amazing team created a brand-new app for O.C. Tanner, [Culture Cloud](https://bennorris.org/apps/culture-cloud/). The app included all of the key experiences from all of our software offerings. It was a magical time.
+I made a presentation to give to Mel and his boss explaining how I saw the mobile team operating, and laying out some of my requests, and they agreed to all of it. We soon had a dedicated product manager, [Ashley Roberts](https://www.linkedin.com/in/ashrob/), and designer, [Jason Parry](https://www.linkedin.com/in/jasonlparry/). The three of us became the best leadership team I have ever been part of in my career. We dreamed and researched and argued and compromised and learned and built and tested and iterated and with an amazing team created a brand-new app for O.C. Tanner, [Culture Cloud](https://bennorris.com/apps/culture-cloud/). The app included all of the key experiences from all of our software offerings. It was a magical time.
 
-Amidst all of that, I experienced “The Great Breakdown of 2018.” As a mobile team, we had gone together to [Peers Conference](http://peersconf.com/2018), and someone there had suggested to me that I [consider getting counseling](https://bennorris.org/2019/12/23/suggestion-of-counseling), which had never occurred to me before. I went to a [chiropractor for back pain, started having panic attacks](https://bennorris.org/2020/02/15/back-pain-and-panic-attacks), and saw a therapist for the first time, which [did not go well](https://bennorris.org/2020/09/10/trying-out-therapy). I found a therapist who was a perfect fit, and learned that I had severe OCD. I went to a psychiatrist and began the chemical experimentation that is psychiatric medication, and finally found some relief that calmed my body enough that I could start doing some of the mental work needed.
+Amidst all of that, I experienced “The Great Breakdown of 2018.” As a mobile team, we had gone together to [Peers Conference](http://peersconf.com/2018), and someone there had suggested to me that I [consider getting counseling](https://bennorris.com/2019/12/23/suggestion-of-counseling), which had never occurred to me before. I went to a [chiropractor for back pain, started having panic attacks](https://bennorris.com/2020/02/15/back-pain-and-panic-attacks), and saw a therapist for the first time, which [did not go well](https://bennorris.com/2020/09/10/trying-out-therapy). I found a therapist who was a perfect fit, and learned that I had severe OCD. I went to a psychiatrist and began the chemical experimentation that is psychiatric medication, and finally found some relief that calmed my body enough that I could start doing some of the mental work needed.
 
 Early in 2019, [Mindi Cox](https://www.linkedin.com/in/mindicox/), our amazing people leader, and my boss, [Mel Tingey](https://www.linkedin.com/in/meltingey/), encouraged me to take an extended break from work. I moved out of my house for a few months, and started an intensive outpatient program at [The OCD & Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/). That treatment was life changing. Soon I was able to return home again with my wife and now seven children. I started working again, and found that being a manager was exactly what I wanted.
 
@@ -52,4 +52,4 @@ Changing life chapters is always fraught with emotion. I can’t wait to see wha
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

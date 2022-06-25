@@ -9,7 +9,7 @@ category: Mental Work Health
 
 Amidst tears and candy, this week brought both expected and surprising **news of departures**, a welcome **reminder of progress**, and a **spooky and worthwhile holiday**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -18,7 +18,7 @@ This week felt like a ride to me. I told my therapist that it was a bit of a rol
 
 ## Something hard
 
-The backdrop to everything that happened this week was my continuing recovery from hernia surgery, as I [wrote about last week](https://bennorris.org/2020/10/27/surgery-and-healing/). On top of the physical pain I was feeling, I went through an emotional ringer this week.
+The backdrop to everything that happened this week was my continuing recovery from hernia surgery, as I [wrote about last week](https://bennorris.com/2020/10/27/surgery-and-healing/). On top of the physical pain I was feeling, I went through an emotional ringer this week.
 
 The first blow was not unexpected, but it came sooner than anticipated. Earlier this year, I started an apprentice program on my team. We lucked out with our first hire, and she was more capable than we expected, both in initial ability and in how quickly she progressed. I had secretly hoped that I could find a permanent position for her, but I was working to prepare her for full-time employment. So when I found out she had accepted a great offer, I was both genuinely excited for her and emotionally devastated. I ended the call with her by expressing sincere congratulations, hung up, and started sobbing. The ability to hold conflicting emotions at the same time and give them each space has been a hard-won skill in my mental health journey.
 
@@ -56,7 +56,7 @@ There are definitely some dark sides to Halloween, but overall, it is a holiday 
 
 There seem to be few people who are comfortable in their own skin, and have no problem standing out or being different. Most of us feel pressure to conform to societal norms in our dress and behavior on a regular basis. Halloween represents a type of official permission for children (and adults!) to dress in ways that would be considered bizarre, distracting, or inappropriate at other times.
 
-<img src="https://media.bennorris.org/images/mentalworkhealth/uploads/2020/f978ddf787.png"/>
+<img src="https://media.bennorris.com/images/mentalworkhealth/uploads/2020/f978ddf787.png"/>
 
 One of my friends at work, [Jessica Young](https://www.jdyoungsolutions.com), dressed up as different characters from Inside Out[^1] throughout the week. While she is one of those rare people possessed of confidence to be herself generally, this holiday provided an outlet for even more creativity than usual. And the same is true for so many people. I think that is a great thing.
 
@@ -81,7 +81,7 @@ I am glad to have this week behind me. While it was a great reminder and validat
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: [Inside Out](https://en.wikipedia.org/wiki/Inside_Out_(2015_film)) is one of my favorite movies to help understand and discuss emotions. It has had a powerful impact in my life.

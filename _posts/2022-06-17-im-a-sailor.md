@@ -2,9 +2,9 @@
 title: "#85: I’m a sailor"
 date: 2022-06-17 10:33:05-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/i’m-a-sailor.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/i’m-a-sailor.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/i’m-a-sailor.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/i’m-a-sailor.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/i’m-a-sailor.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/i’m-a-sailor.jpg
 layout: mwh
 category: Mental Work Health
 tags:
@@ -15,7 +15,7 @@ tags:
 
 After a week off, I share about **loss of insight in a therapy session**, a **delightful sailing trip**, and working to **restrain crippling perfectionism**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -24,9 +24,9 @@ _These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoin
 
 The hard thing that I want to share this week was not all that hard for me. But I was witness to something hard, and it affected me.
 
-A couple months ago, I had a special experience I wrote about in [update #76: Therapist therapy](https://bennorris.org/2022/04/08/therapist-therapy).
+A couple months ago, I had a special experience I wrote about in [update #76: Therapist therapy](https://bennorris.com/2022/04/08/therapist-therapy).
 
-[![Therapist therapy](https://media.bennorris.org/images/mentalworkhealth/posts/therapist-therapy.jpg)](https://bennorris.org/2022/04/08/therapist-therapy){:loading="lazy"}
+[![Therapist therapy](https://media.bennorris.com/images/mentalworkhealth/posts/therapist-therapy.jpg)](https://bennorris.com/2022/04/08/therapist-therapy){:loading="lazy"}
 
 In my therapy session a couple weeks ago, I had **another similar experience**. We probably should have canceled the session, but my therapist felt bad at making me reschedule a couple times for a trip she had to take, and we tried to push through it.
 
@@ -47,11 +47,11 @@ A couple months ago, we saw that a local homeschool co-op had organized a sailin
 
 I have **always wanted to be a sailor**. Not in the Navy so much, but on a real ship with sails and rigging and everything.
 
-![I’m sailing](https://media.bennorris.org/images/mentalworkhealth/posts/what-about-bob-sailing.gif){:loading="lazy"}
+![I’m sailing](https://media.bennorris.com/images/mentalworkhealth/posts/what-about-bob-sailing.gif){:loading="lazy"}
 
 The trip was organized through the [Los Angeles Maritime Institute](https://lamitopsail.org), and our ship was a 110-foot wooden brigantine. **It was perfect.**
 
-![Sailing pictures](https://media.bennorris.org/images/mentalworkhealth/posts/sailing-images.jpg){:loading="lazy"}
+![Sailing pictures](https://media.bennorris.com/images/mentalworkhealth/posts/sailing-images.jpg){:loading="lazy"}
 
 We met at 5am Monday morning in Provo, Utah, loaded up, and drove off. I had nine kids in my van, ages 13-15, which meant it was *loud* at times. They did sleep the first little bit, which was nice. I caught up on my podcasts[^1] and started an audiobook[^2], and generally enjoyed not being talked to. **We only stopped twice** between Provo and Los Angeles—we drove for four hours, then got gas and let the kids get food, then another four hours with the same kind of stop, and then two hours later we were there.
 
@@ -66,9 +66,9 @@ I was still exhausted when we came home, but **it was nice to have so little res
 
 ## Something else
 
-Over the past couple months, [I have shared](https://bennorris.org/2022/05/06/uncertainty-training) some of [my professional journey](https://bennorris.org/2022/05/13/bees-in-charge) to [becoming an independent contractor](https://bennorris.org/2022/05/20/yes-were-open). A few weeks ago, I realized that I had already started and didn’t need to wait anymore.
+Over the past couple months, [I have shared](https://bennorris.com/2022/05/06/uncertainty-training) some of [my professional journey](https://bennorris.com/2022/05/13/bees-in-charge) to [becoming an independent contractor](https://bennorris.com/2022/05/20/yes-were-open). A few weeks ago, I realized that I had already started and didn’t need to wait anymore.
 
-[![Yes, we’re open](https://media.bennorris.org/images/mentalworkhealth/posts/yes-we’re-open.jpg){:loading="lazy"}](https://bennorris.org/2022/05/20/yes-were-open)
+[![Yes, we’re open](https://media.bennorris.com/images/mentalworkhealth/posts/yes-we’re-open.jpg){:loading="lazy"}](https://bennorris.com/2022/05/20/yes-were-open)
 
 As I have worked on a few different contracts, **it is becoming more and more real to me**. I spent some time improving my business website to explain more of what I can do. Essentially, I needed to create something of a digital billboard that I can send out to hopefully find new business. **I’d love to hear any thoughts you have on my site**, and how it could improve. You can check it out at [bsn.design](https://bsn.design).
 

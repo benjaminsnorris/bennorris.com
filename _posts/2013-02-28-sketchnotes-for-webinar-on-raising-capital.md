@@ -1,6 +1,6 @@
 ---
 title: "Sketchnotes for Webinar on Raising Capital"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/raise-capital-sketchnote.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/raise-capital-sketchnote.jpg
 date: 2013-02-28 20:58:18-0700
 category: Sketchnotable
 tags:
@@ -11,4 +11,4 @@ The third installment of the series for The Company Corporation (<a href="http:/
 
 I had noticed that my sketchnotes had all been in the same basic layout: top to bottom and left to right in something of a "Z" pattern. So this time I tried a completely different layout, and I loved it! Doing something different pushed me a bit out of my comfort zone, and I was pleased the with end result. Hopefully you enjoy it too!
 
-![Sketchnotes for webinar on raising capital by Incorporate.com](https://media.bennorris.org/images/sketchnotable/company-corporation/raise-capital-sketchnote.jpg){:loading="lazy"}
+![Sketchnotes for webinar on raising capital by Incorporate.com](https://media.bennorris.com/images/sketchnotable/company-corporation/raise-capital-sketchnote.jpg){:loading="lazy"}

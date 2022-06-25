@@ -12,13 +12,13 @@ Training a young puppy and parenting children require the same base set of skill
 
 We first got a dog after child number three was born. Our oldest was about five, and it seemed like a good time to try this thing out. We went to our local humane society, and fell in love with Popcorn, a poodle-mini mix.
 
-![Popcorn the poodle](https://media.bennorris.org/images/bennorris/uploads/2018/6b1d18cef7.jpg){:loading="lazy"}
+![Popcorn the poodle](https://media.bennorris.com/images/bennorris/uploads/2018/6b1d18cef7.jpg){:loading="lazy"}
 
 He seemed good with kids because he didn’t bite them as they pulled at him, and we thought we had a winner. We tried to learn a bit about having a dog, but never did any formal training. Owning a dog was a lifelong dream of mine, and I was thrilled. However, we quickly found out that he was a yippy dog, and we had a hard time taking him out around other people or dogs. We realized that what he really wanted was to live with someone who would sit in a comfy armchair and cuddle him for most of the day. So in the end, we ended up selling him to a grandma.
 
 Fast forward eight years and three more children, and we started thinking of getting a dog again. Our oldest is a serious animal lover, and we thought that having something for which she could be responsible would be good for her as well as the fulfillment of a Christmas wish. My wife has a friend who had a litter of puppies and we decided to buy one. He is a mix between an Australian Shepherd and a Border Collie.
 
-![New puppy](https://media.bennorris.org/images/bennorris/uploads/2018/e06481470e.jpg){:loading="lazy"}
+![New puppy](https://media.bennorris.com/images/bennorris/uploads/2018/e06481470e.jpg){:loading="lazy"}
 
 While it is a little overwhelming to become puppy owners, we wanted to take it seriously and learn all we could about training. From a few friends who are big into dogs, we were recommended to watch training videos from [Zak George](https://www.dogtrainingrevolution.com) and I have really enjoyed them. The more I watched, the more I realized that this is the same philosophy that we have tried to follow in parenting our six children. The basic premise is to reward positive behavior and redirect undesired behavior. As Zak stresses in his videos, the biggest mistake that new puppy parents make is to lose patience and become frustrated. This has definitely been true with our children as well.
 

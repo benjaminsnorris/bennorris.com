@@ -1,10 +1,10 @@
 ---
 title: "#50: Meditative sketchnoting"
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/meditative-sketchnotes.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/meditative-sketchnotes.jpg
 date: 2021-09-03 09:13:30-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/meditative-sketchnotes.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/meditative-sketchnotes.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/meditative-sketchnotes.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/meditative-sketchnotes.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,16 +14,16 @@ tags:
 
 In a return to my original format of these updates, I share about **getting stuck**, **sketchnoting as mindfulness**, and **finding new music**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 
 ## Something hard
 
-One summer activity I eagerly anticipate each week is [volunteering as a blacksmith](https://bennorris.org/2021/08/12/angrily-pounding-metal) at the [Provo Pioneer Village](http://www.provopioneervillage.org/). I have arranged my work schedule so that I start and end earlier on Wednesdays so that I can set up before visitors arrive.
+One summer activity I eagerly anticipate each week is [volunteering as a blacksmith](https://bennorris.com/2021/08/12/angrily-pounding-metal) at the [Provo Pioneer Village](http://www.provopioneervillage.org/). I have arranged my work schedule so that I start and end earlier on Wednesdays so that I can set up before visitors arrive.
 
-Last week, however, when I wrapped up work, I had the thought to do some tweaks to my website. I am in the process of consolidating all of my websites into this one, [bennorris.org](https://bennorris.org). I’ve gone back and forth on what to do with the content I produce, and over my recent [birthday retreat](https://bennorris.org/2021/08/20/birthday-getaway), I had the thought that I could bring everything together, but still organize it in a way that people could find what they might care about. I was helped in this decision by remembering the [luxury of launching into obscurity](https://bennorris.org/2016/05/31/the-luxury-of-launching-into-obscurity) that I enjoy. This is true for almost all of us—we spend so much time agonizing over the impact we are going to have on other people without realizing that most people won’t notice, or care, or be affected by many of our choices.
+Last week, however, when I wrapped up work, I had the thought to do some tweaks to my website. I am in the process of consolidating all of my websites into this one, [bennorris.com](https://bennorris.com). I’ve gone back and forth on what to do with the content I produce, and over my recent [birthday retreat](https://bennorris.com/2021/08/20/birthday-getaway), I had the thought that I could bring everything together, but still organize it in a way that people could find what they might care about. I was helped in this decision by remembering the [luxury of launching into obscurity](https://bennorris.com/2016/05/31/the-luxury-of-launching-into-obscurity) that I enjoy. This is true for almost all of us—we spend so much time agonizing over the impact we are going to have on other people without realizing that most people won’t notice, or care, or be affected by many of our choices.
 
 As is often the case with my OCD, I got a bit stuck. I recognized that the time had come for me to leave to get to the Village early. And then to be on time. And then to be just a little late. And then to be a lot late. I wanted to stop and leave. I even got up and started getting ready a few times. But then I would think of something and sit back down to do just a little more.
 
@@ -31,7 +31,7 @@ The distress of not finishing overcame me.
 
 When I finally left, I felt terrible. I knew that it was my second to last week at the Village, as it is only open from Memorial Day to Labor Day. I didn’t want to miss my time. Even more, I felt incredibly guilty that I wasn’t there. I wasn’t doing what I said I would do. I wasn’t providing the visitors with the experience of seeing a blacksmith. I wasn’t, I wasn’t, I wasn’t.
 
-I felt some panic rise, which worried me because I had recently had a [panic attack while driving on the freeway](https://bennorris.org/2021/08/27/panic-on-the-freeway). I called my wife. She suggested that I get some dinner and reassess, which turned out to be just what I needed. She sent me some encouragement:
+I felt some panic rise, which worried me because I had recently had a [panic attack while driving on the freeway](https://bennorris.com/2021/08/27/panic-on-the-freeway). I called my wife. She suggested that I get some dinner and reassess, which turned out to be just what I needed. She sent me some encouragement:
 
 > Sending a big hug of support. There are no requirements for winning tonight.
 
@@ -69,7 +69,7 @@ In sharing the song and the story behind it, my friend quickly assured me that i
 
 September is [Suicide Prevention Month](https://www.nami.org/Get-Involved/Awareness-Events/Suicide-Prevention-Awareness-Month), and I feel strongly about opening the conversation with those close to you. The more we can normalize discussing mental health and our struggles, the safer an environment we can create for those around us.
 
-For many people, just as [it was for me](https://bennorris.org/2021/08/12/angrily-pounding-metal), suicidal ideation is not so much the desire to be dead as it is to escape pain and distress.
+For many people, just as [it was for me](https://bennorris.com/2021/08/12/angrily-pounding-metal), suicidal ideation is not so much the desire to be dead as it is to escape pain and distress.
 
 > It’s not that I wanted to die. I just wanted everything in my life to be different.
 
@@ -82,4 +82,4 @@ We all feel distress. We all feel pain. We all feel grief and loss and despair. 
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

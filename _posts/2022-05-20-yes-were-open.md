@@ -2,9 +2,9 @@
 title: "#82: Yes, we’re open"
 date: 2022-05-20 06:44:27-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/yes-we’re-open.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/yes-we’re-open.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/yes-we’re-open.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/yes-we’re-open.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/yes-we’re-open.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/yes-we’re-open.jpg
 layout: mwh
 category: Mental Work Health
 tags:
@@ -15,7 +15,7 @@ tags:
 
 _Big news—I’m taking on new projects!_ This week, I share the **challenges of being flexible**, a **great moment of connection**, and realizing my big news that **I’ve already started being a contractor**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -24,9 +24,9 @@ _These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoin
 
 As I mentioned the past couple weeks, **I have transitioned from working full-time** for the education startup [Factor](https://www.joinfactor.com/about) **to contracting** for them. The idea is that it will just be for a few months, so I’m going to try out the full time contracting life. I have done contract work off and on for the past decade, but this will be my first crack at going full time.
 
-I wrote more about how it came about in [update #80: Uncertainty training](https://bennorris.org/2022/05/06/uncertainty-training).
+I wrote more about how it came about in [update #80: Uncertainty training](https://bennorris.com/2022/05/06/uncertainty-training).
 
-[![Uncertainty training](https://media.bennorris.org/images/mentalworkhealth/posts/uncertainty-training.jpg)](https://bennorris.org/2022/05/06/uncertainty-training){:loading="lazy"}
+[![Uncertainty training](https://media.bennorris.com/images/mentalworkhealth/posts/uncertainty-training.jpg)](https://bennorris.com/2022/05/06/uncertainty-training){:loading="lazy"}
 
 This past week was **my first without a full time job**, although I spent almost all my time building out something cool for Factor. They are going to run challenges that teens can sign up for and do real projects for real companies with the chance to earn cash prizes. You can learn more [on the website](https://www.joinfactor.com/challenges).
 

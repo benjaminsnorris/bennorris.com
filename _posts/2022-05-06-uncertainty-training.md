@@ -2,9 +2,9 @@
 title: "#80: Uncertainty training"
 date: 2022-05-06 06:49:55-0600
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/uncertainty-training.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/uncertainty-training.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/uncertainty-training.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/uncertainty-training.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/uncertainty-training.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/uncertainty-training.jpg
 layout: mwh
 category: Mental Work Health
 tags:
@@ -16,14 +16,14 @@ tags:
 
 This week I discuss how **years of confronting OCD** have prepared me to **handle change and uncertainty**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
 
 ## Story
 
-This past week brought some **major changes**, which were not completely unexpected, but still surprising. Since the [beginning of the year](https://bennorris.org/2021/12/30/into-the-unknown), I have been working for a new educational startup, [Factor](https://www.joinfactor.com/). We are clear and convicted about the problem we want to solve—**helping teenagers prepare for life after school**. Exactly how we were going to do that has been something of a question.
+This past week brought some **major changes**, which were not completely unexpected, but still surprising. Since the [beginning of the year](https://bennorris.com/2021/12/30/into-the-unknown), I have been working for a new educational startup, [Factor](https://www.joinfactor.com/). We are clear and convicted about the problem we want to solve—**helping teenagers prepare for life after school**. Exactly how we were going to do that has been something of a question.
 
 The problem is that we had assembled a team of eight amazing people to help figure out how we were going to tackle this. My friend, and our founder, last week realized that **we had skipped some major steps and needed to make some adjustments**. He needed to figure out more about how we were going to approach solving this problem, and make sure that we understood the problem completely before starting to build something.
 

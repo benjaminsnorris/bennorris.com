@@ -1,10 +1,10 @@
 ---
 title: "#47: Angrily pounding metal"
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/angrily-pounding-metal-sketchnote.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/angrily-pounding-metal-sketchnote.jpg
 date: 2021-08-12 09:54:00-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/angrily-pounding-metal-sketchnote.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/angrily-pounding-metal-sketchnote.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/angrily-pounding-metal-sketchnote.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/angrily-pounding-metal-sketchnote.jpg
 categories:     
 - Mental Work Health
 tags:           
@@ -15,7 +15,7 @@ tags:
 
 In this update, I share challenges with **psychiatric medication**, **family struggles**, and **work changes**. I might not have handled things in the best way, but it definitely could have been worse.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -30,7 +30,7 @@ Finally, work stress piled up a bit. There are four of us on the team right now,
 Before discussing the challenges this created, I
 want to celebrate. As my manager rightfully pointed out, a couple of years ago, I would not have been able to handle this situation, especially at work. But I was able to be calm and collected as I navigated the changes, and did not get overwhelmed. This was a win.
 
-None of these circumstances alone was enough to cause major concern. But together, they conspired to push me under water. As [I mentioned recently](https://bennorris.org/2021/07/02/lie-after-lie/), I am volunteering as a blacksmith, and thankfully, the peak of my despair coincided with my night at the forge. I was glad for the chance to hit metal really hard for a few hours. On a side note, it was interesting to me that the steel could feel my rage, and refused to move in the ways I wanted.
+None of these circumstances alone was enough to cause major concern. But together, they conspired to push me under water. As [I mentioned recently](https://bennorris.com/2021/07/02/lie-after-lie/), I am volunteering as a blacksmith, and thankfully, the peak of my despair coincided with my night at the forge. I was glad for the chance to hit metal really hard for a few hours. On a side note, it was interesting to me that the steel could feel my rage, and refused to move in the ways I wanted.
 
 I quit blacksmithing early that night and drove away. I just didn’t care any more. About anything. As I was driving, I had the thought that I would enjoy going up in the canyon nearby. The next thought was that I should just turn the wheel and drive into the cement barrier. I realized that driving up the canyon was a horrible idea, and pulled over to the side of the road instead.
 
@@ -47,5 +47,5 @@ At any time, I can drop into that moment and just be present. And so can you.
 ***
 
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

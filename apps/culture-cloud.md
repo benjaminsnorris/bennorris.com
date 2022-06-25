@@ -3,7 +3,7 @@ layout:         app
 title:          Culture Cloud
 date:           2020-08-24
 sub_title:      Thrive at work
-app_image:      https://media.bennorris.org/images/bennorris/apps/culture-cloud.png
+app_image:      https://media.bennorris.com/images/bennorris/apps/culture-cloud.png
 app_id:         1434330259
 permalink:      /apps/culture-cloud/
 ---

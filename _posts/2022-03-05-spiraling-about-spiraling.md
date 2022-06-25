@@ -2,9 +2,9 @@
 title: "#71: Spiraling about spiraling"
 date: 2022-03-05 07:44:25-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/spiraling-about-spiraling.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/spiraling-about-spiraling.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/spiraling-about-spiraling.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/spiraling-about-spiraling.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/spiraling-about-spiraling.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/spiraling-about-spiraling.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,7 +14,7 @@ tags:
 
 After a couple weeks in which I couldn’t quite muster enough to write an update, I share some experiences I’ve had and lessons I’ve learned.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -53,7 +53,7 @@ The truth is, I have (and used!) all sorts of skills. I will continue to improve
 
 ## Something else
 
-When OCD is taking over, all areas of my life are affected. But work has been particularly hit this time. As was the case when [things were rough in December](https://bennorris.org/2021/12/10/limping-along), we just had a new colleague start at [Factor](https://factor.xyz). I told my friend and boss that surely there will come a time when we hire someone and I am doing fine.
+When OCD is taking over, all areas of my life are affected. But work has been particularly hit this time. As was the case when [things were rough in December](https://bennorris.com/2021/12/10/limping-along), we just had a new colleague start at [Factor](https://factor.xyz). I told my friend and boss that surely there will come a time when we hire someone and I am doing fine.
 
 It is often easier for me to be more self-aware in a work context than at home when I am symptomatic. I shared with my team that things are rough right now, and got an outpouring of compassion and support.
 
@@ -74,4 +74,4 @@ I don’t know how you are doing, but my guess is not great. Life is hard, espec
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

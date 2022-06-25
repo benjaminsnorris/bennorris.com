@@ -10,7 +10,7 @@ In our efforts to reassure someone that their transgression was not overly sever
 
 ***
 
-It is not uncommon for our natural instinct to preserve harmony and avoid discomfort to emerge when someone tries to apologize. We become uncomfortable that the other person is regretting what they have done, and seek to assure them that we are not upset. As I wrote about a few weeks ago in [Replacing sorry](https://www.bennorris.org/2019/01/25/replacing-sorry), we sometimes do this even when the other person is not apologizing. They say the words, “I’m sorry” and we immediately feel compelled to tell them that it’s fine.
+It is not uncommon for our natural instinct to preserve harmony and avoid discomfort to emerge when someone tries to apologize. We become uncomfortable that the other person is regretting what they have done, and seek to assure them that we are not upset. As I wrote about a few weeks ago in [Replacing sorry](https://www.bennorris.com/2019/01/25/replacing-sorry), we sometimes do this even when the other person is not apologizing. They say the words, “I’m sorry” and we immediately feel compelled to tell them that it’s fine.
 
 This scenario plays out so frequently that it deserves more thought and introspection. I think that part of our instinct comes from a good and natural desire to not let another person take full blame when they are not completely guilty. In his wonderful book *[How to Win Friends and Influence People](https://en.wikipedia.org/wiki/How_to_Win_Friends_and_Influence_People)*, Dale Carnegie tells a story of using that instinct to his benefit, and suggests that we can similar.
 

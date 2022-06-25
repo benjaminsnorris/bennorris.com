@@ -10,7 +10,7 @@ One of my most satisfying accomplishments lately was participating in a departme
 
 ***
 
-As I have [written about before](https://www.bennorris.org/categories/mental-health/), the last year and a half has been significant in my own mental health journey. As I returned back to to work full-time at the beginning of this summer, following intensive treatment for my OCD, I found myself having many conversations around mental health. At the beginning of September, I sent the following email to my manager and our CIO:
+As I have [written about before](https://www.bennorris.com/categories/mental-health/), the last year and a half has been significant in my own mental health journey. As I returned back to to work full-time at the beginning of this summer, following intensive treatment for my OCD, I found myself having many conversations around mental health. At the beginning of September, I sent the following email to my manager and our CIO:
 
 > As I have been more open with my mental health struggles, I have had a number of interesting conversations with people in IT about OCD and other mental health challenges. I wanted to suggest to you that we do something of an overview of mental health and related issues for all of IT. It would be great for people to know about some of the more common disorders and challenges, and what they mean, and how to support people who are working with those. I think there are a lot of misconceptions about things like bipolar, or OCD, or even ADD/ADHD.
 > 

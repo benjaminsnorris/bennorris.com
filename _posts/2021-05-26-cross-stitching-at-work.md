@@ -9,7 +9,7 @@ category: Mental Work Health
 
 In this week, I discuss **feeling emotions**, a **relaxing project**, and **sketchnoting**. 
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -35,9 +35,9 @@ This week I tackled a craft project. It had been years since I cross stitched. M
 
 While I made some progress at home in the evenings, where I really dug in was during work meetings. It started with two full days of meetings, and continued throughout the week in meetings where I primarily needed to listen. I worried that people would think it was unprofessional or rude, but it was fine.
 
-I have found that I can listen so much better when my hands are occupied. This is why I [sketchnote](https://bennorris.org/sketchnotable/) many events when I want to learn or remember what I am hearing.
+I have found that I can listen so much better when my hands are occupied. This is why I [sketchnote](https://bennorris.com/sketchnotable/) many events when I want to learn or remember what I am hearing.
 
-![Mandolorian cross stitch](https://media.bennorris.org/images/mentalworkhealth/uploads/2021/d261c53491.jpg)
+![Mandolorian cross stitch](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/d261c53491.jpg)
 
 Exactly a week after I started, I finished the project. I still don’t know what I am going to do with the finished piece—probably frame it and give it to one of my kids. The process of creating it mattered much more to me than having an artifact at the end.
 
@@ -57,4 +57,4 @@ Whether you are having a hard time right now, whether life is going well, or whe
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

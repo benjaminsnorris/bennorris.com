@@ -9,4 +9,4 @@ short: true
 
 Had a chance to attend Good News Lutheran anniversary service today with our good friends. Such a beautiful service!
 
-![Service sketchnote](https://media.bennorris.org/images/gospelsketcher/general/sep-21-good-news-lutheran.jpeg)
+![Service sketchnote](https://media.bennorris.com/images/gospelsketcher/general/sep-21-good-news-lutheran.jpeg)

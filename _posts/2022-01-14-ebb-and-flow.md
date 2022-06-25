@@ -2,9 +2,9 @@
 title: "#66: Ebb and flow"
 date: 2022-01-14 10:39:06-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/ebb-and-flow.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/ebb-and-flow.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/ebb-and-flow.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/ebb-and-flow.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/ebb-and-flow.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/ebb-and-flow.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -14,7 +14,7 @@ tags:
 
 This week’s update includes my thoughts on caring for sick family while trying to figure out my new job, a validating reminder that I have made a good choice, and balancing needing and giving help.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -27,7 +27,7 @@ And at the same time, it’s easier for me to rise up to the challenge of a clea
 
 It’s clear that the biggest struggle for me is **uncertainty**. When there is a crisis, the uncertainty is removed. The needed course of action is clear, and all that remains is execution. And that is something I can do.
 
-One of the hardest parts of dealing with the sick family this week, even with the certainty of knowing what I need to do, is that I just started [my new job last week](https://bennorris.org/2021/12/30/into-the-unknown). Instead of having a clear role at O.C. Tanner, I am trying to figure out what work life will be with Factor. How do I best contribute? What will be offering? As of now, all we really know with our six-person startup is that we want to help high schoolers figure out what to be and do next. So really, the struggle here again is uncertainty.
+One of the hardest parts of dealing with the sick family this week, even with the certainty of knowing what I need to do, is that I just started [my new job last week](https://bennorris.com/2021/12/30/into-the-unknown). Instead of having a clear role at O.C. Tanner, I am trying to figure out what work life will be with Factor. How do I best contribute? What will be offering? As of now, all we really know with our six-person startup is that we want to help high schoolers figure out what to be and do next. So really, the struggle here again is uncertainty.
 
 There is also the difficulty of the sense of responsibility I feel to contribute meaningfully. It’s hard for me to start full-time on this, and then almost immediately not be able to give my full time and attention. There is a part of me that knows my team is understanding and compassionate. And there is a part of me that doesn’t care about that. Clearly, I am a failure because I am not pulling my weight.
 
@@ -47,7 +47,7 @@ Caring for sick family members this week was a great reminder to me of how our n
 
 It is important to not get stuck in either mindset. Nothing is going to last forever. When we are needing more help, it is easy to feel like we are not enough, and never will be. But this is simply not true.
 
-Another aspect of this for me was that I have not been doing well myself. Physically I’ve been fine, but mentally and emotionally, not so much. I have been symptomatic. I have been struggling. I [wrote recently](https://bennorris.org/2021/12/10/limping-along) about just how hard things have been over the past little while. My situation has improved, but I don’t feel completely like myself yet.
+Another aspect of this for me was that I have not been doing well myself. Physically I’ve been fine, but mentally and emotionally, not so much. I have been symptomatic. I have been struggling. I [wrote recently](https://bennorris.com/2021/12/10/limping-along) about just how hard things have been over the past little while. My situation has improved, but I don’t feel completely like myself yet.
 
 And yet, even though I am having a hard time, I can provide help and service to others. I can reach out and improve someone else’s life. And when I do that, it is easier to forget about my own problems.
 
@@ -62,4 +62,4 @@ Most likely, you are struggling with something right now. And you also probably 
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

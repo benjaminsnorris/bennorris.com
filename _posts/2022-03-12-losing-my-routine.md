@@ -2,9 +2,9 @@
 title: "#72: Losing my routine"
 date: 2022-03-12 13:37:19-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/losing-my-routine.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/losing-my-routine.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/losing-my-routine.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/losing-my-routine.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/losing-my-routine.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/losing-my-routine.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -15,7 +15,7 @@ tags:
 
 This week I share the story of realizing how my **beautiful morning routine had mutated**, and what I have to do about it.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -29,7 +29,7 @@ When I had the freedom to craft my own schedule without so many people to coordi
 * Wake at 6:00a
 * Work out[^1] and shower
 * Read 10 minutes[^2]
-* 30 minute [Mindful Sketch](https://bennorris.org/tags/mindfulsketch/) exercise
+* 30 minute [Mindful Sketch](https://bennorris.com/tags/mindfulsketch/) exercise
 * Daily planning[^3]
 * Eat standard breakfast[^4]
 * Start working
@@ -84,13 +84,13 @@ Let’s give that a try, you and I. And as we do, remember to **ramp up compassi
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
 
 
 [^1]: On days when I don’t have to drive the kids to class, I have been trying the [Apple Fitness+ HIIT workouts](https://www.apple.com/apple-fitness-plus/). They’re great to move and elevate my heart rate without requiring exercise equipment. When I do carpool, I’ve been doing a yoga workout instead. At least, that’s the goal.
 
 [^2]: I started with [*Turn the Ship Around*](https://davidmarquet.com/turn-the-ship-around-book/), by L. David Marquet, and am now reading [*The Power of Moments*](https://heathbrothers.com/the-power-of-moments/), by Chip and Dan Heath.
 
-[^3]: I use the [Focus Course Digital Planner](https://thesweetsetup.com/planner/) from Shawn Blanc and the great folks at the Sweet Setup. I attended their webinar introducing the planner and [captured some sketchnotes](https://bennorris.org/2021/11/16/how-to-plan-your-year-sketchnotes).
+[^3]: I use the [Focus Course Digital Planner](https://thesweetsetup.com/planner/) from Shawn Blanc and the great folks at the Sweet Setup. I attended their webinar introducing the planner and [captured some sketchnotes](https://bennorris.com/2021/11/16/how-to-plan-your-year-sketchnotes).
 
 [^4]: My wife came up with a dish that I have loved and happily eat every day: chopped apple, oatmeal flakes, cinnamon, and peanut butter, microwaved and stirred up. It is delicious, it’s good for me, it’s the perfect way to start the day. Usually I read [*Atlas of the Heart*](https://brenebrown.com/book/atlas-of-the-heart/) by Brené Brown as I eat it.

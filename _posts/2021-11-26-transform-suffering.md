@@ -2,9 +2,9 @@
 title: "#62: Transform suffering"
 date: 2021-11-26 14:13:50-0700
 image: 
-  path: https://media.bennorris.org/images/mentalworkhealth/posts/transform-suffering.jpg
-  thumbnail: https://media.bennorris.org/images/mentalworkhealth/posts/thumbnails/transform-suffering.jpg
-gallery_thumb: https://media.bennorris.org/images/mentalworkhealth/thumbs/transform-suffering.jpg
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/transform-suffering.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/transform-suffering.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/transform-suffering.jpg
 category: Mental Work Health
 tags:
 - weekly update
@@ -15,7 +15,7 @@ tags:
 
 This update shares the story of the meditative sketchnoting workshop from last week, and how I tried to turn painful emotions into helpful tools for myself and others.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -25,13 +25,13 @@ So. Many. Emotions. As the day drew closer, all the feelings threatened to pull 
 
 Over the summer, Mike Rohde and I talked for the [Sketchnote Army podcast](https://sketchnotearmy.com/blog/2021/11/1/ben-norris). We discussed my journey to sketchnotes and the role they play in my life now. One of the themes that came out of our discussion was a connection with mental health. I told him that I see sketchnotes as a sort of meditative practice. To do it well, you have to be focused and present and stay in the moment.
 
-Mike reached out to me after the interview and floated the idea of doing a workshop together to teach people about sketchnotes as a meditative practice. We planned to talk more about it in the fall and pull something together. In September, I [wrote about](https://bennorris.org/2021/09/03/meditative-sketchnoting) an experience of using sketchnotes to calm a panic attack and process my emotions. Mike reached out again and we scheduled some time and started planning.
+Mike reached out to me after the interview and floated the idea of doing a workshop together to teach people about sketchnotes as a meditative practice. We planned to talk more about it in the fall and pull something together. In September, I [wrote about](https://bennorris.com/2021/09/03/meditative-sketchnoting) an experience of using sketchnotes to calm a panic attack and process my emotions. Mike reached out again and we scheduled some time and started planning.
 
-We came up with an outline of an event that leveraged both of our experience and that we thought could be helpful for people. Even just meeting with Mike was a [great boost for me](https://bennorris.org/2021/10/22/impulse-control), and the chance to work together with him was exciting.
+We came up with an outline of an event that leveraged both of our experience and that we thought could be helpful for people. Even just meeting with Mike was a [great boost for me](https://bennorris.com/2021/10/22/impulse-control), and the chance to work together with him was exciting.
 
 As the date grew closer, I told him that I hadn’t been able to prepare as much as I wanted to and asked if we could postpone some more. His response was so kind and gracious, and helped quell some of the mounting anxiety.
 
-When we announced the workshop, the response was overwhelming. We had a limited capacity, and it filled up in under a day. I [wrote last week](https://bennorris.org/2021/11/19/emotional-processing-tool) about some of the mix of emotions I was feeling at that point.
+When we announced the workshop, the response was overwhelming. We had a limited capacity, and it filled up in under a day. I [wrote last week](https://bennorris.com/2021/11/19/emotional-processing-tool) about some of the mix of emotions I was feeling at that point.
 
 The night before our workshop, I wanted to go to bed early. But I laid awake in bed trying to figure out the best way to present from my iPad over Zoom. There were pros and cons for every option that I considered, and my mind would not let go. My OCD insisting on seeking the “right” solution.
 
@@ -47,11 +47,11 @@ The workshop itself went really well, I thought. It was clear that Mike has run 
 
 As part of the workshop, we invited the participants to join in creating a sketchnote about how they were feeling right then. We also did one, and I shared mine.
 
-![Mindfulsketch](https://media.bennorris.org/images/mentalworkhealth/posts/meditative-sketchnote-live-example.jpg){:loading="lazy"}
+![Mindfulsketch](https://media.bennorris.com/images/mentalworkhealth/posts/meditative-sketchnote-live-example.jpg){:loading="lazy"}
 
 It was a moment of vulnerability for me as I was not happy with the output of the sketchnote. My anxiety was so high that it was hard to write or draw, and I was just dumping my emotions out a bit. But that was exactly the point of the exercise.
 
-From comments people made at the end and after the event, it seemed that it was helpful to many. We shared both a theoretical approach to look at situations, and some practical skills that people could try out. We recorded the workshop, and [the video is available](https://bennorris.org/2021/11/19/meditative-sketchnotes-workshop) for anyone to watch. It felt like a great success.
+From comments people made at the end and after the event, it seemed that it was helpful to many. We shared both a theoretical approach to look at situations, and some practical skills that people could try out. We recorded the workshop, and [the video is available](https://bennorris.com/2021/11/19/meditative-sketchnotes-workshop) for anyone to watch. It felt like a great success.
 
 
 ## Lesson
@@ -81,4 +81,4 @@ And, if you can, share it with someone else.
 
 _Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
 
-<a href="https://bennorris.org/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
+<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

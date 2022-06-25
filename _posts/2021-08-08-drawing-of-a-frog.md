@@ -17,4 +17,4 @@ Wife: “Well, it was going to be a frog.”
 
 😂
 
-![Frog drawing](https://media.bennorris.org/images/posts/frog-drawing.jpeg){:loading="lazy"}
+![Frog drawing](https://media.bennorris.com/images/posts/frog-drawing.jpeg){:loading="lazy"}

@@ -1,6 +1,6 @@
 ---
 title:          "Inktober day 12"
-gallery_thumb: https://media.bennorris.org/images/sketchnotable/thumbs/inktober-day-12.jpg
+gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/inktober-day-12.jpg
 date:           2016-10-12 19:23:00-0700
 category:       Sketchnotable
 tags:           inktober
@@ -11,4 +11,4 @@ short:          true
 
 Being a parent is hazardous to your health.
 
-![Worried parent](https://media.bennorris.org/images/sketchnotable/inktober-2016/inktober-day-12.jpg){:loading="lazy"}
+![Worried parent](https://media.bennorris.com/images/sketchnotable/inktober-2016/inktober-day-12.jpg){:loading="lazy"}

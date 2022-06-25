@@ -10,7 +10,7 @@ category: Mental Work Health
 
 In this week’s update, I discuss **moving**, **playing games**, and **losing time**.
 
-_These [weekly updates](https://bennorris.org/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
 
 ***
 
@@ -23,7 +23,7 @@ We moved this past weekend. Not houses, but rooms within our house. As our kids 
 
 We decided that the bedroom I had been using for an office would become the eight-year-old’s. The upstairs master bedroom would become our actual bedroom, as well as having a desk and chair to make it my office space. The basement family room that was previously our bedroom would become the playroom and bedrooms for the six-year-old and three-year-old. Those children would have their portions of the room walled off in some way, maybe with large LEGO bricks[^1].
 
-One complicating factor was that I had surgery to repair a hernia just [a few weeks ago](https://bennorris.org/2020/10/26/surgery-and-healing), so I was not supposed to lift heavy things up and down the two flights of stairs. It was hard for me to be carrying the light loads, and then just watch as my wife and fifteen-year-old and eleven-year-old carried all the heavy things. We didn’t get everything moved around—mostly we have a number of bookshelves whose contents still need relocation—but everyone is able to sleep in a mostly clean and decidedly new place.
+One complicating factor was that I had surgery to repair a hernia just [a few weeks ago](https://bennorris.com/2020/10/26/surgery-and-healing), so I was not supposed to lift heavy things up and down the two flights of stairs. It was hard for me to be carrying the light loads, and then just watch as my wife and fifteen-year-old and eleven-year-old carried all the heavy things. We didn’t get everything moved around—mostly we have a number of bookshelves whose contents still need relocation—but everyone is able to sleep in a mostly clean and decidedly new place.
 
 As the kids saw how we had arranged our bedroom upstairs, they exclaimed that it was just like a hotel. It had an office setup in the corner, a TV facing the bed, and an armchair to relax in. Best of all to me, it was directly connected to a bathroom. No more walking up a flight of stairs to brush our teeth or do anything else. It hasn’t been true yet, but I’m sure this will be beneficial for my dental hygiene.
 
@@ -49,9 +49,9 @@ In some ways, this section comes in ironic contrast to the last section about ho
 
 Following the major upheaval of our living arrangements I described above, I became more and more symptomatic the next day. My level of irritation continued to rise, especially in the late afternoon. I was unloading the dishwasher, and my wife tried to ask me something, and I responded that I was barely holding it together and couldn’t talk right then.
 
-I went up to my new room for some quiet. My wife and I discussed whether I needed to be done dealing with the kids for the rest of the day, which was uncertain, but I definitely needed a break. After that conversation, I stood in the room staring at the wall, with my thoughts swirling around for a number of minutes. I recognized that I was getting flooded emotionally, so I thought I would try a free-writing exercise, which often helps me identify and even process my emotions. I have [written about that before](https://bennorris.org/2020/10/20/aftermath-of-therapy).
+I went up to my new room for some quiet. My wife and I discussed whether I needed to be done dealing with the kids for the rest of the day, which was uncertain, but I definitely needed a break. After that conversation, I stood in the room staring at the wall, with my thoughts swirling around for a number of minutes. I recognized that I was getting flooded emotionally, so I thought I would try a free-writing exercise, which often helps me identify and even process my emotions. I have [written about that before](https://bennorris.com/2020/10/20/aftermath-of-therapy).
 
-![Page with scribbles](https://media.bennorris.org/images/mentalworkhealth/uploads/2020/f4bc0baaf1.jpg)
+![Page with scribbles](https://media.bennorris.com/images/mentalworkhealth/uploads/2020/f4bc0baaf1.jpg)
 
 As I started writing, I quickly became unable to form letters or words. I just starting scraping the pen back and forth and filled the rest of the page. My wife commented that it seemed I was becoming more agitated, and I responded that it was helping, and I wanted to keep going. As I flipped the sheet and kept scribbling, I had the thought that I didn’t want to destroy the nicer pen I was using, and stepped out to grab a cheaper ballpoint pen. I was scribbling so furiously that my arm became tired. I tried stopping for a few seconds to rub my shoulder and felt an intense need to continue to let out the emotions, so I switched to my left hand. I figured since I wasn’t writing any words anyway, it didn’t really matter if it was legible. I kept going, switching off arms, until I had filled the page in both directions. As I ran out of room, I lost the pen and the page and my hands flailed for a few seconds and then I collapsed forward on the desk. I wanted to just breathe and almost needed to recover.
 
@@ -70,7 +70,7 @@ In some ways, I feel like things can only go up from here. Of course, that is no
 
 ***
 
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.org/subscribe/mwh/)._
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: We’ve heard that is a thing. Apparently museums and other places that need to regularly build temporary rooms use them as walls. We’ll see…
