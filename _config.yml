@@ -15,11 +15,11 @@
 # in the templates via {{ site.myvariable }}.
 lang: en-US
 title: Ben Norris
-email: info@bennorris.org
+email: info@bennorris.com
 description: Sharing mental health, parenting, leadership, and other thoughts
 baseurl: # the optional subpath of your site, e.g. "/blog"
-url: https://bennorris.org
-plausible: bennorris.org
+url: https://bennorris.com
+plausible: bennorris.com
 author:
    name: Ben Norris
    twitter: bsndesign
