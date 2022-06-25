@@ -1,0 +1,23 @@
+---
+layout: post
+---
+
+{% if page.app_image %}
+    <p>
+        <img alt="{{ page.title }}" src="{{ page.app_image }}" />
+    </p>
+{% endif %}
+
+{% if page.store_link %}
+    <p>
+        {% include app-store-badge.html link=page.store_link %}
+    </p>
+{% endif %}
+
+{{ content }}
+
+{% if page.store_link %}
+    <p>
+        {% include app-store-badge.html link=page.store_link %}
+    </p>
+{% endif %}

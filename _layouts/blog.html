@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+{% include page-intro.html %}
+
+{% assign posts = site.posts %}
+<main id="main" class="page-content" aria-label="Content">
+  <div class="index inner">
+    <div>{{ content }}</div>
+    
+    {% if site.posts.size > 0 %}
+      <div>
+        <header class="section-title">
+          <h2>{{ site.data.theme.t.posts | default: 'Posts' }}{% if paginator.page > 1 %}{{ site.data.theme.t.page | default: 'Page' | prepend: ' - ' | append: ' ' }}{{ paginator.page }} {{ site.data.theme.t.of | default: 'of' }} {{ paginator.total_pages }}{% endif %}</h2>
+        </header>
+        <div class="entries-{{ page.entries_layout | default: 'list' }}">
+          {% include posts-short-list.html posts=posts %}
+            
+          <a href="archive" class="btn">View archive</a>
+      </div>
+      </div>    
+    {% endif %}
+    
+  </div>
+</main>

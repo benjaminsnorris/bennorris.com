@@ -1,0 +1,35 @@
+{% if include.posts.size > 0 %}
+  <header class="intro">
+    <div class="inner">
+        <div class="intro-text">
+            <h1 id="page-title" class="intro-title">{{ page.alt_title | default: page.title | default: site.title | markdownify | strip_html }}</h1>
+            <p class="entry-meta">
+                <span class="meta-item">
+                    <span class="icon">{% include {{ include.icon }} %}</span>
+                    {% if include.all-href %}
+                      <a href="{{ include.all-href }}" title="{{ include.title }}" rel="tag">{{ include.posts.size }} {% if include.posts.size == 1 %}post{% else %}posts{% endif %}</a>  
+                    {% else %}
+                      <span>{{ include.posts.size }} {% if include.posts.size == 1 %}post{% else %}posts{% endif %}</span>
+                    {% endif %}
+                </span>
+            </p>
+            <p class="entry-meta">
+                <span class="meta-item">
+                    <span class="icon">{% include icon-calendar.svg %}</span>
+                    {% if include.posts.size == 1 %}
+                        <time datetime="{{ include.posts.first.date | date_to_xmlschema }}">{{ include.posts.first.date | date: "%B %-d, %Y" }}</time>
+                    {% else %}
+                        <time datetime="{{ include.posts.first.date | date_to_xmlschema }}">{{ include.posts.last.date | date: "%B %-d, %Y" }} - {{ include.posts.first.date | date: "%B %-d, %Y" }}</time>
+                    {% endif %}
+                </span>
+            </p>
+            <p class="entry-meta">
+                <span class="meta-item">
+                    <span class="icon text">#</span>
+                    {% include number-of-words.html posts=include.posts %}
+                </span>
+            </p>
+        </div>
+    </div>
+  </header>
+{% endif %}

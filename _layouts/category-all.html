@@ -1,0 +1,10 @@
+---
+layout: default
+---
+
+{% assign category_posts = site.categories[page.taxonomy] %}
+
+{% include list-intro.html posts=category_posts icon='icon-bookmark.svg' %}
+
+{% assign gallery-link = page.gallery-link %}
+{% include list-content.html posts=category_posts archive-entries=true gallery-link=gallery-link gallery-href="../gallery" %}

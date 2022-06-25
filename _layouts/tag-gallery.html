@@ -1,0 +1,9 @@
+---
+layout: default
+---
+
+{% assign tag_posts = site.tags[page.taxonomy] %}
+
+{% include list-intro.html posts=tag_posts icon='icon-tag.svg' all-href="../all" %}
+
+{% include list-content.html posts=tag_posts gallery=true %}

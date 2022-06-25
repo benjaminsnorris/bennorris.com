@@ -1,0 +1,41 @@
+---
+layout: default
+---
+
+<header class="intro">
+    <div class="inner">
+        <div class="intro-text">
+            <h1 id="page-title" class="intro-title">{{ page.alt_title | default: page.title | default: site.title | markdownify | strip_html }}</h1>
+            <p class="entry-meta">
+                <span class="meta-item">
+                    <span class="icon">{% include icon-bookmark.svg %}</span>
+                    {% include number-with-commas.html number=site.posts.size %} posts
+                </span>
+            </p>
+            <p class="entry-meta">
+                <span class="meta-item">
+                    <span class="icon">{% include icon-calendar.svg %}</span>
+                    <time datetime="{{ category_posts.first.date | date_to_xmlschema }}">{{ site.posts.last.date | date: "%B %-d, %Y" }} - {{ site.posts.first.date | date: "%B %-d, %Y" }}</time>
+                </span>
+            </p>
+            <p class="entry-meta">
+                <span class="meta-item">
+                    <span class="icon text">#</span>
+                    {% include number-of-words.html posts=site.posts %}
+                </span>
+            </p>
+        </div>
+    </div>
+</header>
+
+<main id="main" class="page-content" aria-label="Content">
+    <div class="inner">
+        <article class="entry-wrap">
+        <div class="entry-content">
+            {{ content }}
+
+            {% include posts-list-by-date.html posts=site.posts %}
+        </div>
+        </article>
+    </div>
+</main>

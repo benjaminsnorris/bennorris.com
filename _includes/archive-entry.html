@@ -1,0 +1,53 @@
+{% if post.id %}
+  {% assign title = post.title | markdownify | strip_html %}
+{% else %}
+  {% assign title = post.title %}
+{% endif %}
+
+<article class="entry">
+  <header class="entry-header">
+    <h3 class="entry-title">
+      <a href="{{ post.url | relative_url }}" rel="bookmark">
+        {% if post.micro %}
+          Microblog post
+        {% else %}
+          {{ title }}
+        {% endif %}
+      </a>
+    </h3>
+  </header>
+  <footer class="entry-meta">
+    {% if post.date %}
+      <span class="byline-item">
+        <span class="icon">{% include icon-calendar.svg %}</span>
+        <time class="entry-time" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+      </span>
+    {% endif %}
+    {% unless post.short or post.micro %}
+      {% if post.read_time %}
+        <span class="byline-item">
+          <span class="icon">{% include icon-stopwatch.svg %}</span>{% capture read_time %}{% include read-time.html %}{% endcapture %}{{ read_time | strip }}
+        </span>
+      {% endif %}
+    {% endunless %}
+    {% if post.word_count %}
+      <span class="byline-item">
+        <span class="icon text">#</span>
+        {% assign post_words = post.content | number_of_words %}
+        {% include number-with-commas.html number=post_words %} words
+      </span>
+    {% endif %}
+    {% if post.categories.size > 0 %}
+      {% for category in post.categories %}
+        <span class="byline-item">
+          <span class="icon">{% include icon-bookmark.svg %}</span>
+          {%- if site.category_archive_path -%}
+            <a href="{{ category | slugify | prepend: site.category_archive_path | relative_url }}" title="{{ site.data.text[site.locale].category | default: 'Category' }} {{ category }}" rel="category">{{ category }}</a>  
+          {%- else -%}
+            {{ category }}
+          {%- endif -%}
+        </span>
+      {% endfor %}
+  {% endif %}
+</footer>
+</article>

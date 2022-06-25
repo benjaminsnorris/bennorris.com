@@ -1,0 +1,79 @@
+<header class="intro">
+  {% if page.image %}
+    {% assign intro_image = page.image.path | default: page.image | relative_url | escape %}
+    <div class="intro-image">
+      <img src="{{ intro_image }}" alt="{{ page.title }}">
+    </div>
+  {% endif %}
+
+  <div class="inner">
+    <div class="intro-text">
+      <h1 id="page-title" class="intro-title">
+          {% if page.micro %}
+            Microblog post
+          {% else %}
+            {{ page.alt_title | default: page.title | default: site.title | markdownify | strip_html }}
+          {% endif %}
+        </h1>
+      {% if page.sub_title %}
+        <p class="intro-subtitle">{{ page.sub_title | markdownify | strip_html }}</p>
+      {% endif %}
+
+      {% if page.date %}
+        {% include author %}
+        <p class="entry-meta">
+          <span class="byline-item"><span class="icon">{% include icon-calendar.svg %}</span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></span>
+          {% unless page.short or page.micro %}
+            {% if page.read_time %}
+              <span class="byline-item"><span class="icon">{% include icon-stopwatch.svg %}</span>{% capture read_time %}{% include read-time.html %}{% endcapture %}{{ read_time | strip }}</span>
+            {% endif %}
+          {% endunless %}
+        </p>
+      {% endif %}
+
+      {% if page.introduction %}
+        <div class="intro-more">
+          {{ page.introduction | markdownify }}
+        </div>
+      {% endif %}
+
+      {% if page.actions %}
+        <ul class="intro-actions">
+          {% for action in page.actions %}
+            <li><a href="{{ action.url }}" class="btn">{% if action.icon %}<span class="icon">{% include {{ action.icon | prepend: 'icon-' | append: '.svg' }} %}</span>{% endif %}{{ action.label }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      
+      {% if page.categories.size > 0 %}
+        <p class="entry-meta">
+          {% for category in page.categories %}
+          <span class="meta-item">
+              <span class="icon">{% include icon-bookmark.svg %}</span>
+              {%- if site.category_archive_path -%}
+                <a href="{{ category | slugify | prepend: site.category_archive_path | relative_url }}" title="{{ site.data.text[site.locale].category | default: 'Category' }} {{ category }}" rel="category">{{ category }}</a>  
+              {%- else -%}
+                {{ category }}
+              {%- endif -%}
+            </span>
+          {% endfor %}
+        </p>
+      {% endif %}
+      
+      {% if page.tags.size > 0 %}
+        <p class="entry-meta">
+          {% for tag in page.tags %}
+            <span class="meta-item">
+              <span class="icon">{% include icon-tag.svg %}</span>
+              {%- if site.tag_archive_path -%}
+                <a href="{{ tag | slugify | prepend: site.tag_archive_path | relative_url }}" title="{{ site.data.text[site.locale].posts_tagged | default: 'Posts tagged' }} {{ tag }}" rel="tag">{{ tag }}</a>  
+              {%- else -%}
+                {{ tag }}
+              {%- endif -%}
+            </span>
+          {% endfor %}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</header>

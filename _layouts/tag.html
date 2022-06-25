@@ -1,0 +1,10 @@
+---
+layout: default
+---
+
+{% assign tag_posts = site.tags[page.taxonomy] %}
+
+{% include list-intro.html posts=tag_posts icon='icon-tag.svg' all-href="all" %}
+
+{% assign gallery-link = page.gallery-link %}
+{% include list-content.html posts=tag_posts limit=10 all-href="all" gallery-link=gallery-link gallery-href="gallery" %}

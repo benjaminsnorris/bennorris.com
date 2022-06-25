@@ -1,0 +1,88 @@
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+.menu {
+  @include list-unstyled;
+
+  a {
+    color: inherit;
+    border-bottom: none;
+  }
+}
+
+/*
+   Skip links
+   ========================================================================== */
+
+.skip-links {
+  position: absolute;
+  width: 100%;
+
+  ul {
+    @include list-unstyled;
+  }
+}
+
+/*
+   Paginator
+   ========================================================================== */
+
+.pager {
+  @include clearfix();
+  margin-bottom: 2rem;
+
+  ul {
+    @include list-unstyled;
+    display: -ms-flexbox;
+    display: flex;
+
+    > li {
+      -ms-flex: 1;
+      flex: 1;
+      justify-content: space-between;
+      -ms-flex-pack: justify;
+    }
+
+    li + li {
+      margin-left: 0.125em;
+    }
+  }
+
+  a {
+    display: block;
+    padding: 1em 0;
+    border-radius: $border-radius;
+    color: $text-color;
+    font-weight: bold;
+    border-bottom: none;
+
+    &:hover {
+      color: $accent-color;
+
+      .link-text {
+        border-bottom-color: $accent-color;
+      }
+    }
+
+    .link-text {
+      border-bottom: 1px dotted $text-color;
+    }
+  }
+
+  .previous {
+    text-align: left;
+
+    .icon {
+      margin-right: 0.25em;
+    }
+  }
+
+  .next {
+    text-align: right;
+
+    .icon {
+      margin-left: 0.25em;
+    }
+  }
+}

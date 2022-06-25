@@ -1,0 +1,9 @@
+---
+layout: default
+---
+
+{% assign category_posts = site.categories[page.taxonomy] %}
+
+{% include list-intro.html posts=category_posts icon='icon-bookmark.svg' all-href="../all" %}
+
+{% include list-content.html posts=category_posts gallery=true %}

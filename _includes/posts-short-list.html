@@ -1,0 +1,7 @@
+{% if include.posts.size > 0 %}
+  <div class="entries-{{ page.entries_layout | default: 'list' }}">
+    {% for post in include.posts limit:10 %}
+      {% include entry.html %}
+    {% endfor %}
+  </div>
+{% endif %}

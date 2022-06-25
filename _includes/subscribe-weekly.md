@@ -1,0 +1,1 @@
+_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us]({{ site.url }}/subscribe/mwh/)._

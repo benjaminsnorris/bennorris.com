@@ -1,0 +1,34 @@
+{
+    "basics": {
+        "name": "Ben Norris",
+        "label": "Mobile manager",
+        "email": "ben@bennorris.org",
+        "phone": "(801) 554-5267",
+        "website": "https://bennorris.org",
+        "location": {
+            "address": "3528 W Newland Loop #4",
+            "postalCode": "UT 84043",
+            "city": "Lehi",
+            "countryCode": "US",
+            "region": "Utah"
+        },
+        "profiles": [{
+            "network": "Twitter",
+            "username": "bsndesign",
+            "url": "https://twitter.com/bsndesign"
+        }]
+    },
+    "work": [{
+        "company": "O.C. Tanner",
+        "position": "Mobile manager",
+        "startDate": "2018-06-01",
+        "summary": "Led the mobile team"
+    }, {
+        "company": "O.C. Tanner",
+        "position": "Engineering manager",
+        "startDate": "2016-10-18",
+        "endDate": "2018-05-30",
+        "summary": "Led the Align team"
+    }
+    ]
+}

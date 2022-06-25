@@ -1,0 +1,77 @@
+{% if include.posts.size > 0 %}
+  <ul class="taxonomy-index">
+    {% assign postsInYear = include.posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
+    {% for year in postsInYear %}
+      <li>
+        <a href="#{{ year.name }}">
+          <strong>{{ year.name }}</strong> <span class="taxonomy-count">{{ year.items | size }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% assign postsByYear = include.posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
+  {% for year in postsByYear %}
+    <section id="{{ year.name }}" class="taxonomy-section archive">
+      <h2>{{ year.name }}</h2>
+      <div class="entry-meta">
+        <ul>
+          <li class="meta-item">
+              <span>
+                  <span class="icon">{% include icon-bookmark.svg %}</span>
+                  {% include number-with-commas.html number=year.items.size %} {% if year.items.size == 1 %}post{% else %}posts{% endif %}
+              </span>
+          </li>
+          <li class="meta-item">
+              <span>
+                  <span class="icon text">#</span>
+                  {% include number-of-words.html posts=year.items %}
+              </span>
+          </li>
+        </ul>
+      </div>
+    {% assign postsInMonth = year.items | group_by_exp: 'post', 'post.date | date: "%b"' %}
+      {% if year.size > 5 %}
+      <ul class="taxonomy-index">
+        {% for month in postsInMonth %}
+          <li>
+            <a href="#{{ year.name }}-{{ month.name }}">
+              <strong>{{ month.name }}</strong> <span class="taxonomy-count">{{ month.items | size }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      {% endif %}        
+      {% for month in postsInMonth %}
+        <div class="taxonomy-section" id="{{ year.name }}-{{ month.name }}">
+          <div class="taxonomy-title">
+            <h3>{{ month.name }}</h3>
+            <div class="entry-meta">
+              <ul>
+                <li class="meta-item">
+                    <span>
+                        <span class="icon">{% include icon-bookmark.svg %}</span>
+                        {% include number-with-commas.html number=month.items.size %} {% if month.items.size == 1 %}post{% else %}posts{% endif %}
+                    </span>
+                </li>
+                <li class="meta-item">
+                    <span>
+                        <span class="icon text">#</span>
+                        {% include number-of-words.html posts=month.items %}
+                    </span>
+                </li>
+              </ul>
+            </div>
+                </div>
+          {% for post in month.items %}
+            {% include archive-entry.html %}
+          {% endfor %}
+          {% if month.items.size > 1 %}
+            <a href="#{{ year.name }}" class="back-to-top">Back to {{ year.name }} &uarr;</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <a href="#page-title" class="back-to-top">{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
+    </section>
+  {% endfor %}
+{% endif %}
