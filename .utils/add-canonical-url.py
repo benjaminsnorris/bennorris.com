@@ -36,7 +36,7 @@ def adjustFile(file, category, new_directory):
     if contents.__contains__('canonical_url'):
         return
 
-    canonical = 'https://bennorris.com/' + year + '/' + month + '/' + day + '/' + name + '\n'
+    canonical = 'canonical_url: https://bennorris.com/' + year + '/' + month + '/' + day + '/' + name + '\n'
     # print('file: ' + file.name + '\tupdated with ' + canonical)
     adjusted_contents = re.sub('date:',canonical + 'date:',contents)
 
