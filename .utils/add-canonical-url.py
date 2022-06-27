@@ -1,28 +1,27 @@
 import os
 import re
 
-def adjustFiles(directory, category):
+def adjustFiles(directory, category, new_directory):
     for file in os.scandir(directory):
         if file.is_file():
-            adjustFile(file, category)
+            adjustFile(file, category, new_directory)
 
-def adjustFile(file, category):
+def adjustFile(file, category, new_directory):
     if file.path.__contains__('.DS_Store'):
         return
 
-
     category_regex = re.compile('category\:\s+?' + category)
     file_read = open(file, 'r', encoding='utf-8')
-    file_name = file_read.name
 
-    match = re.match('(\d{4})-(\d{2})-(\d{2})-(.+?)', file_name)
+    match = re.match('(\d{4})-(\d{2})-(\d{2})-([^\.]+?)\.', file.name)
     if not match:
+        print('No match for ' + file.name)
         return
 
-    year = match.group(0)
-    month = match.group(1)
-    day = match.group(2)
-    name = match.group(3)
+    year = match.group(1)
+    month = match.group(2)
+    day = match.group(3)
+    name = match.group(4)
 
     contents = file_read.read()
     category_search = category_regex.search(contents)
@@ -30,6 +29,7 @@ def adjustFile(file, category):
 
     if not category_search:
         # delete file
+        # print('category not found in ' + file.name)
         return
 
     # If the post already contains a canonical url, no need to continue
@@ -37,20 +37,20 @@ def adjustFile(file, category):
         return
 
     canonical = 'https://bennorris.com/' + year + '/' + month + '/' + day + '/' + name + '\n'
-    print(canonical)
-    # adjusted_contents = re.sub('date:',canonical + 'date:',contents)
+    # print('file: ' + file.name + '\tupdated with ' + canonical)
+    adjusted_contents = re.sub('date:',canonical + 'date:',contents)
 
-    # file_write = open(file, 'w')
-    # file_write.write(adjusted_contents)
-    # file_write.close()
+    file_path = os.path.join(new_directory, file.name)
+    file_write = open(file_path, 'w')
+    file_write.write(adjusted_contents)
+    file_write.close()
 
-    # print('added canonical url in '+file_name)
+    print('added canonical url in ' + file_path)
 
 def main():
     directory = "_posts"
     category = "Sketchnotable"
-    # adjustFiles(directory, category)
-    # adjustFile('_posts/2019-04-07-general-conference-3-cook-sketchnote.md')
-    adjustFile('_posts/2021-08-11-linkedin-live-sketchnote.md')
+    new_directory = "export"
+    adjustFiles(directory, category, new_directory)
 
 main()
