@@ -51,6 +51,7 @@ def main():
     directory = "_posts"
     category = "Sketchnotable"
     new_directory = "export"
+    os.makedirs(new_directory, exist_ok=True)
     adjustFiles(directory, category, new_directory)
 
 main()
