@@ -74,6 +74,10 @@
           {% endfor %}
         </p>
       {% endif %}
+
+      {% if page.canonical_url %}
+        <p class="entry-meta"><em>This was originally published on <a href="{{ page.canonical_url }}">{{ page.canonical_url | remove_first: 'https://' | remove_first: 'http://' | split: '/' | first }}</a>.</em></p>
+      {% endif %}
     </div>
   </div>
 </header>
