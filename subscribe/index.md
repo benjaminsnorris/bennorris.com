@@ -1,7 +1,6 @@
 ---
-layout: post-base
+layout: page
+title: Subscribe
 ---
-
-{{ content }}
 
 {% include subscribe.html %}
