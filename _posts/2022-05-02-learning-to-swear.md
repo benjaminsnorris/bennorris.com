@@ -8,7 +8,9 @@ image:
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/learning-to-swear.jpg
 tags:
 - mental health
+- ocd
 - sketchnotes
+- favorite
 ---
 
 One aspect of my OCD recovery has been learning that **swearing is ok**. While my goal is not to be constantly profane, **I am not a horrible person** if I curse. And neither is anyone else who does.

@@ -6,6 +6,7 @@ tags:
 - sketchnotes
 - mindfulsketch
 - mental health
+- ocd
 gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/2021-11-27-mindfulsketch.jpg
 read_time: false
 word_count: false

@@ -3,6 +3,7 @@ title: "#8: Aftermath of therapy"
 date: 2020-10-20 22:59:47-0600
 tags:
 - weekly update
+- ocd
 - mental health
 - free writing
 category: Mental Work Health

@@ -3,6 +3,7 @@ title: "#20: Purple Monkey Party"
 date: 2021-01-19 08:29:55-0700
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---

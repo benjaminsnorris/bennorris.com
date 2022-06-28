@@ -3,6 +3,7 @@ title: "#33: Camping and sketching"
 date: 2021-05-05 08:15:50-0600
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---

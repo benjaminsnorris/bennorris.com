@@ -8,6 +8,7 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/mindfu
 category: Mental Work Health
 tags:
 - weekly update
+- ocd
 - mental health
 - sketchnotes
 - mindfulsketch

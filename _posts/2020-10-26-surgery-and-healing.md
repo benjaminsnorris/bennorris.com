@@ -3,6 +3,7 @@ title: "#9: Surgery and healing"
 date: 2020-10-26 21:37:09-0600
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---

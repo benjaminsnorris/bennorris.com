@@ -3,6 +3,7 @@ title: "#32: Designing indulgently"
 date: 2021-04-30 13:25:48-0600
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---

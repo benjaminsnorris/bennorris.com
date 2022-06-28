@@ -3,6 +3,7 @@ title: "#12: A slight breakdown"
 date: 2020-11-16 20:49:00-0700
 tags:
 - weekly update
+- ocd
 - mental health
 - free writing
 category: Mental Work Health

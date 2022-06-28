@@ -3,6 +3,7 @@ title: "#42: Oh, the irony"
 date: 2021-07-09 11:05:48-0600
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---

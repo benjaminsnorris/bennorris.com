@@ -7,6 +7,7 @@ image:
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/panic-attack-recovery-zone.jpg
 tags:
 - weekly update
+- ocd
 - mental health
 - sketchnotes
 category: Mental Work Health

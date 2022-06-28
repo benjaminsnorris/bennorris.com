@@ -3,6 +3,8 @@ title: "Back pain and panic attacks"
 date: 2020-02-15 17:08:00-0700
 tags:
 - my story
+- mental health
+- ocd
 category: Mental Work Health
 ---
 

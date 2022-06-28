@@ -3,6 +3,7 @@ title: "🌀 Splurging on Patagonia gear"
 date: 2019-02-09 13:02:45-0700
 tags:
 - musings
+- ocd
 category: General
 ---
 

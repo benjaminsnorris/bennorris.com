@@ -3,6 +3,7 @@ title: "#1: Spinning in neutral"
 date: 2020-09-01 21:57:00-0600
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---

@@ -3,6 +3,7 @@ title: "#30: Creating white space"
 date: 2021-04-13 08:42:00-0600
 tags:
 - weekly update
+- ocd
 - mental health
 - general conference
 category: Mental Work Health

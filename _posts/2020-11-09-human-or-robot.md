@@ -3,6 +3,7 @@ title: "#11: Human or robot?"
 date: 2020-11-09 15:01:57-0700
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---

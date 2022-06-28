@@ -3,6 +3,7 @@ title: "#3: Show up & see"
 date: 2020-09-14 20:22:00-0600
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---

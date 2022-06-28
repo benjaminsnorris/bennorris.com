@@ -3,6 +3,7 @@ title: "💮 What mental panic attacks feel like"
 date: 2019-03-23 10:58:24-0600
 tags:
 - mental health
+- ocd
 category: Mental Work Health
 ---
 

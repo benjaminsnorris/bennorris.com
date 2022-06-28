@@ -3,6 +3,8 @@ title: "Trying out therapy"
 date: 2020-09-10 22:14:00-0600
 tags:
 - my story
+- mental health
+- ocd
 category: Mental Work Health
 ---
 

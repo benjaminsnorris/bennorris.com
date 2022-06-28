@@ -3,6 +3,7 @@ title: "💮 Trying stand-up comedy"
 date: 2019-11-16 16:59:00-0700
 tags:
 - mental health
+- ocd
 - favorite
 - video
 category: Mental Work Health

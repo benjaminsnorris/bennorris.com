@@ -3,6 +3,7 @@ title: "#6: Spiral of doom"
 date: 2020-10-05 22:23:00-0600
 tags:
 - weekly update
+- ocd
 - mental health
 - general conference
 category: Mental Work Health

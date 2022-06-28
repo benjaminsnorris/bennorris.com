@@ -3,6 +3,7 @@ title: "#15: Running in circles"
 date: 2020-12-07 15:30:59-0700
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---

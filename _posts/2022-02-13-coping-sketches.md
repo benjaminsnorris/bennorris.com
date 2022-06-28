@@ -8,6 +8,7 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/coping
 category: Mental Work Health
 tags:
 - mental health
+- ocd
 - sketchnotes
 - mindfulsketch
 ---

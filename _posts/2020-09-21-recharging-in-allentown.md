@@ -3,6 +3,7 @@ title: "#4: Recharging in Allentown"
 date: 2020-09-21 17:47:00-0600
 tags:
 - weekly update
+- ocd
 - mental health
 category: Mental Work Health
 ---
