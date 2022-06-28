@@ -1,8 +1,7 @@
 ---
 date: 2022-06-21 11:08:00-0600
 title: "Sketchnotes from Ugmonk Interview"
-categories:
-- Sketchnotable
+category: Sketchnotable
 tags:
 - sketchnotes
 gallery_thumb:

@@ -5,8 +5,7 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/weight
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/weight-of-responsibility.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/weight-of-responsibility.jpg
-categories:     
-- Mental Work Health
+category: Mental Work Health
 tags:           
 - weekly update
 - mental health

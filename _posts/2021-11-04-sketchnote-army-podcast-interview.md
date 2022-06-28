@@ -1,8 +1,7 @@
 ---
 date: 2021-11-04 06:50:00-0700
 title: "Sketchnote Army Podcast Interview"
-categories:
-- Sketchnotable
+category: Sketchnotable
 tags:
 - sketchnotes
 short: true

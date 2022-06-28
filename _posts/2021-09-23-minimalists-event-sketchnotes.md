@@ -4,8 +4,7 @@ gallery_thumb:
 - https://media.bennorris.com/images/sketchnotable/thumbs/minimalists-2021-sketchnotes-02.jpg
 date: 2021-09-23 09:13:00-0700
 title: "The Minimalists Event Sketchnotes"
-categories:
-- Sketchnotable
+category: Sketchnotable
 tags:
 - sketchnotes
 short: true

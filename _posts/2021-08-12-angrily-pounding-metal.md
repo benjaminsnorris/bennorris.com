@@ -5,8 +5,7 @@ date: 2021-08-12 09:54:00-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/angrily-pounding-metal-sketchnote.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/angrily-pounding-metal-sketchnote.jpg
-categories:     
-- Mental Work Health
+category: Mental Work Health
 tags:           
 - weekly update
 - mental health

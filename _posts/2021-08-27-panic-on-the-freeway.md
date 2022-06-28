@@ -1,8 +1,7 @@
 ---
 title: "#49: Panic on the freeway"
 date: 2021-08-27 14:17:00-0700
-categories:     
-- Mental Work Health
+category: Mental Work Health
 tags:           
 - weekly update
 - mental health

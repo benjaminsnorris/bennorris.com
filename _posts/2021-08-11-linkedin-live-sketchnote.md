@@ -2,8 +2,7 @@
 gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/linkedin-live-aug-2021-sketchnote.jpg
 date: 2021-08-11 12:50:00-0700
 title: "LinkedIn Live Event Sketchnote"
-categories:
-- Sketchnotable
+category: Sketchnotable
 tags:
 - sketchnotes
 short: true
