@@ -5,7 +5,6 @@ image:
   path: https://media.bennorris.com/images/mentalworkhealth/posts/therapist-therapy.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/therapist-therapy.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/therapist-therapy.jpg
-layout: mwh
 category: Mental Work Health
 tags:
 - weekly update

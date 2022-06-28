@@ -5,7 +5,6 @@ image:
   path: https://media.bennorris.com/images/mentalworkhealth/posts/breaking-streaks.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/breaking-streaks.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/breaking-streaks.jpg
-layout: mwh
 category: Mental Work Health
 tags:
 - weekly update

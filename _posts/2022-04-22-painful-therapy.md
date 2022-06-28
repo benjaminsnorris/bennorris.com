@@ -5,7 +5,6 @@ image:
   path: https://media.bennorris.com/images/mentalworkhealth/posts/painful-therapy.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/painful-therapy.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/painful-therapy.jpg
-layout: mwh
 category: Mental Work Health
 tags:
 - weekly update

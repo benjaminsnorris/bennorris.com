@@ -5,7 +5,6 @@ image:
   path: https://media.bennorris.com/images/mentalworkhealth/posts/bees-in-charge.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/bees-in-charge.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/bees-in-charge.jpg
-layout: mwh
 category: Mental Work Health
 tags:
 - weekly update

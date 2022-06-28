@@ -5,7 +5,6 @@ image:
   path: https://media.bennorris.com/images/mentalworkhealth/posts/the-wrong-name.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/the-wrong-name.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/the-wrong-name.jpg
-layout: mwh
 category: Mental Work Health
 tags:
 - weekly update

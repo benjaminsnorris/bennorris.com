@@ -6,7 +6,6 @@ image:
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/mental-toll.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/mental-toll.jpg
 
-layout: mwh
 category: Mental Work Health
 tags:
 - weekly update

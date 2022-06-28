@@ -11,7 +11,6 @@ tags:
 - mental health
 - sketchnotes
 - free writing
-layout: mwh
 ---
 
 In this up-and-down week, I share about **needing an extra therapy session**, being **flexible at work**, and the **power of free writing**.

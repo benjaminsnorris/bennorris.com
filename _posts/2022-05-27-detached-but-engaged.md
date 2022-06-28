@@ -5,7 +5,6 @@ image:
   path: https://media.bennorris.com/images/mentalworkhealth/posts/detached-but-engaged.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/detached-but-engaged.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/detached-but-engaged.jpg
-layout: mwh
 category: Mental Work Health
 tags:
 - weekly update
