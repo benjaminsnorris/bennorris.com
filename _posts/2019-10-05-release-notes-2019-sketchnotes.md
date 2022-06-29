@@ -4,7 +4,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/release-n
 date: 2019-10-05 18:15:56-0600
 tags:
 - sketchnotes
-- sketchnote collection
+- collection
 category: Sketchnotable
 ---
 

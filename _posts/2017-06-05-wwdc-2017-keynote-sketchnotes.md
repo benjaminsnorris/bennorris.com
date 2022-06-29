@@ -6,7 +6,7 @@ category: Sketchnotable
 tags:
 - wwdc
 - sketchnotes
-- sketchnote collection
+- collection
 gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/wwdc-2017-keynote-sketchnotes-01.jpg
 date: 2017-06-05 13:18:02-0800
 ---

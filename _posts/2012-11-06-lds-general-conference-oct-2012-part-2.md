@@ -9,7 +9,7 @@ category: Gospel Sketcher
 tags:
 - general conference
 - sketchnotes
-- sketchnote collection
+- collection
 ---
 
 This is the next installment in my series from the LDS General Conference in October 2012. These sketchnotes are from the Saturday Afternoon general session. You can view my sketchnotes from the Saturday Morning session in my <a href="https://bennorris.com/2012/10/28/lds-general-conference" title="LDS General Conference Oct 2012 Part 1 of 5">previous post</a>.

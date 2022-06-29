@@ -20,7 +20,7 @@ read_time:      false
 category:       Sketchnotable
 tags:
 - sketchnotes
-- sketchnote collection
+- collection
 ---
 
 [Release Notes](https://releasenotes.tv/conference) was a fantastic experience. Like many people with whom I spoke as the conference ended, I suspect that it will take a week or two for all of the great information and advice to sink in. Fortunately, sketchnoting the conference is a big help for me personally to remember the talks. If you came to the conference, hopefully these can help you as well. And if not, hopefully you will enjoy them all the same, and learn from the great speakers.

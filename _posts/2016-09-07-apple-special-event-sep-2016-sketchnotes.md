@@ -12,7 +12,7 @@ read_time:      false
 category:       Sketchnotable
 tags:
 - sketchnotes
-- sketchnote collection
+- collection
 ---
 
 One of the most exciting events every fall is the Apple Event to announce the new iPhone. I was thrilled to watch and learn about some of the new hardware Apple is releasing this summer. And I cannot wait for a Batman-style matte black iPhone 7! Here are the sketchnotes I created from the event.

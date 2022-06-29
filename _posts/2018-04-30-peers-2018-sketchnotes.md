@@ -3,7 +3,7 @@ title: "Peers 2018 Sketchnotes"
 excerpt: Sketchnotes from the 2018 Peers Conference
 tags:
 - sketchnotes
-- sketchnote collection
+- collection
 category: Sketchnotable
 read_time: false
 gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/peers-2018-sketchnote-01.jpg

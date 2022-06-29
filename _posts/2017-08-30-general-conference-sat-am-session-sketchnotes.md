@@ -5,7 +5,7 @@ date: 2017-08-30 06:12:12-0600
 tags:
 - general conference
 - sketchnotes
-- sketchnote collection
+- collection
 category: Gospel Sketcher
 ---
 

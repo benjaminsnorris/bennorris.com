@@ -4,7 +4,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/ull-2017-
 date: 2017-04-12 10:30:36-0600
 tags:
 - sketchnotes
-- sketchnote collection
+- collection
 category: Sketchnotable
 ---
 

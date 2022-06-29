@@ -6,7 +6,7 @@ read_time:      false
 category:       Sketchnotable
 tags:
 - sketchnotes
-- sketchnote collection
+- collection
 gallery_thumb:
 - https://media.bennorris.com/images/sketchnotable/thumbs/ull-2016-sketchnotes-00.jpg
 - https://media.bennorris.com/images/sketchnotable/thumbs/ull-2016-sketchnotes-01.jpg

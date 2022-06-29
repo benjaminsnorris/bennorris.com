@@ -5,7 +5,7 @@ category: Sketchnotable
 tags:
 - sketchnotes
 - book
-- sketchnote collection
+- collection
 read_time: false
 gallery_thumb:
 - https://media.bennorris.com/images/sketchnotable/thumbs/crucial-conversations-sketchnote-1.jpg

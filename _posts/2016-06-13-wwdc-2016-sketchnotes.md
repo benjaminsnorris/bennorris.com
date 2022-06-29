@@ -6,7 +6,7 @@ category:       Sketchnotable
 tags:
 - wwdc
 - sketchnotes
-- sketchnote collection
+- collection
 read_time:      false
 gallery_thumb:
 - https://media.bennorris.com/images/sketchnotable/thumbs/wwdc16-sketchnotes-1.jpg
