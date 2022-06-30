@@ -11,5 +11,6 @@
       <input type="email" name="email" id="email-input" class="email-input" required placeholder="Your email (you@example.com)" />
       <button type="submit" data-analytics='"Subscribe", {"props":{"location":"{{ include.location | default: "post" }}"}}' class="btn"></span>Subscribe</button>
     </div>
+    {% include subscribe-hidden-fields.html %}
   </form>
 </div>    
