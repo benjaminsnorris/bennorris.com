@@ -8,7 +8,7 @@
   >
     <label for="email-input">Subscribe to get future updates in your inbox</label>
     <div class="email-input-row">
-      <input type="email" name="email" id="email-input" class="email-input" required placeholder="Your email (you@example.com)" />
+      <input type="email" name="email" id="email-input" class="email-input" required placeholder="Your email" />
       <button type="submit" data-analytics='"Subscribe", {"props":{"location":"{{ include.location | default: "post" }}"}}' class="btn"></span>Subscribe</button>
     </div>
     {% include subscribe-hidden-fields.html %}
