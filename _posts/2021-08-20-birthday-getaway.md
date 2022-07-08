@@ -14,7 +14,7 @@ tags:
 
 This week I share about delightful last-minute plans for **my birthday** and one of my heroes, **[John Moe](https://www.johnmoe.website/)**.
 
-_These [weekly updates](https://bennorris.com/tags/weekly-update/) are an ongoing series in which I share what it is like to live with OCD in an effort to reduce the stigma around mental health, particularly in the workplace._
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) share life with OCD as part of my [Mental Work Health](https://bennorris.com/mental-work-health) project to reduce stigma around mental health, especially at work._
 
 ***
 
