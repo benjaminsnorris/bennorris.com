@@ -82,6 +82,3 @@ We all go through so many hard things. You’re probably in the middle of one ri
 
 ![It’s dangerous to go alone](https://upload.wikimedia.org/wikipedia/en/b/b2/It%27s_dangerous_to_go_alone%21_Take_this..png)
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

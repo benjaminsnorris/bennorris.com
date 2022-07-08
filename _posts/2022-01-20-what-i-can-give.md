@@ -96,8 +96,3 @@ This is a hint of a light at the end of a very long and dark tunnel. This is the
 
 I have work to do. But for maybe the first time, it feels freeing. As I practice exploring what I actually think and feel and want, I might just get to know myself. The prospect is exciting.
 
-***
-
-_Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
-
-<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

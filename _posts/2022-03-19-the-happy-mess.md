@@ -79,8 +79,3 @@ I feel so grateful for the progress I’ve made in working with my OCD that this
 
 You have your own struggles right now. I send you compassion and hope that you are able to sit in them and move forward. This week, let’s be **extra kind** to ourselves. And if we can, to someone else, too.
 
-***
-
-_Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
-
-<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

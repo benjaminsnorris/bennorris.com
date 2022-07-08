@@ -48,6 +48,3 @@ So if I was to rephrase my coworker’s statement, I would say that adversity *c
 
 Hard days are part of life. They rarely come at convenient times. The relieving news is that they pass, just as the good days pass. As we get better at accepting the reality of our current situation, we can avoid extra suffering in our lives.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

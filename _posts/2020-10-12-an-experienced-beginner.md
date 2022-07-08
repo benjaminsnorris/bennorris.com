@@ -48,6 +48,3 @@ One of the nice things about the revelation that I can improve drastically in th
 
 Take care of yourself out there. Life is stressful these days and we are all going to have times when we need an extra dose of support to get back up and keep going. And when you can be that for someone else, rather than worry if you will do it right or say the right thing, just reach out and try. The effort matters and your desire to help comes through.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

@@ -63,6 +63,3 @@ Uncertainty will always be difficult, and at times will be overwhelming. But it 
 
 I have an even greater respect for people who choose to stay home and raise their family. There is so much challenge and reward to be found. And this is true for all of us, whatever our situation. Life will continue to present us with uncertainty and difficulty. We can choose to find satisfaction in our willingness to show up and do what we can. Just remember kindness. You deserve it.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

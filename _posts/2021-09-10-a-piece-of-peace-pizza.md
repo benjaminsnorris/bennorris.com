@@ -51,6 +51,3 @@ My hope for you and for me in the coming week is to be more mindful of our emoti
 
 And finally, as always, be kind. The people around you have their own frying pan filled of emotions. You can’t know all of what they are carrying. Be patient and give them the benefit of the doubt. And then do the same for yourself. You deserve some kindness too.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

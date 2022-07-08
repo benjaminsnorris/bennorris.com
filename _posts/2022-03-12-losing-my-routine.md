@@ -81,11 +81,6 @@ When viewed with curiosity, the distress can lose some of its power. It no longe
 
 Let’s give that a try, you and I. And as we do, remember to **ramp up compassion**. This is hard stuff.
 
-***
-
-_Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
-
-<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>
 
 
 [^1]: On days when I don’t have to drive the kids to class, I have been trying the [Apple Fitness+ HIIT workouts](https://www.apple.com/apple-fitness-plus/). They’re great to move and elevate my heart rate without requiring exercise equipment. When I do carpool, I’ve been doing a yoga workout instead. At least, that’s the goal.

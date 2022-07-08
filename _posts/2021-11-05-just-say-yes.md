@@ -88,7 +88,4 @@ I am really excited about this and hope that it can be helpful for others as it 
 
 I hope you are staying above water this week. My emotional legs are getting heavy from treading water for so long, and I know that many other feel similarly. There is hope and compassion to be found, even if we have to just give it to ourselves. We deserve love and kindness, just as we are.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

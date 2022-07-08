@@ -54,6 +54,3 @@ Often, when our moods change, we can feel out of control. It feels as if our bod
 ## Wrap up
 The saying often goes that the only constant is change. I hate sayings like that which seem contradictory. But this week, I have to admit that it is true. Life is a perpetual series of ups and downs, ebbs and flows. I hope that you and I can find, feel, and share compassion through those changes.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

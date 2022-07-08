@@ -68,7 +68,4 @@ I was reminded what a boost it is to spend time with people. Particularly people
 
 While there were some serious difficulties in this past week, there was so much good as well. That’s probably true for all of us, nearly all the time. We will all benefit from connecting with people who love us. They will often show us the compassion that we are struggling to show ourselves. We need that kindness. And when we’re able to, we need to share it with those around us.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

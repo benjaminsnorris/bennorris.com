@@ -56,6 +56,3 @@ Since I have stopped, I have marveled at the difference it makes to have some ti
 
 I am sure that there are things in your life that bring you joy. It can be all too easy to allow those to morph into a taskmaster that demands so much that they lose all color and become oppressive. I encourage you (and me!) to remember to find and create white space in our lives. Look for opportunities to not be productive. Don’t be afraid to do nothing. I think it will do wonders for us.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

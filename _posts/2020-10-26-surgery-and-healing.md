@@ -58,9 +58,6 @@ After more consideration, my answer is no. I would not ask to be healed of my OC
 
 I mentioned [last week](https://bennorris.com/2020/10/21/aftermath-of-therapy/) that I keep hoping to have a boring week, and keep not doing so. My surgery went well and recovery is progressing. The reminder that I am coming to peace with my OCD was a welcome surprise. I hope that whatever struggles you are facing, you are able to find the gold nuggets and come to peace with your situation.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: [Forged in Fire](https://en.wikipedia.org/wiki/Forged_in_Fire_(TV_series)) and football

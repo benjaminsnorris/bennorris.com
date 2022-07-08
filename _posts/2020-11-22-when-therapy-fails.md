@@ -60,9 +60,6 @@ When I paused to reflect, I told my therapist that a part of me knew that I had 
 
 I am looking forward to some time off in the coming week as we celebrate Thanksgiving with an [extra focus on gratitude](https://www.churchofjesuschrist.org/inspiration/the-story-behind-my-global-prayer-of-gratitude). As happy as I am to realize how far I have come, and how much I am able to sit with, taking a break will feel so good.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: This is a religious study class for high schoolers that my fifteen-year-old attends two mornings a week. Learn more [here](https://newsroom.churchofjesuschrist.org/topic/seminary).

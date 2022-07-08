@@ -53,6 +53,3 @@ I need frequent reminders to continue to practice this skill. It seems to be one
 
 I encourage you, as I do myself, to practice more self-compassion. Whether you are a parent or not, make sleep a priority. And find opportunities to engage in activities that uplift and edify you. Stay well.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

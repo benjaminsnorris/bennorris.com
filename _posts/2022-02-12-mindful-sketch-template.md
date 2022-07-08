@@ -79,8 +79,3 @@ Whether you give the template a try or not, I encourage you to find a regular mi
 
 We are probably all facing disruptions and unexpected changes to our plans right now. May we be kind to ourselves and share that kindness with those around us.
 
-***
-
-_Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
-
-<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

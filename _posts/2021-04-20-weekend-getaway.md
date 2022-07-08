@@ -54,6 +54,3 @@ There was something so refreshing about watching a couple who seemed to care abo
 
 Thanks to the [peak-end rule](https://en.wikipedia.org/wiki/Peak%E2%80%93end_rule), as I look back on our trip, it was wonderful. The best parts were time spent together without pressure or stress, and we enjoyed a nice drive home together. It’s a good reminder to me that even when we have difficult times, we will often look back and see so much positive.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

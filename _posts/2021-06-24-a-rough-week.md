@@ -62,6 +62,3 @@ For the past couple years, I have been trying to think of an app idea around men
 
 We all have bad days, or bad weeks (or even bad months or years!). A key to getting through them is self-compassion. This is a good reminder for me, and hopefully for you too. Be kind, especially to yourself.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

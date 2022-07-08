@@ -68,6 +68,3 @@ Instead, the principle I think was behind the intent, and should be the main mes
 
 Whatever life is throwing at us right now, we would be well served to pause and notice how we are reacting to it. Find ways to be creative and look past ourselves and improve the lives of others. Practice respect and show up fully where you are. There is so much good in our lives amidst the challenges.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

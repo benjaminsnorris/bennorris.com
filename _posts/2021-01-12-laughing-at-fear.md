@@ -56,9 +56,6 @@ As often happens, as soon as I was done sharing the thing I wanted support on, I
 
 So much of the difficulties we face in our lives are of our own making. We create expectations for ourselves of how we *should* be handling things, or all that we *should* be able to do, or what we *should* say and do for people. When we allow ourselves to settle in to the current moment, truly feel our emotions, and be compassionate as we try to do our best, we can find that we are not doing too bad. Here’s to both of us getting better at that.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: The set that I received was the [TIE Striker](https://www.lego.com/en-us/product/tie-striker-75154) with 543 pieces. 😊

@@ -79,9 +79,6 @@ I thought I would just share each of my posts here.
 
 So many of us with mental health challenges struggle even more during the holiday season. It felt great for me to realize that engaging well included a healthy mix of sitting out to recover before reengaging. If you are having a hard time, I send you compassion and encourage you to reach out to someone. It is often during the times when we want it the least that we need support and companionship the most.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: I wrote about one of these types of panic attacks [a few weeks ago](https://bennorris.com/2020/11/16/a-slight-breakdown).

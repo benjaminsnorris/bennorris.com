@@ -69,9 +69,6 @@ My belief is that when we communicate asynchronously more regularly, we can crea
 
 We all need to step back and care enough for ourselves and for others to stop acting this way. We need to prioritize our mental health and that of others and find ways to move through our work interactions with more calm and respect. We *can* make a difference.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: This is part of why anxiety disorders, and OCD in my case, are so detrimental. Our alarm system is broken and so our brain is triggering the emergency mode where it is not warranted.

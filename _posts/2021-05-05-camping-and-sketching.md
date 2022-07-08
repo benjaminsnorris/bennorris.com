@@ -55,6 +55,3 @@ Those activities are going to be different for everyone, but I know that it is e
 
 It is always a challenge to return to normal life after a break. This break can be a vacation, a good book, a moving show, or any number of things. As we find ourselves struggling to adjust, my hope is that we will have compassion for ourselves. And be kind with those around you, for you never know what adjustments they may be struggling with.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

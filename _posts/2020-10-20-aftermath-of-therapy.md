@@ -65,6 +65,3 @@ I want to end with one more excerpt from my therapeutic journaling exercise.
 
 My hope is that you and I both can find a practice that works and remember to continue in it.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

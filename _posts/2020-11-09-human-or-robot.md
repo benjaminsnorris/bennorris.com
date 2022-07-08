@@ -73,9 +73,6 @@ I sat there frozen for long enough that my three-year-old called out, “Dad, go
 
 This week included a lot of growth for me. Living with OCD poses real challenges at times, and there are definite ups and downs. Early in the week, I had the pleasure of attending an alumni group meeting with others who went through the [OCD and Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com). A key message I took from the meeting was to remember the skills that we learned in treatment, one of the most crucial for me being self-compassion. I think that is a good one for all of us to remember.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: I had to look and see just how long we had been inside, and used the [Today feature](https://help.dayoneapp.com/en/articles/4303406-today-view) of the excellent journal app [Day One](https://dayoneapp.com) to find out. A bit of OCD showing through? Perhaps.

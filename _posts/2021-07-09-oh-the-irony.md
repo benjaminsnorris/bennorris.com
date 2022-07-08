@@ -42,6 +42,3 @@ I am even more excited to work on the app. This kind of treatment is so meaningf
 
 My hope is to be able to help in someone's journey of healing as well as staying committed to my own. I just have to take care to not exacerbate my OCD in the process.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

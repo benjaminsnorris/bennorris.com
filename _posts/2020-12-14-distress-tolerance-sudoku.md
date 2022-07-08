@@ -56,6 +56,3 @@ I keep coming back to authenticity. It is important for me to not continually se
 
 It feels nice to be pressing on. Change continues to be our constant companion, and we can use that to our advantage. Ride the waves of uncertainty and let them propel you forward. At least, that’s what I’ll continue telling myself.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

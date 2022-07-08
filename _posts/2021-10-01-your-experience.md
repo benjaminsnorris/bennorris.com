@@ -77,6 +77,3 @@ The way in which we do it matters much less than just doing it. It’s ok to mak
 
 My hope, for you and for me, is to honor the experiences of others. We don’t get to define their experience, and we don’t ever truly know what they are. But we can stop trying to control them. Instead, let’s ask more personal questions. In a respectful way, we can open the possibility of meaningful conversations and allow others to share what they actually feel. And then listen. Truly listen. This could save lives.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

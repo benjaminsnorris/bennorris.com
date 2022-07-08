@@ -54,9 +54,6 @@ Part of my goal is to be bored a bit more as an exposure[^2]. There are many fac
 
 That’s it for this week. I hope that you are happy and healthy and finding ways to care for yourself. Remember to be kind and compassionate, with yourself and others.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: Again, not the epic one of my dream, but the [smaller one](https://www.lego.com/en-us/product/millennium-falcon-75257).

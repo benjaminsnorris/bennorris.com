@@ -73,6 +73,3 @@ But in the moment, I couldn’t see that. All I could see was that I was emotion
 
 So much of kindness and compassion is seeking to understand. This is important for ourselves and for those around us.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

@@ -50,6 +50,3 @@ I like to pause and recognize the moments when doing something in the way that m
 
 There are so many things that I wanted to get done over the holidays that just did not happen. But this is always going to be the case. I am happy with where I am at right now, and hope that you can be as well. Here’s to a great new year of empathy and compassion. Remember that it’s ok to not be ok.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

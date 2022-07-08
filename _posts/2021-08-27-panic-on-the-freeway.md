@@ -63,10 +63,6 @@ The key to handling uncertainty is to not fight it. Again from Dr. Weekes[^1], t
 The challenge for me in this coming week, and for you, is to practice utter acceptance as much as we can. Be kind. It’s ok to not be ok.
 
 
-***
-
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: One of the most helpful books I have read was [Hope and Help for Your Nerves](https://amzn.to/3yrCPTG). The audiobook version is not actually a narration of the book, but rather an audio series by Dr. Weekes on the same subject as the book. Highly recommended.

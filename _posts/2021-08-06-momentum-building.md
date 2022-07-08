@@ -99,9 +99,6 @@ While these situations were public, and reached millions of people, the effect i
 
 It’s OK to not be OK.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: I wrote about Ted Lasso and the impact the show had on me [back in February](https://bennorris.com/2021/02/24/talking-with-strangers).

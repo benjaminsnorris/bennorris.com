@@ -81,8 +81,3 @@ The overall feeling we have often depends on the perspective we choose. Being mi
 
 I have value, and so do you. Just as we are.
 
-***
-
-_Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
-
-<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

@@ -60,6 +60,3 @@ This approach is basically an application of the DBT skill [wise mind](https://e
 
 Mindfully processing emotions is one of the most important things we can do. So much of the destructive behavior we see or experience is an effort to escape feeling our emotions. This writing is one of those ways for me, and I hope that you can find some that work for you.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

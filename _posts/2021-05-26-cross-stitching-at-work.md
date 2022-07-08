@@ -56,6 +56,3 @@ I look forward to becoming reacquainted with my good friend, sketchnoting.
 
 Whether you are having a hard time right now, whether life is going well, or whether things are in between, I invite you to lean in to it. Fully engage in your emotions and allow them to run their course. Emotions will always pass, both the good and the hard. And that can be comforting.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

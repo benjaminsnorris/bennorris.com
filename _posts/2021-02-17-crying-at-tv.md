@@ -54,9 +54,6 @@ Moving forward, I plan to try to keep my phone out of my pocket as much as I can
 
 I have been struck over the past little bit at how many people are struggling right now. This really is a difficult time, and it is important for us to take and make opportunities to cultivate and expression compassion for others and for ourselves. Best wishes to you in your own journey.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: Some of our particular favorites from this time are [Skyjo](https://www.amazon.com/Magilano-Ultimate-Adults-Entertaining-exciting/dp/B06XZ9K244), [Bohnanza](https://en.wikipedia.org/wiki/Bohnanza), and [The Bears and the Bees](https://www.grandpabecksgames.com/bears-and-the-bees).

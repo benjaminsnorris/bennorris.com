@@ -97,8 +97,3 @@ Over the coming week, the challenge for me, and for you if you’ll join me, is 
 
 ![Just say ok](https://media.bennorris.com/images/mentalworkhealth/posts/just-say-ok.jpg)
 
-***
-
-_Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
-
-<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

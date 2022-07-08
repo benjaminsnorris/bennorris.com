@@ -105,7 +105,4 @@ I hope that you and I can unlock some self-compassion in this coming week. Find 
 
 You and I, we deserve love and kindness. And when we allow ourselves to feel it, we can more easily share it with those in our lives. We’re in this together.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

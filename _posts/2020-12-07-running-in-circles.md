@@ -60,6 +60,3 @@ Another important realization was that I was using those projects as a way to av
 
 Some of the most important lessons come through painful life experiences. As long as we can remember them and not have to continue relearning multiple times, the pain is worthwhile. Most of us bury emotions occasionally, but we need to allow ourselves to fully feel them and face the uncertainty that comes our way. We need to remember to ask “And what then?” when fears pop up. And we need to extend grace and compassion, particularly to ourselves.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

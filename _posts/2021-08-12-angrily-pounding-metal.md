@@ -44,8 +44,4 @@ The best thing my therapist did was to bring me back to the present. All of my f
 
 At any time, I can drop into that moment and just be present. And so can you.
 
-***
-
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

@@ -48,6 +48,3 @@ Sketching my surroundings is something I hope to do more often.
 
 This week was a great recharging time for me. I hope that all of you can find a way to relax and recover and be your best self.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

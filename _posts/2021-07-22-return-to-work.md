@@ -39,6 +39,3 @@ All of that is to say that I am not particularly excited about having to work in
 
 As we continue to experience change and uncertainly, my continued hope is for extra compassion. Be kind to yourself and those around you. It is nearly impossible to know what they are going through.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

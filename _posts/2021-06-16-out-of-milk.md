@@ -81,6 +81,3 @@ Instead, take a few deep breaths. Try to identify the emotions and locate them i
 
 You are enough.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

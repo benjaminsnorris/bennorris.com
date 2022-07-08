@@ -49,8 +49,3 @@ I’ll be doing product and technical work, but since we don’t quite know what
 
 Changing life chapters is always fraught with emotion. I can’t wait to see what this one brings.
 
-***
-
-_Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
-
-<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

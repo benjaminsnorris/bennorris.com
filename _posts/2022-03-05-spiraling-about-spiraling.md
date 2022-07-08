@@ -71,8 +71,3 @@ I try to offer information about my condition or my state as explanation, not ex
 
 I don’t know how you are doing, but my guess is not great. Life is hard, especially right now. Let’s do all we can to be extra kind and patient, with others and with ourselves. A little compassion goes a long way.
 
-***
-
-_Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
-
-<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

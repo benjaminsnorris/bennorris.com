@@ -53,9 +53,6 @@ The ability to do the same is well within our reach. In my own life, I have foun
 
 It is good for us to remember that nearly everyone around us in struggling in major ways. We rarely get to see their pain, but it is usually there. To the extent that we can get outside of ourselves, and connect with others, we have the ability to improve all of our lives.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: If you are interested, you can read more about [my story](https://bennorris.com/2019/11/09/my-story).

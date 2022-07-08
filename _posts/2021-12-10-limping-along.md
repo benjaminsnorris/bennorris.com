@@ -44,8 +44,3 @@ I don’t know where you are at this week, but chances are that you are struggli
 
 Let’s be kind. Both to those around us, and also to ourselves. We all deserve it.
 
-***
-
-_Help reduce the stigma of mental health in the workplace and receive these updates in your inbox each week:_
-
-<a href="https://bennorris.com/subscribe/mwh/" class="btn"><span class="icon">{% include icon-email.svg %}</span>Subscribe now</a>

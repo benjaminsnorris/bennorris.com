@@ -63,6 +63,3 @@ I don’t want to spoil anything about it for you, in case you decide to try it 
 
 Here’s to better times ahead. Whether you are in an up time, a down time, or something in between, I hope you find comfort and compassion in your life. Find ways to reach out and connect with those around you. Remember that nearly everyone you meet is dealing with massive problems in their own lives. And be kind to yourself.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

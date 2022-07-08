@@ -87,7 +87,4 @@ I was reminded of the lesson I relearned [a couple weeks ago](https://bennorris.
 
 Sitting with emotions continues to be a difficult and important lesson to learn. And relearn. And relearn. It is empowering when we can identify an emotion, experience it fully, and then choose to act with that additional information. As we work on that skill, compassion is so important. Be kind to yourself. And to everyone around you. They might be trying the same thing as well.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 

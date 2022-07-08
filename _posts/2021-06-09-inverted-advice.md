@@ -55,6 +55,3 @@ However, for this challenge, it is important to allow the conversation to flow f
 
 As always, a healthy dose of compassion goes a long way. We need to extend that to ourselves, even in the moment of adjusting. We need to extend that to others, including the person with whom we are speaking. They may be adjusting their own expectations as well. This compassion can transform us and those around us.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

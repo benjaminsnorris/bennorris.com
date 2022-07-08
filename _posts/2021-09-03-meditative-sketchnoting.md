@@ -81,6 +81,3 @@ This is a great time to ask those around you about the pain they are feeling. We
 
 We all feel distress. We all feel pain. We all feel grief and loss and despair. But we don’t have to feel them alone. Give yourself some compassion, reach out when you need it, and be there for the people in your life. We’re all in this together.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

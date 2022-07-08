@@ -56,6 +56,3 @@ We often think that we have to practice a specific skill in order to utilize tha
 
 As we move throughout our lives, all of us will find moments when our impulse control is not what we would wish. We are always going to see areas to improve. My hope, for you and for me, is that we can be kind through that journey. Find and express compassion and watch it transform the world.
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._

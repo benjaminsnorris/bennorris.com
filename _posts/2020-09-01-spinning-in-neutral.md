@@ -40,9 +40,6 @@ There is always so much going on that it is easy to dismiss exercise as aspirati
 ## Wrap up
 This felt good. I hope it did for you as well. There is so much going on in the world right now, and it can seem overwhelming. Be kind to yourself, and look for opportunities to reach out to others. 
 
-***
-
-_If you would like to receive these updates in your inbox and help reduce the stigma of mental health in the workplace, [join us](https://bennorris.com/subscribe/mwh/)._
 
 
 [^1]: [Ranger’s Apprentice](https://en.wikipedia.org/wiki/Ranger%27s_Apprentice) by John Flanagan
