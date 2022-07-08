@@ -12,5 +12,8 @@
       <button type="submit" data-analytics='"Subscribe", {"props":{"location":"{{ include.location | default: "post" }}"}}' class="btn">Subscribe</button>
     </div>
     {% include subscribe-hidden-fields.html %}
+    {% if page.subscribe-tag %}
+      <input type="hidden" name="tag" value="{{ page.subscribe-tag }}" />
+    {% endif %}
   </form>
 </div>    

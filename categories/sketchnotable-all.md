@@ -4,4 +4,5 @@ title: Sketchnotable
 taxonomy: Sketchnotable
 permalink: /sketchnotable/all/
 gallery-link: true
+subscribe-tag: Sketchnotable
 ---

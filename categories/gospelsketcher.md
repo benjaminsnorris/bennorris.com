@@ -4,4 +4,5 @@ title: Gospel Sketcher
 taxonomy: Gospel Sketcher
 permalink: /gospel-sketcher/
 gallery-link: true
+subscribe-tag: Gospel Sketcher
 ---
