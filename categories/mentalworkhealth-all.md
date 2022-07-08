@@ -5,5 +5,3 @@ taxonomy: Mental Work Health
 permalink: /mental-work-health/all/
 gallery-link: true
 ---
-
-{% include subscribe.html %}

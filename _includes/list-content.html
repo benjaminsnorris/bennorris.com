@@ -4,6 +4,8 @@
     <div class="entry-content">
       {{ content }}
       
+      {% include subscribe.html %}
+
       {% if include.gallery-link %}
         <p><a href="{{ include.gallery-href }}" class="btn">View image gallery</a></p>
       {% endif %}
