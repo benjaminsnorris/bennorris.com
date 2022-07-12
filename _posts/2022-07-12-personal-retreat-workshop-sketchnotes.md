@@ -2,7 +2,9 @@
 title: "Personal Retreat Workshop Sketchnotes"
 date: 2022-07-12 11:25:02-0600
 category: Sketchnotable
-image: https://media.bennorris.com/images/sketchnotable/focus-course/personal-retreat-workshop.jpg
+image:
+    path: https://media.bennorris.com/images/sketchnotable/focus-course/personal-retreat-workshop.jpg
+    thumbnail: https://media.bennorris.com/images/sketchnotable/focus-course/personal-retreat-workshop.jpg
 gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/personal-retreat-workshop.jpg
 short: true
 tags:
