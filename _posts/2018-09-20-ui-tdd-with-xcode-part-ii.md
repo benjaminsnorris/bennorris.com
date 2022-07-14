@@ -18,4 +18,6 @@ And just in case you would like to download the slides for reference, here is a 
 
 And you can view a recording of the presentation here:
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/kLl7DIDv4Js" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube-nocookie.com/embed/kLl7DIDv4Js" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>

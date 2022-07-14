@@ -20,6 +20,10 @@ A few principles and approaches have helped me tremendously in considering my ow
 
 We had some technical issues, so the recording of the video is in two parts, and missed a small chunk of the presentation where I describe health meters and what they are. Hopefully what’s here is still useful, and I hope to improve and deliver this talk many more times.
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/yQnHJPzq_zs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube-nocookie.com/embed/yQnHJPzq_zs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/5HzUzEnBtTE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube-nocookie.com/embed/5HzUzEnBtTE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>

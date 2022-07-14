@@ -23,4 +23,6 @@ I have really enjoyed the productivity boost this has given us, along with the s
 
 *Update:* The talk was recorded and can be viewed here:
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/MQID07Xn23o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube-nocookie.com/embed/MQID07Xn23o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
