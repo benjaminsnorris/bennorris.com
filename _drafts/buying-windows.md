@@ -1,8 +1,12 @@
 ---
 title: "Buying windows"
-date: 2022-07-13 22:14:28-0600
-
+date: 2022-07-14 07:49:12-0600
+image: 
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/buying-windows.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/buying-windows.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/buying-windows.jpg
 ---
+
 
 This week, I share the surprising story of how **I found a new client**, and learned (again!) to **sit with my emotions**.
 
