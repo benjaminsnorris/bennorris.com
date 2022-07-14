@@ -5,6 +5,7 @@ tags:
 - weekly update
 - ocd
 - mental health
+- jocko
 category: Mental Work Health
 ---
 

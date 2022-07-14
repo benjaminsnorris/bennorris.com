@@ -12,6 +12,7 @@ tags:
 - ocd
 - sketchnotes
 - free writing
+- jocko
 ---
 
 This week’s update shares acknowledging **disallowed emotions**, a **small win in the kitchen**, and **my reaction to making goals**.

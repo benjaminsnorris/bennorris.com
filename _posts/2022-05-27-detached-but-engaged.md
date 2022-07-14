@@ -12,6 +12,7 @@ tags:
 - mental health
 - sketchnotes
 - story
+- jocko
 ---
 
 This week, I share my **success in a difficult area of my life**, in the hopes of **exploring and extrapolating** some of the lessons to other areas of my life.

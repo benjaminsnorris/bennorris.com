@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- jocko
 ---
 
 After a week off, I share about **loss of insight in a therapy session**, a **delightful sailing trip**, and working to **restrain crippling perfectionism**.
