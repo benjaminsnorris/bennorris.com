@@ -1,5 +1,5 @@
 ---
-title: "Pull out my brain 😂"
+title: "😂 Pull out my brain"
 date: 2022-07-17 09:33:00-0600
 category: General
 tags:
