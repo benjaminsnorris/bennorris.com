@@ -4,6 +4,7 @@ date: 2022-07-17 09:33:00-0600
 category: General
 tags:
 - kid quotes
+read_time: false
 ---
 
 A week ago, we had to take the 2yo to the Instacare. She had [nursemaid’s elbow](https://en.wikipedia.org/wiki/Pulled_elbow) and needed to have it popped back in place. Yesterday, the 4yo fell and got a bump on his head. Today, as I changed his diaper, I found out he had been thinking about those two things.
