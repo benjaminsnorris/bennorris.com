@@ -1,11 +1,20 @@
 ---
-title: "Weighted jacket"
-date: 2022-07-18 16:52:59-0500
+title: "#90: Weighted jacket"
+date: 2022-07-22 10:41:47-0400
+category: Mental Work Health
+tags:
+- weekly update
+- mental health
+- ocd
+- sketchnotes
+- story
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/weighted-jacket.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/weighted-jacket.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/weighted-jacket.jpg
 ---
+
+
 
 
 This week I share a **painful therapy experience** when I came to **recognize the compulsions** in my mind.
@@ -27,7 +36,7 @@ I have long struggled with my view of and approach to time management. One of my
 
 So the goal was for **my wife to tell me how she felt** about asking me to be flexible with time, or even just asking me to do something unplanned.
 
-My instructions were to **actively listen**, and prevent myself from explaining anything. I was to engage and **seek understanding**, and that was all. Once she had been able to say something, I was to **repeat it back** to her in my own words and make sure I had understood properly. After my wife had clarified anything required, I was to **validate her feeling**.
+My instructions were to **actively listen**, and prevent myself from explaining anything. I was to engage and **seek understanding**, and that was all. Once she had been able to say something, I was to **repeat it back** to her in my own words and make sure I had understood properly. After my wife had clarified anything required, I was to **validate her feelings**.
 
 Validation doesn’t mean supporting or agreeing with everything. I just needed to identify the emotion that my wife had and connect with the experience of feeling that emotion.
 
@@ -96,4 +105,3 @@ As we practice identifying these thoughts, we will become more capable of **bein
 And **we will fail**! Those jackets are going to get wrapped tightly around us before we realize that we are strapping them on. Panic will set in as our lungs fight for air. We will say and do things that we regret.
 
 Let’s practice an **extra dose of compassion** in the coming week. Both for ourselves, and for those around us. We could all use it.
-
