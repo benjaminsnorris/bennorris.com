@@ -1,6 +1,6 @@
 ---
 title: "Shiny thoughts"
-date: 2022-07-23 13:45:33-0600
+date: 2022-07-23 19:56:08-0600
 
 ---
 
@@ -20,14 +20,14 @@ In my next therapy session, I had a similar experience. I was telling my therapi
 
 My therapist nearly smacked her head. “No! You won’t do that! The whole problem is that you spend hours and hours thinking about something instead of being honest with what you actually feel about it in the moment.”
 
-As soon as she pointed that out, I recognized immediately where the thought had come from to proceed as I had in the past. I told her, “Oh, I get it! That was a shiny thought. You know in the third Hunger Games book when Peeta plays ‘Real or Not Real?’ and realizes the manipulated memories seemed shiny? That thought to wait a week and then propose something was shiny. Just like last week when I was getting stuck on a word or wanting to ask clarifying questions.”
+As soon as she pointed that out, I recognized immediately where the thought had come from. I told her, “Oh, I get it! That was a shiny thought. You know in the third Hunger Games book when Peeta plays ‘Real or Not Real?’ and realizes the manipulated memories seemed shiny? That thought to wait a week and then propose something was shiny. Just like last week when I was getting stuck on a word or wanting to ask clarifying questions.”
 
 I realized that I had the perfect, albeit fictional, illustration of what I was experiencing.
 
 
 ### Hunger Games
 
-In case you are not familiar with the Hunger Games reference, I thought I would include some passages. If you already know exactly what I’m talking about, feel free to skip this section.
+In case you are not familiar with the [Hunger Games](https://en.m.wikipedia.org/wiki/The_Hunger_Games) reference, I thought I would include some passages. If you already know exactly what I’m talking about, feel free to skip this section.
 
 At the end of book 2, Peeta is captured by the evil government. In book 3, he is rescued, but they discover he had been brainwashed and tortured with a technique called “hijacking.”
 
@@ -43,7 +43,9 @@ As a result, Peeta is in a state where he can’t trust his mind.
 
 > “The problem is, I can’t tell what’s real anymore, and what’s made up.”
 
-In the hopes of helping him navigate his mind more clearly, they come up with “a game called ‘Real or Not Real’ to help Peeta. He mentions something he thinks happened, and they tell him if it’s true or imagined, usually followed by a brief explanation.”
+In the hopes of helping him navigate his mind more clearly, they devise a strategy.
+
+> A game called ‘Real or Not Real’ to help Peeta. He mentions something he thinks happened, and they tell him if it’s true or imagined, usually followed by a brief explanation.
 
 Over the course of days and weeks, he continues to engage in this game to try and sort things out. After recalling a horrific experience, he notices something.
 
@@ -51,13 +53,13 @@ Over the course of days and weeks, he continues to engage in this game to try an
 > 
 > “Real,” says Boggs. “At least, to the best of my knowledge…real.”
 > 
-> Peeta sags. “I thought so. There was nothing…shiny about it.”
+> Peeta sags. “I thought so. ==There was nothing…shiny about it.==”
 
 Later that day, Katniss asks for an explanation.
 
 > “Peeta, when you asked about what happened to Darius and Lavinia, and Boggs told you it was real, you said you thought so. Because there was nothing shiny about it. What did you mean?”
 > 
-> “Oh. I don’t know exactly how to explain it,” he tells me. “In the beginning, everything was just complete confusion. Now I can sort certain things out. I think there’s a pattern emerging. The memories they altered with the tracker jacker venom have this strange quality about them. Like they’re too intense or the images aren’t stable. You remember what it was like when we were stung?”
+> “Oh. I don’t know exactly how to explain it,” he tells me. “In the beginning, everything was just complete confusion. Now I can sort certain things out. I think there’s a pattern emerging. ==The memories they altered with the tracker jacker venom have this strange quality about them.== Like they’re too intense or the images aren’t stable. You remember what it was like when we were stung?”
 > 
 > “Trees shattered. There were giant colored butterflies. I fell in a pit of orange bubbles.” I think about it. “Shiny orange bubbles.”
 > 
@@ -71,7 +73,7 @@ Later that day, Katniss asks for an explanation.
 
 Gaining an understanding of what’s happening in his mind is helpful not just for Peeta, but also for those around him. Katniss is able to recognize when he is not himself.
 
-> The comment throws him into confusion. Some shiny memory must be fighting for his attention, because his body tenses and his newly bandaged wrists strain against the metal cuffs. Then all the energy saps from his body. “I’m so tired, Katniss.”
+> Some shiny memory must be fighting for his attention, because his body tenses and his newly bandaged wrists strain against the metal cuffs. Then all the energy saps from his body. “I’m so tired, Katniss.”
 
 
 ## Lesson
@@ -80,7 +82,7 @@ In finding and reviewing those passages, I realized that “hijacking” is an e
 
 Beetee’s phrase is that hijacking is “a type of fear conditioning.” And that’s exactly what OCD is.
 
-Fear is triggered, typically due to an intrusive thought, or obsession. When they come, your body feels distress and your mind has an urge to neutralize the threat; to perform a compulsion. Acting on that urge alleviates the distress in the immediate term, but it also reinforces the danger of the threat to your mind. Over time, you become conditioned to this fear and build an unconscious reaction to the intrusive thoughts to where you are performing a compulsion before even realizing it.
+Fear is triggered, typically due to intrusive thoughts—obsessions. When they come, your body feels distress and your mind has an urge to neutralize the threat—compulsions. Acting on that urge alleviates the immediate distress, but it also reinforces the danger of the threat to your mind. Over time, you become conditioned to this fear and build an unconscious reaction to the intrusive thoughts to where you can be performing a compulsion before even realizing it.
 
 My realization from these couple experiences in therapy, and the dystopian fictional example, is that we can truly learn over time to differentiate between the thoughts in my mind. Those that are from OCD have a certain taste and texture to them.
 
