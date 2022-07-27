@@ -1,8 +1,12 @@
 ---
 title: "Shiny thoughts"
-date: 2022-07-23 19:56:08-0600
-
+date: 2022-07-26 20:50:52-0600
+image: 
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/shiny-thoughts.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/shiny-thoughts.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/shiny-thoughts.jpg
 ---
+
 
 My update this week builds on the experience I had [last week](https://bennorris.com/2022/07/22/weighted-jacket) and shares **a new metaphor** I identified to help navigate OCD.
 
