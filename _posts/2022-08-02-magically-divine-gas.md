@@ -14,7 +14,7 @@ From the Babylon Bee: [Man Taken Up Into Heaven After Stopping Gas Pump Exactly 
 
 > A local man has been taken up directly to heaven after managing to miraculously stop a gas pump exactly on the ".00" while filling up his car, sources say.
 
-Cue rueful chuckle with a twinge of pain.
+Cue rueful chuckle with a tinge of sorrow.
 
 <!--more-->
 
