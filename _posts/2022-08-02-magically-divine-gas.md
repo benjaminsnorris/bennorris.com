@@ -5,7 +5,7 @@ category: General
 tags:
 - ocd
 - link
-excerpt_separator: "<!—more—>" 
+excerpt_separator: "<!--more-->" 
 ---
 
 From the Babylon Bee: [Man Taken Up Into Heaven After Stopping Gas Pump Exactly On The '.00'](https://babylonbee.com/news/man-taken-up-into-heaven-after-stopping-gas-pump-exactly-on-the-00):
