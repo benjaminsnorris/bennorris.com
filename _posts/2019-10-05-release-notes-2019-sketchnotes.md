@@ -2,6 +2,7 @@
 title: "Release Notes 2019 Sketchnotes"
 gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/release-notes-2019-newberry.jpg
 date: 2019-10-05 18:15:56-0600
+read_time: false
 tags:
 - sketchnotes
 - collection

@@ -6,6 +6,11 @@ tags:
 - sketchnotes
 - collection
 category: Sketchnotable
+image:
+  path: https://media.bennorris.com/images/sketchnotable/swift-by-northwest-2018/swift-by-northwest-2018-sketchnotes-01.jpg
+  thumbnail: https://media.bennorris.com/images/sketchnotable/swift-by-northwest-2018/swift-by-northwest-2018-sketchnotes-01.jpg
+prevent_header_image: true
+read_time: false
 ---
 
 I was able to attend Swift by Northwest with another member of my team, and enjoyed the chance to learn and capture some sketchnotes.

@@ -6,6 +6,10 @@ tags:
 - sketchnotes
 - collection
 category: Sketchnotable
+image:
+  path: https://media.bennorris.com/images/sketchnotable/layers-2019/layers-2019-dumitru.jpg
+  thumbnail: https://media.bennorris.com/images/sketchnotable/layers-2019/layers-2019-dumitru.jpg
+prevent_header_image: true
 ---
 
 I went with my team to San Jose for WWDC 2019. Only a couple of our team got actual tickets, so the rest of us went to Layers, and had a great experience.
