@@ -1,14 +1,12 @@
 ---
-layout:         app
 title:          Align
 date:           2018-03-28
 release_date:   2016-12-19
 update_date:    2018-03-28
 sub_title:      Simple and powerful one-on-one tool for managers
-permalink:      /apps/align/
+
 ---
 
-## Backstory
 [Tanner Labs](http://labs.octanner.com) is a research and development group inside of [O.C. Tanner](http://www.octanner.com), which is a global rewards and recognition company. The purpose of Tanner Labs is to explore new product opportunities that could one day fit in with our existing offerings at O.C. Tanner to help companies recognize and encourage great work. Starting around October 2015, a team was formed to investigate building a tool for employee sentiment surveys. After more than 50 interviews with potential customers, the original product plan was pivoted to focus on improving managers by leveraging the one on one. Our focus is to make managers better leaders by helping them prepare for, deliver, and follow up on meaningful one on ones.
 
 In January 2016, I was brought on the team as the sole iOS developer, along with a frontend web developer to join the product manager, designer, and backend developer that comprised the team up to that point. Our first responsibility was to meet with potential customers and assist in interviews to make sure that we understood our users and their problems thoroughly. I was tasked with creating a quick prototype that would include some of the features that we were considering. I started work on January 18, and by January 27, I had a working version using Core Data that we could deploy to start learning. In February, we started a beta version of the app using a custom Ruby on Rails backend with a React web frontend as well as the iOS app. Both the initial prototype and the beta version were distributed only to internal users at O.C. Tanner, although we continued to meet with potential customers to validate the features we were building and designing.

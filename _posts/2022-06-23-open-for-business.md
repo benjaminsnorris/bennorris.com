@@ -16,8 +16,6 @@ I’m thrilled to announce that **I am now an independent mobile app consultant*
 
 ***
 
-## Backstory
-
 For years, I have nursed a secret desire to quit my corporate job and become independent. For various reasons, both real and imagined (e.g. supporting a wife and seven kids, having a sometimes-crippling mental health condition, not deserving success or being good enough), I never allowed myself to pursue this.
 
 At the end of 2021, I made the choice to [leave my stable job](https://bennorris.com/2021/12/30/into-the-unknown) to join a friend in launching a startup. Half a year later, we realized that having me full-time in the startup didn’t make sense, and I [moved to a contractor role](https://bennorris.com/2022/05/06/uncertainty-training).

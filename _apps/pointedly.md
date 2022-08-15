@@ -1,17 +1,15 @@
 ---
-layout:         app
 title:          Pointedly
-date:           2016-12-20
+date:           2021-09-20
 release_date:   2014-12-09
 external_link:  https://bsn.design/pointedly
 store_link:     https://bsn.design/download/pointedly
 sub_title:      Keep score
 app_image:      https://media.bsn.design/images/pointedly/pointedly.png
 app_id:         933257819
-permalink:      /apps/pointedly/
+
 ---
 
-## Backstory
 Pointedly is the first iOS app that I ever made, and continues to be one of my favorite projects to work on. I had the idea to make a small sample project into a real app as I found that my family needed something to keep score for our board and card games. I worked together with my oldest son, who was six at the time, to come up with the features that should be included in the app.
 
 ![Pointedly designs](https://media.bsn.design/images/pointedly/Pointedly-design-progression.png){:loading="lazy"}

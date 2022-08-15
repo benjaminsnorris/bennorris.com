@@ -1,15 +1,12 @@
 ---
-layout:         app
 title:          Carrier
-date:           2018-05-01
+date:           2022-08-05
 store_link:     https://bsn.design/download/carrier
 sub_title:      Messages on delay
 app_image:      https://media.bsn.design/images/carrier/Carrier.png
 app_id:         1027638921
-permalink:      /apps/carrier/
----
 
-## Backstory
+---
 
 Carrier grew from a need that I had to send messages to people at inconvenient times. I usually arise at 6:00am and would often think of messages I wanted to send to people, but wanted to wait until a more reasonable hour. Carrier allows for composing the message, choosing the recipient and the delivery time, and then a notification comes to allow you to send the message. The app also works great for scheduling messages for a birthday, or other special occasions. For Valentines Day, I scheduled a message every hour to go out to my wife, and then I was ready throughout the day to send her something thoughtful, even in the middle of a meeting.
 

@@ -10,6 +10,9 @@
     <h3 class="entry-title">
       <a href="{{ post.url | relative_url }}" rel="bookmark">{{ title }}</a>
     </h3>
+    {% if post.sub_title %}
+      <h4 class="entry-subtitle">{{ post.sub_title }}</h4>
+    {% endif %}
     {% endunless %}
     {% if post.image.thumbnail %}
       {% assign entry_image = post.image.thumbnail %}
@@ -61,4 +64,9 @@
       <p><a href="{{ post.url | relative_url }}" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
     {% endif %}
   </div>
+  {% if post.app_id %}
+    <div class="entry-download">
+      <a target="_blank" class="clean" href="https://itunes.apple.com/app/apple-store/id{{ post.app_id }}?mt=8"><img src="https://raw.githubusercontent.com/benjaminsnorris/media.bsn.design/gh-pages/images/app-store-badge.svg" alt="Download on the app store"/></a>
+    </div>
+  {% endif %}
 </article>

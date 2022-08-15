@@ -37,6 +37,15 @@
   line-height: inherit;
 }
 
+.entry-subtitle {
+  @include fluid-type($min-vw, $max-vw, 14px, 20px);
+  font-style: italic;
+}
+
+.entry-download {
+  margin-top: 1rem;
+}
+
 .entry-image {
   width: 100%;
   margin-bottom: 1rem;
@@ -202,6 +211,12 @@
     .icon {
       margin-left: 0.25em;
     }
+  }
+
+  .entry-download {
+    -webkit-box-ordinal-group: 5;
+    -ms-flex-order: 4;
+    order: 4;
   }
 
   .entry-meta {

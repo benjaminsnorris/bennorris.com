@@ -1,14 +1,12 @@
 ---
-layout:         app
 title:          Crash Bowling
 date:           2015-11-25
 release_date:   2015-10-28
 sub_title:      Best multiplayer bowling game on Apple TV
 app_image:      https://media.bsn.design/images/apps/bowling-tv.png
-permalink:      /apps/crash-bowling/
+
 ---
 
-## Backstory
 In October 2015, I participated in my first [Startup Weekend](https://en.wikipedia.org/wiki/Startup_Weekend_(organization)) in Salt Lake City. The new Apple TV had been released to developers, but was not yet available to the general public. My group decided we should make a bowling game for the new Apple TV after doing some quick market research into the success of bowling games on the iOS App Store.
 
 Starting on Thursday evening, we did interviews with potential customers to help identify our personas and likely buyers. We set up a website and a Facebook marketing campaign, as well as reached out to multiple bloggers and tech news sites to get the app features. Since we were so close to the University of Utah, we were able to get a model of a case for the Siri remote 3D printed. And, naturally, we had to make the app as well. When the demos came on Saturday afternoon, we were able to have a young boy play our bowling game, and he jumped around after getting his first strike.

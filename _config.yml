@@ -83,6 +83,9 @@ collections:
     output: true
   presentations:
     output: true
+  apps:
+    output: true
+    permalink: /:collection/:path/
 
 # Front Matter Defaults
 defaults:
@@ -99,3 +102,9 @@ defaults:
       type: drafts
     values:
       layout: draft
+  - scope:
+      path: "_apps"
+      type: apps
+    values:
+      layout: post
+      read_time: false
