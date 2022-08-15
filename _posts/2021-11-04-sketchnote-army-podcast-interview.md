@@ -5,6 +5,8 @@ category: Sketchnotable
 tags:
 - sketchnotes
 short: true
+image: https://media.bennorris.com/images/sketchnotable/general/sketchnote-army-podcast-2021.jpeg
+prevent_header_image: true
 ---
 
 ![Ben Norris](https://media.bennorris.com/images/sketchnotable/general/sketchnote-army-podcast-2021.jpeg)
