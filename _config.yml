@@ -108,3 +108,4 @@ defaults:
     values:
       layout: post
       read_time: false
+      excerpt_separator: "<!--more-->"

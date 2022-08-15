@@ -10,5 +10,7 @@ app_id:         1437361485
 
 When I became a manager and started running meetings, I found there was not a simple way to prepare and present agenda in those meetings. I created Agendum to do just that. You can quickly and easily type up your notes, and then without any work at all, display a beautiful presentation to keep everyone engaged and on topic.
 
+<!--more-->
+
 ## Special problems
 

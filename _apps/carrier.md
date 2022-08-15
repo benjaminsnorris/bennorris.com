@@ -10,6 +10,7 @@ app_id:         1027638921
 
 Carrier grew from a need that I had to send messages to people at inconvenient times. I usually arise at 6:00am and would often think of messages I wanted to send to people, but wanted to wait until a more reasonable hour. Carrier allows for composing the message, choosing the recipient and the delivery time, and then a notification comes to allow you to send the message. The app also works great for scheduling messages for a birthday, or other special occasions. For Valentines Day, I scheduled a message every hour to go out to my wife, and then I was ready throughout the day to send her something thoughtful, even in the middle of a meeting.
 
+<!--more-->
 
 ## Special problems
 

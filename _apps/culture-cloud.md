@@ -8,3 +8,5 @@ app_id:         1434330259
 ---
 
 O.C. Tanner decided to bring all of our digital products into an integrated platform called [Culture Cloud](https://www.octanner.com/products/culture-cloud.html). As the mobile engineering manager, I worked to help define what would be in the app, and coordinated with all of our product teams to make it a reality.
+
+<!--more-->

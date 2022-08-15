@@ -9,6 +9,7 @@ app_image:      https://media.bsn.design/images/apps/Whimmy.png
 
 One of my good friends is a designer and entrepreneur, and he had the idea to build an app to encourage people to get together in person more often and more easily. We collaborated on the UX, and he did the visual design, while I did all of the coding. The custom UI that we came up with was both exciting and challenging to implement.
 
+<!--more-->
 
 ## Special problems
 
