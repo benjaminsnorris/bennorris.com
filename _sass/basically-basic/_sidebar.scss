@@ -11,6 +11,7 @@
   height: 100%;
   z-index: 50;
   visibility: hidden;
+  opacity: 0;
   -webkit-transition: visibility 0s 0.3s;
   transition: visibility 0s 0.3s;
 
@@ -19,6 +20,7 @@
   }
 
   &.is--visible {
+    opacity: 1;
     visibility: visible;
     -webkit-transition: visibility 0s 0s;
     transition: visibility 0s 0s;
