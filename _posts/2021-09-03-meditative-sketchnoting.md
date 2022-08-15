@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 In a return to my original format of these updates, I share about **getting stuck**, **sketchnoting as mindfulness**, and **finding new music**.

@@ -10,7 +10,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 _Big news—I’m taking on new projects!_ This week, I share the **challenges of being flexible**, a **great moment of connection**, and realizing my big news that **I’ve already started being a contractor**.

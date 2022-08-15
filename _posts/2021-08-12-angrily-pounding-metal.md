@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 In this update, I share challenges with **psychiatric medication**, **family struggles**, and **work changes**. I might not have handled things in the best way, but it definitely could have been worse.
@@ -43,5 +44,3 @@ We spent most of the session discussing the scariest and most painful experience
 The best thing my therapist did was to bring me back to the present. All of my fears for the future, whether about medication or family or work, are uncertain. Maybe things will be hard. Maybe they won’t. But right then, I was fine. I was sitting on a couch talking about my feelings. I was safe.
 
 At any time, I can drop into that moment and just be present. And so can you.
-
-

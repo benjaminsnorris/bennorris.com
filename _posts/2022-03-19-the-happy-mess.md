@@ -10,7 +10,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 In this week’s update, I share about **medicinal compliance**, **coaching soccer**, and **enjoying my new job**.

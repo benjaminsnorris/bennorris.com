@@ -10,7 +10,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 This week brought **panic attacks**, witnessing a **tender moment of support**, and **reflections on last week’s announcement**.

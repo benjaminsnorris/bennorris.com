@@ -10,7 +10,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 This week I share about **learning the song of interpersonal effectiveness**, realizing **I have value without earning it**, and **iterating on an idea**.

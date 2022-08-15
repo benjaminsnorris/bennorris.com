@@ -6,7 +6,7 @@ tags:
 - weekly update
 - mental health
 - ocd
-- sketchnotes
+- hand lettering
 - story
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/cleaning-the-garage.jpg

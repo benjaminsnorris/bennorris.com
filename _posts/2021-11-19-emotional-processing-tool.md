@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 This week’s update includes more **chemical experimentation**, **success with meditative sketchnoting**, and **leveraging OCD**.
@@ -91,5 +92,3 @@ I still haven’t actually moved the office around. The meeting with my friends 
 ## Wrap up
 
 I hope things are well with you. And when they’re not, I hope you can find support. We will all have ups and downs, and have great need of compassion and patience. Sometimes we can offer it, and sometimes we need to receive it. May we do both.
-
-

@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 This update describes **being a stay-at-home parent** for a few days and **sitting in uncertainty**.

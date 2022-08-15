@@ -10,7 +10,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 As 2021 concludes, so too does a major chapter in my career. This week I share about my journey of the last seven years and what is coming next.

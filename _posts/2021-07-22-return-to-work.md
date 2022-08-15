@@ -9,7 +9,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 category: Mental Work Health
 ---
 

@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 This week I share about **acknowledging grief**, **delaying action**, and **making plans with a friend**.

@@ -10,7 +10,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 This week, I share about a **difficult therapy session**, the **joys of doing what I love for work**, and **striving to find balance.**

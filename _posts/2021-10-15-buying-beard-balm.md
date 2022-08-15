@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 This emotion-filled week brought some￼ ￼￼**imposter syndrome**, **beard balm**, and **crying in a movie**.

@@ -11,7 +11,7 @@ tags:
 - weekly update
 - mental health
 - ocd
-- sketchnotes
+- hand lettering
 - story
 ---
 

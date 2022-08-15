@@ -11,7 +11,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 In this update, I share the **exhausting role of single parenting** for a few days, **success with timeblocking**, and **publicly announcing** my professional transition to being independent.

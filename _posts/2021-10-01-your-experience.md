@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 In this update, I share the **difficulty of receiving a kind message**, going to a **wonderful event** with a friend, and **personal questions**.

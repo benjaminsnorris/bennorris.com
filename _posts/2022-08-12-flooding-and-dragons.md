@@ -6,7 +6,7 @@ tags:
 - weekly update
 - mental health
 - ocd
-- sketchnotes
+- hand lettering
 - free writing
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/flooding-and-dragons.jpg

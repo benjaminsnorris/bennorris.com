@@ -9,7 +9,7 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/learni
 tags:
 - mental health
 - ocd
-- sketchnotes
+- hand lettering
 - favorite
 ---
 

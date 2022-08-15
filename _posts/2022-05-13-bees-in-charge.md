@@ -10,7 +10,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 This week I share about **speaking in church**, **having conversations out loud**, and **standing up to bees**.

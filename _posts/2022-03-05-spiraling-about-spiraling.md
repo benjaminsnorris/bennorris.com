@@ -10,7 +10,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 After a couple weeks in which I couldn’t quite muster enough to write an update, I share some experiences I’ve had and lessons I’ve learned.

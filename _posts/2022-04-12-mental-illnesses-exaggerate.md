@@ -9,7 +9,7 @@ category: Mental Work Health
 tags:
 - mental health
 - ocd
-- sketchnotes
+- hand lettering
 ---
 
 As I have experienced, learned, and shared about mental health, I have become convinced of two truths that are extensions of the same idea—mental illnesses exaggerate. On the one hand, mental illnesses **blow things way out of proportion**. And on the other hand, **we all experience a degree of most mental illnesses**—the diagnosable forms are merely natural responses carried too far, or activated in the wrong setting.

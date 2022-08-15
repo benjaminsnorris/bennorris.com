@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 Someone close to me was sharing her feelings last week. While not terrible, things were difficult for her. I told her that I hoped she could feel at least a piece of peace. Her near-immediate response was, “A piece of peace pizza.” I knew right away that was the title of my next update.

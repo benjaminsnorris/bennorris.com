@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 This week, I share the **struggles I had at our annual homeschool conference**, the **joys of teaching a class**, and **processing it all with my therapist**.

@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 After missing a week, I share about the struggles of OCD and anxiety getting the better of me for a bit.

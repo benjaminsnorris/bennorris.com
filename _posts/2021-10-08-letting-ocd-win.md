@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 This week I share about **letting OCD win**, **enjoying General Conference**, and **seeing friends**.

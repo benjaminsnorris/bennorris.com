@@ -10,7 +10,7 @@ tags:
 - weekly update
 - ocd
 - mental health
-- sketchnotes
+- hand lettering
 ---
 
 This week’s update includes my thoughts on caring for sick family while trying to figure out my new job, a validating reminder that I have made a good choice, and balancing needing and giving help.

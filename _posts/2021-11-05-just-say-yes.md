@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - sketchnotes
+- hand lettering
 ---
 
 This week I share the challenges of a **single-hobby lifestyle**, **owning the dishes**, and an **exciting announcement**.
