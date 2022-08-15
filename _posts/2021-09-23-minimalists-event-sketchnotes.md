@@ -7,6 +7,7 @@ title: "The Minimalists Event Sketchnotes"
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 short: true
 image: https://media.bennorris.com/images/sketchnotable/general/minimalists-2021-sketchnotes-01.jpg
 prevent_header_image: true

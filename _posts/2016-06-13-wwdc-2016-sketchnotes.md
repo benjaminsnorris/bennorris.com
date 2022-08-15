@@ -6,6 +6,7 @@ category:       Sketchnotable
 tags:
 - wwdc
 - sketchnotes
+- hand lettering
 - collection
 read_time:      false
 gallery_thumb:

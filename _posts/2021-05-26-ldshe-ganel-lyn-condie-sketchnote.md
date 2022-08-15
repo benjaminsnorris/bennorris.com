@@ -5,6 +5,7 @@ gallery_thumb: https://media.bennorris.com/images/gospelsketcher/thumbs/may-21-l
 date: 2021-05-26 10:21:13-0600
 tags:
 - sketchnotes
+- hand lettering
 category: Gospel Sketcher
 ---
 

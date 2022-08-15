@@ -4,6 +4,7 @@ date: 2021-09-12 18:40:57-0700
 category: Gospel Sketcher
 tags:
 - sketchnotes
+- hand lettering
 short: true
 ---
 

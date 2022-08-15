@@ -7,6 +7,7 @@ read_time:      false
 category:       Gospel Sketcher
 tags:
 - sketchnotes
+- hand lettering
 - general conference
 - collection
 ---

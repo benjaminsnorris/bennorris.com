@@ -5,6 +5,7 @@ date: 2012-02-17 19:58:12-0700
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 This second installment of my Stanford Human-Computer Interaction course went in a totally different direction. Where the <a href="https://bennorris.com/2012/02/08/humancomputer-interaction-part">first lecture</a> focused around the efforts and experience of a single individual, this second lecture took a much broader look at changing landscape of technical production. The lecture was titled "Burning Man at Google, A Cultural Infrastructure for New Media Production?" and was given by Fred Turner.

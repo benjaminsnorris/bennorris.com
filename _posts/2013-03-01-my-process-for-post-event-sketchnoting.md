@@ -8,6 +8,7 @@ date: 2013-03-01 06:48:47-0700
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 This post wraps up my series of sketchnotes created for The Company Corporation (<a href="http://www.incorporate.com" title="The Company Corporation">Incorporate.com</a>). The event was a Q &amp; A session with Brandon Steiner of <a href="http://www.steinersports.com/" title="Steiner Sports" target="_blank">steinersports.com</a> and went through lessons he learned as an entrepreneur. The session contained tons of great information for small business owners, but was a challenge to sketchnote. All of the other sessions in this series were prepared presentations, so they had a structure, and a natural flow. But this one was more organic, with stories illustrating unconnected points. So the process that I took was different from what I have used with most events, and I thought it would be interesting to share.

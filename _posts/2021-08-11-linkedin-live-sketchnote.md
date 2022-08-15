@@ -5,6 +5,7 @@ title: "LinkedIn Live Event Sketchnote"
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 short: true
 image: https://media.bennorris.com/images/sketchnotable/general/linkedin-live-aug-2021-sketchnote.jpeg
 prevent_header_image: true

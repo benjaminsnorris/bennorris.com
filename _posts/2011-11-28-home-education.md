@@ -8,6 +8,7 @@ read_time: false
 category: Gospel Sketcher
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 Home education is something that we have been thinking about doing for a while, but after a lackluster kindergarten year, we decided it was time. Following many hours researching different curricula, approaches, and methods, we are using the Charlotte Mason method. She prescribes more of a philosophy about how children should learn, and it fit us and our family well. We found a great website, [Ambleside Online](http://www.amblesideonline.org), that has taken the ideas of Charlotte Mason and devised a curriculum that we have found to be extremely helpful.

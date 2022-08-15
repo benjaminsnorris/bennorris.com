@@ -5,6 +5,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/sketchnot
 date: 2021-05-04 09:03:43-0600
 tags:
 - sketchnotes
+- hand lettering
 category: Sketchnotable
 image: https://media.bennorris.com/images/sketchnotable/general/sketchnote-bios-2021.jpg
 prevent_header_image: true

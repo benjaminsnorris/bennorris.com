@@ -5,6 +5,7 @@ category: Gospel Sketcher
 gallery_thumb: https://media.bennorris.com/images/gospelsketcher/thumbs/apr-22-1-gen-conf.jpg
 tags:
 - sketchnotes
+- hand lettering
 - general conference
 short: true 
 ---

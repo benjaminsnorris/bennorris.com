@@ -5,6 +5,7 @@ date: 2013-02-13 21:31:36-0700
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 One good thing leads to another! A couple weeks ago, I <a href="https://bennorris.com/2013/01/17/sketchnotes-for-next-thing-now-jan-2013/" title="Sketchnotes for Next Thing Now Jan 2013">posted</a> about <a href="http://www.nextthingnow.co/" title="Next Thing Now" target="_blank">Next Thing Now</a> and some sketchnotes that I did for a webinar they put on. Through that event, I was introduced to John Meyer from The Company Corporation (<a href="http://www.incorporate.com" title="The Company Corporation">Incorporate.com</a>), who commissioned me to provide sketchnotes for a few webinars. They provide many of these webinars as free resources to small business owners in their <a href="https://www.incorporate.com/learning_center.html" title="Incorporate.com Learning Center" target="_blank">Learning Center</a>.

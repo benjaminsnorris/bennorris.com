@@ -5,6 +5,7 @@ date: 2013-02-28 20:58:18-0700
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 The third installment of the series for The Company Corporation (<a href="http://www.incorporate.com" title="The Company Corporation">Incorporate.com</a>) was another fantastic resource for small business owners. This was focused on how to raise capital for your business, and making sure that you have considered all of the ramifications.

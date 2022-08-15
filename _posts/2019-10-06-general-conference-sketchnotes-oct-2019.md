@@ -6,6 +6,7 @@ read_time: false
 tags:
 - general conference
 - sketchnotes
+- hand lettering
 - collection
 category: Gospel Sketcher
 image: https://media.bennorris.com/images/gospelsketcher/general-conference/oct-2019/oct-19-1-sat-am.jpg

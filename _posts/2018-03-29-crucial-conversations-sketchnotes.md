@@ -4,6 +4,7 @@ excerpt: A major step in my path to a black belt in Crucial Conversations
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 - book
 - collection
 read_time: false

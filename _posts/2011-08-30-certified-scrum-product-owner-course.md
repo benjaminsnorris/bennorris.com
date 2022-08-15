@@ -4,6 +4,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/cspo-2011
 date: 2011-08-30 12:57:48-0600
 tags:
 - sketchnotes
+- hand lettering
 category: Sketchnotable
 short: true
 ---

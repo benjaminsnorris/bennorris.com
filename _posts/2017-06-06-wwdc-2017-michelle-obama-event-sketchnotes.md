@@ -3,6 +3,7 @@ title: "WWDC 2017 Michelle Obama Event Sketchnotes"
 excerpt: Sketchnotes from the conversation between Michelle Obama and Lisa Jackson
 tags:
 - sketchnotes
+- hand lettering
 - wwdc
 category: Sketchnotable
 gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/wwdc-2017-michelle-obama-sketchnotes.jpg

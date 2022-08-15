@@ -4,6 +4,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/sketchnot
 date: 2012-02-21 20:05:55-0700
 tags:
 - sketchnotes
+- hand lettering
 category: Sketchnotable
 ---
 

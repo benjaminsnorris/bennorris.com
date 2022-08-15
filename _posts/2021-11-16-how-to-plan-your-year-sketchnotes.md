@@ -4,6 +4,7 @@ title: "Sketchnotes from How to Plan Your Year"
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 gallery_thumb:
 - https://media.bennorris.com/images/sketchnotable/thumbs/sweet-setup-plan-year-nov-2021-01.jpg
 - https://media.bennorris.com/images/sketchnotable/thumbs/sweet-setup-plan-year-nov-2021-02.jpg

@@ -5,6 +5,7 @@ date: 2013-01-17 23:03:48-0700
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 This was an exciting week! <a title="Tom Nagle" href="https://twitter.com/tomnagle" target="_blank">Tom Nagle</a> contacted me early in the week wanting me to do some sketchnotes for a great speaker series he has organized. <a title="Next Thing Now" href="http://www.nextthingnow.co/" target="_blank">Next Thing Now</a> served as the first stop for Dan Pink's book tour for his new title, <a title="To Sell Is Human" href="http://www.danpink.com/books/to-sell-is-human" target="_blank"><em>To Sell Is Human</em></a>.

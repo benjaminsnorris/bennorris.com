@@ -5,6 +5,7 @@ category: General
 tags:
 - favorite
 - sketchnotes
+- hand lettering
 image: 
   path: https://media.bennorris.com/images/posts/yes-im-open.jpg
   thumbnail: https://media.bennorris.com/images/posts/thumbnails/yes-im-open.jpg

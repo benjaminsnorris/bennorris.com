@@ -6,6 +6,7 @@ date: 2020-04-04 15:55:44-0600
 tags:
 - general conference
 - sketchnotes
+- hand lettering
 category: Gospel Sketcher
 ---
 

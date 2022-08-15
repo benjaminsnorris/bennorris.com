@@ -6,6 +6,7 @@ read_time: false
 tags:
 - general conference
 - sketchnotes
+- hand lettering
 - collection
 category: Gospel Sketcher
 image: https://media.bennorris.com/images/gospelsketcher/general-conference/oct-2020/oct-20-intro.jpg

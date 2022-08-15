@@ -4,6 +4,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/wwdc-2019
 date: 2019-06-06 14:33:06-0600
 tags:
 - sketchnotes
+- hand lettering
 - collection
 category: Sketchnotable
 image:

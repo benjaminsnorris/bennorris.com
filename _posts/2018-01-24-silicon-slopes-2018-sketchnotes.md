@@ -5,6 +5,7 @@ read_time:      false
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 - collection
 gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/silicon-slopes-2018-sketchnote-01.jpg
 date: 2018-01-24 10:39:50-0700

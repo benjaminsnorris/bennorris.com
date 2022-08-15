@@ -6,6 +6,7 @@ date: 2017-08-15 06:42:35-0600
 tags:
 - general conference
 - sketchnotes
+- hand lettering
 category: Gospel Sketcher
 ---
 

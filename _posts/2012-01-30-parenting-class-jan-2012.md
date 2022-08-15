@@ -6,6 +6,7 @@ read_time: false
 category: Gospel Sketcher
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 The most challenging and difficult occupation today is that of parent. Similar to most jobs, you are expected to learn mostly through on-the-job training, except that the training part is a misnomer. You have no supervisor, no one checks your work, there are no performance reviews; in short, you are completely on your own. Of all the things that might be required in our education system, somehow these skills were left out.

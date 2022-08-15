@@ -5,6 +5,7 @@ date: 2012-02-17 20:04:25-0700
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 During the day, I masquerade as a Product Owner and UX Designer for a non-profit educational software company. This week I had the opportunity to attend a webinar put on by <a href="http://www.hatchearlychildhood.com/" title="Hatch Early Learning" target="_blank">Hatch</a> called "Teaching in the Digital Age: Smart Tools for Early Learners." Brian Puerling from the Catherine Cook School in Chicago presented about how his school has been able to integrate technology effectively.

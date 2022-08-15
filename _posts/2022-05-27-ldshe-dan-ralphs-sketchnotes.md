@@ -8,6 +8,7 @@ gallery_thumb:
 category: Gospel Sketcher
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 Inspiring closing keynote from Dan Ralphs about identifying and pursuing our dreams.

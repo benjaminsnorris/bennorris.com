@@ -5,6 +5,7 @@ date: 2012-02-08 06:26:16-0700
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 Every once in a while, you make a discovery that makes you feel as if you have been living under a rock. For me, this happened last week as I discovered iTunes University. I had no idea that colleges and universities all over the country have been making premium learning available for free. Economics classes have always taught, "There ain't no such thing as a free lunch," but this proves them wrong! I found a seminar series from Stanford University on Human-Computer Interaction, so this will be the first in a ten-part series.

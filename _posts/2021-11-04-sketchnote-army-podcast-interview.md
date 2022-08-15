@@ -4,6 +4,7 @@ title: "Sketchnote Army Podcast Interview"
 category: Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 short: true
 image: https://media.bennorris.com/images/sketchnotable/general/sketchnote-army-podcast-2021.jpeg
 prevent_header_image: true

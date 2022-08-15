@@ -5,6 +5,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/cocoahead
 date: 2018-04-19 20:42:57-0600
 tags:
 - sketchnotes
+- hand lettering
 category: Sketchnotable
 ---
 

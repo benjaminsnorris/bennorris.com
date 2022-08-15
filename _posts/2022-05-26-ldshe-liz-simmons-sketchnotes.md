@@ -8,6 +8,7 @@ gallery_image:
 - https://media.bennorris.com/images/gospelsketcher/thumbs/ldshe-22-liz-simmons-02.jpg
 tags:
 - sketchnotes
+- hand lettering
 ---
 
 As LDSHE 2022 continued, I loved Liz Simmons’s keynote address. It is so important to learn how God works in our life, and understand His view. Being wrong can lead us to being humble.

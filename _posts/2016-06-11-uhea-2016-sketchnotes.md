@@ -10,6 +10,7 @@ category:
 - Gospel Sketcher
 tags:
 - sketchnotes
+- hand lettering
 - collection
 read_time:      false
 ---

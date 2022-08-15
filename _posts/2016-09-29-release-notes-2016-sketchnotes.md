@@ -20,6 +20,7 @@ read_time:      false
 category:       Sketchnotable
 tags:
 - sketchnotes
+- hand lettering
 - collection
 ---
 

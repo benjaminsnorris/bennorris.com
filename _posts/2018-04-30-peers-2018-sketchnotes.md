@@ -3,6 +3,7 @@ title: "Peers 2018 Sketchnotes"
 excerpt: Sketchnotes from the 2018 Peers Conference
 tags:
 - sketchnotes
+- hand lettering
 - collection
 category: Sketchnotable
 read_time: false

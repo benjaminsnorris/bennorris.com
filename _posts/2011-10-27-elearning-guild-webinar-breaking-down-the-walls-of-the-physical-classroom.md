@@ -4,6 +4,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/elearning
 date: 2011-10-27 12:44:02-0600
 tags:
 - sketchnotes
+- hand lettering
 category: Sketchnotable
 short: true
 ---

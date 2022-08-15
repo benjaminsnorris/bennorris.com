@@ -4,6 +4,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/layers-20
 date: 2019-06-05 15:33:35-0600
 tags:
 - sketchnotes
+- hand lettering
 - collection
 category: Sketchnotable
 image:

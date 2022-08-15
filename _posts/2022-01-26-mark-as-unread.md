@@ -9,6 +9,7 @@ category: General
 tags:
 - software
 - sketchnotes
+- hand lettering
 ---
 
 Feature requests have been one of the most consistent experiences in my many years working in software. Everyone has an idea how your stuff should work, and many are keen to tell you. The way you understand and respond to those requests shows a lot about how you view others and yourself.

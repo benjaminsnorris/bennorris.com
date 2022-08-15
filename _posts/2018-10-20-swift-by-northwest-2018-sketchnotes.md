@@ -4,6 +4,7 @@ gallery_thumb: https://media.bennorris.com/images/sketchnotable/thumbs/swift-by-
 date: 2018-10-20 17:14:41-0600
 tags:
 - sketchnotes
+- hand lettering
 - collection
 category: Sketchnotable
 image:

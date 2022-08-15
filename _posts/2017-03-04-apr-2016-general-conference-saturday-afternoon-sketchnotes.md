@@ -4,6 +4,7 @@ gallery_thumb: https://media.bennorris.com/images/gospelsketcher/thumbs/apr-16-2
 date: 2017-03-04 18:40:48-0700
 tags:
 - sketchnotes
+- hand lettering
 category: Gospel Sketcher
 ---
 
