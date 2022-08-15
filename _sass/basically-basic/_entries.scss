@@ -74,8 +74,11 @@
   }
 
   .byline-item {
-    &:not(:first-child) {
-      margin-left: 1.5rem;
+    display: inline-block;
+    margin-bottom: 0.25rem;
+
+    &:not(:last-child) {
+      margin-right: 1.5rem;
     }
   }
 
@@ -90,6 +93,9 @@
   }
 
   .meta-item {
+    display: inline-block;
+    margin-bottom: 0.25rem;
+
     &:not(:last-child) {
       margin-right: 0.5rem;
     }
