@@ -7,6 +7,7 @@ tags:
 - jocko
 - podcast clip
 category: General
+read_time: false
 videos:
   - src: https://media.bennorris.com/videos/posts/aom-discipline-is-a-skill.mov
     poster: https://media.bennorris.com/images/posts/aom-discipline-is-a-skill.jpg
