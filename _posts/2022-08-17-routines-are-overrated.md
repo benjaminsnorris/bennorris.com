@@ -1,6 +1,6 @@
 ---
 title: "Routines are overrated"
-date: 2022-08-15 08:05:00-0600
+date: 2022-08-17 08:05:00-0600
 tags:
 - ocd
 - link
