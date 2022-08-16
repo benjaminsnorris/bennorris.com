@@ -1,6 +1,6 @@
 ---
 title: "Routines are overrated"
-date: 2022-08-17 08:05:00-0600
+date: 2022-08-15 08:05:00-0600
 tags:
 - ocd
 - link
@@ -20,6 +20,8 @@ videos:
   - src: https://media.bennorris.com/videos/posts/aom-find-the-easy-way-in.mov
     poster: https://media.bennorris.com/images/posts/aom-find-the-easy-way-in.jpg
     ratio: 1by1
+site_banner: true
+image: https://media.bennorris.com/images/posts/aom-discipline-is-a-skill.jpg
 ---
 
 As [someone with OCD](https://bennorris.com/tags/ocd/), it is all too easy for routines to become cruel overlords instead of helpful assistants. This episode of the Art of Manliness Podcast was helpful and encouraging for me: [#821: Routines are Overrated](https://www.artofmanliness.com/character/behavior/podcast-821-routines-are-overrated/).
