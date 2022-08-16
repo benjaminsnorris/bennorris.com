@@ -5,6 +5,10 @@ tags:
 - musings
 - podcast clip
 category: General
+video:
+    src: https://media.bennorris.com/images/bennorris/uploads/2019/c01c39fcbb.mov
+    poster: https://media.bennorris.com/images/bennorris/uploads/2019/f02e944293.png
+    ratio: 1by1
 ---
 
 I thoroughly enjoyed the latest episode of [Revisionist History](http://revisionisthistory.com/) from Malcolm Gladwell to celebrate Independence Day. He expanded the story of our nation’s independence, particularly the Boston Tea Party. Many of the Sons of Liberty were part of a smuggling organization providing tea to early colonialists that didn’t go through England, with the accompanying taxes.

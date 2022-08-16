@@ -2,6 +2,11 @@
    Images
    ========================================================================== */
 
+
+img {
+  border-radius: $border-radius;
+}
+
 .image-small {
   max-width: 10rem;
 }
@@ -12,4 +17,8 @@
 
 .image-large {
   max-width: 30rem;
+}
+
+video {
+  border-radius: $border-radius;
 }

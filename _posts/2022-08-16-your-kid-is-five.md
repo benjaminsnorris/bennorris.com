@@ -8,6 +8,10 @@ tags:
 short: true
 site_banner: true
 image: https://media.bennorris.com/images/posts/jocko-your-kid-is-five.jpg
+video:
+    src: https://media.bennorris.com/videos/posts/jocko-your-kid-is-five.mov
+    poster: https://media.bennorris.com/images/posts/jocko-your-kid-is-five.jpg
+    ratio: 1by1
 ---
 
 This answer from [Jocko](/tags/jocko/) is one of my favorites. Whenever I catch myself getting too serious about something, I hear his big sigh.

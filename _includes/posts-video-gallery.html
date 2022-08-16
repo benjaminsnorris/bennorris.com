@@ -1,0 +1,23 @@
+{% if include.posts.size > 0 %}
+  <div class="gallery-grid videos">
+    {% for post in include.posts %}
+      {% if post.videos %}
+        {% for video in post.videos %}
+          <div>
+            <div class="embed-responsive embed-responsive-{{ video.ratio }}">
+              <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="{{ video.src }}" poster="{{ video.poster }}" preload="none"></video>
+            </div>
+            <a href="{{ post.url | relative_url }}" rel="bookmark">{{ post.title }}</a>
+          </div>
+        {% endfor %}
+      {% elsif post.video %}
+        <div>
+          <div class="embed-responsive embed-responsive-{{ post.video.ratio }}">
+            <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="{{ post.video.src }}" poster="{{ post.video.poster }}" preload="none"></video>
+          </div>
+          <a href="{{ post.url | relative_url }}" rel="bookmark">{{ post.title }}</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}

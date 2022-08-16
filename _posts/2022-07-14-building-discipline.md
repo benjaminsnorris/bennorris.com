@@ -6,6 +6,13 @@ tags:
 - podcast clip
 category: General
 short: true
+videos:
+  - src: https://media.bennorris.com/videos/posts/jocko-building-discipline-part1.mov
+    poster: https://media.bennorris.com/images/posts/jocko-willink.jpg
+    ratio: 1by1
+  - src: https://media.bennorris.com/videos/posts/jocko-building-discipline-part2.mov
+    poster: https://media.bennorris.com/images/posts/jocko-willink.jpg
+    ratio: 1by1
 ---
 
 Lately I have been binging old [Jocko](/tags/jocko/) episodes. I loved his response to this question: “What is a step-by-step guide for building discipline for someone who has little to none of it?”

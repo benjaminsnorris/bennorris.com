@@ -205,7 +205,7 @@
 
   .email-input-row {
     display: flex;
-    border-radius: 0.25em;
+    border-radius: $border-radius;
     overflow: hidden;
     margin-top: 0.25em;
   }

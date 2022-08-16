@@ -66,9 +66,18 @@ main {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(7em, 1fr));
-  grid-gap: 1em;
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  grid-gap: 1rem;
   align-items: start;
+
+  &.videos {
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    grid-gap: 1.5rem;
+
+    .embed-responsive {
+      margin-bottom: 0.25rem;
+    }
+  }
 }
 
 /*
