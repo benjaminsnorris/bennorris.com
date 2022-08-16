@@ -8,6 +8,8 @@ tags:
 short: true
 site_banner: true
 image: https://media.bennorris.com/images/posts/jocko-willink.jpg
+twitter:
+    card: summary
 video:
     src: https://media.bennorris.com/videos/posts/jocko-take-emotion-into-the-calculus.mov
     poster: https://media.bennorris.com/images/posts/jocko-willink.jpg

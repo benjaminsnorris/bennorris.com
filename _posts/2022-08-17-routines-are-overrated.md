@@ -23,6 +23,8 @@ videos:
     ratio: 1by1
 site_banner: true
 image: https://media.bennorris.com/images/posts/aom-discipline-is-a-skill.jpg
+twitter:
+  card: summary
 ---
 
 As [someone with OCD](https://bennorris.com/tags/ocd/), it is all too easy for routines to become cruel overlords instead of helpful assistants. This episode of the Art of Manliness Podcast was helpful and encouraging for me: [#821: Routines are Overrated](https://www.artofmanliness.com/character/behavior/podcast-821-routines-are-overrated/).

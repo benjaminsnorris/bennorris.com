@@ -8,6 +8,8 @@ tags:
 short: true
 site_banner: true
 image: https://media.bennorris.com/images/posts/jocko-your-kid-is-five.jpg
+twitter:
+    card: summary
 video:
     src: https://media.bennorris.com/videos/posts/jocko-your-kid-is-five.mov
     poster: https://media.bennorris.com/images/posts/jocko-your-kid-is-five.jpg

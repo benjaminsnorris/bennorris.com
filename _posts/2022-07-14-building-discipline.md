@@ -5,6 +5,10 @@ tags:
 - jocko
 - podcast clip
 category: General
+site_banner: true
+image: https://media.bennorris.com/images/posts/jocko-willink.jpg
+twitter:
+    card: summary
 short: true
 videos:
   - src: https://media.bennorris.com/videos/posts/jocko-building-discipline-part1.mov
