@@ -10,7 +10,7 @@ site_banner: true
 image: https://media.bennorris.com/images/posts/jocko-your-kid-is-five.jpg
 ---
 
-This answer from [Jocko](https://jocko.com) is one of my favorites. Whenever I catch myself getting too serious about something, I hear his big sigh.
+This answer from [Jocko](/tags/jocko/) is one of my favorites. Whenever I catch myself getting too serious about something, I hear his big sigh.
 
 > Bro, your kid is five…
 

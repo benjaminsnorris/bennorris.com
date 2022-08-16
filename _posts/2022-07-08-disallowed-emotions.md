@@ -38,7 +38,7 @@ I know I was tired. But I don’t actually know what I was feeling. I would like
 
 Part of it was just being overwhelmed, I think. One of the issues was that my evenings and rest time lately were often doing something for my website. When I don’t give myself mental breaks, I start to run ragged.
 
-That is where [Jocko](https://jockopodcast.com) talks about surfing and guitar and maybe even jujitsu. I would like to get some hobbies that are totally separate from my work and what I am focused on during the day. I need mental changes.
+That is where [Jocko](/tags/jocko/) talks about surfing and guitar and maybe even jujitsu. I would like to get some hobbies that are totally separate from my work and what I am focused on during the day. I need mental changes.
 
 It is an interesting exercise to consider what those hobbies would be. I would have liked to [do blacksmithing](https://bennorris.com/2021/07/02/lie-after-lie) again, and it felt like something that didn’t really fit right now. I’m ok that I’m not doing it. Maybe it could be reading for now. Or playing piano.
 

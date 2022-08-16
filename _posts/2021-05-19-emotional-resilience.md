@@ -35,7 +35,7 @@ As we are able to be more mindful of our situation and ourselves, we become able
 
 Over the past few weeks, I’ve been listening to some audiobooks. I tend to bounce back and forth between books and podcasts in my driving around. On the camping trip I discussed [recently](https://bennorris.com/2021/05/05/camping-and-sketching), I finished [The Dichotomy of Leadership](https://echelonfront.com/dichotomy-of-leadership/).
 
-Side note: listening to [Jocko](https://en.wikipedia.org/wiki/Jocko_Willink) is some of my most frequently assigned homework from my therapist.
+Side note: listening to [Jocko](/tags/jocko/) is some of my most frequently assigned homework from my therapist.
 
 Since then, I have been listening to Austin Klein’s excellent [Steal Like an Artist Audio Trilogy](https://austinkleon.com/steal-audiobook-trilogy/), and have been inspired. I want to create more. I want to share more. I want to learn more.
 

@@ -39,7 +39,7 @@ I commented to someone this past week that I continue to be surprised by how cal
 
 The backdrop for all this uncertainty with work has been **immense challenges with someone close to me**. I have been watching and supporting her for a long time as she confronts the unique challenges of her life.
 
-I have listened to a lot of [Jocko](https://jockopodcast.com/) lately, as my therapist has recommended many times. A repeating theme over the past while has been his emphasis on **detaching**. He has stressed,
+I have listened to a lot of [Jocko](/tags/jocko/) lately, as my therapist has recommended many times. A repeating theme over the past while has been his emphasis on **detaching**. He has stressed,
 
 > You cannot solve the problem from inside the problem. You have to take a step back to get a larger perspective.
 

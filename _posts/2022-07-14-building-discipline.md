@@ -8,7 +8,7 @@ category: General
 short: true
 ---
 
-Lately I have been binging old [Jocko](https://jocko.com) episodes. I loved his response to this question: “What is a step-by-step guide for building discipline for someone who has little to none of it?”
+Lately I have been binging old [Jocko](/tags/jocko/) episodes. I loved his response to this question: “What is a step-by-step guide for building discipline for someone who has little to none of it?”
 
 <div class="embed-responsive embed-responsive-1by1">
     <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/jocko-building-discipline-part1.mov" poster="https://media.bennorris.com/images/posts/jocko-willink.jpg" preload="none"></video>
