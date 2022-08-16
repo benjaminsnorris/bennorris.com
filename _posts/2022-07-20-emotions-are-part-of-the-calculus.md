@@ -4,7 +4,7 @@ date: 2022-07-20 09:55:36-0500
 category: General
 tags:
 - jocko
-- video
+- podcast clip
 short: true
 site_banner: true
 image: https://media.bennorris.com/images/posts/jocko-willink.jpg

@@ -3,6 +3,8 @@ title: "On hoarding"
 date: 2020-11-27 10:33:00-0700
 tags:
 - mental health
+- podcast clip
+short: true
 category: Mental Work Health
 ---
 

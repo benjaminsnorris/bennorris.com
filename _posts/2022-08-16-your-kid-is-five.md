@@ -4,7 +4,7 @@ date: 2022-08-16 07:56:36-0500
 category: General
 tags:
 - jocko
-- video
+- podcast clip
 short: true
 site_banner: true
 image: https://media.bennorris.com/images/posts/jocko-your-kid-is-five.jpg
