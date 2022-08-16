@@ -97,11 +97,13 @@ defaults:
       layout: post
       read_time: true
       word_count: true
+      image: /assets/images/home-illustrations.png
   - scope:
       path: "_drafts"
       type: drafts
     values:
       layout: draft
+      image: /assets/images/home-illustrations.png
   - scope:
       path: "_apps"
       type: apps
