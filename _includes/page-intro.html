@@ -1,12 +1,14 @@
 <header class="intro">
-  {% unless page.prevent_header_image %}
-    {% if page.image %}
-      {% assign intro_image = page.image.path | default: page.image | relative_url | escape %}
-      <div class="intro-image">
-        <img src="{{ intro_image }}" alt="{{ page.title }}">
-      </div>
-    {% endif %}
-  {% endunless %}
+  {% if page.site_banner %}
+    <div class="intro-image">
+      <img src="{{ site.banner_image }}" alt="{{ site.title }}">
+    </div>
+  {% elsif page.image %}
+    {% assign intro_image = page.image.path | default: page.image | relative_url | escape %}
+    <div class="intro-image">
+      <img src="{{ intro_image }}" alt="{{ page.title }}">
+    </div>
+  {% endif %}
 
   <div class="inner">
     <div class="intro-text">

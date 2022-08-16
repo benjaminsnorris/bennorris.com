@@ -8,7 +8,7 @@ tags:
 - hand lettering
 category: Sketchnotable
 image: https://media.bennorris.com/images/sketchnotable/general/visual-jam-2021-rohde.jpg
-prevent_header_image: true
+site_banner: true
 ---
 
 Great class from VisualJam on deconstructing live sketchnotes by Mike Rohde. Loved seeing his process!

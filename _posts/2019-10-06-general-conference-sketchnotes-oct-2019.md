@@ -10,7 +10,7 @@ tags:
 - collection
 category: Gospel Sketcher
 image: https://media.bennorris.com/images/gospelsketcher/general-conference/oct-2019/oct-19-1-sat-am.jpg
-prevent_header_image: true
+site_banner: true
 ---
 
 Synopsis sketchnotes from October 2019 General Conference.

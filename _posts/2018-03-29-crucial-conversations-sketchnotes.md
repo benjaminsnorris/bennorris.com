@@ -11,7 +11,7 @@ read_time: false
 image: 
   path: https://media.bennorris.com/images/sketchnotable/crucial-conversations/crucial-conversations-sketchnote-1.jpg
   thumbnail: https://media.bennorris.com/images/sketchnotable/crucial-conversations/crucial-conversations-sketchnote-1.jpg
-prevent_header_image: true
+site_banner: true
 gallery_thumb:
 - https://media.bennorris.com/images/sketchnotable/thumbs/crucial-conversations-sketchnote-1.jpg
 - https://media.bennorris.com/images/sketchnotable/thumbs/crucial-conversations-sketchnote-2.jpg

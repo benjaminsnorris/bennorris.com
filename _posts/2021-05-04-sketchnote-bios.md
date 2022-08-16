@@ -8,7 +8,7 @@ tags:
 - hand lettering
 category: Sketchnotable
 image: https://media.bennorris.com/images/sketchnotable/general/sketchnote-bios-2021.jpg
-prevent_header_image: true
+site_banner: true
 ---
 
 I am speaking at an upcoming [homeschool conference](https://ldshe.org) about sketchnotes. I was asked to provide some sketchnote-style illustrations for the bios of the youth team. Each person had a paragraph of their interests, which I tried to incorporate into their image. 😄

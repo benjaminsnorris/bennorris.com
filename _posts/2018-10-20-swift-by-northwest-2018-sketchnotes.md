@@ -10,7 +10,7 @@ category: Sketchnotable
 image:
   path: https://media.bennorris.com/images/sketchnotable/swift-by-northwest-2018/swift-by-northwest-2018-sketchnotes-01.jpg
   thumbnail: https://media.bennorris.com/images/sketchnotable/swift-by-northwest-2018/swift-by-northwest-2018-sketchnotes-01.jpg
-prevent_header_image: true
+site_banner: true
 read_time: false
 ---
 

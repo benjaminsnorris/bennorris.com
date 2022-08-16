@@ -10,7 +10,7 @@ category: Sketchnotable
 image:
   path: https://media.bennorris.com/images/sketchnotable/wwdc-2019/wwdc-2019-into.jpg
   thumbnail: https://media.bennorris.com/images/sketchnotable/wwdc-2019/wwdc-2019-into.jpg
-prevent_header_image: true
+site_banner: true
 ---
 
 I went to San Jose with my entire team from work to experience WWDC 2019. Only two of the five of us got actual tickets, so the rest of us attended [Layers](/2019/06/05/layers-sketchnotes.html) and watched sessions remotely.

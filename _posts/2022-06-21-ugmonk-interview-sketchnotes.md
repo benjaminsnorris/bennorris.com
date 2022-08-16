@@ -6,7 +6,7 @@ tags:
 - sketchnotes
 - hand lettering
 image: https://media.bennorris.com/images/sketchnotable/focus-course/ugmonk-interview-2022-01.jpg
-prevent_header_image: true
+site_banner: true
 gallery_thumb:
 - https://media.bennorris.com/images/sketchnotable/thumbs/ugmonk-interview-2022-01.jpg
 - https://media.bennorris.com/images/sketchnotable/thumbs/ugmonk-interview-2022-02.jpg
