@@ -178,6 +178,7 @@
 }
 
 #subscribe-block {
+  clear: left;
   border: 1px solid rgba($color: $text-color, $alpha: 0.3);
   padding: 0.5em;
   transform: rotate(-1deg);

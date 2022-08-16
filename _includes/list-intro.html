@@ -1,5 +1,19 @@
 {% if include.posts.size > 0 %}
   <header class="intro">
+    {% if page.site_banner %}
+        <div class="intro-image">
+            <img src="{{ site.banner_image }}" alt="{{ site.title }}">
+        </div>
+    {% elsif page.image %}
+        {% assign intro_image = page.image.path | default: page.image | relative_url | escape %}
+        <div class="intro-image">
+            <img src="{{ intro_image }}" alt="{{ page.title }}">
+        </div>
+    {% else %}
+        <div class="intro-image">
+            <img src="{{ site.banner_image }}" alt="{{ site.title }}">
+        </div>
+    {% endif %}
     <div class="inner">
         <div class="intro-text">
             <h1 id="page-title" class="intro-title">{{ page.alt_title | default: page.title | default: site.title | markdownify | strip_html }}</h1>
