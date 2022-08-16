@@ -43,6 +43,7 @@ plugins: # previsously gems
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-include-cache
 permalink:    /:year/:month/:day/:title
 include:
   - /.well-known
