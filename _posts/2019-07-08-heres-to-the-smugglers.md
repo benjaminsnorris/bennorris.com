@@ -8,7 +8,6 @@ category: General
 video:
     src: https://media.bennorris.com/images/bennorris/uploads/2019/c01c39fcbb.mov
     poster: https://media.bennorris.com/images/bennorris/uploads/2019/f02e944293.png
-    ratio: 1by1
 ---
 
 I thoroughly enjoyed the latest episode of [Revisionist History](http://revisionisthistory.com/) from Malcolm Gladwell to celebrate Independence Day. He expanded the story of our nation’s independence, particularly the Boston Tea Party. Many of the Sons of Liberty were part of a smuggling organization providing tea to early colonialists that didn’t go through England, with the accompanying taxes.
@@ -17,6 +16,6 @@ I have to admit that framing them as drug lords defending their turf strikes me 
 
 That being said, I love the additional perspective his research provided. I laughed out loud a number of times in listening to this episode. I am sharing a clip of one of my favorite segments to give you a taste. I highly recommend you listen to the whole episode. Here is an Overcast link: [Tempest in a Teacup](https://overcast.fm/+NG9Lftp2k).
 
-<div class="embed-responsive embed-responsive-1by1">
+<div class="embed-responsive embed-responsive-1by1 image-medium">
     <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/images/bennorris/uploads/2019/c01c39fcbb.mov" width="640" height="640" poster="https://media.bennorris.com/images/bennorris/uploads/2019/f02e944293.png" preload="none"></video>
 </div>
