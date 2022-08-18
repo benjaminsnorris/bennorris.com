@@ -20,7 +20,7 @@
         {% assign entry_image = entry_image | relative_url %}
       {% endunless %}
       {% assign entry_image = entry_image | escape %}
-      <a href="{{ post.url | relative_url }}" rel="bookmark"><img class="entry-image u-photo" src="{{ entry_image }}" alt="{{ post.title }}" loading="lazy"></a>
+      <a href="{{ post.url | relative_url }}" class="clean" rel="bookmark"><img class="entry-image u-photo" src="{{ entry_image }}" alt="{{ post.title }}" loading="lazy"></a>
     {% endif %}
   </header>
   <footer class="entry-meta">
