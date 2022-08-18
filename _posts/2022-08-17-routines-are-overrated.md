@@ -9,22 +9,22 @@ tags:
 category: General
 read_time: false
 videos:
-  - src: https://media.bennorris.com/videos/posts/aom-discipline-is-a-skill.mov
-    poster: https://media.bennorris.com/images/posts/aom-discipline-is-a-skill.jpg
-  - src: https://media.bennorris.com/videos/posts/aom-fascination-precedes-interest.mov
-    poster: https://media.bennorris.com/images/posts/aom-fascination-precedes-interest.jpg
-  - src: https://media.bennorris.com/videos/posts/aom-eat-the-cream-not-the-frog.mov
-    poster: https://media.bennorris.com/images/posts/aom-eat-the-cream-not-the-frog.jpg
-  - src: https://media.bennorris.com/videos/posts/aom-find-the-easy-way-in.mov
-    poster: https://media.bennorris.com/images/posts/aom-find-the-easy-way-in.jpg
+  - src: https://media.bennorris.com/videos/posts/podcast-clips/aom/discipline-is-a-skill.mov
+    poster: https://media.bennorris.com/images/posts/podcast-clips/aom/discipline-is-a-skill.jpg
+  - src: https://media.bennorris.com/videos/posts/podcast-clips/aom/fascination-precedes-interest.mov
+    poster: https://media.bennorris.com/images/posts/podcast-clips/aom/fascination-precedes-interest.jpg
+  - src: https://media.bennorris.com/videos/posts/podcast-clips/aom/eat-the-cream-not-the-frog.mov
+    poster: https://media.bennorris.com/images/posts/podcast-clips/aom/eat-the-cream-not-the-frog.jpg
+  - src: https://media.bennorris.com/videos/posts/podcast-clips/aom/find-the-easy-way-in.mov
+    poster: https://media.bennorris.com/images/posts/podcast-clips/aom/find-the-easy-way-in.jpg
 site_banner: true
-image: https://media.bennorris.com/images/posts/aom-discipline-is-a-skill.jpg
+image: https://media.bennorris.com/images/posts/podcast-clips/aom/discipline-is-a-skill.jpg
 ---
 
 As [someone with OCD](https://bennorris.com/tags/ocd/), it is all too easy for routines to become cruel overlords instead of helpful assistants. This episode of the Art of Manliness Podcast was helpful and encouraging for me: [#821: Routines are Overrated](https://www.artofmanliness.com/character/behavior/podcast-821-routines-are-overrated/).
 
 <div class="embed-responsive embed-responsive-1by1 image-medium align-left">
-    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/aom-discipline-is-a-skill.mov" poster="https://media.bennorris.com/images/posts/aom-discipline-is-a-skill.jpg" style="background-image:url(https://media.bennorris.com/images/posts/aom-discipline-is-a-skill.jpg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
+    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/podcast-clips/aom/discipline-is-a-skill.mov" poster="https://media.bennorris.com/images/posts/podcast-clips/aom/discipline-is-a-skill.jpg" style="background-image:url(https://media.bennorris.com/images/posts/podcast-clips/aom/discipline-is-a-skill.jpg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
 </div>
 
 In the podcast, [Madeleine Dore](https://www.madeleinedore.com) explains that discipline can be more productively viewed as a skill, rather than a trait.
@@ -41,21 +41,21 @@ I love this clip where Jocko discusses developing discipline.
 </div>
 
 <div class="embed-responsive embed-responsive-1by1 image-medium align-left">
-    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/aom-fascination-precedes-interest.mov" poster="https://media.bennorris.com/images/posts/aom-fascination-precedes-interest.jpg" style="background-image:url(https://media.bennorris.com/images/posts/aom-fascination-precedes-interest.jpg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
+    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/podcast-clips/aom/fascination-precedes-interest.mov" poster="https://media.bennorris.com/images/posts/podcast-clips/aom/fascination-precedes-interest.jpg" style="background-image:url(https://media.bennorris.com/images/posts/podcast-clips/aom/fascination-precedes-interest.jpg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
 </div>
 
 Back to the podcast, Madeleine went on to talk about how our motivation often comes after our interest and fascination. It’s normal for us to not be excited about doing something immediately.
 {: .clearfix}
 
 <div class="embed-responsive embed-responsive-1by1 image-medium align-right">
-    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/aom-eat-the-cream-not-the-frog.mov" poster="https://media.bennorris.com/images/posts/aom-eat-the-cream-not-the-frog.jpg" style="background-image:url(https://media.bennorris.com/images/posts/aom-eat-the-cream-not-the-frog.jpg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
+    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/podcast-clips/aom/eat-the-cream-not-the-frog.mov" poster="https://media.bennorris.com/images/posts/podcast-clips/aom/eat-the-cream-not-the-frog.jpg" style="background-image:url(https://media.bennorris.com/images/posts/podcast-clips/aom/eat-the-cream-not-the-frog.jpg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
 </div>
 
 A practical implication of understanding this is to consider starting our day with something enjoyable, rather than trying to get the worst out of the way first.
 {: .clearfix}
 
 <div class="embed-responsive embed-responsive-1by1 image-medium align-left">
-    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/aom-find-the-easy-way-in.mov" poster="https://media.bennorris.com/images/posts/aom-find-the-easy-way-in.jpg" style="background-image:url(https://media.bennorris.com/images/posts/aom-find-the-easy-way-in.jpg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
+    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/podcast-clips/aom/find-the-easy-way-in.mov" poster="https://media.bennorris.com/images/posts/podcast-clips/aom/find-the-easy-way-in.jpg" style="background-image:url(https://media.bennorris.com/images/posts/podcast-clips/aom/find-the-easy-way-in.jpg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
 </div>
 
 Brett McKay shared that his approach is to find an easy part of a difficult task to start with, and use that to build momentum to finish the rest.

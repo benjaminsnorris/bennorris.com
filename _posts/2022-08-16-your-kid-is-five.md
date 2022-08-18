@@ -7,10 +7,10 @@ tags:
 - podcast clip
 short: true
 site_banner: true
-image: https://media.bennorris.com/images/posts/jocko-your-kid-is-five.jpg
+image: https://media.bennorris.com/images/posts/podcast-clips/jocko/your-kid-is-five.jpg
 video:
-    src: https://media.bennorris.com/videos/posts/jocko-your-kid-is-five.mov
-    poster: https://media.bennorris.com/images/posts/jocko-your-kid-is-five.jpg
+    src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/your-kid-is-five.mov
+    poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/your-kid-is-five.jpg
 ---
 
 This answer from [Jocko](/tags/jocko/) is one of my favorites. Whenever I catch myself getting too serious about something, I hear his big sigh.
@@ -18,5 +18,5 @@ This answer from [Jocko](/tags/jocko/) is one of my favorites. Whenever I catch 
 > Bro, your kid is five…
 
 <div class="embed-responsive embed-responsive-1by1 image-medium">
-    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/jocko-your-kid-is-five.mov" poster="https://media.bennorris.com/images/posts/jocko-your-kid-is-five.jpg" preload="none"></video>
+    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/podcast-clips/jocko/your-kid-is-five.mov" poster="https://media.bennorris.com/images/posts/podcast-clips/jocko/your-kid-is-five.jpg" preload="none"></video>
 </div>
