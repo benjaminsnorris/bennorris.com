@@ -17,4 +17,6 @@ As I got close to the end of my treatment at the [OCD & Anxiety Treatment Center
 
 At first, I just suggested to one of my co-workers that I could do my routine for him. He asked who else I was inviting, and I realized that inviting more people would definitely increase the risk level, which was the whole point. So I ended up inviting our entire I.T. department to come over lunch, but only about 20 people came. So the next week, I volunteered to do it again for a full department meeting. That meeting was recorded, so I have a record of my attempt. It went better than I feared, and I decided I would share the video.
 
-<iframe src="https://player.vimeo.com/video/366339103" width="640" height="361" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<div class=“embed-responsive embed-responsive-16by9”>
+  <iframe class=“embed-responsive-item” src=“https://player.vimeo.com/video/366339103” title=“Vimeo video player” frameborder=“0” allow=“accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture” allowfullscreen></iframe>
+</div>

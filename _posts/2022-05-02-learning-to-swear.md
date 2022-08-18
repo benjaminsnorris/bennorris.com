@@ -95,7 +95,9 @@ As I progressed in my treatment and neared graduation, one of my last exposures 
 
 You can watch the full nineteen minutes here:
 
-<p class="container" style="position:relative;overflow:hidden;width:100%;padding-top:56.25%;"><iframe style="position:absolute;top:0;left:0;bottom:0;right:0;width:100%;height:100%;" src="https://player.vimeo.com/video/366339103" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></p>
+<div class=“embed-responsive embed-responsive-16by9”>
+  <iframe class=“embed-responsive-item” src=“https://player.vimeo.com/video/366339103” title=“Vimeo video player” frameborder=“0” allow=“accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture” allowfullscreen></iframe>
+</div>
 
 
 ## Finding some benefits
