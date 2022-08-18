@@ -1,6 +1,6 @@
 ---
 title: "Finding monkeys"
-date: 2022-08-18 06:50:47-0600
+date: 2022-08-18 09:12:20-0600
 
 ---
 
@@ -64,8 +64,8 @@ As they search for their quarry, Larry explains to Bob how they will know what t
 > Bob: Look, there it goes! There it goes! I don’t know, I can’t tell if it’s a monkey or an ape.
 > 
 > Larry: It’s very simple, Bob. If it doesn’t have a tail, it’s not a monkey. If it doesn’t have a tail, it’s not a monkey, it’s an ape.
-> 
-> Bob: Uh, Larry, I’m not so sure.
+
+This classification criteria makes sense and is rational. But Larry takes the rule to a preposterous (perhaps pathological) degree.
 
 > Larry: If it’s a nickel or a salad or a pillow, if it doesn’t have a tail, it’s not a monkey, it’s an ape.
 > 
