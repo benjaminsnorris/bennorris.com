@@ -18,5 +18,5 @@ This answer from [Jocko](/tags/jocko/) is one of my favorites. Whenever I catch 
 > Bro, your kid is five…
 
 <div class="embed-responsive embed-responsive-1by1 image-medium">
-    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/podcast-clips/jocko/your-kid-is-five.mov" poster="https://media.bennorris.com/images/posts/podcast-clips/jocko/your-kid-is-five.jpg" preload="none"></video>
+    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/podcast-clips/jocko/your-kid-is-five.mov" poster="https://media.bennorris.com/images/posts/podcast-clips/jocko/your-kid-is-five.jpg" style="background-image:url(https://media.bennorris.com/images/posts/podcast-clips/jocko/your-kid-is-five.jpg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
 </div>
