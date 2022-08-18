@@ -8,6 +8,7 @@ tags:
 - podcast clip
 category: General
 read_time: false
+excerpt_separator: "<!--more-->" 
 videos:
   - src: https://media.bennorris.com/videos/posts/podcast-clips/aom/discipline-is-a-skill.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/aom/discipline-is-a-skill.jpg
@@ -29,6 +30,8 @@ As [someone with OCD](https://bennorris.com/tags/ocd/), it is all too easy for r
 
 In the podcast, [Madeleine Dore](https://www.madeleinedore.com) explains that discipline can be more productively viewed as a skill, rather than a trait.
 {: .clearfix}
+
+<!--more-->
 
 This is similar to the way in which [Jocko](https://bennorris.com/tags/jocko/) talks about discipline, as I posted [a month ago](https://bennorris.com/2022/07/14/building-discipline). His tagline is “Discipline equals freedom.”
 
