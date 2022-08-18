@@ -1,6 +1,6 @@
 ---
 title: "Finding monkeys"
-date: 2022-08-13 12:32:03-0600
+date: 2022-08-18 06:50:47-0600
 
 ---
 
@@ -14,7 +14,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 About a month ago, **I started with a new psychiatrist**. For those keeping track at home, **this is #4**. I wrote about my experience [preparing for](https://bennorris.com/2021/03/17/waves-of-change) and then [meeting #3](https://bennorris.com/2021/03/22/enamored-with-notebooks) about a year and a half ago.
 
-This new psychiatrist has definitely been my **favorite** so far. He told me that he is Bulgarian, and I shared that I lived in Romania for two years as a missionary.
+This new psychiatrist has definitely been **my favorite** so far. He told me that he is Bulgarian, and I shared that I lived in Romania for two years as a missionary.
 
 “We are the same—Bulgarians and Romanians.”
 
@@ -22,34 +22,32 @@ This new psychiatrist has definitely been my **favorite** so far. He told me tha
 
 “No. We are the same. At the DNA level, we are the same. The difference is just political hundred and fifty years ago.”
 
-He would ask me to describe something, and after a couple seconds, he would cut me off, “Ok, I understand.” I loved him.
+He would ask me to describe something, and after a couple seconds, he would cut me off, “Ok, I understand.” **I loved him.**
 
-One of the things that he asked me to do was to start keeping a log each night of how the day was, and to ask my wife to do the same for me. They didn’t need to match. This was the only way to really know how things are going with my OCD.
+One of the things that he asked me to do was to start **keeping a log** each night of how the day was, and to ask my wife to do the same for me. They didn’t need to match. This was the only way to really know how things are going with my OCD.
 
-I actually didn’t do it at all before my second appointment. As I pause to reflect on what was holding me back, I realize that there was some fear that if I start tracking something every day, I will get obsessive about it. But really, this is an opportunity to harness my OCD for good. Since my follow-up appointment, I have been tracking regularly.
+I actually didn’t do it at all before my second appointment. As I pause to reflect on what was holding me back, I realize that **there was some fear that if I start tracking something every day, I will get obsessive about it**. But really, this is an opportunity to harness my OCD for good. Since my follow-up appointment, I have been tracking regularly.
 
 He asked me to bring my wife to my second appointment if possible, to get a more realistic sense of how I am doing. She had tracked the past little bit with red, yellow, or green, and he took a look, and said, “Ok. So things are not terrible, but not great. Tell me what is yellow looking like?”
 
-I had to stop and think for a minute to identify how my symptoms have been manifesting. It didn’t occur to me at the time, but now I realize I could have told him about [shiny thoughts](https://bennorris.com/2022/07/29/shiny-thoughts).
+I had to stop and think for a minute to identify **how my symptoms have been manifesting**. It didn’t occur to me at the time, but now I realize I could have told him about [shiny thoughts](https://bennorris.com/2022/07/29/shiny-thoughts).
 
 [![Shiny thoughts](https://media.bennorris.com/images/mentalworkhealth/posts/shiny-thoughts.jpg){:loading="lazy"}](https://bennorris.com/2022/07/29/shiny-thoughts){:.clean}
 
-The thing that did occur to me was to describe my difficulty in communicating lately. When I get more symptomatic, I struggle to process nuance or inconsistency.
+The thing that did occur to me was to describe my **difficulty in communicating** lately. When I get more symptomatic, I struggle to process nuance or inconsistency.
 
-Also, OCD jokes.
+Also, **OCD jokes** have been a thing lately.
 
-My wife and I laugh about how my sense of humor is often an indicator of my level of symptoms. OCD jokes are things that I find hilarious, but are actually not funny at all. Often they are verbal inconsistencies.
+My wife and I laugh about how my sense of humor is often an **indicator of my level of symptoms**. OCD jokes are things that I find hilarious, but are actually not funny at all.
 
 > I was going to say this thing, but I said *this other thing instead*! Ha ha ha!
 
-This [Strange Planet comic]() is a great example:
-
-==[![]()]()==
+As I’ve thought more about them, I realized they are often [dad jokes](https://en.wikipedia.org/wiki/Dad_joke). But instead of just groaning, they are truly funny to me.
 
 
 ## Veggie Tales
 
-Another perfect example of an OCD joke is the [Veggie Tales](https://www.veggietales.com/) song, “Monkey.”
+Another perfect example of an **OCD joke** is the [Veggie Tales](https://www.veggietales.com/) song, “Monkey.”
 
 <div class="embed-responsive embed-responsive-4by3">
   <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/--szrOHtR6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -73,7 +71,7 @@ As they search for their quarry, Larry explains to Bob how they will know what t
 > 
 > Bob: Huh. I think there’s something wrong with your logic, Larry.
 > 
-> Larry: Well Bob, the lady at the zoo said it, and who am I to tell her that she’s wrong? If there’s a tail, it’s a monkey. No tail, ape. It’s easy!
+> Larry: Well Bob, the lady at the zoo said it, and who am I to tell her that she’s wrong? **If there’s a tail, it’s a monkey. No tail, ape. It’s easy!**
 > 
 > Bob: But Larry, a kite has a tail.
 > 
@@ -113,27 +111,30 @@ Just in case you didn’t take the chance to watch the video when I included it 
   <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/--szrOHtR6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-This song describes OCD so perfectly. Or at least my experience with it. Once my brain has a rule, it latches on rigidly. The rule becomes a lens through which everything is viewed and distorted. It is applied in nonsensical ways that seem to make total sense to me.
+**This song describes OCD so perfectly.** Or at least my experience with it. Once my brain has a rule, it latches on rigidly. The rule becomes a lens through which everything is viewed and distorted. It is applied in nonsensical ways that seem to make total sense to me.
 
-When this happens, it can be difficult for me to operate in the real world. I have a hard time understanding what people are saying, or why things are happening. When I am symptomatic, my brain breaks when people say one thing and then do another.
+When this happens, **it can be difficult for me to operate in the real world**. I have a hard time understanding what people are saying, or why things are happening. When I am symptomatic, my brain breaks when people say one thing and then do another.
 
 
 ## Lesson
 
-Because I have OCD, I need to be alert to my symptoms. I need to notice when OCD jokes are taking over and getting in the way of relationships and everyday communication.
+Because I have OCD, **I need to be alert to my symptoms**. I need to notice when OCD jokes are taking over and getting in the way of relationships and everyday communication.
 
-All of us can benefit from getting to know our tendencies to distort reality.
+**We all can benefit from getting to know our tendencies to distort reality.**
 
-As we become more practiced at noticing the times when our brains lie to us, we can stay in charge. We don’t have to be subservient to the whims of our capricious neurological overlords. We can call out our mental bullshit, and course-correct back on track.
+As we become more practiced at noticing the times when our brains lie to us, **we can stay in charge**. We don’t have to be subservient to the whims of our capricious neurological overlords. We can call out our mental bullshit, and course-correct back on track.
 
-The important thing is to actually make changes when we notice that we are off.
+The important thing is to actually **make changes** when we notice that we are off.
 
 
 ## Challenge
 
-Do it.
+**Do it.**
 
-Stop merely laughing at OCD jokes (or your personal equivalent), and notice them for what they are—indicators of deeper symptomatology that could disrupt our happiness. Take steps to recharge and refresh so that your brain can be stretched more easily.
+Stop merely laughing at OCD jokes (or your personal equivalent), and notice them for what they are—indicators of deeper symptomatology that could disrupt our happiness. **Take steps to recharge** and refresh so that your brain can be stretched more easily.
 
-As always, extend yourself compassion when you notice these feelings of distress. Validating and honoring your emotions allows you to fully experience and then release them.
+As always, **extend yourself compassion** when you notice these feelings of distress. Validating and honoring your emotions allows you to fully experience and then release them.
+
+
+
 
