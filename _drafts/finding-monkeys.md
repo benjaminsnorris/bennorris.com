@@ -1,8 +1,12 @@
 ---
 title: "Finding monkeys"
-date: 2022-08-18 09:12:20-0600
-
+date: 2022-08-19 00:24:51-0600
+image: 
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/finding-monkeys.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/finding-monkeys.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/finding-monkeys.jpg
 ---
+
 
 This week’s update shares my experience with **yet another psychiatrist** and noticing my recent **increase in OCD symptoms**.
 
