@@ -4,6 +4,7 @@ date: 2019-03-22 11:07:57-0600
 tags:
 - mental health
 - ocd
+- toatc
 category: Mental Work Health
 ---
 
@@ -17,7 +18,7 @@ The best analogy I have found for physical panic attacks is the Obscurus discove
 
 I have had a number of panic attacks over the past few months. There are two different flavors, or types, that I have experienced. I will cover the second type, mental panic attacks, in a later post. I think of first type as physical panic attacks. During one of those, I become physically debilitated, and essentially lose control of my faculties for a time. These are usually short in duration, typically one to three minutes or so, and then the recovery can be anywhere from half an hour to an hour.
 
-As I have worked through the beginning of treatment at the [OCD & Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/), I have found out that I do not meet the criteria for panic disorder. That means that my panic attacks are a function of my OCD, which also means that as I work on managing my OCD, I have a good chance that my panic attacks will decrease in frequency and severity.
+As I have worked through the beginning of treatment at [The OCD & Anxiety Treatment Center](https://bennorris.com/tags/toatc/), I have found out that I do not meet the criteria for panic disorder. That means that my panic attacks are a function of my OCD, which also means that as I work on managing my OCD, I have a good chance that my panic attacks will decrease in frequency and severity.
 
 In the movie *Fantastic Beasts and Where to Find Them*, we were introduced to the Obscurus creature, and its host, the Obscurial. When I watched the movie, I was struck by the similarities between Credence losing control of his Obscurus, and my experience of a physical panic attack. Physical panic attacks have always come as a result of a heightened and flooded emotional state. Often, I am dropped to the ground, even forcibly, so that I end up with bruises on my arms and knees. My breathing becomes rapid and shallow, and sometimes I am left screaming. I am usually overcome with a physical sensation of pressure and tightness. I clutch my arms and squeeze and feel as if I am holding on for dear life. When it passes, I am left completely weak, in mind and body. I feel totally exhausted.
 

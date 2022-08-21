@@ -10,6 +10,7 @@ tags:
 - weekly update
 - ocd
 - erp
+- toatc
 - mental health
 - sketchnotes
 - hand lettering
@@ -25,7 +26,7 @@ As I met with my therapist last week, we talked about the different things going
 
 I realized that a huge part of my current success is being able to allow multiple emotions to co-exist inside of me. In the past, if there was one emotion, particularly a strong one, that was all that my body could handle. Joy? This is the best day ever. Sadness? I will never be happy again. Fear? No rational thought is possible.
 
-As I went through the intensive outpatient program at the [OCD & Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com), learning to mindfully digest emotions was a life-changing skill for me. Prior to learning that, I was not able to separate feeling an emotion from my response to that emotion.
+As I went through the intensive outpatient program at [The OCD & Anxiety Treatment Center](https://bennorris.com/tags/toatc/), learning to mindfully digest emotions was a life-changing skill for me. Prior to learning that, I was not able to separate feeling an emotion from my response to that emotion.
 
 It was similar to learning to resist compulsions.
 

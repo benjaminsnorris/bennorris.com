@@ -9,6 +9,7 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/learni
 tags:
 - mental health
 - ocd
+- toatc
 - hand lettering
 - favorite
 ---
@@ -83,7 +84,7 @@ As I learned more about OCD, I found it helpful to externalize the thoughts a bi
 
 What I didn’t tell everyone was his full name—“Fucking Fernando”. That was reserved for people I trusted more.
 
-When I started my intensive outpatient program at [The OCD and Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/), I found other people who also had [scrupulosity](https://en.wikipedia.org/wiki/Scrupulosity). One of the exposures that we had to do to challenge our mental rules was to play the card game [Bullshit](https://en.wikipedia.org/wiki/Cheat_(game)), and we had to yell out “Bullshit!” as loud as we could to challenge someone. **Seeing other people struggle with swearing in the same way I did was validating.** This was something that OCD was blowing up out of proportion.
+When I started my intensive outpatient program at [The OCD and Anxiety Treatment Center](https://bennorris.com/tags/toatc/), I found other people who also had [scrupulosity](https://en.wikipedia.org/wiki/Scrupulosity). One of the exposures that we had to do to challenge our mental rules was to play the card game [Bullshit](https://en.wikipedia.org/wiki/Cheat_(game)), and we had to yell out “Bullshit!” as loud as we could to challenge someone. **Seeing other people struggle with swearing in the same way I did was validating.** This was something that OCD was blowing up out of proportion.
 
 As I progressed in my treatment and neared graduation, one of my last exposures was to perform some standup comedy. I had written about my acceptance of the fact that [I am not that funny](https://bennorris.com/2019/04/01/not-a-comedian), and **I had to risk failure**. To enhance the exposure, I volunteered to do my routine for the whole department at work. I included a joke with profanity as an additional exposure:
 

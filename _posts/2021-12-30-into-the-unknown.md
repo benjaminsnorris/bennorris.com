@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- toatc
 - mental health
 - hand lettering
 ---
@@ -31,7 +32,7 @@ I made a presentation to give to Mel and his boss explaining how I saw the mobil
 
 Amidst all of that, I experienced “The Great Breakdown of 2018.” As a mobile team, we had gone together to [Peers Conference](http://peersconf.com/2018), and someone there had suggested to me that I [consider getting counseling](https://bennorris.com/2019/12/23/suggestion-of-counseling), which had never occurred to me before. I went to a [chiropractor for back pain, started having panic attacks](https://bennorris.com/2020/02/15/back-pain-and-panic-attacks), and saw a therapist for the first time, which [did not go well](https://bennorris.com/2020/09/10/trying-out-therapy). I found a therapist who was a perfect fit, and learned that I had severe OCD. I went to a psychiatrist and began the chemical experimentation that is psychiatric medication, and finally found some relief that calmed my body enough that I could start doing some of the mental work needed.
 
-Early in 2019, [Mindi Cox](https://www.linkedin.com/in/mindicox/), our amazing people leader, and my boss, [Mel Tingey](https://www.linkedin.com/in/meltingey/), encouraged me to take an extended break from work. I moved out of my house for a few months, and started an intensive outpatient program at [The OCD & Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/). That treatment was life changing. Soon I was able to return home again with my wife and now seven children. I started working again, and found that being a manager was exactly what I wanted.
+Early in 2019, [Mindi Cox](https://www.linkedin.com/in/mindicox/), our amazing people leader, and my boss, [Mel Tingey](https://www.linkedin.com/in/meltingey/), encouraged me to take an extended break from work. I moved out of my house for a few months, and started an intensive outpatient program at [The OCD & Anxiety Treatment Center](https://bennorris.com/tags/toatc/). That treatment was life changing. Soon I was able to return home again with my wife and now seven children. I started working again, and found that being a manager was exactly what I wanted.
 
 As I shared my story about mental health, I found that it resonated with people. So many of us are struggling, and often feel alone and isolated. Finding my voice about mental health in the workplace was invigorating and empowering.
 

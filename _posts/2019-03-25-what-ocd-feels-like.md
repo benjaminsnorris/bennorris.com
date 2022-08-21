@@ -4,6 +4,7 @@ date: 2019-03-25 10:26:44-0600
 tags:
 - mental health
 - ocd
+- toatc
 category: Mental Work Health
 ---
 
@@ -15,7 +16,7 @@ Dealing with OCD is similar to how I imagine the Master’s experience in Dr. Wh
 
 ***
 
-In many ways, [obsessive-compulsive disorder](https://iocdf.org/about-ocd/) is the root of all of my mental illness, and is a topic that I expect to revisit many times. When I wrote my [coming out story](https://www.bennorris.com/2019/01/26/coming-out), I identified myself as someone with OCD. This does not define me, but it is also an integral part of who I am. I have mentioned previously that I am undergoing treatment at the [OCD & Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/), which has been a fantastic experience. I wanted to capture some of my thoughts around my OCD near the beginning of my treatment, as I am sure that my perspective will change over time.
+In many ways, [obsessive-compulsive disorder](https://iocdf.org/about-ocd/) is the root of all of my mental illness, and is a topic that I expect to revisit many times. When I wrote my [coming out story](https://www.bennorris.com/2019/01/26/coming-out), I identified myself as someone with OCD. This does not define me, but it is also an integral part of who I am. I have mentioned previously that I am undergoing treatment at [The OCD & Anxiety Treatment Center](https://bennorris.com/tags/toatc/), which has been a fantastic experience. I wanted to capture some of my thoughts around my OCD near the beginning of my treatment, as I am sure that my perspective will change over time.
 
 ## Buying a bag
 

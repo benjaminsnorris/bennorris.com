@@ -4,6 +4,7 @@ date: 2020-11-09 15:01:57-0700
 tags:
 - weekly update
 - ocd
+- toatc
 - mental health
 category: Mental Work Health
 ---
@@ -71,7 +72,7 @@ I sat there frozen for long enough that my three-year-old called out, “Dad, go
 
 ## Wrap up
 
-This week included a lot of growth for me. Living with OCD poses real challenges at times, and there are definite ups and downs. Early in the week, I had the pleasure of attending an alumni group meeting with others who went through the [OCD and Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com). A key message I took from the meeting was to remember the skills that we learned in treatment, one of the most crucial for me being self-compassion. I think that is a good one for all of us to remember.
+This week included a lot of growth for me. Living with OCD poses real challenges at times, and there are definite ups and downs. Early in the week, I had the pleasure of attending an alumni group meeting with others who went through [The OCD and Anxiety Treatment Center](https://bennorris.com/tags/toatc/). A key message I took from the meeting was to remember the skills that we learned in treatment, one of the most crucial for me being self-compassion. I think that is a good one for all of us to remember.
 
 
 

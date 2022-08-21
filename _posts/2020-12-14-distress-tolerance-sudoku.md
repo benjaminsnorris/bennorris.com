@@ -19,7 +19,7 @@ There is so much to celebrate and be grateful at this time of year. It is also a
 
 ## Something hard
 
-Life continued to be challenging throughout this past week. As the weekend came to a close, I felt that I had turned the corner, and things were looking up. My mind was caught back to a skill that we discussed at length in my intensive outpatient program at [The OCD and Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/). Most of the work that we did there involved inducing distress and training our brains to handle it. The skill we needed was **distress tolerance**. From [Wikipedia](https://en.wikipedia.org/wiki/Distress_tolerance):
+Life continued to be challenging throughout this past week. As the weekend came to a close, I felt that I had turned the corner, and things were looking up. My mind was caught back to a skill that we discussed at length in my intensive outpatient program at [The OCD and Anxiety Treatment Center](https://bennorris.com/tags/toatc/). Most of the work that we did there involved inducing distress and training our brains to handle it. The skill we needed was **distress tolerance**. From [Wikipedia](https://en.wikipedia.org/wiki/Distress_tolerance):
 
 > It refers to an individual's perceived capacity to withstand negative emotional and/or other aversive states (e.g. physical discomfort), and the behavioral act of withstanding distressing internal states elicited by some type of stressor.
 

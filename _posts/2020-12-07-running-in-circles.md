@@ -4,6 +4,7 @@ date: 2020-12-07 15:30:59-0700
 tags:
 - weekly update
 - ocd
+- toatc
 - mental health
 category: Mental Work Health
 ---
@@ -36,7 +37,7 @@ Her response was simple:
 
 > “And what then?”
 
-I barked a rueful laugh as I heard that, and realization washed over me. I had been so afraid of the uncertainty of the situation that I had not even paused to consider what it might mean. Leaning into the uncertainty was a key skill that I learned in my intensive outpatient program at [The OCD and Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/). It is sad how easily we forget strategies that make a major difference when times get tough.
+I barked a rueful laugh as I heard that, and realization washed over me. I had been so afraid of the uncertainty of the situation that I had not even paused to consider what it might mean. Leaning into the uncertainty was a key skill that I learned in my intensive outpatient program at [The OCD and Anxiety Treatment Center](https://bennorris.com/tags/toatc/). It is sad how easily we forget strategies that make a major difference when times get tough.
 
 It was almost miraculous what a difference it made to consider the implication of my fear. The change was not instantaneous—I still had plenty of agitation to sit with for a while, but the change *was* remarkable. By the time Thursday came, I felt ready to work again, which was a wonderful feeling. I am hoping to keep this lesson in mind as I move forward.
 

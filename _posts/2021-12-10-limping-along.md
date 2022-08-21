@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- toatc
 - mental health
 - sketchnotes
 - hand lettering
@@ -35,7 +36,7 @@ In many ways, I limped along the next week until my therapy session on Friday. I
 
 As I met with my therapist, she recognized a couple things. First, I had been stuffing down a lot of emotion instead of sitting with and processing it. That needed to stop. Second, as a result, I had so much tension and energy built up in my body that needed to be released.
 
-As I learned during my time in an [intensive outpatient program for OCD](https://www.theocdandanxietytreatmentcenter.com/), when my brain floods my body with adrenaline and cortisol, it has to be metabolized. One of the simplest ways was high knees—just run in place until I was exhausted. And since I haven’t been exercising much lately, that didn’t take long.
+As I learned during my time in an [intensive outpatient program for OCD](https://bennorris.com/tags/toatc/), when my brain floods my body with adrenaline and cortisol, it has to be metabolized. One of the simplest ways was high knees—just run in place until I was exhausted. And since I haven’t been exercising much lately, that didn’t take long.
 
 The very next day, my wife commented that it was a relief to hear me sound happy. “Whoa, whoa, let’s not get carried away,” I said. “I wouldn’t go so far as to say I’m happy. But I definitely am a bit better than I have been.”
 

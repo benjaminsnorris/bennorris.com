@@ -6,6 +6,7 @@ tags:
 - weekly update
 - mental health
 - ocd
+- toatc
 - hand lettering
 - story
 image: 
@@ -30,7 +31,7 @@ One of the challenges is due to the nature of my flavor of OCD—[scrupulosity](
 
 Mental illness often latches on to the areas of life that matter most to us. This is certainly true for me. My biggest triggers are **feeling like I’m not a good enough husband or father**.
 
-When I went through my intensive outpatient program at [The OCD & Anxiety Treatment Center](https://www.theocdandanxietytreatmentcenter.com/), I learned that **a common cognitive distortion is [black-and-white thinking](https://en.wikipedia.org/wiki/Splitting_(psychology))**. One of my friends in our group said she struggled with the opposite. She would be paralyzed by all the gray and struggle to decide because she could see so many options and so many facets to each of them.
+When I went through my intensive outpatient program at [The OCD & Anxiety Treatment Center](https://bennorris.com/tags/toatc/), I learned that **a common cognitive distortion is [black-and-white thinking](https://en.wikipedia.org/wiki/Splitting_(psychology))**. One of my friends in our group said she struggled with the opposite. She would be paralyzed by all the gray and struggle to decide because she could see so many options and so many facets to each of them.
 
 **That is not my problem.**
 
