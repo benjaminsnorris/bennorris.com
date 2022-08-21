@@ -1,0 +1,1 @@
+[Exposure and response prevention (ERP)](https://en.m.wikipedia.org/wiki/Exposure_therapy#Exposure_and_response_prevention) therapy is a form of [cognitive behavioral therapy (CBT)](https://en.m.wikipedia.org/wiki/Cognitive_behavioral_therapy), and is considered the gold standard treatment for [OCD](https://bennorris.com/tags/ocd/).
