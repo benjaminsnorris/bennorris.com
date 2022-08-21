@@ -4,6 +4,7 @@ date: 2021-02-08 10:19:42-0700
 tags:
 - weekly update
 - ocd
+- erp
 - mental health
 category: Mental Work Health
 ---
@@ -58,4 +59,4 @@ That’s it for this week. I hope that you are happy and healthy and finding way
 
 [^1]: Again, not the epic one of my dream, but the [smaller one](https://www.lego.com/en-us/product/millennium-falcon-75257).
 
-[^2]: [Exposure and response prevention](https://en.wikipedia.org/wiki/Exposure_therapy) is one of the best therapies for OCD.
+[^2]: [Exposure and response prevention (ERP)](https://bennorris.org/tags/erp/) is one of the best therapies for OCD.

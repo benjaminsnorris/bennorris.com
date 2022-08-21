@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- erp
 - mental health
 - hand lettering
 - story
@@ -43,7 +44,7 @@ I knew that if I left it crooked, it would be a source of irritation every time 
 
 I had to leave it.
 
-So much of my work in learning to live with OCD is practicing [distress tolerance](https://en.wikipedia.org/wiki/Distress_tolerance). That is the crux of [exposure response prevention (ERP)](https://iocdf.org/about-ocd/ocd-treatment/erp/) therapy, which is the gold standard in treating OCD. Essentially, ERP consists of working with a trained professional to create situations in which you repeatedly force your brain to confront what it claims is an emergency. You have to sit with your brain screaming that you need to take action (the compulsion) to neutralize the danger of the emergency (the obsession). Over time, you habituate and the distress fades. Your brain no longer claims that threat is an emergency.
+So much of my work in learning to live with OCD is practicing [distress tolerance](https://en.wikipedia.org/wiki/Distress_tolerance). That is the crux of [exposure response prevention (ERP) therapy](https://bennorris.com/tags/erp/), which is the gold standard in treating OCD. Essentially, ERP consists of working with a trained professional to create situations in which you repeatedly force your brain to confront what it claims is an emergency. You have to sit with your brain screaming that you need to take action (the compulsion) to neutralize the danger of the emergency (the obsession). Over time, you habituate and the distress fades. Your brain no longer claims that threat is an emergency.
 
 I chose to embrace the distress I knew would come with a crooked whiteboard on the wall. My hope was that eventually the distress would decrease as I habituated.
 

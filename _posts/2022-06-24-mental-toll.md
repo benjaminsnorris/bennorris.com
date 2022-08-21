@@ -10,6 +10,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- erp
 - mental health
 - hand lettering
 ---
@@ -81,5 +82,5 @@ We’ll see where the future goes, but so far, it looks bright.
 Wherever you are at this week, I send you compassion. Things are undoubtedly hard. And good. Allowing both to coexist can be a challenge. We can do this.
 
 
-[^1]: Exposures are a core part of my OCD recovery. The full term is exposure response prevention therapy. Basically, it consists of repeatedly forcing your mind to confront claimed-but-not-real emergencies to habituate and calm your alarm system. Important to have a trained professional helping.
+[^1]: Exposures are a core part of my OCD recovery. The full term is [exposure and response prevention (ERP) therapy](https://bennorris.com/tags/erp/). Basically, it consists of repeatedly forcing your mind to confront claimed-but-not-real emergencies to habituate and calm your alarm system. Important to have a trained professional helping.
 

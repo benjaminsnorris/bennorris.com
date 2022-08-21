@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- erp
 - mental health
 - hand lettering
 ---
@@ -34,7 +35,7 @@ One thing that came up right away was **a challenge to my commitment for flexibi
 
 I could easily become paralyzed obsessing over my use of time.
 
-[Exposure therapy](https://en.wikipedia.org/wiki/Exposure_therapy) (more accurately called exposure response prevention therapy) is something I have done a great deal for my OCD. It essentially involves forcing my mind to confront situations that seem impossible, but are things that I want to be able to do. By engaging in the exposures, I can **train my brain to habituate** to the distress. That allows me to choose to do that behavior if I want to.
+Exposure therapy, or rather [exposure and response prevention (ERP) therapy](https://bennorris.com/tags/erp/), is something I have done a great deal for my OCD. It essentially involves forcing my mind to confront situations that seem impossible, but are things that I want to be able to do. By engaging in the exposures, I can **train my brain to habituate** to the distress. That allows me to choose to do that behavior if I want to.
 
 On Monday, right as I was starting to settle in for my first full day of contracting, my wife called. She was not feeling well, and needed me to come home and take care of our seven kids. For a second, I froze. This wasn’t fair. This wasn’t the plan. This shouldn’t be happening.
 

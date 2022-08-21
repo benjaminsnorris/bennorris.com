@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- erp
 - mental health
 - sketchnotes
 - hand lettering
@@ -26,7 +27,7 @@ OCD is a funny thing. As I have done more speaking about mental health, I have h
 
 Another defining characteristic of OCD as a disorder is the loss of time. When compulsions start to take over your life, you spend unwanted amounts of time performing them. It is distressing to see the effect, and want to stop, but feel unable. It is miserable.
 
-The most effective treatment for OCD is ERP, or [exposure response prevention](https://en.m.wikipedia.org/wiki/Exposure_therapy) treatment. Done with a trained professional, repeatedly exposing yourself to situations that cause distress can help your mind escape the grasp of obsessions. Most of my recovery involves recognizing those urges and resisting them. Not fighting them, because that gives them more strength, but choosing to not act on them.
+The most effective treatment for OCD is [exposure and response prevention (ERP) therapy](https://bennorris.org/tags/erp/). Done with a trained professional, repeatedly exposing yourself to situations that cause distress can help your mind escape the grasp of obsessions. Most of my recovery involves recognizing those urges and resisting them. Not fighting them, because that gives them more strength, but choosing to not act on them.
 
 There are times, however, when I just choose to give in. My therapist and I talk about those times. Ideally, it is in a situation where it is not impacting relationships.
 

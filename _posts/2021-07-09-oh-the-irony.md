@@ -4,6 +4,7 @@ date: 2021-07-09 11:05:48-0600
 tags:
 - weekly update
 - ocd
+- erp
 - mental health
 category: Mental Work Health
 ---
@@ -32,7 +33,7 @@ My assignment in therapy last week was to not work on the app at all for a week.
 
 ![OCD ERP app](https://media.bennorris.com/images/mentalworkhealth/uploads/2021/fe5b8e9a81.png)
 
-The focus of the app is on facilitating [exposure response prevention therapy](https://en.wikipedia.org/wiki/Exposure_therapy). This is the gold standard of treatment for OCD, and is helpful for many other anxiety disorders. However, the therapy must be done appropriately. If people hear about it and naively try to face their fears over and over, it may not be of therapeutic value. Accordingly, the app does not perform any treatment or suggest any specific action. It is intended as a tool to assist in treatment administered by a trained professional.
+The focus of the app is on facilitating [exposure response prevention (ERP) therapy](https://bennorris.org/tags/erp/). This is the gold standard of treatment for [OCD](https://bennorris.org/tags/ocd/), and is helpful for many other anxiety disorders. However, the therapy must be done appropriately. If people hear about it and naively try to face their fears over and over, it may not be of therapeutic value. Accordingly, the app does not perform any treatment or suggest any specific action. It is intended as a tool to assist in treatment administered by a trained professional.
 
 In performing this kind of therapy, we establish a hierarchy of exposures to challenge an OCD rule or intrusive thoughts. Then we perform trials of the exposure and track the levels of distress that are felt. The app is meant to serve as a record of the exposures and trials in order to share the data with a therapist.
 
