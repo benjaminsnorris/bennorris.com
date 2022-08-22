@@ -7,6 +7,7 @@ tags:
 - video
 - weekly update
 - mental health
+- illustration
 - hand lettering
 - story
 image: 

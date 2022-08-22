@@ -9,6 +9,7 @@ category: General
 tags:
 - software
 - sketchnotes
+- illustration
 - hand lettering
 ---
 

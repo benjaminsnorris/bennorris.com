@@ -14,6 +14,7 @@ tags:
 - scrupulosity
 - mental health
 - sketchnotes
+- illustration
 - hand lettering
 ---
 

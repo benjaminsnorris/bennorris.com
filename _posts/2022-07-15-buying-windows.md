@@ -6,6 +6,7 @@ tags:
 - weekly update
 - mental health
 - ocd
+- illustration
 - hand lettering
 - story
 image: 
