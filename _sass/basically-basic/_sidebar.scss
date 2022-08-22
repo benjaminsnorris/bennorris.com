@@ -90,6 +90,8 @@
     padding-bottom: 0.5rem;
     font-weight: bold;
     line-height: 1;
+    hyphens: auto;
+    -webkit-hyphens: auto;
 
     a {
       display: block;
