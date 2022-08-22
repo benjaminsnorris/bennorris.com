@@ -8,7 +8,7 @@ title: Subscribe
     action="https://buttondown.email/api/emails/embed-subscribe/bennorris"
     method="post"
     onsubmit="submitSubscriptionForm()"
-    id="subscribe-form"
+    id="manage-subscription-form"
   >
     <label for="email-input" class="small">Subscribe to get future updates in your inbox</label>
     <div class="email-input-row">
@@ -21,11 +21,10 @@ title: Subscribe
       {% include subscribe-hidden-fields.html %}
     {% endif %}
   </form>
-  <div id="subscribe-confirmation">
-    <div class="subscribe-confirmation-text">
-      <span class="large">🎉</span>
-      <div class="small">You subscribed with <strong id="subscribed-email">[email]</strong> on <strong id="subscribed-date">[date]</strong>. Thanks for joining me!</div>
-    </div>
-    <a href="https://bennorris.com/subscribe/" class="more-link"><span class="link-text">Manage your subscription</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a>
-  </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>
+  var subscribedEmail = window.localStorage.getItem('subscribedEmail');
+  $("#email-input").val(subscribedEmail);
+</script>
