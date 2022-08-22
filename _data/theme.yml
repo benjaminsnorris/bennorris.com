@@ -34,8 +34,9 @@ navigation_pages:
   - categories/mindfulsketch.md
   - categories/sketchnotable.md
   - archive.md
-  - speaking/index.md
-  - design/index.md
-  - apps/index.md
+  - speaking.md
+  - design.md
+  - about.md
+  - apps.md
   - shop/index.md
-  - about/index.md
+  - now.md

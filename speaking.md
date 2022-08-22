@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Speaking
+permalink: /speaking/
 ---
 
 Public speaking is a favorite activity of mine. I love creating and delivering presentations on many different topics.

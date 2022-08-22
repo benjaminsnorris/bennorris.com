@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Design
+permalink: /design/
 ---
 
 My personal website has gone through many different iterations, which now serve to highlight some of my web design experience.
