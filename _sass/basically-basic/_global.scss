@@ -178,8 +178,9 @@
 }
 
 #subscribe-block {
+  background-color: tint($accent-color, 90%);
   clear: left;
-  border: 1px solid rgba($color: $text-color, $alpha: 0.3);
+  border: 1px solid $border-color;
   padding: 0.5em;
   transform: rotate(-1deg);
   border-radius: $border-radius;
@@ -206,6 +207,7 @@
   .email-input-row {
     display: flex;
     border-radius: $border-radius;
+    border: 1px solid $border-color;
     overflow: hidden;
     margin-top: 0.25em;
   }
@@ -215,11 +217,13 @@
   }
 
   .email-input {
+    background-color: $background-color;
     display: block;
     width: 100%;
     padding: 0.5em;
     border: none;
     border-radius: 0;
+    border-right: 1px solid $border-color;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
