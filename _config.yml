@@ -86,6 +86,8 @@ exclude:
 collections:
   drafts:
     output: true
+  designs:
+    output: true
   presentations:
     output: true
   apps:
@@ -112,6 +114,19 @@ defaults:
   - scope:
       path: "_apps"
       type: apps
+    values:
+      layout: post
+      read_time: false
+      excerpt_separator: "<!--more-->"
+  - scope:
+      path: "_designs"
+      type: designs
+    values:
+      layout: post
+      read_time: false
+  - scope:
+      path: "_presentations"
+      type: presentations
     values:
       layout: post
       read_time: false

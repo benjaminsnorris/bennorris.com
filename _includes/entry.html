@@ -8,7 +8,7 @@
   <header class="entry-header">
     {% unless post.micro %}
     <h3 class="entry-title">
-      <a href="{{ post.url | relative_url }}" rel="bookmark">{{ title }}</a>
+      <a href="{{ post.external_url | default: post.url | relative_url }}" rel="bookmark">{{ title }}</a>
     </h3>
     {% if post.sub_title %}
       <h4 class="entry-subtitle">{{ post.sub_title }}</h4>
@@ -20,7 +20,7 @@
         {% assign entry_image = entry_image | relative_url %}
       {% endunless %}
       {% assign entry_image = entry_image | escape %}
-      <a href="{{ post.url | relative_url }}" class="clean" rel="bookmark"><img class="entry-image u-photo" src="{{ entry_image }}" alt="{{ post.title }}" loading="lazy"></a>
+      <a href="{{ post.external_url | default: post.url | relative_url }}" class="clean" rel="bookmark"><img class="entry-image u-photo" src="{{ entry_image }}" alt="{{ post.title }}" loading="lazy"></a>
     {% endif %}
   </header>
   <footer class="entry-meta">
@@ -31,7 +31,7 @@
           {% unless post.micro %}
             <time class="entry-time" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
           {% else %}
-            <a href="{{ post.url | relative_url }}" rel="bookmark">
+            <a href="{{ post.external_url | default: post.url | relative_url }}" rel="bookmark">
               <time class="entry-time" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
             </a>
           {% endunless %}
