@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- erp
 - mental health
 - sketchnotes
 - illustration
@@ -54,7 +55,7 @@ Just as I found in caring for the kids and the house, deep satisfaction doesn’
 
 Change is hard.
 
-At work, I am in a period of transition. There is so much uncertainty about how things will go, and what the future will look like. As I described the situation to my therapist, she commented that I am living in a near-constant exposure. I don’t need to spend a lot of time doing [exposures](https://en.wikipedia.org/wiki/Exposure_therapy) right now, because that is my life.
+At work, I am in a period of transition. There is so much uncertainty about how things will go, and what the future will look like. As I described the situation to my therapist, she commented that I am living in a near-constant exposure. I don’t need to spend a lot of time doing [exposures](https://bennorris.com/tags/erp/) right now, because that is my life.
 
 Overall, I have been happy with my handling of things. There is so much about the situation that I cannot control or even know. But I have trained extensively in uncertainty. At this point, that is something of a speciality for me.
 

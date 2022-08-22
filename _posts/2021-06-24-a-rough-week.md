@@ -4,6 +4,7 @@ date: 2021-06-24 08:49:43-0600
 tags:
 - weekly update
 - ocd
+- erp
 - mental health
 category: Mental Work Health
 ---
@@ -33,7 +34,7 @@ Serendipitously, my brother called to chat soon after I took the rescue med, and
 
 Wednesday, I was exhausted, as is often the case after a series of panic attacks. I took the day off work again and rested. By Thursday, I was pretty well recovered and able to engage with life again.
 
-What threw me off so much? I’m sure it was a number of factors. But in the previous therapy session, we were talking about a new [hierarchy](https://en.wikipedia.org/wiki/Exposure_therapy) to work on for my OCD. Part of establishing a hierarchy is identifying the rule that my brain has made as well as the threat. We need to know the fear my brain is trying to protect me from.
+What threw me off so much? I’m sure it was a number of factors. But in the previous therapy session, we were talking about a new [hierarchy](https://bennorris.com/tags/erp/) to work on for my OCD. Part of establishing a hierarchy is identifying the rule that my brain has made as well as the threat. We need to know the fear my brain is trying to protect me from.
 
 We realized that the underlying fear of that hierarchy was that if I didn’t achieve enough or quickly enough, I would be unlovable and cast off by God. Heavy stuff.
 
