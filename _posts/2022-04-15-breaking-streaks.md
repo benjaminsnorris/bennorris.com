@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- scrupulosity
 - mental health
 - hand lettering
 - story
@@ -47,7 +48,7 @@ I explained to them, and justified to myself, that **I was merely using a person
 
 Later, when I learned about OCD, I could recognize that this is a classic manifestation. One of the measures of the severity of the disorder is to identify **how many hours a day are being spent performing compulsions**. This is easier to notice and address when the compulsions make no logical sense. Much harder when they can pass as good things to be doing.
 
-My particular flavor of OCD, [scrupulosity](https://en.wikipedia.org/wiki/Scrupulosity), can be particularly difficult to recognize. **Most of the obsessions and even the compulsions are mental.** So much time is spent ruminating, planning, or reviewing, but that is not visible to anyone else. **One of the first casualties of any mental illness is insight.** This is a vicious cycle.
+My particular flavor of OCD, [scrupulosity](https://bennorris.com/tags/scrupulosity/), can be particularly difficult to recognize. **Most of the obsessions and even the compulsions are mental.** So much time is spent ruminating, planning, or reviewing, but that is not visible to anyone else. **One of the first casualties of any mental illness is insight.** This is a vicious cycle.
 
 Part of the reason this is so difficult for me is that many of the things that my brain latches onto and turns into compulsions start out at things I actually want to be doing. I wrote about an instance of this happening with Marvel Comics a few months ago in update [#58: Civil War](https://bennorris.com/2021/10/28/civil-war).
 

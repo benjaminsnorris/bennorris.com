@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- scrupulosity
 - mental health
 - sketchnotes
 - hand lettering
@@ -50,7 +51,7 @@ While true in some ways, that kind of invalidation almost never helps. What _doe
 
 At the beginning of last week, I was annoyed. Someone at work had made a decision that I didn’t completely agree with. And more annoying, it was about something that we had previously discussed. I was a little hurt that the decision was made without me, and exacerbated by my concerns with the choice made.
 
-Part of my OCD is a struggle with impulse control. This may be a general trait of many mental health challenges, but I can only speak directly to my own experience. My flavor of OCD, [scrupulosity](https://en.wikipedia.org/wiki/Scrupulosity), is almost all mental. My compulsions are thoughts that I have to wrestle with. Mentally, this is exhausting, and my ability to resist depletes quickly.
+Part of my OCD is a struggle with impulse control. This may be a general trait of many mental health challenges, but I can only speak directly to my own experience. My flavor of OCD, [scrupulosity](https://bennorris.com/tags/scrupulosity/), is almost all mental. My compulsions are thoughts that I have to wrestle with. Mentally, this is exhausting, and my ability to resist depletes quickly.
 
 In the past, the implication of poor impulse control was immediate action. If I felt annoyance at something that happened at work, I often jumped right in to try to fix the situation. I would voice my frustration before processing it, or even before I completely understood it.
 

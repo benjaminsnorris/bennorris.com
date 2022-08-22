@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - mental health
 - ocd
+- scrupulosity
 - hand lettering
 ---
 

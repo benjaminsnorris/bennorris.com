@@ -4,6 +4,7 @@ date: 2021-01-12 13:19:23-0700
 tags:
 - weekly update
 - ocd
+- scrupulosity
 - mental health
 category: Mental Work Health
 ---
@@ -21,7 +22,7 @@ This has been a stressful week for so many people that I know, and might have be
 
 Over the holidays, my therapist took some time off. Of course I was glad for her, but it was also a little scary for me. Typically, when I go multiple weeks without a session, my rules start overwhelming me and OCD begins to take over a bit. I felt quite pleased with myself for how I managed myself throughout the holidays, and felt that life was pretty good overall. That said, I was relieved to at least have a phone session last week.
 
-During my session, I shared with my therapist one of my deepest fears. It was something that had only come to me in the past few weeks. It started edging its way into my consciousness after my last discussion with my psychiatrist, but took a few weeks until I granted it full access to sit down with me in my mind. As I shared it, my therapist started to laugh. After a minute, so did I. This is not an uncommon experience in my therapy, as we share a diagnosis of scrupulosity OCD. Many of the issues or difficulties that come with a mental health condition are humorous and even ridiculous when seen in the right light. Often the choice is either to laugh or to cry, and I like to choose to laugh.
+During my session, I shared with my therapist one of my deepest fears. It was something that had only come to me in the past few weeks. It started edging its way into my consciousness after my last discussion with my psychiatrist, but took a few weeks until I granted it full access to sit down with me in my mind. As I shared it, my therapist started to laugh. After a minute, so did I. This is not an uncommon experience in my therapy, as we share a diagnosis of [scrupulosity OCD](https://bennorris.com/tags/scrupulosity/). Many of the issues or difficulties that come with a mental health condition are humorous and even ridiculous when seen in the right light. Often the choice is either to laugh or to cry, and I like to choose to laugh.
 
 Her response was basically, 
 

@@ -4,6 +4,7 @@ date: 2020-11-16 20:49:00-0700
 tags:
 - weekly update
 - ocd
+- scrupulosity
 - mental health
 - free writing
 category: Mental Work Health
@@ -60,7 +61,7 @@ After a minute or so, I laid down on the floor in the fastest way possible, whic
 
 Then I saw the ink all over my fingers and went in to the bathroom and washed my hands. After standing there scrubbing with soap for about five minutes, my wife came in and turned on the water, helped me rinse off and hugged me. She led me back to our armchair and gave me a weighted blanket and I watched an episode of [The Office](https://en.wikipedia.org/wiki/The_Office_(American_TV_series)) and laughed until my recovering stomach ached.
 
-One of the signature characteristics of OCD is a loss of time. Motions or thoughts or actions end up on a loop, and we who experience it lack insight into what is happening. Often, part of diagnosing OCD is gaining an understanding of how much time in the day is being taken up in these activities[^4]. With my personal diagnosis of [scrupulosity OCD](https://en.wikipedia.org/wiki/Scrupulosity), I am usually able to present a high-functioning front. Most of the obsessions and compulsions that occur for me are mental, and so they are harder to recognize, and nearly impossible to acknowledge the time that is being spent on them.
+One of the signature characteristics of OCD is a loss of time. Motions or thoughts or actions end up on a loop, and we who experience it lack insight into what is happening. Often, part of diagnosing OCD is gaining an understanding of how much time in the day is being taken up in these activities[^4]. With my personal diagnosis of [scrupulosity OCD](https://bennorris.com/tags/scrupulosity/), I am usually able to present a high-functioning front. Most of the obsessions and compulsions that occur for me are mental, and so they are harder to recognize, and nearly impossible to acknowledge the time that is being spent on them.
 
 This slight breakdown was an exception to my usual pattern, and highlighted for me how easy it can be to lose time in activities that appear to have no purpose.
 

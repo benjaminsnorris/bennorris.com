@@ -11,6 +11,7 @@ tags:
 - ocd
 - erp
 - toatc
+- scrupulosity
 - mental health
 - sketchnotes
 - hand lettering
@@ -30,7 +31,7 @@ As I went through the intensive outpatient program at [The OCD & Anxiety Treatme
 
 It was similar to learning to resist compulsions.
 
-My form of OCD, [scrupulosity](https://en.wikipedia.org/wiki/Scrupulosity), is almost purely mental. This made it hard to recognize and diagnose, which led to difficulties in getting treatment. As I started doing [exposure and response prevention (ERP) therapy](https://bennorris.com/tags/erp/), I wasn’t able to separate the urge to do a compulsion from the compulsion itself. So I started with physical compulsions. When I felt the urge to clean something, I could recognize that and chose not to do it. Over time, I was able to get a similar level of detachment from mental compulsions and decide what action to take when I felt the urge.
+My form of OCD, [scrupulosity](https://bennorris.com/tags/scrupulosity/), is almost purely mental. This made it hard to recognize and diagnose, which led to difficulties in getting treatment. As I started doing [exposure and response prevention (ERP) therapy](https://bennorris.com/tags/erp/), I wasn’t able to separate the urge to do a compulsion from the compulsion itself. So I started with physical compulsions. When I felt the urge to clean something, I could recognize that and chose not to do it. Over time, I was able to get a similar level of detachment from mental compulsions and decide what action to take when I felt the urge.
 
 Learning to sit with emotions without allowing them to take over can be a difficult process. Mindfulness is essentially the practice of sitting in the present moment and whatever it holds. The sensations. The emotions. The thoughts. Just become aware of it without judgment.
 

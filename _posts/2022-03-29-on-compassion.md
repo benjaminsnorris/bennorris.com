@@ -4,6 +4,7 @@ date: 2022-03-29 20:20:51-0600
 category: Mental Work Health
 tags:
 - mental health
+- scrupulosity
 ---
 
 I received Brené Brown’s newest book, [*Atlas of the Heart*](https://brenebrown.com/book/atlas-of-the-heart/), as a Christmas gift, and have been savoring it. Today I read the section on **The Relationship Between Compassion and Empathy** was moved. I wanted to share a portion.
@@ -22,7 +23,7 @@ I received Brené Brown’s newest book, [*Atlas of the Heart*](https://brenebro
 > 
 > But I’m not going to lie. It’s still really hard. Sitting in the dark with them is not one bit easier in the moment than it was ten years ago. Everything in my body is screaming, “Make it better! Fix it!” Maybe this is an example of how understanding emotion can be a life raft in a sea of turbulent feelings. Sometimes I have to desperately cling to what I know, rather than act on what I’m feeling in the moment.
 
-A couple thoughts struck me as I read this. First, this is the reason why my therapist is so damn good. She is very open about her own challenges. It helps tremendously that we share the same diagnosis of scrupulosity OCD. When she talks about struggling with OCD, I know exactly what she means, and vice versa.
+A couple thoughts struck me as I read this. First, this is the reason why my therapist is so damn good. She is very open about her own challenges. It helps tremendously that we share the same diagnosis of [scrupulosity OCD](https://bennorris.com/tags/scrupulosity/). When she talks about struggling with OCD, I know exactly what she means, and vice versa.
 
 My second thought was that this also describes **the biggest way in which I changed** through my treatment and ongoing recovery. When I finally acknowledged my own suffering, I was able to connect with others in theirs. For years, I didn’t allow myself to see the pain I felt. I thought there was simply a *right way* to do everything.
 

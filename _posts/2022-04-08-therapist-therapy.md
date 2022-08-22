@@ -9,6 +9,7 @@ category: Mental Work Health
 tags:
 - weekly update
 - ocd
+- scrupulosity
 - mental health
 - hand lettering
 - story
@@ -26,7 +27,7 @@ I [shared recently](https://bennorris.com/2022/03/26/playing-first-base) about a
 
 My therapist told me about her experience going to see Billie Eilish in concert. Her daughter had bought tickets early, and was on the second row or so, in seats 3 and 4, but her tickets were in the middle of a section much further back. Before the concert started, she sat down by her daughter, as seats 1 and 2 were not yet occupied. Even though it was a packed house, the people who bought those seats never came, and she was able to watch the whole concert from the front, near the aisle, with an extra seat. As someone with claustrophobia, that made a huge difference in how much she was able to enjoy the concert.
 
-She told me about other concerts she has been to that have been an amazing experience, and that this one was on a whole other level. The biggest thing was that [scrupulosity](https://en.wikipedia.org/wiki/Scrupulosity) was not present for those couple hours. Now, she has learned to sit with her OCD, and its voice does not take over her life. But it is still exhausting to fight against it all the time. And it was totally gone at the concert.
+She told me about other concerts she has been to that have been an amazing experience, and that this one was on a whole other level. The biggest thing was that [scrupulosity](https://bennorris.com/tags/scrupulosity/) was not present for those couple hours. Now, she has learned to sit with her OCD, and its voice does not take over her life. But it is still exhausting to fight against it all the time. And it was totally gone at the concert.
 
 As an example, she was ready to move back to her own seat when the people came to sit in seats 1 and 2. But she never thought about it again, except to marvel that they stayed open. Under typical circumstances, there would have been a steady current of anxious thoughts about when the people would come, and when she would have to move. That’s the voice that OCD usually speaks with, but it was totally silent.
 

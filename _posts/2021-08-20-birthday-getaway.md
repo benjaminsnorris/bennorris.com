@@ -10,6 +10,7 @@ tags:
 - weekly update
 - ocd
 - toatc
+- scrupulosity
 - mental health
 ---
 
@@ -31,7 +32,7 @@ I loved that idea.
 ![Weight of responsibility illustration](https://media.bennorris.com/images/mentalworkhealth/weight-of-responsibility.jpg){:loading="lazy"}
 _Weight of responsibility_
 
-I drew the image above for the 2020 TOATC OCD Awareness Week Art Exhibit contest[^1] at [The OCD & Anxiety Treatment Center](https://bennorris.com/tags/toatc/) where I did an intensive outpatient program. The weight of responsibility is a huge part of my OCD. I describe my diagnosis of scrupulosity as a superset of perfectionism. In many ways, it is the drive to be perfect with the threat of eternal damnation looming over any failure, of which they are naturally many each day. Often, when I reach my breaking point, I feel as if I’m being crushed by the different responsibilities in my life.
+I drew the image above for the 2020 TOATC OCD Awareness Week Art Exhibit contest[^1] at [The OCD & Anxiety Treatment Center](https://bennorris.com/tags/toatc/) where I did an intensive outpatient program. The weight of responsibility is a huge part of my OCD. I describe my diagnosis of [scrupulosity](https://bennorris.com/tags/scrupulosity/) as a superset of perfectionism. In many ways, it is the drive to be perfect with the threat of eternal damnation looming over any failure, of which they are naturally many each day. Often, when I reach my breaking point, I feel as if I’m being crushed by the different responsibilities in my life.
 
 All that was to say that my wife’s suggestion sounded ideal.
 

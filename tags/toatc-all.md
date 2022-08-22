@@ -1,10 +1,8 @@
 ---
 layout: tag-all
-title: Jocko
-taxonomy: jocko
-permalink: /tags/jocko/all/
-site_banner: true
-image: https://media.bennorris.com/images/posts/jocko-willink.jpg
+title: The OCD & Anxiety Treatment Center
+taxonomy: toatc
+permalink: /tags/toatc/all/
 ---
 
-{% include tags/jocko.md %}
+{% include tags/toatc.md %}

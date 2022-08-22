@@ -5,6 +5,7 @@ tags:
 - mental health
 - ocd
 - toatc
+- scrupulosity
 category: Mental Work Health
 ---
 
@@ -32,7 +33,7 @@ Part of the struggle was that I had a plan to buy it. After shopping at [REI](ht
 
 ## Everyday OCD
 
-The example with the bag is a little dramatic, and one that lasted much longer than most of my obsessions. My more nuanced diagnosis is Scrupulosity OCD, which feels like a fancy word for perfectionism. In many cases, including mine, scrupulosity includes a religious component, where your mind is convinced that you are offending God through many of your actions.
+The example with the bag is a little dramatic, and one that lasted much longer than most of my obsessions. My more nuanced diagnosis is Scrupulosity OCD, which feels like a fancy word for perfectionism. In many cases, including mine, [scrupulosity](https://bennorris.com/tags/scrupulosity/) includes a religious component, where your mind is convinced that you are offending God through many of your actions.
 
 One of the real challenges with having this diagnosis is that it does not look like media-portrayed OCD. I do not have to flip the lights on and off a certain number of times, or wash my hands constantly throughout the day. (Although, to be honest, if I get something on my hands, I am often paralyzed and hold them suspended in front of me until I can wash so that I do not destroy anything.) What made this hard was that a number of mental health professionals with whom I met told me that I did not have OCD. One thing my brain craves is certainty, and so to not even know my diagnosis was excruciating.
 

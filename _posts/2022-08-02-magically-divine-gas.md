@@ -4,6 +4,7 @@ date: 2022-08-02 21:40:32-0600
 category: General
 tags:
 - ocd
+- scrupulosity
 - link
 excerpt_separator: "<!--more-->" 
 ---
@@ -20,7 +21,7 @@ Cue rueful chuckle with a tinge of sorrow.
 
 When I saw this, I was struck by **how perfectly it illustrates OCD** for me. Granted, it’s intended as a joke, but it is so close to the truth that plays in my mind, and of many I know.
 
-[Scrupulosity](https://en.wikipedia.org/wiki/Scrupulosity) is a form of OCD that I describe as **perfectionism with the constant threat of eternal damnation**. This is [my flavor](https://bennorris.com/tags/ocd/).
+[Scrupulosity](https://bennorris.com/tags/scrupulosity/) is a form of OCD that I describe as **perfectionism with the constant threat of eternal damnation**. This is my flavor.
 
 In many ways, it is the other end of the stick of this joke. In almost every endeavor, **there is a “right” way**, a “pure” way to do it. Failing to find and perform that means you are fast-tracked for hell.
 

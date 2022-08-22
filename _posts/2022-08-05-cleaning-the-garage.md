@@ -7,6 +7,7 @@ tags:
 - mental health
 - ocd
 - toatc
+- scrupulosity
 - hand lettering
 - story
 image: 
@@ -27,7 +28,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 **Housework with OCD is a bitch** sometimes. (Also seems true even without OCD, but I can’t speak to that.)
 
-One of the challenges is due to the nature of my flavor of OCD—[scrupulosity](https://en.wikipedia.org/wiki/Scrupulosity). As I described in a post earlier this week, [Magically divine gas](https://bennorris.com/2022/08/02/magically-divine-gas), it is essentially **perfectionism with the constant threat of eternal damnation**. Many parts of life get over-moralized and I feel paralyzingly guilty about not doing the “right” thing.
+One of the challenges is due to the nature of my flavor of OCD—[scrupulosity](https://bennorris.com/tags/scrupulosity/). As I described in a post earlier this week, [Magically divine gas](https://bennorris.com/2022/08/02/magically-divine-gas), it is essentially **perfectionism with the constant threat of eternal damnation**. Many parts of life get over-moralized and I feel paralyzingly guilty about not doing the “right” thing.
 
 Mental illness often latches on to the areas of life that matter most to us. This is certainly true for me. My biggest triggers are **feeling like I’m not a good enough husband or father**.
 

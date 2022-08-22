@@ -4,6 +4,7 @@ date: 2020-10-05 22:23:00-0600
 tags:
 - weekly update
 - ocd
+- scrupulosity
 - mental health
 - general conference
 category: Mental Work Health
@@ -24,7 +25,7 @@ Parenting. Wow. It is a right hook to the jaw sometimes.
 
 This past week, we faced challenges with the teenagers as well as the toddlers. One of the difficulties with child struggles is that they seem to mostly happen at night, particularly late at night. That means that your sleep is affected, which in turn decreases your ability to handle everyday stressors. This often leads to impaired parenting responses, which escalate or cause another set of issues. And on and on it goes.
 
-In so many ways, this spiral is similar to many thought loops that I experience with OCD. As someone with [scrupulosity OCD](https://en.wikipedia.org/wiki/Scrupulosity), it is a common occurrence to mentally berate myself for doing something “wrong.” I am sure that many of us identify with the notion of being our own worst critic. It becomes a bigger problem when the result of that realization is to beat myself up for beating myself up. It is so easy for that cycle to become a despair spiral of doom.
+In so many ways, this spiral is similar to many thought loops that I experience with OCD. As someone with [scrupulosity OCD](https://bennorris.com/tags/scrupulosity/), it is a common occurrence to mentally berate myself for doing something “wrong.” I am sure that many of us identify with the notion of being our own worst critic. It becomes a bigger problem when the result of that realization is to beat myself up for beating myself up. It is so easy for that cycle to become a despair spiral of doom.
 
 
 ## Something good

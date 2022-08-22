@@ -4,6 +4,7 @@ date: 2021-06-09 08:33:29-0600
 tags:
 - weekly update
 - ocd
+- scrupulosity
 - mental health
 category: Mental Work Health
 ---
@@ -19,7 +20,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 Last weekend I had an interesting experience. I had a conversation with someone in which I expected to get advice. There were questions that I wanted to explore, and I was looking forward to discussing.
 
-When we started talking, I first asked how her recent trip had gone. As we started discussing that, the conversation quickly turned from sharing vacation stories. She told me about a situation she had, and that as she was thinking things over on her way home, I came to mind as someone who could give her advice. Because of my life experience, particularly my struggle with [scrupulosity OCD](https://en.m.wikipedia.org/wiki/Scrupulosity), she thought I was uniquely qualified to provide some insights, at least among people that she knew.
+When we started talking, I first asked how her recent trip had gone. As we started discussing that, the conversation quickly turned from sharing vacation stories. She told me about a situation she had, and that as she was thinking things over on her way home, I came to mind as someone who could give her advice. Because of my life experience, particularly my struggle with [scrupulosity OCD](https://bennorris.com/tags/scrupulosity/), she thought I was uniquely qualified to provide some insights, at least among people that she knew.
 
 Over the new three hours or so, we talked deeply about my treatment and recovery, and lessons I had taken from it. Much of what I had to share came from my time at [The OCD & Anxiety Treatment Center](https://bennorris.com/tags/toatc/). I talked about what led me up to being willing to go to an intensive outpatient program, and what made it effective.
 

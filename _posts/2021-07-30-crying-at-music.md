@@ -4,6 +4,7 @@ date: 2021-07-30 16:28:00-0600
 tags:
 - weekly update
 - ocd
+- scrupulosity
 - mental health
 category: Mental Work Health
 ---
@@ -67,7 +68,7 @@ When the program was over, I took some time to journal. After writing about what
 
 *Part of what I need to remember is that I am not seeking to conquer OCD, just to continue to improve in my ability to live with it well. I am doing so much better already and just need to keep on that path.*
 
-One of the common characteristics of [scrupulosity OCD](https://en.wikipedia.org/wiki/Scrupulosity) is the fear of being damned. My mind is regularly telling me that what I am doing, or have done, will cause me to be cast off by God. So when I have moments that I can see through that haze, and feel divine love, they are powerful.
+One of the common characteristics of [scrupulosity OCD](https://bennorris.com/tags/scrupulosity/) is the fear of being damned. My mind is regularly telling me that what I am doing, or have done, will cause me to be cast off by God. So when I have moments that I can see through that haze, and feel divine love, they are powerful.
 
 But in the moment, I couldn’t see that. All I could see was that I was emotional, and that I was afraid and a little ashamed.
 
