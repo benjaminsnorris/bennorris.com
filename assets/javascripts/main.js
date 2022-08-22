@@ -8,6 +8,37 @@
  * https://github.com/mmistakes/jekyll-theme-basically-basic/blob/master/LICENSE
 */
 
+// 
+
+updateConfirmationUI(false);
+
+function submitSubscriptionForm() {
+  var email = $("#email-input").val();
+  window.localStorage.setItem('subscribedEmail', email);
+
+  var date = new Date();
+  window.localStorage.setItem('subscribedDate', date.toLocaleDateString());
+
+  updateConfirmationUI(true);
+}
+
+function updateConfirmationUI(animated) {
+  var duration = animated ? 300 : 0;
+  var subscribedEmail = window.localStorage.getItem('subscribedEmail');
+  $("#subscribed-email").html(subscribedEmail);
+
+  var subscribedDate = window.localStorage.getItem('subscribedDate');
+  $("#subscribed-date").html(subscribedDate);
+
+  if (subscribedEmail && subscribedDate) {
+    $("#subscribe-form").fadeOut(duration, function() {
+      $("#subscribe-confirmation").fadeIn();
+    });
+  } else {
+    $("#subscribe-confirmation").fadeOut(duration);
+  }
+}
+
 var menuItems = document.querySelectorAll('#sidebar li');
 
 // Get vendor transition property

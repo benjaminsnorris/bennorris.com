@@ -1,0 +1,72 @@
+/* ==========================================================================
+   Subscribe form
+   ========================================================================== */
+
+#subscribe-block {
+  background-color: tint($accent-color, 90%);
+  clear: left;
+  border: 1px solid $border-color;
+  padding: 0.5em;
+  transform: rotate(-1deg);
+  border-radius: $border-radius;
+  max-width: 32rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+
+  @include breakpoint($small) {
+    padding: 1rem;
+  }
+
+  @include breakpoint($medium) {
+    padding: 1.5rem;
+  }
+
+  @include breakpoint($large) {
+    padding: 2rem;
+  }
+
+  .email-input-row {
+    display: flex;
+    border-radius: $border-radius;
+    border: 1px solid $border-color;
+    overflow: hidden;
+    margin-top: 0.25em;
+    
+    .btn {
+      border-radius: 0;
+    }
+  }
+
+  .email-input {
+    background-color: $background-color;
+    display: block;
+    width: 100%;
+    padding: 0.5em;
+    border: none;
+    border-radius: 0;
+    border-right: 1px solid $border-color;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    @include fluid-type($min-vw, $max-vw, 16px, 22px);  
+  }
+
+  .subscribe-confirmation-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .more-link {
+    border-bottom: none;
+
+    .link-text {
+      border-bottom: 1px dotted $accent-color;
+    }
+
+    .icon {
+      margin-left: 0.25em;
+    }
+  }
+}
