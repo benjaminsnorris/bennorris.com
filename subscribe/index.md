@@ -60,10 +60,11 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
           <label for="general">General</label>
           <a href="#general-info">(ℹ)</a>
         </span>
-    </fieldset>
+      </fieldset>
     </div>
-    <p id="subscribed-date-confirmation" class="small" style="display:none;">🎉 Thanks for joining me. Your subscription was last updated on <span id="subscribed-date">[date]</span>.</p>
+    <input type="hidden" value="1" name="embed" />
   </form>
+  <p id="subscribed-date-confirmation" class="small" style="display:none;">🎉 Thanks for joining me. Your subscription was last updated on <span id="subscribed-date">[date]</span>.</p>
 </div>
 
 
@@ -148,12 +149,12 @@ This category is for any writing that doesn’t fall into another category. Exam
   }
 
   function submitUpdatedSubscriptionForm() {
-    var email = document.getElementById("#email-input").value;
+    var email = document.getElementById("email-input").value;
     window.localStorage.setItem('subscribedEmail', email);
 
     var date = new Date();
     window.localStorage.setItem('subscribedDate', date.toLocaleDateString());
 
-    // Process tags
+
   }
 </script>
