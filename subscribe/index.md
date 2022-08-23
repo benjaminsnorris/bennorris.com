@@ -9,7 +9,7 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
   <form
     action="https://buttondown.email/api/emails/embed-subscribe/bennorris"
     method="post"
-    onsubmit="submitSubscriptionForm()"
+    onsubmit="submitUpdatedSubscriptionForm()"
     id="manage-subscription-form"
   >
     <label id="email-input-label" for="email-input" class="small">Subscribe to get updates delivered to your inbox</label>
@@ -55,15 +55,19 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
           <label for="gospel-sketcher">Gospel Sketcher</label>
           <a href="#gospel-sketcher-info">(ℹ)</a>
         </span>
+        <span>
+          <input type="checkbox" id="general" name="tag" value="General">
+          <label for="general">General</label>
+          <a href="#general-info">(ℹ)</a>
+        </span>
     </fieldset>
     </div>
-    {% if page.subscribe-tag %}
-      <input type="hidden" name="tag" value="{{ page.subscribe-tag }}" />
-    {% else %}
-      {% include subscribe-hidden-fields.html %}
-    {% endif %}
+    <p id="subscribed-date-confirmation" class="small" style="display:none;">🎉 Thanks for joining me. Your subscription was last updated on <span id="subscribed-date">[date]</span>.</p>
   </form>
 </div>
+
+
+## Category explanations
 
 ### [Authentic Compassion](/authentic-compassion/)
 {:#authentic-compassion-info}
@@ -121,11 +125,35 @@ Sketchnoting all started for me at church and [General Conference](/tags/general
 [{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;](#main){:.back-to-top}
 
 
+### [General](/general/)
+{:#general-info}
+
+This category is for any writing that doesn’t fall into another category. Examples include [Kid Quotes](/tags/kid-quotes/), [podcast clips](/tags/podcast-clips), and many others.
+
+[{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;](#main){:.back-to-top}
+
+
 <script>
   var subscribedEmail = window.localStorage.getItem('subscribedEmail');
   if (subscribedEmail) {
     document.getElementById("email-input-label").innerHTML = "Manage your newsletter subscription";
     document.getElementById("email-input").value = subscribedEmail;
     document.getElementById("subscribe-button").value = "Update";
+  }
+
+  var subscribedDate = window.localStorage.getItem('subscribedDate');
+  if (subscribedDate) {
+    document.getElementById("subscribed-date-confirmation").style.display = 'block';
+    document.getElementById("subscribed-date").innerHTML = subscribedDate;
+  }
+
+  function submitUpdatedSubscriptionForm() {
+    var email = document.getElementById("#email-input").value;
+    window.localStorage.setItem('subscribedEmail', email);
+
+    var date = new Date();
+    window.localStorage.setItem('subscribedDate', date.toLocaleDateString());
+
+    // Process tags
   }
 </script>
