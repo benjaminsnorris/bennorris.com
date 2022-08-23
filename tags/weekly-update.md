@@ -4,5 +4,5 @@ title: Weekly Update
 taxonomy: weekly update
 permalink: /tags/weekly-update/
 gallery-link: true
-subscribe-tag: Mental Health
+subscribe-tag: Mental Work Health
 ---
