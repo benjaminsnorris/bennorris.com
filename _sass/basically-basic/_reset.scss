@@ -424,12 +424,14 @@ textarea {
 /**
  * 1. Add the correct box sizing in IE 10-.
  * 2. Remove the padding in IE 10-.
+ * 3. Increase size.
  */
 
 [type="checkbox"],
 [type="radio"] {
   padding: 0; /* 2 */
   box-sizing: border-box; /* 1 */
+  transform: scale(1.5); /* 3 */
 }
 
 /**
