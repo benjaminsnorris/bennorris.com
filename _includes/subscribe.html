@@ -3,6 +3,7 @@
     action="https://buttondown.email/api/emails/embed-subscribe/bennorris"
     method="post"
     onsubmit="submitSubscriptionForm()"
+    class="is--visible"
     id="subscribe-form"
   >
     <label for="email-input" class="small">Subscribe to get updates delivered to your inbox</label>
@@ -17,7 +18,7 @@
     {% endif %}
     <input type="hidden" value="1" name="embed" />
   </form>
-  <div id="subscribe-confirmation">
+  <div id="subscribe-confirmation" class="is--hidden">
     <div class="subscribe-confirmation-text">
       <span class="large">🎉</span>
       <div class="small">You subscribed with <strong id="subscribed-email">[email]</strong> on <strong id="subscribed-date">[date]</strong>. Thanks for joining me!</div>

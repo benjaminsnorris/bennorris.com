@@ -10,37 +10,38 @@
 
 // 
 
-updateConfirmationUI(false);
+updateConfirmationUI();
 
 function submitSubscriptionForm() {
-  var email = $("#email-input").val();
+  var email = document.getElementById("email-input").value;
   window.localStorage.setItem('subscribedEmail', email);
 
   var date = new Date();
   window.localStorage.setItem('subscribedDate', date.toLocaleDateString());
 
-  updateConfirmationUI(true);
+  updateConfirmationUI();
 }
 
-function updateConfirmationUI(animated) {
+function updateConfirmationUI() {
   var form = document.getElementById("subscribe-form");
-  var emailField = document.getElementById("subscribed-email");
-  var dateDisplay = document.getElementById("subscribed-date");
   var confirmation = document.getElementById("subscribe-confirmation");
-  if (form && emailField && dateDisplay && confirmation) {
-    var duration = animated ? 300 : 0;
+  if (form && confirmation) {
     var subscribedEmail = window.localStorage.getItem('subscribedEmail');
-    $("#subscribed-email").html(subscribedEmail);
+    document.getElementById("subscribed-email").innerHTML = subscribedEmail;
     
     var subscribedDate = window.localStorage.getItem('subscribedDate');
-    $("#subscribed-date").html(subscribedDate);
+    document.getElementById("subscribed-date").innerHTML = subscribedDate;
     
     if (subscribedEmail && subscribedDate) {
-      $("#subscribe-form").fadeOut(duration, function() {
-        $("#subscribe-confirmation").fadeIn();
-      });
+      form.classList.add('is--hidden');
+      form.classList.remove('is--visible');
+      confirmation.classList.add('is--visible');
+      confirmation.classList.remove('is--hidden');
     } else {
-      $("#subscribe-confirmation").fadeOut(duration);
+      form.classList.remove('is--hidden');
+      form.classList.add('is--visible');
+      confirmation.classList.remove('is--visible');
+      confirmation.classList.add('is--hidden');
     }
   }
 }
