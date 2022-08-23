@@ -24,7 +24,10 @@ function submitSubscriptionForm() {
 
 function updateConfirmationUI(animated) {
   var form = document.getElementById("subscribe-form");
-  if (form) {
+  var emailField = document.getElementById("subscribed-email");
+  var dateDisplay = document.getElementById("subscribed-date");
+  var confirmation = document.getElementById("subscribe-confirmation");
+  if (form && emailField && dateDisplay && confirmation) {
     var duration = animated ? 300 : 0;
     var subscribedEmail = window.localStorage.getItem('subscribedEmail');
     $("#subscribed-email").html(subscribedEmail);
