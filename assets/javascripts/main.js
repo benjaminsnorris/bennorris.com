@@ -23,19 +23,22 @@ function submitSubscriptionForm() {
 }
 
 function updateConfirmationUI(animated) {
-  var duration = animated ? 300 : 0;
-  var subscribedEmail = window.localStorage.getItem('subscribedEmail');
-  $("#subscribed-email").html(subscribedEmail);
-
-  var subscribedDate = window.localStorage.getItem('subscribedDate');
-  $("#subscribed-date").html(subscribedDate);
-
-  if (subscribedEmail && subscribedDate) {
-    $("#subscribe-form").fadeOut(duration, function() {
-      $("#subscribe-confirmation").fadeIn();
-    });
-  } else {
-    $("#subscribe-confirmation").fadeOut(duration);
+  var form = document.getElementById("subscribe-form");
+  if (form) {
+    var duration = animated ? 300 : 0;
+    var subscribedEmail = window.localStorage.getItem('subscribedEmail');
+    $("#subscribed-email").html(subscribedEmail);
+    
+    var subscribedDate = window.localStorage.getItem('subscribedDate');
+    $("#subscribed-date").html(subscribedDate);
+    
+    if (subscribedEmail && subscribedDate) {
+      $("#subscribe-form").fadeOut(duration, function() {
+        $("#subscribe-confirmation").fadeIn();
+      });
+    } else {
+      $("#subscribe-confirmation").fadeOut(duration);
+    }
   }
 }
 
