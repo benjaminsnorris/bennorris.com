@@ -1,0 +1,4 @@
+---
+layout: redirected
+redirect_to: /2022/08/26/experimenting-with-discomfort
+---
