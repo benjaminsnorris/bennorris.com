@@ -3,10 +3,8 @@ title: "Falling prey to OCD"
 date: 2022-08-29 14:41:38-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/daylio-morning-pages.jpeg
-  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/daylio-morning-pages.jpeg
-gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/daylio-morning-pages.jpeg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/daylio-morning-pages.jpeg
 ---
-
 
 I thought it might be helpful to share a recent [free writing](https://bennorris.com/tags/free-writing) entry. I had wanted to process my thoughts and feelings as I realized OCD was starting to take over in my life. That realization struck me as I was writing my latest weekly update, [#95: Experimenting with discomfort](https://bennorris.com/2022/08/26/experimenting-with-discomfort).
 
@@ -47,7 +45,3 @@ I thought it might be helpful to share a recent [free writing](https://bennorris
 > There is a strong part of me that wants to ask [my therapist] about this and get instructions or the proper procedure to do this right. I noticed a strong urge for that this morning, driving in. That is part of what tipped me off that this had become an issue.
 > 
 > I know. Trust myself. Call myself out and ask earnest questions. That’s usually all it takes.
-
-
-
-
