@@ -5,6 +5,7 @@ tags:
 - weekly update
 - ocd
 - mental health
+- heroic youth
 category: Mental Work Health
 ---
 
