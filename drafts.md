@@ -3,6 +3,8 @@ layout: collection
 title: Drafts
 permalink: /drafts/
 collection: drafts
+sort_by: date
+sort_order: reverse
 meta_robots: noindex
 ---
 
