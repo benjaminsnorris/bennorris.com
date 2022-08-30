@@ -41,7 +41,7 @@ One of the best parts of the experience, both for my kids and for myself, has be
 
 ## Something else
 
-Over the weekend, I had the opportunity to participate in a simulation exercise designed to help participating children and youth learn to think critically, gain confidence, and connect with God. The activity is called [Heroic Youth](https://heroicyouth.org/), and this is our second year to participate in it. I get to dress up as a villainous thug, focused on intimidating and pretending to protect the children and youth.
+Over the weekend, I had the opportunity to participate in a simulation exercise designed to help participating children and youth learn to think critically, gain confidence, and connect with God. The activity is called [Heroic Youth](https://bennorris.com/tags/heroic-youth/), and this is our second year to participate in it. I get to dress up as a villainous thug, focused on intimidating and pretending to protect the children and youth.
 
 In many ways, this is an opportunity to help my children, and many others, live through some of the experiences they can read about in Narnia or Middle Earth. They have the chance to face enemies that instill real fear and learn how to face that in their lives.
 

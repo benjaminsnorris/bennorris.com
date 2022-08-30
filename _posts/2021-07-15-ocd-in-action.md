@@ -15,7 +15,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 ***
 
-This past weekend, I attended a training session to become a villain. For a few years, we have been involved with [Heroic Youth](https://heroicyouth.org), an organization that runs events designed to give children faith-promoting and confidence-building experiences. The boys are treated as knights, given swords and shields, and trained in chivalry. The girls are treated as maidens, given a bow and arrows, and trained in virtue and honor. Our older children have participated, and it has been one of their favorite activities.
+This past weekend, I attended a training session to become a villain. For a few years, we have been involved with [Heroic Youth](https://bennorris.com/tags/heroic-youth/), an organization that runs events designed to give children faith-promoting and confidence-building experiences. The boys are treated as knights, given swords and shields, and trained in chivalry. The girls are treated as maidens, given a bow and arrows, and trained in virtue and honor. Our older children have participated, and it has been one of their favorite activities.
 
 In each of those years, I have volunteered as a villain for the simulation to participate in the final mock battle. We provide the children the experience of conquering hordes of evil as part of an inspiring storyline.
 

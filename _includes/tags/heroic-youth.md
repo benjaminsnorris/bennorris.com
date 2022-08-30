@@ -1,0 +1,3 @@
+[Heroic Youth](https://heroicyouth.org/) is an organization that runs events designed to give children faith-promoting and confidence-building experiences. The boys are treated as knights, given swords and shields, and trained in chivalry. The girls are treated as handmaidens, given a bow and arrows, and trained in virtue and honor.
+
+Our five oldest children have participated, and it has been one of their favorite activities. I have volunteered each year as a villain, and have become the villain armory commander, managing the registration and checking out of loaned foam weapons to the villainous horde.
