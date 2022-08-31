@@ -1,9 +1,12 @@
 ---
 title: "Confronting the criminal"
-date: 2022-08-31 14:26:09-0600
-image: https://media.bennorris.com/images/mentalworkhealth/posts/daylio-tracking-reasonable.png
-site_banner: true
+date: 2022-08-31 16:08:02-0600
+image: 
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/confronting-the-criminal.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/confronting-the-criminal.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/confronting-the-criminal.jpg
 ---
+
 
 In a shocking turn of events (🙄), allowing a known trigger into my life last week **caused some issues**. This week, I share **how I confronted and adjusted**, **putting OCD to work for good**, and sitting in the **chemical experimentation** phase.
 
