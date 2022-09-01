@@ -46,6 +46,19 @@ function updateConfirmationUI() {
   }
 }
 
+var audioButtons = document.querySelectorAll(".audio-button");
+for (var i = 0; i < audioButtons.length; i++) {
+    audioButtons[i].addEventListener('click', toggleAudioElements);
+}
+
+function toggleAudioElements(event) {
+  this.classList.add('is--hidden');
+  var audioPlayerId = this.attributes['data-player-id'].value;
+  var audioPlayer = document.getElementById(audioPlayerId);
+  audioPlayer.classList.remove('is--hidden');
+  event.preventDefault();
+}
+
 var menuItems = document.querySelectorAll('#sidebar li');
 
 // Get vendor transition property
