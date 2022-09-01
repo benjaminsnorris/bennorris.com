@@ -1,4 +1,4 @@
 {% if include.audio %}
-<p><a href="#" data-analytics='"Listen", {"props":{"location":"{{ include.location | default: "post" }}"}}' data-player-id="audio-player-{{ include.id }}" class="btn audio-button">🎧 Listen to update</a></p>
+<p><a href="#" data-analytics='"Listen", {"props":{"item":"{{ include.id }}"}}' data-player-id="audio-player-{{ include.id }}" class="btn audio-button">🎧 Listen to update</a></p>
 <audio controls preload="metadata" class="is--hidden" id="audio-player-{{ include.id }}" src="{{ include.audio }}"></audio>        
 {% endif %}
