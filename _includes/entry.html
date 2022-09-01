@@ -59,10 +59,10 @@
   <div class="entry-excerpt">
     {% if post.short or post.micro %}
       {{ post.content | markdownify }}
-      {% include audio.html audio=post.audio id=post.id %}
+      {% include audio.html audio=post.audio id=post.id location="list" %}
     {% else %}
       {{ post.excerpt | markdownify }}
-      {% include audio.html audio=post.audio id=post.id %}
+      {% include audio.html audio=post.audio id=post.id location="list" %}
       <p><a href="{{ post.url | relative_url }}" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
     {% endif %}
   </div>
