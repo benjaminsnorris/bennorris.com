@@ -1,6 +1,6 @@
 ---
 title: "#96: Confronting the criminal"
-date: 2022-09-02 07:15:00-0600
+date: 2022-09-02 07:00:00-0600
 category: Mental Work Health
 tags:
 - ocd
