@@ -1,10 +1,12 @@
 ---
 title: "#96: Confronting the criminal"
-date: 2022-09-02 07:00:00-0600
+date: 2022-09-02 07:15:00-0600
 category: Mental Work Health
 tags:
 - ocd
 - free writing
+- podcast
+- audio
 - weekly update
 - mental health
 - hand lettering
@@ -13,6 +15,7 @@ image:
   path: https://media.bennorris.com/images/mentalworkhealth/posts/confronting-the-criminal.jpeg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/confronting-the-criminal.jpeg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/confronting-the-criminal.jpeg
+audio: https://media.bennorris.com/audio/mentalworkhealth/96-confronting-the-criminal.mp3
 
 ---
 
@@ -20,6 +23,9 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/confro
 In a shocking turn of events (🙄), allowing a known trigger into my life last week **caused some issues**. This week, I share **how I confronted and adjusted**, **putting OCD to work for good**, and sitting in the **chemical experimentation** phase.
 
 _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life with OCD as part of my [Mental Work Health](https://bennorris.com/mental-work-health) project to reduce stigma around mental health, especially at work._
+
+<!--audio="media.bennorris.com/audio/mentalworkhealth/96-confronting-the-criminal.mp3"-->
+
 
 ***
 
@@ -49,7 +55,7 @@ OCD changes from being a personality or set of quirks to being **a disorder when
 
 > I have spent way too long thinking about this. I am inclined to say that I get to think through it as much as I want right now while I write. Then I get a few minutes to set up the system in a way that makes it easier to do moving forward, and then I’m done. After that, I only get to do a simple log at night. The goal is to use the app as little as possible while still getting the benefit.
 
-My therapist had been out of town the week prior, but this situation occupied a prominent place in our discussion last week. As I recounted the story and my thought process, I told her that at the point when I decide I would go back and adjust all of my entries for the month of August, **I knew I was indulging in OCD**. She laughed aloud at that.
+My therapist had been out of town the week prior, but this situation occupied a prominent place in our discussion last week. As I recounted the story and my thought process, I told her that at the point when I decided I would go back and adjust all of my entries for the month of August, **I knew I was indulging in OCD**. She laughed aloud at that.
 
 “Oh really? Everything about this story screams OCD to me, and we’re *now* getting to the *one* part that you considered to be OCD? Let’s hear this.”
 
@@ -70,7 +76,7 @@ Overall, I am pleased with how this went and where I ended. **OCD is always goin
 
 ## Something good
 
-Our kids have participated in [Heroic Youth](https://bennorris.org/tags/heroic-youth/) for the past few years, and it has become a favorite activity of theirs. It is quickly becoming one of mine as well.
+Our kids have participated in [Heroic Youth](https://bennorris.com/tags/heroic-youth/) for the past few years, and it has become a favorite activity of theirs. It is quickly becoming one of mine as well.
 
 [Last year](https://bennorris.com/2021/07/15/ocd-in-action), **I found the perfect fit for me** and my skills and propensities.
 
