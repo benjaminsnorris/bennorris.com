@@ -37,6 +37,7 @@ date_format: "%-d %b %Y"
 date_time:   "%-d %b %Y, %I:%M %p"
 timezone:    America/Denver
 tag_archive_path: /tags/
+tag_archive_links: true
 category_archive_path: /
 
 # Build settings

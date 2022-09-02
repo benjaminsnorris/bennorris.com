@@ -35,7 +35,7 @@ layout: page
   {% for tag in site.tags %}
     {% if tag[1].size == i %}
       <section id="{{ tag[0] | slugify | downcase }}" class="taxonomy-section">
-        <h2 class="taxonomy-title"><a href="{{ tag[0] | slugify | downcase }}">{{ tag[0] }}</a></h2>
+        <h2 class="taxonomy-title">{% if site.tag_archive_links %}<a href="{{ tag[0] | slugify | downcase }}">{% endif %}{{ tag[0] }}{% if site.tag_archive_links %}</a>{% endif %}</h2>
         {% for post in tag.last %}
           {% include archive-entry.html %}
         {% endfor %}
