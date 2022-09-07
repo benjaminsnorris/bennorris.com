@@ -1,11 +1,11 @@
 ---
 title: "Making friends"
-date: 2022-09-06 08:49:09-0600
+date: 2022-09-07 10:23:34-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/making-friends.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/making-friends.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/making-friends.jpg
-
+audio: https://media.bennorris.com/audio/mentalworkhealth/97-making-friends.mp3
 ---
 
 
@@ -13,9 +13,11 @@ This week I share another step forward in my peacemaking with the monster that i
 
 _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life with OCD as part of my [Mental Work Health](https://bennorris.com/mental-work-health) project to reduce stigma around mental health, especially at work._
 
+<!--audio="media.bennorris.com/audio/mentalworkhealth/97-making-friends.mp3"-->
+
 ***
 
-## Something good
+## Story
 
 My therapist encourages me to recognize the positive aspects of my OCD to help keep a balanced perspective. As [Monk](https://en.m.wikipedia.org/wiki/Monk_(TV_series)) says, “it’s a gift, and a curse.”
 
@@ -35,19 +37,21 @@ They needed me. And it felt great.
 
 I was thrilled that I have been practicing flexibility so I could adjust my plans at the last minute to accommodate a major change and disruption to my expectations. My wife and kids were excited for me and willing to have me work extra for a couple days.
 
-So I went home for dinner on Tuesday, and then went back to my office and worked another full day. I slept at my office, and got up and worked a regular day on it Wednesday. And then I stayed and worked another extra day Wednesday evening. The client was hoping to have at least a home page, and ideally a few of the sub pages complete. I was so satisfied to be able to deliver all 8 pages they were hoping to get done eventually.
+So I went home for dinner on Tuesday, and then went back to my office and worked another full day on the website. I slept at my office, and got up and worked a regular day on it Wednesday. And then I stayed and worked another extra day Wednesday evening. The client was hoping to have at least a home page, and ideally a few of the sub pages complete. I was so satisfied to be able to deliver all 8 pages they were hoping to get done eventually.
 
-I was thrilled that my ability to obsess over a project allowed me to get a lot done in a short time. And even better was that the result was helpful for someone else. This time, it wasn’t just satisfying the capricious demands of my mental overlord. I was in command, and was using my powers for good
+I was thrilled that my ability to obsess over a project allowed me to get a lot done in a short time. And even better was that the result was helpful for someone else. This time, it wasn’t just satisfying the capricious demands of my mental overlord. I was in command, and was using my powers for good.
 
 There was one particular moment when I realized OCD was something of a superpower in this context. The client was showing me the work of the previous designer and the agency that had done their rebrand. I noticed myself getting stuck on details in an all-too-familiar way. I caught myself and told him that I recognized OCD was latching on to things and we could move forward.
 
-But after reflecting for a minute, I realized that it was actually positive to notice the level of detail that were so glaring to me. When I told the story to my therapist, she asked if having OCD is required for someone to do a good job. (Yes, she shares my diagnosis!)
+But after reflecting for a minute, I realized that it was actually positive to notice the level of details that were so glaring to me. When I told the story to my therapist, she asked if having OCD is required for someone to do a good job. (Yes, she shares my diagnosis.)
 
-After that moment of recognition and reflection, I gave free rein to OCD for a little bit. Any little things that jumped out to me I allowed to bother me, at least enough to evaluate and decide if they needed to be addressed.
+After that moment of recognition and reflection, I gave free rein to OCD for a bit. Any little things that jumped out I allowed to bother me, at least enough to evaluate and decide if they needed to be addressed.
 
 I spend so much time trying to quell my constant instincts that it was a relief to stop resisting.
 
 There were a few moments as I was working that I had to stop myself and consciously decide to move on. It’s so easy to get stuck on small things that don’t really matter. Especially if my guard is already down and I’m not actively resisting OCD.
+
+In the end, I was able to quickly and thoroughly complete the project and deliver a working website. I needed some recovery time, but the exhaustion was mingled with satisfaction.
 
 
 ## Lesson
