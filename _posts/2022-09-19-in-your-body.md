@@ -16,6 +16,7 @@ videos:
   - src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/making-you-better.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/making-you-better.jpg
 read_time: false
+excerpt_separator: "<!--more-->"
 ---
 
 
@@ -26,6 +27,8 @@ The first step is to think of the emotions as waves. This perfectly matches the 
 <div class="embed-responsive embed-responsive-16by9">
     <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/podcast-clips/jocko/waves-of-emotion.mov" poster="https://media.bennorris.com/images/posts/podcast-clips/jocko/waves-of-emotion.jpeg" style="background-image:url(https://media.bennorris.com/images/posts/podcast-clips/jocko/waves-of-emotion.jpeg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
 </div>
+
+<!--more-->
 
 Then, you have to stop thinking so much. Get out of your head and into your body.
 
