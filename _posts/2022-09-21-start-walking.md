@@ -2,6 +2,7 @@
 title: "Start walking"
 date: 2022-09-21 09:46:00-0600
 category: General
+short: true
 tags:
 - jocko
 - podcast clip
