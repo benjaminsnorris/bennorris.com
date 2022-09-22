@@ -17,7 +17,7 @@ One of my biggest hobbies is sketchnoting, and I post business sketchnotes in [S
 
 ### Books I'm reading
 
-- _Hail Mary_, by Andy Weir (🛏️&nbsp;nightly)
+- _Project Hail Mary_, by Andy Weir (🛏️&nbsp;nightly)
 - _The Power of Moments_, by Chip & Dan Heath (🥣&nbsp;breakfast)
 - _All Things New_, by Fiona & Terryl Givens (🧎🏻‍♂️&nbsp;religious)
 - _12 Rules for Life_, by Jordan B. Peterson (💭&nbsp;nonfiction)
