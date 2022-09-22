@@ -1,6 +1,6 @@
 ---
 layout: page
-date: 2022-08-22
+date: 2022-09-22
 title: Now
 permalink: /now/
 ---
@@ -22,13 +22,14 @@ One of my biggest hobbies is sketchnoting, and I post business sketchnotes in [S
 - _All Things New_, by Fiona & Terryl Givens (🧎🏻‍♂️&nbsp;religious)
 - _12 Rules for Life_, by Jordan B. Peterson (💭&nbsp;nonfiction)
 - _Ranger’s Apprentice Series_, by John Flanagan (⛱️&nbsp;fiction)
-- _The Man’s Guide to Women_, by John & Julie Schwartz Gottman (🎧&nbsp;audio)
+- _Lead Yourself First_, by Raymond M. Kethledge and Michael S. Erwin (🎧&nbsp;audio)
 
 
 ### Podcasts I’m listening to
 
 - [Jocko Underground Podcast](https://jockounderground.com), by Jocko Willink and Echo Charles
-- [The Happiness Lab](https://www.pushkin.fm/show/the-happiness-lab-with-dr-laurie-santos/), By Dr. Laurie Santos
+- [The Happiness Lab](https://www.pushkin.fm/show/the-happiness-lab-with-dr-laurie-santos/), by Dr. Laurie Santos
+- [The Full Cup](https://craigberthold.podbean.com/), by Craig Berthold and Libby Switzer
 - [The Art of Manliness Podcast](https://www.artofmanliness.com/podcast/), by Brett McKay
 - [Under the Radar](https://www.relay.fm/radar), by David Smith and Marco Arment
 - [Core Intuition](https://coreint.org/), by Manton Reece and Daniel Jalkut
