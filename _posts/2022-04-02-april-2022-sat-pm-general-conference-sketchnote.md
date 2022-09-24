@@ -1,5 +1,5 @@
 ---
-title: "April 2022 Sat PM General Conference Sketchnote"
+title: "✍🏻 April 2022 Sat PM General Conference Sketchnote"
 date: 2022-04-02 16:17:41-0600
 category: Gospel Sketcher
 gallery_thumb: https://media.bennorris.com/images/gospelsketcher/thumbs/apr-22-2-gen-conf.jpg

@@ -1,5 +1,5 @@
 ---
-title: "On compassion"
+title: "🧠📖 On compassion"
 date: 2022-03-29 20:20:51-0600
 category: Mental Work Health
 tags:

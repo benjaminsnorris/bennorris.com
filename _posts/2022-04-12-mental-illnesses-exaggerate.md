@@ -1,5 +1,5 @@
 ---
-title: "Mental illnesses exaggerate"
+title: "🧠 Mental illnesses exaggerate"
 date: 2022-04-12 21:22:33-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/mental-illnesses-exaggerate.jpg

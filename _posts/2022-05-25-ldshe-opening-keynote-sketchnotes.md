@@ -1,5 +1,5 @@
 ---
-title: "LDSHE 2022 Daniel Harmon Sketchnotes"
+title: "✍🏻 LDSHE 2022 Daniel Harmon Sketchnotes"
 date: 2022-05-25 13:47:26-0600
 category: Gospel Sketcher
 short: true

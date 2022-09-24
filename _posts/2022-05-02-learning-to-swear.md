@@ -1,5 +1,5 @@
 ---
-title: "Learning to swear"
+title: "🧠 Learning to swear"
 date: 2022-05-02 09:47:18-0600
 category: Mental Work Health
 image: 

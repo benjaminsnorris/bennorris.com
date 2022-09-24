@@ -1,5 +1,5 @@
 ---
-title: "LDSHE 2022 Liz Simmons Sketchnotes"
+title: "✍🏻 LDSHE 2022 Liz Simmons Sketchnotes"
 date: 2022-05-26 14:13:26-0600
 category: Gospel Sketcher
 short: true

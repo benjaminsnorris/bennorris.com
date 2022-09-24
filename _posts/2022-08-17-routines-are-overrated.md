@@ -1,5 +1,5 @@
 ---
-title: "Routines are overrated"
+title: "🎧🎙️ Routines are overrated"
 date: 2022-08-17 12:41:00-0600
 tags:
 - ocd

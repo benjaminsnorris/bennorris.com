@@ -1,5 +1,5 @@
 ---
-title: "Mindful Sketch Day 1"
+title: "✍🏻 Mindful Sketch Day 1"
 date: 2021-11-27 16:53:24-0700
 category: Mindful Sketch
 tags:

@@ -1,5 +1,5 @@
 ---
-title: "Upcoming General Conference"
+title: "✍🏻 Upcoming General Conference"
 date: 2022-03-31 07:42:39-0600
 category: Gospel Sketcher
 tags:

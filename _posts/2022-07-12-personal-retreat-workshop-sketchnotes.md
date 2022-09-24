@@ -1,5 +1,5 @@
 ---
-title: "Personal Retreat Workshop Sketchnotes"
+title: "✍🏻 Personal Retreat Workshop Sketchnotes"
 date: 2022-07-12 11:25:02-0600
 category: Sketchnotable
 image:

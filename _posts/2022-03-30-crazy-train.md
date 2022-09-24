@@ -1,5 +1,5 @@
 ---
-title: "Crazy train"
+title: "🎧🎶 Crazy train"
 date: 2022-03-30 04:52:11-0600
 category: Mental Work Health
 tags:

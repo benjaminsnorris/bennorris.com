@@ -1,6 +1,6 @@
 ---
 date: 2021-11-16 16:50:00-0700
-title: "Sketchnotes from How to Plan Your Year"
+title: "✍🏻 Sketchnotes from How to Plan Your Year"
 category: Sketchnotable
 tags:
 - sketchnotes

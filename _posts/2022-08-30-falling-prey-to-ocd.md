@@ -1,5 +1,5 @@
 ---
-title: "Falling prey to OCD"
+title: "🧠 Falling prey to OCD"
 date: 2022-08-30 08:13:00-0600
 category: Mental Work Health
 tags:

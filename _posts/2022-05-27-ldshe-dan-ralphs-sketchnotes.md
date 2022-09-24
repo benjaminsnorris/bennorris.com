@@ -1,5 +1,5 @@
 ---
-title: "LDSHE 2022 Dan Ralphs Sketchnotes"
+title: "✍🏻 LDSHE 2022 Dan Ralphs Sketchnotes"
 date: 2022-05-27 17:32:23-0600
 short: true
 gallery_thumb: 

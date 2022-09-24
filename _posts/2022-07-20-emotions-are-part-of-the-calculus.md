@@ -1,5 +1,5 @@
 ---
-title: "Emotions are part of the calculus"
+title: "🎧🎙️ Emotions are part of the calculus"
 date: 2022-07-20 09:55:36-0500
 category: General
 tags:

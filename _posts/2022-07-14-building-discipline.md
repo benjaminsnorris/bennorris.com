@@ -1,5 +1,5 @@
 ---
-title: "Building discipline"
+title: "🎧🎙️ Building discipline"
 date: 2022-07-14 11:05:00-0600
 tags:
 - jocko

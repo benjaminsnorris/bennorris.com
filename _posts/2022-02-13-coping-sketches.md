@@ -1,5 +1,5 @@
 ---
-title: "Coping sketches"
+title: "✍🏻 Coping sketches"
 date: 2022-02-13 09:56:25-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/coping-sketches.jpg

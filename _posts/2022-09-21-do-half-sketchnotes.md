@@ -1,5 +1,5 @@
 ---
-title: "Do Half Sketchnotes"
+title: "✍🏻 Do Half Sketchnotes"
 date: 2022-09-21 14:08:00-0600
 category: Sketchnotable
 tags:
