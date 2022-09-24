@@ -1,5 +1,5 @@
 ---
-title: "#74: Playing first base"
+title: "🧠 #74: Playing first base"
 date: 2022-03-26 07:30:11-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/playing-first-base.jpg

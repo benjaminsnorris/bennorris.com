@@ -1,5 +1,5 @@
 ---
-title: "#88: Disallowed emotions"
+title: "🧠 #88: Disallowed emotions"
 date: 2022-07-08 08:38:01-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/disallowed-emotions.jpg

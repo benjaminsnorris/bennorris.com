@@ -1,5 +1,5 @@
 ---
-title: "#77: Breaking streaks"
+title: "🧠 #77: Breaking streaks"
 date: 2022-04-15 08:10:38-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/breaking-streaks.jpg

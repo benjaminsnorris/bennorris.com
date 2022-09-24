@@ -1,5 +1,5 @@
 ---
-title: "#86: Mental toll"
+title: "🧠 #86: Mental toll"
 date: 2022-06-24 16:11:31-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/mental-toll.jpg

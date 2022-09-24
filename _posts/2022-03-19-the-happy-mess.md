@@ -1,5 +1,5 @@
 ---
-title: "#73: The happy mess"
+title: "🧠 #73: The happy mess"
 date: 2022-03-19 20:05:13-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/the-happy-mess.jpg

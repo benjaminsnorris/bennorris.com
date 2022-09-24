@@ -1,5 +1,5 @@
 ---
-title: "#65: Into the unknown"
+title: "🧠 #65: Into the unknown"
 date: 2021-12-30 16:27:21-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/into-the-unknown.jpg

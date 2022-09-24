@@ -1,5 +1,5 @@
 ---
-title: "#55: Letting OCD win"
+title: "🧠 #55: Letting OCD win"
 date: 2021-10-08 08:51:45-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/letting-ocd-win.jpg

@@ -1,5 +1,5 @@
 ---
-title: "#60: “I feel calm”"
+title: "🧠 #60: “I feel calm”"
 date: 2021-11-11 08:48:38-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/i-feel-calm.jpg

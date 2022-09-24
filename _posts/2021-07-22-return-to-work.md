@@ -1,5 +1,5 @@
 ---
-title: "#44: Return to work"
+title: "🧠 #44: Return to work"
 date: 2021-07-22 09:33:36-0600
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/panic-attack-recovery-zone.jpg
 image:

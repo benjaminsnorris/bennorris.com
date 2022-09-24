@@ -1,5 +1,5 @@
 ---
-title: "#57: Impulse control"
+title: "🧠 #57: Impulse control"
 date: 2021-10-22 16:29:35-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/impulse-control.jpg

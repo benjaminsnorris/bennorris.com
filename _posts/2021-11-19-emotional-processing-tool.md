@@ -1,5 +1,5 @@
 ---
-title: "#61: Emotional processing tool"
+title: "🧠 #61: Emotional processing tool"
 date: 2021-11-19 07:11:34-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/emotional-processing.jpg

@@ -1,5 +1,5 @@
 ---
-title: "#97: Making friends"
+title: "🧠 #97: Making friends"
 date: 2022-09-09 06:00:00-0600
 category: Mental Work Health
 tags:

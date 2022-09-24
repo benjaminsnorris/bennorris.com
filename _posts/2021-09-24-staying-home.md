@@ -1,5 +1,5 @@
 ---
-title: "#53 Staying home"
+title: "🧠 #53 Staying home"
 date: 2021-09-24 06:52:44-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/stay-at-home-dad.jpg

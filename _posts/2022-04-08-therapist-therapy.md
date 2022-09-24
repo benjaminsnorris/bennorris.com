@@ -1,5 +1,5 @@
 ---
-title: "#76: Therapist therapy"
+title: "🧠 #76: Therapist therapy"
 date: 2022-04-08 09:31:04-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/therapist-therapy.jpg

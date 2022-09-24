@@ -1,5 +1,5 @@
 ---
-title: "#49: Panic on the freeway"
+title: "🧠 #49: Panic on the freeway"
 date: 2021-08-27 14:17:00-0700
 category: Mental Work Health
 tags:           

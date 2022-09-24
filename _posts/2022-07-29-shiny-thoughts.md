@@ -1,5 +1,5 @@
 ---
-title: "#91: Shiny thoughts"
+title: "🧠 #91: Shiny thoughts"
 date: 2022-07-29 06:05:22-0600
 category: Mental Work Health
 tags:

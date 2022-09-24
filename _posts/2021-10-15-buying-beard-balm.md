@@ -1,5 +1,5 @@
 ---
-title: "#56: Buying beard balm"
+title: "🧠 #56: Buying beard balm"
 date: 2021-10-15 13:18:07-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/emotion-filled-week.jpg

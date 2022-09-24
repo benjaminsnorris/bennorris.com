@@ -1,5 +1,5 @@
 ---
-title: "#45: Crying at music"
+title: "🧠 #45: Crying at music"
 date: 2021-07-30 16:28:00-0600
 tags:
 - weekly update

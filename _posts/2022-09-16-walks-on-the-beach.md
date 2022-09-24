@@ -1,5 +1,5 @@
 ---
-title: "#98: Walks on the beach"
+title: "🧠 #98: Walks on the beach"
 date: 2022-09-16 06:04:00-0700
 category: Mental Work Health
 tags:

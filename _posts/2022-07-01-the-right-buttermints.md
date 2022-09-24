@@ -1,5 +1,5 @@
 ---
-title: "#87: The right buttermints"
+title: "🧠 #87: The right buttermints"
 date: 2022-07-01 07:01:46-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/the-right-buttermints.jpg

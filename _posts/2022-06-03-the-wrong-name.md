@@ -1,5 +1,5 @@
 ---
-title: "#84: The wrong name"
+title: "🧠 #84: The wrong name"
 date: 2022-06-03 12:08:13-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/the-wrong-name.jpg

@@ -1,5 +1,5 @@
 ---
-title: "#95: Experimenting with discomfort"
+title: "🧠 #95: Experimenting with discomfort"
 date: 2022-08-26 04:45:00-0600
 category: Mental Work Health
 tags:

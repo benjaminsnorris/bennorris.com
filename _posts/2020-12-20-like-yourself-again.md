@@ -1,5 +1,5 @@
 ---
-title: "#17: Like yourself again"
+title: "🧠 #17: Like yourself again"
 date: 2020-12-20 18:14:48-0700
 tags:
 - weekly update

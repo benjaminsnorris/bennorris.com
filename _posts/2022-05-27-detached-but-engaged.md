@@ -1,5 +1,5 @@
 ---
-title: "#83: Detached but engaged"
+title: "🧠 #83: Detached but engaged"
 date: 2022-05-27 10:34:25-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/detached-but-engaged.jpg

@@ -1,5 +1,5 @@
 ---
-title: "#23: Happily being shot"
+title: "🧠 #23: Happily being shot"
 date: 2021-02-08 10:19:42-0700
 tags:
 - weekly update

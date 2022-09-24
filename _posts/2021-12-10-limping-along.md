@@ -1,5 +1,5 @@
 ---
-title: "#63: Limping along"
+title: "🧠 #63: Limping along"
 date: 2021-12-10 09:03:14-0800
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/limping-along.jpg

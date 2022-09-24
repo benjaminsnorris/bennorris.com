@@ -1,5 +1,5 @@
 ---
-title: "#79: Need for journaling"
+title: "🧠 #79: Need for journaling"
 date: 2022-04-29 13:20:04-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/need-for-journaling.jpg

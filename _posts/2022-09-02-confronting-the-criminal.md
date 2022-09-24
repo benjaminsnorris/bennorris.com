@@ -1,5 +1,5 @@
 ---
-title: "#96: Confronting the criminal"
+title: "🧠 #96: Confronting the criminal"
 date: 2022-09-02 07:00:00-0600
 category: Mental Work Health
 tags:

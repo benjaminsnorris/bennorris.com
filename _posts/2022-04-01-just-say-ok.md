@@ -1,5 +1,5 @@
 ---
-title: "#75: Just say ok"
+title: "🧠 #75: Just say ok"
 date: 2022-04-01 06:51:37-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/just-say-ok.jpg

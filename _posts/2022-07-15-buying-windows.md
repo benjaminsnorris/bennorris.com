@@ -1,5 +1,5 @@
 ---
-title: "#89: Buying windows"
+title: "🧠 #89: Buying windows"
 date: 2022-07-15 05:53:37-0600
 category: Mental Work Health
 tags:

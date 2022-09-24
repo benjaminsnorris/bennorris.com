@@ -1,5 +1,5 @@
 ---
-title: "#66: Ebb and flow"
+title: "🧠 #66: Ebb and flow"
 date: 2022-01-14 10:39:06-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/ebb-and-flow.jpg

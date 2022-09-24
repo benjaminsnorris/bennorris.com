@@ -1,5 +1,5 @@
 ---
-title: "#72: Losing my routine"
+title: "🧠 #72: Losing my routine"
 date: 2022-03-12 13:37:19-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/losing-my-routine.jpg

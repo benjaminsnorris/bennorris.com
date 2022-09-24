@@ -1,5 +1,5 @@
 ---
-title: "#28: Waves of change"
+title: "🧠 #28: Waves of change"
 date: 2021-03-17 07:24:00-0600
 tags:
 - weekly update

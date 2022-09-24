@@ -1,5 +1,5 @@
 ---
-title: "#82: Yes, we’re open"
+title: "🧠 #82: Yes, we’re open"
 date: 2022-05-20 06:44:27-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/yes-we’re-open.jpg

@@ -1,5 +1,5 @@
 ---
-title: "#68: I have value"
+title: "🧠 #68: I have value"
 date: 2022-01-29 11:23:17-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/i-have-value.jpg

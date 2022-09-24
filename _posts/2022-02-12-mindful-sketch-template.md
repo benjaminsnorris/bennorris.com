@@ -1,5 +1,5 @@
 ---
-title: "#70: Mindful Sketch Template"
+title: "🧠 #70: Mindful Sketch Template"
 date: 2022-02-12 16:19:40-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/mindful-sketch-template.jpg

@@ -1,5 +1,5 @@
 ---
-title: "#40: A rough week"
+title: "🧠 #40: A rough week"
 date: 2021-06-24 08:49:43-0600
 tags:
 - weekly update

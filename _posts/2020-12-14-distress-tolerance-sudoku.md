@@ -1,5 +1,5 @@
 ---
-title: "#16: Distress tolerance & sudoku"
+title: "🧠 #16: Distress tolerance & sudoku"
 date: 2020-12-14 22:21:50-0700
 tags:
 - weekly update

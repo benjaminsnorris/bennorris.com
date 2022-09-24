@@ -1,5 +1,5 @@
 ---
-title: "#78: Painful therapy"
+title: "🧠 #78: Painful therapy"
 date: 2022-04-22 07:47:17-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/painful-therapy.jpg

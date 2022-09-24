@@ -1,5 +1,5 @@
 ---
-title: "#7: An experienced beginner"
+title: "🧠 #7: An experienced beginner"
 date: 2020-10-12 20:40:00-0600
 tags:
 - weekly update

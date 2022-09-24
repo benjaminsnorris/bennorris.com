@@ -1,5 +1,5 @@
 ---
-title: "#85: I’m a sailor"
+title: "🧠 #85: I’m a sailor"
 date: 2022-06-17 10:33:05-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/i’m-a-sailor.jpg

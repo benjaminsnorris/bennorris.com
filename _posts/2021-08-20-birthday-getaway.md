@@ -1,5 +1,5 @@
 ---
-title: "#48: Birthday getaway"
+title: "🧠 #48: Birthday getaway"
 date: 2021-08-20 11:30:00-0700
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/weight-of-responsibility.jpg
 image: 

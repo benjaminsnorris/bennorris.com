@@ -1,5 +1,5 @@
 ---
-title: "#46: Momentum building"
+title: "🧠 #46: Momentum building"
 date: 2021-08-06 08:46:49-0600
 tags:
 - weekly update

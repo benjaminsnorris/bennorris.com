@@ -1,5 +1,5 @@
 ---
-title: "#92: Cleaning the garage"
+title: "🧠 #92: Cleaning the garage"
 date: 2022-08-05 06:42:48-0600
 category: Mental Work Health
 tags:

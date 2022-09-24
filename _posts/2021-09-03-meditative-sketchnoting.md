@@ -1,5 +1,5 @@
 ---
-title: "#50: Meditative sketchnoting"
+title: "🧠 #50: Meditative sketchnoting"
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/meditative-sketchnotes.jpg
 date: 2021-09-03 09:13:30-0600
 image: 

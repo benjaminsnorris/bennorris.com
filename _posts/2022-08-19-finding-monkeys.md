@@ -1,5 +1,5 @@
 ---
-title: "#94: Finding monkeys"
+title: "🧠 #94: Finding monkeys"
 date: 2022-08-19 06:25:00-0600
 category: Mental Work Health
 tags:

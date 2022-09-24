@@ -1,5 +1,5 @@
 ---
-title: "#69: Crooked whiteboard"
+title: "🧠 #69: Crooked whiteboard"
 date: 2022-02-04 13:18:56-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/crooked-whiteboard.jpg

@@ -1,5 +1,5 @@
 ---
-title: "#67: What I can give"
+title: "🧠 #67: What I can give"
 date: 2022-01-20 05:58:28-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/what-i-can-give.jpg

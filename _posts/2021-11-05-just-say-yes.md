@@ -1,5 +1,5 @@
 ---
-title: "#59: Just say yes"
+title: "🧠 #59: Just say yes"
 date: 2021-11-05 16:43:53-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/just-say-yes.jpg

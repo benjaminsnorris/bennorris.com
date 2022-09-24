@@ -1,5 +1,5 @@
 ---
-title: "#38: Inverted advice"
+title: "🧠 #38: Inverted advice"
 date: 2021-06-09 08:33:29-0600
 tags:
 - weekly update

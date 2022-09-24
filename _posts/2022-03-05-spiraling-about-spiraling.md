@@ -1,5 +1,5 @@
 ---
-title: "#71: Spiraling about spiraling"
+title: "🧠 #71: Spiraling about spiraling"
 date: 2022-03-05 07:44:25-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/spiraling-about-spiraling.jpg

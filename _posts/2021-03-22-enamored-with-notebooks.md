@@ -1,5 +1,5 @@
 ---
-title: "#29: Enamored with notebooks"
+title: "🧠 #29: Enamored with notebooks"
 date: 2021-03-22 07:49:00-0600
 tags:
 - weekly update

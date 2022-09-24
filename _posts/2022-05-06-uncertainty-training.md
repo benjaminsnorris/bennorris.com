@@ -1,5 +1,5 @@
 ---
-title: "#80: Uncertainty training"
+title: "🧠 #80: Uncertainty training"
 date: 2022-05-06 06:49:55-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/uncertainty-training.jpg

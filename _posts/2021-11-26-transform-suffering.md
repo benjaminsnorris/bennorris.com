@@ -1,5 +1,5 @@
 ---
-title: "#62: Transform suffering"
+title: "🧠 #62: Transform suffering"
 date: 2021-11-26 14:13:50-0700
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/transform-suffering.jpg

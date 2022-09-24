@@ -1,5 +1,5 @@
 ---
-title: "#81: Bees in charge"
+title: "🧠 #81: Bees in charge"
 date: 2022-05-13 11:14:47-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/bees-in-charge.jpg
