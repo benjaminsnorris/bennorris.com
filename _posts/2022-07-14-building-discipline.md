@@ -11,8 +11,10 @@ short: true
 videos:
   - src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/building-discipline-part1.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/how-to-build-discipline.jpg
+    ratio: 1by1
   - src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/building-discipline-part2.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/will-it-get-easier-over-time.jpg
+    ratio: 1by1
 ---
 
 Lately I have been binging old [Jocko](/tags/jocko/) episodes. I loved his response to this question: “What is a step-by-step guide for building discipline for someone who has little to none of it?”

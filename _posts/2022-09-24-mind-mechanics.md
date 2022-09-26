@@ -7,7 +7,7 @@ tags:
 - podcast clip
 video: 
     src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/like-a-car.mov
-    poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/like-a-car.jpg
+    poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/like-a-car.jpeg
 short: true
 ---
 

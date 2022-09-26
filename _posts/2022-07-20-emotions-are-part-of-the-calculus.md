@@ -11,6 +11,7 @@ image: https://media.bennorris.com/images/posts/podcast-clips/jocko/emotions-are
 video:
     src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/take-emotion-into-the-calculus.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/emotions-are-part-of-the-calculus.jpg
+    ratio: 1by1
 ---
 
 A recurring theme in my writing is acknowledging and allowing emotions. It can be so easy to swing between the extremes or being ruled by emotions, and disallowing and discounting them completely. I loved this clip from [Jocko](/tags/jocko/) about finding the middle ground, and respecting emotions while not allowing them to take over.

@@ -16,7 +16,7 @@ image:
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/cant-get-in.jpeg
 video: 
     src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/into-your-body.mov
-    poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/into-your-body.jpg
+    poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/into-your-body.jpeg
 
 ---
 

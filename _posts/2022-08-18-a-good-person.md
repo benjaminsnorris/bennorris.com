@@ -8,6 +8,7 @@ tags:
 video: 
     src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/a-good-person.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/a-good-person.jpg
+    ratio: 1by1
 short: true
 site_banner: true
 image: https://media.bennorris.com/images/posts/podcast-clips/jocko/a-good-person.jpg

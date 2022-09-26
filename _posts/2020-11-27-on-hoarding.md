@@ -9,8 +9,10 @@ category: Mental Work Health
 videos:
   - src: https://media.bennorris.com/images/bennorris/uploads/2020/47c572a12c.mov
     poster: https://media.bennorris.com/images/bennorris/uploads/2020/74fe2ac94d.png
+    ratio: 1by1
   - src: https://media.bennorris.com/images/bennorris/uploads/2020/6eeb8028f2.mov
     poster: https://media.bennorris.com/images/bennorris/uploads/2020/5e202147b8.png
+    ratio: 1by1
 ---
 
 These clips are a fascinating take on hoarding by [Malcolm Gladwell](http://gladwell.com) and [Randy Frost](https://www.smith.edu/academics/faculty/randy-frost).

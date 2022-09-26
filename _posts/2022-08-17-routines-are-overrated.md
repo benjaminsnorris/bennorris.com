@@ -12,12 +12,16 @@ excerpt_separator: "<!--more-->"
 videos:
   - src: https://media.bennorris.com/videos/posts/podcast-clips/aom/discipline-is-a-skill.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/aom/discipline-is-a-skill.jpg
+    ratio: 1by1
   - src: https://media.bennorris.com/videos/posts/podcast-clips/aom/fascination-precedes-interest.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/aom/fascination-precedes-interest.jpg
+    ratio: 1by1
   - src: https://media.bennorris.com/videos/posts/podcast-clips/aom/eat-the-cream-not-the-frog.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/aom/eat-the-cream-not-the-frog.jpg
+    ratio: 1by1
   - src: https://media.bennorris.com/videos/posts/podcast-clips/aom/find-the-easy-way-in.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/aom/find-the-easy-way-in.jpg
+    ratio: 1by1
 site_banner: true
 image: https://media.bennorris.com/images/posts/podcast-clips/aom/discipline-is-a-skill.jpg
 ---

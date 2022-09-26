@@ -11,6 +11,7 @@ image: https://media.bennorris.com/images/posts/podcast-clips/jocko/your-kid-is-
 video:
     src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/your-kid-is-five.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/your-kid-is-five.jpg
+    ratio: 1by1
 ---
 
 This answer from [Jocko](/tags/jocko/) is one of my favorites. Whenever I catch myself getting too serious about something, I hear his big sigh.

@@ -8,9 +8,9 @@ tags:
 - podcast clip
 videos:
   - src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/start-walking.mov
-    poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/start-walking.jpg
+    poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/start-walking.jpeg
   - src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/iterative-decision-making.mov
-    poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/iterative-decision-making.jpg
+    poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/iterative-decision-making.jpeg
 
 ---
 
