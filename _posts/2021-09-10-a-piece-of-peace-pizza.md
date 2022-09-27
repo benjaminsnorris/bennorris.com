@@ -1,5 +1,5 @@
 ---
-title: "🧠 #51 A piece of peace pizza"
+title: "🧠 #51: A piece of peace pizza"
 date: 2021-09-10 12:58:00-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/piece-of-peace-pizza.jpg

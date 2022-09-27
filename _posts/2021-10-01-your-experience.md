@@ -1,5 +1,5 @@
 ---
-title: "🧠 #54 Your experience"
+title: "🧠 #54: Your experience"
 date: 2021-10-01 07:54:45-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/your-experience.jpg
