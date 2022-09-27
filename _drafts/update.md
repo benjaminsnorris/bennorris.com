@@ -1,6 +1,6 @@
 ---
 title: "Update"
-date: 2022-09-27 08:59:59-0600
+date: 2022-09-27 09:13:46-0600
 
 
 ---
@@ -77,17 +77,28 @@ This update marks a milestone. I started writing these weekly updates just over 
 
 Over those two years, I have skipped a few weeks here and there, but mostly have posted every week. It has been a great exercise for me in developing consistency without getting obsessive.
 
+One thing I have enjoyed for the past year or so is drawing an image to accompany each update. You can see a thumbnail of each image, which links to the article:
+
+[View gallery](https://bennorris.com/tags/weekly-update/gallery/){:.btn}
+
+
 ### Favorites
 
 Some of my favorites have been updates in which I discovered something by writing, and was then able to make improvements in my life.
 
 Just a few weeks ago, I realized that I needed to make changes when I wrote about tracking my mood in [update #95: Experimenting with discomfort](https://bennorris.com/2022/08/26/experimenting-with-discomfort).
 
-[![Experimenting with discomfort](https://bennorris.com/2022/08/26/experimenting-with-discomfort){:loading="lazy"}](https://bennorris.com/2022/08/26/experimenting-with-discomfort){:.clean}
+[![Experimenting with discomfort](https://media.bennorris.com/images/mentalworkhealth/posts/experimenting-with-discomfort.jpg){:loading="lazy"}](https://bennorris.com/2022/08/26/experimenting-with-discomfort){:.clean}
 
 Earlier this year, I realized that my morning routine had morphed into a compulsion. I wrote about the pain of confronting that in [update #72: Losing my routine](https://bennorris.com/2022/03/12/losing-my-routine).
 
 [![Losing my routine](https://media.bennorris.com/images/mentalworkhealth/posts/losing-my-routine.jpg){:loading="lazy"}](https://bennorris.com/2022/03/12/losing-my-routine){:.clean}
+
+One experience that I had turned into my phone wallpaper for a long time, and has stuck with me when I see someone else suffering. In [update ] My wife was trying to comfort my son, and finally said to him:
+
+> This is really hard for you. I feel calm. You can come be by me.
+
+[![I feel calm](https://media.bennorris.com/images/mentalworkhealth/posts/i-feel-calm.jpg){:loading="lazy"}](https://bennorris.com/2021/11/11/i-feel-calm){:.clean}
 
 Last year, I became obsessed with reading Marvel comics. Similar to my morning routine, it was a good reminder of how something can start out innocent and helpful even, but morph into a real problem. I wrote about that in [update #58: Civil War](https://bennorris.com/2021/10/28/civil-war).
 
