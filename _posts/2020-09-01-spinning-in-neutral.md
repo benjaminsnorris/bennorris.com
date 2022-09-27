@@ -16,7 +16,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 As I was out on an early morning walk this last week, the thought came to me to start trying to write a simple update on a regular basis. I have struggled to post as frequently as I would like to on this site, and would like to build that habit. One technique I have used successfully in other areas of my life is to add some structure that I then just have to fill in. This will be a new experiment for me, and I hope that you enjoy it.
 
-In each update, I plan to include three sections: **something hard**, **something good**, and **something else**. The focus will continue to be on mental health and the workplace, and I will be sharing personal stories and experiences to illustrate the realities of living with a mental health condition. For more details on my journey of discovering and coping with OCD, you can check out [my story](https://bennorris.com/2019/11/10/my-story/).
+In each update, I plan to include three sections: **something hard**, **something good**, and **something else**. The focus will continue to be on mental health and the workplace, and I will be sharing personal stories and experiences to illustrate the realities of living with a mental health condition. For more details on my journey of discovering and coping with OCD, you can check out [my story](https://bennorris.com/2019/11/09/my-story).
 
 ## Something hard
 One thing that I have struggled with lately is decisions. My wife got me a fun, light book series for my birthday [^1], and I finished reading it recently. As is often the case, finishing something that I have enjoyed was followed by a deep melancholy. I felt lost.

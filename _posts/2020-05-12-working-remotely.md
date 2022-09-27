@@ -8,7 +8,7 @@ Many of us have been thrust into coping with a global crisis by working from hom
 
 ***
 
-In a continued break from my ongoing series on [my story discovering mental health](https://bennorris.com/2019/11/10/my-story/), I wanted to share an article that I wrote about remote work on my personal blog [bennorris.com](https://bennorris.com). As many in the technology field, my team has been required to work from home lately, and it has given us an opportunity to consider whether this is a situation we would want to continue after it is no longer mandatory.
+In a continued break from my ongoing series on [my story discovering mental health](https://bennorris.com/2019/11/09/my-story), I wanted to share an article that I wrote about remote work on my personal blog [bennorris.com](https://bennorris.com). As many in the technology field, my team has been required to work from home lately, and it has given us an opportunity to consider whether this is a situation we would want to continue after it is no longer mandatory.
 
 I have strong opinions on the merits of supporting remote work. It is certainly not for everyone. But I believe it can provide some of the best benefits for our psychological safety and mental health. The heart of the issue is trust, and when we feel trusted, we are able to relax and just work instead of experiencing fear and uncertainty.
 

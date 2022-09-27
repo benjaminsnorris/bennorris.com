@@ -8,7 +8,7 @@ One of the most impactful roles in the workplace is the direct manager. This per
 
 ***
 
-I plan to continue my ongoing series on [my story discovering mental health](https://bennorris.com/2019/11/10/my-story/), but I wanted to interrupt it to share a series that I wrote on my personal blog, [bennorris.com](https://bennorris.com). In my day job, I am an engineering manager, and spend a great deal of time thinking about how to improve and be a better leader. In my mind, this is intricately connected with mental health, especially in the workplace.
+I plan to continue my ongoing series on [my story discovering mental health](https://bennorris.com/2019/11/09/my-story), but I wanted to interrupt it to share a series that I wrote on my personal blog, [bennorris.com](https://bennorris.com). In my day job, I am an engineering manager, and spend a great deal of time thinking about how to improve and be a better leader. In my mind, this is intricately connected with mental health, especially in the workplace.
 
 Included here are links to each of the articles in the series, along with the brief summary. I hope that you find something that is helpful for your own mental health, or for your co-workers’.
 
