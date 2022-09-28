@@ -19,6 +19,13 @@ function submitSubscriptionForm() {
   var date = new Date();
   window.localStorage.setItem('subscribedDate', date.toLocaleDateString());
 
+  var tags = Array();
+  var checkboxes = document.getElementsByName('tag');
+  for (var i = 0; i < checkboxes.length; i++) {
+    tags.push(checkboxes[i].value);
+  }
+  window.localStorage.setItem('tags', JSON.stringify(tags));
+  
   updateConfirmationUI();
 }
 

@@ -159,15 +159,17 @@ This category is for any writing that doesn’t fall into another category. Exam
   function updateCategories() {
     var tagsString = window.localStorage.getItem('tags');
     var tags = JSON.parse(tagsString);
-    if (tags.length == checkboxes.length) {
-      checkAll.checked = true;
-      toggle(checkAll);
-    } else {
-      for (var i = 0; i < tags.length; i++) {
-        var slug = tags[i].toLowerCase();
-        slug = slug.replace(/\s/g, '-');
-        var checkbox = document.getElementById(slug);
-        checkbox.checked = true;
+    if (tags) {
+      if (tags.length == checkboxes.length) {
+        checkAll.checked = true;
+        toggle(checkAll);
+      } else {
+        for (var i = 0; i < tags.length; i++) {
+          var slug = tags[i].toLowerCase();
+          slug = slug.replace(/\s/g, '-');
+          var checkbox = document.getElementById(slug);
+          checkbox.checked = true;
+        }
       }
     }
   }
