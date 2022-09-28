@@ -1,7 +1,7 @@
 ---
 title: "⛪️ Christ heals"
 date: 2022-09-28 08:00:00-0600
-category: General
+category: Gospel Sketcher
 tags:
 - general conference
 ---
