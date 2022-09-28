@@ -1,10 +1,13 @@
 ---
 title: "Hitting a milestone"
-date: 2022-09-28 08:33:10-0600
-image: https://media.bennorris.com/images/mentalworkhealth/posts/notebook-scribbles.jpeg
-site_banner: true
+date: 2022-09-28 16:44:46-0600
+image: 
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/hitting-a-milestone.jpg
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/hitting-a-milestone.jpg
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/hitting-a-milestone.jpg
 
 ---
+
 
 In this momentous update, I share a low point **forgetting a commitment**, a reminder that **I really do have OCD**, and **reflections on these weekly updates**.
 
@@ -55,7 +58,7 @@ As I told my therapist this, she burst out laughing. “Only with severe OCD wou
 
 She reminded me that one of the hallmarks of OCD is that it is like a substance addiction—it works until it doesn’t.
 
-With my OCD, my life is crippled by all of the rules that my brain has. But part of why it was able to go unchecked and undiagnosed for so long is that my coping mechanism to handle the anxiety and distress that came up in my wife was to follow my rules even more tightly. And since I was living in a situation that largely glorified rules and their adherence, I could fly under the radar for a long time.
+With my OCD, my life is crippled by all of the rules that my brain has. But part of why it was able to go unchecked and undiagnosed for so long is that my coping mechanism to handle the anxiety and distress that came up in my life was to follow my rules even more tightly. And since I was living in a situation in which rules were valued, even glorified, I could fly under the radar for a long time.
 
 But when it stopped working, it really stopped working. That’s what I affectionally refer to as The Great Breakdown of 2018.
 
@@ -67,7 +70,9 @@ Part of mental illness is that your mind lies to you. Actually, that is just par
 
 One of the ways that your mind lies is saying that you don’t have a mental illness. You don’t need help. You are just looking for attention. You will just waste other people’s time if you try to get help. Stop whining and suck it up.
 
-Every once in a while, it is helpful to have some truth shoved through the lies and remember that this is a real thing that I’m struggling with. It’s ok to have needs. It’s ok to ask for help. I deserve to feel happy.
+Every once in a while, it is helpful to have some truth shoved through the lies and remember that this is a real thing that I’m struggling with. It’s ok to have needs. It’s ok to ask for help.
+
+I deserve to feel happy. And so do you!
 
 
 ## Something else
@@ -82,7 +87,7 @@ I started writing these updates just over two years ago. [In my first update](ht
 > 
 > In each update, I plan to include three sections: **something hard**, **something good**, and **something else**. The focus will continue to be on mental health and the workplace, and I will be sharing personal stories and experiences to illustrate the realities of living with a mental health condition. For more details on my journey of discovering and coping with OCD, you can check out [my story](https://bennorris.com/2019/11/09/my-story).
 
-Over those two years, I have skipped a few weeks here and there, but mostly have posted every week. It has been a great exercise for me in developing consistency without getting obsessive.
+Over these two years, I have skipped a few weeks here and there, but have posted nearly every week. It has been a great exercise for me in developing consistency without being obsessive.
 
 One thing I have enjoyed for the past year or so is drawing an image to accompany each update. You can see a thumbnail of each image, which links to the article:
 
@@ -91,7 +96,7 @@ One thing I have enjoyed for the past year or so is drawing an image to accompan
 
 ### Favorites
 
-Some of my favorites have been updates in which I discovered something by writing, and was then able to make improvements in my life.
+I thought I would share a few of my favorites from all of the updates. Some of those have been updates in which I discovered something by writing, and was then able to make improvements in my life.
 
 Just a few weeks ago, I realized that I needed to make changes when I wrote about tracking my mood in [update #95: Experimenting with discomfort](https://bennorris.com/2022/08/26/experimenting-with-discomfort).
 
@@ -101,13 +106,13 @@ Earlier this year, I realized that my morning routine had morphed into a compuls
 
 [![Losing my routine](https://media.bennorris.com/images/mentalworkhealth/posts/losing-my-routine.jpg){:loading="lazy"}](https://bennorris.com/2022/03/12/losing-my-routine){:.clean}
 
-One experience that I had turned into my phone wallpaper for a long time, and has stuck with me when I see someone else suffering. In [update #60: I feel calm](https://bennorris.com/2021/11/11/i-feel-calm), I shared the story of my wife trying to comfort our youngest son, and finally saying to him:
+One experience has stuck with me whenever I see someone else suffering. In [update #60: I feel calm](https://bennorris.com/2021/11/11/i-feel-calm), I shared the story of my wife trying to comfort our youngest son, and saying to him:
 
 > This is really hard for you. I feel calm. You can come be by me.
 
 [![I feel calm](https://media.bennorris.com/images/mentalworkhealth/posts/i-feel-calm.jpg){:loading="lazy"}](https://bennorris.com/2021/11/11/i-feel-calm){:.clean}
 
-Last year, I became obsessed with reading Marvel comics. Similar to my morning routine, it was a good reminder of how something can start out innocent and helpful even, but morph into a real problem. I wrote about that in [update #58: Civil War](https://bennorris.com/2021/10/28/civil-war).
+Last year, I became obsessed with reading Marvel comics. Similar to my morning routine, it was a good reminder of how something can start out innocent and even helpful, but then morph into a problem. I wrote about that in [update #58: Civil War](https://bennorris.com/2021/10/28/civil-war).
 
 [![Civil War](https://media.bennorris.com/images/mentalworkhealth/posts/civil-war.jpg){:loading="lazy"}](https://bennorris.com/2021/10/28/civil-war){:.clean}
 
@@ -120,14 +125,14 @@ There are so many others that have helped me, but the last one I want to mention
 
 One huge delight has been hearing from readers who have been helped, encouraged, or supported through my sharing of personal experiences.
 
-But the biggest benefit has been the processing that has taken place by taking the time to write and reflect on my experiences.
+But the biggest benefit has been my own processing from taking the time to write and reflect on my experiences.
 
 So while I genuinely hope that these updates will be helpful to someone, I will continue to write them because they help me.
 
 
 ## Wrap up
 
-It’s hard to believe that I have already hit 100 updates. It feels like just a couple weeks ago that I was starting this. At the same time, it feels like I have always been writing these. Time is a funny thing.
+It’s hard to believe that I have already hit 100 updates. It feels like just a couple weeks ago that I was starting this series. And at the same time, it feels like I have always been writing these. Time is a funny thing.
 
 What milestone have you hit recently? Some are obvious, with a gloriously round number to commemorate the occasion. Others require more thought to identify. All deserve some celebration.
 
