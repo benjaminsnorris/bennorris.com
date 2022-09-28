@@ -3,7 +3,7 @@ layout: page
 title: Subscribe
 ---
 
-You can subscribe via [RSS](/feed.xml), or by entering your email address below.
+You can subscribe via [RSS](/feed.xml), or by entering your email address below. Selecting categories will update your preferences so that you will receive only those emails.
 
 <div id="subscribe-block">
   <form
@@ -20,6 +20,10 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
     <div class="tag-input">
       <fieldset class="tag-input-set">
         <p class="small">Which articles do you want to receive in your inbox?</p>
+        <span>
+          <input type="checkbox" id="all" onClick="toggle(this)">
+          <label for="all">All</label>
+        </span>
         <span>
           <input type="checkbox" id="authentic-compassion" name="tag" value="Authentic Compassion">
           <label for="authentic-compassion">Authentic Compassion</label>
@@ -156,5 +160,12 @@ This category is for any writing that doesn’t fall into another category. Exam
     window.localStorage.setItem('subscribedDate', date.toLocaleDateString());
 
 
+  }
+
+  function toggle(selectAll) {
+    var checkboxes = document.getElementsByName('tag');
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = selectAll.checked;
+    }
   }
 </script>
