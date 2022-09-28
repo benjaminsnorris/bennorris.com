@@ -21,8 +21,8 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
       <fieldset class="tag-input-set">
         <p class="small">Which articles do you want to receive in your inbox?</p>
         <span>
-          <input type="checkbox" id="all" onClick="toggle(this)">
-          <label for="all">All</label>
+          <input type="checkbox" id="select-all" onClick="toggle(this)">
+          <label for="select-all">All</label>
         </span>
         <span>
           <input type="checkbox" id="authentic-compassion" name="tag" value="Authentic Compassion">
@@ -152,6 +152,26 @@ This category is for any writing that doesn’t fall into another category. Exam
     document.getElementById("subscribed-date").innerHTML = subscribedDate;
   }
 
+  var checkboxes = document.getElementsByName('tag');
+  updateCategories();
+
+  function updateCategories() {
+    var tagsString = window.localStorage.getItem('tags');
+    var tags = JSON.parse(tagsString);
+    if (tags.length == checkboxes.length) {
+      var checkAll = document.getElementById('select-all');
+      checkAll.checked = true;
+      toggle(checkAll);
+    } else {
+      for (var i = 0; i < tags.length; i++) {
+        var slug = tags[i].toLowerCase();
+        slug = slug.replace(/\s/g, '-');
+        var checkbox = document.getElementById(slug);
+        checkbox.checked = true;
+      }
+    }
+  }
+
   function submitUpdatedSubscriptionForm() {
     var email = document.getElementById("email-input").value;
     window.localStorage.setItem('subscribedEmail', email);
@@ -159,11 +179,17 @@ This category is for any writing that doesn’t fall into another category. Exam
     var date = new Date();
     window.localStorage.setItem('subscribedDate', date.toLocaleDateString());
 
-
+    var tags = Array();
+    for (var i = 0; i < checkboxes.length; i++) {
+      var checkbox = checkboxes[i];
+      if (checkbox.checked) {
+        tags.push(checkbox.value);
+      }
+    }
+    window.localStorage.setItem('tags', JSON.stringify(tags));
   }
 
   function toggle(selectAll) {
-    var checkboxes = document.getElementsByName('tag');
     for (var i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = selectAll.checked;
     }
