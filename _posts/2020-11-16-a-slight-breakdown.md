@@ -51,7 +51,7 @@ In some ways, this section comes in ironic contrast to the last section about ho
 
 Following the major upheaval of our living arrangements I described above, I became more and more symptomatic the next day. My level of irritation continued to rise, especially in the late afternoon. I was unloading the dishwasher, and my wife tried to ask me something, and I responded that I was barely holding it together and couldn’t talk right then.
 
-I went up to my new room for some quiet. My wife and I discussed whether I needed to be done dealing with the kids for the rest of the day, which was uncertain, but I definitely needed a break. After that conversation, I stood in the room staring at the wall, with my thoughts swirling around for a number of minutes. I recognized that I was getting flooded emotionally, so I thought I would try a free-writing exercise, which often helps me identify and even process my emotions. I have [written about that before](https://bennorris.com/2020/10/20/aftermath-of-therapy).
+I went up to my new room for some quiet. My wife and I discussed whether I needed to be done dealing with the kids for the rest of the day, which was uncertain, but I definitely needed a break. After that conversation, I stood in the room staring at the wall, with my thoughts swirling around for a number of minutes. I recognized that I was getting flooded emotionally, so I thought I would try a [free-writing](https://bennorris.com/tags/free-writing) exercise, which often helps me identify and even process my emotions. I have [written about that before](https://bennorris.com/2020/10/20/aftermath-of-therapy).
 
 ![Page with scribbles](https://media.bennorris.com/images/mentalworkhealth/uploads/2020/f4bc0baaf1.jpg)
 
