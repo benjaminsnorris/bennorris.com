@@ -25,42 +25,42 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
           <label for="select-all">All</label>
         </span>
         <span>
-          <input type="checkbox" id="authentic-compassion" name="tag" value="Authentic Compassion">
+          <input type="checkbox" id="authentic-compassion" name="tag" onClick="updateCheckboxes()" value="Authentic Compassion">
           <label for="authentic-compassion">Authentic Compassion</label>
           <a href="#authentic-compassion-info">(ℹ)</a>
         </span>
         <span>
-          <input type="checkbox" id="mental-work-health" name="tag" value="Mental Work Health">
+          <input type="checkbox" id="mental-work-health" name="tag" onClick="updateCheckboxes()" value="Mental Work Health">
           <label for="mental-work-health">Mental Work Health</label>
           <a href="#mental-work-health-info">(ℹ)</a>
         </span>
         <span>
-          <input type="checkbox" id="bsn-design" name="tag" value="BSN Design">
+          <input type="checkbox" id="bsn-design" name="tag" onClick="updateCheckboxes()" value="BSN Design">
           <label for="bsn-design">BSN Design</label>
           <a href="#bsn-design-info">(ℹ)</a>
         </span>
         <span>
-          <input type="checkbox" id="pointedly" name="tag" value="Pointedly">
+          <input type="checkbox" id="pointedly" name="tag" onClick="updateCheckboxes()" value="Pointedly">
           <label for="pointedly">Pointedly</label>
           <a href="#pointedly-info">(ℹ)</a>
         </span>
         <span>
-          <input type="checkbox" id="carrier" name="tag" value="Carrier">
+          <input type="checkbox" id="carrier" name="tag" onClick="updateCheckboxes()" value="Carrier">
           <label for="carrier">Carrier</label>
           <a href="#carrier-info">(ℹ)</a>
         </span>
         <span>
-          <input type="checkbox" id="sketchnotable" name="tag" value="Sketchnotable">
+          <input type="checkbox" id="sketchnotable" name="tag" onClick="updateCheckboxes()" value="Sketchnotable">
           <label for="sketchnotable">Sketchnotable</label>
           <a href="#sketchnotable-info">(ℹ)</a>
         </span>
         <span>
-          <input type="checkbox" id="gospel-sketcher" name="tag" value="Gospel Sketcher">
+          <input type="checkbox" id="gospel-sketcher" name="tag" onClick="updateCheckboxes()" value="Gospel Sketcher">
           <label for="gospel-sketcher">Gospel Sketcher</label>
           <a href="#gospel-sketcher-info">(ℹ)</a>
         </span>
         <span>
-          <input type="checkbox" id="general" name="tag" value="General">
+          <input type="checkbox" id="general" name="tag" onClick="updateCheckboxes()" value="General">
           <label for="general">General</label>
           <a href="#general-info">(ℹ)</a>
         </span>
@@ -153,13 +153,13 @@ This category is for any writing that doesn’t fall into another category. Exam
   }
 
   var checkboxes = document.getElementsByName('tag');
+  var checkAll = document.getElementById('select-all');
   updateCategories();
 
   function updateCategories() {
     var tagsString = window.localStorage.getItem('tags');
     var tags = JSON.parse(tagsString);
     if (tags.length == checkboxes.length) {
-      var checkAll = document.getElementById('select-all');
       checkAll.checked = true;
       toggle(checkAll);
     } else {
@@ -187,6 +187,16 @@ This category is for any writing that doesn’t fall into another category. Exam
       }
     }
     window.localStorage.setItem('tags', JSON.stringify(tags));
+  }
+
+  function updateCheckboxes() {
+    var allChecked = true;
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked == false) {
+        allChecked = false;
+      }
+    }
+    checkAll.checked = allChecked;
   }
 
   function toggle(selectAll) {
