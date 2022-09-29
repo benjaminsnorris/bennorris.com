@@ -4,6 +4,7 @@ date: 2022-09-28 08:00:00-0600
 category: Gospel Sketcher
 tags:
 - general conference
+short: true
 ---
 
 This spoke to me deeply this morning from Amy Wright: [Christ Heals That Which Is Broken](https://www.churchofjesuschrist.org/study/general-conference/2022/04/42wright?id=p29-p30&lang=eng#p29).
