@@ -2,6 +2,7 @@
 title: "✍🏻 8-Week Work Cycles Sketchnotes"
 date: 2022-09-29 11:32:00-0600
 category: Sketchnotable
+tags:
 - sketchnotes
 image: https://media.bennorris.com/images/sketchnotable/posts/week-work-cycles-1.jpg
 site_banner: true
