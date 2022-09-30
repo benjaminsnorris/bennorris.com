@@ -6,7 +6,7 @@ date: 2022-07-28 18:59:06-0600
 
 As I have taken stock of my life lately, I have realized that two of the most important values to me right now are **compassion** and **authenticity**. The more I think about these, the more excited I get. These two values, especially when combined together, **permeate every aspect of our lives**. So I am thrilled to be launching a new project: [Authentic Compassion](https://bennorris.com/authentic-compassion).
 
-This project will start with a series of articles called *[Compassionate user stories](https://bennorris.com/tags/cus)*.
+This project will start with a series of articles called *[Compassionate user stories](https://bennorris.com/tags/user-stories/)*.
 
 As with my [Mental Work Health](https://bennorris.com/mental-work-health) articles (which are on a dedicated site at mentalworkhealth.org), you can get these alongside my other writings at bennorris.com, or on a dedicated site at authenticcompassion.com.
 
