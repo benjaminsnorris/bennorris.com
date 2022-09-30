@@ -4,19 +4,21 @@
 
 .btn {
   display: inline-block;
+  margin-bottom: 0.5em;;
   padding: 0.5em 1em;
-  border: 0;
+  border: 0.15em solid $accent-color;
   border-radius: $border-radius;
   background-color: $accent-color;
-  color: #fff;
+  color: $light-text-color;
   font-weight: bold;
   text-align: center;
-  border-bottom: none;
+  text-decoration: none;
   cursor: pointer;
+  transition: background-color ease-in-out 300ms;
 
   &:hover {
     background-color: tint($accent-color, 20%);
-    color: #fff;
+    color: $light-text-color;
   }
 
   &:focus {
@@ -25,6 +27,15 @@
 
   .icon {
     margin-right: 0.5em;
+  }
+
+  &.secondary {
+    background-color: $light-text-color;
+    color: $accent-color;
+
+    &:hover {
+      background-color: tint($accent-color, 90%);
+    }
   }
 
   /* block button fills width of parent container */
@@ -37,3 +48,4 @@
     }
   }
 }
+  
