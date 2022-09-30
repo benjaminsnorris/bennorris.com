@@ -55,10 +55,13 @@ include:
 # Feed
 feed:
   categories:
+    - Authentic Compasssion
     - Mental Work Health
     - Gospel Sketcher
     - Sketchnotable
-    - Kid Quotes
+  tags:
+    only:
+      - podcast
 
 # Exclude from processing.
 exclude:
