@@ -3,10 +3,12 @@ title: "🛡 A leader’s role: provide"
 date: 2020-04-17 13:10:39-0600
 tags:
 - leadership
-category: General
+category: Authentic Compassion
+image:
+  path: https://media.bennorris.com/images/bennorris/uploads/2020/4b4fadf9a0.jpg
+  thumbnail: https://media.bennorris.com/images/bennorris/uploads/2020/4b4fadf9a0.jpg
+gallery_thumb: https://media.bennorris.com/images/bennorris/uploads/2020/4b4fadf9a0.jpg
 ---
-
-![Provide](https://media.bennorris.com/images/bennorris/uploads/2020/4b4fadf9a0.jpg)
 
 I believe that the most important roles a leader must serve are to **protect** and **provide**. I want to explore this further by considering how a leader can provide **support**, **clarity**, and **results**.
 

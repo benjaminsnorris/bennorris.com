@@ -3,10 +3,12 @@ title: "🛡 Stages of leadership"
 date: 2020-04-21 12:18:59-0600
 tags:
 - leadership
-category: General
+category: Authentic Compassion
+image:
+  path: https://media.bennorris.com/images/bennorris/uploads/2020/66d881cc81.jpg
+  thumbnail: https://media.bennorris.com/images/bennorris/uploads/2020/66d881cc81.jpg
+gallery_thumb: https://media.bennorris.com/images/bennorris/uploads/2020/66d881cc81.jpg
 ---
-
-![Leadership stages](https://media.bennorris.com/images/bennorris/uploads/2020/66d881cc81.jpg)
 
 Most people transition through three stages of leadership, whether consciously or not. These stages are the **cruel tyrant**, the **benevolent dictator**, and the **servant leader**.
 

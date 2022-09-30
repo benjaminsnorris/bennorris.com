@@ -4,10 +4,12 @@ date: 2020-04-13 15:22:00-0600
 tags:
 - favorite
 - leadership
-category: General
+category: Authentic Compassion
+image:
+  path: https://media.bennorris.com/images/bennorris/uploads/2020/b30d51625a.jpg
+  thumbnail: https://media.bennorris.com/images/bennorris/uploads/2020/b30d51625a.jpg
+gallery_thumb: https://media.bennorris.com/images/bennorris/uploads/2020/b30d51625a.jpg
 ---
-
-![People following a leader](https://media.bennorris.com/images/bennorris/uploads/2020/b30d51625a.jpg)
 
 In my job as a software engineering manager, I was recently asked to speak about leadership. As I prepared the presentation, I realized that this topic is a passion of mine, even rivaling my passion for mental health awareness. I will share my thoughts over a series of articles.
 
