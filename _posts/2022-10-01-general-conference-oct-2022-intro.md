@@ -1,5 +1,5 @@
 ---
-title: "General Conference Oct 2022 Intro"
+title: "⛪️ General Conference Oct 2022 Intro"
 date: 2022-10-01 07:47:00-0600
 category: Gospel Sketcher
 tags:
