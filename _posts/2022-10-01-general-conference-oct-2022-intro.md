@@ -14,7 +14,7 @@ short: true
 ---
 
 
-We always look forward to this weekend! [General Conference](https://www.churchofjesuschrist.org/learn/general-conference?lang=eng) with the family is a great tradition. Hoping to do some sketchnotes, but we’ll see…
+We always look forward to this weekend! [General Conference](https://bennorris.com/tags/general-conference) with the family is a great tradition. Hoping to do some sketchnotes, but we’ll see…
 
 
 
