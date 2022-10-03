@@ -9,8 +9,15 @@ tags:
 - collection
 image: 
   path: https://media.bennorris.com/images/gospelsketcher/posts/general-conference-oct-22-all.jpeg
-  thumbnail: https://media.bennorris.com/images/gospelsketcher/posts/thumbnails/general-conference-oct-22-all.jpeg
-gallery_thumb: https://media.bennorris.com/images/gospelsketcher/thumbs/general-conference-oct-22-all.jpeg
+  thumbnail: https://media.bennorris.com/images/gospelsketcher/posts/general-conference-oct-22-all.jpeg
+gallery_thumb:
+- https://media.bennorris.com/images/gospelsketcher/thumbs/general-conference-oct-22-all.jpeg
+- https://media.bennorris.com/images/gospelsketcher/thumbs/general-conference-oct-2022-sun-pm.jpg
+- https://media.bennorris.com/images/gospelsketcher/thumbs/general-conference-oct-2022-sun-am.jpg
+- https://media.bennorris.com/images/gospelsketcher/thumbs/general-conference-oct-2022-sat-eve.jpg
+- https://media.bennorris.com/images/gospelsketcher/thumbs/general-conference-oct-2022-sat-pm.jpg
+- https://media.bennorris.com/images/gospelsketcher/thumbs/gen-conf-oct-2022-sat-am.jpg
+- https://media.bennorris.com/images/gospelsketcher/thumbs/gen-conf-oct-2022-intro.jpg
 read_time: false
 
 ---
