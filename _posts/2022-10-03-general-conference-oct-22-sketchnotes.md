@@ -9,7 +9,7 @@ tags:
 - collection
 image: 
   path: https://media.bennorris.com/images/gospelsketcher/posts/general-conference-oct-22-all.jpeg
-  thumbnail: https://media.bennorris.com/images/gospelsketcher/posts/thumbnails/general-conference-oct-22-all.jpeg
+  thumbnail: https://media.bennorris.com/images/gospelsketcher/posts/general-conference-oct-22-all.jpeg
 gallery_thumb: https://media.bennorris.com/images/gospelsketcher/thumbs/general-conference-oct-22-all.jpeg
 read_time: false
 
