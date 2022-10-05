@@ -139,6 +139,16 @@ This category is for any writing that doesn’t fall into another category. Exam
 
 
 <script>
+  if (location.search) {
+    var searchParams = new URLSearchParams(location.search);
+    if (searchParams.has('email')) {
+      var email = searchParams.get('email');
+      window.localStorage.setItem('subscribedEmail', email);
+      var date = new Date();
+      window.localStorage.setItem('subscribedDate', date.toLocaleDateString());
+    }
+  }
+
   var subscribedEmail = window.localStorage.getItem('subscribedEmail');
   if (subscribedEmail) {
     document.getElementById("email-input-label").innerHTML = "Manage your newsletter subscription";
