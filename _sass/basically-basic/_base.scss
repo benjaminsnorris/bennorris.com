@@ -33,13 +33,15 @@ q {
 }
 
 code,
-kbd,
 samp,
 pre {
   font-family: $monospace-font-family;
+  background-color: $code-background-color;
+  padding: 0.2em;
 }
 
 kbd {
+  font-family: $monospace-font-family;
   display: inline-block;
   margin: 0 0.125em;
   padding: 0.125em 0.5em;
