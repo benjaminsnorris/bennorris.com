@@ -10,7 +10,7 @@ site_banner: true
 video: 
     src: https://media.bennorris.com/videos/posts/podcast-clips/jocko/you-should-be-listening.mov
     poster: https://media.bennorris.com/images/posts/podcast-clips/jocko/you-should-be-listening.jpeg
-
+short: true
 
 ---
 
