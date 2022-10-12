@@ -1,5 +1,5 @@
 ---
-title: "A rescue med that works"
+title: "🧠 A rescue med that works"
 date: 2022-10-11 07:31:00-0600
 category: Mental Work Health
 tags:
