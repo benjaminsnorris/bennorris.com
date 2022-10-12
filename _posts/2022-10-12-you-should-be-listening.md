@@ -28,6 +28,6 @@ This seemed to be specifically for me.
 
 Yep. Spot on.
 
-<div class=“embed-responsive embed-responsive-16by9”>
-    <video class=“embed-responsive-item” controls=“controls” playsinline=“playsinline” src=“https://media.bennorris.com/videos/posts/podcast-clips/jocko/some-freedom.mov” poster=“https://media.bennorris.com/images/posts/podcast-clips/jocko/some-freedom.jpeg” style=“background-image:url(https://media.bennorris.com/images/posts/podcast-clips/jocko/some-freedom.jpeg);background-size:contain;background-repeat:no-repeat;” preload=“none”></video>
+<div class="embed-responsive embed-responsive-16by9">
+    <video class="embed-responsive-item" controls="controls" playsinline="playsinline" src="https://media.bennorris.com/videos/posts/podcast-clips/jocko/some-freedom.mov" poster="https://media.bennorris.com/images/posts/podcast-clips/jocko/some-freedom.jpeg" style="background-image:url(https://media.bennorris.com/images/posts/podcast-clips/jocko/some-freedom.jpeg);background-size:contain;background-repeat:no-repeat;" preload="none"></video>
 </div>
