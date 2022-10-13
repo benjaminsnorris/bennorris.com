@@ -43,11 +43,11 @@ I shared last week how I have been changing medications and I was telling my the
 
 [![Tapering off everything](https://media.bennorris.com/images/mentalworkhealth/posts/tapering-off-everything.jpg){:loading="lazy"}](https://bennorris.com/2022/10/07/tapering-off-everything){:.clean}
 
-My therapist reminded me that going to have nothing. Having [a good rescue med](https://bennorris.com/2022/10/11/a-rescue-med-that-works) makes a huge difference. And remembering my experience with the Coke, I joked that I would also have Dr. Pepper (which everyone knows is far superior to Coke).
+My therapist reminded me that going to have nothing. Having [a good rescue med](https://bennorris.com/2022/10/11/a-rescue-med-that-works) makes a huge difference. And remembering my experience with the Coke, I joked that I would also have Dr Pepper (which everyone knows is far superior to Coke).
 
-> I love that. Xanax and Dr. Pepper. Sounds like a great plan.
+> I love that. Xanax and Dr Pepper. Sounds like a great plan.
 
-The second part of that plan is important because I need to be careful to not take Xanax too often. So I’m trying to ride the line of using it for emergencies and letting Dr. Pepper fill in the gaps. It’s an imprecise science, to be sure.
+The second part of that plan is important because I need to be careful to not take Xanax too often. So I’m trying to ride the line of using it for emergencies and letting Dr Pepper fill in the gaps. It’s an imprecise science, to be sure.
 
 
 
