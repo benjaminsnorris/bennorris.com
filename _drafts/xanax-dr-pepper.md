@@ -1,6 +1,6 @@
 ---
 title: "Xanax & Dr Pepper"
-date: 2022-10-13 20:57:05-0600
+date: 2022-10-13 21:01:01-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/xanax-dr-pepper.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/xanax-dr-pepper.jpg
@@ -42,9 +42,11 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 ### [Leveraging caffeine](https://bennorris.com/2022/10/13/leveraging-caffeine)
 
-> Part of the journey to figuring out a good rescue med has been understanding all of the options I have to deal with my OCD and its accompanying symptoms.
-
-> The second part of [my] plan is important because I need to be careful to not take Xanax too often. So I’m trying to ride the line of using it for emergencies and letting Dr Pepper fill in the gaps. It’s an imprecise science, to be sure.
+> My therapist reminded me that I’m not going to have nothing. Having [a good rescue med](https://bennorris.com/2022/10/11/a-rescue-med-that-works) makes a huge difference. And remembering my experience with the Coke, I joked that I would also have Dr Pepper (which everyone knows is far superior to Coke).
+> 
+>> I love that. Xanax and Dr Pepper. Sounds like a great plan.
+> 
+> The second part of that plan is important because I need to be careful to not take Xanax too often. So I’m trying to ride the line of using it for emergencies and letting Dr Pepper fill in the gaps. It’s an imprecise science, to be sure.
 
 <p class="entry-excerpt"><a href="https://bennorris.com/2022/10/13/leveraging-caffeine" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
 
