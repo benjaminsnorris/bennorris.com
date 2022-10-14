@@ -1,6 +1,6 @@
 ---
 title: "Xanax & Dr Pepper"
-date: 2022-10-13 21:10:55-0600
+date: 2022-10-13 21:16:02-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/xanax-dr-pepper.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/xanax-dr-pepper.jpg
@@ -9,11 +9,14 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/xanax-
 ---
 
 
-In this update, I try out a new format[^1] and share about **a rescue med that works**, **ups and downs**, and **leveraging caffeine**.
+In this update, I share about **a rescue med that works**, **ups and downs**, and **leveraging caffeine**.
 
 _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life with [OCD](https://bennorris.com/tags/ocd/) as part of my [Mental Work Health](https://bennorris.com/mental-work-health/) project to reduce stigma around mental health, especially at work._
 
 ***
+
+You’ll notice I’m trying a slighty different format[^1] this week. I enjoyed it—let’s see if you do too.
+
 
 ## Something hard
 
