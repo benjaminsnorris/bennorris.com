@@ -1,5 +1,5 @@
 ---
-title: "Avoid “You’re right”"
+title: "🎧🎙️ Avoid “You’re right”"
 date: 2022-10-09 16:57:00-0600
 category: General
 tags:
