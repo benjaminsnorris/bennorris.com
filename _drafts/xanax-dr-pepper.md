@@ -1,6 +1,6 @@
 ---
 title: "Xanax & Dr Pepper"
-date: 2022-10-13 21:01:01-0600
+date: 2022-10-13 21:10:55-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/xanax-dr-pepper.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/xanax-dr-pepper.jpg
@@ -9,7 +9,7 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/xanax-
 ---
 
 
-In this update, I try out a new format and share about **a rescue med that works**, **ups and downs**, and **leveraging caffeine**.
+In this update, I try out a new format[^1] and share about **a rescue med that works**, **ups and downs**, and **leveraging caffeine**.
 
 _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life with [OCD](https://bennorris.com/tags/ocd/) as part of my [Mental Work Health](https://bennorris.com/mental-work-health/) project to reduce stigma around mental health, especially at work._
 
@@ -54,6 +54,8 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 ## Wrap up
 
 Last week was one of the roughest I’ve had in a long time. I’m hoping that things are heading back up. And I hope things are going well for you. Here’s to a better week for both of us.
+
+[^1]: I thought I would try splitting up each section into its own post and then link to them for the weekly update. If you have thoughts on the change, I would love to [hear from you](mailto:info@bennorris.com?subject=Thoughts%20about%20the%20new%20format).
 
 
 
