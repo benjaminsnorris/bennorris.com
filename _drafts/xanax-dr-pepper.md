@@ -1,6 +1,6 @@
 ---
 title: "Xanax & Dr Pepper"
-date: 2022-10-13 18:46:17-0600
+date: 2022-10-13 20:52:33-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/xanax-dr-pepper.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/xanax-dr-pepper.jpg
@@ -21,8 +21,6 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 > Getting a rescue med that works for me was a difficult journey through all four of my psychiatrists. With each one, I would tell them about having panic attacks that could last for days, and they would listen and prescribe something. Invariably, the different drugs we tried either did nothing to quell the panic, or just put me to sleep.
 
-\
-
 > The first time I took a full Xanax, it was a revelation. I remember marveling that I could be curled in my armchair in the morning, and then working normally the rest of the day. It felt like a miracle. I’m used to being stuck in that chair for hours, or across days when things get rough.
 
 ![Sketch of recliner](https://media.bennorris.com/images/mentalworkhealth/posts/panic-attack-recovery-zone.jpg){:loading="lazy"}
@@ -36,8 +34,6 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 > Today I feel so much better. This is an interesting phenomenon. It’s not enough data to go on or make any decisions. But it is a good reminder of why we ride the wave. It doesn’t last forever. Now, I don’t expect this means that my problems are over. But I do know that I can make it through. Whatever else happens today, I don’t want to die right now, and that is a great feeling.
 
-\
-
 > I am laughing a little reading that above. It was from Thursday morning. I took my daughter to the dentist and then had a chat with a client that day. So I was able to do some things. But it was still a rough day. I watched the rest of Ted Lasso and read a full book. I think I went home and just went to bed. Good reminder that days are going to have ups and downs as well as weeks and months and years.
 
 <p><a href="https://bennorris.com/2022/10/12/ups-and-downs" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
@@ -47,8 +43,6 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 ### [Leveraging caffeine](https://bennorris.com/2022/10/13/leveraging-caffeine)
 
 > Part of the journey to figuring out a good rescue med has been understanding all of the options I have to deal with my OCD and its accompanying symptoms.
-
-\
 
 > The second part of [my] plan is important because I need to be careful to not take Xanax too often. So I’m trying to ride the line of using it for emergencies and letting Dr Pepper fill in the gaps. It’s an imprecise science, to be sure.
 
