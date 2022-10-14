@@ -1,6 +1,6 @@
 ---
 title: "Xanax & Dr Pepper"
-date: 2022-10-13 20:52:33-0600
+date: 2022-10-13 20:57:05-0600
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/xanax-dr-pepper.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/xanax-dr-pepper.jpg
@@ -25,7 +25,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 ![Sketch of recliner](https://media.bennorris.com/images/mentalworkhealth/posts/panic-attack-recovery-zone.jpg){:loading="lazy"}
 
-<p><a href="https://bennorris.com/2022/10/11/a-rescue-med-that-works" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
+<p class="entry-excerpt"><a href="https://bennorris.com/2022/10/11/a-rescue-med-that-works" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
   
 
 ## Something good
@@ -36,7 +36,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 > I am laughing a little reading that above. It was from Thursday morning. I took my daughter to the dentist and then had a chat with a client that day. So I was able to do some things. But it was still a rough day. I watched the rest of Ted Lasso and read a full book. I think I went home and just went to bed. Good reminder that days are going to have ups and downs as well as weeks and months and years.
 
-<p><a href="https://bennorris.com/2022/10/12/ups-and-downs" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
+<p class="entry-excerpt"><a href="https://bennorris.com/2022/10/12/ups-and-downs" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
 
 ## Something else
 
@@ -46,7 +46,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 > The second part of [my] plan is important because I need to be careful to not take Xanax too often. So I’m trying to ride the line of using it for emergencies and letting Dr Pepper fill in the gaps. It’s an imprecise science, to be sure.
 
-<p><a href="https://bennorris.com/2022/10/13/leveraging-caffeine" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
+<p class="entry-excerpt"><a href="https://bennorris.com/2022/10/13/leveraging-caffeine" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
 
 
 ## Wrap up
