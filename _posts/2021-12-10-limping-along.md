@@ -13,6 +13,7 @@ tags:
 - mental health
 - sketchnotes
 - hand lettering
+- sudoku
 ---
 
 After missing a week, I share about the struggles of OCD and anxiety getting the better of me for a bit.

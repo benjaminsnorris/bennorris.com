@@ -5,6 +5,7 @@ tags:
 - weekly update
 - ocd
 - mental health
+- sudoku
 category: Mental Work Health
 ---
 
