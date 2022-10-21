@@ -6,14 +6,13 @@ tags:
 - weekly update
 - mental health
 - hand lettering
+- illustration
 - ocd
 - sudoku
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/pipes-and-puzzles.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/pipes-and-puzzles.jpg
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/pipes-and-puzzles.jpg
-
-
 ---
 
 
