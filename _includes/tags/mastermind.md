@@ -1,0 +1,1 @@
+As part of my [Accelerator](https://thefocuscourse.com/accelerator/) membership at The Focus Course, I participate in weekly calls with a mastermind group. We provide validation and accountability for each other. It has been invaluable.

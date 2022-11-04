@@ -9,6 +9,7 @@ tags:
 - ocd
 - erp
 - sudoku
+- mastermind
 - jocko
 - podcast clip
 image: 
@@ -51,7 +52,7 @@ I don’t wish these struggles on anyone. But I’ve also learned that all of us
 
 Last week was my wedding anniversary. I wasn’t as prepared for it as I wanted to be, but I still wanted to do something to make it a special occasion. 
 
-I was discussing my goals for the week with my mastermind group as part of my [Accelerator](https://thefocuscourse.com/accelerator/) membership at The Focus Course. They asked what I could do practically that my wife would appreciate.
+I was discussing my goals for the week with my [mastermind](https://bennorris.com/tags/mastermind/) group. They asked what I could do practically that my wife would appreciate.
 
 Immediately I had the thought to take the day off with and spend it home with the family doing projects around the house. But that sounded hard.
 

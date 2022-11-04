@@ -8,6 +8,7 @@ tags:
 - ocd
 - hand lettering
 - free writing
+- mastermind
 image: 
   path: https://media.bennorris.com/images/mentalworkhealth/posts/flooding-and-dragons.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/flooding-and-dragons.jpg
@@ -50,7 +51,7 @@ We decided to work on Saturday instead and spent Friday doing work around the ho
 
 ## Something good
 
-Last week, I was discussing some of my struggles with my mastermind group as part of my [Accelerator](https://thefocuscourse.com/accelerator/) membership at The Focus Course. The problem I was having was not a lack of clients, but rather a **difficulty in settling down to do the actual work** for one of my clients. I explained that I had tried to get started a few times, but each time I found myself staring at my computer screen unable to make any progress.
+Last week, I was discussing some of my struggles with my [mastermind](https://bennorris.com/tags/mastermind/) group. The problem I was having was not a lack of clients, but rather a **difficulty in settling down to do the actual work** for one of my clients. I explained that I had tried to get started a few times, but each time I found myself staring at my computer screen unable to make any progress.
 
 My group was kind and supportive, and asked me to probe my own feelings. One of my friends asked **if I really wanted to do the work**. He said that he’s faced similar difficulties with client work, and usually realized that there was something about the client or the project that was turning him off to it.
 
