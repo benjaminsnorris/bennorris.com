@@ -73,7 +73,7 @@ When I went to my next therapy session, I told the story to my therapist. My min
 
 It never came.
 
-The rest of the session passed normally. It wasn’t until a few weeks later that I told my therapist how significant that was for me. I shared some of my back story and why swearing felt like such a big deal to me. She told me was a good thing that I said it. **I needed to swear** to challenge the rule my mind had created. I needed to risk the threat and see that it wasn’t actually a catastrophe.
+The rest of the session passed normally. It wasn’t until a few weeks later that I told my therapist how significant that was for me. I shared some of my back story and why swearing felt like such a big deal to me. She told me it was a good thing that I said it. **I needed to swear** to challenge the rule my mind had created. I needed to risk the threat and see that it wasn’t actually a catastrophe.
 
 Swearing started to feel good. It was **the forbidden toy** that I had never gotten to play with, and now I could. I tried it out with people that I respected. People I worried would think less of me. I told them that I had realized that swearing didn’t make me a terrible person.
 
@@ -97,8 +97,8 @@ As I progressed in my treatment and neared graduation, one of my last exposures 
 
 You can watch the full nineteen minutes here:
 
-<div class=“embed-responsive embed-responsive-16by9”>
-  <iframe class=“embed-responsive-item” src=“https://player.vimeo.com/video/366339103” title=“Vimeo video player” frameborder=“0” allow=“accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture” allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/366339103" title="Vimeo video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 
