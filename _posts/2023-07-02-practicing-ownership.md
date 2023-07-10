@@ -3,8 +3,11 @@ title: "Practicing ownership"
 date: 2023-07-02 21:59:00-0600
 category: General
 tags:
+- weekly update
+- mental health
 - ocd
 - toatc
+- extreme ownership
 ---
 
 In addition to being an emotional roller coaster, this week was a wake up call for me. It was a good exercise in extreme ownership. And I saw clearly where I need to improve.

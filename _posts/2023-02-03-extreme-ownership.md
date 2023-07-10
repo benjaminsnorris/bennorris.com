@@ -7,7 +7,7 @@ tags:
 - mental health
 - ocd
 - jocko
-
+- extreme ownership
 ---
 
 This week, I faced an Extreme Ownership opportunity. Would I protect myself and my team, and make clear what was not our fault, or would I own the situation and focus on fixing it?
