@@ -6,7 +6,7 @@ tags:
 - weekly update
 - mental health
 - leadership
-- extremeownership
+- extreme ownership
 
 ---
 
