@@ -1,7 +1,7 @@
 ---
 title: "Practicing ownership"
 date: 2023-07-02 21:59:00-0600
-category: General
+category: Wholehearted Ownership
 tags:
 - weekly update
 - mental health

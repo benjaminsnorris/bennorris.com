@@ -1,7 +1,7 @@
 ---
 title: "Finding ownership"
 date: 2023-07-24 17:12:00-0600
-category: General
+category: Wholehearted Ownership
 tags:
 - jocko
 - leadership

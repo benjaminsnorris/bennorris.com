@@ -1,7 +1,7 @@
 ---
 title: "Cover and Move"
 date: 2023-07-09 20:13:00-0600
-category: General
+category: Wholehearted Ownership
 tags:
 - jocko
 - extreme ownership
