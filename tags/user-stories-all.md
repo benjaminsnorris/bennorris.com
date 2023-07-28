@@ -4,5 +4,5 @@ title: Compassionate User Stories
 taxonomy: user stories
 permalink: /tags/user-stories/all/
 gallery-link: false
-subscribe-tag: Authentic Compassion
+subscribe-tag: Wholehearted Ownership
 ---

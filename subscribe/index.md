@@ -25,29 +25,14 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
           <label for="select-all">All</label>
         </span>
         <span>
-          <input type="checkbox" id="authentic-compassion" name="tag" onClick="updateCheckboxes()" value="Authentic Compassion">
-          <label for="authentic-compassion">Authentic Compassion</label>
-          <a href="#authentic-compassion-info">(ℹ)</a>
+          <input type="checkbox" id="wholehearted-ownership" name="tag" onClick="updateCheckboxes()" value="Wholehearted Ownership">
+          <label for="wholehearted-ownership">Wholehearted Ownership</label>
+          <a href="#wholehearted-ownership-info">(ℹ)</a>
         </span>
         <span>
           <input type="checkbox" id="mental-work-health" name="tag" onClick="updateCheckboxes()" value="Mental Work Health">
           <label for="mental-work-health">Mental Work Health</label>
           <a href="#mental-work-health-info">(ℹ)</a>
-        </span>
-        <span>
-          <input type="checkbox" id="bsn-design" name="tag" onClick="updateCheckboxes()" value="BSN Design">
-          <label for="bsn-design">BSN Design</label>
-          <a href="#bsn-design-info">(ℹ)</a>
-        </span>
-        <span>
-          <input type="checkbox" id="pointedly" name="tag" onClick="updateCheckboxes()" value="Pointedly">
-          <label for="pointedly">Pointedly</label>
-          <a href="#pointedly-info">(ℹ)</a>
-        </span>
-        <span>
-          <input type="checkbox" id="carrier" name="tag" onClick="updateCheckboxes()" value="Carrier">
-          <label for="carrier">Carrier</label>
-          <a href="#carrier-info">(ℹ)</a>
         </span>
         <span>
           <input type="checkbox" id="sketchnotable" name="tag" onClick="updateCheckboxes()" value="Sketchnotable">
@@ -74,10 +59,10 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
 
 ## Category explanations
 
-### [Authentic Compassion](/authentic-compassion/)
-{:#authentic-compassion-info}
+### [Wholehearted Ownership](/wholehearted-ownership/)
+{:#wholehearted-ownership-info}
 
-The purpose of this project is to help myself and everyone I can to see others as people who matter like we do. This project includes the [compassionate user stories](/tags/user-stories/) series, in addition to other articles on leading and living well.
+The purpose of this project is to share thoughts on leading and living with ownership, even [extreme ownership](/tags/extreme-ownership/), as well as being authentic and wholehearted.
 
 [{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;](#main){:.back-to-top}
 
@@ -86,30 +71,6 @@ The purpose of this project is to help myself and everyone I can to see others a
 {:#mental-work-health-info}
 
 My goal is to increase awareness and reduce stigma around mental health, especially at work. This project includes [weekly updates](/tags/weekly-update/) sharing my life with OCD, as well as other occasional articles.
-
-[{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;](#main){:.back-to-top}
-
-
-### [BSN Design](/bsn-design/)
-{:#bsn-design-info}
-
-As an independent mobile app consultant, I advise others as well as publish my own [apps](/apps/). Include this category to receive updates and announcements on app updates and other work.
-
-[{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;](#main){:.back-to-top}
-
-
-### [Pointedly](/apps/pointedly/)
-{:#pointedly-info}
-
-For news, tips, and announcements specific to my scorekeeping app [Pointedly](/apps/pointedly/), include this category in your subscriptions.
-
-[{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;](#main){:.back-to-top}
-
-
-### [Carrier](/apps/carrier/)
-{:#carrier-info}
-
-My app [Carrier](/apps/carrier/) lets you schedule text messages to individuals or groups. Include this category to receive updates on this app.
 
 [{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;](#main){:.back-to-top}
 
