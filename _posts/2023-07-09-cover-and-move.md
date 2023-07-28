@@ -3,10 +3,10 @@ title: "Cover and Move"
 date: 2023-07-09 20:13:00-0600
 category: Wholehearted Ownership
 tags:
+- weekly update
 - jocko
 - extreme ownership
 - leadership
-
 ---
 
 As I continue on my path to embracing [Extreme Ownership](https://bennorris.com/tags/extreme-ownership), I find myself in a textbook situation in which I need to rely on others. And it’s hard!
