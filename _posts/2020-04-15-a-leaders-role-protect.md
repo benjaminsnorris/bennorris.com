@@ -3,7 +3,7 @@ title: "🛡 A leader’s role: protect"
 date: 2020-04-15 15:54:18-0600
 tags:
 - leadership
-category: Wholehearted Ownership
+category: Balanced Ownership
 image:
   path: https://media.bennorris.com/images/bennorris/uploads/2020/6d71210781.jpg
   thumbnail: https://media.bennorris.com/images/bennorris/uploads/2020/6d71210781.jpg

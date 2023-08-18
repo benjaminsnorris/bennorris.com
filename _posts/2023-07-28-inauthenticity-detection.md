@@ -1,7 +1,7 @@
 ---
 title: "Inauthenticity detection"
 date: 2023-07-28 12:25:00-0600
-category: Wholehearted Ownership
+category: Balanced Ownership
 tags:
 - weekly update
 - leadership

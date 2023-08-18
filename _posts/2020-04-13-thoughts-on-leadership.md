@@ -4,7 +4,7 @@ date: 2020-04-13 15:22:00-0600
 tags:
 - favorite
 - leadership
-category: Wholehearted Ownership
+category: Balanced Ownership
 image:
   path: https://media.bennorris.com/images/bennorris/uploads/2020/b30d51625a.jpg
   thumbnail: https://media.bennorris.com/images/bennorris/uploads/2020/b30d51625a.jpg

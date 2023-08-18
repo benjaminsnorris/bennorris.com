@@ -1,7 +1,7 @@
 ---
 title: "Is it serving you?"
 date: 2023-08-13 15:12:00-0600
-category: Wholehearted Ownership
+category: Balanced Ownership
 tags:
 - leadership
 - weekly update

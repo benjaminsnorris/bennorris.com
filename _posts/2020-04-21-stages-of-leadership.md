@@ -3,7 +3,7 @@ title: "🛡 Stages of leadership"
 date: 2020-04-21 12:18:59-0600
 tags:
 - leadership
-category: Wholehearted Ownership
+category: Balanced Ownership
 image:
   path: https://media.bennorris.com/images/bennorris/uploads/2020/66d881cc81.jpg
   thumbnail: https://media.bennorris.com/images/bennorris/uploads/2020/66d881cc81.jpg

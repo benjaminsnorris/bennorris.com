@@ -1,7 +1,7 @@
 ---
 title: "Unconscious spending"
 date: 2023-08-04 08:52:00-0600
-category: Wholehearted Ownership
+category: Balanced Ownership
 tags:
 - leadership
 - weekly update

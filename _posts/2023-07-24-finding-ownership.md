@@ -1,7 +1,7 @@
 ---
 title: "Finding ownership"
 date: 2023-07-24 17:12:00-0600
-category: Wholehearted Ownership
+category: Balanced Ownership
 tags:
 - weekly update
 - jocko

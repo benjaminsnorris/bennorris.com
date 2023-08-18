@@ -3,7 +3,7 @@ title: "🛡 A leader’s role: provide"
 date: 2020-04-17 13:10:39-0600
 tags:
 - leadership
-category: Wholehearted Ownership
+category: Balanced Ownership
 image:
   path: https://media.bennorris.com/images/bennorris/uploads/2020/4b4fadf9a0.jpg
   thumbnail: https://media.bennorris.com/images/bennorris/uploads/2020/4b4fadf9a0.jpg

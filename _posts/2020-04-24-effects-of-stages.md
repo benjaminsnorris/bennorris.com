@@ -3,7 +3,7 @@ title: "🛡 Effects of stages"
 date: 2020-04-24 10:09:25-0600
 tags:
 - leadership
-category: Wholehearted Ownership
+category: Balanced Ownership
 image:
   path: https://media.bennorris.com/images/bennorris/uploads/2020/eff11e3cd3.jpg
   thumbnail: https://media.bennorris.com/images/bennorris/uploads/2020/eff11e3cd3.jpg

@@ -3,7 +3,7 @@ title: "🛡 Communication synchronicity"
 date: 2021-01-21 15:28:28-0700
 tags:
 - leadership
-category: Wholehearted Ownership
+category: Balanced Ownership
 excerpt_separator: "<!--more-->"
 ---
 

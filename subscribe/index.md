@@ -3,7 +3,7 @@ layout: page
 title: Subscribe
 ---
 
-You can subscribe via [RSS](/feed.xml), or by entering your email address below. Selecting categories will update your preferences so that you will receive only those emails.
+You can subscribe via [RSS](/feed.xml), or by entering your email address below. Selecting categories will update your preferences to indicate what you are the most interested in.
 
 <div id="subscribe-block">
   <form
@@ -19,15 +19,15 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
     </div>
     <div class="tag-input">
       <fieldset class="tag-input-set">
-        <p class="small">Which articles do you want to receive in your inbox?</p>
+        <p class="small">Which articles are you most interested in?</p>
         <span>
           <input type="checkbox" id="select-all" onClick="toggle(this)">
           <label for="select-all">All</label>
         </span>
         <span>
-          <input type="checkbox" id="wholehearted-ownership" name="tag" onClick="updateCheckboxes()" value="Wholehearted Ownership">
-          <label for="wholehearted-ownership">Wholehearted Ownership</label>
-          <a href="#wholehearted-ownership-info">(ℹ)</a>
+          <input type="checkbox" id="balanced-ownership" name="tag" onClick="updateCheckboxes()" value="Balanced Ownership">
+          <label for="balanced-ownership">Balanced Ownership</label>
+          <a href="#balanced-ownership-info">(ℹ)</a>
         </span>
         <span>
           <input type="checkbox" id="mental-work-health" name="tag" onClick="updateCheckboxes()" value="Mental Work Health">
@@ -59,10 +59,10 @@ You can subscribe via [RSS](/feed.xml), or by entering your email address below.
 
 ## Category explanations
 
-### [Wholehearted Ownership](/wholehearted-ownership/)
-{:#wholehearted-ownership-info}
+### [Balanced Ownership](/balanced-ownership/)
+{:#balanced-ownership-info}
 
-The purpose of this project is to share thoughts on leading and living with ownership, even [extreme ownership](/tags/extreme-ownership/), as well as being authentic and wholehearted.
+The purpose of this project is to share thoughts on leading and living with ownership, even [extreme ownership](/tags/extreme-ownership/), as well as being authentic and balanced.
 
 [{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;](#main){:.back-to-top}
 

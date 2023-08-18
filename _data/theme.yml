@@ -29,7 +29,7 @@ t:
 # pages that have a `title`. Add raw page paths in the order you'd like.
 
 navigation_pages:
-  - categories/wholehearted-ownership.md
+  - categories/balanced-ownership.md
   - categories/mentalworkhealth.md
   - categories/gospelsketcher.md
   - categories/mindfulsketch.md

@@ -3,7 +3,7 @@ title: "🛡 Leading through trust"
 date: 2020-04-14 16:01:00-0600
 tags:
 - leadership
-category: Wholehearted Ownership
+category: Balanced Ownership
 image:
   path: https://media.bennorris.com/images/bennorris/uploads/2020/3ef59003d5.jpg
   thumbnail: https://media.bennorris.com/images/bennorris/uploads/2020/3ef59003d5.jpg
