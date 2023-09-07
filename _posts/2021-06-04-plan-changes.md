@@ -25,7 +25,7 @@ Finally, I landed on the idea of using an easel and large pad to draw some examp
 
 When I got to the venue and went to set up for my class, I found that there was indeed a projector and screen. Outwardly, I just laughed and commented on the irony. Inwardly, a wave of distress washed over me. Part of dealing with OCD for me is struggling with any kind of plan change. And this was a challenging one for me. My preparation would have been entirely different if I was going to be able to show a digital presentation. My wife was there with me, and she knew how distressing that kind of change would be to me, and she was supportive and validating. It took a little while before I had composed myself sufficiently to handle the situation.
 
-![Keynote sketchnote](https://media.bennorris.com/images/gospelsketcher/general/may-21-ldshe-stanfield.jpg)
+![Keynote sketchnote](https://media.bennorris.com/images/gospelsketcher/ldshe/2021/may-21-ldshe-stanfield.jpg)
 
 In addition to presenting at the conference, I was looking forward to capturing sketchnotes. I’ve been using my iPad for sketchnoting lately, because it is so much easier to share after completing. And it was a great experience. The speakers were fantastic, and taking sketchnotes was a good way to process and remember what they were saying.
 
