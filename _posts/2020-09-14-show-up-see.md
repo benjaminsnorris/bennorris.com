@@ -5,6 +5,7 @@ tags:
 - weekly update
 - ocd
 - mental health
+- plan change
 category: Mental Work Health
 ---
 
@@ -28,7 +29,7 @@ As I went in to therapy on Friday, I told my therapist that I had a couple diffi
 
 ## Something good
 
-In the middle of the rough day on Tuesday, I got word that I needed to present to the executives the next day. At first, I was frustrated that I had so little notice. I realized that being asked to share an update on my project that I am leading is not something that is stressful for me—it was just the plan change that was throwing me. I put some thought into it and decided what I wanted to prepare.
+In the middle of the rough day on Tuesday, I got word that I needed to present to the executives the next day. At first, I was frustrated that I had so little notice. I realized that being asked to share an update on my project that I am leading is not something that is stressful for me—it was just the [plan change](https://bennorris.com/tags/plan-change/) that was throwing me. I put some thought into it and decided what I wanted to prepare.
 
 Wednesday morning, I woke up and did not know what to expect. I had not been able to work nearly at all the day prior and I felt the executive presentation  looming over me. I decided I would just show up and see what happened. So I sat down at my computer and started preparing my presentation. After a few hours and a number of interruptions to help people on my team, I felt confident and ready. I had not ever consciously decided that I felt well enough to work—I just started working with curiosity about how things would go. The presentation itself was a success, which felt nice, but even more important to me was the experience of uncertainty and approaching my day with curiosity and having it work out.
 

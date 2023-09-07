@@ -13,6 +13,7 @@ tags:
 - sketchnotes
 - illustration
 - hand lettering
+- plan change
 - story
 - sudoku
 ---
@@ -81,7 +82,7 @@ One of the most frustrating parts of the whole situation was feeling trapped. I 
 
 The key is to be emotionally honest, starting with myself, and identify what I can offer. What do I want to do, and what do I feel capable of in the moment.
 
-I asked what to do when I get the phone call about a plan change and am immediately pissed off. How do I move to responding calmly and honestly?
+I asked what to do when I get the phone call about a [plan change](https://bennorris.com/tags/plan-change/) and am immediately pissed off. How do I move to responding calmly and honestly?
 
 “First off, let’s reframe it. You are not actually pissed off. Your OCD is activated and as a result, you are irritable. So take a minute to realize what is causing the distress—what is setting your OCD off. Then you can be frustrated for a moment, because life is frustrating, and then choose how to respond. You could say, ‘I’m scrambled right now. Let me take a couple minutes to process what you asked, and I’ll call you back.’”
 

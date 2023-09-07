@@ -5,6 +5,7 @@ tags:
 - weekly update
 - ocd
 - mental health
+- plan change
 category: Mental Work Health
 ---
 
@@ -61,7 +62,7 @@ There’s something almost magical about being in nature, especially by water. W
 When a problem arises that affects us deeply, the issue is rarely that particular problem. In this case for me, it was not the milk that mattered. What threw me off was
 the change in plans.
 
-The plan change caused enough distress that I was driven to a sense of despair and hopelessness. I felt that my mental health condition was destroying my life. I feet shame and guilt at being a burden. Ultimately, I felt that I was not worthy of love because of my struggles.
+The [plan change](https://bennorris.com/tags/plan-change/) caused enough distress that I was driven to a sense of despair and hopelessness. I felt that my mental health condition was destroying my life. I feet shame and guilt at being a burden. Ultimately, I felt that I was not worthy of love because of my struggles.
 
 This is a lie.
 

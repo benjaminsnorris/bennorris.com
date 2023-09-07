@@ -5,6 +5,7 @@ tags:
 - weekly update
 - ocd
 - mental health
+- plan change
 category: Mental Work Health
 ---
 
@@ -23,7 +24,7 @@ For the past couple months, I had been thinking about how I could give an effect
 
 Finally, I landed on the idea of using an easel and large pad to draw some examples for the class with a large marker. I also was able to provide a handout, so I included a sketchnote example, and the different categories of drawings I wanted people to try out. I prepared and practiced, and even though my children just doodled robots attacking each other during my rehearsal, I felt ready.
 
-When I got to the venue and went to set up for my class, I found that there was indeed a projector and screen. Outwardly, I just laughed and commented on the irony. Inwardly, a wave of distress washed over me. Part of dealing with OCD for me is struggling with any kind of plan change. And this was a challenging one for me. My preparation would have been entirely different if I was going to be able to show a digital presentation. My wife was there with me, and she knew how distressing that kind of change would be to me, and she was supportive and validating. It took a little while before I had composed myself sufficiently to handle the situation.
+When I got to the venue and went to set up for my class, I found that there was indeed a projector and screen. Outwardly, I just laughed and commented on the irony. Inwardly, a wave of distress washed over me. Part of dealing with OCD for me is struggling with any kind of [plan change](https://bennorris.com/tags/plan-change/). And this was a challenging one for me. My preparation would have been entirely different if I was going to be able to show a digital presentation. My wife was there with me, and she knew how distressing that kind of change would be to me, and she was supportive and validating. It took a little while before I had composed myself sufficiently to handle the situation.
 
 ![Keynote sketchnote](https://media.bennorris.com/images/gospelsketcher/ldshe/2021/may-21-ldshe-stanfield.jpg)
 
