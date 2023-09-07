@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - hand lettering
+- plan change
 ---
 
 After a couple weeks in which I couldn’t quite muster enough to write an update, I share some experiences I’ve had and lessons I’ve learned.
@@ -29,7 +30,7 @@ Life.
 
 At times, this feels like a hollow victory, and at others like a monumental achievement. The good thing from the past little while is how I have been able to frame and respond to the hard thing (trying to do life).
 
-OCD has been kicking my ass lately. I have been extremely symptomatic. This often looks like being short and irritated, typically with those who are closest to me. I have a low tolerance for uncertainty, and think in literal, black-and-white terms. My mind gets caught in loops, particularly at changes, surprises, or anything that doesn’t compute (which tends to be most things when I am in this state).
+OCD has been kicking my ass lately. I have been extremely symptomatic. This often looks like being short and irritated, typically with those who are closest to me. I have a low tolerance for uncertainty, and think in literal, black-and-white terms. My mind gets caught in loops, particularly at [plan changes](https://bennorris.com/tags/plan-change/), surprises, or anything that doesn’t compute (which tends to be most things when I am in this state).
 
 When my mind starts to spiral, if I notice it at all, I get frustrated that I am spiraling and start spiraling about the fact that I am spiraling.
 

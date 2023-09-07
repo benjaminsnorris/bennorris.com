@@ -5,6 +5,7 @@ tags:
 - weekly update
 - ocd
 - mental health
+- plan change
 category: Mental Work Health
 ---
 
@@ -31,7 +32,7 @@ I decided to drive home, get my mask, and then go back and try to talk my way in
 
 When I got back to the DMV and up to the counter, the nice lady helping me informed me that the registration would be good for one month. Fortunately, she proactively tried and succeeded to register us for another year. So now the van is safe to drive through March 2022, and we can proceed with our day and our life.
 
-Having last minute interruptions or major changes to plans in a day can be hard for anyone, and especially for someone with OCD. However, I feel fortunate that the work I have done, and the skills I have learned and practiced to sit with the distress of the moment allowed me to laugh at the situation instead of getting irritated and irritable as I likely would have been in the past.
+Having last minute interruptions or [major changes to plans](https://bennorris.com/tags/plan-change/) in a day can be hard for anyone, and especially for someone with OCD. However, I feel fortunate that the work I have done, and the skills I have learned and practiced to sit with the distress of the moment allowed me to laugh at the situation instead of getting irritated and irritable as I likely would have been in the past.
 
 
 ## Something good

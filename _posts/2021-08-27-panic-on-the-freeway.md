@@ -6,6 +6,7 @@ tags:
 - weekly update
 - ocd
 - mental health
+- plan change
 ---
 
 This update is about a different kind of **panic attack** and illustrates the **uncertainty** inherent in mental illness.
@@ -51,7 +52,7 @@ The truth is that life is inherently uncertain. Many times, the problems that we
 > 
 > Nothing throws him into a passion so easily as to find a tract of time which he reckoned on having at his own disposal unexpectedly taken from him. It is the unexpected visitor (when he looked forward to a quiet evening), or the friend’s talkative wife (turning up when he looked forward to a tête-à-tête with the friend), that throw him out of gear.
 
-This has certainly been the case in my life. And it is exacerbated by having OCD. I feel significant distress at change. Particularly plan changes. The loss of control that comes when things change out from under you can be triggering.
+This has certainly been the case in my life. And it is exacerbated by having OCD. I feel significant distress at change. Particularly [plan changes](https://bennorris.com/tags/plan-change/). The loss of control that comes when things change out from under you can be triggering.
 
 
 ## Challenge

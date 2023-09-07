@@ -13,6 +13,7 @@ tags:
 - sketchnotes
 - illustration
 - hand lettering
+- plan change
 - story
 ---
 
@@ -41,7 +42,7 @@ I love this routine **with my whole heart**.
 
 In therapy recently, I was sharing some of the struggles I’ve been having with OCD taking over in areas of my life. That often manifests as **increased irritation**, mostly with my family. The normal fluctuations in schedule of managing a house with nine people can throw me completely off.
 
-I described a few days where my routine was thrown off. One day my wife left her purse and keys in my van, so I needed to pick the kids up from seminary class and return the purse. Another day I left my change of clothes at home, which I realized after a sweaty workout. I told my therapist about being thrown by every little plan change, and how hard it was to have a bunch of days start disrupted. Her reply was something like this,
+I described a few days where my routine was thrown off. One day my wife left her purse and keys in my van, so I needed to pick the kids up from seminary class and return the purse. Another day I left my change of clothes at home, which I realized after a sweaty workout. I told my therapist about being thrown by every little [plan change](https://bennorris.com/tags/plan-change/), and how hard it was to have a bunch of days start disrupted. Her reply was something like this,
 
 > I hate so much about what I’m hearing.
 

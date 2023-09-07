@@ -8,6 +8,7 @@ tags:
 - ocd
 - toatc
 - free writing
+- plan change
 ---
 
 This week I relearned the lesson that handling challenging situations requires emotional honesty.
@@ -16,7 +17,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 ***
 
-On Monday, I had a difficult situation come up. Plan changes are always hard for me, and this basically took over my whole day. Strong emotions surged, and I realized that part of my reaction was inflated from being personally triggered.
+On Monday, I had a difficult situation come up. [Plan changes](https://bennorris.com/tags/plan-change/) are always hard for me, and this basically took over my whole day. Strong emotions surged, and I realized that part of my reaction was inflated from being personally triggered.
 
 In the end, I was pleased with how I was able to handle the situation. There are definite improvements I want to focus on for the future, but overall I thought I acted appropriately and navigated things well.
 

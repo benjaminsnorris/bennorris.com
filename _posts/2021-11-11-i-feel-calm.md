@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - hand lettering
+- plan change
 ---
 
 This week brought **panic attacks**, witnessing a **tender moment of support**, and **reflections on last week’s announcement**.
@@ -53,7 +54,7 @@ We have suspected as of late that dairy is causing problems for child #6, our fo
 
 At breakfast the other morning, we were all out of the kind he likes. He doesn’t seem to have a preference when he actually eats them, but in his mind he does. When he found out that he couldn’t have the kind he wanted, he had a meltdown. A full-blown OCD-style meltdown.
 
-I am very familiar with what he was feeling. Plan changes are so damn hard, and any rational logic goes out the window in the face of overwhelming emotions.
+I am very familiar with what he was feeling. [Plan changes](https://bennorris.com/tags/plan-change/) are so damn hard, and any rational logic goes out the window in the face of overwhelming emotions.
 
 He was sobbing, “Mom, just give me the other one!” We tried explaining that we didn’t have the other one. We tried empathizing. We tried offering other options.
 

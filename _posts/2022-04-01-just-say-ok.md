@@ -12,6 +12,7 @@ tags:
 - mental health
 - illustration
 - hand lettering
+- plan change
 - story
 ---
 
@@ -34,7 +35,7 @@ To set the context for this story, I will go back to the end of January. Life wa
 
 Since that time, I have been working to try and be more **emotionally honest**, both with myself and with my wife.
 
-As we got into February and March, my therapist said we needed to swing the pendulum almost to the other extreme for a little bit, and then come back to balance in the middle. We were talking about **plan changes** and how difficult it was for me to adjust to the needs and demands of the family when things inevitably went differently than anticipated.
+As we got into February and March, my therapist said we needed to swing the pendulum almost to the other extreme for a little bit, and then come back to balance in the middle. We were talking about **[plan changes](https://bennorris.com/tags/plan-change/)** and how difficult it was for me to adjust to the needs and demands of the family when things inevitably went differently than anticipated.
 
 When I would describe any situation in which I had to adjust, there was so much **overthinking**, and so much **resistance**. My therapist said I needed to just relax and do things without thinking about it.
 

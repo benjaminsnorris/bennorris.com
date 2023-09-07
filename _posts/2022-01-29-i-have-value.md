@@ -11,6 +11,7 @@ tags:
 - ocd
 - mental health
 - hand lettering
+- plan change
 ---
 
 This week I share about **learning the song of interpersonal effectiveness**, realizing **I have value without earning it**, and **iterating on an idea**.
@@ -22,7 +23,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 ## Something hard
 
-In a recent therapy session, my wife accompanied me, and we talked about how I can respond better in difficult situations. The kinds of situations we were discussing are when my OCD gets activated and my brain locks up. This can be with a plan change, an apparent discrepancy or inconsistency, basically anything unexpected, or a host of other things.
+In a recent therapy session, my wife accompanied me, and we talked about how I can respond better in difficult situations. The kinds of situations we were discussing are when my OCD gets activated and my brain locks up. This can be with a [plan change](https://bennorris.com/tags/plan-change/), an apparent discrepancy or inconsistency, basically anything unexpected, or a host of other things.
 
 The problem is that when OCD is taking over, my typical symptoms are irritability and sarcasm. This causes painful issues, particularly in relationships, and so is important for me to address.
 

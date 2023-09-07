@@ -12,6 +12,7 @@ tags:
 - erp
 - mental health
 - hand lettering
+- plan change
 ---
 
 _Big news—I’m taking on new projects!_ This week, I share the **challenges of being flexible**, a **great moment of connection**, and realizing my big news that **I’ve already started being a contractor**.
@@ -43,7 +44,7 @@ But it did.
 
 So I cancelled the lunch I had planned, and went home and took over. Thankfully, the four youngest went to grandma and grandpa’s house for a sleepover that night, so I just had the three bigs. The next day required more adjustments as she started getting back on her feet, and by Tuesday evening, she was pretty well recovered.
 
-**Plan changes are extremely difficult for me.** But I was happy with how I was able to handle this one.
+**[Plan changes](https://bennorris.com/tags/plan-change/) are extremely difficult for me.** But I was happy with how I was able to handle this one.
 
 
 ## Something good

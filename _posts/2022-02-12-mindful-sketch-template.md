@@ -13,6 +13,7 @@ tags:
 - sketchnotes
 - hand lettering
 - mindfulsketch
+- plan change
 ---
 
 This week I talk about **navigating the emotions of a big plan change**, announce the **release of an exciting project**, and share my discovery of the **power of virtual whiteboarding**.
@@ -24,7 +25,7 @@ _These [weekly updates](https://bennorris.com/tags/weekly-update/) share life wi
 
 ## Something hard
 
-One of the most difficult parts of my week was a major surprise. As I have mentioned before, plan changes are exceptionally difficult for me to handle. My OCD flares up and I feel a great deal of distress.
+One of the most difficult parts of my week was a major surprise. As I have mentioned before, [plan changes](https://bennorris.com/tags/plan-change/) are exceptionally difficult for me to handle. My OCD flares up and I feel a great deal of distress.
 
 With this surprise, I felt strong emotions in addition to the distress that is my constant change companion. I’m not going to share details of the situation, but it was a real challenge for me.
 
