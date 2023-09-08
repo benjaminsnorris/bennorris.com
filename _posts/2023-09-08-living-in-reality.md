@@ -12,7 +12,7 @@ tags:
 - mental health
 ---
 
-My life is filled with impossible contractions. This week brought one of those to the forefront for me.
+My life is filled with impossible contradictions. This week brought one of those to the forefront for me.
 
 ***
 
