@@ -1,0 +1,9 @@
+{
+  "TitleFont" : "OCR-A",
+  "Author" : "Ben Norris",
+  "BodyFont" : "OCR-A",
+  "Version" : 1,
+  "Description" : "Template appropriate for use with Extreme Ownership-related content.",
+  "Css" : "extreme ownership.css",
+  "Name" : "Extreme Ownership"
+}
