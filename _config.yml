@@ -62,6 +62,7 @@ feed:
   tags:
     only:
       - podcast
+      - weekly update
 
 # Exclude from processing.
 exclude:
