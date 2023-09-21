@@ -15,4 +15,8 @@ This is a presentation I was asked to create to deliver to a group of leaders to
 
 One exciting part of this presentation for me was having the opportunity to ask [Jocko](https://bennorris.com/tags/jocko/) and other instructors at [Echelon Front](https://echelonfront.com) for input and advice while preparing.
 
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://bennorris.com/speaking/oct-eo/" frameborder="0"></iframe>
+</div>
+
 [View presentation](/speaking/oct-eo/){:.btn}

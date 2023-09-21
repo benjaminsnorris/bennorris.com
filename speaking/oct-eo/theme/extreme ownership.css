@@ -3,7 +3,7 @@
 /* TYPOGRAPHY   */
 @font-face {
   font-family: ocr-a;
-  src: url(/assets/fonts/OCR-A.ttf) format('ttf');
+  src: url(OCR-A.ttf) format('ttf');
   font-style: normal;
   font-weight: normal;
 }

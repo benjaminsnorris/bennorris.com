@@ -2669,11 +2669,11 @@ section.has-footnotes {
   /*--color-background-dark: #000000;*/
 }
 body {
-  font-family: var(--bodyfont, "Arial"), ui-monospace, system-ui, sans-serif;
+  font-family: var(--bodyfont, "Arial"), Helvetica, sans-serif;
   color: var(--darkbodytextcolor, #000000);
 }
 h1, h2, h3, h4, h5, h6{
-  font-family: var(--titlefont, "Arial"), ui-monospace, system-ui, sans-serif;
+  font-family: var(--titlefont, "Arial"), Helvetica, sans-serif;
   color: var(--darktitletextcolor, #000000);
 }
 ol,
