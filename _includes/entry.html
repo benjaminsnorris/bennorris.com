@@ -26,16 +26,11 @@
   <footer class="entry-meta">
     <ul>
       {% if post.date %}
-        <li>
-          <span class="icon">{% include icon-calendar.svg %}</span>
-          {% unless post.micro %}
-            <time class="entry-time" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-          {% else %}
-            <a href="{{ post.external_url | default: post.url | relative_url }}" rel="bookmark">
-              <time class="entry-time" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-            </a>
-          {% endunless %}
-        </li>
+        {% unless post.micro %}
+          <li><span class="icon">{% include icon-calendar.svg %}</span><time class="entry-time" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></li>
+        {% else %}
+          <li><a class="entry-time" href="{{ post.external_url | default: post.url | relative_url }}" rel="bookmark"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></a></li>
+        {% endunless %}
       {% endif %}
       {% unless post.short or post.micro %}
         {% if post.read_time %}

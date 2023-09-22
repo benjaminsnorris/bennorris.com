@@ -1,5 +1,1 @@
-{% assign included_posts = include.posts | where: "word_count", "true" %}
-{% assign posts_content_items = included_posts | map: "content" %}
-{% assign posts_content = posts_content_items | join: " " %}
-{% assign posts_words = posts_content | number_of_words %}
-{% include number-with-commas.html number=posts_words %} words
+{% assign included_posts = include.posts | where: "word_count", "true" %}{% assign posts_content_items = included_posts | map: "content" %}{% assign posts_content = posts_content_items | join: " " %}{% assign posts_words = posts_content | number_of_words %}<span>{% include number-with-commas.html number=posts_words %} words</span>

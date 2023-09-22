@@ -16,18 +16,8 @@
       <h2>{{ year.name }}</h2>
       <div class="entry-meta">
         <ul>
-          <li class="meta-item">
-              <span>
-                  <span class="icon">{% include icon-bookmark.svg %}</span>
-                  {% include number-with-commas.html number=year.items.size %} {% if year.items.size == 1 %}post{% else %}posts{% endif %}
-              </span>
-          </li>
-          <li class="meta-item">
-              <span>
-                  <span class="icon text">#</span>
-                  {% include number-of-words.html posts=year.items %}
-              </span>
-          </li>
+          <li class="meta-item"><span><span class="icon">{% include icon-bookmark.svg %}</span><span>{% include number-with-commas.html number=year.items.size %} {% if year.items.size == 1 %}post{% else %}posts{% endif %}</span></span></li>
+          <li class="meta-item"><span><span class="icon text">#</span><span>{% include number-of-words.html posts=year.items %}</span></span></li>
         </ul>
       </div>
     {% assign postsInMonth = year.items | group_by_exp: 'post', 'post.date | date: "%b"' %}
@@ -48,21 +38,11 @@
             <h3 class="taxonomy-title">{{ month.name }}</h3>
             <div class="entry-meta">
               <ul>
-                <li class="meta-item">
-                    <span>
-                        <span class="icon">{% include icon-bookmark.svg %}</span>
-                        {% include number-with-commas.html number=month.items.size %} {% if month.items.size == 1 %}post{% else %}posts{% endif %}
-                    </span>
-                </li>
-                <li class="meta-item">
-                    <span>
-                        <span class="icon text">#</span>
-                        {% include number-of-words.html posts=month.items %}
-                    </span>
-                </li>
+                <li class="meta-item"><span><span class="icon">{% include icon-bookmark.svg %}</span><span>{% include number-with-commas.html number=month.items.size %} {% if month.items.size == 1 %}post{% else %}posts{% endif %}</span></span></li>
+                <li class="meta-item"><span class="icon text">#</span>{% include number-of-words.html posts=month.items %}</li>
               </ul>
             </div>
-                </div>
+          </div>
           {% for post in month.items %}
             {% include archive-entry.html %}
           {% endfor %}

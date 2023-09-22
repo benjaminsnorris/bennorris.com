@@ -18,10 +18,7 @@
   </header>
   <footer class="entry-meta">
     {% if post.date %}
-      <span class="byline-item">
-        <span class="icon">{% include icon-calendar.svg %}</span>
-        <time class="entry-time" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-      </span>
+      <span class="byline-item"><span class="icon">{% include icon-calendar.svg %}</span><time class="entry-time" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></span>
     {% endif %}
     {% unless post.short or post.micro %}
       {% if post.read_time %}
@@ -31,11 +28,7 @@
       {% endif %}
     {% endunless %}
     {% if post.word_count %}
-      <span class="byline-item">
-        <span class="icon text">#</span>
-        {% assign post_words = post.content | number_of_words %}
-        {% include number-with-commas.html number=post_words %} words
-      </span>
+      <span class="byline-item"><span class="icon text">#</span><span>{% assign post_words = post.content | number_of_words %}{% include number-with-commas.html number=post_words %} words</span></span>
     {% endif %}
     {% if post.categories.size > 0 %}
       {% for category in post.categories %}
