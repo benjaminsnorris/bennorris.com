@@ -4,7 +4,7 @@ date: 2023-09-22 04:56:00-0600
 category: Balanced Ownership
 tags:
 - leadership
-- weekly update
+- weekly
 - extreme ownership
 - jocko
 image: 
