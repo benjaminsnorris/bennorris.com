@@ -41,3 +41,24 @@
     }
   }
 }
+
+.entry-content .contact-link {
+  border-bottom: none;
+
+  .icon {
+    margin-right: 0.25em;
+
+    &.icon--email {
+      fill: $accent-color;
+    }
+  }
+
+  .label {
+    border-bottom: 1px dotted $accent-color;
+  
+    &:hover {
+      border-bottom-color: shade($accent-color, 25%);
+    }
+  }
+
+}

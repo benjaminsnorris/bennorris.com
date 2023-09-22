@@ -1,11 +1,6 @@
 <ul class="contact-list">
     {% if site.email %}
-      <li>
-        <a href="mailto:{{ site.email }}">
-          <span class="icon icon--email">{% include icon-email.svg %}</span>
-          <span class="label">{{ site.data.theme.t.email | default: 'Email' }}</span>
-        </a>
-      </li>
+      <li>{% include icon-email.html email=site.email %}</li>
     {% endif %}
   
     {% if site.linkedin_username %}
@@ -25,10 +20,7 @@
     {% endif %}
   
     <li>
-        <a href="/subscribe/" title="Subscribe">
-          <span class="icon" style="fill: #268bd2;">{% include icon-rss.svg %}</span>
-          <span class="label">Subscribe</span>
-        </a>
+        <a class="contact-link" href="/subscribe/" title="Subscribe"><span class="icon" style="fill: #268bd2;">{% include icon-rss.svg %}</span><span class="label">Subscribe</span></a>
     </li>
   </ul>
   
