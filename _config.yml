@@ -60,6 +60,7 @@ feed:
     - Gospel Sketcher
     - Sketchnotable
   tags:
+    path: "feed/"
     only:
       - weekly
       - podcast
