@@ -14,10 +14,10 @@ layout: default
           <ul>
             <!-- Previous: {{ page.previous.url }} Next: {{ page.next.url }} -->
             {% if page.previous.url %}
-              <li><a href="{{ page.previous.url | relative_url }}" class="previous"><span class="icon icon--arrow-right">{% include icon-arrow-left.svg %}</span><span class="link-text">{% if page.previous.micro %}Microblog post{% else %}{{ page.previous.title }}{% endif %}</span></a></li>
+              <li><a href="{{ page.previous.url | relative_url }}" class="previous"><span class="icon icon--arrow-right">{% include icon-arrow-left.svg %}</span><span class="link-text">{{ page.previous.title }}</span></a></li>
             {% endif %}
             {% if page.next.url %}
-              <li><a href="{{ page.next.url | relative_url }}" class="next"><span class="link-text">{% if page.next.micro %}Microblog post{% else %}{{ page.next.title }}{% endif %}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></li>
+              <li><a href="{{ page.next.url | relative_url }}" class="next"><span class="link-text">{{ page.next.title }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></li>
             {% endif %}
           </ul>
         </nav>
