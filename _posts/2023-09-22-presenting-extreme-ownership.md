@@ -6,6 +6,7 @@ tags:
 - leadership
 - weekly
 - extreme ownership
+- presentation
 - jocko
 image: 
   path: https://media.bennorris.com/images/balancedownership/posts/extreme-ownership-course.jpeg
