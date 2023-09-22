@@ -3,9 +3,16 @@
 /* TYPOGRAPHY   */
 @font-face {
   font-family: ocr-a;
-  src: url(OCR-A.ttf) format('ttf');
+  src: url(/assets/fonts/OCR-A.ttf);
   font-style: normal;
   font-weight: normal;
+}
+
+@font-face {
+  font-family: ocr-a;
+  src: url(/assets/fonts/OCR-A.ttf);
+  font-style: normal;
+  font-weight: bold;
 }
 
 :root {
