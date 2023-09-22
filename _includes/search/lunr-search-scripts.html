@@ -86,7 +86,11 @@
             })
           });
         resultdiv.empty();
-        resultdiv.prepend('<p id="results-count" class="results-found">' + result.length + ' {{ site.data.theme.t.results_found | default: "Result(s) found" }}</p>');
+        if (result.length != 1) {
+          resultdiv.prepend('<p id="results-count" class="results-found">' + result.length + ' {{ site.data.theme.t.results_found | default: "Results found" }}</p>');
+        } else {
+          resultdiv.prepend('<p id="results-count" class="results-found">' + result.length + ' {{ site.data.theme.t.result_found | default: "Result found" }}</p>');
+        }
         for (var item in result) {
           var ref = result[item].ref;
           var searchitem =
@@ -95,7 +99,7 @@
                 '<a href="' + store[ref].url + '">' + store[ref].title + '</a>' +
               '</h3>' +
               '<div class="entry-excerpt">' +
-                '<p>' + store[ref].excerpt.split(" ").splice(0, 20).join(" ") + '...</p>' +
+                '<p>' + store[ref].excerpt.split(" ").splice(0, 20).join(" ") + '…</p>' +
               '</div>' +
             '</article>';
           resultdiv.append(searchitem);

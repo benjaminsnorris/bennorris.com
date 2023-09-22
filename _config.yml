@@ -43,6 +43,7 @@ category_archive_path: /
 # Build settings
 markdown: kramdown
 search: true
+search_full_content: true
 plugins: # previsously gems
   - jekyll-seo-tag
   - jekyll-sitemap
