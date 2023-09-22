@@ -2,6 +2,8 @@
 title: "Presentation Recreation"
 date: 2011-12-09 16:39:10-0700
 category: General
+tags:
+- presentation
 read_time: false
 ---
 

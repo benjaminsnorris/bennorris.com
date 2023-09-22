@@ -2,6 +2,8 @@
 title: "Hand-Drawn Presentation"
 date: 2011-12-22 06:53:06-0700
 category: General
+tags:
+- presentation
 read_time: false
 ---
 

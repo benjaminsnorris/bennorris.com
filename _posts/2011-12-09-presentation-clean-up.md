@@ -2,6 +2,8 @@
 title: "Presentation Clean Up"
 date: 2011-12-09 16:26:19-0700
 category: General
+tags:
+- presentation
 read_time: false
 ---
 

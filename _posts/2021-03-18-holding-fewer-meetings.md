@@ -2,6 +2,8 @@
 title: "Holding fewer meetings"
 date: 2021-03-18 23:47:38-0600
 category: General
+tags:
+- presentation
 ---
 
 People at my work know that I am not a fan of meetings. I put together a presentation about communication principles and how we could have fewer meetings and be more productive.
