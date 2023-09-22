@@ -4,7 +4,7 @@ date: 2023-08-30 20:29:00-0600
 category: Balanced Ownership
 tags:
 - leadership
-- weekly update
+- weekly
 - ocd
 - q&a
 - extreme ownership

@@ -7,7 +7,7 @@ image:
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/just-say-yes.jpg
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 - sketchnotes

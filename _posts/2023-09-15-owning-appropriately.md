@@ -4,7 +4,7 @@ date: 2023-09-15 15:31:29-0600
 category: Balanced Ownership
 tags:
 - leadership
-- weekly update
+- weekly
 - plan change
 - extreme ownership
 

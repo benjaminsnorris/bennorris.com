@@ -2,7 +2,7 @@
 title: "🧠 #39: Out of milk"
 date: 2021-06-16 13:59:15-0600
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 - plan change

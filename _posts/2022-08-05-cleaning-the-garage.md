@@ -3,7 +3,7 @@ title: "🧠 #92: Cleaning the garage"
 date: 2022-08-05 06:42:48-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 - toatc

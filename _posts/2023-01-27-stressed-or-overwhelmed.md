@@ -3,7 +3,7 @@ title: "🧠 #107: Stressed or overwhelmed"
 date: 2023-01-27 11:18:00-0700
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 

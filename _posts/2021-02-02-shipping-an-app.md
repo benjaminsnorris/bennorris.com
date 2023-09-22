@@ -2,7 +2,7 @@
 title: "🧠 #22: Shipping an app"
 date: 2021-02-02 18:40:35-0700
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 - plan change

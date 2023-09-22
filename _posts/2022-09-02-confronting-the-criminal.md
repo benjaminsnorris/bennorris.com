@@ -7,7 +7,7 @@ tags:
 - free writing
 - podcast
 - audio
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - illustration

@@ -6,7 +6,7 @@ image:
   path: https://media.bennorris.com/images/mentalworkhealth/posts/panic-attack-recovery-zone.jpg
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/panic-attack-recovery-zone.jpg
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 - illustration

@@ -2,7 +2,7 @@
 title: "🧠 #19: Laughing at fear"
 date: 2021-01-12 13:19:23-0700
 tags:
-- weekly update
+- weekly
 - ocd
 - scrupulosity
 - mental health

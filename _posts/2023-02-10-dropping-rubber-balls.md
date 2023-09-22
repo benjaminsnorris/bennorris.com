@@ -3,7 +3,7 @@ title: "🧠 #109: Dropping rubber balls"
 date: 2023-02-10 10:32:00-0700
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 ---

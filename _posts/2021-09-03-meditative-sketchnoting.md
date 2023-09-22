@@ -7,7 +7,7 @@ image:
   thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/meditative-sketchnotes.jpg
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 - sketchnotes

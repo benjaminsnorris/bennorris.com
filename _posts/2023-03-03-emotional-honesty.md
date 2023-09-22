@@ -3,7 +3,7 @@ title: "🧠 #112: Emotional honesty"
 date: 2023-03-03 09:07:00-0700
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 - toatc

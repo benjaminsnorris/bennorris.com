@@ -8,7 +8,7 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/mental
 
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - ocd
 - erp
 - mental health

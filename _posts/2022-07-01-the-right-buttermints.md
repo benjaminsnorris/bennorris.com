@@ -8,7 +8,7 @@ gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/the-ri
 
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 - hand lettering

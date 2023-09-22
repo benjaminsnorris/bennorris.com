@@ -6,7 +6,7 @@ tags:
 - ocd
 - jocko
 - podcast clip
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - illustration

@@ -3,7 +3,7 @@ title: "🧠 #108: Extreme Ownership"
 date: 2023-02-03 14:37:00-0700
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 - jocko

@@ -7,7 +7,7 @@ image:
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/disallowed-emotions.jpg
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 - hand lettering

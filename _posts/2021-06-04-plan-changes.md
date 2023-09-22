@@ -2,7 +2,7 @@
 title: "🧠 #37: Plan changes"
 date: 2021-06-04 09:32:19-0600
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 - plan change

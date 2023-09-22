@@ -2,7 +2,7 @@
 title: "🧠 #14: Gratitude and panic"
 date: 2020-11-30 21:11:00-0700
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 category: Mental Work Health

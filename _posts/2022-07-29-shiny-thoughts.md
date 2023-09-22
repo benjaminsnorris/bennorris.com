@@ -3,7 +3,7 @@ title: "🧠 #91: Shiny thoughts"
 date: 2022-07-29 06:05:22-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 - hand lettering

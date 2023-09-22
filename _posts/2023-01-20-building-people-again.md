@@ -3,7 +3,7 @@ title: "🧠 #106: Building people again"
 date: 2023-01-20 12:32:00-0700
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 - free writing

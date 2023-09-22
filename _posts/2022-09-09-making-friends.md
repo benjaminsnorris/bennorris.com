@@ -6,7 +6,7 @@ tags:
 - ocd
 - audio
 - podcast
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - illustration

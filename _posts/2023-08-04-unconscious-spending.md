@@ -4,7 +4,7 @@ date: 2023-08-04 08:52:00-0600
 category: Balanced Ownership
 tags:
 - leadership
-- weekly update
+- weekly
 - extreme ownership
 - jocko
 image: https://media.bennorris.com/images/bennorris/uploads/2020/3ef59003d5.jpg

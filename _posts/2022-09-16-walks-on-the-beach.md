@@ -4,7 +4,7 @@ date: 2022-09-16 06:04:00-0700
 category: Mental Work Health
 tags:
 - ocd
-- weekly update
+- weekly
 - mental health
 - story
 image: 

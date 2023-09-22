@@ -3,7 +3,7 @@ title: "🧠 #104: Distress tolerance homework"
 date: 2022-10-28 07:33:00-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - ocd

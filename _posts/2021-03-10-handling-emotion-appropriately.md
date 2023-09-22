@@ -2,7 +2,7 @@
 title: "🧠 #27: Handling emotion appropriately"
 date: 2021-03-10 12:14:00-0700
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 category: Mental Work Health

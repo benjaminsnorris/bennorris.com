@@ -7,7 +7,7 @@ image:
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/i-have-value.jpg
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 - hand lettering

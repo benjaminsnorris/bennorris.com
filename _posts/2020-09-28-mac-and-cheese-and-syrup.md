@@ -2,7 +2,7 @@
 title: "🧠 #5: Mac and cheese and syrup"
 date: 2020-09-28 16:33:00-0600
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 category: Mental Work Health

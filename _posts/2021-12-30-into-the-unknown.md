@@ -7,7 +7,7 @@ image:
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/into-the-unknown.jpg
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - ocd
 - toatc
 - mental health

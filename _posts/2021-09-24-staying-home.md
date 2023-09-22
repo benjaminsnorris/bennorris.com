@@ -7,7 +7,7 @@ image:
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/stay-at-home-dad.jpg
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - ocd
 - erp
 - mental health

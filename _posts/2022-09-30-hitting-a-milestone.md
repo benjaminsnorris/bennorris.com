@@ -3,7 +3,7 @@ title: "🧠 #100: Hitting a milestone"
 date: 2022-09-30 06:00:00-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - ocd

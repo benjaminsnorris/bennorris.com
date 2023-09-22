@@ -3,7 +3,7 @@ title: "🧠 #102: Xanax & Dr Pepper"
 date: 2022-10-14 06:01:00-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - ocd

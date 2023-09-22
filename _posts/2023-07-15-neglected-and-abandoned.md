@@ -3,7 +3,7 @@ title: "Neglected and abandoned"
 date: 2023-07-15 16:52:00-0600
 category: Balanced Ownership
 tags:
-- weekly update
+- weekly
 - mental health
 - leadership
 - extreme ownership

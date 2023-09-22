@@ -2,7 +2,7 @@
 title: "🧠 #34: Lemon pepper wings"
 date: 2021-05-10 08:40:23-0600
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 - free writing

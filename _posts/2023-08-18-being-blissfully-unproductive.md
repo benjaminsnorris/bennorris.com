@@ -4,7 +4,7 @@ date: 2023-08-18 08:35:20-0600
 category: Balanced Ownership
 tags:
 - leadership
-- weekly update
+- weekly
 - ocd
 - mastermind
 - jocko

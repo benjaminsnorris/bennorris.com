@@ -3,7 +3,7 @@ title: "🧠 #93: Flooding and Dragons"
 date: 2022-08-12 08:27:59-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 - hand lettering

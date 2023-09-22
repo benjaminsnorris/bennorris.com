@@ -2,7 +2,7 @@
 title: "🧠 #36: Cross stitching at work"
 date: 2021-05-26 23:41:11-0600
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 category: Mental Work Health

@@ -2,7 +2,7 @@
 title: "🧠 #25: Talking with strangers"
 date: 2021-02-24 12:22:58-0700
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 category: Mental Work Health

@@ -2,7 +2,7 @@
 title: "🧠 #21: Creating Lego characters"
 date: 2021-01-26 11:31:13-0700
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 category: Mental Work Health

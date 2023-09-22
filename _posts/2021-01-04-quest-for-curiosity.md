@@ -2,7 +2,7 @@
 title: "🧠 #18: Quest for curiosity"
 date: 2021-01-04 21:38:32-0700
 tags:
-- weekly update
+- weekly
 - ocd
 - mental health
 category: Mental Work Health

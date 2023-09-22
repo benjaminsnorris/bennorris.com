@@ -2,7 +2,7 @@
 title: "🧠 #15: Running in circles"
 date: 2020-12-07 15:30:59-0700
 tags:
-- weekly update
+- weekly
 - ocd
 - toatc
 - mental health

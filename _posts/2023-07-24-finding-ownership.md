@@ -3,7 +3,7 @@ title: "Finding ownership"
 date: 2023-07-24 17:12:00-0600
 category: Balanced Ownership
 tags:
-- weekly update
+- weekly
 - jocko
 - leadership
 - extreme ownership

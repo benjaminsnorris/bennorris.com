@@ -4,7 +4,7 @@ date: 2023-09-08 10:07:00-0600
 category: Balanced Ownership
 tags:
 - leadership
-- weekly update
+- weekly
 - ocd
 - plan change
 - free writing

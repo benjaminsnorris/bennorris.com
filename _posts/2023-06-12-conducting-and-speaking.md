@@ -3,7 +3,7 @@ title: "🧠 #113: Conducting and speaking"
 date: 2023-06-12 10:58:00-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 

@@ -3,7 +3,7 @@ title: "🧠 #110: Hierarchy of stress"
 date: 2023-02-17 15:51:00-0700
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 image: https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Maslow%27s_Hierarchy_of_Needs2.svg/1200px-Maslow%27s_Hierarchy_of_Needs2.svg.png

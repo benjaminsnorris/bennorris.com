@@ -3,7 +3,7 @@ title: "🧠 #105: Back to work"
 date: 2022-11-04 08:22:00-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - ocd

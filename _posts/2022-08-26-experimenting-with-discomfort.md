@@ -5,7 +5,7 @@ category: Mental Work Health
 tags:
 - ocd
 - jocko
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - illustration

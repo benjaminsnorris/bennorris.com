@@ -3,7 +3,7 @@ title: "🧠 #103: Pipes and puzzles"
 date: 2022-10-21 08:47:00-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - illustration

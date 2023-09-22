@@ -3,7 +3,7 @@ title: "🧠 #101: Tapering off everything"
 date: 2022-10-07 06:00:00-0600
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - hand lettering
 - illustration

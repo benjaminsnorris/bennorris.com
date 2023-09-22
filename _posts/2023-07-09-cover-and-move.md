@@ -3,7 +3,7 @@ title: "Cover and Move"
 date: 2023-07-09 20:13:00-0600
 category: Balanced Ownership
 tags:
-- weekly update
+- weekly
 - jocko
 - extreme ownership
 - leadership

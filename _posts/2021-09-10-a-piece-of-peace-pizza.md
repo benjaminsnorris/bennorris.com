@@ -7,7 +7,7 @@ image:
 gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/piece-of-peace-pizza.jpg
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - ocd
 - erp
 - toatc

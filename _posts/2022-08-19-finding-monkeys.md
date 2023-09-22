@@ -5,7 +5,7 @@ category: Mental Work Health
 tags:
 - ocd
 - video
-- weekly update
+- weekly
 - mental health
 - illustration
 - hand lettering

@@ -3,7 +3,7 @@ title: "🧠 #90: Weighted jacket"
 date: 2022-07-22 10:41:47-0400
 category: Mental Work Health
 tags:
-- weekly update
+- weekly
 - mental health
 - ocd
 - illustration
