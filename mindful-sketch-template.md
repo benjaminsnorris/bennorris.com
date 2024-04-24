@@ -5,7 +5,7 @@ permalink: /mindful-sketch-template/
 image: https://media.bennorris.com/images/bennorris/mindful-sketch-template.jpg
 ---
 
-<a href="https://bennorris.shop/l/mindfulsketch" class="btn"><span class="icon">{% include icon-cart.svg %}</span>Buy template</a>
+<a href="https://shop.bennorris.com/l/mindfulsketch" class="btn"><span class="icon">{% include icon-cart.svg %}</span>Buy template</a>
 
 In 2018, I discovered the world of mental health as I started having panic attacks, met with a therapist for the first time, and learned that I have severe OCD. Since then, I have been on a journey of recovery, healing, outreach, and advocacy. Now, I [write regularly](https://bennorris.com/mental-work-health/) about mental health, especially in the context of the workplace.
 
@@ -15,4 +15,4 @@ The Mindful Sketch Template came out of a desire to combine these two worlds. Ma
 
 I drew a version of this template and started using it myself, iterating and adapting over a few months. As I settled in to a daily practice, I found the prompts helpful to guide my self-reflection. I hope that it will be as beneficial to you as it has to me.
 
-<a href="https://bennorris.shop/l/mindfulsketch" class="btn"><span class="icon">{% include icon-cart.svg %}</span>Buy now</a>
+<a href="https://shop.bennorris.com/l/mindfulsketch" class="btn"><span class="icon">{% include icon-cart.svg %}</span>Buy now</a>
