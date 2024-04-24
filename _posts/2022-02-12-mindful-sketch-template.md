@@ -54,7 +54,7 @@ Rarely am I feeling only the most prominent emotion that I notice in my body. Ta
 
 I am thrilled to have the template packaged up in a consumable format, complete with instructions and examples. If this is something you would like to try, or think could help you, please consider supporting me and purchasing the template.
 
-<a href="https://bennorris.shop/l/mindfulsketch" class="btn"><span class="icon">{% include icon-cart.svg %}</span>Buy now</a>
+<a href="https://shop.bennorris.com/l/mindfulsketch" class="btn"><span class="icon">{% include icon-cart.svg %}</span>Buy now</a>
 
 
 
