@@ -1,6 +1,6 @@
 ---
 title: Shop
 layout: redirected
-redirect_to: https://bennorris.shop
+redirect_to: https://shop.bennorris.com
 external: true
 ---
