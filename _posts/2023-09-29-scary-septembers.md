@@ -13,6 +13,8 @@ tags:
 
 This week brought a renewed focus on the importance of tending to my mental health.
 
+_These [weekly updates](https://bennorris.com/tags/weekly-update/) share life with [OCD](https://bennorris.com/tags/ocd/) as part of my [Mental Work Health](https://bennorris.com/mental-work-health/) project to reduce stigma around mental health, especially at work._
+
 ***
 
 Maybe there’s something about this time of year. It seems that often in September, my [OCD](https://bennorris.com/tags/ocd/) flares and I struggle a bit.
