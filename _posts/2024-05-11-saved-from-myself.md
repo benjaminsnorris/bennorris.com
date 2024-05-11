@@ -5,6 +5,7 @@ category: Mental Work Health
 tags:
 - mental health
 - weekly
+- lego
 ---
 
 On my way to pick up the middles from Nature School, I stopped at the store. I bought some notebooks for journaling and almost got a new LEGO set, in violation of my self-imposed (and therapist-supported) ban on buying or building new sets.

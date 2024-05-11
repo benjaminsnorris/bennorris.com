@@ -13,6 +13,7 @@ tags:
 - sketchnotes
 - illustration
 - hand lettering
+- lego
 ---
 
 This week I share the challenges of a **single-hobby lifestyle**, **owning the dishes**, and an **exciting announcement**.

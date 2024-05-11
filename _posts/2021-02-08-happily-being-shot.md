@@ -6,6 +6,7 @@ tags:
 - ocd
 - erp
 - mental health
+- lego
 category: Mental Work Health
 ---
 

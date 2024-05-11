@@ -6,6 +6,7 @@ tags:
 - ocd
 - mental health
 - plan change
+- lego
 category: Mental Work Health
 ---
 

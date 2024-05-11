@@ -5,6 +5,7 @@ tags:
 - weekly
 - ocd
 - mental health
+- lego
 category: Mental Work Health
 ---
 

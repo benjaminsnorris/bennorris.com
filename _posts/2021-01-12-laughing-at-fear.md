@@ -6,6 +6,7 @@ tags:
 - ocd
 - scrupulosity
 - mental health
+- lego
 category: Mental Work Health
 ---
 

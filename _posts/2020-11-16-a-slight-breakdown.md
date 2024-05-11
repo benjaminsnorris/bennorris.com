@@ -7,6 +7,7 @@ tags:
 - scrupulosity
 - mental health
 - free writing
+- lego
 category: Mental Work Health
 ---
 
