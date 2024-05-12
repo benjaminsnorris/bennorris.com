@@ -1,5 +1,5 @@
 ---
-title: "🧠 #114: Saved from myself"
+title: "Saved from myself"
 date: 2024-05-11 13:18:00-0600
 category: Mental Work Health
 tags:
