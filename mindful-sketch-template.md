@@ -2,7 +2,7 @@
 layout: page
 title: Mindful Sketch Template
 permalink: /mindful-sketch-template/
-image: https://media.bennorris.com/images/bennorris/mindful-sketch-template.jpg
+image: https://media.bennorris.com/images/bennorris/mindful-sketch-template.png
 ---
 
 <a href="https://shop.bennorris.com/l/mindfulsketch" class="btn"><span class="icon">{% include icon-cart.svg %}</span>Buy template</a>
@@ -13,6 +13,6 @@ In 2018, I discovered the world of mental health as I started having panic attac
 
 The Mindful Sketch Template came out of a desire to combine these two worlds. Many people, such as myself, would like to engage in mindfulness practices like meditation, but find it difficult. Engaging more of your body in an active way can help quiet and focus your mind.
 
-I drew a version of this template and started using it myself, iterating and adapting over a few months. As I settled in to a daily practice, I found the prompts helpful to guide my self-reflection. I hope that it will be as beneficial to you as it has to me.
+I drew a version of this template and started using it myself, iterating and adapting over a few months. As I settled in to a regular practice, I found the prompts helpful to guide my self-reflection. I hope that it will be as beneficial to you as it has to me.
 
 <a href="https://shop.bennorris.com/l/mindfulsketch" class="btn"><span class="icon">{% include icon-cart.svg %}</span>Buy now</a>
