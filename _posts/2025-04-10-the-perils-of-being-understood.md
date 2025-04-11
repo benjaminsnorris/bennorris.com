@@ -1,6 +1,6 @@
 ---
 title: "The Perils of Being Understood"
-date: 2024-04-10 20:48:00-0600
+date: 2025-04-10 20:58:00-0600
 category: Mental Work Health
 tags:
 - mental health
