@@ -30,15 +30,8 @@ t:
 # pages that have a `title`. Add raw page paths in the order you'd like.
 
 navigation_pages:
-  - categories/balanced-ownership.md
-  - categories/mentalworkhealth.md
-  - categories/gospelsketcher.md
-  - categories/mindfulsketch.md
-  - categories/sketchnotable.md
   - archive.md
   - speaking.md
   - design.md
-  - micro.md
-  - apps.md
   - shop/index.md
   - now.md
