@@ -8,9 +8,9 @@ tags:
 - illustration
 - ocd
 image: 
-  path: https://media.bennorris.com/images/mentalworkhealth/posts/accountable-grace.PNG
-  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/accountable-grace.PNG
-gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/accountable-grace.PNG
+  path: https://media.bennorris.com/images/mentalworkhealth/posts/accountable-grace.JPG
+  thumbnail: https://media.bennorris.com/images/mentalworkhealth/posts/thumbnails/accountable-grace.JPG
+gallery_thumb: https://media.bennorris.com/images/mentalworkhealth/thumbs/accountable-grace.JPG
 ---
 
 “What could I do for you right now?” I froze. My mind spun, searching. Then I found a need I didn’t know I had: “Offer me **accountable grace**.”
