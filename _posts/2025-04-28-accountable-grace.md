@@ -27,7 +27,7 @@ Then I paused. Longing for patience and understanding clashed with guilt and sha
 
 “My second request is **accountable grace**.”
 
-I explained that I would need grace. I asked him to assume good intent and offer the benefit of the doubt. I knew I’d likely snap in irritation again, and I asked for patience.
+I explained that I would need grace. I asked him to assume good intent and offer the benefit of the doubt. I knew I’d likely struggle again, and I asked for patience.
 
 At the same time, I wanted accountability. If he can point out [verbal violence](https://bennorris.com/2021/05/03/verbal-violence), I can pause, reset, and repair.
 
