@@ -1,0 +1,1237 @@
+import React, { useState, useReducer, useEffect, useCallback, useRef } from ‘react’;
+import { Trophy, Crown, Medal, Award, GripVertical, Check, Lock, AlertTriangle, Skull, Shield, ShieldCheck, Plus, Trash2, Settings, RotateCcw, Share2, Dices, Volume2, VolumeX, Sun, Moon, Play, Users, X, ChevronRight, Sparkles } from ‘lucide-react’;
+
+// ============ THEME COLORS ============
+const colors = {
+light: {
+bg: ‘bg-gradient-to-b from-emerald-50 to-teal-50’,
+header: ‘bg-gradient-to-r from-emerald-600 to-teal-600’,
+card: ‘bg-white’,
+cardAlt: ‘bg-slate-50’,
+cardHover: ‘hover:bg-slate-100’,
+text: ‘text-slate-800’,
+textMuted: ‘text-slate-500’,
+textAccent: ‘text-emerald-600’,
+border: ‘border-slate-200’,
+input: ‘bg-slate-50’,
+button: ‘bg-slate-100’,
+buttonHover: ‘hover:bg-slate-200’,
+safeZone: ‘bg-gradient-to-br from-emerald-100 to-teal-100’,
+dangerZone: ‘bg-gradient-to-br from-amber-100 to-orange-100’,
+modal: ‘bg-white’,
+},
+dark: {
+bg: ‘bg-gradient-to-b from-slate-900 to-slate-800’,
+header: ‘bg-gradient-to-r from-emerald-700 to-teal-700’,
+card: ‘bg-slate-800’,
+cardAlt: ‘bg-slate-700’,
+cardHover: ‘hover:bg-slate-600’,
+text: ‘text-white’,
+textMuted: ‘text-slate-400’,
+textAccent: ‘text-emerald-400’,
+border: ‘border-slate-700’,
+input: ‘bg-slate-700’,
+button: ‘bg-slate-700’,
+buttonHover: ‘hover:bg-slate-600’,
+safeZone: ‘bg-gradient-to-br from-emerald-900/40 to-teal-900/40’,
+dangerZone: ‘bg-gradient-to-br from-amber-900/40 to-orange-900/40’,
+modal: ‘bg-slate-800’,
+}
+};
+
+// ============ CONSTANTS ============
+const ROUND_OPTIONS = [10, 15, 20];
+const MAX_PLAYERS = 20;
+const MIN_PLAYERS = 2;
+
+// ============ GAME REDUCER ============
+const initialGameState = {
+phase: ‘setup’,
+players: [],
+roundConfig: 20,
+currentRound: 1,
+rollCount: 0,
+bankTotal: 0,
+currentPlayerIndex: 0,
+lastRoll: null,
+lastRollEffect: null,
+history: [],
+stats: {
+totalSevens: 0,
+totalDoubles: 0,
+biggestBank: 0,
+biggestBankPlayer: null,
+},
+settings: {
+virtualDice: true,
+soundEnabled: false,
+darkMode: false,
+},
+};
+
+function gameReducer(state, action) {
+switch (action.type) {
+case ‘ADD_PLAYER’: {
+if (state.players.length >= MAX_PLAYERS) return state;
+return {
+…state,
+players: […state.players, {
+id: Date.now(),
+name: action.name,
+cumulativeScore: 0,
+roundScore: null,
+hasBanked: false,
+}],
+};
+}
+case ‘REMOVE_PLAYER’: {
+return {
+…state,
+players: state.players.filter(p => p.id !== action.id),
+};
+}
+case ‘SET_ROUND_CONFIG’: {
+return { …state, roundConfig: action.rounds };
+}
+case ‘TOGGLE_SETTING’: {
+return {
+…state,
+settings: { …state.settings, [action.setting]: !state.settings[action.setting] },
+};
+}
+case ‘START_GAME’: {
+return {
+…state,
+phase: ‘playing’,
+currentRound: 1,
+rollCount: 0,
+bankTotal: 0,
+currentPlayerIndex: 0,
+lastRoll: null,
+lastRollEffect: null,
+players: state.players.map(p => ({
+…p, cumulativeScore: 0, roundScore: null, hasBanked: false,
+})),
+history: [],
+stats: { totalSevens: 0, totalDoubles: 0, biggestBank: 0, biggestBankPlayer: null },
+};
+}
+case ‘ROLL’: {
+const { die1, die2 } = action;
+const sum = die1 + die2;
+const isDoubles = die1 === die2;
+const isSeven = sum === 7;
+const isInSafeZone = state.rollCount < 3;
+const newRollCount = state.rollCount + 1;
+
+```
+  let newBankTotal = state.bankTotal;
+  let rollEffect = null;
+  let newPhase = state.phase;
+  let newStats = { ...state.stats };
+  
+  if (isSeven) {
+    newStats.totalSevens++;
+    if (isInSafeZone) {
+      newBankTotal += 70;
+      rollEffect = '+70';
+    } else {
+      rollEffect = 'BUST!';
+      newPhase = 'roundEnd';
+    }
+  } else if (isDoubles) {
+    newStats.totalDoubles++;
+    if (isInSafeZone) {
+      // In safe zone, doubles are just regular points
+      newBankTotal += sum;
+      rollEffect = `+${sum}`;
+    } else {
+      // In danger zone, doubles multiply the bank
+      newBankTotal *= 2;
+      rollEffect = '×2';
+    }
+  } else {
+    newBankTotal += sum;
+    rollEffect = `+${sum}`;
+  }
+  
+  let nextPlayerIndex = state.currentPlayerIndex;
+  const activePlayers = state.players.filter(p => !p.hasBanked);
+  if (activePlayers.length > 0 && newPhase !== 'roundEnd') {
+    const currentActiveIndex = activePlayers.findIndex(
+      p => p.id === state.players[state.currentPlayerIndex]?.id
+    );
+    const nextActiveIndex = (currentActiveIndex + 1) % activePlayers.length;
+    nextPlayerIndex = state.players.findIndex(
+      p => p.id === activePlayers[nextActiveIndex].id
+    );
+  }
+  
+  const historyEntry = {
+    type: 'roll',
+    prevState: {
+      bankTotal: state.bankTotal,
+      rollCount: state.rollCount,
+      currentPlayerIndex: state.currentPlayerIndex,
+      stats: state.stats,
+    },
+  };
+  
+  return {
+    ...state,
+    rollCount: newRollCount,
+    bankTotal: newBankTotal,
+    lastRoll: { die1, die2 },
+    lastRollEffect: rollEffect,
+    currentPlayerIndex: nextPlayerIndex,
+    phase: newPhase,
+    stats: newStats,
+    history: [...state.history, historyEntry],
+  };
+}
+case 'KEYPAD_INPUT': {
+  // For keypad input, we receive explicit sum, isDoubles, and isSeven flags
+  const { sum, isDoubles, isSeven } = action;
+  const isInSafeZone = state.rollCount < 3;
+  const newRollCount = state.rollCount + 1;
+  
+  let newBankTotal = state.bankTotal;
+  let rollEffect = null;
+  let newPhase = state.phase;
+  let newStats = { ...state.stats };
+  
+  if (isSeven) {
+    newStats.totalSevens++;
+    if (isInSafeZone) {
+      newBankTotal += 70;
+      rollEffect = '+70';
+    } else {
+      rollEffect = 'BUST!';
+      newPhase = 'roundEnd';
+    }
+  } else if (isDoubles) {
+    newStats.totalDoubles++;
+    // Doubles only matter in danger zone
+    newBankTotal *= 2;
+    rollEffect = '×2';
+  } else {
+    newBankTotal += sum;
+    rollEffect = `+${sum}`;
+  }
+  
+  let nextPlayerIndex = state.currentPlayerIndex;
+  const activePlayers = state.players.filter(p => !p.hasBanked);
+  if (activePlayers.length > 0 && newPhase !== 'roundEnd') {
+    const currentActiveIndex = activePlayers.findIndex(
+      p => p.id === state.players[state.currentPlayerIndex]?.id
+    );
+    const nextActiveIndex = (currentActiveIndex + 1) % activePlayers.length;
+    nextPlayerIndex = state.players.findIndex(
+      p => p.id === activePlayers[nextActiveIndex].id
+    );
+  }
+  
+  const historyEntry = {
+    type: 'roll',
+    prevState: {
+      bankTotal: state.bankTotal,
+      rollCount: state.rollCount,
+      currentPlayerIndex: state.currentPlayerIndex,
+      stats: state.stats,
+    },
+  };
+  
+  return {
+    ...state,
+    rollCount: newRollCount,
+    bankTotal: newBankTotal,
+    lastRoll: null,
+    lastRollEffect: rollEffect,
+    currentPlayerIndex: nextPlayerIndex,
+    phase: newPhase,
+    stats: newStats,
+    history: [...state.history, historyEntry],
+  };
+}
+case 'BANK_PLAYERS': {
+  const { playerIds } = action;
+  let newStats = { ...state.stats };
+  
+  const newPlayers = state.players.map(p => {
+    if (playerIds.includes(p.id) && !p.hasBanked) {
+      if (state.bankTotal > newStats.biggestBank) {
+        newStats.biggestBank = state.bankTotal;
+        newStats.biggestBankPlayer = p.name;
+      }
+      return { ...p, roundScore: state.bankTotal, hasBanked: true };
+    }
+    return p;
+  });
+  
+  const allBanked = newPlayers.every(p => p.hasBanked);
+  
+  let nextPlayerIndex = state.currentPlayerIndex;
+  const activePlayers = newPlayers.filter(p => !p.hasBanked);
+  if (activePlayers.length > 0) {
+    nextPlayerIndex = newPlayers.findIndex(p => p.id === activePlayers[0].id);
+  }
+  
+  return {
+    ...state,
+    players: newPlayers,
+    phase: allBanked ? 'roundEnd' : state.phase,
+    currentPlayerIndex: nextPlayerIndex,
+    stats: newStats,
+    history: [...state.history, { type: 'bank', prevPlayers: state.players, prevStats: state.stats, playerIds }],
+  };
+}
+case 'END_ROUND': {
+  const newPlayers = state.players.map(p => ({
+    ...p,
+    cumulativeScore: p.cumulativeScore + (p.roundScore || 0),
+    roundScore: null,
+    hasBanked: false,
+  }));
+  
+  const isGameOver = state.currentRound >= state.roundConfig;
+  
+  return {
+    ...state,
+    players: newPlayers,
+    phase: isGameOver ? 'gameOver' : 'playing',
+    currentRound: isGameOver ? state.currentRound : state.currentRound + 1,
+    rollCount: 0,
+    bankTotal: 0,
+    currentPlayerIndex: 0,
+    lastRoll: null,
+    lastRollEffect: null,
+    history: [],
+  };
+}
+case 'UNDO': {
+  if (state.history.length === 0) return state;
+  const lastEntry = state.history[state.history.length - 1];
+  const newHistory = state.history.slice(0, -1);
+  
+  if (lastEntry.type === 'roll') {
+    return {
+      ...state,
+      bankTotal: lastEntry.prevState.bankTotal,
+      rollCount: lastEntry.prevState.rollCount,
+      currentPlayerIndex: lastEntry.prevState.currentPlayerIndex,
+      stats: lastEntry.prevState.stats,
+      lastRoll: null,
+      lastRollEffect: null,
+      phase: 'playing',
+      history: newHistory,
+    };
+  } else if (lastEntry.type === 'bank') {
+    return {
+      ...state,
+      players: lastEntry.prevPlayers,
+      stats: lastEntry.prevStats,
+      phase: 'playing',
+      history: newHistory,
+    };
+  }
+  return state;
+}
+case 'NEW_GAME_SAME_PLAYERS': {
+  return {
+    ...state,
+    phase: 'playing',
+    currentRound: 1,
+    rollCount: 0,
+    bankTotal: 0,
+    currentPlayerIndex: 0,
+    lastRoll: null,
+    lastRollEffect: null,
+    players: state.players.map(p => ({
+      ...p, cumulativeScore: 0, roundScore: null, hasBanked: false,
+    })),
+    history: [],
+    stats: { totalSevens: 0, totalDoubles: 0, biggestBank: 0, biggestBankPlayer: null },
+  };
+}
+case 'NEW_GAME': {
+  return { ...initialGameState, settings: state.settings };
+}
+default:
+  return state;
+```
+
+}
+}
+
+// ============ COMPONENTS ============
+
+function AnimatedNumber({ value, className = ‘’ }) {
+const [displayValue, setDisplayValue] = useState(value);
+const prevValue = useRef(value);
+
+useEffect(() => {
+if (prevValue.current !== value) {
+const start = prevValue.current;
+const end = value;
+const duration = 400;
+const startTime = Date.now();
+
+```
+  const animate = () => {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    setDisplayValue(Math.round(start + (end - start) * eased));
+    if (progress < 1) requestAnimationFrame(animate);
+  };
+  
+  requestAnimationFrame(animate);
+  prevValue.current = value;
+}
+```
+
+}, [value]);
+
+return <span className={className}>{displayValue}</span>;
+}
+
+function Die({ value, rolling, size = 80, darkMode }) {
+const pipPositions = {
+1: [[50, 50]],
+2: [[25, 25], [75, 75]],
+3: [[25, 25], [50, 50], [75, 75]],
+4: [[25, 25], [75, 25], [25, 75], [75, 75]],
+5: [[25, 25], [75, 25], [50, 50], [25, 75], [75, 75]],
+6: [[25, 25], [75, 25], [25, 50], [75, 50], [25, 75], [75, 75]],
+};
+
+const pips = pipPositions[value] || [];
+
+return (
+<div
+className={`relative rounded-xl shadow-lg transition-all duration-300 ${rolling ? 'animate-pulse' : ''}`}
+style={{
+width: size,
+height: size,
+background: darkMode ? ‘linear-gradient(135deg, #e2e8f0, #cbd5e1)’ : ‘linear-gradient(135deg, #ffffff, #f1f5f9)’,
+transform: rolling ? ‘rotate(5deg)’ : ‘rotate(0deg)’,
+}}
+>
+{pips.map(([x, y], i) => (
+<div
+key={i}
+className=“absolute rounded-full”
+style={{
+left: `${x}%`,
+top: `${y}%`,
+width: size * 0.15,
+height: size * 0.15,
+background: ‘#1e293b’,
+transform: ‘translate(-50%, -50%)’,
+}}
+/>
+))}
+</div>
+);
+}
+
+function VirtualDice({ onRoll, disabled, darkMode }) {
+const [rolling, setRolling] = useState(false);
+const [dice, setDice] = useState([1, 1]);
+const [showResult, setShowResult] = useState(false);
+
+const handleRoll = useCallback(() => {
+if (disabled || rolling) return;
+
+```
+setRolling(true);
+setShowResult(false);
+
+let count = 0;
+const interval = setInterval(() => {
+  setDice([
+    Math.floor(Math.random() * 6) + 1,
+    Math.floor(Math.random() * 6) + 1,
+  ]);
+  count++;
+  if (count > 15) {
+    clearInterval(interval);
+    const finalDie1 = Math.floor(Math.random() * 6) + 1;
+    const finalDie2 = Math.floor(Math.random() * 6) + 1;
+    setDice([finalDie1, finalDie2]);
+    setRolling(false);
+    setShowResult(true);
+    
+    setTimeout(() => {
+      onRoll(finalDie1, finalDie2);
+      setShowResult(false);
+    }, 500);
+  }
+}, 60);
+```
+
+}, [disabled, rolling, onRoll]);
+
+return (
+<div className="flex flex-col items-center gap-4">
+<button
+onClick={handleRoll}
+disabled={disabled || rolling}
+className={`flex gap-4 p-6 rounded-2xl transition-all duration-300 ${ disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-105 active:scale-95' }`}
+style={{
+background: darkMode
+? ‘linear-gradient(135deg, #334155, #1e293b)’
+: ‘linear-gradient(135deg, #ecfdf5, #f0fdfa)’,
+}}
+>
+<Die value={dice[0]} rolling={rolling} darkMode={darkMode} />
+<Die value={dice[1]} rolling={rolling} darkMode={darkMode} />
+</button>
+{/* Fixed height spacer to prevent layout shift */}
+<div className="h-6" />
+</div>
+);
+}
+
+function SafeZoneKeypad({ onInput, disabled, darkMode }) {
+const c = darkMode ? colors.dark : colors.light;
+
+return (
+<div className="w-full max-w-md mx-auto px-2">
+<div className="grid grid-cols-5 gap-2 mb-2">
+{[2, 3, 4, 5, 6].map(num => (
+<button
+key={num}
+onClick={() => onInput(num)}
+disabled={disabled}
+className={`h-14 rounded-xl text-xl font-bold shadow-md active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${c.card} ${c.text} ${c.cardHover}`}
+>
+{num}
+</button>
+))}
+</div>
+<div className="grid grid-cols-5 gap-2 mb-2">
+{[8, 9, 10, 11, 12].map(num => (
+<button
+key={num}
+onClick={() => onInput(num)}
+disabled={disabled}
+className={`h-14 rounded-xl text-xl font-bold shadow-md active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${c.card} ${c.text} ${c.cardHover}`}
+>
+{num}
+</button>
+))}
+</div>
+<button
+onClick={() => onInput(7, true)}
+disabled={disabled}
+className=“w-full h-14 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-xl font-bold shadow-md hover:from-emerald-400 hover:to-emerald-500 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2”
+>
+<span>7</span>
+<span className="text-sm font-normal opacity-90">+70</span>
+</button>
+</div>
+);
+}
+
+function DangerZoneKeypad({ onInput, disabled, darkMode }) {
+const c = darkMode ? colors.dark : colors.light;
+
+return (
+<div className="w-full max-w-md mx-auto px-2">
+<div className="grid grid-cols-4 gap-2 mb-2">
+{[3, 4, 5, 6].map(num => (
+<button
+key={num}
+onClick={() => onInput(num)}
+disabled={disabled}
+className={`h-14 rounded-xl text-xl font-bold shadow-md active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${c.card} ${c.text} ${c.cardHover}`}
+>
+{num}
+</button>
+))}
+</div>
+<div className="grid grid-cols-4 gap-2 mb-2">
+{[8, 9, 10, 11].map(num => (
+<button
+key={num}
+onClick={() => onInput(num)}
+disabled={disabled}
+className={`h-14 rounded-xl text-xl font-bold shadow-md active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${c.card} ${c.text} ${c.cardHover}`}
+>
+{num}
+</button>
+))}
+</div>
+<div className="grid grid-cols-2 gap-2">
+<button
+onClick={() => onInput(‘doubles’)}
+disabled={disabled}
+className=“h-14 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-white text-lg font-bold shadow-md hover:from-amber-300 hover:to-amber-400 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2”
+>
+<Sparkles className="w-5 h-5" />
+<span>Doubles ×2</span>
+</button>
+<button
+onClick={() => onInput(7, true)}
+disabled={disabled}
+className=“h-14 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white text-lg font-bold shadow-md hover:from-red-400 hover:to-red-500 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2”
+>
+<Skull className="w-5 h-5" />
+<span>7 Bust</span>
+</button>
+</div>
+</div>
+);
+}
+
+function PlayerCard({ player, isCurrentTurn, showRemove, onRemove, darkMode }) {
+const c = darkMode ? colors.dark : colors.light;
+
+let bgClass = c.card;
+if (player.hasBanked) {
+bgClass = darkMode ? ‘bg-slate-800/50’ : ‘bg-slate-100’;
+} else if (isCurrentTurn) {
+bgClass = darkMode ? ‘bg-emerald-900/30’ : ‘bg-emerald-100’;
+}
+
+return (
+<div className={`relative flex items-center gap-3 p-3 rounded-xl shadow-md transition-all duration-300 ${bgClass} ${player.hasBanked ? 'opacity-60' : ''} ${isCurrentTurn && !player.hasBanked ? 'ring-2 ring-emerald-500' : ''}`}>
+{showRemove && (
+<div className={`cursor-grab active:cursor-grabbing ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+<GripVertical className="w-5 h-5" />
+</div>
+)}
+
+```
+  <div className="flex-1 min-w-0">
+    <div className="flex items-center gap-2">
+      <span className={`font-semibold truncate ${c.text}`}>{player.name}</span>
+      {player.hasBanked && <Lock className="w-4 h-4 text-emerald-500" />}
+    </div>
+    {player.roundScore !== null && (
+      <div className="text-sm text-emerald-500">+{player.roundScore} this round</div>
+    )}
+  </div>
+  
+  <div className="text-right">
+    <div className={`text-2xl font-bold ${c.text}`}>{player.cumulativeScore}</div>
+  </div>
+  
+  {showRemove && (
+    <button
+      onClick={() => onRemove(player.id)}
+      className={`p-1.5 rounded-lg transition-colors ${darkMode ? 'text-slate-400 hover:text-red-400 hover:bg-red-900/20' : 'text-slate-400 hover:text-red-500 hover:bg-red-50'}`}
+    >
+      <Trash2 className="w-4 h-4" />
+    </button>
+  )}
+  
+  {isCurrentTurn && !player.hasBanked && (
+    <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2 h-8 bg-emerald-500 rounded-full" />
+  )}
+</div>
+```
+
+);
+}
+
+function BankButton({ onClick, disabled, bankTotal }) {
+return (
+<button
+onClick={onClick}
+disabled={disabled}
+className={`w-full py-4 px-6 rounded-2xl font-bold text-lg shadow-lg transition-all duration-300 ${ disabled ? 'bg-slate-300 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-400 hover:to-teal-400 active:scale-98 hover:shadow-xl' }`}
+>
+<div className="flex items-center justify-center gap-3">
+<Lock className="w-5 h-5" />
+<span>BANK {bankTotal}</span>
+</div>
+</button>
+);
+}
+
+function BankingModal({ players, bankTotal, onConfirm, onClose, darkMode }) {
+const [selectedPlayers, setSelectedPlayers] = useState([]);
+const availablePlayers = players.filter(p => !p.hasBanked);
+const c = darkMode ? colors.dark : colors.light;
+
+const togglePlayer = (playerId) => {
+setSelectedPlayers(prev =>
+prev.includes(playerId)
+? prev.filter(id => id !== playerId)
+: […prev, playerId]
+);
+};
+
+return (
+<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+<div className={`${c.modal} rounded-2xl shadow-2xl w-full max-w-md overflow-hidden`}>
+<div className="p-6 bg-gradient-to-r from-emerald-500 to-teal-500 text-white">
+<div className="flex items-center justify-between">
+<h2 className="text-xl font-bold">Bank Points</h2>
+<button onClick={onClose} className="p-1 rounded-lg hover:bg-white/20 transition-colors">
+<X className="w-6 h-6" />
+</button>
+</div>
+<div className="text-4xl font-bold mt-2">{bankTotal}</div>
+</div>
+
+```
+    <div className="p-4">
+      <p className={`text-sm ${c.textMuted} mb-4`}>Select players to bank this amount:</p>
+      <div className="space-y-2 max-h-60 overflow-y-auto">
+        {availablePlayers.map(player => (
+          <button
+            key={player.id}
+            onClick={() => togglePlayer(player.id)}
+            className={`w-full p-3 rounded-xl flex items-center justify-between transition-all ${
+              selectedPlayers.includes(player.id)
+                ? 'bg-emerald-100 ring-2 ring-emerald-500'
+                : c.cardAlt
+            } ${c.cardHover}`}
+          >
+            <span className={`font-medium ${selectedPlayers.includes(player.id) ? 'text-slate-800' : c.text}`}>
+              {player.name}
+            </span>
+            {selectedPlayers.includes(player.id) && <Check className="w-5 h-5 text-emerald-600" />}
+          </button>
+        ))}
+      </div>
+    </div>
+    
+    <div className={`p-4 border-t ${c.border}`}>
+      <button
+        onClick={() => onConfirm(selectedPlayers)}
+        disabled={selectedPlayers.length === 0}
+        className="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+      >
+        Confirm Bank ({selectedPlayers.length} player{selectedPlayers.length !== 1 ? 's' : ''})
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+);
+}
+
+function RoundEndSummary({ players, roundNumber, isBust, onContinue, darkMode }) {
+const sortedPlayers = […players].sort((a, b) => (b.roundScore || 0) - (a.roundScore || 0));
+const c = darkMode ? colors.dark : colors.light;
+
+return (
+<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+<div className={`${c.modal} rounded-2xl shadow-2xl w-full max-w-md overflow-hidden`}>
+<div className={`p-6 ${isBust ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-gradient-to-r from-emerald-500 to-teal-500'} text-white`}>
+<div className="flex items-center gap-3">
+{isBust ? <Skull className="w-8 h-8" /> : <Trophy className="w-8 h-8" />}
+<div>
+<h2 className="text-xl font-bold">Round {roundNumber} Complete</h2>
+<p className="text-sm opacity-90">{isBust ? ‘Someone rolled a 7!’ : ‘Everyone banked!’}</p>
+</div>
+</div>
+</div>
+
+```
+    <div className="p-4">
+      <div className="space-y-2">
+        {sortedPlayers.map((player, index) => (
+          <div
+            key={player.id}
+            className={`flex items-center justify-between p-3 rounded-xl ${
+              index === 0 && player.roundScore > 0 ? 'bg-amber-100' : c.cardAlt
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              {index === 0 && player.roundScore > 0 && <Crown className="w-5 h-5 text-amber-500" />}
+              <span className={`font-medium ${index === 0 && player.roundScore > 0 ? 'text-slate-800' : c.text}`}>
+                {player.name}
+              </span>
+            </div>
+            <span className={`font-bold ${player.roundScore > 0 ? 'text-emerald-500' : 'text-red-500'}`}>
+              +{player.roundScore || 0}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <div className={`p-4 border-t ${c.border}`}>
+      <button
+        onClick={onContinue}
+        className="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 transition-all flex items-center justify-center gap-2"
+      >
+        Continue <ChevronRight className="w-5 h-5" />
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+);
+}
+
+function FinalResults({ players, stats, onPlayAgain, onNewGame, darkMode }) {
+const sortedPlayers = […players].sort((a, b) => b.cumulativeScore - a.cumulativeScore);
+const winner = sortedPlayers[0];
+const c = darkMode ? colors.dark : colors.light;
+const today = new Date().toLocaleDateString(‘en-US’, { month: ‘short’, day: ‘numeric’, year: ‘numeric’ });
+
+const copyResults = () => {
+const results = [
+‘🎲 BANK GAME RESULTS’,
+`📅 ${today}`,
+‘’,
+‘🏆 FINAL STANDINGS’,
+…sortedPlayers.map((p, i) => {
+const prefix = i === 0 ? ‘🥇’ : i === 1 ? ‘🥈’ : i === 2 ? ‘🥉’ : `${i + 1}.`;
+return `${prefix} ${p.name}: ${p.cumulativeScore}`;
+}),
+‘’,
+‘📊 STATS’,
+`Total Sevens: ${stats.totalSevens}`,
+`Total Doubles: ${stats.totalDoubles}`,
+stats.biggestBankPlayer ? `Biggest Bank: ${stats.biggestBank} (${stats.biggestBankPlayer})` : ‘’,
+].filter(Boolean).join(’\n’);
+
+```
+navigator.clipboard.writeText(results);
+```
+
+};
+
+return (
+<div className={`min-h-screen ${c.bg} p-4`}>
+<div className="max-w-md mx-auto">
+<div className="text-center py-8">
+<div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 shadow-lg mb-4">
+<Trophy className="w-12 h-12 text-white" />
+</div>
+<h1 className={`text-3xl font-bold ${c.text} mb-2`}>{winner.name} Wins!</h1>
+<div className="text-5xl font-bold text-emerald-500">{winner.cumulativeScore}</div>
+</div>
+
+```
+    <div className={`${c.card} rounded-2xl shadow-xl p-6 mb-6`}>
+      <h2 className={`text-lg font-bold ${c.text} mb-4 flex items-center gap-2`}>
+        <Award className="w-5 h-5 text-emerald-500" /> Final Standings
+      </h2>
+      <div className="space-y-3">
+        {sortedPlayers.map((player, index) => (
+          <div
+            key={player.id}
+            className={`flex items-center gap-3 p-3 rounded-xl ${
+              index === 0 ? 'bg-gradient-to-r from-amber-100 to-yellow-100' :
+              index === 1 ? (darkMode ? 'bg-slate-700' : 'bg-slate-100') :
+              index === 2 ? 'bg-orange-50' : c.cardAlt
+            }`}
+          >
+            <div className="w-8 h-8 flex items-center justify-center">
+              {index === 0 ? <Crown className="w-6 h-6 text-amber-500" /> :
+               index === 1 ? <Medal className="w-6 h-6 text-slate-400" /> :
+               index === 2 ? <Award className="w-6 h-6 text-orange-400" /> :
+               <span className="text-slate-400 font-bold">{index + 1}</span>}
+            </div>
+            <span className={`flex-1 font-medium ${index < 3 ? 'text-slate-800' : c.text}`}>{player.name}</span>
+            <span className={`text-xl font-bold ${index < 3 ? 'text-slate-800' : c.text}`}>{player.cumulativeScore}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <div className={`${c.card} rounded-2xl shadow-xl p-6 mb-6`}>
+      <h2 className={`text-lg font-bold ${c.text} mb-4 flex items-center gap-2`}>
+        <Sparkles className="w-5 h-5 text-emerald-500" /> Game Stats
+      </h2>
+      <div className="grid grid-cols-2 gap-4">
+        <div className={`text-center p-3 ${c.cardAlt} rounded-xl`}>
+          <div className={`text-2xl font-bold ${c.text}`}>{stats.totalSevens}</div>
+          <div className={`text-sm ${c.textMuted}`}>Sevens Rolled</div>
+        </div>
+        <div className={`text-center p-3 ${c.cardAlt} rounded-xl`}>
+          <div className={`text-2xl font-bold ${c.text}`}>{stats.totalDoubles}</div>
+          <div className={`text-sm ${c.textMuted}`}>Doubles Rolled</div>
+        </div>
+        {stats.biggestBankPlayer && (
+          <div className="col-span-2 text-center p-3 bg-emerald-100 rounded-xl">
+            <div className="text-2xl font-bold text-emerald-600">{stats.biggestBank}</div>
+            <div className="text-sm text-slate-500">Biggest Bank ({stats.biggestBankPlayer})</div>
+          </div>
+        )}
+      </div>
+    </div>
+    
+    <div className="space-y-3">
+      <button
+        onClick={copyResults}
+        className={`w-full py-4 rounded-xl font-bold ${c.card} ${c.textAccent} shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2`}
+      >
+        <Share2 className="w-5 h-5" /> Share Results
+      </button>
+      <button
+        onClick={onPlayAgain}
+        className="w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+      >
+        <RotateCcw className="w-5 h-5" /> Play Again
+      </button>
+      <button
+        onClick={onNewGame}
+        className={`w-full py-3 rounded-xl font-medium ${c.textMuted} ${c.cardHover} transition-all`}
+      >
+        New Game (Change Players)
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+);
+}
+
+function SetupScreen({ state, dispatch }) {
+const [newPlayerName, setNewPlayerName] = useState(’’);
+const inputRef = useRef(null);
+const darkMode = state.settings.darkMode;
+const c = darkMode ? colors.dark : colors.light;
+
+const addPlayer = () => {
+const name = newPlayerName.trim();
+if (name && state.players.length < MAX_PLAYERS) {
+dispatch({ type: ‘ADD_PLAYER’, name });
+setNewPlayerName(’’);
+inputRef.current?.focus();
+}
+};
+
+return (
+<div className={`min-h-screen ${c.bg}`}>
+<div className={`sticky top-0 z-10 ${c.header} text-white p-4 shadow-lg`}>
+<div className="max-w-md mx-auto flex items-center justify-between">
+<h1 className="text-2xl font-bold tracking-tight">BANK</h1>
+<button
+onClick={() => dispatch({ type: ‘TOGGLE_SETTING’, setting: ‘darkMode’ })}
+className=“p-2 rounded-lg hover:bg-white/20 transition-colors”
+>
+{darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+</button>
+</div>
+</div>
+
+```
+  <div className="max-w-md mx-auto p-4">
+    <div className={`${c.card} rounded-2xl shadow-lg p-4 mb-6`}>
+      <h2 className={`text-lg font-bold ${c.text} mb-4 flex items-center gap-2`}>
+        <Settings className="w-5 h-5 text-emerald-500" /> Game Settings
+      </h2>
+      
+      <div className="mb-4">
+        <label className={`block text-sm font-medium ${c.textMuted} mb-2`}>Number of Rounds</label>
+        <div className="flex gap-2">
+          {ROUND_OPTIONS.map(rounds => (
+            <button
+              key={rounds}
+              onClick={() => dispatch({ type: 'SET_ROUND_CONFIG', rounds })}
+              className={`flex-1 py-2 rounded-xl font-bold transition-all ${
+                state.roundConfig === rounds
+                  ? 'bg-emerald-500 text-white shadow-md'
+                  : `${c.button} ${c.text} ${c.buttonHover}`
+              }`}
+            >
+              {rounds}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      <div className="space-y-3">
+        <label className={`flex items-center justify-between p-3 ${c.cardAlt} rounded-xl cursor-pointer`}>
+          <div className="flex items-center gap-3">
+            <Dices className="w-5 h-5 text-emerald-500" />
+            <span className={`font-medium ${c.text}`}>Virtual Dice</span>
+          </div>
+          <button
+            onClick={() => dispatch({ type: 'TOGGLE_SETTING', setting: 'virtualDice' })}
+            className={`w-12 h-6 rounded-full transition-colors ${
+              state.settings.virtualDice ? 'bg-emerald-500' : (darkMode ? 'bg-slate-600' : 'bg-slate-300')
+            }`}
+          >
+            <div className={`w-5 h-5 rounded-full bg-white shadow transform transition-transform ${
+              state.settings.virtualDice ? 'translate-x-6' : 'translate-x-0.5'
+            }`} />
+          </button>
+        </label>
+      </div>
+    </div>
+    
+    <div className={`${c.card} rounded-2xl shadow-lg p-4 mb-6`}>
+      <h2 className={`text-lg font-bold ${c.text} mb-4 flex items-center gap-2`}>
+        <Users className="w-5 h-5 text-emerald-500" /> Players ({state.players.length})
+      </h2>
+      
+      <div className="flex gap-2 mb-4">
+        <input
+          ref={inputRef}
+          type="text"
+          value={newPlayerName}
+          onChange={(e) => setNewPlayerName(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && addPlayer()}
+          placeholder="Enter player name"
+          maxLength={20}
+          className={`flex-1 px-4 py-3 rounded-xl ${c.input} ${c.text} placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500`}
+        />
+        <button
+          onClick={addPlayer}
+          disabled={!newPlayerName.trim() || state.players.length >= MAX_PLAYERS}
+          className="px-4 py-3 rounded-xl bg-emerald-500 text-white font-bold hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+        >
+          <Plus className="w-5 h-5" />
+        </button>
+      </div>
+      
+      <div className="space-y-2">
+        {state.players.length === 0 ? (
+          <div className={`text-center py-8 ${c.textMuted}`}>Add at least {MIN_PLAYERS} players to start</div>
+        ) : (
+          state.players.map((player, index) => (
+            <PlayerCard
+              key={player.id}
+              player={player}
+              index={index}
+              showRemove={true}
+              onRemove={(id) => dispatch({ type: 'REMOVE_PLAYER', id })}
+              darkMode={darkMode}
+            />
+          ))
+        )}
+      </div>
+    </div>
+    
+    <button
+      onClick={() => dispatch({ type: 'START_GAME' })}
+      disabled={state.players.length < MIN_PLAYERS}
+      className="w-full py-4 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+    >
+      <Play className="w-6 h-6" /> Start Game
+    </button>
+  </div>
+</div>
+```
+
+);
+}
+
+function GameScreen({ state, dispatch }) {
+const [showBankModal, setShowBankModal] = useState(false);
+const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 640);
+const darkMode = state.settings.darkMode;
+const c = darkMode ? colors.dark : colors.light;
+
+useEffect(() => {
+const handleResize = () => setIsWideScreen(window.innerWidth >= 640);
+window.addEventListener(‘resize’, handleResize);
+return () => window.removeEventListener(‘resize’, handleResize);
+}, []);
+
+const isInSafeZone = state.rollCount < 3;
+const currentPlayer = state.players[state.currentPlayerIndex];
+const activePlayers = state.players.filter(p => !p.hasBanked);
+const canBank = state.rollCount > 0 && activePlayers.length > 0;
+
+const handleRoll = (die1, die2) => {
+dispatch({ type: ‘ROLL’, die1, die2 });
+};
+
+const handleKeypadInput = (value, isSeven = false) => {
+if (value === ‘doubles’) {
+dispatch({ type: ‘KEYPAD_INPUT’, sum: 0, isDoubles: true, isSeven: false });
+} else if (isSeven) {
+dispatch({ type: ‘KEYPAD_INPUT’, sum: 7, isDoubles: false, isSeven: true });
+} else {
+dispatch({ type: ‘KEYPAD_INPUT’, sum: value, isDoubles: false, isSeven: false });
+}
+};
+
+const handleBank = (playerIds) => {
+dispatch({ type: ‘BANK_PLAYERS’, playerIds });
+setShowBankModal(false);
+};
+
+return (
+<div className={`min-h-screen ${c.bg} flex flex-col`}>
+<div className={`sticky top-0 z-10 ${c.header} text-white p-3 shadow-lg`}>
+<div className="max-w-4xl mx-auto flex items-center justify-between">
+<h1 className="text-xl font-bold tracking-tight">BANK</h1>
+<div className="flex items-center gap-3">
+<span className="text-sm opacity-90">Round {state.currentRound}/{state.roundConfig}</span>
+<button
+onClick={() => dispatch({ type: ‘TOGGLE_SETTING’, setting: ‘darkMode’ })}
+className=“p-1.5 rounded-lg hover:bg-white/20 transition-colors”
+>
+{darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+</button>
+</div>
+</div>
+</div>
+
+```
+  <div 
+    className="flex-1 w-full p-4 gap-4"
+    style={{ display: 'flex', flexDirection: isWideScreen ? 'row' : 'column' }}
+  >
+    <div className="flex-1 flex flex-col gap-4">
+      <div className={`rounded-2xl p-6 text-center transition-colors duration-300 ${isInSafeZone ? c.safeZone : c.dangerZone}`}>
+        <div className="flex items-center justify-center gap-2 mb-2">
+          {isInSafeZone ? (
+            <>
+              <ShieldCheck className="w-5 h-5 text-emerald-600" />
+              <span className="text-sm font-medium text-emerald-600">Safe Zone</span>
+            </>
+          ) : (
+            <>
+              <AlertTriangle className="w-5 h-5 text-amber-600" />
+              <span className="text-sm font-medium text-amber-600">Danger Zone</span>
+            </>
+          )}
+          <span className={c.textMuted}>•</span>
+          <span className={`text-sm ${c.textMuted}`}>Roll #{state.rollCount + 1}</span>
+        </div>
+        
+        <div className={`text-6xl font-bold ${c.text} mb-2`}>
+          <AnimatedNumber value={state.bankTotal} />
+        </div>
+        
+        {state.lastRollEffect && (
+          <div className={`inline-block px-3 py-1 rounded-full text-sm font-bold ${
+            state.lastRollEffect === 'BUST!' ? 'bg-red-100 text-red-600' :
+            state.lastRollEffect === '×2' ? 'bg-amber-100 text-amber-600' :
+            state.lastRollEffect === '+70' ? 'bg-emerald-100 text-emerald-600' :
+            'bg-slate-100 text-slate-600'
+          }`}>
+            {state.lastRollEffect}
+          </div>
+        )}
+      </div>
+      
+      {currentPlayer && !currentPlayer.hasBanked && (
+        <div className={`text-center text-sm ${c.textMuted}`}>
+          <span className="font-medium text-emerald-500">{currentPlayer.name}</span>'s turn to roll
+        </div>
+      )}
+      
+      <div className="min-h-[200px] flex items-center justify-center">
+        {state.settings.virtualDice ? (
+          <VirtualDice onRoll={handleRoll} disabled={activePlayers.length === 0} darkMode={darkMode} />
+        ) : isInSafeZone ? (
+          <SafeZoneKeypad onInput={handleKeypadInput} disabled={activePlayers.length === 0} darkMode={darkMode} />
+        ) : (
+          <DangerZoneKeypad onInput={handleKeypadInput} disabled={activePlayers.length === 0} darkMode={darkMode} />
+        )}
+      </div>
+      
+      <BankButton onClick={() => setShowBankModal(true)} disabled={!canBank} bankTotal={state.bankTotal} />
+      
+      {state.history.length > 0 && (
+        <button
+          onClick={() => dispatch({ type: 'UNDO' })}
+          className={`w-full py-2 rounded-xl ${c.textMuted} ${c.cardHover} transition-all flex items-center justify-center gap-2`}
+        >
+          <RotateCcw className="w-4 h-4" /> Undo
+        </button>
+      )}
+    </div>
+    
+    <div 
+      className={`${c.card} rounded-2xl shadow-lg p-4`}
+      style={isWideScreen ? { width: '288px', maxHeight: 'calc(100vh - 120px)', overflowY: 'auto' } : {}}
+    >
+      <h2 className={`text-lg font-bold ${c.text} mb-3 flex items-center gap-2`}>
+        <Users className="w-5 h-5 text-emerald-500" /> Players
+      </h2>
+      <div className="space-y-2">
+        {state.players.map((player, index) => (
+          <PlayerCard
+            key={player.id}
+            player={player}
+            isCurrentTurn={index === state.currentPlayerIndex && !player.hasBanked}
+            showRemove={false}
+            darkMode={darkMode}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+  
+  {showBankModal && (
+    <BankingModal
+      players={state.players}
+      bankTotal={state.bankTotal}
+      onConfirm={handleBank}
+      onClose={() => setShowBankModal(false)}
+      darkMode={darkMode}
+    />
+  )}
+</div>
+```
+
+);
+}
+
+// ============ MAIN APP ============
+export default function BankApp() {
+const [state, dispatch] = useReducer(gameReducer, initialGameState);
+const [showRoundEnd, setShowRoundEnd] = useState(false);
+const [wasBust, setWasBust] = useState(false);
+
+useEffect(() => {
+const prefersDark = window.matchMedia(’(prefers-color-scheme: dark)’).matches;
+if (prefersDark && !state.settings.darkMode) {
+dispatch({ type: ‘TOGGLE_SETTING’, setting: ‘darkMode’ });
+}
+}, []);
+
+useEffect(() => {
+if (state.phase === ‘roundEnd’) {
+setWasBust(state.lastRollEffect === ‘BUST!’);
+setShowRoundEnd(true);
+}
+}, [state.phase, state.lastRollEffect]);
+
+const handleRoundContinue = () => {
+setShowRoundEnd(false);
+dispatch({ type: ‘END_ROUND’ });
+};
+
+const darkMode = state.settings.darkMode;
+
+if (state.phase === ‘setup’) {
+return <SetupScreen state={state} dispatch={dispatch} />;
+}
+
+if (state.phase === ‘gameOver’) {
+return (
+<FinalResults
+players={state.players}
+stats={state.stats}
+onPlayAgain={() => dispatch({ type: ‘NEW_GAME_SAME_PLAYERS’ })}
+onNewGame={() => dispatch({ type: ‘NEW_GAME’ })}
+darkMode={darkMode}
+/>
+);
+}
+
+return (
+<>
+<GameScreen state={state} dispatch={dispatch} />
+{showRoundEnd && (
+<RoundEndSummary
+players={state.players}
+roundNumber={state.currentRound}
+isBust={wasBust}
+onContinue={handleRoundContinue}
+darkMode={darkMode}
+/>
+)}
+</>
+);
+}
