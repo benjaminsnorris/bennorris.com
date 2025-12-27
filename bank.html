@@ -23,6 +23,7 @@
       --bg-tertiary: #f1f5f9;
       --bg-safe: linear-gradient(135deg, #d1fae5 0%, #ccfbf1 100%);
       --bg-danger: linear-gradient(135deg, #fef3c7 0%, #ffedd5 100%);
+      --bg-dice: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
       --text-primary: #1e293b;
       --text-secondary: #64748b;
       --text-accent: #059669;
@@ -38,6 +39,7 @@
       --bg-tertiary: #334155;
       --bg-safe: linear-gradient(135deg, rgba(6,78,59,0.4) 0%, rgba(17,94,89,0.4) 100%);
       --bg-danger: linear-gradient(135deg, rgba(120,53,15,0.4) 0%, rgba(124,45,18,0.4) 100%);
+      --bg-dice: linear-gradient(135deg, rgba(6,78,59,0.5) 0%, rgba(5,150,105,0.3) 100%);
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
       --text-accent: #34d399;
@@ -122,16 +124,26 @@
     .drag-handle { color: var(--text-secondary); cursor: grab; touch-action: none; padding: 0.25rem; display: flex; align-items: center; }
     .drag-handle:active { cursor: grabbing; }
     
-    .keypad-btn { height: 3.5rem; border-radius: 0.75rem; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; background: var(--bg-secondary); color: var(--text-primary); box-shadow: var(--shadow-md); transition: all 0.15s; }
+    /* Updated keypad styles - fixed height for consistency */
+    .keypad-container { width: 100%; max-width: 24rem; margin: 0 auto; height: 8.5rem; }
+    .keypad-grid { display: grid; gap: 0.5rem; height: 100%; }
+    .keypad-grid-safe { grid-template-columns: repeat(5, 1fr) minmax(3.5rem, 1fr); grid-template-rows: 1fr 1fr; }
+    .keypad-grid-danger { grid-template-columns: repeat(5, 1fr) minmax(3.5rem, 1fr); grid-template-rows: 1fr 1fr; }
+    .keypad-btn { border-radius: 0.75rem; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; background: var(--bg-secondary); color: var(--text-primary); box-shadow: var(--shadow-md); transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
     .keypad-btn:not(:disabled):hover { transform: translateY(-1px); }
     .keypad-btn:not(:disabled):active { transform: scale(0.98); }
     .keypad-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .keypad-btn-seven { grid-column: 6; grid-row: 1 / 3; flex-direction: column; gap: 0.25rem; }
+    .keypad-btn-seven-safe { background: linear-gradient(135deg, #059669 0%, #0d9488 100%); color: white; }
+    .keypad-btn-seven-danger { background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%); color: white; }
+    .keypad-btn-doubles { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; flex-direction: column; gap: 0.25rem; }
     
-    .dice-container { display: flex; gap: 1rem; padding: 1.5rem; border-radius: 1rem; background: var(--bg-tertiary); cursor: pointer; transition: all 0.2s; }
-    .dice-container:not(.disabled):hover { transform: scale(1.02); }
+    /* Updated dice container - matches keypad height with green background */
+    .dice-container { display: flex; gap: 1.5rem; padding: 1rem 1.5rem; border-radius: 1rem; background: var(--bg-dice); cursor: pointer; transition: all 0.2s; width: 100%; max-width: 24rem; height: 8.5rem; align-items: center; justify-content: center; box-shadow: var(--shadow-md); }
+    .dice-container:not(.disabled):hover { transform: scale(1.02); box-shadow: var(--shadow-lg); }
     .dice-container.disabled { opacity: 0.5; cursor: not-allowed; }
-    .die { width: 5rem; height: 5rem; border-radius: 0.75rem; background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); box-shadow: var(--shadow-md); position: relative; transition: transform 0.3s; }
-    .dark .die { background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%); }
+    .die { width: 5.5rem; height: 5.5rem; border-radius: 0.75rem; background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); box-shadow: var(--shadow-lg); position: relative; transition: transform 0.3s; }
+    .dark .die { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
     .die.rolling { animation: dice-shake 0.1s infinite; }
     @keyframes dice-shake { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
     .pip { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: #1e293b; transform: translate(-50%, -50%); }
@@ -169,7 +181,17 @@
     .dark .podium-item.silver { background: var(--bg-tertiary); }
     .dark .podium-item.bronze { background: rgba(234,88,12,0.15); }
     
-    @media (min-width: 768px) { .game-layout { flex-direction: row !important; } .game-main { flex: 1; } .game-sidebar { width: 280px; flex-shrink: 0; } }
+    /* Game layout - fixed to prevent player list overlapping controls */
+    .game-layout { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 1rem; gap: 1rem; }
+    .game-main { display: flex; flex-direction: column; gap: 0.75rem; flex-shrink: 0; }
+    .game-controls { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+    .game-sidebar { flex: 1; min-height: 0; overflow-y: auto; }
+    
+    @media (min-width: 768px) { 
+      .game-layout { flex-direction: row !important; } 
+      .game-main { flex: 1; flex-shrink: 1; } 
+      .game-sidebar { width: 280px; flex-shrink: 0; flex: none; } 
+    }
     
     .flex { display: flex; } .flex-col { flex-direction: column; } .flex-1 { flex: 1; } .items-center { align-items: center; } .justify-center { justify-content: center; } .justify-between { justify-content: space-between; } .gap-2 { gap: 0.5rem; } .gap-3 { gap: 0.75rem; } .gap-4 { gap: 1rem; } .grid { display: grid; } .grid-cols-2 { grid-template-columns: repeat(2, 1fr); } .grid-cols-4 { grid-template-columns: repeat(4, 1fr); } .grid-cols-5 { grid-template-columns: repeat(5, 1fr); } .col-span-2 { grid-column: span 2; } .w-full { width: 100%; } .min-w-0 { min-width: 0; } .p-4 { padding: 1rem; } .p-5 { padding: 1.25rem; } .p-6 { padding: 1.5rem; } .mb-2 { margin-bottom: 0.5rem; } .mb-3 { margin-bottom: 0.75rem; } .mb-4 { margin-bottom: 1rem; } .mb-6 { margin-bottom: 1.5rem; } .mt-3 { margin-top: 0.75rem; } .text-sm { font-size: 0.875rem; } .text-lg { font-size: 1.125rem; } .text-xl { font-size: 1.25rem; } .text-2xl { font-size: 1.5rem; } .text-3xl { font-size: 1.875rem; } .text-4xl { font-size: 2.25rem; } .text-5xl { font-size: 3rem; } .font-medium { font-weight: 500; } .font-semibold { font-weight: 600; } .font-bold { font-weight: 700; } .text-center { text-align: center; } .text-right { text-align: right; } .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .rounded-lg { border-radius: 0.5rem; } .rounded-xl { border-radius: 0.75rem; } .overflow-y-auto { overflow-y: auto; } .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
   </style>
@@ -213,7 +235,6 @@
     function Sparkles(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'm12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z'}), React.createElement('path', {d: 'M5 3v4'}), React.createElement('path', {d: 'M19 17v4'}), React.createElement('path', {d: 'M3 5h4'}), React.createElement('path', {d: 'M17 19h4'})); }
     function Home(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'm3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'}), React.createElement('polyline', {points: '9 22 9 12 15 12 15 22'})); }
     function RefreshCw(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'}), React.createElement('path', {d: 'M21 3v5h-5'}), React.createElement('path', {d: 'M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'}), React.createElement('path', {d: 'M8 16H3v5'})); }
-    // Brand icon - stylized piggy bank / coin
     function BankIcon(p) { return React.createElement(Icon, p, React.createElement('circle', {cx: 12, cy: 12, r: 8, strokeWidth: 2.5}), React.createElement('path', {d: 'M12 6v2', strokeWidth: 2.5}), React.createElement('path', {d: 'M12 16v2', strokeWidth: 2.5}), React.createElement('path', {d: 'M8 10h8', strokeWidth: 2.5}), React.createElement('path', {d: 'M8 14h8', strokeWidth: 2.5})); }
 
     // Constants
@@ -424,7 +445,7 @@
       );
     }
 
-    // Virtual Dice
+    // Virtual Dice - updated with green background and matching height
     function VirtualDice(props) {
       var onRoll = props.onRoll;
       var disabled = props.disabled;
@@ -459,41 +480,93 @@
       }, React.createElement(Die, { value: dice[0], rolling: rolling }), React.createElement(Die, { value: dice[1], rolling: rolling }));
     }
 
-    // Safe Zone Keypad
+    // Safe Zone Keypad - Two rows with 7 button on right spanning both rows
     function SafeZoneKeypad(props) {
       var onInput = props.onInput;
       var disabled = props.disabled;
-      return React.createElement('div', { style: { width: '100%', maxWidth: '24rem', margin: '0 auto' } },
-        React.createElement('div', { className: 'grid grid-cols-5 gap-2 mb-2' },
-          [2, 3, 4, 5, 6].map(function(num) { return React.createElement('button', { key: num, onClick: function() { onInput(num); }, disabled: disabled, className: 'keypad-btn' }, num); })
-        ),
-        React.createElement('div', { className: 'grid grid-cols-5 gap-2 mb-2' },
-          [8, 9, 10, 11, 12].map(function(num) { return React.createElement('button', { key: num, onClick: function() { onInput(num); }, disabled: disabled, className: 'keypad-btn' }, num); })
-        ),
-        React.createElement('button', { onClick: function() { onInput(7, true); }, disabled: disabled, className: 'btn btn-primary btn-large w-full', style: { height: '3.5rem' } },
-          React.createElement('span', { style: { fontSize: '1.25rem' } }, '7'),
-          React.createElement('span', { style: { opacity: 0.8, fontWeight: 400 } }, '+70')
+      return React.createElement('div', { className: 'keypad-container' },
+        React.createElement('div', { className: 'keypad-grid keypad-grid-safe' },
+          // Row 1: 2, 3, 4, 5, 6
+          [2, 3, 4, 5, 6].map(function(num) { 
+            return React.createElement('button', { 
+              key: num, 
+              onClick: function() { onInput(num); }, 
+              disabled: disabled, 
+              className: 'keypad-btn' 
+            }, num); 
+          }),
+          // 7 button spanning both rows
+          React.createElement('button', { 
+            key: 7,
+            onClick: function() { onInput(7, true); }, 
+            disabled: disabled, 
+            className: 'keypad-btn keypad-btn-seven keypad-btn-seven-safe'
+          },
+            React.createElement('span', { style: { fontSize: '1.5rem' } }, '7'),
+            React.createElement('span', { style: { fontSize: '0.75rem', opacity: 0.9 } }, '+70')
+          ),
+          // Row 2: 8, 9, 10, 11, 12
+          [8, 9, 10, 11, 12].map(function(num) { 
+            return React.createElement('button', { 
+              key: num, 
+              onClick: function() { onInput(num); }, 
+              disabled: disabled, 
+              className: 'keypad-btn' 
+            }, num); 
+          })
         )
       );
     }
 
-    // Danger Zone Keypad
+    // Danger Zone Keypad - Two rows with 7 and doubles buttons on right
     function DangerZoneKeypad(props) {
       var onInput = props.onInput;
       var disabled = props.disabled;
-      return React.createElement('div', { style: { width: '100%', maxWidth: '24rem', margin: '0 auto' } },
-        React.createElement('div', { className: 'grid grid-cols-4 gap-2 mb-2' },
-          [3, 4, 5, 6].map(function(num) { return React.createElement('button', { key: num, onClick: function() { onInput(num); }, disabled: disabled, className: 'keypad-btn' }, num); })
-        ),
-        React.createElement('div', { className: 'grid grid-cols-4 gap-2 mb-2' },
-          [8, 9, 10, 11].map(function(num) { return React.createElement('button', { key: num, onClick: function() { onInput(num); }, disabled: disabled, className: 'keypad-btn' }, num); })
-        ),
-        React.createElement('div', { className: 'grid grid-cols-2 gap-2' },
-          React.createElement('button', { onClick: function() { onInput('doubles'); }, disabled: disabled, className: 'btn btn-amber btn-large', style: { height: '3.5rem' } },
-            React.createElement(Sparkles, { size: 18 }), React.createElement('span', null, 'Doubles \u00d72')
+      return React.createElement('div', { className: 'keypad-container' },
+        React.createElement('div', { className: 'keypad-grid keypad-grid-danger' },
+          // Row 1: 3, 4, 5, 6, then 7 (bust)
+          [3, 4, 5, 6].map(function(num) { 
+            return React.createElement('button', { 
+              key: num, 
+              onClick: function() { onInput(num); }, 
+              disabled: disabled, 
+              className: 'keypad-btn' 
+            }, num); 
+          }),
+          // Empty cell to push 7 to column 6
+          React.createElement('div', { key: 'spacer1' }),
+          // 7 button (bust) in column 6, row 1
+          React.createElement('button', { 
+            key: 7,
+            onClick: function() { onInput(7, true); }, 
+            disabled: disabled, 
+            className: 'keypad-btn keypad-btn-seven keypad-btn-seven-danger',
+            style: { gridColumn: 6, gridRow: 1 }
+          },
+            React.createElement(Skull, { size: 18 }),
+            React.createElement('span', { style: { fontSize: '0.75rem' } }, '7 Bust')
           ),
-          React.createElement('button', { onClick: function() { onInput(7, true); }, disabled: disabled, className: 'btn btn-danger btn-large', style: { height: '3.5rem' } },
-            React.createElement(Skull, { size: 18 }), React.createElement('span', null, '7 Bust')
+          // Row 2: 8, 9, 10, 11, then doubles
+          [8, 9, 10, 11].map(function(num) { 
+            return React.createElement('button', { 
+              key: num, 
+              onClick: function() { onInput(num); }, 
+              disabled: disabled, 
+              className: 'keypad-btn' 
+            }, num); 
+          }),
+          // Empty cell to push doubles to column 6
+          React.createElement('div', { key: 'spacer2' }),
+          // Doubles button in column 6, row 2
+          React.createElement('button', { 
+            key: 'doubles',
+            onClick: function() { onInput('doubles'); }, 
+            disabled: disabled, 
+            className: 'keypad-btn keypad-btn-doubles',
+            style: { gridColumn: 6, gridRow: 2 }
+          },
+            React.createElement(Sparkles, { size: 18 }),
+            React.createElement('span', { style: { fontSize: '0.75rem' } }, 'Doubles')
           )
         )
       );
@@ -618,7 +691,7 @@
       );
     }
 
-    // Round End Modal - FIXED styling
+    // Round End Modal
     function RoundEndModal(props) {
       var players = props.players;
       var roundNumber = props.roundNumber;
@@ -689,16 +762,12 @@
         if (stats.biggestBankPlayer) lines.push('Biggest Bank: ' + stats.biggestBank + ' (' + stats.biggestBankPlayer + ')');
         var text = lines.join('\n');
 
-        // Try native share API first (works great on mobile)
         if (navigator.share) {
           navigator.share({ title: 'Bank Game Results', text: text }).then(function() {
             setShareStatus('shared');
             setTimeout(function() { setShareStatus(null); }, 2000);
           }).catch(function(err) {
-            // User cancelled or error - try clipboard fallback
-            if (err.name !== 'AbortError') {
-              fallbackCopy(text);
-            }
+            if (err.name !== 'AbortError') fallbackCopy(text);
           });
         } else {
           fallbackCopy(text);
@@ -710,10 +779,7 @@
           navigator.clipboard.writeText(text).then(function() {
             setShareStatus('copied');
             setTimeout(function() { setShareStatus(null); }, 2000);
-          }).catch(function() {
-            // Final fallback - create a textarea and copy
-            textareaCopy(text);
-          });
+          }).catch(function() { textareaCopy(text); });
         } else {
           textareaCopy(text);
         }
@@ -863,7 +929,6 @@
         ),
         React.createElement('div', { style: { flex: 1, overflowY: 'auto', padding: '1rem' } },
           React.createElement('div', { style: { maxWidth: '28rem', margin: '0 auto' } },
-            // PLAYERS SECTION FIRST
             React.createElement('div', { className: 'card p-5 mb-6' },
               React.createElement('h2', { className: 'text-lg font-bold mb-4 flex items-center gap-2' }, React.createElement(Users, { size: 20, style: { color: 'var(--text-accent)' } }), ' Players (' + state.players.length + ')'),
               React.createElement('div', { className: 'flex gap-2 mb-4' },
@@ -890,7 +955,6 @@
                   })
               )
             ),
-            // GAME SETTINGS SECTION SECOND
             React.createElement('div', { className: 'card p-5 mb-6' },
               React.createElement('h2', { className: 'text-lg font-bold mb-4 flex items-center gap-2' }, React.createElement(Settings, { size: 20, style: { color: 'var(--text-accent)' } }), ' Game Settings'),
               React.createElement('div', { className: 'mb-4' },
@@ -915,7 +979,6 @@
                   React.createElement('span', { style: { color: 'var(--text-secondary)' } }, 'rounds')
                 )
               ),
-              // Virtual Dice toggle - cleaner styling
               React.createElement('div', { className: 'toggle-row', style: { borderBottom: 'none' } },
                 React.createElement('div', { className: 'toggle-label' },
                   React.createElement(Dices, { size: 20 }),
@@ -934,7 +997,7 @@
       );
     }
 
-    // Game Screen - with round count in header
+    // Game Screen - FIXED layout to prevent player list overlap
     function GameScreen(props) {
       var state = props.state;
       var dispatch = props.dispatch;
@@ -994,9 +1057,10 @@
             )
           )
         ),
-        React.createElement('div', { className: 'game-layout', style: { flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '1rem', gap: '1rem' } },
-          React.createElement('div', { className: 'game-main', style: { display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, minHeight: 0 } },
-            React.createElement('div', { className: 'card p-6 text-center ' + (isInSafeZone ? 'zone-safe' : 'zone-danger') },
+        React.createElement('div', { className: 'game-layout' },
+          // Main game area - controls stay fixed, don't scroll
+          React.createElement('div', { className: 'game-main' },
+            React.createElement('div', { className: 'card p-5 text-center ' + (isInSafeZone ? 'zone-safe' : 'zone-danger') },
               React.createElement('div', { className: 'flex items-center justify-center gap-2 mb-2' },
                 isInSafeZone ?
                   React.createElement(React.Fragment, null, React.createElement(ShieldCheck, { size: 18, style: { color: '#059669' } }), React.createElement('span', { style: { fontSize: '0.875rem', fontWeight: 500, color: '#059669' } }, 'Safe Zone')) :
@@ -1010,14 +1074,13 @@
             currentPlayer && !currentPlayer.hasBanked && React.createElement('div', { className: 'turn-indicator text-center' },
               React.createElement('strong', null, currentPlayer.name), "'s turn to roll"
             ),
-            React.createElement('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '12rem' } },
+            // Controls area with fixed height
+            React.createElement('div', { className: 'game-controls' },
               state.settings.virtualDice ?
                 React.createElement(VirtualDice, { onRoll: handleRoll, disabled: activePlayers.length === 0 }) :
                 isInSafeZone ?
                   React.createElement(SafeZoneKeypad, { onInput: handleKeypadInput, disabled: activePlayers.length === 0 }) :
-                  React.createElement(DangerZoneKeypad, { onInput: handleKeypadInput, disabled: activePlayers.length === 0 })
-            ),
-            React.createElement('div', { className: 'flex flex-col items-center gap-2' },
+                  React.createElement(DangerZoneKeypad, { onInput: handleKeypadInput, disabled: activePlayers.length === 0 }),
               React.createElement('button', { onClick: function() { setShowBankModal(true); }, disabled: !canBank, className: 'bank-btn' },
                 React.createElement('div', { className: 'flex items-center justify-center gap-3' },
                   React.createElement(Lock, { size: 20 }),
@@ -1029,7 +1092,8 @@
               )
             )
           ),
-          React.createElement('div', { className: 'game-sidebar card p-4', style: isWideScreen ? { overflowY: 'auto' } : { maxHeight: '200px', overflowY: 'auto' } },
+          // Player sidebar - scrollable, doesn't overlap controls
+          React.createElement('div', { className: 'game-sidebar card p-4' },
             React.createElement('h2', { className: 'text-lg font-bold mb-3 flex items-center gap-2' }, React.createElement(Users, { size: 20, style: { color: 'var(--text-accent)' } }), ' Players'),
             React.createElement('div', { className: 'flex flex-col gap-2' },
               state.players.map(function(player, index) {
