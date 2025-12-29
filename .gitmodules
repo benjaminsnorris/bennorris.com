@@ -1,1 +1,3 @@
-submodule update --remote bank
+[submodule "bank"]
+	path = bank
+	url = https://github.com/benjaminsnorris/bank
