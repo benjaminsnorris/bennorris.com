@@ -1,7 +1,7 @@
 ---
 layout:         book
 title:          "The Meridian Line"
-date:           2026-03-09 12:00:00-0600
+date:           2026-03-08 12:00:00-0600
 sub_title:      Historical western
 cover_image:    /books/the-meridian-line/cover.png
 book_path:      /books/the-meridian-line/read/

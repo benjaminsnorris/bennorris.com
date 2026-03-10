@@ -1,7 +1,7 @@
 ---
 layout:         book
 title:          "Shared Dark"
-date:           2026-03-08 12:00:00-0600
+date:           2026-03-07 12:00:00-0600
 sub_title:      Supernatural literary thriller
 cover_image:    /books/shared-dark/cover.png
 ---
