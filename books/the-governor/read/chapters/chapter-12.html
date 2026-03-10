@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eastern Cascade — The Governor</title>
+<meta name="author" content="Ben Norris">
+
+<script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   reading.css — Web Book Reading Experience
+   StoryForge production stylesheet
+
+   A reading environment that disappears. Inspired by Butterick's Practical
+   Typography, Tufte CSS, and the tradition of fine bookmaking.
+   ========================================================================== */
+
+/* --- 1. COLOR THEMES ---------------------------------------------------- */
+
+/* Base defaults (light theme) — overridden by [data-theme] selectors below */
+:root {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+    --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+  }
+}
+
+/* Explicit theme overrides — must come after :root to win on specificity */
+[data-theme="light"] {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+  --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+}
+[data-theme="sepia"] {
+  --bg: #f4ecd8; --text: #3b2e1e; --text-dim: #6b5a42;
+  --accent: #8b5e3c; --surface: #e8dfc8; --border: rgba(59,46,30,0.1);
+}
+
+[data-theme="dark"] .reading-column,
+[data-theme="dark"] .chapter-content { line-height: 1.65; }
+
+/* --- FONT LOADING ------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Title font — applied to book title, chapter headings, part titles.
+   Loaded via Google Fonts <link> in <head>; fallback to body font. */
+:root { --title-font: 'Playfair Display', 'Literata', Georgia, serif; --title-weight: normal; }
+
+/* --- 2. RESET & BASE ---------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+a { color: var(--text); text-decoration: none; }
+a:hover { color: var(--accent); }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: clamp(18px, 1.15rem + 0.25vw, 21px);
+  line-height: 1.58;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 3. TYPOGRAPHY — THE TEXT COLUMN ------------------------------------
+   The measure: 36em keeps us at 65-75 characters per line.
+   ----------------------------------------------------------------------- */
+
+.chapter-content,
+.reading-column,
+.book-landing {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Book-style paragraphs: indented, no vertical gap */
+.chapter-content p {
+  text-indent: 1.5em;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* First paragraph after structural elements — no indent */
+.chapter-content h1 + p,
+.chapter-content h2 + p,
+.chapter-content h3 + p,
+.chapter-content hr + p,
+.chapter-content blockquote + p {
+  text-indent: 0;
+}
+
+/* --- 4. HEADINGS --------------------------------------------------------
+   Chapter titles (h1): graceful, quiet — a breath before the prose.
+   ----------------------------------------------------------------------- */
+
+.chapter-content h1 {
+  font-family: var(--title-font);
+  font-size: 1.5em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+  margin-top: 3.5em;
+  margin-bottom: 2em;
+  line-height: 1.3;
+  transition: color 0.4s ease;
+}
+
+/* Subtle rule beneath chapter title */
+.chapter-content h1::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin: 0.8em auto 0;
+}
+
+.chapter-content h2 {
+  font-size: 1.15em;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--text);
+  margin: 2em 0 0.75em;
+  line-height: 1.4;
+  transition: color 0.4s ease;
+}
+
+.chapter-content h3 {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  transition: color 0.4s ease;
+}
+
+/* --- 5. SCENE BREAKS ----------------------------------------------------
+   No visible rule. A quiet asterism marks the shift.
+   ----------------------------------------------------------------------- */
+
+.chapter-content hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+  overflow: visible;
+}
+
+.chapter-content hr::after {
+  content: "\2042"; /* asterism */
+  display: inline-block;
+  font-size: 1.2em;
+  color: var(--text-dim);
+  letter-spacing: 0.3em;
+  position: relative;
+  top: -0.1em;
+  transition: color 0.4s ease;
+}
+
+/* --- 6. DROP CAP --------------------------------------------------------
+   Optional. Apply .drop-cap to the chapter-content wrapper.
+   ----------------------------------------------------------------------- */
+
+.drop-cap p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.8;
+  padding-right: 0.08em;
+  margin-top: 0.05em;
+  color: var(--accent);
+  font-weight: normal;
+  transition: color 0.4s ease;
+}
+
+/* --- 7. BLOCKQUOTES (EPIGRAPHS) ----------------------------------------- */
+
+.chapter-content blockquote {
+  max-width: 28em;
+  margin: 2em auto;
+  padding: 0 1.5em;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  color: var(--text-dim);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.chapter-content blockquote p {
+  text-indent: 0;
+  margin-bottom: 0.5em;
+}
+
+.chapter-content blockquote p:last-child { margin-bottom: 0; }
+
+.chapter-content blockquote cite {
+  display: block;
+  margin-top: 0.75em;
+  font-style: normal;
+  font-size: 0.88em;
+  text-align: right;
+  color: var(--text-dim);
+}
+
+/* --- 8. INLINE ELEMENTS ------------------------------------------------- */
+
+.chapter-content strong { font-weight: 700; }
+.chapter-content em { font-style: italic; }
+
+.chapter-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.chapter-content a:hover { border-bottom-color: var(--accent); }
+
+/* --- 9. PROGRESS BAR ---------------------------------------------------- */
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 0.15s linear, background-color 0.4s ease;
+  pointer-events: none;
+}
+
+/* --- 10. TOP NAVIGATION BAR ---------------------------------------------
+   Translucent strip. Always available, never intrudes.
+   ----------------------------------------------------------------------- */
+
+.book-nav {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.3s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.book-nav.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .book-nav::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  opacity: 0.3;
+}
+
+.book-nav .nav-title {
+  font-family: var(--title-font);
+  font-size: 0.82em;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  transition: color 0.4s ease;
+}
+
+.book-nav .chapter-info {
+  font-family: var(--title-font);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.book-nav .nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+
+.theme-toggle,
+.toc-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
+.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
+
+.theme-toggle:hover,
+.toc-toggle:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Icon visibility per theme */
+.theme-toggle .icon-light,
+.theme-toggle .icon-dark,
+.theme-toggle .icon-sepia { display: none; }
+
+[data-theme="light"] .theme-toggle .icon-light,
+:root:not([data-theme]) .theme-toggle .icon-light { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
+[data-theme="sepia"] .theme-toggle .icon-sepia { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle .icon-light { display: none; }
+  :root:not([data-theme]) .theme-toggle .icon-dark { display: inline; }
+}
+
+/* --- 12. TABLE OF CONTENTS OVERLAY -------------------------------------- */
+
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.toc-overlay.active { opacity: 1; visibility: visible; }
+
+.toc-panel {
+  background: var(--bg);
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2.5em 2em;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.4s ease;
+}
+
+.toc-book-title {
+  font-family: var(--title-font);
+  font-size: 1.1em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 0.3em;
+  transition: color 0.4s ease;
+}
+
+.toc-panel h2 {
+  font-family: var(--title-font);
+  font-size: 0.85em;
+  font-weight: normal;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.toc-panel ol,
+.toc-contents ol { list-style: none; counter-reset: toc-chapter; }
+
+.toc-panel li,
+.toc-contents li {
+  counter-increment: toc-chapter;
+  border-bottom: 1px solid var(--border);
+}
+
+.toc-panel li:last-child,
+.toc-contents li:last-child { border-bottom: none; }
+
+.toc-panel a,
+.toc-contents a {
+  font-family: var(--title-font);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  padding: 0.65em 0.25em;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: color 0.3s ease;
+}
+
+.toc-panel a:hover,
+.toc-contents a:hover { color: var(--accent); }
+
+.toc-panel a::before,
+.toc-contents a::before {
+  content: counter(toc-chapter);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  min-width: 1.5em;
+  text-align: right;
+}
+
+/* Completed chapters */
+.toc-panel li.chapter-read a,
+.toc-contents li.chapter-read a { color: var(--text-dim); }
+
+.toc-panel li.chapter-read a::after {
+  content: "\2713";
+  font-size: 0.78em;
+  margin-left: auto;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+.toc-close {
+  display: block;
+  margin: 1.5em auto 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.85em;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.toc-close:hover { color: var(--text); }
+
+/* --- 13. CHAPTER NAVIGATION (BOTTOM) ------------------------------------
+   The invitation to turn the page.
+   ----------------------------------------------------------------------- */
+
+.chapter-nav {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 3em 1.5rem 4em;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  transition: border-color 0.4s ease;
+}
+
+.chapter-nav a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.75em 0;
+  min-height: 44px;
+  transition: color 0.3s ease;
+}
+
+.chapter-nav a:hover { color: var(--accent); }
+
+.chapter-nav .nav-label {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+.chapter-nav .nav-chapter-title { font-style: italic; }
+.chapter-nav .nav-prev { text-align: left; }
+.chapter-nav .nav-next { text-align: right; margin-left: auto; }
+
+/* --- 14. INDEX / LANDING PAGE ------------------------------------------- */
+
+.book-landing {
+  text-align: center;
+  padding-top: 6em;
+  padding-bottom: 4em;
+}
+
+.book-cover {
+  max-width: 300px;
+  width: 60%;
+  height: auto;
+  margin: 0 auto 2.5em;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.book-meta { margin-bottom: 3em; }
+
+.book-meta .book-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+  line-height: 1.2;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-author {
+  font-family: var(--title-font);
+  font-size: 1.05em;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.2em;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-logline {
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 28em;
+  margin: 0 auto;
+  line-height: 1.5;
+  transition: color 0.4s ease;
+}
+
+.start-reading {
+  display: block;
+  max-width: 16em;
+  margin: 0 auto;
+  padding: 0.85em 2.5em;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: 1em;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.start-reading:hover { color: var(--bg); filter: brightness(1.1); transform: translateY(-1px); }
+.start-reading:active { transform: translateY(0); }
+
+.toc-link {
+  display: inline-block;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.15em;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.toc-link:hover { color: var(--text); border-bottom-color: var(--accent); }
+
+/* --- PART LABEL (above chapter heading) --------------------------------- */
+
+.part-label {
+  text-align: center;
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 3em;
+  margin-bottom: 0.5em;
+  transition: color 0.4s ease;
+}
+
+.part-label + h1 {
+  margin-top: 0.5em;
+}
+
+/* --- PART INTERSTITIAL PAGE --------------------------------------------- */
+
+.part-interstitial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2em 1.5rem;
+}
+
+.part-number {
+  font-size: 0.75em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1em;
+}
+
+.part-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.08em;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.part-ornament {
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin-top: 2em;
+}
+
+[data-theme="dark"] .part-number { color: var(--accent); }
+[data-theme="dark"] .part-ornament {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+/* --- TOC PART HEADINGS -------------------------------------------------- */
+
+.toc-part {
+  font-family: var(--title-font);
+  font-size: 0.72em;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  padding: 0 0.25em;
+}
+
+.toc-part:first-child { margin-top: 0; }
+
+.toc-panel li.toc-current a,
+.toc-list li.toc-current a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.toc-panel li.toc-current a::before {
+  color: var(--accent);
+}
+
+/* --- RESUME LINK -------------------------------------------------------- */
+
+.resume-link {
+  display: block;
+  margin-bottom: 1.5em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.resume-link:hover { filter: brightness(1.2); }
+
+.resume-label {
+  display: block;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+/* --- CONTENTS PAGE TITLE ------------------------------------------------ */
+
+.contents-title {
+  font-family: var(--title-font);
+  font-size: 1.8em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 1.5em;
+  padding-top: 1em;
+}
+
+/* --- 15. RESPONSIVE ----------------------------------------------------- */
+
+@media (max-width: 639px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { padding-left: 20px; padding-right: 20px; }
+
+  .book-nav { padding: 0.5rem 1rem; }
+
+  .book-nav .nav-title { font-size: 0.72em; max-width: 40%; }
+  .book-nav .chapter-info { font-size: 0.68em; }
+
+  .chapter-content h1 {
+    font-size: 1.25em;
+    margin-top: 2.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .part-label { font-size: 0.65em; margin-top: 2em; }
+
+  .part-interstitial { min-height: 50vh; }
+  .part-title { font-size: 1.5em; }
+
+  .chapter-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .chapter-nav .nav-next {
+    text-align: left;
+    margin-left: 0;
+    padding-top: 1em;
+    border-top: 1px solid var(--border);
+  }
+
+  .book-landing { padding-top: 3em; }
+  .book-meta .book-title { font-size: 1.6em; }
+  .book-cover { max-width: 240px; width: 70%; }
+  .contents-title { font-size: 1.4em; }
+  .toc-panel { padding: 2em 1.5em; width: 95%; }
+  .toc-book-title { font-size: 0.95em; }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { max-width: 38em; padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (pointer: coarse) {
+  .book-nav .nav-controls button,
+  .chapter-nav a,
+  .toc-panel a,
+  .toc-contents a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* --- 16. SELECTION ------------------------------------------------------ */
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--text);
+}
+
+/* --- 17. PRINT ---------------------------------------------------------- */
+
+@media print {
+  .book-nav, .progress-bar, .chapter-nav,
+  .toc-overlay, .theme-toggle, .toc-toggle { display: none !important; }
+
+  body { background: white; color: black; font-size: 11pt; }
+  .chapter-content { max-width: none; padding: 0; }
+  .chapter-content h1 { page-break-before: always; color: black; }
+  .chapter-content h1:first-of-type { page-break-before: avoid; }
+  .chapter-content hr { page-break-after: avoid; }
+  .chapter-content blockquote { color: #333; border-left-color: #ccc; }
+  a { color: black; border-bottom: none; }
+}
+
+/* --- 18. REDUCED MOTION ------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body data-chapter="chapter-12" data-chapter-num="12" data-total-chapters="30">
+
+<div class="progress-bar"></div>
+
+<nav class="book-nav">
+  <a href="../contents.html" class="nav-title">The Governor</a>
+  <div class="nav-controls">
+    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
+    <button class="theme-toggle" aria-label="Change theme">
+      <span class="icon-light">&#9788;</span>
+      <span class="icon-dark">&#9790;</span>
+      <span class="icon-sepia">&#9782;</span>
+    </button>
+  </div>
+</nav>
+
+<main class="reading-column chapter-content drop-cap">
+
+<h1 id="chapter-12-eastern-cascade">Chapter 12: Eastern Cascade</h1>
+<p>The sound woke him — not an alarm, but an absence. The pipes behind
+the plaster carried a constant low hum, ignorable until it stopped.
+Elias was pulling on his boots before the silence resolved into meaning.
+The eastern trunk line had dropped pressure — suddenly, completely.</p>
+<p>He was lacing his second boot when the runner knocked.</p>
+<p>Gallery Authority messenger. He held out an assignment slip.</p>
+<p><em>Eastern Basin residential block, Terrace Row. Steam distribution
+failure. Pressure surge followed by rupture in sub-level utility feeds.
+GA crews on site — cannot isolate source. Requesting E. Vael.</em></p>
+<p>General dispatch. The Gallery Authority’s own people didn’t know
+where to start.</p>
+<p>Work coat off the chair. Tool bag from beside the cot. The seventy
+crossed circles were still in his mind. Three nodes from the central
+regulation channels.</p>
+<p>Terrace Row was in the eastern Basin. Above the sealed galleries.
+Above the channels Tessa had mapped.</p>
+<p>He knew what he would find before he reached the street. The caldera
+pushing upward through channels that no longer governed it.</p>
+<hr />
+<p>Terrace Row. Six blocks east. Second Expansion housing — volcanic
+stone, four stories, narrow. The buildings shared utility infrastructure
+through a common sub-level tunnel.</p>
+<p>The smell hit before the corner. Live steam. The predawn dark was
+thick with it. Gas lamps burned amber through fog that shouldn’t have
+been there.</p>
+<p>Gallery Authority crew on the street. Two at a surface access hatch
+pried open. Steam pushing from below. The crew foreman stood three paces
+back, reading a gauge.</p>
+<p>“Vael. Thank God.” The foreman’s face was red. “We can’t find the
+source. Three risers blew their safety valves simultaneously. We shut
+the mains, but the pressure is still building. It’s coming from
+somewhere below the distribution level.”</p>
+<p>Below the mechanical system entirely.</p>
+<p>Elias knelt beside the open hatch. The heat hit his face. He put his
+hand on the iron lip. Hot enough to sting, even through calluses two
+decades thick.</p>
+<p>“How many occupied units above the sub-level?”</p>
+<p>“Sixteen. We’ve evacuated twelve. Four lower units we can’t reach —
+the stairwells are venting.”</p>
+<p>Four units they couldn’t reach. The ones closest to the utility
+tunnel, where the risers entered through the floor.</p>
+<p>“Anyone in those units?”</p>
+<p>“We don’t know. The building warden went floor to floor, but the
+lower stairwell was already too hot to descend. Could be empty. Could be
+not.”</p>
+<p>Could be not. He stood up.</p>
+<p>“I need two men with me in the tunnel. The rest of you — get into the
+buildings from the upper floors and work down. Open every window above
+the third story. Vent the stairwells from the top. If you can get to the
+lower units from above, do it.”</p>
+<p>The foreman hesitated. “The tunnel pressure —”</p>
+<p>“I know what the tunnel pressure is. I can feel it from here.” He
+picked up his tool bag. “Who’s your best valve man?”</p>
+<p>“Jessik. South Basin, twelve years.”</p>
+<p>“Jessik and one more. Heavy gloves, wrench sets, and a pry bar. We’re
+going to isolate the feeds manually from the sub-level.”</p>
+<hr />
+<p>The utility tunnel was First Expansion-era — hand-cut blocks,
+iron-bracketed arches. Barely tall enough for Elias to stand.</p>
+<p>Three risers had ruptured. Safety valve housings blown outward, live
+steam jetting in pressurized columns. The temperature was brutal.</p>
+<p>Elias put his hand on the nearest primary feed. The vibration was
+there — the deep irregular pulse he had been tracking for two years in
+the Ashward. Here. The same anomaly, translated through miles of iron
+into a pressure surge that had found the weakest point and blown it
+open.</p>
+<p>He sent Jessik to the east riser and the younger man to the west.
+Took the center himself — number two riser and the primary feed
+isolation. The critical one.</p>
+<p>The primary isolation valve was corroded to the shaft. He set his
+wrench and pulled with legs and shoulders — the whole body, load
+distributed. The valve groaned. A quarter-turn. Another. The roar of
+steam in the tunnel dropped in pitch. The fog began to thin.</p>
+<p>One by one the calls came back — number three isolated, number one
+sealed after a bracket broke. Elias gave the primary valve a final turn
+and felt it seat. The steam dropped from a hiss to silence.</p>
+<p>Three risers blown. One — number four, east end, closest to the lower
+residential units — had not blown its safety valve. He walked to it. Put
+his hand on the pipe.</p>
+<p>Cooler than the others. The steam had already gone somewhere else —
+through a seam failure, into the wall cavity of the building above.</p>
+<p>Inside the lower units.</p>
+<hr />
+<p>He came up through the surface hatch. Steam stopped. Residents
+emerging from upper floors in coats and blankets. The block was losing
+heat fast.</p>
+<p>Tessa was standing on the opposite side of the street.</p>
+<p>He hadn’t sent for her. But she was there — heavy wool coat, her body
+oriented toward the ruptured block with the stillness of someone reading
+pressure through the stone. She had felt the surge through the pipes
+behind her own walls. She had come.</p>
+<p>Across the street to her. His hands were red from the tunnel heat,
+his forearms streaked with rust and grease.</p>
+<p>“The primary feed is isolated,” he said. “Three risers blew their
+safety valves.”</p>
+<p>She didn’t ask if he was all right.</p>
+<p>“The number four riser,” she said.</p>
+<p>She had counted vent caps on the roofline. Three venting. One
+still.</p>
+<p>“It didn’t blow the safety valve. The steam went through a seam
+failure, into the wall cavity.”</p>
+<p>Her eyes went to the lower floor of the easternmost building. The
+windows were dark.</p>
+<p>“Anyone inside?”</p>
+<p>“We don’t know yet.”</p>
+<hr />
+<p>They knew an hour later.</p>
+<p>The foreman came down. His face was gray.</p>
+<p>“Two,” the foreman said. “Lower unit, east side. An old man and his
+granddaughter. The steam came through the floor.” He stopped. “It would
+have been fast.”</p>
+<p>The weight joined the weight he already carried.</p>
+<p>An old man and his granddaughter.</p>
+<p>He would learn their names later. The failure would be classified as
+a pressure anomaly. Within tolerance. Two people sleeping in their home
+when the system designed to keep them warm killed them instead.</p>
+<p>Tessa was beside him. Jaw set. Eyes on the dark windows.</p>
+<p>The cascade reaching the only people it could reach — the ones
+closest to the infrastructure.</p>
+<hr />
+<p>A woman came down from the upper floors. She stopped at the
+barricade.</p>
+<p>“Can I go back in?”</p>
+<p>She asked Elias.</p>
+<p>“Upper floors are clear. Stay above the second landing until the
+ground-level unit has been sealed.”</p>
+<p>The woman nodded and went inside.</p>
+<p>Three paces behind him, Tessa saw what the woman could not. His
+breathing was deliberate, counted, managed.</p>
+<p>She stepped forward. Close enough that he could feel her at his
+shoulder. Close enough to be read.</p>
+<p>He turned his head, slightly. Just enough to register that she was
+there.</p>
+<p>“The pressure came from below the distribution level,” he said. “The
+eastern quadrant.”</p>
+<p>“I know,” she said.</p>
+<p>The Gallery Authority would classify this as an infrastructure
+anomaly. The Governor would never stand in this street.</p>
+<p>The morning was cold. Residents huddled near temporary steam feeds.
+They did not know the system had been made to fail.</p>
+<p>Tool bag shouldered.</p>
+<p>“This is what the variance looks like,” she said. Then, quieter: “We
+need to finish the map.”</p>
+<p>He held out his hand. She took it — her fingers numb from the first
+knuckle down, his palm hot from the tunnel, red and calloused. Her cold,
+his heat. Her reading, his repair. The same system, approached from
+opposite ends.</p>
+<p>They walked toward her boarding house. Behind them, Terrace Row was
+waking into its emergency — a failure already being classified as an
+incident rather than a symptom. Ahead, the eastern development rose in
+quarried limestone. Fourteen blocks built on a lie.</p>
+<p>An old man and his granddaughter. And somewhere below, the cutting
+continued.</p>
+<hr />
+<p>The afternoon dispatch arrived at half past two. Twelve items. Voss
+sorted them by category before reading any — Council correspondence
+left, Gallery Authority center, development reports right.</p>
+<p>The Gallery Authority stack held three items. He took them in
+order.</p>
+<p>Routine maintenance summary. Signed.</p>
+<p>Equipment requisition for the southern trunk line. Approved,
+initialed.</p>
+<p>Third item. Heavier paper — incident-grade stock, the kind the
+district offices used when the form required a signature chain. Filed
+through the eastern Basin district office. The ink was fresh enough to
+smell.</p>
+<p><em>Eastern Basin residential block, Terrace Row. Steam distribution
+failure. Pressure surge followed by rupture in sub-level utility feeds.
+Three safety valves on residential risers failed simultaneously. Source
+of pressure surge: undetermined. GA crews isolated the feeds following
+manual intervention by gallery engineer E. Vael.</em></p>
+<p><em>Personnel casualties: two (2) fatalities. Occupants of a
+lower-floor residential unit, east side. Steam entered through a seam
+failure in the wall cavity. Names withheld pending family
+notification.</em></p>
+<p><em>Preliminary classification: infrastructure aging consistent with
+thermal cycling beyond rated tolerances. Eastern distribution network
+operating within acceptable parameters given age of
+installations.</em></p>
+<p>Two dead. A pressure surge from below the distribution level. Source
+undetermined.</p>
+<p>He read the technical section again. Three risers. Simultaneous
+failure. The eastern trunk line had dropped pressure all at once. The
+kind of event that suggested a source deeper than the mechanical
+system.</p>
+<p>Deeper than the mechanical system.</p>
+<p>His hand paused on the page.</p>
+<p>The eastern galleries had been sealed for fourteen years. The
+geological survey — his survey, his scope, his carefully defined
+instruments — had measured the surface. Below the survey’s reach, the
+force that the survey was designed not to find continued to operate. The
+western and southern galleries carried compensatory load. Thirty-five
+percent above design capacity. He had read that number three weeks ago
+in the Fenwick incident addendum and initialed it.</p>
+<p>Terrace Row was in the eastern Basin. Above the sealed galleries.</p>
+<p>A pressure surge from below the distribution level.</p>
+<p>His thumb held the page open. The incident report on the left side of
+the desk. On the right, Cassiel’s quarterly development summary —
+revenue projections, occupancy rates, the twelve hundred families housed
+in buildings where the floors held and the steam arrived through risers
+that did not rupture in the night.</p>
+<p>The two documents lay three inches apart. He could feel the distance
+in his hands.</p>
+<p>He closed the incident report. Set it on the left. Picked up
+Cassiel’s summary.</p>
+<p><em>Preliminary classification: infrastructure aging consistent with
+thermal cycling beyond rated tolerances.</em></p>
+<p>He initialed the report. The classification would stand.</p>
+<p>He turned to Cassiel’s development report. Fourteen blocks occupied.
+Revenue within three percent of projection. Block Fifteen scheduled for
+foundation work in six weeks.</p>
+<p>Six weeks. The Terrace Row failure had ruptured risers in the eastern
+distribution network. The engineering crews assigned to pre-construction
+surveys for Block Fifteen would be diverted to the repair — two weeks of
+labor, minimum. Two weeks of delay. And delay bred questions. Questions
+bred inspection. Inspection bred scope.</p>
+<p>He pulled a fresh correspondence sheet.</p>
+<p><em>To: Gallery Authority District Supervisor, Eastern Basin. Re:
+Terrace Row emergency repair. Priority reallocation authorized. Reassign
+repair crews from the southern trunk maintenance schedule to Terrace
+Row, effective immediately. Eastern pre-construction crews are not to be
+diverted from Block Fifteen preparatory work. Southern trunk maintenance
+to resume upon completion of Terrace Row repairs.</em></p>
+<p>The southern trunk line could absorb a two-week delay. The southern
+galleries were carrying compensatory load, but they were newer — rated
+for it, or close enough. The repair crews there were performing routine
+gasket replacements, the kind of maintenance that could be deferred
+without immediate consequence. The consequence would arrive later, in
+the form of thermal cycling on seals left in service past their margin.
+But later was not now.</p>
+<p>He signed the reallocation order. Placed it in the dispatch case
+beside the initialed incident report.</p>
+<p>The afternoon light came through the sealed glass. Below the rim,
+Terrace Row was cleaning up — clearing steam, replacing pipes. Two
+families were being notified. The names would reach his desk by
+morning.</p>
+<p>The dispatch case was full. He rang for the evening courier.</p>
+<p>The gaslights were coming on in the eastern development. Orderly
+rows. Block Fifteen’s foundation stakes visible at the district’s edge,
+marking the ground where the next two hundred families would live. Below
+them, the galleries carried their steam and their dead.</p>
+</main>
+
+<nav class="chapter-nav">
+  <a href="chapter-11.html" class="prev-chapter nav-link"><span class="nav-label">&larr; Previous</span><span class="nav-chapter-title">The Full Timeline</span></a>
+  <a href="chapter-13.html" class="next-chapter nav-link"><span class="nav-label">Next &rarr;</span><span class="nav-chapter-title">The Lie of Dormancy</span></a>
+</nav>
+
+<!-- TOC Overlay -->
+<div class="toc-overlay">
+  <div class="toc-panel">
+    <div class="toc-book-title">The Governor</div>
+    <h2>Contents</h2>
+    <div class="toc-contents">
+  <ol class="toc-list">
+    <li><a href="chapter-01.html" data-chapter="chapter-01">Junction Fourteen</a></li>
+    <li><a href="chapter-02.html" data-chapter="chapter-02">Triage</a></li>
+    <li><a href="chapter-03.html" data-chapter="chapter-03">Ashward Reach</a></li>
+    <li><a href="chapter-04.html" data-chapter="chapter-04">The Draw</a></li>
+    <li><a href="chapter-05.html" data-chapter="chapter-05">Protocol</a></li>
+    <li><a href="chapter-06.html" data-chapter="chapter-06">The Sealed Galleries</a></li>
+    <li><a href="chapter-07.html" data-chapter="chapter-07">The Column</a></li>
+    <li><a href="chapter-08.html" data-chapter="chapter-08">Complicity</a></li>
+    <li><a href="chapter-09.html" data-chapter="chapter-09">Mapping</a></li>
+    <li><a href="chapter-10.html" data-chapter="chapter-10">Four-Eleven-Thirty</a></li>
+    <li><a href="chapter-11.html" data-chapter="chapter-11">The Full Timeline</a></li>
+    <li><a href="chapter-12.html" data-chapter="chapter-12">Eastern Cascade</a></li>
+    <li><a href="chapter-13.html" data-chapter="chapter-13">The Lie of Dormancy</a></li>
+    <li><a href="chapter-14.html" data-chapter="chapter-14">Buried</a></li>
+    <li><a href="chapter-15.html" data-chapter="chapter-15">The Archivist's Box</a></li>
+    <li><a href="chapter-16.html" data-chapter="chapter-16">Article Twelve</a></li>
+    <li><a href="chapter-17.html" data-chapter="chapter-17">The Warning</a></li>
+    <li><a href="chapter-18.html" data-chapter="chapter-18">Five Years</a></li>
+    <li><a href="chapter-19.html" data-chapter="chapter-19">The Order</a></li>
+    <li><a href="chapter-20.html" data-chapter="chapter-20">Cost</a></li>
+    <li><a href="chapter-21.html" data-chapter="chapter-21">Third Watch</a></li>
+    <li><a href="chapter-22.html" data-chapter="chapter-22">Stairwell Nine</a></li>
+    <li><a href="chapter-23.html" data-chapter="chapter-23">The Repair</a></li>
+    <li><a href="chapter-24.html" data-chapter="chapter-24">Dawn</a></li>
+    <li><a href="chapter-25.html" data-chapter="chapter-25">Diminished</a></li>
+    <li><a href="chapter-26.html" data-chapter="chapter-26">Recovery</a></li>
+    <li><a href="chapter-27.html" data-chapter="chapter-27">Clear Sight</a></li>
+    <li><a href="chapter-28.html" data-chapter="chapter-28">Lasting Work</a></li>
+    <li><a href="chapter-29.html" data-chapter="chapter-29">The Team</a></li>
+    <li><a href="chapter-30.html" data-chapter="chapter-30">A Beginning</a></li>
+  </ol>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+ * Storyforge Web Book — Progressive Enhancement
+ *
+ * The book is fully readable with JavaScript disabled.
+ * Everything in this file is optional enhancement.
+ *
+ * ---------------------------------------------------------------------------
+ * INLINE IN <head> — prevents flash of wrong theme.
+ * Paste this inside a <script> tag before any stylesheets:
+ *
+ * (function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})();
+ *
+ * ---------------------------------------------------------------------------
+ */
+
+(function () {
+  'use strict';
+
+  // ---------------------------------------------------------------------------
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  /** Return a debounced version of fn that waits ms before firing. */
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      var ctx = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(ctx, args); }, ms);
+    };
+  }
+
+  /** Derive a slug for the current chapter from the URL or body attribute. */
+  function getChapterSlug() {
+    var slug = document.body.getAttribute('data-chapter');
+    if (slug) return slug;
+    // Fall back to the last segment of the pathname, minus extension
+    var path = window.location.pathname.replace(/\/+$/, '');
+    var parts = path.split('/');
+    return (parts[parts.length - 1] || 'index').replace(/\.html?$/, '');
+  }
+
+  // ---------------------------------------------------------------------------
+  // 1. Theme switching
+  // ---------------------------------------------------------------------------
+
+  var themes = ['light', 'dark', 'sepia'];
+
+  function currentTheme() {
+    return document.documentElement.dataset.theme || 'light';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('storyforge-theme', theme);
+  }
+
+  function cycleTheme() {
+    var idx = themes.indexOf(currentTheme());
+    setTheme(themes[(idx + 1) % themes.length]);
+  }
+
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', cycleTheme);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 2. Reading position persistence
+  // ---------------------------------------------------------------------------
+
+  var posKey = 'pos-' + getChapterSlug();
+
+  // Restore saved position after layout settles.
+  var savedPos = localStorage.getItem(posKey);
+  if (savedPos !== null) {
+    setTimeout(function () {
+      window.scrollTo(0, parseInt(savedPos, 10));
+    }, 100);
+  }
+
+  // Save position on scroll (debounced).
+  window.addEventListener('scroll', debounce(function () {
+    localStorage.setItem(posKey, String(window.scrollY));
+  }, 500));
+
+  // ---------------------------------------------------------------------------
+  // 3. Chapter completion tracking
+  // ---------------------------------------------------------------------------
+
+  function getChaptersRead() {
+    try { return JSON.parse(localStorage.getItem('chapters-read')) || []; }
+    catch (_) { return []; }
+  }
+
+  function markChapterRead(slug) {
+    var read = getChaptersRead();
+    if (read.indexOf(slug) === -1) {
+      read.push(slug);
+      localStorage.setItem('chapters-read', JSON.stringify(read));
+    }
+  }
+
+  /** Apply .chapter-read to TOC links whose chapters have been completed. */
+  function applyReadClasses() {
+    var read = getChaptersRead();
+    if (!read.length) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var slug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (read.indexOf(slug) !== -1) {
+        links[i].classList.add('chapter-read');
+      }
+    }
+  }
+
+  applyReadClasses();
+
+  // Mark current chapter as read when user scrolls past 90%.
+  var chapterMarked = false;
+  function checkCompletion() {
+    if (chapterMarked) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    if (docHeight <= winHeight) return; // page fits in viewport
+    if (scrollTop / (docHeight - winHeight) >= 0.9) {
+      chapterMarked = true;
+      markChapterRead(getChapterSlug());
+      applyReadClasses();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4. Progress bar
+  // ---------------------------------------------------------------------------
+
+  var progressBar = document.querySelector('.progress-bar');
+
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    var pct = docHeight <= winHeight ? 100 : (scrollTop / (docHeight - winHeight)) * 100;
+    progressBar.style.width = Math.min(pct, 100) + '%';
+  }
+
+  // ---------------------------------------------------------------------------
+  // 5. Auto-hiding navigation
+  // ---------------------------------------------------------------------------
+
+  var bookNav = document.querySelector('.book-nav');
+  var lastScrollY = window.scrollY;
+  var hideTimer = null;
+
+  function handleNavVisibility() {
+    var scrollY = window.scrollY;
+    if (!bookNav) return;
+
+    // Always visible near the top of the page.
+    if (scrollY < 100) {
+      bookNav.classList.remove('hidden');
+      clearTimeout(hideTimer);
+      lastScrollY = scrollY;
+      return;
+    }
+
+    if (scrollY > lastScrollY) {
+      // Scrolling down — hide after 3 seconds.
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        bookNav.classList.add('hidden');
+      }, 3000);
+    } else {
+      // Scrolling up — show immediately.
+      clearTimeout(hideTimer);
+      bookNav.classList.remove('hidden');
+    }
+
+    lastScrollY = scrollY;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Unified scroll handler (uses rAF for smooth progress bar updates)
+  // ---------------------------------------------------------------------------
+
+  var scrollTicking = false;
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(function () {
+        updateProgress();
+        checkCompletion();
+        handleNavVisibility();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  });
+
+  // Initial call so progress bar is correct on load.
+  updateProgress();
+
+  // ---------------------------------------------------------------------------
+  // 6. Keyboard navigation
+  // ---------------------------------------------------------------------------
+
+  document.addEventListener('keydown', function (e) {
+    // Don't capture when the user is typing in a form field.
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) {
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowLeft': {
+        var prev = document.querySelector('.prev-chapter');
+        if (prev && prev.href) window.location.href = prev.href;
+        break;
+      }
+      case 'ArrowRight': {
+        var next = document.querySelector('.next-chapter');
+        if (next && next.href) window.location.href = next.href;
+        break;
+      }
+      case 't':
+      case 'T':
+        toggleToc();
+        break;
+      case 'Escape':
+        closeToc();
+        break;
+    }
+  });
+
+  // ---------------------------------------------------------------------------
+  // 7. TOC overlay toggle
+  // ---------------------------------------------------------------------------
+
+  var tocOverlay = document.querySelector('.toc-overlay');
+  var tocToggle = document.querySelector('.toc-toggle');
+
+  function toggleToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.toggle('active');
+    if (tocOverlay.classList.contains('active')) {
+      var current = tocOverlay.querySelector('.toc-current');
+      if (current) {
+        setTimeout(function () {
+          current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }
+
+  function closeToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.remove('active');
+  }
+
+  if (tocToggle) {
+    tocToggle.addEventListener('click', toggleToc);
+  }
+
+  // Close on backdrop click (click on the overlay itself, not its children).
+  if (tocOverlay) {
+    tocOverlay.addEventListener('click', function (e) {
+      if (e.target === tocOverlay) closeToc();
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 8. Chapter info in navigation
+  // ---------------------------------------------------------------------------
+
+  var chapterNum = document.body.getAttribute('data-chapter-num');
+  var totalChapters = document.body.getAttribute('data-total-chapters');
+
+  if (chapterNum && totalChapters && bookNav) {
+    var info = document.createElement('span');
+    info.className = 'chapter-info';
+    info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
+    bookNav.appendChild(info);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 9. Resume tracking — store last-visited chapter
+  // ---------------------------------------------------------------------------
+
+  var currentSlug = getChapterSlug();
+  if (currentSlug && currentSlug !== 'index' && currentSlug !== 'contents') {
+    localStorage.setItem('storyforge-last-chapter', currentSlug);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 10. TOC current chapter highlight
+  // ---------------------------------------------------------------------------
+
+  function highlightCurrentChapter() {
+    var slug = getChapterSlug();
+    if (!slug) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc-list a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var linkSlug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (linkSlug === slug) {
+        var li = links[i].closest('li');
+        if (li) {
+          li.classList.add('toc-current');
+        }
+      }
+    }
+  }
+
+  highlightCurrentChapter();
+
+})();
+</script>
+</body>
+</html>

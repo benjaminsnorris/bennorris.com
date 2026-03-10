@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Draw — The Governor</title>
+<meta name="author" content="Ben Norris">
+
+<script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   reading.css — Web Book Reading Experience
+   StoryForge production stylesheet
+
+   A reading environment that disappears. Inspired by Butterick's Practical
+   Typography, Tufte CSS, and the tradition of fine bookmaking.
+   ========================================================================== */
+
+/* --- 1. COLOR THEMES ---------------------------------------------------- */
+
+/* Base defaults (light theme) — overridden by [data-theme] selectors below */
+:root {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+    --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+  }
+}
+
+/* Explicit theme overrides — must come after :root to win on specificity */
+[data-theme="light"] {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+  --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+}
+[data-theme="sepia"] {
+  --bg: #f4ecd8; --text: #3b2e1e; --text-dim: #6b5a42;
+  --accent: #8b5e3c; --surface: #e8dfc8; --border: rgba(59,46,30,0.1);
+}
+
+[data-theme="dark"] .reading-column,
+[data-theme="dark"] .chapter-content { line-height: 1.65; }
+
+/* --- FONT LOADING ------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Title font — applied to book title, chapter headings, part titles.
+   Loaded via Google Fonts <link> in <head>; fallback to body font. */
+:root { --title-font: 'Playfair Display', 'Literata', Georgia, serif; --title-weight: normal; }
+
+/* --- 2. RESET & BASE ---------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+a { color: var(--text); text-decoration: none; }
+a:hover { color: var(--accent); }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: clamp(18px, 1.15rem + 0.25vw, 21px);
+  line-height: 1.58;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 3. TYPOGRAPHY — THE TEXT COLUMN ------------------------------------
+   The measure: 36em keeps us at 65-75 characters per line.
+   ----------------------------------------------------------------------- */
+
+.chapter-content,
+.reading-column,
+.book-landing {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Book-style paragraphs: indented, no vertical gap */
+.chapter-content p {
+  text-indent: 1.5em;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* First paragraph after structural elements — no indent */
+.chapter-content h1 + p,
+.chapter-content h2 + p,
+.chapter-content h3 + p,
+.chapter-content hr + p,
+.chapter-content blockquote + p {
+  text-indent: 0;
+}
+
+/* --- 4. HEADINGS --------------------------------------------------------
+   Chapter titles (h1): graceful, quiet — a breath before the prose.
+   ----------------------------------------------------------------------- */
+
+.chapter-content h1 {
+  font-family: var(--title-font);
+  font-size: 1.5em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+  margin-top: 3.5em;
+  margin-bottom: 2em;
+  line-height: 1.3;
+  transition: color 0.4s ease;
+}
+
+/* Subtle rule beneath chapter title */
+.chapter-content h1::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin: 0.8em auto 0;
+}
+
+.chapter-content h2 {
+  font-size: 1.15em;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--text);
+  margin: 2em 0 0.75em;
+  line-height: 1.4;
+  transition: color 0.4s ease;
+}
+
+.chapter-content h3 {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  transition: color 0.4s ease;
+}
+
+/* --- 5. SCENE BREAKS ----------------------------------------------------
+   No visible rule. A quiet asterism marks the shift.
+   ----------------------------------------------------------------------- */
+
+.chapter-content hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+  overflow: visible;
+}
+
+.chapter-content hr::after {
+  content: "\2042"; /* asterism */
+  display: inline-block;
+  font-size: 1.2em;
+  color: var(--text-dim);
+  letter-spacing: 0.3em;
+  position: relative;
+  top: -0.1em;
+  transition: color 0.4s ease;
+}
+
+/* --- 6. DROP CAP --------------------------------------------------------
+   Optional. Apply .drop-cap to the chapter-content wrapper.
+   ----------------------------------------------------------------------- */
+
+.drop-cap p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.8;
+  padding-right: 0.08em;
+  margin-top: 0.05em;
+  color: var(--accent);
+  font-weight: normal;
+  transition: color 0.4s ease;
+}
+
+/* --- 7. BLOCKQUOTES (EPIGRAPHS) ----------------------------------------- */
+
+.chapter-content blockquote {
+  max-width: 28em;
+  margin: 2em auto;
+  padding: 0 1.5em;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  color: var(--text-dim);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.chapter-content blockquote p {
+  text-indent: 0;
+  margin-bottom: 0.5em;
+}
+
+.chapter-content blockquote p:last-child { margin-bottom: 0; }
+
+.chapter-content blockquote cite {
+  display: block;
+  margin-top: 0.75em;
+  font-style: normal;
+  font-size: 0.88em;
+  text-align: right;
+  color: var(--text-dim);
+}
+
+/* --- 8. INLINE ELEMENTS ------------------------------------------------- */
+
+.chapter-content strong { font-weight: 700; }
+.chapter-content em { font-style: italic; }
+
+.chapter-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.chapter-content a:hover { border-bottom-color: var(--accent); }
+
+/* --- 9. PROGRESS BAR ---------------------------------------------------- */
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 0.15s linear, background-color 0.4s ease;
+  pointer-events: none;
+}
+
+/* --- 10. TOP NAVIGATION BAR ---------------------------------------------
+   Translucent strip. Always available, never intrudes.
+   ----------------------------------------------------------------------- */
+
+.book-nav {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.3s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.book-nav.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .book-nav::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  opacity: 0.3;
+}
+
+.book-nav .nav-title {
+  font-family: var(--title-font);
+  font-size: 0.82em;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  transition: color 0.4s ease;
+}
+
+.book-nav .chapter-info {
+  font-family: var(--title-font);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.book-nav .nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+
+.theme-toggle,
+.toc-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
+.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
+
+.theme-toggle:hover,
+.toc-toggle:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Icon visibility per theme */
+.theme-toggle .icon-light,
+.theme-toggle .icon-dark,
+.theme-toggle .icon-sepia { display: none; }
+
+[data-theme="light"] .theme-toggle .icon-light,
+:root:not([data-theme]) .theme-toggle .icon-light { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
+[data-theme="sepia"] .theme-toggle .icon-sepia { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle .icon-light { display: none; }
+  :root:not([data-theme]) .theme-toggle .icon-dark { display: inline; }
+}
+
+/* --- 12. TABLE OF CONTENTS OVERLAY -------------------------------------- */
+
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.toc-overlay.active { opacity: 1; visibility: visible; }
+
+.toc-panel {
+  background: var(--bg);
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2.5em 2em;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.4s ease;
+}
+
+.toc-book-title {
+  font-family: var(--title-font);
+  font-size: 1.1em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 0.3em;
+  transition: color 0.4s ease;
+}
+
+.toc-panel h2 {
+  font-family: var(--title-font);
+  font-size: 0.85em;
+  font-weight: normal;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.toc-panel ol,
+.toc-contents ol { list-style: none; counter-reset: toc-chapter; }
+
+.toc-panel li,
+.toc-contents li {
+  counter-increment: toc-chapter;
+  border-bottom: 1px solid var(--border);
+}
+
+.toc-panel li:last-child,
+.toc-contents li:last-child { border-bottom: none; }
+
+.toc-panel a,
+.toc-contents a {
+  font-family: var(--title-font);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  padding: 0.65em 0.25em;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: color 0.3s ease;
+}
+
+.toc-panel a:hover,
+.toc-contents a:hover { color: var(--accent); }
+
+.toc-panel a::before,
+.toc-contents a::before {
+  content: counter(toc-chapter);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  min-width: 1.5em;
+  text-align: right;
+}
+
+/* Completed chapters */
+.toc-panel li.chapter-read a,
+.toc-contents li.chapter-read a { color: var(--text-dim); }
+
+.toc-panel li.chapter-read a::after {
+  content: "\2713";
+  font-size: 0.78em;
+  margin-left: auto;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+.toc-close {
+  display: block;
+  margin: 1.5em auto 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.85em;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.toc-close:hover { color: var(--text); }
+
+/* --- 13. CHAPTER NAVIGATION (BOTTOM) ------------------------------------
+   The invitation to turn the page.
+   ----------------------------------------------------------------------- */
+
+.chapter-nav {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 3em 1.5rem 4em;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  transition: border-color 0.4s ease;
+}
+
+.chapter-nav a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.75em 0;
+  min-height: 44px;
+  transition: color 0.3s ease;
+}
+
+.chapter-nav a:hover { color: var(--accent); }
+
+.chapter-nav .nav-label {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+.chapter-nav .nav-chapter-title { font-style: italic; }
+.chapter-nav .nav-prev { text-align: left; }
+.chapter-nav .nav-next { text-align: right; margin-left: auto; }
+
+/* --- 14. INDEX / LANDING PAGE ------------------------------------------- */
+
+.book-landing {
+  text-align: center;
+  padding-top: 6em;
+  padding-bottom: 4em;
+}
+
+.book-cover {
+  max-width: 300px;
+  width: 60%;
+  height: auto;
+  margin: 0 auto 2.5em;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.book-meta { margin-bottom: 3em; }
+
+.book-meta .book-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+  line-height: 1.2;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-author {
+  font-family: var(--title-font);
+  font-size: 1.05em;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.2em;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-logline {
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 28em;
+  margin: 0 auto;
+  line-height: 1.5;
+  transition: color 0.4s ease;
+}
+
+.start-reading {
+  display: block;
+  max-width: 16em;
+  margin: 0 auto;
+  padding: 0.85em 2.5em;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: 1em;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.start-reading:hover { color: var(--bg); filter: brightness(1.1); transform: translateY(-1px); }
+.start-reading:active { transform: translateY(0); }
+
+.toc-link {
+  display: inline-block;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.15em;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.toc-link:hover { color: var(--text); border-bottom-color: var(--accent); }
+
+/* --- PART LABEL (above chapter heading) --------------------------------- */
+
+.part-label {
+  text-align: center;
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 3em;
+  margin-bottom: 0.5em;
+  transition: color 0.4s ease;
+}
+
+.part-label + h1 {
+  margin-top: 0.5em;
+}
+
+/* --- PART INTERSTITIAL PAGE --------------------------------------------- */
+
+.part-interstitial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2em 1.5rem;
+}
+
+.part-number {
+  font-size: 0.75em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1em;
+}
+
+.part-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.08em;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.part-ornament {
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin-top: 2em;
+}
+
+[data-theme="dark"] .part-number { color: var(--accent); }
+[data-theme="dark"] .part-ornament {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+/* --- TOC PART HEADINGS -------------------------------------------------- */
+
+.toc-part {
+  font-family: var(--title-font);
+  font-size: 0.72em;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  padding: 0 0.25em;
+}
+
+.toc-part:first-child { margin-top: 0; }
+
+.toc-panel li.toc-current a,
+.toc-list li.toc-current a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.toc-panel li.toc-current a::before {
+  color: var(--accent);
+}
+
+/* --- RESUME LINK -------------------------------------------------------- */
+
+.resume-link {
+  display: block;
+  margin-bottom: 1.5em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.resume-link:hover { filter: brightness(1.2); }
+
+.resume-label {
+  display: block;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+/* --- CONTENTS PAGE TITLE ------------------------------------------------ */
+
+.contents-title {
+  font-family: var(--title-font);
+  font-size: 1.8em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 1.5em;
+  padding-top: 1em;
+}
+
+/* --- 15. RESPONSIVE ----------------------------------------------------- */
+
+@media (max-width: 639px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { padding-left: 20px; padding-right: 20px; }
+
+  .book-nav { padding: 0.5rem 1rem; }
+
+  .book-nav .nav-title { font-size: 0.72em; max-width: 40%; }
+  .book-nav .chapter-info { font-size: 0.68em; }
+
+  .chapter-content h1 {
+    font-size: 1.25em;
+    margin-top: 2.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .part-label { font-size: 0.65em; margin-top: 2em; }
+
+  .part-interstitial { min-height: 50vh; }
+  .part-title { font-size: 1.5em; }
+
+  .chapter-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .chapter-nav .nav-next {
+    text-align: left;
+    margin-left: 0;
+    padding-top: 1em;
+    border-top: 1px solid var(--border);
+  }
+
+  .book-landing { padding-top: 3em; }
+  .book-meta .book-title { font-size: 1.6em; }
+  .book-cover { max-width: 240px; width: 70%; }
+  .contents-title { font-size: 1.4em; }
+  .toc-panel { padding: 2em 1.5em; width: 95%; }
+  .toc-book-title { font-size: 0.95em; }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { max-width: 38em; padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (pointer: coarse) {
+  .book-nav .nav-controls button,
+  .chapter-nav a,
+  .toc-panel a,
+  .toc-contents a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* --- 16. SELECTION ------------------------------------------------------ */
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--text);
+}
+
+/* --- 17. PRINT ---------------------------------------------------------- */
+
+@media print {
+  .book-nav, .progress-bar, .chapter-nav,
+  .toc-overlay, .theme-toggle, .toc-toggle { display: none !important; }
+
+  body { background: white; color: black; font-size: 11pt; }
+  .chapter-content { max-width: none; padding: 0; }
+  .chapter-content h1 { page-break-before: always; color: black; }
+  .chapter-content h1:first-of-type { page-break-before: avoid; }
+  .chapter-content hr { page-break-after: avoid; }
+  .chapter-content blockquote { color: #333; border-left-color: #ccc; }
+  a { color: black; border-bottom: none; }
+}
+
+/* --- 18. REDUCED MOTION ------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body data-chapter="chapter-04" data-chapter-num="4" data-total-chapters="30">
+
+<div class="progress-bar"></div>
+
+<nav class="book-nav">
+  <a href="../contents.html" class="nav-title">The Governor</a>
+  <div class="nav-controls">
+    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
+    <button class="theme-toggle" aria-label="Change theme">
+      <span class="icon-light">&#9788;</span>
+      <span class="icon-dark">&#9790;</span>
+      <span class="icon-sepia">&#9782;</span>
+    </button>
+  </div>
+</nav>
+
+<main class="reading-column chapter-content drop-cap">
+
+<h1 id="chapter-4-the-draw">Chapter 4: The Draw</h1>
+<p>The valve was lying. Elias could feel it through his palm — reading
+nominal, vibration otherwise. Twenty-two years had taught him that a
+pipe’s present state was the least interesting thing it could tell
+you.</p>
+<p>The vibration was faint. Beneath the operating frequency — not a pump
+cycle, not the bleed valves, not the feeder vents with their
+seventy-second pulse. Deeper. Slower. Coming from outside the system.
+Below, or from the east.</p>
+<p>He lifted his hand.</p>
+<p>“Vael.” Renner’s voice, from the junction platform above. “Gauge
+three is drifting again.”</p>
+<p>“How far?”</p>
+<p>“Two percent. Maybe three. It’s hunting.”</p>
+<p>Hunting — oscillating between readings, unable to settle. Gauge three
+had been hunting for six weeks.</p>
+<p>He climbed to the junction platform. The Ashward Reach: two hundred
+yards of iron-ribbed tunnel. He’d been assigned here two years ago —
+transferred after his second anomaly report. His supervisor had called
+it recognition. Elias understood it as relocation.</p>
+<p>Renner was at the railing. Fourth year. “I checked the bleed valves.
+All seated. Manifold seals clean.”</p>
+<p>“Put your hand on the conduit casing upstream of the south junction
+collar.”</p>
+<p>Renner crossed to the junction. His face shifted. “It’s warm. Warmer
+— the temperature drops at a collar. This is running above the feed
+temperature.”</p>
+<p>“Something downstream is pushing heat back into the line.” He noted
+it in his field journal. <em>Gauge 3 drift, south junction. Upstream
+temp elevated. Retrograde heat consistent with reports 7, 9,
+11.</em></p>
+<p>“Another report?” Renner said.</p>
+<p>“The infrastructure doesn’t care what they do with the paperwork. The
+anomaly is still there.”</p>
+<p>Over two years, he had documented the wrongness in eleven reports.
+The first two were stamped <em>received</em>. Reports three through six
+came back: <em>Readings within standard parameters.</em> Seven through
+eleven had not been returned at all.</p>
+<p>The anomaly was getting worse. The way a crack gets worse in a
+load-bearing wall. He had been eight years into the Ashward posting when
+the Subsidence hit — the sound first, a low grinding that came through
+the floor before it came through the air, then the dust, white and
+mineral-sharp, filling the corridors for hours. The all-clear had taken
+two days. He still heard that grinding when the pipes ran wrong.</p>
+<p>He wrote the eleventh report that evening. Three pages.
+<em>Sub-operational frequency, non-cyclical, source unidentified.</em>
+He signed it, sealed it, placed it in the brass tray.</p>
+<p>He checked that Renner, Lossa, and Davan had secured their stations.
+Pulled on his canvas coat. The runner arrived.</p>
+<p>Gallery Authority messenger, not older than sixteen. He held out a
+folded assignment slip.</p>
+<p>“Mr. Vael? From Shift Supervisor Breck, Junction Fourteen. He’s
+requesting you specifically.”</p>
+<p>Elias took the slip and read it:</p>
+<p><em>Junction 14, eastern Basin distribution. Recurring failure — 9
+days, 4 repair attempts. Standard diagnostics inconclusive. Requesting
+E. Vael for consultation. Calibrator survey dispatched simultaneously —
+Cartography Office assigning. — H. Breck, Shift Supervisor.</em></p>
+<p>Nine days. Four failed repairs. Haddon requesting him by name — which
+meant he had exhausted his own crew’s knowledge.</p>
+<p><em>Calibrator survey dispatched simultaneously.</em></p>
+<p>A Calibrator. The last one had been Kellis, three months ago —
+quarterly assessment on the northern lateral. Read the manifold, noted
+two anomalies he’d flagged in report nine, classified them as residual
+thermal variance. Left without asking what the repairs had cost or who
+had done them. Before her, Vyre at the Breach. Their gift was real. But
+they read the music. They did not know the instrument.</p>
+<p>He folded the slip. Junction 14 — eastern Basin, adjacent to the
+sealed galleries. Adjacent to the anomalies he’d been documenting for
+two years. He could not yet articulate the connection. He could feel
+it.</p>
+<p>He packed his tool bag — wrench, socket drivers, gaskets, his good
+pressure gauge, the one he’d bought with his own wages because the
+Gallery Authority’s instruments had tolerances he didn’t trust. Heavier
+than Junction 14 required.</p>
+<p>“Renner.”</p>
+<p>“Sir?”</p>
+<p>“I’ve been called up to Junction Fourteen. You have the Reach until
+I’m back.”</p>
+<p>“How long?”</p>
+<p>“Depends on what I find.” He turned the wheel-valve on the northern
+access door. Iron on stone. Stepped through.</p>
+<p>The service corridor was cooler. Behind him, the eleventh report sat
+in the tray. The south junction ran warm. Gauge three hunted.</p>
+<p>He climbed. Above, a Calibrator he’d never met was descending toward
+the same junction.</p>
+<p>He wondered if this one would listen.</p>
+<hr />
+<p>She heard it before she saw it.</p>
+<p>The junction was three levels above the Ashward Reach, a primary
+nexus where four major conduits converged before splitting into the
+distribution network that served the eastern Basin. Tessa had mapped
+junctions like it a hundred times. Four inputs, one output, a transfer
+manifold balancing the load. The topology should have been clean.</p>
+<p>What she felt, thirty feet from the junction platform, was not
+clean.</p>
+<p>It hit her through the floor grating first — a sick, low vibration
+that climbed through the soles of her boots and settled in her ankle
+bones like a tuning fork struck wrong. Then it spread. Her mouth went
+dry — not the cold-water feeling of deep reading, something rawer, the
+body’s alarm before the Calibrator’s trained perception could frame it.
+By the time she reached the platform stairs, the discordance had filled
+her chest, her wrists, the space behind her ears where the deepest
+pressure readings lived. She stopped on the third step and closed her
+eyes.</p>
+<p>The junction was screaming.</p>
+<p>A thrum beneath the operating frequency — the junction’s four inputs
+running at slightly different pitches, and the manifold that was
+supposed to harmonize them unable to hold the chord. The gauges would
+say nominal — she was certain of that — but the rhythm was
+shattered.</p>
+<p>She’d told Dorren: <em>If the mechanical repairs aren’t holding, the
+cause isn’t mechanical.</em> Standing here, with the discordance
+pressing against her sternum like a hand, the words felt less like
+professional confidence and more like the first line of a document she
+wasn’t prepared to read.</p>
+<p>She opened her eyes. Descended the final steps.</p>
+<p>Junction Fourteen was a wide platform built around the convergence
+manifold — a brass housing the size of a writing desk, bolted to the
+gallery floor with iron brackets that were older than anything else in
+the junction. The brass was bright, almost aggressively new against the
+surrounding iron, which meant the housing had been replaced recently.
+Someone had thrown money at the problem. Brass gleamed under the amber
+gaslight, and the four conduits fed into it from the cardinal
+directions, each as wide as her forearm, each carrying a distinct
+pressure load from a different section of the eastern feed network.</p>
+<p>Three engineers were on the platform. Two crouched at the manifold’s
+base, wrenches on the southern conduit’s flange bolts. The third stood
+apart, arms crossed — broad, reddened from years near live steam,
+watching his crew with flat certainty that it wouldn’t hold.</p>
+<p>“Merrin?” he said.</p>
+<p>“Tessa Merrin. Cartography Office.”</p>
+<p>“Haddon Breck. I run this junction.” His expression hardened.
+<em>Another Calibrator.</em></p>
+<p>“Nine days,” she said, stepping onto the platform. The discordance
+thickened. Her fingers spread involuntarily as the pressure data grew
+dense — seeking contact, seeking surface area, seeking the system’s
+skin. “Four repair attempts. What have your crews tried?”</p>
+<p>Haddon recited the list without consulting notes and without
+inflection. Valve housing replacement. Seal inspection. Flange
+recalibration on the southern and western conduits. A full
+bleed-and-repressurize cycle on the manifold itself. “Every repair holds
+for six to twelve hours. Then the readings drift. Gauges start hunting.
+We tighten, we rebalance, it holds again. Six to twelve hours later,
+same thing.” He paused. “My crew can rebuild this manifold from memory
+now. We are becoming extremely efficient at not solving the
+problem.”</p>
+<p>“Your gauges. What readings during the drift?”</p>
+<p>“Pressure within two percent of nominal. Temperature nominal. Flow
+within tolerance.” Haddon’s jaw tightened. “The numbers say this
+junction is fine. Four valve housings in nine days says it’s not fine.
+New housing, new gaskets, rebalanced — clean readings for six to twelve
+hours. Then it starts again.”</p>
+<p>Tessa looked at the manifold. She could feel its distress without
+touching it — the pressure topology pouring off the brass in waves. The
+four inputs were each within normal range. But they were no longer
+carrying the same kind of pressure, and the manifold had no way to
+reconcile the difference.</p>
+<p>“I need to read the junction,” she said.</p>
+<p>Haddon gestured at the manifold. “It’s all yours.”</p>
+<p>The survey kit went onto the platform grating. She knelt beside the
+manifold. The brass was warm — everything was warm down here, but the
+manifold carried an extra heat that was the pressure itself, the
+friction of four streams meeting and negotiating. She pulled off her
+thin leather gloves, flexed her fingers, and placed both palms flat
+against the housing.</p>
+<p>The junction opened to her.</p>
+<p>Pressure data flooded in — not as numbers, never as numbers, but as
+sensation. The four inputs resolved into four distinct voices, each with
+its own pitch, rhythm, and color. The northern conduit was nominal. The
+western conduit was nominal. The southern conduit was running a
+half-step flat — minor, negligible on a gauge, but to her palms it was
+the difference between a healthy note and one that was beginning to
+sour. And the eastern conduit —</p>
+<p>She pressed harder.</p>
+<p>The eastern conduit was pulling.</p>
+<p>The conduit had reversed. Instead of carrying pressure into the
+junction as designed, it was drawing pressure <em>out</em> — a slow,
+lateral suction that was siphoning load from the other three conduits
+and funneling it east. Into the sealed galleries. Into the section of
+the system that had been dead for fourteen years.</p>
+<p>Tessa held the contact. The pull was constant, patient, and enormous.
+Tidal. It came from somewhere deep and distant, and it didn’t behave
+like mechanical pressure. It felt older than the brass under her palms.
+Older than the iron. Older than the junction itself.</p>
+<p>She lifted her hands. The data receded. The faintest tingling
+remained in her fingertips. A brief contact — the cost would recover.
+Most of it. Each session moved the baseline a fraction lower.</p>
+<p>“The junction is being drained,” she said.</p>
+<p>Haddon’s brow furrowed. “Drained.”</p>
+<p>“The eastern conduit is drawing pressure away from the other three.
+The manifold can’t equalize because the draw is continuous. Your valve
+housings fail because the seals aren’t designed for a pressure
+differential that reverses direction six times a minute. The junction
+isn’t failing. It’s being emptied.”</p>
+<p>“Emptied by what? The eastern galleries are sealed. Those vents have
+been dormant for fourteen —”</p>
+<p>“I know the classification.” She stood, brushing grit from her knees.
+“The draw is lateral, continuous, and it originates east of this
+junction. Whatever is causing it, it isn’t the manifold. Replacing
+housings won’t fix it.”</p>
+<p>Haddon stared at her for a moment. He uncrossed his arms.</p>
+<p>“Breck.” A voice from behind them. Low, even, pitched for pipe
+tunnels.</p>
+<p>Tessa turned.</p>
+<p>He was on the far side of the platform, crouched at the base of the
+eastern conduit where it entered the junction wall. He must have arrived
+while she was reading the manifold. He had one hand on the conduit
+housing, palm pressed flat to the iron, the other braced against the
+wall for balance. His tool bag was on the grating beside him, heavy and
+open.</p>
+<p>She saw a man in a canvas coat reading a pipe by touch. Broad
+shoulders, a close-shaved head, a dark beard going gray. Calloused hands
+pressed to iron with the careful attention of someone who was listening,
+not fixing. A surface reader — the Calibrator’s taxonomy for engineers
+who mistook thermal contact for perception. She had filed a dozen
+junction reports over surface readers’ objections. They felt pipe
+temperature and called it understanding.</p>
+<p>“The problem isn’t here,” he said. He straightened — taller than
+she’d thought, well over six feet, and the broadness she’d noted was not
+bulk but the lean solidity of decades climbing ladders and turning valve
+wheels. His eyes were gray. Hard, clear gray. They moved from Haddon to
+Tessa and rested there.</p>
+<p>“Vael,” Haddon said. “I was wondering when you’d show up.”</p>
+<p>“Been here twenty minutes. Listening.” He wiped his palms on his coat
+and looked at Tessa. “You’re the Calibrator.”</p>
+<p>“Tessa Merrin. Senior Surveyor.”</p>
+<p>“Elias Vael.” No title. No qualifier. “How far can you feel?”</p>
+<p>Most engineers didn’t ask about range.</p>
+<p>“Further than this junction,” she said. It was true and it was
+evasive, and she watched his jaw tighten at the evasion.</p>
+<p>“I’ve been feeling the Ashward’s trunk lines from a quarter-mile
+south for two years,” he said. “Temperature differentials that don’t
+follow thermodynamic models. A sub-operational frequency in the manifold
+housing that isn’t generated by any component in the system. Pressure
+fluctuations too regular to be geological, too deep to be mechanical.”
+He paused. Let the words settle into the gallery air — slowly, with
+weight. “I’ve filed eleven reports. None acted on.”</p>
+<p><em>Too regular to be geological, too deep to be mechanical.</em></p>
+<p>The formulation stopped her.</p>
+<p>She looked at him. At his hands. At his eyes — steady, patient,
+waiting to see if she was like the others.</p>
+<p>“The eastern conduit is drawing,” she said. “Not feeding. The
+pressure is pulling east. Into the sealed section.”</p>
+<p>“I know.”</p>
+<p>“You know.”</p>
+<p>“I’ve been telling Haddon for three days that the problem isn’t the
+manifold. The manifold is a symptom.” He glanced at Haddon, whose jaw
+had gone tight — his junction, his platform, and two people explaining
+to each other what was wrong with it. “No offence, Breck.”</p>
+<p>“Some taken,” Haddon said flatly. “But I didn’t pull you up here
+because I thought you were wrong.”</p>
+<p>Elias turned back to Tessa. The gray eyes held her. “The system is
+rejecting the repairs,” he said. “Every housing, every seal, every
+gasket — the junction accepts them and then breaks them down again,
+because the repairs address a mechanical failure and the failure isn’t
+mechanical. Something is pulling on this junction from the east, and the
+pull is stronger than anything the existing system is designed to
+compensate for. The junction isn’t broken. It’s responding to a force
+the gauges can’t measure.”</p>
+<p><em>Rejecting.</em></p>
+<p>“You said a quarter-mile south,” she said. “The Ashward Reach.”</p>
+<p>He nodded.</p>
+<p>“And the fluctuations there — they pull in the same direction?”</p>
+<p>“East. Always east.”</p>
+<p>“Toward the sealed galleries.”</p>
+<p>“Toward the sealed galleries.” He held her gaze. “I’ve been saying
+for two years that the problem isn’t in the active system. The cause is
+somewhere the institution has decided not to look.”</p>
+<p>The words settled. Haddon shifted on his feet.</p>
+<p>The eastern draw pulled at her awareness. Unrelenting. Patient.
+Coming from somewhere sealed behind iron doors for fourteen years —
+fourteen years, and a decade of construction permits for the eastern
+Basin above.</p>
+<p>The standard procedure was clear. File the report. Describe the
+anomaly. Recommend a deep survey. Let Dorren route it through
+channels.</p>
+<p><em>Let the system work.</em></p>
+<p>“You said eleven reports,” she said. “What happened to them?”</p>
+<p>“First two were acknowledged. Reports three through six were returned
+— ‘within tolerance.’ Seven through eleven vanished.”</p>
+<p>“Two years.”</p>
+<p>“Two years.”</p>
+<p>She looked at the eastern conduit. The iron disappeared into the
+junction wall, heading east through rock and infrastructure toward the
+sealed galleries. She could feel the draw even now, without contact — a
+faint, constant tug at the edge of her perception, like standing near an
+open window and feeling the cold draft without seeing the gap. It was
+pulling at the junction. It was pulling at the Ashward Reach. It was
+pulling at her, and she could not tell whether the sensation was the
+system calling for help or the abyss asking her to lean closer.</p>
+<p>“I’ll file a report,” she said. “I’ll request a deep survey of the
+eastern section.”</p>
+<p>Elias said nothing. His expression didn’t change. But she saw his
+hands — the calloused, capable, twenty-two-year hands — tighten once
+against the canvas of his coat. He had heard <em>I’ll file a report</em>
+before.</p>
+<p>“I’m not like the others,” she almost said, and stopped herself.</p>
+<p>Haddon rubbed a hand across the back of his reddened neck. “So I’ve
+got a Calibrator telling me the junction is being drained from the east,
+and an engineer telling me the same thing in different words, and
+neither of you can tell me what’s doing the draining.”</p>
+<p>“Not from here,” Tessa said.</p>
+<p>“Not from the active system,” Elias said, at the same time.</p>
+<p>They looked at each other.</p>
+<p>“I’ll note the Calibrator reading in the shift log,” Haddon said.
+“And I’ll keep replacing housings until someone tells me to stop or
+gives me something better to do.” He looked at Elias. “Vael, you want to
+stay on this, that’s between you and the Gallery Authority. But if the
+Ashward needs you back —”</p>
+<p>“The Ashward’s problems and this junction’s problems are the same
+problem,” Elias said. “I just can’t prove it yet.”</p>
+<p>Haddon’s expression flattened. “Prove it, and I’ll listen. Until
+then, I’ve got a junction to keep running.”</p>
+<p>He turned back to his engineers. The conversation was over. Tessa
+collected her survey kit and climbed the platform stairs, her report
+already composing itself in the precise, dry language Dorren had taught
+her — the language that translated sensation into findings the office
+could process.</p>
+<p>She was four steps up when she heard him behind her. The faint clink
+of wrenches, the muted ring of keys.</p>
+<p>“You’ll file the report,” Elias said. His tone made it a
+statement.</p>
+<p>“I’ll file the report.”</p>
+<p>“And when it comes back — within tolerance, no further action — what
+then?”</p>
+<p>She stopped on the stairs. He stood two steps below, looking up at
+her. His expression was not hostile. It was worse: resigned.</p>
+<p>“I don’t know yet,” she said. The draw was real, and the channels
+Dorren had taught her to trust ended, eventually, at desks occupied by
+the same people who had stamped <em>within tolerance</em> on eleven
+reports.</p>
+<p>“The eastern galleries,” she said. “The sealed section. Do you know
+the access point?”</p>
+<p>His face sharpened.</p>
+<p>“Stairwell Nine,” he said. “Lower Basin, service corridor. Iron door,
+wheel-valve, chain and padlock. I know the access.” He paused. “There’s
+also a southern approach — a service corridor at gallery level. It’s in
+the old schematics. I haven’t confirmed it’s still open.”</p>
+<p>“Have you been inside?”</p>
+<p>“No. The seals are Gallery Authority. I don’t have the
+authorization.”</p>
+<p>The eastern draw pulled at the edge of her perception — patient,
+unceasing, waiting.</p>
+<p>“I’ll file the report,” she said again. “Tomorrow morning, through
+the Cartography office. The way it’s supposed to be done.”</p>
+<p>Elias’s jaw tightened. He nodded once — short, final — and she
+watched another hope fold itself into his coat pocket alongside eleven
+unanswered reports.</p>
+<p>“And then,” Tessa said, “I want to see the eastern access. Third
+watch, when the shift changes and the service corridor is clear.”</p>
+<p>The gray eyes came back to her. He studied her face with careful
+attention.</p>
+<p>“Why?”</p>
+<p>“Because you’ve been telling the institution for two years, and I
+just felt what you’ve been telling them, and neither of us can name it
+from the active system.” She adjusted the strap of her survey kit. Her
+hands were still open — she had not consciously relaxed them since the
+manifold read. “If the cause is in the sealed section, then someone
+needs to go look. And I don’t think the institution is going to send
+us.”</p>
+<p>He was quiet for a long moment. The gallery hummed around them — the
+discordant junction, the draw pulling east with the patience of fourteen
+years and more.</p>
+<p>“Third watch,” Elias said. “Stairwell Nine. I’ll be there.”</p>
+<p>He turned and descended the stairs back toward the junction, his
+broad shoulders folding into the amber light.</p>
+<p>She climbed the stairs. Her hands were open, palms still tingling.
+The eastern draw pulled at the edge of everything she was.</p>
+<p>The junction screamed softly at her back. She carried the sound of it
+all the way up to the surface, where the light was the wrong color and
+the air tasted of nothing at all.</p>
+</main>
+
+<nav class="chapter-nav">
+  <a href="chapter-03.html" class="prev-chapter nav-link"><span class="nav-label">&larr; Previous</span><span class="nav-chapter-title">Ashward Reach</span></a>
+  <a href="chapter-05.html" class="next-chapter nav-link"><span class="nav-label">Next &rarr;</span><span class="nav-chapter-title">Protocol</span></a>
+</nav>
+
+<!-- TOC Overlay -->
+<div class="toc-overlay">
+  <div class="toc-panel">
+    <div class="toc-book-title">The Governor</div>
+    <h2>Contents</h2>
+    <div class="toc-contents">
+  <ol class="toc-list">
+    <li><a href="chapter-01.html" data-chapter="chapter-01">Junction Fourteen</a></li>
+    <li><a href="chapter-02.html" data-chapter="chapter-02">Triage</a></li>
+    <li><a href="chapter-03.html" data-chapter="chapter-03">Ashward Reach</a></li>
+    <li><a href="chapter-04.html" data-chapter="chapter-04">The Draw</a></li>
+    <li><a href="chapter-05.html" data-chapter="chapter-05">Protocol</a></li>
+    <li><a href="chapter-06.html" data-chapter="chapter-06">The Sealed Galleries</a></li>
+    <li><a href="chapter-07.html" data-chapter="chapter-07">The Column</a></li>
+    <li><a href="chapter-08.html" data-chapter="chapter-08">Complicity</a></li>
+    <li><a href="chapter-09.html" data-chapter="chapter-09">Mapping</a></li>
+    <li><a href="chapter-10.html" data-chapter="chapter-10">Four-Eleven-Thirty</a></li>
+    <li><a href="chapter-11.html" data-chapter="chapter-11">The Full Timeline</a></li>
+    <li><a href="chapter-12.html" data-chapter="chapter-12">Eastern Cascade</a></li>
+    <li><a href="chapter-13.html" data-chapter="chapter-13">The Lie of Dormancy</a></li>
+    <li><a href="chapter-14.html" data-chapter="chapter-14">Buried</a></li>
+    <li><a href="chapter-15.html" data-chapter="chapter-15">The Archivist's Box</a></li>
+    <li><a href="chapter-16.html" data-chapter="chapter-16">Article Twelve</a></li>
+    <li><a href="chapter-17.html" data-chapter="chapter-17">The Warning</a></li>
+    <li><a href="chapter-18.html" data-chapter="chapter-18">Five Years</a></li>
+    <li><a href="chapter-19.html" data-chapter="chapter-19">The Order</a></li>
+    <li><a href="chapter-20.html" data-chapter="chapter-20">Cost</a></li>
+    <li><a href="chapter-21.html" data-chapter="chapter-21">Third Watch</a></li>
+    <li><a href="chapter-22.html" data-chapter="chapter-22">Stairwell Nine</a></li>
+    <li><a href="chapter-23.html" data-chapter="chapter-23">The Repair</a></li>
+    <li><a href="chapter-24.html" data-chapter="chapter-24">Dawn</a></li>
+    <li><a href="chapter-25.html" data-chapter="chapter-25">Diminished</a></li>
+    <li><a href="chapter-26.html" data-chapter="chapter-26">Recovery</a></li>
+    <li><a href="chapter-27.html" data-chapter="chapter-27">Clear Sight</a></li>
+    <li><a href="chapter-28.html" data-chapter="chapter-28">Lasting Work</a></li>
+    <li><a href="chapter-29.html" data-chapter="chapter-29">The Team</a></li>
+    <li><a href="chapter-30.html" data-chapter="chapter-30">A Beginning</a></li>
+  </ol>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+ * Storyforge Web Book — Progressive Enhancement
+ *
+ * The book is fully readable with JavaScript disabled.
+ * Everything in this file is optional enhancement.
+ *
+ * ---------------------------------------------------------------------------
+ * INLINE IN <head> — prevents flash of wrong theme.
+ * Paste this inside a <script> tag before any stylesheets:
+ *
+ * (function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})();
+ *
+ * ---------------------------------------------------------------------------
+ */
+
+(function () {
+  'use strict';
+
+  // ---------------------------------------------------------------------------
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  /** Return a debounced version of fn that waits ms before firing. */
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      var ctx = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(ctx, args); }, ms);
+    };
+  }
+
+  /** Derive a slug for the current chapter from the URL or body attribute. */
+  function getChapterSlug() {
+    var slug = document.body.getAttribute('data-chapter');
+    if (slug) return slug;
+    // Fall back to the last segment of the pathname, minus extension
+    var path = window.location.pathname.replace(/\/+$/, '');
+    var parts = path.split('/');
+    return (parts[parts.length - 1] || 'index').replace(/\.html?$/, '');
+  }
+
+  // ---------------------------------------------------------------------------
+  // 1. Theme switching
+  // ---------------------------------------------------------------------------
+
+  var themes = ['light', 'dark', 'sepia'];
+
+  function currentTheme() {
+    return document.documentElement.dataset.theme || 'light';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('storyforge-theme', theme);
+  }
+
+  function cycleTheme() {
+    var idx = themes.indexOf(currentTheme());
+    setTheme(themes[(idx + 1) % themes.length]);
+  }
+
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', cycleTheme);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 2. Reading position persistence
+  // ---------------------------------------------------------------------------
+
+  var posKey = 'pos-' + getChapterSlug();
+
+  // Restore saved position after layout settles.
+  var savedPos = localStorage.getItem(posKey);
+  if (savedPos !== null) {
+    setTimeout(function () {
+      window.scrollTo(0, parseInt(savedPos, 10));
+    }, 100);
+  }
+
+  // Save position on scroll (debounced).
+  window.addEventListener('scroll', debounce(function () {
+    localStorage.setItem(posKey, String(window.scrollY));
+  }, 500));
+
+  // ---------------------------------------------------------------------------
+  // 3. Chapter completion tracking
+  // ---------------------------------------------------------------------------
+
+  function getChaptersRead() {
+    try { return JSON.parse(localStorage.getItem('chapters-read')) || []; }
+    catch (_) { return []; }
+  }
+
+  function markChapterRead(slug) {
+    var read = getChaptersRead();
+    if (read.indexOf(slug) === -1) {
+      read.push(slug);
+      localStorage.setItem('chapters-read', JSON.stringify(read));
+    }
+  }
+
+  /** Apply .chapter-read to TOC links whose chapters have been completed. */
+  function applyReadClasses() {
+    var read = getChaptersRead();
+    if (!read.length) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var slug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (read.indexOf(slug) !== -1) {
+        links[i].classList.add('chapter-read');
+      }
+    }
+  }
+
+  applyReadClasses();
+
+  // Mark current chapter as read when user scrolls past 90%.
+  var chapterMarked = false;
+  function checkCompletion() {
+    if (chapterMarked) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    if (docHeight <= winHeight) return; // page fits in viewport
+    if (scrollTop / (docHeight - winHeight) >= 0.9) {
+      chapterMarked = true;
+      markChapterRead(getChapterSlug());
+      applyReadClasses();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4. Progress bar
+  // ---------------------------------------------------------------------------
+
+  var progressBar = document.querySelector('.progress-bar');
+
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    var pct = docHeight <= winHeight ? 100 : (scrollTop / (docHeight - winHeight)) * 100;
+    progressBar.style.width = Math.min(pct, 100) + '%';
+  }
+
+  // ---------------------------------------------------------------------------
+  // 5. Auto-hiding navigation
+  // ---------------------------------------------------------------------------
+
+  var bookNav = document.querySelector('.book-nav');
+  var lastScrollY = window.scrollY;
+  var hideTimer = null;
+
+  function handleNavVisibility() {
+    var scrollY = window.scrollY;
+    if (!bookNav) return;
+
+    // Always visible near the top of the page.
+    if (scrollY < 100) {
+      bookNav.classList.remove('hidden');
+      clearTimeout(hideTimer);
+      lastScrollY = scrollY;
+      return;
+    }
+
+    if (scrollY > lastScrollY) {
+      // Scrolling down — hide after 3 seconds.
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        bookNav.classList.add('hidden');
+      }, 3000);
+    } else {
+      // Scrolling up — show immediately.
+      clearTimeout(hideTimer);
+      bookNav.classList.remove('hidden');
+    }
+
+    lastScrollY = scrollY;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Unified scroll handler (uses rAF for smooth progress bar updates)
+  // ---------------------------------------------------------------------------
+
+  var scrollTicking = false;
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(function () {
+        updateProgress();
+        checkCompletion();
+        handleNavVisibility();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  });
+
+  // Initial call so progress bar is correct on load.
+  updateProgress();
+
+  // ---------------------------------------------------------------------------
+  // 6. Keyboard navigation
+  // ---------------------------------------------------------------------------
+
+  document.addEventListener('keydown', function (e) {
+    // Don't capture when the user is typing in a form field.
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) {
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowLeft': {
+        var prev = document.querySelector('.prev-chapter');
+        if (prev && prev.href) window.location.href = prev.href;
+        break;
+      }
+      case 'ArrowRight': {
+        var next = document.querySelector('.next-chapter');
+        if (next && next.href) window.location.href = next.href;
+        break;
+      }
+      case 't':
+      case 'T':
+        toggleToc();
+        break;
+      case 'Escape':
+        closeToc();
+        break;
+    }
+  });
+
+  // ---------------------------------------------------------------------------
+  // 7. TOC overlay toggle
+  // ---------------------------------------------------------------------------
+
+  var tocOverlay = document.querySelector('.toc-overlay');
+  var tocToggle = document.querySelector('.toc-toggle');
+
+  function toggleToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.toggle('active');
+    if (tocOverlay.classList.contains('active')) {
+      var current = tocOverlay.querySelector('.toc-current');
+      if (current) {
+        setTimeout(function () {
+          current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }
+
+  function closeToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.remove('active');
+  }
+
+  if (tocToggle) {
+    tocToggle.addEventListener('click', toggleToc);
+  }
+
+  // Close on backdrop click (click on the overlay itself, not its children).
+  if (tocOverlay) {
+    tocOverlay.addEventListener('click', function (e) {
+      if (e.target === tocOverlay) closeToc();
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 8. Chapter info in navigation
+  // ---------------------------------------------------------------------------
+
+  var chapterNum = document.body.getAttribute('data-chapter-num');
+  var totalChapters = document.body.getAttribute('data-total-chapters');
+
+  if (chapterNum && totalChapters && bookNav) {
+    var info = document.createElement('span');
+    info.className = 'chapter-info';
+    info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
+    bookNav.appendChild(info);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 9. Resume tracking — store last-visited chapter
+  // ---------------------------------------------------------------------------
+
+  var currentSlug = getChapterSlug();
+  if (currentSlug && currentSlug !== 'index' && currentSlug !== 'contents') {
+    localStorage.setItem('storyforge-last-chapter', currentSlug);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 10. TOC current chapter highlight
+  // ---------------------------------------------------------------------------
+
+  function highlightCurrentChapter() {
+    var slug = getChapterSlug();
+    if (!slug) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc-list a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var linkSlug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (linkSlug === slug) {
+        var li = links[i].closest('li');
+        if (li) {
+          li.classList.add('toc-current');
+        }
+      }
+    }
+  }
+
+  highlightCurrentChapter();
+
+})();
+</script>
+</body>
+</html>
