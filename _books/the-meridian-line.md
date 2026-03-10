@@ -2,8 +2,9 @@
 title:          "The Meridian Line"
 date:           2026-03-09 12:00:00-0600
 sub_title:      Historical western
-app_image:      /books/the-meridian-line/cover.png
-book_path:      /books/the-meridian-line/
+image:
+  thumbnail:    /books/the-meridian-line/cover.png
+book_path:      /books/the-meridian-line/read/
 ---
 
 In 1870s West Texas, a woman surveyor, a frontier sheriff, and a Mescalero Apache scout use mathematics, law, and knowledge of the land to expose a territorial judge's murderous railroad fraud — proving that the truth of the ground cannot be owned, falsified, or suppressed.
