@@ -1,6 +1,6 @@
 ---
 title: Books
-layout: collection
+layout: book-collection
 permalink: /books/
 collection: books
 inner_class: wide

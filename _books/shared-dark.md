@@ -2,8 +2,7 @@
 title:          "Shared Dark"
 date:           2026-03-08 12:00:00-0600
 sub_title:      Supernatural literary thriller
-image:
-  thumbnail:    /books/shared-dark/cover.png
+cover_image:    /books/shared-dark/cover.png
 ---
 
 Two strangers discover they share psychic dreams of crimes in progress — she experiences the victims, he the perpetrators — and as the cases escalate, the darkness they absorb threatens to destroy them and the bond forming between them.

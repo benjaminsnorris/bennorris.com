@@ -1,0 +1,18 @@
+---
+layout: post
+---
+
+{% if page.cover_image %}
+  <p>
+    <img class="align-right image-medium" alt="{{ page.title }}" src="{{ page.cover_image | relative_url }}" />
+  </p>
+{% endif %}
+
+{{ content }}
+
+{% if page.book_path %}
+  <p class="clearfix"></p>
+  <p>
+    <a href="{{ page.book_path | relative_url }}" class="btn">Read Book</a>
+  </p>
+{% endif %}

@@ -132,7 +132,7 @@ defaults:
       path: "_books"
       type: books
     values:
-      layout: post
+      layout: book
       read_time: false
       excerpt_separator: "<!--more-->"
   - scope:

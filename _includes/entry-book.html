@@ -1,0 +1,34 @@
+{% if post.id %}
+  {% assign title = post.title | markdownify | strip_html %}
+{% else %}
+  {% assign title = post.title %}
+{% endif %}
+
+<article class="entry entry-book">
+  {% if post.cover_image %}
+    <div class="entry-cover">
+      <a href="{{ post.url | relative_url }}" class="clean" rel="bookmark">
+        <img src="{{ post.cover_image | relative_url | escape }}" alt="{{ post.title }}" loading="lazy" />
+      </a>
+    </div>
+  {% endif %}
+  <div class="entry-body">
+    <header class="entry-header">
+      <h3 class="entry-title">
+        <a href="{{ post.url | relative_url }}" rel="bookmark">{{ title }}</a>
+      </h3>
+      {% if post.sub_title %}
+        <h4 class="entry-subtitle">{{ post.sub_title }}</h4>
+      {% endif %}
+    </header>
+    <div class="entry-excerpt">
+      {{ post.excerpt | markdownify }}
+      <p><a href="{{ post.url | relative_url }}" class="more-link"><span class="link-text">{{ site.data.theme.t.read_more | default: 'Read More' }}</span><span class="icon icon--arrow-right">{% include icon-arrow-right.svg %}</span></a></p>
+    </div>
+    {% if post.book_path %}
+      <div class="entry-download">
+        <a href="{{ post.book_path | relative_url }}" class="btn">Read Book</a>
+      </div>
+    {% endif %}
+  </div>
+</article>
