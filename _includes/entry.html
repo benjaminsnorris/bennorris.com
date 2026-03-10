@@ -65,5 +65,9 @@
     <div class="entry-download">
       <a target="_blank" class="clean" href="https://itunes.apple.com/app/apple-store/id{{ post.app_id }}?mt=8"><img src="https://raw.githubusercontent.com/benjaminsnorris/media.bsn.design/gh-pages/images/app-store-badge.svg" alt="Download on the app store"/></a>
     </div>
+  {% elsif post.external_link %}
+    <div class="entry-download">
+      <a href="{{ post.external_link | relative_url }}" class="btn">Launch App</a>
+    </div>
   {% endif %}
 </article>
