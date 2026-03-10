@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What It Feels Like — 
+
+Untitled</title>
+<meta name="author" content="Ben Norris">
+
+<script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
+<style>
+/* ==========================================================================
+   reading.css — Web Book Reading Experience
+   StoryForge production stylesheet
+
+   A reading environment that disappears. Inspired by Butterick's Practical
+   Typography, Tufte CSS, and the tradition of fine bookmaking.
+   ========================================================================== */
+
+/* --- 1. COLOR THEMES ---------------------------------------------------- */
+
+[data-theme="light"] {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+  --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+}
+[data-theme="sepia"] {
+  --bg: #f4ecd8; --text: #3b2e1e; --text-dim: #6b5a42;
+  --accent: #8b5e3c; --surface: #e8dfc8; --border: rgba(59,46,30,0.1);
+}
+
+[data-theme="dark"] .reading-column,
+[data-theme="dark"] .chapter-content { line-height: 1.65; }
+
+/* Default to light; honor OS dark preference when no theme is stored */
+:root {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #1a1816; --text: #d4cec6; --text-dim: #8a8078;
+    --accent: #c4956a; --surface: #252220; --border: rgba(255,255,255,0.06);
+  }
+}
+
+/* --- FONT LOADING ------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- 2. RESET & BASE ---------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: clamp(18px, 1.15rem + 0.25vw, 21px);
+  line-height: 1.58;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 3. TYPOGRAPHY — THE TEXT COLUMN ------------------------------------
+   The measure: 36em keeps us at 65-75 characters per line.
+   ----------------------------------------------------------------------- */
+
+.chapter-content,
+.book-landing {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Book-style paragraphs: indented, no vertical gap */
+.chapter-content p {
+  text-indent: 1.5em;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* First paragraph after structural elements — no indent */
+.chapter-content h1 + p,
+.chapter-content h2 + p,
+.chapter-content h3 + p,
+.chapter-content hr + p,
+.chapter-content blockquote + p {
+  text-indent: 0;
+}
+
+/* --- 4. HEADINGS --------------------------------------------------------
+   Chapter titles (h1): graceful, quiet — a breath before the prose.
+   ----------------------------------------------------------------------- */
+
+.chapter-content h1 {
+  font-size: 1.5em;
+  font-weight: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+  margin-top: 3.5em;
+  margin-bottom: 2em;
+  line-height: 1.3;
+  transition: color 0.4s ease;
+}
+
+/* Subtle rule beneath chapter title */
+.chapter-content h1::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin: 0.8em auto 0;
+}
+
+.chapter-content h2 {
+  font-size: 1.15em;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--text);
+  margin: 2em 0 0.75em;
+  line-height: 1.4;
+  transition: color 0.4s ease;
+}
+
+.chapter-content h3 {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  transition: color 0.4s ease;
+}
+
+/* --- 5. SCENE BREAKS ----------------------------------------------------
+   No visible rule. A quiet asterism marks the shift.
+   ----------------------------------------------------------------------- */
+
+.chapter-content hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+  overflow: visible;
+}
+
+.chapter-content hr::after {
+  content: "\2042"; /* asterism */
+  display: inline-block;
+  font-size: 1.2em;
+  color: var(--text-dim);
+  letter-spacing: 0.3em;
+  position: relative;
+  top: -0.1em;
+  transition: color 0.4s ease;
+}
+
+/* --- 6. DROP CAP --------------------------------------------------------
+   Optional. Apply .drop-cap to the chapter-content wrapper.
+   ----------------------------------------------------------------------- */
+
+.drop-cap p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.8;
+  padding-right: 0.08em;
+  margin-top: 0.05em;
+  color: var(--accent);
+  font-weight: normal;
+  transition: color 0.4s ease;
+}
+
+/* --- 7. BLOCKQUOTES (EPIGRAPHS) ----------------------------------------- */
+
+.chapter-content blockquote {
+  max-width: 28em;
+  margin: 2em auto;
+  padding: 0 1.5em;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  color: var(--text-dim);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.chapter-content blockquote p {
+  text-indent: 0;
+  margin-bottom: 0.5em;
+}
+
+.chapter-content blockquote p:last-child { margin-bottom: 0; }
+
+.chapter-content blockquote cite {
+  display: block;
+  margin-top: 0.75em;
+  font-style: normal;
+  font-size: 0.88em;
+  text-align: right;
+  color: var(--text-dim);
+}
+
+/* --- 8. INLINE ELEMENTS ------------------------------------------------- */
+
+.chapter-content strong { font-weight: 700; }
+.chapter-content em { font-style: italic; }
+
+.chapter-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.chapter-content a:hover { border-bottom-color: var(--accent); }
+
+/* --- 9. PROGRESS BAR ---------------------------------------------------- */
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 0.15s linear, background-color 0.4s ease;
+  pointer-events: none;
+}
+
+/* --- 10. TOP NAVIGATION BAR ---------------------------------------------
+   Translucent strip. Always available, never intrudes.
+   ----------------------------------------------------------------------- */
+
+.book-nav {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.3s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.book-nav.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .book-nav::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  opacity: 0.3;
+}
+
+.book-nav .book-title {
+  font-size: 0.82em;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  transition: color 0.4s ease;
+}
+
+.book-nav .nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+
+.theme-toggle,
+.toc-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
+.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
+
+.theme-toggle:hover,
+.toc-toggle:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Icon visibility per theme */
+.theme-toggle .icon-light,
+.theme-toggle .icon-dark,
+.theme-toggle .icon-sepia { display: none; }
+
+[data-theme="light"] .theme-toggle .icon-light,
+:root:not([data-theme]) .theme-toggle .icon-light { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
+[data-theme="sepia"] .theme-toggle .icon-sepia { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle .icon-light { display: none; }
+  :root:not([data-theme]) .theme-toggle .icon-dark { display: inline; }
+}
+
+/* --- 12. TABLE OF CONTENTS OVERLAY -------------------------------------- */
+
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.toc-overlay.active { opacity: 1; visibility: visible; }
+
+.toc-panel {
+  background: var(--bg);
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2.5em 2em;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.4s ease;
+}
+
+.toc-panel h2 {
+  font-size: 0.85em;
+  font-weight: normal;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.toc-panel ol { list-style: none; counter-reset: toc-chapter; }
+
+.toc-panel li {
+  counter-increment: toc-chapter;
+  border-bottom: 1px solid var(--border);
+}
+
+.toc-panel li:last-child { border-bottom: none; }
+
+.toc-panel a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  padding: 0.65em 0.25em;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: color 0.3s ease;
+}
+
+.toc-panel a:hover { color: var(--accent); }
+
+.toc-panel a::before {
+  content: counter(toc-chapter);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  min-width: 1.5em;
+  text-align: right;
+}
+
+/* Completed chapters */
+.toc-panel li.chapter-read a { color: var(--text-dim); }
+
+.toc-panel li.chapter-read a::after {
+  content: "\2713";
+  font-size: 0.78em;
+  margin-left: auto;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+.toc-close {
+  display: block;
+  margin: 1.5em auto 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.85em;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.toc-close:hover { color: var(--text); }
+
+/* --- 13. CHAPTER NAVIGATION (BOTTOM) ------------------------------------
+   The invitation to turn the page.
+   ----------------------------------------------------------------------- */
+
+.chapter-nav {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 3em 1.5rem 4em;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  transition: border-color 0.4s ease;
+}
+
+.chapter-nav a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.75em 0;
+  min-height: 44px;
+  transition: color 0.3s ease;
+}
+
+.chapter-nav a:hover { color: var(--accent); }
+
+.chapter-nav .nav-label {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+.chapter-nav .nav-chapter-title { font-style: italic; }
+.chapter-nav .nav-prev { text-align: left; }
+.chapter-nav .nav-next { text-align: right; margin-left: auto; }
+
+/* --- 14. INDEX / LANDING PAGE ------------------------------------------- */
+
+.book-landing {
+  text-align: center;
+  padding-top: 6em;
+  padding-bottom: 4em;
+}
+
+.book-cover {
+  max-width: 300px;
+  width: 60%;
+  height: auto;
+  margin: 0 auto 2.5em;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.book-meta { margin-bottom: 3em; }
+
+.book-meta .book-main-title {
+  font-size: 2em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+  line-height: 1.2;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-author {
+  font-size: 1.05em;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  margin-bottom: 1.2em;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-logline {
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 28em;
+  margin: 0 auto;
+  line-height: 1.5;
+  transition: color 0.4s ease;
+}
+
+.start-reading {
+  display: inline-block;
+  padding: 0.85em 2.5em;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: 1em;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.start-reading:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.start-reading:active { transform: translateY(0); }
+
+/* --- PART LABEL (above chapter heading) --------------------------------- */
+
+.part-label {
+  text-align: center;
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 3em;
+  margin-bottom: 0.5em;
+  transition: color 0.4s ease;
+}
+
+.part-label + h1 {
+  margin-top: 0.5em;
+}
+
+/* --- PART INTERSTITIAL PAGE --------------------------------------------- */
+
+.part-interstitial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2em 1.5rem;
+}
+
+.part-number {
+  font-size: 0.75em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1em;
+}
+
+.part-title {
+  font-size: 2em;
+  font-weight: normal;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.part-ornament {
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin-top: 2em;
+}
+
+[data-theme="dark"] .part-number { color: var(--accent); }
+[data-theme="dark"] .part-ornament {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+/* --- TOC PART HEADINGS -------------------------------------------------- */
+
+.toc-part {
+  font-size: 0.72em;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  padding: 0 0.25em;
+}
+
+.toc-part:first-child { margin-top: 0; }
+
+.toc-panel li.toc-current a,
+.toc-list li.toc-current a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.toc-panel li.toc-current a::before {
+  color: var(--accent);
+}
+
+/* --- RESUME LINK -------------------------------------------------------- */
+
+.resume-link {
+  display: block;
+  margin-bottom: 1.5em;
+  font-size: 0.9em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.resume-link:hover { filter: brightness(1.2); }
+
+.resume-label {
+  display: block;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+/* --- 15. RESPONSIVE ----------------------------------------------------- */
+
+@media (max-width: 639px) {
+  .chapter-content,
+  .book-landing { padding-left: 20px; padding-right: 20px; }
+
+  .book-nav { padding: 0.5rem 1rem; }
+
+  .chapter-content h1 {
+    font-size: 1.25em;
+    margin-top: 2.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .chapter-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .chapter-nav .nav-next {
+    text-align: left;
+    margin-left: 0;
+    padding-top: 1em;
+    border-top: 1px solid var(--border);
+  }
+
+  .book-landing { padding-top: 3em; }
+  .book-meta .book-main-title { font-size: 1.6em; }
+  .toc-panel { padding: 2em 1.5em; width: 95%; }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .chapter-content,
+  .book-landing { max-width: 38em; padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (pointer: coarse) {
+  .book-nav .nav-controls button,
+  .chapter-nav a,
+  .toc-panel a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* --- 16. SELECTION ------------------------------------------------------ */
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--text);
+}
+
+/* --- 17. PRINT ---------------------------------------------------------- */
+
+@media print {
+  .book-nav, .progress-bar, .chapter-nav,
+  .toc-overlay, .theme-toggle, .toc-toggle { display: none !important; }
+
+  body { background: white; color: black; font-size: 11pt; }
+  .chapter-content { max-width: none; padding: 0; }
+  .chapter-content h1 { page-break-before: always; color: black; }
+  .chapter-content h1:first-of-type { page-break-before: avoid; }
+  .chapter-content hr { page-break-after: avoid; }
+  .chapter-content blockquote { color: #333; border-left-color: #ccc; }
+  a { color: black; border-bottom: none; }
+}
+
+/* --- 18. REDUCED MOTION ------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body data-chapter="chapter-23" data-chapter-num="23" data-total-chapters="29">
+
+<div class="progress-bar"></div>
+
+<nav class="book-nav">
+  <a href="../contents.html" class="nav-title">
+
+Untitled</a>
+  <div class="nav-controls">
+    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
+    <button class="theme-toggle" aria-label="Change theme">
+      <span class="icon-light">&#9788;</span>
+      <span class="icon-dark">&#9790;</span>
+      <span class="icon-sepia">&#9782;</span>
+    </button>
+  </div>
+</nav>
+
+<main class="reading-column drop-cap">
+<div class="part-label">Part 4: What Holds</div>
+<h1 id="chapter-23-what-it-feels-like">Chapter 23: What It Feels
+Like</h1>
+<p>The stone was cold under his knees.</p>
+<p>He knew this. He had always known this. Thirty-one years of kneeling
+and the stone was always cold, and his knees always hurt, and he always
+settled into the pain as you settle into a chair that is the only chair
+in the room.</p>
+<p>The chamber was different now. He could see that. The walls had
+color. He did not have a word for the color — it was not gray, it was
+the thing that gray had been before gray — but he could see it, and the
+seeing was new. Two weeks ago he would not have noticed. Two weeks ago
+the walls were walls and the stone was stone and the world was a place
+he moved through without. Without. The word he wanted was not there. He
+reached for it and the reaching was familiar, the empty hand closing on
+empty air, the place where a word used to be.</p>
+<p>He let it go. That was most of what he knew how to do.</p>
+<p>The stairs had been forty-seven. He knew this because he had heard
+Bren say it once, or twice, and the number had stayed when other numbers
+left. The eighth step was uneven. His knees had told him this every
+time, and his knees did not forget. His knees were the most reliable
+part of him.</p>
+<p>He had come down the stairs with Kael on one side and Sera behind
+them, and the air had changed at the place where it always changed —
+thicker, warmer, the mountain gone from it. He had felt the change in
+his chest. The not-sound growing. The hum pressing against his sternum,
+steady and patient and old.</p>
+<p>The golden light was new. It had not been there when he had last
+descended — when had that been? Days. Weeks. The time was blurred. But
+the gold along the fissure’s edge was warm. He could feel it from where
+he knelt, and the warmth was not fire or sunlight. A warmth that had no
+name he could find, but he could feel it in his hands, in his face, in
+the place behind his eyes where seeing happened. The gold was the most
+beautiful thing he had seen in years, though he could not have said why
+it was beautiful. He did not have the word for beautiful. He had the
+feeling of it. The feeling was enough.</p>
+<p>The vaulted ceiling curved above them, carved from the mountain’s own
+stone. He had looked at this ceiling ten thousand times. Today the
+chisel marks were visible — the marks of hands that had shaped this
+space three hundred years ago. He had never seen them before. Or he had
+seen them and not known that seeing them was a thing he could do.</p>
+<p>Kael knelt beside him.</p>
+<p>Not in front of the fissure. Beside. His shoulder close enough that
+Torren could feel the warmth of him, which was a thing he had not been
+able to feel a week ago. Warmth from another person. The word for it —
+he reached. It came. <em>Presence.</em> Kael’s presence, steady and
+dense and there in a way that Torren remembered other people being,
+once, before the remembering became a thing he could not do.</p>
+<p>“You don’t have to,” Kael said.</p>
+<p>He had said this three times. In the great hall. On the stairs. Now
+here, in the chamber, with the fissure open in front of them and the
+golden light along its edges and the not-sound pressing against his
+chest.</p>
+<p>“I am not asking permission,” Torren said. The words came slowly.
+They always came slowly. Each one was a thing he had to find and lift
+and carry to his mouth. “I am asking for company.”</p>
+<p>Kael was quiet. Then his hand found Torren’s shoulder. The weight of
+it was warm and real and Torren felt it in a way that was not just skin.
+It was the weight of a person who had chosen to be beside him. He did
+not have a word for what that meant. He did not need one.</p>
+<p>“You have it,” Kael said.</p>
+<p>On the bench, Sera sat with her hands open in her lap. He could see
+her when he turned his head. She had been kind to him. The other kind —
+the kind that looked at him as if he was still there. All of him. Even
+the parts that were missing.</p>
+<p>The fissure hummed.</p>
+<p>He had knelt beside it ten thousand times. More. The number was large
+and he could not hold it. But the humming — he knew the humming. It
+lived in his chest, in his bones, in the place below thought where the
+oldest knowing was kept. For thirty-one years the humming had been a
+thing that pressed against him and took from him and he had let it take
+because they told him that was what service meant.</p>
+<p>He was not sure they were wrong. He was not sure about many things.
+But he had watched Kael hold — the new way, the open way — and he had
+seen the stone change color and he had noticed the snow receding on the
+peaks and he had laughed when Bren dropped the journals, and he had
+asked for salt at a meal without anyone suggesting it first. These
+things were true. Whatever else was uncertain, these things were
+true.</p>
+<p>He closed his eyes.</p>
+<p>The dark was the dark. It had no weight, no quality, no temperature.
+It was the inside of his eyelids and nothing more.</p>
+<p>He opened.</p>
+<hr />
+<p>The Rend came.</p>
+<p>It came from everywhere. From the crack in the floor. From the air.
+From below. It pressed against him and found what it always found: not
+much. Thirty-one years of pressing and taking, and what remained was
+small.</p>
+<p>But it was his.</p>
+<p>The fear arrived. He had not felt fear in — he did not know how long.
+Years, maybe. It filled his chest and his throat and his hands. The Rend
+pressed and the fear said <em>close, close, protect what is left, curl
+inward, make a wall, this is how you survive</em>—</p>
+<p>He did not close.</p>
+<p>He stayed open. The word Kael had used. <em>Open.</em> The simplest
+word. A door is open. A hand is open. A mouth. An eye. He was open, and
+the fear screamed, and he stayed open anyway, because he had spent
+thirty-one years closed and the closing had not saved him. The closing
+had only made the taking slower.</p>
+<p>He stayed.</p>
+<p>The Rend moved through him. Not around. Through. What was left of him
+was not enough to stop it. It had never been enough. Thirty-one years of
+trying to stop it and it had never been enough.</p>
+<p>He could feel the truth of this in his body — in his knees on cold
+stone, in his hands on his thighs, in the chest that held less than it
+used to hold. The wall had never held. The technique had never worked.
+They had told him to resist, and the resisting was called service, and
+the service had eaten him alive.</p>
+<p>The flow was too much. He was too thin. The force was not emptiness.
+It was the opposite of emptiness. It was so full that he could not hold
+it, and the fullness poured through him and he began to come apart.</p>
+<p>His name. Torren. The name was going. He could feel it thinning, the
+sound of it fading, the shape of the letters dissolving—</p>
+<p>His thumb found the ring. Smooth. Green at the edges. He knew this
+feeling. The body had not forgotten.</p>
+<p>Then Kael.</p>
+<p>Something from beside him, from the shoulder that had been warm. A
+steadiness. Kael’s steadiness, reaching him the way warmth reaches
+through a wall — keeping him company while the world poured through.</p>
+<p>The flow steadied.</p>
+<p>Torren’s name came back. Small. Thin. But his.</p>
+<p>And behind the flow — behind the Rend, behind the force that pressed
+and filled and overwhelmed — there was something else.</p>
+<p>He heard the singing.</p>
+<p>He felt it in his chest. In the bones of his face. In the part of him
+that was below thought and below memory and below everything the Rend
+had ever taken. He had a place inside him that had been empty for so
+long he had forgotten it was there. The singing found it. The singing
+filled it.</p>
+<p>He reached for a word. It did not come. He reached again.</p>
+<p><em>Being.</em></p>
+<p>The singing was the being of every person who had ever knelt where he
+was kneeling. Not their words. Not their faces. Not the things that had
+made them who they were — those were gone. But the part of them that was
+underneath the particular. The part that was theirs and also larger than
+theirs. That was here. That was what the singing was. He could feel
+them. A hundred lives. Still held. Not lost.</p>
+<p>He wept.</p>
+<p>He knew he was weeping because his face was wet and his breath had
+changed and there was a sound coming from him that he had not made in
+years. The sound was rough and open and it came from deep in his chest
+and he did not try to stop it. He could not have stopped it. The weeping
+was total. It moved through him the way the Rend had moved through him —
+without asking, without stopping, without apology.</p>
+<p>The weeping was not the same as before. He had cried before — he
+thought he had. In the years when crying still meant something. Before
+the feelings went away, one by one, so slowly he had not noticed until
+they were gone.</p>
+<p>This was different. This was what happened when you found out the
+thing you lost was still there. The word came without reaching.
+<em>Reunion.</em> He did not know if he had ever said it before. It did
+not matter. The word was right.</p>
+<p>The singing held him. The flow moved through him and he did not
+break. He conducted. Poorly. Roughly. His conducting leaked and
+stuttered and hurt. But it worked. The deeper world’s presence moved
+through what remained of him and touched what was on the other side, and
+what was on the other side reached back.</p>
+<p>New things began to grow.</p>
+<p>He felt them. Small. Tentative. Things growing where things had been
+stripped away. He could feel connections forming — new ones, where the
+old had been taken. Different. But real.</p>
+<p>The smell of rain reached him. Rain on warm stone. He had not smelled
+rain in — the number was gone, but the absence was large. The smell was
+clean and new and it meant something he could almost name.
+<em>Beginning.</em> The smell meant beginning.</p>
+<p>A color arrived. He did not know its name. It was warm and it was the
+color of the light along the fissure’s edge and he could see it behind
+his closed eyes. He reached for the name.</p>
+<p><em>Gold.</em></p>
+<p>The word was his. He had found it.</p>
+<p>He wept harder. Not because the color was beautiful — though it was —
+but because he had found the word for it. Because the finding was a
+thing he could do again. For years the words had been out of reach and
+he had stopped trying. Now they were coming back. Not all of them. But
+some. And the some was enough to weep over.</p>
+<p>A sound reached him. His own voice. He was saying something. He
+listened.</p>
+<p>“I remember.”</p>
+<hr />
+<p>Seven minutes. Sera told him afterward. Seven minutes.</p>
+<p>Kael helped him close. The same steadiness that had held him open now
+eased the flow, gently, the way you ease a door shut instead of slamming
+it. The deeper world’s presence receded. The singing quieted. The
+chamber returned — stone and cold and the golden light along the
+fissure’s edge, which was brighter than it had been seven minutes
+ago.</p>
+<p>Torren sat on the stone floor. His knees hurt. His hands were
+shaking. His face was wet and he did not wipe it because the wetness was
+evidence that he could feel and he was not ready to lose the
+evidence.</p>
+<p>The air in the chamber was warm. Real warmth, with temperature, the
+kind you could feel on your skin. The air smelled clean, mineral, new.
+He breathed it in. He could smell it. He had not been able to smell it
+before — or he had smelled it and not known what smelling meant. The
+difference between those two things was the difference between being
+alive and being a function that resembled being alive.</p>
+<p>Kael sat beside him on the stone. Sera was on the bench with her hand
+pressed over her mouth and her eyes bright, and Torren could see — this
+was new, this seeing, this ability to read a face and know what the
+reading meant — that she was crying too.</p>
+<p>“How do you feel?” Kael asked.</p>
+<p>Torren considered the question. It was a real question and he wanted
+to give it a real answer, and the wanting was itself an answer. Two
+weeks ago he would not have wanted. Wanting was a capacity, and the
+capacity had been taken, and now it was growing back — a new wanting,
+that knew what it cost to not want.</p>
+<p>“I feel,” he said.</p>
+<p>He stopped. Not because the sentence was finished. Because the next
+word was important and he needed to find it. The words were coming back,
+but they were still heavy. The important ones were the heaviest.</p>
+<p>“I feel like Torren,” he said.</p>
+<p>Not the old Torren. He knew this with a clarity that was itself new —
+the ability to know a thing and hold the knowing and turn it over and
+look at all its sides. The man who had walked through Thornwall’s gate
+thirty-one years ago, young and certain and full of things he did not
+know he could lose — that man was gone. The specific memories were gone.
+The particular way he had laughed, the exact color of the morning the
+day he arrived, the name of the woman he had loved before service or
+whether there had been a woman at all — gone. He could feel the places
+where they had been. The gravity of absence. But the grief for them was
+not the old grief, the mechanical acknowledgment of loss. It was real
+grief, felt grief, the kind that hurts because you are alive enough to
+hurt.</p>
+<p>But he was here. The substance of himself. The thing underneath the
+particular, the part that was still Torren no matter what was taken.
+Alive. Present. Kneeling on cold stone in a chamber that was
+healing.</p>
+<p>“I remember what it feels like to be Torren,” he said.</p>
+<p>His voice was rough. The words came slowly, each one found and lifted
+and placed. But they were clear. They were his. And the sentence — the
+whole sentence, complete, subject and verb and object and the full
+weight of thirty-one years behind every word — landed in the chamber
+with a weight that was not heaviness but substance.</p>
+<p>Kael’s hand found his shoulder again. The weight of it was the same
+as before — warm, real, the weight of a person choosing to be beside
+him. But Torren could feel more of it now. He could feel the texture of
+the grip, the specific pressure of each finger, the roughness of Kael’s
+palm where stone and cold had worn it. These details had been gone. Now
+they were coming back — new ones, his own.</p>
+<p>He looked at Kael. He could see Kael’s face — the gray eyes, the dark
+beard, the lines that deepened when he was feeling something he did not
+say. Torren had looked at this face every day and seen only a shape. A
+presence. A function. Now he saw a person. A person who had knelt beside
+him when he did not have to. A person who had carried this Hold on his
+back for twenty-three years and was still standing.</p>
+<p>“I heard them,” Torren said. “The others. The ones who served.”</p>
+<p>“What did they sound like?”</p>
+<p>He thought about this. The singing had not sounded like anything he
+could name. It was not music. It was not voices. It was being known.
+Being known by something that had no need to know him but knew him
+anyway.</p>
+<p>“They sounded like they were still here,” he said. “Something
+underneath the words and names. The part of them that was kept.”</p>
+<p>He paused. The next words were hard to find. He found them
+anyway.</p>
+<p>“They were not lost,” he said. “None of them were lost.”</p>
+<p>Kael’s grip tightened on his shoulder. A brief pressure. Then it
+eased.</p>
+<p>The chamber was quiet. The singing had gone, but the air still held
+its warmth, and the smell — clean and mineral, the smell of the world
+after it has been washed — filled the space between them. The golden
+light along the fissure was brighter. He could see this. He could
+compare before and after. The comparing was new. Two weeks ago, each
+moment had existed alone, with nothing connecting it to the one before.
+Now the moments were connecting. Now one led to the next and the next
+led to meaning.</p>
+<p>Sera stood from the bench. She crossed the chamber with careful
+steps, watching where she placed her feet. She knelt in front of him.
+Her face was wet. Her eyes were the color of living things and they were
+looking at him the way she had always looked at him, as if all of him
+was there, and now — for the first time in years — she was right.</p>
+<p>“Your core has doubled,” she said. “In seven minutes.”</p>
+<p>He did not know what that meant. He did not need to know. He could
+feel it — new things growing inside him, fragile and small and
+there.</p>
+<p>“I would like to do it again,” he said.</p>
+<p>“Tomorrow,” Kael said.</p>
+<p>“Tomorrow,” Torren agreed. The word was easy. It came without
+reaching. Tomorrow. A future that held something worth arriving at. The
+holding was not sacrifice this time.</p>
+<p>It was just holding. The simple act of keeping something close
+because you wanted to.</p>
+<p>He stood. His knees protested. They always protested. Kael stood with
+him, and Sera stepped back, and the three of them stood in the chamber
+with the golden light and the warm air and that clean mineral scent, and
+Torren looked at the fissure — the narrowing fissure, the healing
+fissure, the crack in the world that was learning to close — and
+smiled.</p>
+<p>He had not smiled in years. The muscles of his face remembered
+anyway. The smile was new. It fit differently. Unfamiliar, but his. He
+would learn its shape. He had time.</p>
+<p>He did not know how much. But he had some. And some was more than he
+had expected, more than the Accord’s technique had left room for.</p>
+<p>Behind him, the fissure hummed. A different hum than the one he had
+known for thirty-one years. Quieter. Patient. The sound of something
+that was being met instead of something straining through a wound. He
+could hear the difference. He could hear differences now.</p>
+<p>He climbed the stairs. Forty-seven. The eighth one was uneven. He had
+climbed these stairs ten thousand times and he had never counted them
+before.</p>
+<p>Today he counted.</p>
+</main>
+
+<nav class="chapter-nav">
+  <a href="part-04.html" class="prev-chapter nav-link"><span class="nav-label">&larr; What Holds</span><span class="nav-chapter-title">What Holds</span></a>
+  <a href="chapter-24.html" class="next-chapter nav-link"><span class="nav-label">Next &rarr;</span><span class="nav-chapter-title">Before the Question</span></a>
+</nav>
+
+<!-- TOC Overlay -->
+<div class="toc-overlay">
+  <div class="toc-panel">
+    <h2>Contents</h2>
+    <div class="toc-contents">
+  <h3 class="toc-part">Part 1: The Wick</h3>
+  <ol class="toc-list" start="1">
+    <li><a href="chapters/chapter-01.html" data-chapter="chapter-01">The Wick</a></li>
+    <li><a href="chapters/chapter-02.html" data-chapter="chapter-02">Current Numbers</a></li>
+    <li><a href="chapters/chapter-03.html" data-chapter="chapter-03">The Road to Thornwall</a></li>
+    <li><a href="chapters/chapter-04.html" data-chapter="chapter-04">What She Sees</a></li>
+    <li><a href="chapters/chapter-05.html" data-chapter="chapter-05">Before Dawn</a></li>
+    <li><a href="chapters/chapter-06.html" data-chapter="chapter-06">Not Class Three</a></li>
+    <li><a href="chapters/chapter-07.html" data-chapter="chapter-07">The Stars Are Different</a></li>
+    <li><a href="chapters/chapter-08.html" data-chapter="chapter-08">The East Wing</a></li>
+  </ol>
+  <h3 class="toc-part">Part 2: What Burns</h3>
+  <ol class="toc-list" start="9">
+    <li><a href="chapters/chapter-09.html" data-chapter="chapter-09">What She Carried</a></li>
+    <li><a href="chapters/chapter-10.html" data-chapter="chapter-10">What Do You Want Me to Do With This</a></li>
+    <li><a href="chapters/chapter-11.html" data-chapter="chapter-11">What the Journals Say</a></li>
+    <li><a href="chapters/chapter-12.html" data-chapter="chapter-12">Can We Trust Her</a></li>
+    <li><a href="chapters/chapter-13.html" data-chapter="chapter-13">The Flame and the Wind</a></li>
+    <li><a href="chapters/chapter-14.html" data-chapter="chapter-14">Not Alone</a></li>
+  </ol>
+  <h3 class="toc-part">Part 3: The Opening</h3>
+  <ol class="toc-list" start="15">
+    <li><a href="chapters/chapter-15.html" data-chapter="chapter-15">Through</a></li>
+    <li><a href="chapters/chapter-16.html" data-chapter="chapter-16">What She Saw</a></li>
+    <li><a href="chapters/chapter-17.html" data-chapter="chapter-17">New Growth</a></li>
+    <li><a href="chapters/chapter-18.html" data-chapter="chapter-18">Stubborn</a></li>
+    <li><a href="chapters/chapter-19.html" data-chapter="chapter-19">The Shelf</a></li>
+    <li><a href="chapters/chapter-20.html" data-chapter="chapter-20">Concluded Remotely</a></li>
+    <li><a href="chapters/chapter-21.html" data-chapter="chapter-21">The Diamond</a></li>
+    <li><a href="chapters/chapter-22.html" data-chapter="chapter-22">Come See</a></li>
+  </ol>
+  <h3 class="toc-part">Part 4: What Holds</h3>
+  <ol class="toc-list" start="23">
+    <li><a href="chapters/chapter-23.html" data-chapter="chapter-23">What It Feels Like</a></li>
+    <li><a href="chapters/chapter-24.html" data-chapter="chapter-24">Before the Question</a></li>
+    <li><a href="chapters/chapter-25.html" data-chapter="chapter-25">The Hearth</a></li>
+    <li><a href="chapters/chapter-26.html" data-chapter="chapter-26">Rain on Warm Stone</a></li>
+    <li><a href="chapters/chapter-27.html" data-chapter="chapter-27">Ready</a></li>
+    <li><a href="chapters/chapter-28.html" data-chapter="chapter-28">The Mountain Sings</a></li>
+    <li><a href="chapters/chapter-29.html" data-chapter="chapter-29">The Weight of Burning</a></li>
+  </ol>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+ * Storyforge Web Book — Progressive Enhancement
+ *
+ * The book is fully readable with JavaScript disabled.
+ * Everything in this file is optional enhancement.
+ *
+ * ---------------------------------------------------------------------------
+ * INLINE IN <head> — prevents flash of wrong theme.
+ * Paste this inside a <script> tag before any stylesheets:
+ *
+ * (function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})();
+ *
+ * ---------------------------------------------------------------------------
+ */
+
+(function () {
+  'use strict';
+
+  // ---------------------------------------------------------------------------
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  /** Return a debounced version of fn that waits ms before firing. */
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      var ctx = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(ctx, args); }, ms);
+    };
+  }
+
+  /** Derive a slug for the current chapter from the URL or body attribute. */
+  function getChapterSlug() {
+    var slug = document.body.getAttribute('data-chapter');
+    if (slug) return slug;
+    // Fall back to the last segment of the pathname, minus extension
+    var path = window.location.pathname.replace(/\/+$/, '');
+    var parts = path.split('/');
+    return (parts[parts.length - 1] || 'index').replace(/\.html?$/, '');
+  }
+
+  // ---------------------------------------------------------------------------
+  // 1. Theme switching
+  // ---------------------------------------------------------------------------
+
+  var themes = ['light', 'dark', 'sepia'];
+
+  function currentTheme() {
+    return document.documentElement.dataset.theme || 'light';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('storyforge-theme', theme);
+  }
+
+  function cycleTheme() {
+    var idx = themes.indexOf(currentTheme());
+    setTheme(themes[(idx + 1) % themes.length]);
+  }
+
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', cycleTheme);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 2. Reading position persistence
+  // ---------------------------------------------------------------------------
+
+  var posKey = 'pos-' + getChapterSlug();
+
+  // Restore saved position after layout settles.
+  var savedPos = localStorage.getItem(posKey);
+  if (savedPos !== null) {
+    setTimeout(function () {
+      window.scrollTo(0, parseInt(savedPos, 10));
+    }, 100);
+  }
+
+  // Save position on scroll (debounced).
+  window.addEventListener('scroll', debounce(function () {
+    localStorage.setItem(posKey, String(window.scrollY));
+  }, 500));
+
+  // ---------------------------------------------------------------------------
+  // 3. Chapter completion tracking
+  // ---------------------------------------------------------------------------
+
+  function getChaptersRead() {
+    try { return JSON.parse(localStorage.getItem('chapters-read')) || []; }
+    catch (_) { return []; }
+  }
+
+  function markChapterRead(slug) {
+    var read = getChaptersRead();
+    if (read.indexOf(slug) === -1) {
+      read.push(slug);
+      localStorage.setItem('chapters-read', JSON.stringify(read));
+    }
+  }
+
+  /** Apply .chapter-read to TOC links whose chapters have been completed. */
+  function applyReadClasses() {
+    var read = getChaptersRead();
+    if (!read.length) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var slug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (read.indexOf(slug) !== -1) {
+        links[i].classList.add('chapter-read');
+      }
+    }
+  }
+
+  applyReadClasses();
+
+  // Mark current chapter as read when user scrolls past 90%.
+  var chapterMarked = false;
+  function checkCompletion() {
+    if (chapterMarked) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    if (docHeight <= winHeight) return; // page fits in viewport
+    if (scrollTop / (docHeight - winHeight) >= 0.9) {
+      chapterMarked = true;
+      markChapterRead(getChapterSlug());
+      applyReadClasses();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4. Progress bar
+  // ---------------------------------------------------------------------------
+
+  var progressBar = document.querySelector('.progress-bar');
+
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    var pct = docHeight <= winHeight ? 100 : (scrollTop / (docHeight - winHeight)) * 100;
+    progressBar.style.width = Math.min(pct, 100) + '%';
+  }
+
+  // ---------------------------------------------------------------------------
+  // 5. Auto-hiding navigation
+  // ---------------------------------------------------------------------------
+
+  var bookNav = document.querySelector('.book-nav');
+  var lastScrollY = window.scrollY;
+  var hideTimer = null;
+
+  function handleNavVisibility() {
+    var scrollY = window.scrollY;
+    if (!bookNav) return;
+
+    // Always visible near the top of the page.
+    if (scrollY < 100) {
+      bookNav.classList.remove('hidden');
+      clearTimeout(hideTimer);
+      lastScrollY = scrollY;
+      return;
+    }
+
+    if (scrollY > lastScrollY) {
+      // Scrolling down — hide after 3 seconds.
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        bookNav.classList.add('hidden');
+      }, 3000);
+    } else {
+      // Scrolling up — show immediately.
+      clearTimeout(hideTimer);
+      bookNav.classList.remove('hidden');
+    }
+
+    lastScrollY = scrollY;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Unified scroll handler (uses rAF for smooth progress bar updates)
+  // ---------------------------------------------------------------------------
+
+  var scrollTicking = false;
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(function () {
+        updateProgress();
+        checkCompletion();
+        handleNavVisibility();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  });
+
+  // Initial call so progress bar is correct on load.
+  updateProgress();
+
+  // ---------------------------------------------------------------------------
+  // 6. Keyboard navigation
+  // ---------------------------------------------------------------------------
+
+  document.addEventListener('keydown', function (e) {
+    // Don't capture when the user is typing in a form field.
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) {
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowLeft': {
+        var prev = document.querySelector('.prev-chapter');
+        if (prev && prev.href) window.location.href = prev.href;
+        break;
+      }
+      case 'ArrowRight': {
+        var next = document.querySelector('.next-chapter');
+        if (next && next.href) window.location.href = next.href;
+        break;
+      }
+      case 't':
+      case 'T':
+        toggleToc();
+        break;
+      case 'Escape':
+        closeToc();
+        break;
+    }
+  });
+
+  // ---------------------------------------------------------------------------
+  // 7. TOC overlay toggle
+  // ---------------------------------------------------------------------------
+
+  var tocOverlay = document.querySelector('.toc-overlay');
+  var tocToggle = document.querySelector('.toc-toggle');
+
+  function toggleToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.toggle('active');
+    if (tocOverlay.classList.contains('active')) {
+      var current = tocOverlay.querySelector('.toc-current');
+      if (current) {
+        setTimeout(function () {
+          current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }
+
+  function closeToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.remove('active');
+  }
+
+  if (tocToggle) {
+    tocToggle.addEventListener('click', toggleToc);
+  }
+
+  // Close on backdrop click (click on the overlay itself, not its children).
+  if (tocOverlay) {
+    tocOverlay.addEventListener('click', function (e) {
+      if (e.target === tocOverlay) closeToc();
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 8. Chapter info in navigation
+  // ---------------------------------------------------------------------------
+
+  var chapterNum = document.body.getAttribute('data-chapter-num');
+  var totalChapters = document.body.getAttribute('data-total-chapters');
+
+  if (chapterNum && totalChapters && bookNav) {
+    var info = document.createElement('span');
+    info.className = 'chapter-info';
+    info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
+    bookNav.appendChild(info);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 9. Resume tracking — store last-visited chapter
+  // ---------------------------------------------------------------------------
+
+  var currentSlug = getChapterSlug();
+  if (currentSlug && currentSlug !== 'index' && currentSlug !== 'contents') {
+    localStorage.setItem('storyforge-last-chapter', currentSlug);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 10. TOC current chapter highlight
+  // ---------------------------------------------------------------------------
+
+  function highlightCurrentChapter() {
+    var slug = getChapterSlug();
+    if (!slug) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc-list a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var linkSlug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (linkSlug === slug) {
+        var li = links[i].closest('li');
+        if (li) {
+          li.classList.add('toc-current');
+        }
+      }
+    }
+  }
+
+  highlightCurrentChapter();
+
+})();
+</script>
+</body>
+</html>

@@ -34,19 +34,7 @@
   function loadContent() {
     var container = document.getElementById("book-gate");
     var contentPath = container.getAttribute("data-content");
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", contentPath, true);
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        container.innerHTML = xhr.responseText;
-      } else {
-        container.innerHTML = "<p>Unable to load book content.</p>";
-      }
-    };
-    xhr.onerror = function () {
-      container.innerHTML = "<p>Unable to load book content.</p>";
-    };
-    xhr.send();
+    window.location.href = contentPath;
   }
 
   if (isAuthenticated()) {

@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Weight of Burning — 
+
+Untitled</title>
+<meta name="author" content="Ben Norris">
+
+<script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
+<style>
+/* ==========================================================================
+   reading.css — Web Book Reading Experience
+   StoryForge production stylesheet
+
+   A reading environment that disappears. Inspired by Butterick's Practical
+   Typography, Tufte CSS, and the tradition of fine bookmaking.
+   ========================================================================== */
+
+/* --- 1. COLOR THEMES ---------------------------------------------------- */
+
+[data-theme="light"] {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+  --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+}
+[data-theme="sepia"] {
+  --bg: #f4ecd8; --text: #3b2e1e; --text-dim: #6b5a42;
+  --accent: #8b5e3c; --surface: #e8dfc8; --border: rgba(59,46,30,0.1);
+}
+
+[data-theme="dark"] .reading-column,
+[data-theme="dark"] .chapter-content { line-height: 1.65; }
+
+/* Default to light; honor OS dark preference when no theme is stored */
+:root {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #1a1816; --text: #d4cec6; --text-dim: #8a8078;
+    --accent: #c4956a; --surface: #252220; --border: rgba(255,255,255,0.06);
+  }
+}
+
+/* --- FONT LOADING ------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- 2. RESET & BASE ---------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: clamp(18px, 1.15rem + 0.25vw, 21px);
+  line-height: 1.58;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 3. TYPOGRAPHY — THE TEXT COLUMN ------------------------------------
+   The measure: 36em keeps us at 65-75 characters per line.
+   ----------------------------------------------------------------------- */
+
+.chapter-content,
+.book-landing {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Book-style paragraphs: indented, no vertical gap */
+.chapter-content p {
+  text-indent: 1.5em;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* First paragraph after structural elements — no indent */
+.chapter-content h1 + p,
+.chapter-content h2 + p,
+.chapter-content h3 + p,
+.chapter-content hr + p,
+.chapter-content blockquote + p {
+  text-indent: 0;
+}
+
+/* --- 4. HEADINGS --------------------------------------------------------
+   Chapter titles (h1): graceful, quiet — a breath before the prose.
+   ----------------------------------------------------------------------- */
+
+.chapter-content h1 {
+  font-size: 1.5em;
+  font-weight: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+  margin-top: 3.5em;
+  margin-bottom: 2em;
+  line-height: 1.3;
+  transition: color 0.4s ease;
+}
+
+/* Subtle rule beneath chapter title */
+.chapter-content h1::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin: 0.8em auto 0;
+}
+
+.chapter-content h2 {
+  font-size: 1.15em;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--text);
+  margin: 2em 0 0.75em;
+  line-height: 1.4;
+  transition: color 0.4s ease;
+}
+
+.chapter-content h3 {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  transition: color 0.4s ease;
+}
+
+/* --- 5. SCENE BREAKS ----------------------------------------------------
+   No visible rule. A quiet asterism marks the shift.
+   ----------------------------------------------------------------------- */
+
+.chapter-content hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+  overflow: visible;
+}
+
+.chapter-content hr::after {
+  content: "\2042"; /* asterism */
+  display: inline-block;
+  font-size: 1.2em;
+  color: var(--text-dim);
+  letter-spacing: 0.3em;
+  position: relative;
+  top: -0.1em;
+  transition: color 0.4s ease;
+}
+
+/* --- 6. DROP CAP --------------------------------------------------------
+   Optional. Apply .drop-cap to the chapter-content wrapper.
+   ----------------------------------------------------------------------- */
+
+.drop-cap p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.8;
+  padding-right: 0.08em;
+  margin-top: 0.05em;
+  color: var(--accent);
+  font-weight: normal;
+  transition: color 0.4s ease;
+}
+
+/* --- 7. BLOCKQUOTES (EPIGRAPHS) ----------------------------------------- */
+
+.chapter-content blockquote {
+  max-width: 28em;
+  margin: 2em auto;
+  padding: 0 1.5em;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  color: var(--text-dim);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.chapter-content blockquote p {
+  text-indent: 0;
+  margin-bottom: 0.5em;
+}
+
+.chapter-content blockquote p:last-child { margin-bottom: 0; }
+
+.chapter-content blockquote cite {
+  display: block;
+  margin-top: 0.75em;
+  font-style: normal;
+  font-size: 0.88em;
+  text-align: right;
+  color: var(--text-dim);
+}
+
+/* --- 8. INLINE ELEMENTS ------------------------------------------------- */
+
+.chapter-content strong { font-weight: 700; }
+.chapter-content em { font-style: italic; }
+
+.chapter-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.chapter-content a:hover { border-bottom-color: var(--accent); }
+
+/* --- 9. PROGRESS BAR ---------------------------------------------------- */
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 0.15s linear, background-color 0.4s ease;
+  pointer-events: none;
+}
+
+/* --- 10. TOP NAVIGATION BAR ---------------------------------------------
+   Translucent strip. Always available, never intrudes.
+   ----------------------------------------------------------------------- */
+
+.book-nav {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.3s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.book-nav.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .book-nav::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  opacity: 0.3;
+}
+
+.book-nav .book-title {
+  font-size: 0.82em;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  transition: color 0.4s ease;
+}
+
+.book-nav .nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+
+.theme-toggle,
+.toc-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
+.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
+
+.theme-toggle:hover,
+.toc-toggle:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Icon visibility per theme */
+.theme-toggle .icon-light,
+.theme-toggle .icon-dark,
+.theme-toggle .icon-sepia { display: none; }
+
+[data-theme="light"] .theme-toggle .icon-light,
+:root:not([data-theme]) .theme-toggle .icon-light { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
+[data-theme="sepia"] .theme-toggle .icon-sepia { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle .icon-light { display: none; }
+  :root:not([data-theme]) .theme-toggle .icon-dark { display: inline; }
+}
+
+/* --- 12. TABLE OF CONTENTS OVERLAY -------------------------------------- */
+
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.toc-overlay.active { opacity: 1; visibility: visible; }
+
+.toc-panel {
+  background: var(--bg);
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2.5em 2em;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.4s ease;
+}
+
+.toc-panel h2 {
+  font-size: 0.85em;
+  font-weight: normal;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.toc-panel ol { list-style: none; counter-reset: toc-chapter; }
+
+.toc-panel li {
+  counter-increment: toc-chapter;
+  border-bottom: 1px solid var(--border);
+}
+
+.toc-panel li:last-child { border-bottom: none; }
+
+.toc-panel a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  padding: 0.65em 0.25em;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: color 0.3s ease;
+}
+
+.toc-panel a:hover { color: var(--accent); }
+
+.toc-panel a::before {
+  content: counter(toc-chapter);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  min-width: 1.5em;
+  text-align: right;
+}
+
+/* Completed chapters */
+.toc-panel li.chapter-read a { color: var(--text-dim); }
+
+.toc-panel li.chapter-read a::after {
+  content: "\2713";
+  font-size: 0.78em;
+  margin-left: auto;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+.toc-close {
+  display: block;
+  margin: 1.5em auto 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.85em;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.toc-close:hover { color: var(--text); }
+
+/* --- 13. CHAPTER NAVIGATION (BOTTOM) ------------------------------------
+   The invitation to turn the page.
+   ----------------------------------------------------------------------- */
+
+.chapter-nav {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 3em 1.5rem 4em;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  transition: border-color 0.4s ease;
+}
+
+.chapter-nav a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.75em 0;
+  min-height: 44px;
+  transition: color 0.3s ease;
+}
+
+.chapter-nav a:hover { color: var(--accent); }
+
+.chapter-nav .nav-label {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+.chapter-nav .nav-chapter-title { font-style: italic; }
+.chapter-nav .nav-prev { text-align: left; }
+.chapter-nav .nav-next { text-align: right; margin-left: auto; }
+
+/* --- 14. INDEX / LANDING PAGE ------------------------------------------- */
+
+.book-landing {
+  text-align: center;
+  padding-top: 6em;
+  padding-bottom: 4em;
+}
+
+.book-cover {
+  max-width: 300px;
+  width: 60%;
+  height: auto;
+  margin: 0 auto 2.5em;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.book-meta { margin-bottom: 3em; }
+
+.book-meta .book-main-title {
+  font-size: 2em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+  line-height: 1.2;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-author {
+  font-size: 1.05em;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  margin-bottom: 1.2em;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-logline {
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 28em;
+  margin: 0 auto;
+  line-height: 1.5;
+  transition: color 0.4s ease;
+}
+
+.start-reading {
+  display: inline-block;
+  padding: 0.85em 2.5em;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: 1em;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.start-reading:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.start-reading:active { transform: translateY(0); }
+
+/* --- PART LABEL (above chapter heading) --------------------------------- */
+
+.part-label {
+  text-align: center;
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 3em;
+  margin-bottom: 0.5em;
+  transition: color 0.4s ease;
+}
+
+.part-label + h1 {
+  margin-top: 0.5em;
+}
+
+/* --- PART INTERSTITIAL PAGE --------------------------------------------- */
+
+.part-interstitial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2em 1.5rem;
+}
+
+.part-number {
+  font-size: 0.75em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1em;
+}
+
+.part-title {
+  font-size: 2em;
+  font-weight: normal;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.part-ornament {
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin-top: 2em;
+}
+
+[data-theme="dark"] .part-number { color: var(--accent); }
+[data-theme="dark"] .part-ornament {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+/* --- TOC PART HEADINGS -------------------------------------------------- */
+
+.toc-part {
+  font-size: 0.72em;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  padding: 0 0.25em;
+}
+
+.toc-part:first-child { margin-top: 0; }
+
+.toc-panel li.toc-current a,
+.toc-list li.toc-current a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.toc-panel li.toc-current a::before {
+  color: var(--accent);
+}
+
+/* --- RESUME LINK -------------------------------------------------------- */
+
+.resume-link {
+  display: block;
+  margin-bottom: 1.5em;
+  font-size: 0.9em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.resume-link:hover { filter: brightness(1.2); }
+
+.resume-label {
+  display: block;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+/* --- 15. RESPONSIVE ----------------------------------------------------- */
+
+@media (max-width: 639px) {
+  .chapter-content,
+  .book-landing { padding-left: 20px; padding-right: 20px; }
+
+  .book-nav { padding: 0.5rem 1rem; }
+
+  .chapter-content h1 {
+    font-size: 1.25em;
+    margin-top: 2.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .chapter-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .chapter-nav .nav-next {
+    text-align: left;
+    margin-left: 0;
+    padding-top: 1em;
+    border-top: 1px solid var(--border);
+  }
+
+  .book-landing { padding-top: 3em; }
+  .book-meta .book-main-title { font-size: 1.6em; }
+  .toc-panel { padding: 2em 1.5em; width: 95%; }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .chapter-content,
+  .book-landing { max-width: 38em; padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (pointer: coarse) {
+  .book-nav .nav-controls button,
+  .chapter-nav a,
+  .toc-panel a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* --- 16. SELECTION ------------------------------------------------------ */
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--text);
+}
+
+/* --- 17. PRINT ---------------------------------------------------------- */
+
+@media print {
+  .book-nav, .progress-bar, .chapter-nav,
+  .toc-overlay, .theme-toggle, .toc-toggle { display: none !important; }
+
+  body { background: white; color: black; font-size: 11pt; }
+  .chapter-content { max-width: none; padding: 0; }
+  .chapter-content h1 { page-break-before: always; color: black; }
+  .chapter-content h1:first-of-type { page-break-before: avoid; }
+  .chapter-content hr { page-break-after: avoid; }
+  .chapter-content blockquote { color: #333; border-left-color: #ccc; }
+  a { color: black; border-bottom: none; }
+}
+
+/* --- 18. REDUCED MOTION ------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body data-chapter="chapter-29" data-chapter-num="29" data-total-chapters="29">
+
+<div class="progress-bar"></div>
+
+<nav class="book-nav">
+  <a href="../contents.html" class="nav-title">
+
+Untitled</a>
+  <div class="nav-controls">
+    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
+    <button class="theme-toggle" aria-label="Change theme">
+      <span class="icon-light">&#9788;</span>
+      <span class="icon-dark">&#9790;</span>
+      <span class="icon-sepia">&#9782;</span>
+    </button>
+  </div>
+</nav>
+
+<main class="reading-column drop-cap">
+<div class="part-label">Part 4: What Holds</div>
+<h1 id="chapter-29-the-weight-of-burning">Chapter 29: The Weight of
+Burning</h1>
+<p>The fire was real.</p>
+<p>Pine branches and dry bark and the steady work of Kael’s hands
+arranging kindling in a circle of stones he’d cleared from the roadside
+while she unsaddled the horses. Real fire. Real warmth. Real light
+against the first dark they had faced outside Thornwall’s walls.</p>
+<p>She had watched him build it. The care he took — selecting the
+branches by weight and dryness, stripping bark from a fallen pine with
+his knife, building the structure with the same deliberate attention he
+brought to everything. He had not built a fire in twenty-three years.
+Thornwall had hearths and lamps and iron brackets, the infrastructure of
+a permanent Hold. But before Thornwall there had been the road up, and
+before the road there had been the academy, and before the academy there
+had been a village where fires were built every evening and the smell of
+pine smoke meant home. His hands remembered. The fire caught and grew
+and the flames steadied, and the sound of it — the crack of pine sap,
+the hiss of moisture escaping, the settling of wood into its own
+combustion — was the oldest sound in the world. Older than institutions.
+Older than the Accord. Older than the Rend.</p>
+<p>She sat on a fallen log and watched the flames find their rhythm. Her
+mind reached for the old categories — campfire assessment, environmental
+survey, the Assessor’s reflex to classify before experiencing. She let
+it go. The reflex was not gone. It would never be gone — it was part of
+her, the trained precision that had once been armor and was now
+instrument. But she could choose when to deploy it, and this moment did
+not need classification. This moment needed to be sat in.</p>
+<p>The camp was simple. A flat place off the road where the pines opened
+into a clearing, the grass thick and green with spring, the horses
+picketed where the grazing was good. Their bedrolls spread side by side
+near the fire, close enough that the edges overlapped — the easy
+proximity of two people who had stopped measuring the space between
+them. The road behind them climbed back toward the Kethren Passes,
+invisible now in the gathering dusk — only the sense of the mountain
+behind them, enormous and patient, its bulk a presence felt in the way
+the air moved. Ahead, the valley stretched south and east toward
+lowlands she hadn’t seen in weeks. Somewhere out there: the regional
+office, the post roads, the capital. Verath. Corvin’s desk. The life she
+had left three weeks ago, which she was riding back toward as a
+different woman.</p>
+<p>Kael fed the fire another branch. His movements had changed. Not
+dramatically — he still carried himself with the same deliberate
+spareness, the same absence of waste. But there was a looseness in his
+shoulders that she had not seen at Thornwall — something that had been
+braced for twenty-three years learning, slowly, to unclench. He sat by
+the fire the way a man sits who has nowhere to be and no one to brace
+against and no technique to perform. He sat the way a man sits when he
+is simply present. She had not seen him simply present before. At
+Thornwall there had always been the next session, the next morning
+check, the weight of the fissure below. Here there was only the fire and
+the road and the two of them.</p>
+<p>His legs had given him trouble dismounting. They would always give
+him trouble. The knees carried twenty-three years of kneeling on cold
+stone, and the deeper world could restore capacities but it could not
+unwrite the body’s history. Some marks were permanent. He had said this
+without complaint — had said it at the parapet with Bren, had said it on
+the road as his horse picked down the switchback. The permanence did not
+trouble him. He wore it the way the mountain wore its weather marks: not
+damage but record.</p>
+<p>He looked up and caught her watching. She did not look away.</p>
+<p>“When did you last camp on a road?” she asked.</p>
+<p>“Twenty-three years ago. Coming up.” He settled beside the fire,
+stretching his legs carefully, the way a man stretches who is relearning
+that his body can be comfortable. “The stable master in the valley gave
+me a mule. I remember the mule. It had opinions about the
+switchback.”</p>
+<p>She smiled. “Opinions.”</p>
+<p>“Strong ones. It stopped at the first turn and refused to move. I
+pulled the lead rope. The mule stood there. I talked to it. The mule
+stood there. I offered it feed from the saddlebag. The mule ate the feed
+and stood there.” He shook his head, and the firelight caught the gray
+in his beard, and the ghost of the twenty-two-year-old he had been
+flickered behind his eyes. “Finally I just started walking. Didn’t look
+back. Halfway up the second switchback I heard it coming behind me. It
+had decided. I don’t know what changed its mind. Maybe it wanted the
+rest of the feed. Maybe it just needed to come to its own decision.”</p>
+<p>“Like Holders.”</p>
+<p>He looked at her. The humor shifted into something deeper. “Yes. Like
+Holders.”</p>
+<p>The silence held for a moment. Then the smile faded, not into sadness
+but into the quiet that she had learned was Kael’s way of carrying
+weight — letting the silence hold what words would only diminish.</p>
+<p>She knew what else had been in that valley twenty-three years ago. A
+woman in a doorway. Letters that kept arriving. A decade ground away by
+distance and service until only the smell of pine resin survived. The
+mule had outlasted all of it.</p>
+<p>“You remember the mule but not—”</p>
+<p>She stopped. The sentence didn’t need finishing. They both knew what
+the mule had outlasted.</p>
+<p>“Some things the Rend takes and some things it leaves.” His voice was
+quiet. Not bitter — past bitter, in the territory where loss becomes
+landscape, something you live in rather than against. “The mule was
+apparently essential to my identity.”</p>
+<p>The humor was new. Or new enough — she had seen flashes of it in the
+final days at Thornwall, green shoots cracking through hard earth. But
+it arrived alongside what he’d told her on the courtyard wall: the
+letters, the two leaves, the doorway he’d stopped returning to. The Rend
+had taken a woman’s name and left a mule’s temperament, and the
+disproportion was not funny, and his ability to find lightness in it
+anyway was its own kind of courage.</p>
+<p>“Do you think it will work?” she asked. Not the technique — they both
+knew the technique worked. Something larger. The thing they were riding
+toward.</p>
+<p>He was quiet for a long time. The fire spoke in his silence — the
+crack and settle, the steady breathing of combustion. She let him think.
+She had learned to let him think.</p>
+<p>“I don’t know,” he said. “The Accord has three centuries of
+certainty. Corvin has a system that produces results — the fissures are
+contained, the Holds function, the formula allocates. That it consumes
+people is a cost the institution has accepted. We’re asking them to
+accept that the cost was unnecessary. That three hundred years of
+sacrifice was based on a misunderstanding.”</p>
+<p>“That’s a hard thing to accept.”</p>
+<p>“It’s the hardest thing.” He looked at the fire. “Some of them won’t.
+Some of them will call it heresy, or protocol deviation, or madness.
+Corvin will call it whatever protects his certainty. The institutional
+language has a word for everything that threatens the institution.”</p>
+<p>“But the evidence—”</p>
+<p>“The evidence is real. The fissure healed. Thessan watched it. Her
+riders watched it. The golden crystal is in the chamber for anyone to
+see and touch and feel warm under their hand. That’s not subjective.
+That’s not protocol deviation. That’s stone.”</p>
+<p>She heard the anger underneath — the new-growth anger, rooted and
+quiet and more dangerous than rage. The anger of a man who had survived
+what killed thousands and was carrying the knowledge of it toward the
+institution that had made the killing structural.</p>
+<p>“The ones who are ready will listen,” he said. “The ones who aren’t —
+we give them time. We show them what we showed Thessan. We say <em>come
+see</em>. And we keep saying it until they do.”</p>
+<p>“And if they send someone to stop us?”</p>
+<p>“They sent Thessan to stop us.” The firelight caught his smile — the
+new smile, the one that changed the geography of his face. “She’s
+guarding the school now.”</p>
+<p>The silence that followed was comfortable. The kind of silence that
+lives between people who have passed through something together and come
+out the other side knowing they will pass through more. She watched him
+put another branch on the fire. The flames rose and his face was lit by
+them — the lines, the gray-threaded beard, the gray eyes that had seen
+the deeper world pour through a wound in the earth and had not looked
+away. He was forty-five years old. He had been on the mountain since he
+was twenty-two. He was sitting by a fire in a pine clearing in the
+lowlands, and the lowlands were a foreign country to him — a place he
+had not visited in over two decades. Tomorrow they would reach the
+valley town. The day after, the post road south. Within a week, Verath.
+The world would be new to him.</p>
+<p>She wondered if he was afraid. She did not ask. Some questions were
+better left as observations — noted, held, not pressed. If he was
+afraid, the fear would be the healthy kind, the kind that respected the
+scale of what they were attempting. The Accord had three centuries of
+momentum. They had evidence and conviction and each other. It was not
+enough. It might be enough. The uncertainty was the honest answer, and
+she could live in uncertainty now in a way she could not have three
+weeks ago, because three weeks ago uncertainty had been a failure of
+assessment, and now it was simply the condition of being alive in a
+world that was larger than any framework she could build to contain
+it.</p>
+<p>The fire crackled. Above them, the stars were appearing — slowly,
+then all at once, the sky deepening from dusk-blue to the vast dark of a
+lowland night. The lowland stars were fewer and softer than Thornwall’s
+thick blanket of altitude, filtered through thicker air, but they were
+the same stars. She could still find the Cord. Seven stars running east
+to west, the thread that holds the world together. She had named it for
+him on the courtyard wall, weeks ago, when the distance between them was
+still measured in professional boundaries rather than shared fire. The
+name had held.</p>
+<p>She knew what came next. Corvin would call it protocol deviation —
+assessment contaminated by extended isolation and emotional involvement
+with subject. Her title would not survive the report. The flat in
+Verath, the shelf of books, Desta’s standing invitation — those had
+belonged to an Assessor in good standing with the Accord, and she was no
+longer that. The Accord did not punish defiance with violence. It
+punished defiance with erasure: the institutional Rend, not malice, not
+conspiracy, simply structure closing around a thread that had pulled too
+hard. She had watched it happen to other careers without seeing it for
+what it was. But the evidence was not in her satchel alone. Twelve of
+Thessan’s riders had watched a fissure heal in real time. Bren held
+sixty-three years of journals. The Accord could discredit her report. It
+could not discredit all of them at once — not without the effort of
+discrediting becoming its own evidence. That was not safety. But it was
+more than she had ridden in with.</p>
+<p>She opened her journal.</p>
+<p>The leather was worn at the corners now. Three weeks of mountain air
+and daily use had softened it from the crisp Verath binding into
+something that felt like hers — the way Thornwall had felt like hers by
+the end, not owned but inhabited, a place that had changed her by
+letting her change inside it. She turned past the assessment notes from
+her first days — the clipped institutional voice that belonged to a
+woman she still was but no longer only was. Past the notation shift
+where her own symbols replaced the Accord’s, the night everything
+changed. Past the pages spotted with tears the morning the fissure
+closed.</p>
+<p>She found a clean page. Uncapped the pen.</p>
+<p>For a long moment she sat with the blankness.</p>
+<p>Every journal entry she had written in her career began with a
+framework. Classification, findings, recommendation. The institutional
+grammar that gave shape to observation and made it transmissible. She
+had written six assessments that way — six Holds, six sets of
+measurements, six recommendations that followed the data to the
+conclusion the institution expected. The seventh had brought her to
+Thornwall. The seventh had broken the framework.</p>
+<p>She did not need that distance anymore. The precision was still hers
+— it would always be hers, the gift of saying exactly what she meant and
+meaning exactly what she said. But the precision served something
+different now. Not the institution’s need to classify. The truth’s need
+to be spoken clearly enough that people who were afraid could hear
+it.</p>
+<p>She wrote:</p>
+<p><em>To the Holders we haven’t met yet —</em></p>
+<p>The words came without a framework. She let them.</p>
+<p><em>You were taught a technique. The wall, the resistance, the
+containment. You were taught that the Rend is absence, that it consumes,
+that the cost of holding is the slow erosion of everything you are. You
+were taught that this cost is the price of service, and that the service
+is worth the price.</em></p>
+<p><em>The technique is not wrong. It protects. It contains. It has kept
+the fissures from consuming everything beyond their reach for three
+centuries. The Holders who served under it — who gave their memories,
+their capacities, their selves — were not deceived about the danger. The
+danger is real.</em></p>
+<p><em>But the technique is incomplete.</em></p>
+<p><em>What pours through the fissures is not absence. It is presence —
+so vast that an unprepared mind experiences it as emptiness. The wall
+protects you. But it doesn’t let you meet what’s on the other side. The
+door you have spent your life bracing shut opens onto a world, not a
+void.</em></p>
+<p><em>We are coming to show you. Not to tell you — to show you. The
+fissure at Thornwall is healed. The stone is warm. The crystal hums.
+These are not words. They are evidence, and we will bring it to your
+chamber and your fissure and your knees on cold stone, and we will say:
+open.</em></p>
+<p><em>It will feel like dying. The Rend will strike your undefended
+core and every instinct you were trained to trust will scream at you to
+resist. Do not resist. Stay open. Let the wind move through the flame.
+The flame does not go out. It burns differently — not consumed but
+conducting, not diminished but transformed.</em></p>
+<p><em>We are coming. The door was never locked from the
+outside.</em></p>
+<p>She looked up. Kael had leaned back on his hands, face tilted toward
+the sky. The firelight played across his features — the beard threaded
+gray, the lines at the corners of his eyes, the quiet that was not
+absence but presence. He was not holding anything. He was not bracing.
+He was sitting by a fire on a spring evening and looking at the stars,
+and the simplicity of it — the ordinariness — made her chest ache with a
+feeling she could now name. Not longing. Not grief. Recognition. She was
+looking at a man who was free. Not of consequence, not of the road ahead
+or the permanent marks the Rend had left in his knees and his memory.
+Free of the wall. Free to sit by a fire and look at stars and be,
+simply, a man in the world.</p>
+<p>She wrote one more line.</p>
+<p><em>The weight of burning is real. It is foundation.</em></p>
+<p>She closed the journal.</p>
+<p>“Sera.”</p>
+<p>She looked up. He was watching her now, the fire between them, his
+gray eyes steady. The way he said her name had changed since the first
+time — in the courtyard, when she’d offered it as a professional
+courtesy. Now it arrived with gravity. Not need — something quieter. The
+sound of someone who had learned her name the way he had learned the
+mountain: by living inside it until it became part of him.</p>
+<p>“What did you write?”</p>
+<p>“A letter.” She held the journal against her chest — the old habit,
+the satchel-grip, the reflex of a woman who had spent twenty years
+keeping her observations between herself and the page. Then she loosened
+her hold. Set the journal on the log beside her. “To the Holders at the
+other fissures. The ones we haven’t reached yet.”</p>
+<p>He was quiet for a moment. The fire spoke for both of them — the
+crack and settle of wood finding its way to ash, the hiss of sap, the
+small domestic sounds of heat doing its honest work. An owl called from
+the pines. The horses shifted in their picket, the soft sound of hooves
+on grass.</p>
+<p>“Read it to me?”</p>
+<p>She almost said no. The words were rough, unrevised, the kind of
+writing that came from the place behind the shell — raw and direct and
+carrying the risk of every unpolished sentence. But the shell was a lens
+now, not a wall, and Kael had opened his core to the Rend in front of
+her and wept when the love came through. He had shown her his deepest
+self in the fissure chamber. If he could do that, she could read aloud
+from an unrevised page.</p>
+<p>She picked up the journal. Held it toward the firelight.</p>
+<p>She read.</p>
+<p>Her voice was steady. Precise — precision was the gift now, not the
+armor. She heard her own words as though someone else had written them:
+the technique, the incompleteness, the door, the flame, the wind. The
+words sounded different spoken aloud. Smaller and larger at the same
+time. Smaller because they were only words, and the thing they described
+was beyond language. Larger because they were being spoken into the air
+of a spring evening by a woman who believed them, and belief gave words
+a weight that the page alone could not.</p>
+<p>When she finished, the clearing was quiet. The fire had burned low.
+The stars had deepened overhead, and the darkness beyond the firelight
+had thickened into the particular black of a mountain valley at night —
+not empty but full, full of trees and stone and the small sounds of a
+world going about its business without human intervention.</p>
+<p>Somewhere in the valley below, a nightbird called and was answered.
+The sound traveled through the pines and the thin air and arrived in
+their clearing as something clean and ordinary and beautiful. A bird
+calling into the dark. Another bird answering. The simplest form of
+communication — <em>I am here. Are you there?</em> — and the answer
+coming back: <em>I am here</em>.</p>
+<p>That was what the letter said, she realized. Not in those words. But
+in its essence. <em>I am here. Are you there?</em> Addressed to Holders
+at fissures she had never visited, in Holds she had never assessed,
+kneeling before wounds she had never measured. <em>I am here. I have
+seen what you have not yet seen. I am coming to show you.</em> And the
+hope — the fragile, necessary, uncertain hope — that the answer would
+come back: <em>I am here. Show me.</em></p>
+<p>Kael did not speak immediately. He sat with it the way he sat with
+everything — letting it settle, finding its balance, giving the words
+the respect of silence before responding. The firelight had dimmed to
+embers. His face was half in shadow, half in the warm remnant of the
+flames.</p>
+<p>“They’ll listen,” he said.</p>
+<p>“Some of them.”</p>
+<p>“The ones who are ready.” He paused. “And the ones who aren’t ready
+yet — they’ll remember. The way I remembered the singing for years
+before I understood what it was. You plant the seed. The seed
+waits.”</p>
+<p>It settled in her. Foundation.</p>
+<p>She set the journal down and leaned against him. Her shoulder against
+his arm, her weight settling into his side the way it had settled on the
+courtyard wall — easily, without negotiation, the geometry of two people
+who had learned each other’s shape. The ground was cool through her
+trousers, the pine needles soft and fragrant. He did not shift. She did
+not adjust. They sat in the balance point — the point where two people
+occupied the same space without merging and without separating. The
+point where closeness meant <em>I am here</em> and nothing more and
+nothing less.</p>
+<p>He put another branch on the fire. The flames rose, steadied,
+settled. The light pushed back the dark a little further. She could see
+the clearing’s edges — the pine trunks, the road beyond, the horses
+standing quiet with their heads lowered and their breath making small
+clouds in the cooling air.</p>
+<p>“I keep thinking about Bren,” she said.</p>
+<p>“Yes.”</p>
+<p>“He’s twenty-six. He’s running a Hold that the Accord wants closed.
+He has Ivra and Torren and twelve of Thessan’s officers, and that’s not
+nothing. But when the Accord sends someone — and they will — he’s going
+to be standing in that courtyard alone.”</p>
+<p>“Not alone.” Kael’s voice was quiet. “He has the chamber. He has the
+crystal. He has sixty years of journals and the evidence of his own body
+— what it feels like to hold with openness, what it feels like when the
+deeper world moves through you. The Accord can send administrators. They
+can send officers. They cannot send anyone who has felt what Bren has
+felt. The moment they step into that chamber and touch the crystal, the
+argument ends.”</p>
+<p>“You sound certain.”</p>
+<p>“I am certain of the chamber. I am certain of the crystal. I am not
+certain of the institution.” He looked at the fire. “Institutions can
+witness miracles and file them as anomalies. Corvin will have a category
+for this. He will have language. The language will be precise and wrong
+and it will protect the system from the evidence.”</p>
+<p>“Then we give them evidence they can’t categorize.”</p>
+<p>“Yes.” He looked at her. “That’s what you wrote. That’s the
+letter.”</p>
+<p>She leaned her head against his arm. The wool of his sleeve was rough
+and warm. She could feel his breathing — slow, steady, the breathing of
+a man who had spent twenty-three years controlling his breath at the
+fissure and was now learning to breathe without control. His heartbeat
+came through the contact, faint, present. The most ordinary thing in the
+world. The most extraordinary.</p>
+<p>The fire burned.</p>
+<p>It was warmth against the spring chill and light against the dark and
+the oldest human answer to the night. Every campfire that had ever been
+built was this campfire. Every traveler who had ever sat beside a fire
+on an uncertain road and looked at the stars and wondered what came next
+— they were here too, in the crackle and the warmth and the particular
+way firelight made the world small enough to hold.</p>
+<p>Above them the stars turned. The Cord ran east to west — seven stars,
+the thread that holds the world together. She had named it for him on
+the courtyard wall at Thornwall, twenty-three days ago, when she was
+still an Assessor and he was still a Warden and the distance between
+them was measured in institutional categories. Now the distance was
+measured in the space between her shoulder and his arm, which was no
+distance at all.</p>
+<p>Below them the valley slept. Its villages quiet, its people unknowing
+— the baker who would wake before dawn, the children who would walk to
+the schoolhouse, the farmers who would check their fields. None of them
+knew about the fissure or the Holders or the three centuries of
+sacrifice that had kept their lives intact. They would never know. That
+was the point. That was what Holding meant — carrying the weight so
+others could live without knowing the weight existed.</p>
+<p>But the weight could be carried without being consumed. That was the
+new knowledge. That was the letter in her journal and the crystal in the
+chamber and the singing in the stone. The weight was real and the
+carrying was real and the cost did not have to be destruction.</p>
+<p>Behind them the mountain hummed — distant now, a vibration felt not
+in the ears but in the chest, in the bones, in the deep place where
+language ends and being begins. The mountain had held the Rend for three
+centuries. Now the Rend was healed, and the mountain sang, and the
+singing carried down through the stone and the roots and the soil to the
+valley where two people sat by a fire and listened.</p>
+<p>Ahead of them: the road. The regional offices, then the capital.
+Corvin’s desk and the stack of reports and the institutional language
+that would try to contain what could not be contained. The other Holds —
+Ashward, the Bastions, the unnamed fissures in the unnamed ranges.
+Dozens of chambers. Scores of Holders, kneeling in the dark, building
+walls, feeling the slow erosion. An institution three centuries old,
+vast and certain, its doctrine never questioned at the root.</p>
+<p>They would go anyway. They were already going.</p>
+<p>The fire burned low. The embers glowed. The stars turned overhead,
+patient, indifferent, beautiful. The Cord held.</p>
+<p>She did not sleep. He did not sleep. His arm came around her
+shoulders — the weight of it warm, easy, the gesture of a man who had
+stopped calculating the cost of reaching. She pressed closer. They sat
+beside the dying fire and watched the stars and breathed the
+pine-scented air — the weight of what they carried and the lightness of
+carrying it together and the vast, uncertain, necessary road ahead.</p>
+<p>The fire held.</p>
+</main>
+
+<nav class="chapter-nav">
+  <a href="chapter-28.html" class="prev-chapter nav-link"><span class="nav-label">&larr; Previous</span><span class="nav-chapter-title">The Mountain Sings</span></a>
+  <a href="../index.html" class="next-chapter nav-link"><span class="nav-label">Finished &rarr;</span><span class="nav-chapter-title">Back to cover</span></a>
+</nav>
+
+<!-- TOC Overlay -->
+<div class="toc-overlay">
+  <div class="toc-panel">
+    <h2>Contents</h2>
+    <div class="toc-contents">
+  <h3 class="toc-part">Part 1: The Wick</h3>
+  <ol class="toc-list" start="1">
+    <li><a href="chapters/chapter-01.html" data-chapter="chapter-01">The Wick</a></li>
+    <li><a href="chapters/chapter-02.html" data-chapter="chapter-02">Current Numbers</a></li>
+    <li><a href="chapters/chapter-03.html" data-chapter="chapter-03">The Road to Thornwall</a></li>
+    <li><a href="chapters/chapter-04.html" data-chapter="chapter-04">What She Sees</a></li>
+    <li><a href="chapters/chapter-05.html" data-chapter="chapter-05">Before Dawn</a></li>
+    <li><a href="chapters/chapter-06.html" data-chapter="chapter-06">Not Class Three</a></li>
+    <li><a href="chapters/chapter-07.html" data-chapter="chapter-07">The Stars Are Different</a></li>
+    <li><a href="chapters/chapter-08.html" data-chapter="chapter-08">The East Wing</a></li>
+  </ol>
+  <h3 class="toc-part">Part 2: What Burns</h3>
+  <ol class="toc-list" start="9">
+    <li><a href="chapters/chapter-09.html" data-chapter="chapter-09">What She Carried</a></li>
+    <li><a href="chapters/chapter-10.html" data-chapter="chapter-10">What Do You Want Me to Do With This</a></li>
+    <li><a href="chapters/chapter-11.html" data-chapter="chapter-11">What the Journals Say</a></li>
+    <li><a href="chapters/chapter-12.html" data-chapter="chapter-12">Can We Trust Her</a></li>
+    <li><a href="chapters/chapter-13.html" data-chapter="chapter-13">The Flame and the Wind</a></li>
+    <li><a href="chapters/chapter-14.html" data-chapter="chapter-14">Not Alone</a></li>
+  </ol>
+  <h3 class="toc-part">Part 3: The Opening</h3>
+  <ol class="toc-list" start="15">
+    <li><a href="chapters/chapter-15.html" data-chapter="chapter-15">Through</a></li>
+    <li><a href="chapters/chapter-16.html" data-chapter="chapter-16">What She Saw</a></li>
+    <li><a href="chapters/chapter-17.html" data-chapter="chapter-17">New Growth</a></li>
+    <li><a href="chapters/chapter-18.html" data-chapter="chapter-18">Stubborn</a></li>
+    <li><a href="chapters/chapter-19.html" data-chapter="chapter-19">The Shelf</a></li>
+    <li><a href="chapters/chapter-20.html" data-chapter="chapter-20">Concluded Remotely</a></li>
+    <li><a href="chapters/chapter-21.html" data-chapter="chapter-21">The Diamond</a></li>
+    <li><a href="chapters/chapter-22.html" data-chapter="chapter-22">Come See</a></li>
+  </ol>
+  <h3 class="toc-part">Part 4: What Holds</h3>
+  <ol class="toc-list" start="23">
+    <li><a href="chapters/chapter-23.html" data-chapter="chapter-23">What It Feels Like</a></li>
+    <li><a href="chapters/chapter-24.html" data-chapter="chapter-24">Before the Question</a></li>
+    <li><a href="chapters/chapter-25.html" data-chapter="chapter-25">The Hearth</a></li>
+    <li><a href="chapters/chapter-26.html" data-chapter="chapter-26">Rain on Warm Stone</a></li>
+    <li><a href="chapters/chapter-27.html" data-chapter="chapter-27">Ready</a></li>
+    <li><a href="chapters/chapter-28.html" data-chapter="chapter-28">The Mountain Sings</a></li>
+    <li><a href="chapters/chapter-29.html" data-chapter="chapter-29">The Weight of Burning</a></li>
+  </ol>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+ * Storyforge Web Book — Progressive Enhancement
+ *
+ * The book is fully readable with JavaScript disabled.
+ * Everything in this file is optional enhancement.
+ *
+ * ---------------------------------------------------------------------------
+ * INLINE IN <head> — prevents flash of wrong theme.
+ * Paste this inside a <script> tag before any stylesheets:
+ *
+ * (function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})();
+ *
+ * ---------------------------------------------------------------------------
+ */
+
+(function () {
+  'use strict';
+
+  // ---------------------------------------------------------------------------
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  /** Return a debounced version of fn that waits ms before firing. */
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      var ctx = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(ctx, args); }, ms);
+    };
+  }
+
+  /** Derive a slug for the current chapter from the URL or body attribute. */
+  function getChapterSlug() {
+    var slug = document.body.getAttribute('data-chapter');
+    if (slug) return slug;
+    // Fall back to the last segment of the pathname, minus extension
+    var path = window.location.pathname.replace(/\/+$/, '');
+    var parts = path.split('/');
+    return (parts[parts.length - 1] || 'index').replace(/\.html?$/, '');
+  }
+
+  // ---------------------------------------------------------------------------
+  // 1. Theme switching
+  // ---------------------------------------------------------------------------
+
+  var themes = ['light', 'dark', 'sepia'];
+
+  function currentTheme() {
+    return document.documentElement.dataset.theme || 'light';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('storyforge-theme', theme);
+  }
+
+  function cycleTheme() {
+    var idx = themes.indexOf(currentTheme());
+    setTheme(themes[(idx + 1) % themes.length]);
+  }
+
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', cycleTheme);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 2. Reading position persistence
+  // ---------------------------------------------------------------------------
+
+  var posKey = 'pos-' + getChapterSlug();
+
+  // Restore saved position after layout settles.
+  var savedPos = localStorage.getItem(posKey);
+  if (savedPos !== null) {
+    setTimeout(function () {
+      window.scrollTo(0, parseInt(savedPos, 10));
+    }, 100);
+  }
+
+  // Save position on scroll (debounced).
+  window.addEventListener('scroll', debounce(function () {
+    localStorage.setItem(posKey, String(window.scrollY));
+  }, 500));
+
+  // ---------------------------------------------------------------------------
+  // 3. Chapter completion tracking
+  // ---------------------------------------------------------------------------
+
+  function getChaptersRead() {
+    try { return JSON.parse(localStorage.getItem('chapters-read')) || []; }
+    catch (_) { return []; }
+  }
+
+  function markChapterRead(slug) {
+    var read = getChaptersRead();
+    if (read.indexOf(slug) === -1) {
+      read.push(slug);
+      localStorage.setItem('chapters-read', JSON.stringify(read));
+    }
+  }
+
+  /** Apply .chapter-read to TOC links whose chapters have been completed. */
+  function applyReadClasses() {
+    var read = getChaptersRead();
+    if (!read.length) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var slug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (read.indexOf(slug) !== -1) {
+        links[i].classList.add('chapter-read');
+      }
+    }
+  }
+
+  applyReadClasses();
+
+  // Mark current chapter as read when user scrolls past 90%.
+  var chapterMarked = false;
+  function checkCompletion() {
+    if (chapterMarked) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    if (docHeight <= winHeight) return; // page fits in viewport
+    if (scrollTop / (docHeight - winHeight) >= 0.9) {
+      chapterMarked = true;
+      markChapterRead(getChapterSlug());
+      applyReadClasses();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4. Progress bar
+  // ---------------------------------------------------------------------------
+
+  var progressBar = document.querySelector('.progress-bar');
+
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    var pct = docHeight <= winHeight ? 100 : (scrollTop / (docHeight - winHeight)) * 100;
+    progressBar.style.width = Math.min(pct, 100) + '%';
+  }
+
+  // ---------------------------------------------------------------------------
+  // 5. Auto-hiding navigation
+  // ---------------------------------------------------------------------------
+
+  var bookNav = document.querySelector('.book-nav');
+  var lastScrollY = window.scrollY;
+  var hideTimer = null;
+
+  function handleNavVisibility() {
+    var scrollY = window.scrollY;
+    if (!bookNav) return;
+
+    // Always visible near the top of the page.
+    if (scrollY < 100) {
+      bookNav.classList.remove('hidden');
+      clearTimeout(hideTimer);
+      lastScrollY = scrollY;
+      return;
+    }
+
+    if (scrollY > lastScrollY) {
+      // Scrolling down — hide after 3 seconds.
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        bookNav.classList.add('hidden');
+      }, 3000);
+    } else {
+      // Scrolling up — show immediately.
+      clearTimeout(hideTimer);
+      bookNav.classList.remove('hidden');
+    }
+
+    lastScrollY = scrollY;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Unified scroll handler (uses rAF for smooth progress bar updates)
+  // ---------------------------------------------------------------------------
+
+  var scrollTicking = false;
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(function () {
+        updateProgress();
+        checkCompletion();
+        handleNavVisibility();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  });
+
+  // Initial call so progress bar is correct on load.
+  updateProgress();
+
+  // ---------------------------------------------------------------------------
+  // 6. Keyboard navigation
+  // ---------------------------------------------------------------------------
+
+  document.addEventListener('keydown', function (e) {
+    // Don't capture when the user is typing in a form field.
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) {
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowLeft': {
+        var prev = document.querySelector('.prev-chapter');
+        if (prev && prev.href) window.location.href = prev.href;
+        break;
+      }
+      case 'ArrowRight': {
+        var next = document.querySelector('.next-chapter');
+        if (next && next.href) window.location.href = next.href;
+        break;
+      }
+      case 't':
+      case 'T':
+        toggleToc();
+        break;
+      case 'Escape':
+        closeToc();
+        break;
+    }
+  });
+
+  // ---------------------------------------------------------------------------
+  // 7. TOC overlay toggle
+  // ---------------------------------------------------------------------------
+
+  var tocOverlay = document.querySelector('.toc-overlay');
+  var tocToggle = document.querySelector('.toc-toggle');
+
+  function toggleToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.toggle('active');
+    if (tocOverlay.classList.contains('active')) {
+      var current = tocOverlay.querySelector('.toc-current');
+      if (current) {
+        setTimeout(function () {
+          current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }
+
+  function closeToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.remove('active');
+  }
+
+  if (tocToggle) {
+    tocToggle.addEventListener('click', toggleToc);
+  }
+
+  // Close on backdrop click (click on the overlay itself, not its children).
+  if (tocOverlay) {
+    tocOverlay.addEventListener('click', function (e) {
+      if (e.target === tocOverlay) closeToc();
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 8. Chapter info in navigation
+  // ---------------------------------------------------------------------------
+
+  var chapterNum = document.body.getAttribute('data-chapter-num');
+  var totalChapters = document.body.getAttribute('data-total-chapters');
+
+  if (chapterNum && totalChapters && bookNav) {
+    var info = document.createElement('span');
+    info.className = 'chapter-info';
+    info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
+    bookNav.appendChild(info);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 9. Resume tracking — store last-visited chapter
+  // ---------------------------------------------------------------------------
+
+  var currentSlug = getChapterSlug();
+  if (currentSlug && currentSlug !== 'index' && currentSlug !== 'contents') {
+    localStorage.setItem('storyforge-last-chapter', currentSlug);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 10. TOC current chapter highlight
+  // ---------------------------------------------------------------------------
+
+  function highlightCurrentChapter() {
+    var slug = getChapterSlug();
+    if (!slug) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc-list a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var linkSlug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (linkSlug === slug) {
+        var li = links[i].closest('li');
+        if (li) {
+          li.classList.add('toc-current');
+        }
+      }
+    }
+  }
+
+  highlightCurrentChapter();
+
+})();
+</script>
+</body>
+</html>
