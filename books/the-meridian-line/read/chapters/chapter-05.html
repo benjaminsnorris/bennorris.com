@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Language of Ground — The Meridian Line</title>
+<meta name="author" content="Ben Norris">
+
+<script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   reading.css — Web Book Reading Experience
+   StoryForge production stylesheet
+
+   A reading environment that disappears. Inspired by Butterick's Practical
+   Typography, Tufte CSS, and the tradition of fine bookmaking.
+   ========================================================================== */
+
+/* --- 1. COLOR THEMES ---------------------------------------------------- */
+
+/* Base defaults (light theme) — overridden by [data-theme] selectors below */
+:root {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+    --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+  }
+}
+
+/* Explicit theme overrides — must come after :root to win on specificity */
+[data-theme="light"] {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+  --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+}
+[data-theme="sepia"] {
+  --bg: #f4ecd8; --text: #3b2e1e; --text-dim: #6b5a42;
+  --accent: #8b5e3c; --surface: #e8dfc8; --border: rgba(59,46,30,0.1);
+}
+
+[data-theme="dark"] .reading-column,
+[data-theme="dark"] .chapter-content { line-height: 1.65; }
+
+/* --- FONT LOADING ------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Title font — applied to book title, chapter headings, part titles.
+   Loaded via Google Fonts <link> in <head>; fallback to body font. */
+:root { --title-font: 'Cormorant Garamond', 'Literata', Georgia, serif; --title-weight: 600; }
+
+/* --- 2. RESET & BASE ---------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+a { color: var(--text); text-decoration: none; }
+a:hover { color: var(--accent); }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: clamp(18px, 1.15rem + 0.25vw, 21px);
+  line-height: 1.58;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 3. TYPOGRAPHY — THE TEXT COLUMN ------------------------------------
+   The measure: 36em keeps us at 65-75 characters per line.
+   ----------------------------------------------------------------------- */
+
+.chapter-content,
+.reading-column,
+.book-landing {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Book-style paragraphs: indented, no vertical gap */
+.chapter-content p {
+  text-indent: 1.5em;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* First paragraph after structural elements — no indent */
+.chapter-content h1 + p,
+.chapter-content h2 + p,
+.chapter-content h3 + p,
+.chapter-content hr + p,
+.chapter-content blockquote + p {
+  text-indent: 0;
+}
+
+/* --- 4. HEADINGS --------------------------------------------------------
+   Chapter titles (h1): graceful, quiet — a breath before the prose.
+   ----------------------------------------------------------------------- */
+
+.chapter-content h1 {
+  font-family: var(--title-font);
+  font-size: 1.5em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+  margin-top: 3.5em;
+  margin-bottom: 2em;
+  line-height: 1.3;
+  transition: color 0.4s ease;
+}
+
+/* Subtle rule beneath chapter title */
+.chapter-content h1::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin: 0.8em auto 0;
+}
+
+.chapter-content h2 {
+  font-size: 1.15em;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--text);
+  margin: 2em 0 0.75em;
+  line-height: 1.4;
+  transition: color 0.4s ease;
+}
+
+.chapter-content h3 {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  transition: color 0.4s ease;
+}
+
+/* --- 5. SCENE BREAKS ----------------------------------------------------
+   No visible rule. A quiet asterism marks the shift.
+   ----------------------------------------------------------------------- */
+
+.chapter-content hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+  overflow: visible;
+}
+
+.chapter-content hr::after {
+  content: "\2042"; /* asterism */
+  display: inline-block;
+  font-size: 1.2em;
+  color: var(--text-dim);
+  letter-spacing: 0.3em;
+  position: relative;
+  top: -0.1em;
+  transition: color 0.4s ease;
+}
+
+/* --- 6. DROP CAP --------------------------------------------------------
+   Optional. Apply .drop-cap to the chapter-content wrapper.
+   ----------------------------------------------------------------------- */
+
+.drop-cap p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.8;
+  padding-right: 0.08em;
+  margin-top: 0.05em;
+  color: var(--accent);
+  font-weight: normal;
+  transition: color 0.4s ease;
+}
+
+/* --- 7. BLOCKQUOTES (EPIGRAPHS) ----------------------------------------- */
+
+.chapter-content blockquote {
+  max-width: 28em;
+  margin: 2em auto;
+  padding: 0 1.5em;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  color: var(--text-dim);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.chapter-content blockquote p {
+  text-indent: 0;
+  margin-bottom: 0.5em;
+}
+
+.chapter-content blockquote p:last-child { margin-bottom: 0; }
+
+.chapter-content blockquote cite {
+  display: block;
+  margin-top: 0.75em;
+  font-style: normal;
+  font-size: 0.88em;
+  text-align: right;
+  color: var(--text-dim);
+}
+
+/* --- 8. INLINE ELEMENTS ------------------------------------------------- */
+
+.chapter-content strong { font-weight: 700; }
+.chapter-content em { font-style: italic; }
+
+.chapter-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.chapter-content a:hover { border-bottom-color: var(--accent); }
+
+/* --- 9. PROGRESS BAR ---------------------------------------------------- */
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 0.15s linear, background-color 0.4s ease;
+  pointer-events: none;
+}
+
+/* --- 10. TOP NAVIGATION BAR ---------------------------------------------
+   Translucent strip. Always available, never intrudes.
+   ----------------------------------------------------------------------- */
+
+.book-nav {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.3s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.book-nav.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .book-nav::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  opacity: 0.3;
+}
+
+.book-nav .nav-title {
+  font-family: var(--title-font);
+  font-size: 0.82em;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  transition: color 0.4s ease;
+}
+
+.book-nav .chapter-info {
+  font-family: var(--title-font);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.book-nav .nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+
+.theme-toggle,
+.toc-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
+.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
+
+.theme-toggle:hover,
+.toc-toggle:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Icon visibility per theme */
+.theme-toggle .icon-light,
+.theme-toggle .icon-dark,
+.theme-toggle .icon-sepia { display: none; }
+
+[data-theme="light"] .theme-toggle .icon-light,
+:root:not([data-theme]) .theme-toggle .icon-light { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
+[data-theme="sepia"] .theme-toggle .icon-sepia { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle .icon-light { display: none; }
+  :root:not([data-theme]) .theme-toggle .icon-dark { display: inline; }
+}
+
+/* --- 12. TABLE OF CONTENTS OVERLAY -------------------------------------- */
+
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.toc-overlay.active { opacity: 1; visibility: visible; }
+
+.toc-panel {
+  background: var(--bg);
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2.5em 2em;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.4s ease;
+}
+
+.toc-book-title {
+  font-family: var(--title-font);
+  font-size: 1.1em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 0.3em;
+  transition: color 0.4s ease;
+}
+
+.toc-panel h2 {
+  font-family: var(--title-font);
+  font-size: 0.85em;
+  font-weight: normal;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.toc-panel ol,
+.toc-contents ol { list-style: none; counter-reset: toc-chapter; }
+
+.toc-panel li,
+.toc-contents li {
+  counter-increment: toc-chapter;
+  border-bottom: 1px solid var(--border);
+}
+
+.toc-panel li:last-child,
+.toc-contents li:last-child { border-bottom: none; }
+
+.toc-panel a,
+.toc-contents a {
+  font-family: var(--title-font);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  padding: 0.65em 0.25em;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: color 0.3s ease;
+}
+
+.toc-panel a:hover,
+.toc-contents a:hover { color: var(--accent); }
+
+.toc-panel a::before,
+.toc-contents a::before {
+  content: counter(toc-chapter);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  min-width: 1.5em;
+  text-align: right;
+}
+
+/* Completed chapters */
+.toc-panel li.chapter-read a,
+.toc-contents li.chapter-read a { color: var(--text-dim); }
+
+.toc-panel li.chapter-read a::after {
+  content: "\2713";
+  font-size: 0.78em;
+  margin-left: auto;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+.toc-close {
+  display: block;
+  margin: 1.5em auto 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.85em;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.toc-close:hover { color: var(--text); }
+
+/* --- 13. CHAPTER NAVIGATION (BOTTOM) ------------------------------------
+   The invitation to turn the page.
+   ----------------------------------------------------------------------- */
+
+.chapter-nav {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 3em 1.5rem 4em;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  transition: border-color 0.4s ease;
+}
+
+.chapter-nav a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.75em 0;
+  min-height: 44px;
+  transition: color 0.3s ease;
+}
+
+.chapter-nav a:hover { color: var(--accent); }
+
+.chapter-nav .nav-label {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+.chapter-nav .nav-chapter-title { font-style: italic; }
+.chapter-nav .nav-prev { text-align: left; }
+.chapter-nav .nav-next { text-align: right; margin-left: auto; }
+
+/* --- 14. INDEX / LANDING PAGE ------------------------------------------- */
+
+.book-landing {
+  text-align: center;
+  padding-top: 6em;
+  padding-bottom: 4em;
+}
+
+.book-cover {
+  max-width: 300px;
+  width: 60%;
+  height: auto;
+  margin: 0 auto 2.5em;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.book-meta { margin-bottom: 3em; }
+
+.book-meta .book-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+  line-height: 1.2;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-author {
+  font-family: var(--title-font);
+  font-size: 1.05em;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.2em;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-logline {
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 28em;
+  margin: 0 auto;
+  line-height: 1.5;
+  transition: color 0.4s ease;
+}
+
+.start-reading {
+  display: block;
+  max-width: 16em;
+  margin: 0 auto;
+  padding: 0.85em 2.5em;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: 1em;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.start-reading:hover { color: var(--bg); filter: brightness(1.1); transform: translateY(-1px); }
+.start-reading:active { transform: translateY(0); }
+
+.toc-link {
+  display: inline-block;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.15em;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.toc-link:hover { color: var(--text); border-bottom-color: var(--accent); }
+
+/* --- PART LABEL (above chapter heading) --------------------------------- */
+
+.part-label {
+  text-align: center;
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 3em;
+  margin-bottom: 0.5em;
+  transition: color 0.4s ease;
+}
+
+.part-label + h1 {
+  margin-top: 0.5em;
+}
+
+/* --- PART INTERSTITIAL PAGE --------------------------------------------- */
+
+.part-interstitial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2em 1.5rem;
+}
+
+.part-number {
+  font-size: 0.75em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1em;
+}
+
+.part-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.08em;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.part-ornament {
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin-top: 2em;
+}
+
+[data-theme="dark"] .part-number { color: var(--accent); }
+[data-theme="dark"] .part-ornament {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+/* --- TOC PART HEADINGS -------------------------------------------------- */
+
+.toc-part {
+  font-family: var(--title-font);
+  font-size: 0.72em;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  padding: 0 0.25em;
+}
+
+.toc-part:first-child { margin-top: 0; }
+
+.toc-panel li.toc-current a,
+.toc-list li.toc-current a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.toc-panel li.toc-current a::before {
+  color: var(--accent);
+}
+
+/* --- RESUME LINK -------------------------------------------------------- */
+
+.resume-link {
+  display: block;
+  margin-bottom: 1.5em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.resume-link:hover { filter: brightness(1.2); }
+
+.resume-label {
+  display: block;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+/* --- CONTENTS PAGE TITLE ------------------------------------------------ */
+
+.contents-title {
+  font-family: var(--title-font);
+  font-size: 1.8em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 1.5em;
+  padding-top: 1em;
+}
+
+/* --- 15. RESPONSIVE ----------------------------------------------------- */
+
+@media (max-width: 639px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { padding-left: 20px; padding-right: 20px; }
+
+  .book-nav { padding: 0.5rem 1rem; }
+
+  .book-nav .nav-title { font-size: 0.72em; max-width: 40%; }
+  .book-nav .chapter-info { font-size: 0.68em; }
+
+  .chapter-content h1 {
+    font-size: 1.25em;
+    margin-top: 2.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .part-label { font-size: 0.65em; margin-top: 2em; }
+
+  .part-interstitial { min-height: 50vh; }
+  .part-title { font-size: 1.5em; }
+
+  .chapter-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .chapter-nav .nav-next {
+    text-align: left;
+    margin-left: 0;
+    padding-top: 1em;
+    border-top: 1px solid var(--border);
+  }
+
+  .book-landing { padding-top: 3em; }
+  .book-meta .book-title { font-size: 1.6em; }
+  .book-cover { max-width: 240px; width: 70%; }
+  .contents-title { font-size: 1.4em; }
+  .toc-panel { padding: 2em 1.5em; width: 95%; }
+  .toc-book-title { font-size: 0.95em; }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { max-width: 38em; padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (pointer: coarse) {
+  .book-nav .nav-controls button,
+  .chapter-nav a,
+  .toc-panel a,
+  .toc-contents a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* --- 16. SELECTION ------------------------------------------------------ */
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--text);
+}
+
+/* --- 17. PRINT ---------------------------------------------------------- */
+
+@media print {
+  .book-nav, .progress-bar, .chapter-nav,
+  .toc-overlay, .theme-toggle, .toc-toggle { display: none !important; }
+
+  body { background: white; color: black; font-size: 11pt; }
+  .chapter-content { max-width: none; padding: 0; }
+  .chapter-content h1 { page-break-before: always; color: black; }
+  .chapter-content h1:first-of-type { page-break-before: avoid; }
+  .chapter-content hr { page-break-after: avoid; }
+  .chapter-content blockquote { color: #333; border-left-color: #ccc; }
+  a { color: black; border-bottom: none; }
+}
+
+/* --- 18. REDUCED MOTION ------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body data-chapter="chapter-05" data-chapter-num="5" data-total-chapters="20">
+
+<div class="progress-bar"></div>
+
+<nav class="book-nav">
+  <a href="../contents.html" class="nav-title">The Meridian Line</a>
+  <div class="nav-controls">
+    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
+    <button class="theme-toggle" aria-label="Change theme">
+      <span class="icon-light">&#9788;</span>
+      <span class="icon-dark">&#9790;</span>
+      <span class="icon-sepia">&#9782;</span>
+    </button>
+  </div>
+</nav>
+
+<main class="reading-column chapter-content drop-cap">
+
+<h1 id="the-language-of-ground">The Language of Ground</h1>
+<p>By the third morning Emmett stopped tangling the chain.</p>
+<p>It was not a small thing. The Gunter’s chain was sixty-six feet of
+Birmingham steel, a hundred links joined by rings that caught on every
+prominence the limestone offered – ledge lips, juniper roots, the sharp
+knuckles of rock that surfaced where the creek had cut its channel and
+retreated. The first day he had dragged it like a man hauling fence
+wire, brute strength applied to a problem that required finesse, and
+twice the chain had snarled around a mesquite stump and she had to walk
+back to free it while the morning light they were burning was the
+morning light they could not get back.</p>
+<p>She had not said anything. She had freed the chain and walked back to
+the transit and waited.</p>
+<p>The second day was better. He watched how she coiled it – hand over
+hand, letting the links fall into their natural geometry, each ring
+falling against the next as water found the shape of what held it. By
+afternoon he was carrying the chain with the easy competence of someone
+who understood that sixty-six feet of steel had its own preferences
+about how it moved through the world, and that respecting those
+preferences was not weakness but intelligence.</p>
+<p>By the third morning he was good.</p>
+<p>“Station twelve,” Lena called. “Bearing north eighty-four degrees,
+twenty-two minutes west.”</p>
+<p>She sighted through the transit’s telescope, the crosshairs centered
+on the range pole Emmett had set at the previous station – a straight
+length of juniper they had cut and peeled white, visible against the
+brown country at three hundred yards. The bubble levels were true. The
+base was plumb. She read the vertical angle and did the arithmetic in
+her head and called the elevation.</p>
+<p>“Three thousand eight hundred sixty-one feet. Grade, point seven
+percent. Terrain: limestone shelf continuing, creek forty yards north,
+one juniper stand at bearing north twelve east.”</p>
+<p>Emmett wrote. She could hear the pencil from where she stood, which
+meant the morning was that quiet – no wind yet, the air still holding
+the night’s coolness, the creek running its low October murmur over
+stones it had been polishing since before the Mescalero named them. He
+wrote as she called: without interpretation, without comment, the
+numbers transferred from her voice to the page with the fidelity of a
+chain pulled taut between two honest points.</p>
+<p>She had not expected this. She had expected patience – she had
+understood that much from the moment he walked his circles on the alkali
+flat. What surprised her was the particular quality Emmett brought to
+the recording: a tracker’s attention to what the numbers were actually
+saying. He did not simply write. He listened. And she could tell, by the
+third day, that he was beginning to hear the survey as he heard ground –
+as a language of small variations that, taken together, told a story no
+single measurement could tell.</p>
+<p>“Move to thirteen,” she said.</p>
+<p>He pulled the forward pin, coiled the chain with the gesture that was
+already becoming automatic, and walked. She watched him go. He had
+rolled his sleeves to the elbow against the morning heat, and his
+forearms were brown and corded and moved with the chain’s weight as
+though the weight were nothing, and she watched them longer than the
+chain required. He moved as he moved through everything – steady,
+unhurried, reading the ground ahead of him with the same unconscious
+attention she gave to a transit line. Each step placed with an economy
+learned in four years tracking for the Army – the ground would tell you
+where to walk if you let it.</p>
+<p>On the second day he had stopped between stations and crouched over a
+depression she would have stepped across without seeing.</p>
+<p>“Water,” he said.</p>
+<p>She looked. Saw nothing. Dust and caliche and a faint darkening of
+the soil that could have been shadow.</p>
+<p>“Six inches down. Maybe less.” He crouched with his weight on his
+heels, balanced and low, and touched the edge of the depression with two
+fingers — calibrated pressure, knowing that what he measured would
+respond to force. She watched his hand against the ground and thought of
+how he held the reins. The same economy. The same broad, unhurried
+sureness. “Deer trail crosses here. See the prints? They come from the
+ridge and they come to this spot and they don’t go past it. They stay
+and they go back.”</p>
+<p>“A seep.”</p>
+<p>“Buried. But the deer know.” He stood and brushed his hands on his
+trousers. “The ground between your stations has a language too. It’s
+just not the language your instrument speaks.”</p>
+<p>She had said nothing to that. She had written <em>seep spring,
+subsurface, indicated by game trail convergence</em> in her terrain
+notes and moved on. But she had begun, after that, to watch the ground
+between stations with an attention she had not given it before – not the
+surveyor’s attention to grade and foundation, which was her native mode,
+but something closer to what Emmett did: attending to the spaces between
+the measured points.</p>
+<p>He taught her without teaching. The lichen that grew on the north
+face of limestone told you which way the rock faced even when the sun
+was behind cloud. The scrub oak that leaned uniformly southeast marked
+the prevailing wind better than a year of weather records. The thin line
+of darker soil that ran perpendicular to the creek was a buried fault,
+and the grade would change there – she confirmed it with the transit and
+found he was right, the limestone shelf dropped four inches in six feet,
+enough to matter for a roadbed.</p>
+<p>On the fourth afternoon the country tried to take her.</p>
+<p>She was walking between stations, the chain coiled over her shoulder,
+scanning the limestone ahead for the next setup point. The shelf here
+was fractured — thin plates over void, the kind of country that looked
+solid until it wasn’t. Her left boot broke through. The limestone plate
+snapped like crockery and her leg dropped into the gap to mid-thigh, and
+the edge of the broken plate caught the inside of her knee with a force
+that sent white light through her vision.</p>
+<p>She did not cry out. Her hands went flat against the shelf on either
+side of the hole, bracing, and she held herself there — half in, half
+out, the jagged edge of the plate pressing into her thigh, her boot
+dangling in open air above whatever the void held. She could feel the
+heat rising from below. She could feel the edge cutting through her
+trousers. She could not feel the bottom.</p>
+<p>Emmett was beside her in four strides. He did not grab her. He
+crouched and looked at the break and read the fracture pattern and then
+he placed both hands flat on the shelf eighteen inches from the hole and
+pressed down, testing. The rock held. He shifted one hand to the plate
+beside her right hip and pressed again. Held.</p>
+<p>“The plate on your left is undermined,” he said. “Don’t push against
+it. Give me your hand.”</p>
+<p>She gave him her hand. His grip closed around her wrist — not her
+fingers, her wrist, the way you gripped a person you intended to lift
+rather than hold — and he pulled her straight up with a single,
+unhurried motion, as though her weight and the weight of the transit
+case on her back were something he had accounted for and dismissed. Her
+boot came free. Her knee came free. He set her on solid shelf beside him
+and let go.</p>
+<p>She sat and looked at her leg. The trousers were torn. The skin
+beneath was scraped raw, bleeding in a thin line where the limestone
+edge had drawn across it, but the knee moved when she moved it and the
+bone beneath was whole.</p>
+<p>“How deep?” she asked.</p>
+<p>He picked up a stone and dropped it into the hole. They heard it hit
+— not immediately, not after a count of one, but somewhere in between,
+the sound coming up hollow and dry from a depth that said
+<em>cistern</em> or <em>sinkhole</em> or <em>the reason the deer trail
+went around this section and not through it.</em></p>
+<p>“Deep enough,” he said.</p>
+<p>She stood. She tested the knee — weight on it, weight off it, a full
+step and then two. It held. The pain was a sharp, clean thing, the kind
+of pain that meant damage to the surface and not the structure, and she
+had worked through worse in worse country.</p>
+<p>“I need to wrap it,” she said. “Then we continue.”</p>
+<p>He cut a strip from the hem of his undershirt with his belt knife — a
+quick, efficient motion, the blade sharp, the cloth torn along the weave
+— and handed it to her without comment. She wrapped the knee, tied it
+flat, and stood again.</p>
+<p>“Station twenty-six,” she said.</p>
+<p>He picked up the chain and walked.</p>
+<p>She taught him the same way as he’d taught her. The numbers. Why a
+half-degree error in bearing at Station 1 became a quarter-mile error at
+Station 50. Why grade mattered more than distance for a railroad – that
+a locomotive pulling forty cars at one percent grade could only pull
+twenty-five at two percent, and the difference between those numbers was
+the difference between a profitable line and a ruined investment. Why
+she read every station twice and averaged, and why the average was not
+the truth but the best approximation the instrument could give of a
+truth that existed independent of the instrument, in the rock and the
+water and the angle of the land.</p>
+<p>He did not ask unnecessary questions. She did not offer unnecessary
+explanations. They developed a rhythm that compressed what had been, on
+the first day, a sequence of verbal negotiations into something closer
+to two instruments calibrated to the same standard, working without
+consultation – she set up, he moved to the forward station, she sighted,
+she called, he wrote, she checked, they moved. The words between them
+became technical and spare: station numbers, bearings, elevations, the
+occasional terrain note. Seven or eight stations a day when the ground
+was good, fewer when it wasn’t. A quarter mile of verified survey line
+per station laid down in her field book with the precise handwriting
+that was her father’s handwriting, because he had taught her to form
+numbers that way and she had never unlearned it.</p>
+<p>The country opened ahead of them as they worked west. The limestone
+shelf that Agua Fria Creek had carved broadened into a natural corridor
+– two hundred yards wide in places, the walls stepping up on either side
+in ledges that a railroad could cut through with mules and scrapers. The
+grade held. Station after station, the grade held below one percent, and
+each confirmation was a line of testimony the ground was giving freely
+to anyone who brought the right instrument and asked the right
+question.</p>
+<p>Her father had found this. Eleven years ago, with Thomas at his side
+and Naseka scouting the draws, Rowan Callis had set up his own Gurley
+transit at what was now her Station 1 and begun measuring the route the
+creek had already carved. The route the land had been building for
+millennia, the water cutting the grade and the limestone providing the
+foundation, a railroad corridor that existed before railroads existed,
+waiting with the infinite patience of geology for someone to recognize
+what it was.</p>
+<p>She did not think about this often. She could not afford to. The work
+required her full attention – the levels, the bearings, the constant
+adjustments that accumulated into accuracy or, if she was careless, into
+error that compounded westward like interest on a debt. But in the
+evenings, when the transit was packed and the chain was coiled and the
+field book was closed, the knowledge of what her father had seen pressed
+against the careful architecture of her working mind like water pressed
+against a dam.</p>
+<p>He had been here. He had stood where she stood. He had sighted
+through a telescope whose crosshairs she could see when she closed her
+eyes, and the numbers he had written were the numbers she was writing
+because the ground had not moved in eleven years and would not move in
+eleven more. That was the thing she held when everything else was
+uncertain – the one fact that could not be corrupted, adjusted, or
+taken. The ground was the ground. The grade was the grade. And her
+father had measured it true.</p>
+<p>On the fifth evening they made camp at Station 38, where the creek
+bent south around a limestone outcrop and a shelf of flat rock provided
+natural shelter from the wind. Emmett built the fire now – Thomas’s
+method, mesquite in a square, burned to coals. He had learned that too,
+as he learned everything: by watching once, asking nothing, and doing it
+correctly.</p>
+<p>She sat with the field book open, reviewing the day’s entries.
+Fourteen stations. Bearings consistent with her father’s within the
+margin of instrument error. Grade averaging point eight percent. The
+corridor widening. The data was clean.</p>
+<p>The fire pressed warmth against her shins and the inside of her
+wrists where she held the book. Across the coals, Emmett sat with his
+back against the ledge, his sleeves still rolled from the day’s work,
+forearms resting on his knees. The firelight found the ridgeline of
+tendon and bone where his hands hung loose. She had been looking at
+those hands all day — on the chain, on the range pole, on the pencil —
+and the looking had become a thing her body did without consulting her,
+the way the transit found level without being told. A warmth that was
+not the fire gathered low in her chest and pressed outward, into her
+arms, her throat, the place behind her sternum where she kept the things
+she was not ready to name. She breathed once, deliberately, the way she
+breathed before a difficult reading, and set the breath against the
+warmth and held it there.</p>
+<p>When she looked up, Emmett was looking at the field book.</p>
+<p>Not reading it – he was too far away for that, on the other side of
+the coals, and the firelight was not strong enough to make out numbers
+at that distance. He was looking at it the way she had seen him look at
+a game trail or a change in soil color – with idle, habitual attention –
+eyes taking in everything in reach whether he asked them to or not. A
+tracker’s reflex. He probably did not know he was doing it.</p>
+<p>She closed the field book and wrapped it in oilcloth and placed it in
+the transit case beside her father’s book – the two of them together, as
+they always were, the completed and the completing, the past and the
+present laid side by side in scarred leather. The latches clicked. The
+sound was definitive in the quiet.</p>
+<p>“Station 38,” she said. “Ten miles of verified line. Consistent with
+the original survey within instrument tolerance. Grade has not exceeded
+one percent.”</p>
+<p>Emmett looked up. “Good.”</p>
+<p>“Good,” she said.</p>
+<p>The fire burned to its coals. The creek spoke. She noticed that he
+had banked the coals as Thomas banked them – flat, even, the heat
+distributed for duration rather than flame – and she thought, without
+thinking much about it, that he was a man who learned quickly and
+applied what he learned without remark, and that this was a quality she
+respected in chainmen and instruments and had not expected to catalogue
+in a sheriff.</p>
+<p>She lay down with her hand on the transit case and listened to the
+creek and the fire and the sound of Emmett’s breathing, which was
+steady, each breath drawn and released at the same interval, sleep and
+work governed by the same principle – no wasted effort. She knew where
+he was without looking — eight feet to the south, his back against the
+ledge, the blanket pulled to his chest. She had been tracking his
+position all day. Not deliberately. The way he tracked ground —
+involuntarily, continuously, the attention running beneath the work like
+water under limestone. She did not know when it had started. She knew
+she could not make it stop. Eight feet. Her pulse was audible in her own
+ears. She turned onto her side and pressed her palms flat against the
+limestone beneath her bedroll and the stone was cool and she held them
+there. The stars assembled above the canyon rim. The night was quiet.
+She closed her eyes. The work would resume at dawn.</p>
+<p>The town had lost another building while he was gone.</p>
+<p>Emmett saw it from the south road – the feed barn at the edge of
+Main, its north wall caved under its own weight, the roof sagging into a
+shape that was not a roof anymore but a record of surrender. Nobody had
+pulled the lumber. Nobody had bothered. The street absorbed the collapse
+as it absorbed everything else: quietly, with the indifference of ground
+returning to what it had been before anyone built on it.</p>
+<p>He tied the roan at the rail outside the sheriff’s office and stood
+for a moment in the street. Eight days gone. The hotel porch had a new
+crack in its second step. The saloon’s sign had shifted two inches east
+on its chain – wind, or a hand, or the slow failure of the nail that
+held it. The church tower still leaned its honest lean. He catalogued
+these things as he catalogued prints on an alkali flat: by what had
+changed since he last looked. A town was a kind of ground, and ground
+told you what had happened while you were not looking.</p>
+<p>Ned came out of the office wiping his hands on a cloth. He stopped
+when he saw the roan.</p>
+<p>“Wasn’t expecting you.”</p>
+<p>“Didn’t send word.” Emmett stepped onto the porch. “Anything?”</p>
+<p>“Quiet. Freighter came through Tuesday with salt. Garrett had a drunk
+he couldn’t manage, so I put him in the cell overnight. Sent him on with
+a headache.”</p>
+<p>“Telegraph?”</p>
+<p>“Nothing addressed to you. Two for the land office, one for Bell. I
+wrote them down.”</p>
+<p>Emmett nodded. Ned was reliable within his limits, and his limits
+were sufficient for a town that generated less trouble with each passing
+season. “Go eat. I’ll be here a while.”</p>
+<p>Ned left without questions, which was the best quality in a deputy
+content to be useful without being informed. The office was the same:
+desk, chair, gun rack, the stove cold because October had not yet earned
+a fire. The mirror above the basin showed a face eight days browner than
+the one that had left, and the faint lines around his eyes that the
+field put there, as weather put lines in wood.</p>
+<p>He locked the door. Drew the shade on the single window. Sat at the
+desk and opened the locked drawer with the key he wore on a cord inside
+his shirt.</p>
+<p>The ledger was where he had left it. Plain composition book, warped
+cover, the spine cracked from two years of careful, methodical entries
+that no one had ever seen. He opened it and spread it flat and sat with
+it as he had sat with the body on the alkali flat – with attention, with
+care, with the knowledge that the entries would not change no matter how
+many times he returned to them, and that the pattern was there if he
+could only see it clearly enough.</p>
+<p>Forty-seven entries. Three counties. Shell purchasers whose only
+common thread was a San Antonio lawyer’s letterhead and the fact that
+every parcel they acquired was worthless open range – worthless, that
+is, unless you knew where the railroad was going.</p>
+<p>He took the folded paper from his vest pocket. The paper Lena had
+given him before he rode out that morning, written in the small precise
+hand that was her father’s hand inherited: a summary of the survey data
+through Station 38. Bearings, distances, the corridor’s width and grade.
+The northern route’s footprint, described in numbers that could not be
+argued with because the numbers were the testimony of ground that did
+not care who asked the questions.</p>
+<p>He laid the paper beside the ledger and began to read them
+together.</p>
+<p>The northern route ran west-northwest along Agua Fria Creek, the
+corridor widening as it went, the grade staying under one percent. It
+passed north of Meridian by roughly fifteen miles, so Meridian died
+either way – but that was a grief he had already carried and put down.
+What mattered was where the route did not go. It did not go south. It
+did not cross the dry washes below the caprock. It did not pass through
+the 23,000 acres of open range that forty-seven shell purchasers had
+quietly acquired over three years in filings scattered across Pecos,
+Reeves, and Presidio counties.</p>
+<p>Every parcel Keele’s intermediaries had purchased fell along the
+southern corridor. Every one.</p>
+<p>He had suspected this. Suspicion was the condition he had lived in
+for two years, as a man lived in weather – you did not choose it, you
+endured it, you watched it for what it was telling you. But suspicion
+was not the same as the clean, cold certainty that came from laying a
+dead man’s daughter’s survey data beside a ledger full of fraudulent
+land transactions and watching the two documents speak to each other
+like witnesses who had never met but were telling the same story.</p>
+<p>The southern route was not an engineering decision. It was a land
+scheme. The grade was irrelevant. The bridging costs were irrelevant.
+The thirty percent construction premium was irrelevant. What mattered
+was the forty-seven parcels and the factor of ten or twenty by which
+their value would multiply when the railroad passed through them. That
+was the pattern. That was the trail running under everything Keele had
+built, and Emmett could see it now the way he could see the tracks on an
+alkali flat – clearly, completely, with the flat certainty that came
+from tracking this kind of sign for years.</p>
+<p>He went through the entries again. Slowly. The way he walked circles
+at a crime scene – not looking for what was there but for what he had
+missed. On the seventh entry he found it. On the nineteenth he found it
+again. On the thirty-first.</p>
+<p>M. Webb. Witness signature. Three filings, three different county
+seats, the same neat hand.</p>
+<p>He sat with that for a long time. Webb was Keele’s accountant – the
+man who kept the settlement’s books, who filed the deed transfers, who
+knew where the money moved because he was the one who moved it. Webb’s
+name on three witness lines meant Webb had been in the rooms where the
+transactions happened. It meant Webb could connect the shell purchasers
+to the lawyer and the lawyer to the judge. It meant Webb was the thread
+that, if pulled, would unravel the cloth.</p>
+<p>It also meant Webb was a man whose continued breathing depended on
+Keele’s confidence in his silence.</p>
+<p>Emmett closed the ledger and locked it in the drawer. He folded
+Lena’s survey summary and put it back in his vest. He sat in the quiet
+office and listened to the town outside – a door closing, a horse in the
+street, the long silence of a place that had less to say with each
+passing month.</p>
+<p>Then he walked to Cora’s.</p>
+<hr />
+<p>She was in the kitchen. She was always in the kitchen at this hour,
+and the kitchen was always warm, and there was always coffee. These were
+the constants of Meridian as bedrock was a constant under shifting
+ground – things that held while other things fell away.</p>
+<p>“Saw you ride in,” Cora said. She poured coffee without asking. Set
+it on the table with the handle turned toward him, as she always did,
+with the domestic precision of someone who noticed how people took
+things from her hands. “Eight days.”</p>
+<p>“Eight days.”</p>
+<p>“She’s still out there.”</p>
+<p>“She’s still out there.”</p>
+<p>Cora sat across from him and folded her hands on the table. She wore
+the face she wore when the information she was holding had weight to it
+– deciding what to say and in what order.</p>
+<p>“Barrera was in town.”</p>
+<p>Emmett’s hands did not move on the cup. “When.”</p>
+<p>“Three days ago. Came into the Stake in the afternoon, bought a
+whiskey, sat where he could see the street. Garrett said he asked about
+the woman surveyor – where she was working, which direction she went,
+how long she was likely to be in the field.” Cora’s voice was even,
+factual, the voice she had used for delivering difficult intelligence
+since before the War ended. “He did not ask about you.”</p>
+<p>“He wouldn’t.”</p>
+<p>“Garrett told him she went south. Which is what you told Garrett to
+say.”</p>
+<p>“Yes.”</p>
+<p>“Barrera did not look like a man who believed it.” She unfolded her
+hands and wrapped them around her own cup. “He sat for an hour. He
+watched the street. Spoke to Webb at the bar – the boy who keeps Keele’s
+settlement books. Webb looked like he wanted to crawl under the
+floorboards.” She paused. “Then Barrera rode west.”</p>
+<p>West. Toward Keele’s settlement. Toward the man who had ordered the
+watching and would now receive the report: the woman surveyor had gone
+north into the survey corridor, the sheriff had gone with her, and
+Thomas Bright Horse was guiding them. Everything Barrera had seen in
+eight days of steady surveillance, delivered to a man who would know
+exactly what it meant.</p>
+<p>Emmett drank his coffee. It was strong and black and tasted of the
+kitchen and the stove and the particular weight of Cora’s attention –
+the attention of someone who had outlived two husbands and raised four
+children and still set the table every morning because the alternative
+was not setting it.</p>
+<p>“He asked one more thing,” Cora said. “He asked if she had a contract
+with the railroad.”</p>
+<p>Emmett looked up.</p>
+<p>“Garrett didn’t know. Said he thought so but wasn’t certain.” She
+held his gaze with the steady, unsentimental clarity that was the thing
+he trusted most about her. “That’s not a question a man asks because
+he’s curious, Emmett. That’s a question a man asks because someone told
+him to find out.”</p>
+<p>He set the cup down.</p>
+<p>“Whatever you’re doing out there, the clock on it just got
+shorter.”</p>
+<p>He finished the coffee. He set the cup down. He thought about Webb’s
+neat signature on three county filings and about Barrera sitting in the
+Stake asking questions that were not his own questions, and about Lena
+at Station 38 with her transit and her chain and her father’s field
+book, measuring a route that someone had killed two men to keep
+buried.</p>
+<p>“I need paper,” he said. “And an envelope.”</p>
+<p>Cora brought them without asking what for. He wrote the note in the
+same plain hand he used for reports – short, factual, carrying nothing
+that could not be read by anyone who intercepted it: <em>Stay on the
+line. I will be back by tomorrow evening. Do not come to town.</em></p>
+<p>He sealed it and gave it to Cora. “Ned will ride this out in the
+morning. Tell him the survey camp is southeast, on Agua Fria Creek,
+about ten miles from the head of the drainage.”</p>
+<p>“I’ll tell him.”</p>
+<p>He stood. The kitchen was warm and the coffee was good and the town
+outside was dying as towns died – not all at once but by the slow
+subtraction of the things that made a town a town. He had read the
+ledger and he had read Cora’s intelligence and the two readings told the
+same story, as two witnesses told the same story when the story was
+true: the ground was shifting under Keele’s careful scheme, and Keele
+knew it, and what Keele did when the ground shifted was send men to make
+the ground stop moving.</p>
+<p>“Emmett.”</p>
+<p>He turned at the door.</p>
+<p>“Be careful with that woman’s safety. She’s out there because of
+numbers. Barrera doesn’t think in numbers.”</p>
+<p>“I know what Barrera thinks in.”</p>
+<p>“That’s what worries me.”</p>
+<p>He walked back to the office in the dark. He did not sleep. At the
+first gray suggestion of dawn he saddled the roan and rode south out of
+Meridian, back toward the survey line and the woman who was extending
+it, and the distance between the town and the field was the same
+distance it had always been and it was not the same distance at all.</p>
+</main>
+
+<nav class="chapter-nav">
+  <a href="chapter-04.html" class="prev-chapter nav-link"><span class="nav-label">&larr; Previous</span><span class="nav-chapter-title">Three Points Make a Line</span></a>
+  <a href="chapter-06.html" class="next-chapter nav-link"><span class="nav-label">Next &rarr;</span><span class="nav-chapter-title">What Breaks a Man</span></a>
+</nav>
+
+<!-- TOC Overlay -->
+<div class="toc-overlay">
+  <div class="toc-panel">
+    <div class="toc-book-title">The Meridian Line</div>
+    <h2>Contents</h2>
+    <div class="toc-contents">
+  <ol class="toc-list">
+    <li><a href="chapter-01.html" data-chapter="chapter-01">The Geometry of Dying</a></li>
+    <li><a href="chapter-02.html" data-chapter="chapter-02">The Sheriff's Ledger</a></li>
+    <li><a href="chapter-03.html" data-chapter="chapter-03">First Meridian</a></li>
+    <li><a href="chapter-04.html" data-chapter="chapter-04">Three Points Make a Line</a></li>
+    <li><a href="chapter-05.html" data-chapter="chapter-05">The Language of Ground</a></li>
+    <li><a href="chapter-06.html" data-chapter="chapter-06">What Breaks a Man</a></li>
+    <li><a href="chapter-07.html" data-chapter="chapter-07">Station 147</a></li>
+    <li><a href="chapter-08.html" data-chapter="chapter-08">The Hidden Canyon</a></li>
+    <li><a href="chapter-09.html" data-chapter="chapter-09">The Architecture of the Case</a></li>
+    <li><a href="chapter-10.html" data-chapter="chapter-10">South by Memory</a></li>
+    <li><a href="chapter-11.html" data-chapter="chapter-11">Three Hundred Miles</a></li>
+    <li><a href="chapter-12.html" data-chapter="chapter-12">The Woman in the Cellar's Light</a></li>
+    <li><a href="chapter-13.html" data-chapter="chapter-13">The Young Man in Austin</a></li>
+    <li><a href="chapter-14.html" data-chapter="chapter-14">The System Failing</a></li>
+    <li><a href="chapter-15.html" data-chapter="chapter-15">What the Land Decides</a></li>
+    <li><a href="chapter-16.html" data-chapter="chapter-16">The Ride South</a></li>
+    <li><a href="chapter-17.html" data-chapter="chapter-17">Arrest and Silence</a></li>
+    <li><a href="chapter-18.html" data-chapter="chapter-18">The Architect's Instrument</a></li>
+    <li><a href="chapter-19.html" data-chapter="chapter-19">Testimony</a></li>
+    <li><a href="chapter-20.html" data-chapter="chapter-20">The Distance Closed</a></li>
+  </ol>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+ * Storyforge Web Book — Progressive Enhancement
+ *
+ * The book is fully readable with JavaScript disabled.
+ * Everything in this file is optional enhancement.
+ *
+ * ---------------------------------------------------------------------------
+ * INLINE IN <head> — prevents flash of wrong theme.
+ * Paste this inside a <script> tag before any stylesheets:
+ *
+ * (function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})();
+ *
+ * ---------------------------------------------------------------------------
+ */
+
+(function () {
+  'use strict';
+
+  // ---------------------------------------------------------------------------
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  /** Return a debounced version of fn that waits ms before firing. */
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      var ctx = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(ctx, args); }, ms);
+    };
+  }
+
+  /** Derive a slug for the current chapter from the URL or body attribute. */
+  function getChapterSlug() {
+    var slug = document.body.getAttribute('data-chapter');
+    if (slug) return slug;
+    // Fall back to the last segment of the pathname, minus extension
+    var path = window.location.pathname.replace(/\/+$/, '');
+    var parts = path.split('/');
+    return (parts[parts.length - 1] || 'index').replace(/\.html?$/, '');
+  }
+
+  // ---------------------------------------------------------------------------
+  // 1. Theme switching
+  // ---------------------------------------------------------------------------
+
+  var themes = ['light', 'dark', 'sepia'];
+
+  function currentTheme() {
+    return document.documentElement.dataset.theme || 'light';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('storyforge-theme', theme);
+  }
+
+  function cycleTheme() {
+    var idx = themes.indexOf(currentTheme());
+    setTheme(themes[(idx + 1) % themes.length]);
+  }
+
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', cycleTheme);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 2. Reading position persistence
+  // ---------------------------------------------------------------------------
+
+  var posKey = 'pos-' + getChapterSlug();
+
+  // Restore saved position after layout settles.
+  var savedPos = localStorage.getItem(posKey);
+  if (savedPos !== null) {
+    setTimeout(function () {
+      window.scrollTo(0, parseInt(savedPos, 10));
+    }, 100);
+  }
+
+  // Save position on scroll (debounced).
+  window.addEventListener('scroll', debounce(function () {
+    localStorage.setItem(posKey, String(window.scrollY));
+  }, 500));
+
+  // ---------------------------------------------------------------------------
+  // 3. Chapter completion tracking
+  // ---------------------------------------------------------------------------
+
+  function getChaptersRead() {
+    try { return JSON.parse(localStorage.getItem('chapters-read')) || []; }
+    catch (_) { return []; }
+  }
+
+  function markChapterRead(slug) {
+    var read = getChaptersRead();
+    if (read.indexOf(slug) === -1) {
+      read.push(slug);
+      localStorage.setItem('chapters-read', JSON.stringify(read));
+    }
+  }
+
+  /** Apply .chapter-read to TOC links whose chapters have been completed. */
+  function applyReadClasses() {
+    var read = getChaptersRead();
+    if (!read.length) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var slug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (read.indexOf(slug) !== -1) {
+        links[i].classList.add('chapter-read');
+      }
+    }
+  }
+
+  applyReadClasses();
+
+  // Mark current chapter as read when user scrolls past 90%.
+  var chapterMarked = false;
+  function checkCompletion() {
+    if (chapterMarked) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    if (docHeight <= winHeight) return; // page fits in viewport
+    if (scrollTop / (docHeight - winHeight) >= 0.9) {
+      chapterMarked = true;
+      markChapterRead(getChapterSlug());
+      applyReadClasses();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4. Progress bar
+  // ---------------------------------------------------------------------------
+
+  var progressBar = document.querySelector('.progress-bar');
+
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    var pct = docHeight <= winHeight ? 100 : (scrollTop / (docHeight - winHeight)) * 100;
+    progressBar.style.width = Math.min(pct, 100) + '%';
+  }
+
+  // ---------------------------------------------------------------------------
+  // 5. Auto-hiding navigation
+  // ---------------------------------------------------------------------------
+
+  var bookNav = document.querySelector('.book-nav');
+  var lastScrollY = window.scrollY;
+  var hideTimer = null;
+
+  function handleNavVisibility() {
+    var scrollY = window.scrollY;
+    if (!bookNav) return;
+
+    // Always visible near the top of the page.
+    if (scrollY < 100) {
+      bookNav.classList.remove('hidden');
+      clearTimeout(hideTimer);
+      lastScrollY = scrollY;
+      return;
+    }
+
+    if (scrollY > lastScrollY) {
+      // Scrolling down — hide after 3 seconds.
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        bookNav.classList.add('hidden');
+      }, 3000);
+    } else {
+      // Scrolling up — show immediately.
+      clearTimeout(hideTimer);
+      bookNav.classList.remove('hidden');
+    }
+
+    lastScrollY = scrollY;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Unified scroll handler (uses rAF for smooth progress bar updates)
+  // ---------------------------------------------------------------------------
+
+  var scrollTicking = false;
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(function () {
+        updateProgress();
+        checkCompletion();
+        handleNavVisibility();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  });
+
+  // Initial call so progress bar is correct on load.
+  updateProgress();
+
+  // ---------------------------------------------------------------------------
+  // 6. Keyboard navigation
+  // ---------------------------------------------------------------------------
+
+  document.addEventListener('keydown', function (e) {
+    // Don't capture when the user is typing in a form field.
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) {
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowLeft': {
+        var prev = document.querySelector('.prev-chapter');
+        if (prev && prev.href) window.location.href = prev.href;
+        break;
+      }
+      case 'ArrowRight': {
+        var next = document.querySelector('.next-chapter');
+        if (next && next.href) window.location.href = next.href;
+        break;
+      }
+      case 't':
+      case 'T':
+        toggleToc();
+        break;
+      case 'Escape':
+        closeToc();
+        break;
+    }
+  });
+
+  // ---------------------------------------------------------------------------
+  // 7. TOC overlay toggle
+  // ---------------------------------------------------------------------------
+
+  var tocOverlay = document.querySelector('.toc-overlay');
+  var tocToggle = document.querySelector('.toc-toggle');
+
+  function toggleToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.toggle('active');
+    if (tocOverlay.classList.contains('active')) {
+      var current = tocOverlay.querySelector('.toc-current');
+      if (current) {
+        setTimeout(function () {
+          current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }
+
+  function closeToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.remove('active');
+  }
+
+  if (tocToggle) {
+    tocToggle.addEventListener('click', toggleToc);
+  }
+
+  // Close on backdrop click (click on the overlay itself, not its children).
+  if (tocOverlay) {
+    tocOverlay.addEventListener('click', function (e) {
+      if (e.target === tocOverlay) closeToc();
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 8. Chapter info in navigation
+  // ---------------------------------------------------------------------------
+
+  var chapterNum = document.body.getAttribute('data-chapter-num');
+  var totalChapters = document.body.getAttribute('data-total-chapters');
+
+  if (chapterNum && totalChapters && bookNav) {
+    var info = document.createElement('span');
+    info.className = 'chapter-info';
+    info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
+    bookNav.appendChild(info);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 9. Resume tracking — store last-visited chapter
+  // ---------------------------------------------------------------------------
+
+  var currentSlug = getChapterSlug();
+  if (currentSlug && currentSlug !== 'index' && currentSlug !== 'contents') {
+    localStorage.setItem('storyforge-last-chapter', currentSlug);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 10. TOC current chapter highlight
+  // ---------------------------------------------------------------------------
+
+  function highlightCurrentChapter() {
+    var slug = getChapterSlug();
+    if (!slug) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc-list a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var linkSlug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (linkSlug === slug) {
+        var li = links[i].closest('li');
+        if (li) {
+          li.classList.add('toc-current');
+        }
+      }
+    }
+  }
+
+  highlightCurrentChapter();
+
+})();
+</script>
+</body>
+</html>

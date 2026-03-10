@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrest and Silence — The Meridian Line</title>
+<meta name="author" content="Ben Norris">
+
+<script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   reading.css — Web Book Reading Experience
+   StoryForge production stylesheet
+
+   A reading environment that disappears. Inspired by Butterick's Practical
+   Typography, Tufte CSS, and the tradition of fine bookmaking.
+   ========================================================================== */
+
+/* --- 1. COLOR THEMES ---------------------------------------------------- */
+
+/* Base defaults (light theme) — overridden by [data-theme] selectors below */
+:root {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+    --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+  }
+}
+
+/* Explicit theme overrides — must come after :root to win on specificity */
+[data-theme="light"] {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+  --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+}
+[data-theme="sepia"] {
+  --bg: #f4ecd8; --text: #3b2e1e; --text-dim: #6b5a42;
+  --accent: #8b5e3c; --surface: #e8dfc8; --border: rgba(59,46,30,0.1);
+}
+
+[data-theme="dark"] .reading-column,
+[data-theme="dark"] .chapter-content { line-height: 1.65; }
+
+/* --- FONT LOADING ------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Title font — applied to book title, chapter headings, part titles.
+   Loaded via Google Fonts <link> in <head>; fallback to body font. */
+:root { --title-font: 'Cormorant Garamond', 'Literata', Georgia, serif; --title-weight: 600; }
+
+/* --- 2. RESET & BASE ---------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+a { color: var(--text); text-decoration: none; }
+a:hover { color: var(--accent); }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: clamp(18px, 1.15rem + 0.25vw, 21px);
+  line-height: 1.58;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 3. TYPOGRAPHY — THE TEXT COLUMN ------------------------------------
+   The measure: 36em keeps us at 65-75 characters per line.
+   ----------------------------------------------------------------------- */
+
+.chapter-content,
+.reading-column,
+.book-landing {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Book-style paragraphs: indented, no vertical gap */
+.chapter-content p {
+  text-indent: 1.5em;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* First paragraph after structural elements — no indent */
+.chapter-content h1 + p,
+.chapter-content h2 + p,
+.chapter-content h3 + p,
+.chapter-content hr + p,
+.chapter-content blockquote + p {
+  text-indent: 0;
+}
+
+/* --- 4. HEADINGS --------------------------------------------------------
+   Chapter titles (h1): graceful, quiet — a breath before the prose.
+   ----------------------------------------------------------------------- */
+
+.chapter-content h1 {
+  font-family: var(--title-font);
+  font-size: 1.5em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+  margin-top: 3.5em;
+  margin-bottom: 2em;
+  line-height: 1.3;
+  transition: color 0.4s ease;
+}
+
+/* Subtle rule beneath chapter title */
+.chapter-content h1::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin: 0.8em auto 0;
+}
+
+.chapter-content h2 {
+  font-size: 1.15em;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--text);
+  margin: 2em 0 0.75em;
+  line-height: 1.4;
+  transition: color 0.4s ease;
+}
+
+.chapter-content h3 {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  transition: color 0.4s ease;
+}
+
+/* --- 5. SCENE BREAKS ----------------------------------------------------
+   No visible rule. A quiet asterism marks the shift.
+   ----------------------------------------------------------------------- */
+
+.chapter-content hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+  overflow: visible;
+}
+
+.chapter-content hr::after {
+  content: "\2042"; /* asterism */
+  display: inline-block;
+  font-size: 1.2em;
+  color: var(--text-dim);
+  letter-spacing: 0.3em;
+  position: relative;
+  top: -0.1em;
+  transition: color 0.4s ease;
+}
+
+/* --- 6. DROP CAP --------------------------------------------------------
+   Optional. Apply .drop-cap to the chapter-content wrapper.
+   ----------------------------------------------------------------------- */
+
+.drop-cap p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.8;
+  padding-right: 0.08em;
+  margin-top: 0.05em;
+  color: var(--accent);
+  font-weight: normal;
+  transition: color 0.4s ease;
+}
+
+/* --- 7. BLOCKQUOTES (EPIGRAPHS) ----------------------------------------- */
+
+.chapter-content blockquote {
+  max-width: 28em;
+  margin: 2em auto;
+  padding: 0 1.5em;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  color: var(--text-dim);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.chapter-content blockquote p {
+  text-indent: 0;
+  margin-bottom: 0.5em;
+}
+
+.chapter-content blockquote p:last-child { margin-bottom: 0; }
+
+.chapter-content blockquote cite {
+  display: block;
+  margin-top: 0.75em;
+  font-style: normal;
+  font-size: 0.88em;
+  text-align: right;
+  color: var(--text-dim);
+}
+
+/* --- 8. INLINE ELEMENTS ------------------------------------------------- */
+
+.chapter-content strong { font-weight: 700; }
+.chapter-content em { font-style: italic; }
+
+.chapter-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.chapter-content a:hover { border-bottom-color: var(--accent); }
+
+/* --- 9. PROGRESS BAR ---------------------------------------------------- */
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 0.15s linear, background-color 0.4s ease;
+  pointer-events: none;
+}
+
+/* --- 10. TOP NAVIGATION BAR ---------------------------------------------
+   Translucent strip. Always available, never intrudes.
+   ----------------------------------------------------------------------- */
+
+.book-nav {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.3s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.book-nav.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .book-nav::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  opacity: 0.3;
+}
+
+.book-nav .nav-title {
+  font-family: var(--title-font);
+  font-size: 0.82em;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  transition: color 0.4s ease;
+}
+
+.book-nav .chapter-info {
+  font-family: var(--title-font);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.book-nav .nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+
+.theme-toggle,
+.toc-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
+.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
+
+.theme-toggle:hover,
+.toc-toggle:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Icon visibility per theme */
+.theme-toggle .icon-light,
+.theme-toggle .icon-dark,
+.theme-toggle .icon-sepia { display: none; }
+
+[data-theme="light"] .theme-toggle .icon-light,
+:root:not([data-theme]) .theme-toggle .icon-light { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
+[data-theme="sepia"] .theme-toggle .icon-sepia { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle .icon-light { display: none; }
+  :root:not([data-theme]) .theme-toggle .icon-dark { display: inline; }
+}
+
+/* --- 12. TABLE OF CONTENTS OVERLAY -------------------------------------- */
+
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.toc-overlay.active { opacity: 1; visibility: visible; }
+
+.toc-panel {
+  background: var(--bg);
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2.5em 2em;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.4s ease;
+}
+
+.toc-book-title {
+  font-family: var(--title-font);
+  font-size: 1.1em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 0.3em;
+  transition: color 0.4s ease;
+}
+
+.toc-panel h2 {
+  font-family: var(--title-font);
+  font-size: 0.85em;
+  font-weight: normal;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.toc-panel ol,
+.toc-contents ol { list-style: none; counter-reset: toc-chapter; }
+
+.toc-panel li,
+.toc-contents li {
+  counter-increment: toc-chapter;
+  border-bottom: 1px solid var(--border);
+}
+
+.toc-panel li:last-child,
+.toc-contents li:last-child { border-bottom: none; }
+
+.toc-panel a,
+.toc-contents a {
+  font-family: var(--title-font);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  padding: 0.65em 0.25em;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: color 0.3s ease;
+}
+
+.toc-panel a:hover,
+.toc-contents a:hover { color: var(--accent); }
+
+.toc-panel a::before,
+.toc-contents a::before {
+  content: counter(toc-chapter);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  min-width: 1.5em;
+  text-align: right;
+}
+
+/* Completed chapters */
+.toc-panel li.chapter-read a,
+.toc-contents li.chapter-read a { color: var(--text-dim); }
+
+.toc-panel li.chapter-read a::after {
+  content: "\2713";
+  font-size: 0.78em;
+  margin-left: auto;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+.toc-close {
+  display: block;
+  margin: 1.5em auto 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.85em;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.toc-close:hover { color: var(--text); }
+
+/* --- 13. CHAPTER NAVIGATION (BOTTOM) ------------------------------------
+   The invitation to turn the page.
+   ----------------------------------------------------------------------- */
+
+.chapter-nav {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 3em 1.5rem 4em;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  transition: border-color 0.4s ease;
+}
+
+.chapter-nav a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.75em 0;
+  min-height: 44px;
+  transition: color 0.3s ease;
+}
+
+.chapter-nav a:hover { color: var(--accent); }
+
+.chapter-nav .nav-label {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+.chapter-nav .nav-chapter-title { font-style: italic; }
+.chapter-nav .nav-prev { text-align: left; }
+.chapter-nav .nav-next { text-align: right; margin-left: auto; }
+
+/* --- 14. INDEX / LANDING PAGE ------------------------------------------- */
+
+.book-landing {
+  text-align: center;
+  padding-top: 6em;
+  padding-bottom: 4em;
+}
+
+.book-cover {
+  max-width: 300px;
+  width: 60%;
+  height: auto;
+  margin: 0 auto 2.5em;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.book-meta { margin-bottom: 3em; }
+
+.book-meta .book-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+  line-height: 1.2;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-author {
+  font-family: var(--title-font);
+  font-size: 1.05em;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.2em;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-logline {
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 28em;
+  margin: 0 auto;
+  line-height: 1.5;
+  transition: color 0.4s ease;
+}
+
+.start-reading {
+  display: block;
+  max-width: 16em;
+  margin: 0 auto;
+  padding: 0.85em 2.5em;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: 1em;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.start-reading:hover { color: var(--bg); filter: brightness(1.1); transform: translateY(-1px); }
+.start-reading:active { transform: translateY(0); }
+
+.toc-link {
+  display: inline-block;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.15em;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.toc-link:hover { color: var(--text); border-bottom-color: var(--accent); }
+
+/* --- PART LABEL (above chapter heading) --------------------------------- */
+
+.part-label {
+  text-align: center;
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 3em;
+  margin-bottom: 0.5em;
+  transition: color 0.4s ease;
+}
+
+.part-label + h1 {
+  margin-top: 0.5em;
+}
+
+/* --- PART INTERSTITIAL PAGE --------------------------------------------- */
+
+.part-interstitial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2em 1.5rem;
+}
+
+.part-number {
+  font-size: 0.75em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1em;
+}
+
+.part-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.08em;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.part-ornament {
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin-top: 2em;
+}
+
+[data-theme="dark"] .part-number { color: var(--accent); }
+[data-theme="dark"] .part-ornament {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+/* --- TOC PART HEADINGS -------------------------------------------------- */
+
+.toc-part {
+  font-family: var(--title-font);
+  font-size: 0.72em;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  padding: 0 0.25em;
+}
+
+.toc-part:first-child { margin-top: 0; }
+
+.toc-panel li.toc-current a,
+.toc-list li.toc-current a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.toc-panel li.toc-current a::before {
+  color: var(--accent);
+}
+
+/* --- RESUME LINK -------------------------------------------------------- */
+
+.resume-link {
+  display: block;
+  margin-bottom: 1.5em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.resume-link:hover { filter: brightness(1.2); }
+
+.resume-label {
+  display: block;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+/* --- CONTENTS PAGE TITLE ------------------------------------------------ */
+
+.contents-title {
+  font-family: var(--title-font);
+  font-size: 1.8em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 1.5em;
+  padding-top: 1em;
+}
+
+/* --- 15. RESPONSIVE ----------------------------------------------------- */
+
+@media (max-width: 639px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { padding-left: 20px; padding-right: 20px; }
+
+  .book-nav { padding: 0.5rem 1rem; }
+
+  .book-nav .nav-title { font-size: 0.72em; max-width: 40%; }
+  .book-nav .chapter-info { font-size: 0.68em; }
+
+  .chapter-content h1 {
+    font-size: 1.25em;
+    margin-top: 2.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .part-label { font-size: 0.65em; margin-top: 2em; }
+
+  .part-interstitial { min-height: 50vh; }
+  .part-title { font-size: 1.5em; }
+
+  .chapter-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .chapter-nav .nav-next {
+    text-align: left;
+    margin-left: 0;
+    padding-top: 1em;
+    border-top: 1px solid var(--border);
+  }
+
+  .book-landing { padding-top: 3em; }
+  .book-meta .book-title { font-size: 1.6em; }
+  .book-cover { max-width: 240px; width: 70%; }
+  .contents-title { font-size: 1.4em; }
+  .toc-panel { padding: 2em 1.5em; width: 95%; }
+  .toc-book-title { font-size: 0.95em; }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { max-width: 38em; padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (pointer: coarse) {
+  .book-nav .nav-controls button,
+  .chapter-nav a,
+  .toc-panel a,
+  .toc-contents a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* --- 16. SELECTION ------------------------------------------------------ */
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--text);
+}
+
+/* --- 17. PRINT ---------------------------------------------------------- */
+
+@media print {
+  .book-nav, .progress-bar, .chapter-nav,
+  .toc-overlay, .theme-toggle, .toc-toggle { display: none !important; }
+
+  body { background: white; color: black; font-size: 11pt; }
+  .chapter-content { max-width: none; padding: 0; }
+  .chapter-content h1 { page-break-before: always; color: black; }
+  .chapter-content h1:first-of-type { page-break-before: avoid; }
+  .chapter-content hr { page-break-after: avoid; }
+  .chapter-content blockquote { color: #333; border-left-color: #ccc; }
+  a { color: black; border-bottom: none; }
+}
+
+/* --- 18. REDUCED MOTION ------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body data-chapter="chapter-17" data-chapter-num="17" data-total-chapters="20">
+
+<div class="progress-bar"></div>
+
+<nav class="book-nav">
+  <a href="../contents.html" class="nav-title">The Meridian Line</a>
+  <div class="nav-controls">
+    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
+    <button class="theme-toggle" aria-label="Change theme">
+      <span class="icon-light">&#9788;</span>
+      <span class="icon-dark">&#9790;</span>
+      <span class="icon-sepia">&#9782;</span>
+    </button>
+  </div>
+</nav>
+
+<main class="reading-column chapter-content drop-cap">
+
+<h1 id="arrest-and-silence">Arrest and Silence</h1>
+<p>The settlement looked smaller than he remembered.</p>
+<p>Three weeks had not changed it. The same twelve blocks, the same red
+stakes, the same graded road crowned for drainage. The land office still
+stood at the eastern edge, its white paint still the brightest thing in
+the landscape. But something in the proportions had shifted – as a
+building you had not visited in years was always smaller when you
+returned, not because it had shrunk but because you had seen enough of
+the world to calibrate the scale differently. Keele’s settlement, which
+had looked like ambition the first time Emmett rode through it, now
+looked like what it was: a grid of stakes and intentions on a low rise
+of caliche, twenty miles from anywhere, with no railroad and no future
+and no reason left to pretend otherwise.</p>
+<p>The October morning was bright and gold and false. The kind of warmth
+that arrived in autumn to remind you that the season had turned but the
+land had not yet received the message. Hackberry leaves along the road
+had gone yellow. The shadows were long and thin at ten o’clock, which
+meant the sun was lower than it had been a month ago, tracking south in
+that slow, inevitable arc that put the lie to the warm air. Emmett read
+the angle of those shadows as he read all angles – noting what the light
+revealed and what the shadows concealed.</p>
+<p>Four federal marshals rode ahead of him. Three behind. Proctor had
+not taken chances. The warrants had come down from the district court in
+Austin eleven days after Emmett delivered the evidence, and Proctor had
+assembled a party of men who understood that a territorial judge, even a
+corrupt one, was not a man you arrested with a single rider and a piece
+of paper. The marshals wore dark coats and carried Winchesters in saddle
+scabbards and had the quiet, professional patience of men who knew that
+most of this work was waiting and riding and waiting again, and the
+moment of action was almost always smaller than the ride that preceded
+it.</p>
+<p>Emmett was not leading. He had told Proctor he would ride along but
+would not serve the warrant. This was not his jurisdiction and not his
+authority and not his place. What he wanted was to be present. He did
+not examine that want too closely. It had to do with Orcutt’s body on
+the alkali flat, and with two years of ledger entries in a locked
+drawer, and with a survey line that ran one hundred and eighty-nine
+stations along a creek that had been cutting limestone longer than
+anyone had been measuring it. He wanted to see the warrant served the
+way a tracker wanted to see the end of a three-day trail – not for the
+killing but for the confirmation that the reading had been true.</p>
+<p>They dismounted at the land office. The settlement was quiet. A
+Mexican laborer leaning on a post near the saloon straightened and went
+inside. Elena appeared on the porch of Keele’s house, dried her hands on
+a cloth, and stood very still – the stillness of a woman who had left a
+house in Saltillo and a sister who wrote letters she no longer answered,
+and who had decided years ago that stillness was what you chose when the
+alternative was running and there was nowhere left to run.</p>
+<p>The lead marshal, a man named Gaines, walked to the porch. Emmett
+stayed with the horses. He could see the front of the house from where
+he stood – the dining room windows facing east, catching the morning
+light, and the study at the west end where the curtains were drawn. He
+could not see Keele. But the house told its own story: what was present,
+what was absent, what the arrangement said about the man who had ordered
+it.</p>
+<p>Elena said something Emmett could not hear and stepped aside.</p>
+<p>Gaines went in. Two marshals followed.</p>
+<p>The settlement held its breath. The hackberry shadows moved. A horse
+stamped. The gold light felt applied rather than generated – a coat of
+paint the morning had put on to cover the cold underneath.</p>
+<p>Barrera sat his horse at the far end of the road. Already mounted,
+already saddled, his bedroll tied behind the cantle and his saddlebags
+full in a way that said he had packed before dawn. He watched the
+marshals and the house and the quiet machinery of the warrant with the
+expression of a man watching weather cross a valley – something he had
+seen coming and could not turn and would not shelter from. Emmett read
+that face. What it held was not fear and not defiance and not the
+calculation of a man weighing whether to run. It was loyalty – but not
+to Keele. Loyalty to the men who had ridden with him, to the work they
+had done shoulder to shoulder in hard country, to a code that had
+nothing to do with justice and everything to do with the kind of man you
+were when the column came. Barrera met Emmett’s eyes across the length
+of the road, and the reading was mutual and complete, and then Barrera
+turned his horse and rode south without a word.</p>
+<p>It was eight minutes. Emmett knew because he counted.</p>
+<p>Gaines came out first. Then the two marshals. Then Keele.</p>
+<p>He wore a white shirt and dark trousers. No hat. No coat. His hands
+were not bound – Gaines had extended that courtesy, or Keele had
+negotiated it, or both. He walked with his back straight and his face
+composed and his eyes directed at a point somewhere beyond the
+settlement’s western boundary, as if he were watching something in the
+middle distance that only he could see. He did not look at Elena, who
+stood on the porch with her hands at her sides and the cloth over her
+forearm. He did not look at the marshals flanking him. He did not look
+at the settlement – the grid of red stakes, the land office with its
+white paint, the graded road, the lots that had been surveyed and
+numbered and offered for sale to a future that had been revoked.</p>
+<p>He did not look at Emmett.</p>
+<p>That was the thing Emmett would remember. Not the warrant, not the
+marshals, not the bright false gold of the October morning. The quiet.
+How Keele went – as water went downhill, without resistance, without
+drama, following the grade because the grade was the grade and gravity
+did not negotiate. He had read the evidence against him. He had sat at
+the mahogany desk and unfolded the warrant and read it with the careful
+attention of a man who had spent his professional life reading legal
+documents, and he had understood that the architecture of his defense
+had been measured and found insufficient, as a foundation is measured
+and found too soft for what was built on it. And he had stood up and put
+on his hat and then taken it off again and walked out of the study and
+down the hall and out the front door and into the custody of men he had
+never met, whose authority derived from the same federal system he had
+spent three years manipulating, and he had done it without speaking a
+word that Emmett could hear.</p>
+<p>Emmett stood by the horses and watched Keele mount a marshal’s spare
+horse and watched the column form and watched them ride east toward the
+road that led to Fort Stockton and then to Austin and eventually to a
+courtroom and twelve jurors who had no connection to West Texas and no
+investment in the outcome beyond the evidence. He watched until the
+column diminished to a line of dark shapes against the brown scrub and
+then to a disturbance in the dust and then to nothing.</p>
+<p>The settlement was empty.</p>
+<p>Not entirely – Elena had gone inside, and somewhere in the saloon the
+Mexican laborer would be standing in the dim interior trying to decide
+what to do with a morning that had just lost its organizing principle.
+But functionally empty. A town without its builder. A system without its
+architect.</p>
+<p>Emmett walked into the house.</p>
+<p>The hallway was cool and dim. He passed the dining room where the
+table was set for one – the porcelain cup from Richmond, the plate with
+the remains of two eggs over easy, the toast. Cold. He had been eating
+when Gaines knocked. The precise rituals of breakfast as evidence of
+civilization, interrupted by the civilization he had corrupted coming to
+collect him.</p>
+<p>The study door was open.</p>
+<p>The mahogany desk from Galveston. The bookshelves of law and history.
+The clock on the mantel, still ticking with the precise regularity of an
+instrument that measured time without opinion. The framed survey map on
+the wall behind the desk.</p>
+<p>Emmett stood in front of the map.</p>
+<p>He had never seen it this close. The grid of streets and lots, laid
+out with a draftsman’s precision – twelve blocks, two hundred feet
+square, streets running true north-south and east-west. The depot
+corridor along the southern edge, reserved for a Class B station that
+would never be built. The double lot at the center marked COURTHOUSE.
+The benchmark elevations along the southern survey corridor, each one
+adjusted downward by exactly the amount Webb had described in his sworn
+statement – half a foot here, a foot there, the systematic corruption of
+numbers that had been honest before someone decided they needed to be
+something else.</p>
+<p>It was a beautiful map. That was what struck him. The draftsmanship
+was careful, the lettering precise, the scale accurate within the
+corridor it depicted. The man who made it – or who had commissioned it
+and reviewed it and hung it on his wall in a walnut frame – had believed
+in what it showed. Had believed it the way Emmett believed in ground
+sign: as evidence of something real, something that could be built on.
+The difference was that ground sign could not be adjusted. You could not
+move a hoofprint half a foot to the left because you preferred a
+different story. You read what was there or you lied about it, and Keele
+had lied about it, and the lie was hanging on the wall in a walnut
+frame, and the truth was riding east in a column of federal
+marshals.</p>
+<p>Emmett took the map off the wall.</p>
+<p>Not as evidence – Proctor had the financial records, Webb’s
+testimony, Lena’s survey data, Rowan Callis’s cached field books. The
+case did not need a framed map from a study wall. He took it because he
+wanted to see the wall behind it. And behind it was what he expected: a
+rectangle of wallpaper lighter than the surrounding area, where the sun
+had not reached in however long the map had hung there. A ghost. The
+outline of a thing that had been there and was not. The wall remembered
+what had covered it, as the ground remembered what had walked on it, and
+what the wall remembered was a plan that had been drawn on paper and
+imposed on land that had never asked for it and would not hold it.</p>
+<p>He put the map back.</p>
+<p>The clock ticked.</p>
+<p>He stood in the empty study and felt not triumph but the weight of
+something ending. Not Keele’s scheme – that had ended in a courtroom
+filing eleven days ago, the moment Proctor stamped the documents and the
+federal machinery engaged. What was ending was the thing Keele had
+believed in. The vision. The idea that a man with sufficient will and
+sufficient intelligence could look at empty country and see a town,
+could draw a grid on paper and make the grid real, could bend the land
+to match the map. It was not entirely wrong. Men had built towns before.
+Men had drawn grids and the grids had filled with people and commerce
+and law. But those men had started with the land’s truth – limestone,
+grade, water – and built on what was there. Keele had started with the
+map and tried to make the land match it, and the land had not
+cooperated, and now the study was empty and the clock ticked and the
+settlement would go the way all settlements went that were built on the
+wrong foundation: slowly, and without ceremony, back to open range.</p>
+<p>He left the study. He walked down the hall and out the front door and
+into the October light.</p>
+<p>Word came three days later, by a Ranger who stopped at Cora’s for
+coffee. Thomas had tracked Barrera through the breaks south of the Rio
+Pecos and found him at a Devils River crossing. Barrera had not run. He
+had not fought. The Ranger said it like he did not entirely understand
+what he was reporting.</p>
+<p>He was charged, tried separately, convicted on conspiracy and the
+financial counts. He never testified against Keele. Not a word. Not a
+name. Emmett was not surprised. He had read it on the road that morning
+– the packed saddlebags, the steady gaze, the turn south without a word.
+Barrera’s silence was not calculation and not fear. It was the silence
+of a man who had decided what he was, and what he was did not include
+betrayal, and the decision was as structural and as permanent as the
+limestone that ran beneath the creek.</p>
+<p>Thomas, the Ranger said, had turned south after the arrest. Heading
+for the Davis Mountains. He had not said where he was going, only that
+he was going, and the Ranger had watched him ride into the breaks with
+the unhurried ease of a man returning to country that had been waiting
+for him.</p>
+<p>He found Barrera on the third morning, at a crossing where the Devils
+River ran shallow over white limestone and the pecan trees along the
+bank were beginning to turn.</p>
+<p>Thomas had picked up the trail south of the Rio Pecos, in country so
+broken it took the horses’ shoes and gave nothing back. Three days of
+rimrock and caliche draws and seeps that barely wet the canteen. The
+dark bay’s tracks were not hard to follow – Barrera was not hiding them.
+He rode south at the pace of a man who knew where he was going and did
+not expect to arrive, and the trail he left was clean and unhurried and
+told Thomas everything he needed to know about what he would find at the
+end of it.</p>
+<p>The Rangers were a day behind. Thomas had told them he would ride
+ahead, and they had agreed because the breaks were no country for men
+who did not know them, and Thomas knew them as he knew all the country
+between the Pecos and the Rio Grande – not as terrain to be crossed but
+as a thing that had been there before anyone named it and would be there
+after the names were forgotten. His grandmother’s grandmother had walked
+these draws. The water ran the same way it had always run. The pecan
+trees fruited in the same season. What changed was who sat under them
+and what they carried and how far they had come from the place where
+they had last been the person they intended to be.</p>
+<p>The field books were in El Paso. He had delivered them to Colson
+eight days ago, laid the oilcloth bundle on the engineer’s desk and
+stood while the man opened it and read the first page and understood
+what he was holding. Rowan’s handwriting. Rowan’s numbers. The testimony
+the earth had given to a man who asked honestly, cached in a canyon the
+water hid and carried out eleven years later by the hands of the man
+Rowan had trusted to know where things were kept.</p>
+<p>The delivering had closed something. Not grief – grief was not the
+kind of account that closed. Grief was the water in these draws, running
+in the same channel it had always run, wearing the stone by fractions
+too small to see. But the field books had been a debt. Not to Rowan, who
+was dead and owed nothing. To the land itself. The land had kept the
+record. The record had waited. Thomas had known where it was and had not
+retrieved it because the time was not right, and then the daughter had
+come with her father’s transit and her father’s questions and the time
+had been right, and he had shown her the way water hides things, and she
+had found what the water hid, and the record had moved from the earth’s
+keeping into human hands. He had carried it to El Paso. The account was
+settled.</p>
+<p>What was not settled was Naseka.</p>
+<p>Naseka’s grave was in the canyon, unmarked, in a place Thomas had
+chosen because the juniper grew thick there and the ground was soft
+enough to dig and the morning light reached it early. He had said the
+words over the grave in Mescalero, the words his mother had taught him,
+the words that told the earth what it was receiving and asked it to hold
+the gift with care. The earth had held it. The earth always held what
+was given to it. But a grave without justice was a grave without rest,
+and rest was not the earth’s to give – rest was what the living owed the
+dead, and the payment was not prayer but truth, and the truth was riding
+south ahead of him in the form of a man on a dark bay horse who had
+watched Naseka die and had said nothing for eleven years and was now
+sitting in a river crossing deciding whether to run or stop.</p>
+<p>Barrera sat his horse in the middle of the crossing. Knee-deep water.
+The dark bay stood steady in the current, favoring the right foreleg as
+it always did, and Barrera sat with his hands crossed on the saddle horn
+and his face turned south toward Mexico. He was not looking at anything
+Thomas could see. He was looking past the river – at the country beyond
+where the hills went blue and then gray and then dissolved into a haze
+that was neither sky nor land but the place where the two stopped
+pretending to be separate things.</p>
+<p>Thomas reined up on the north bank, thirty yards out. The water
+between them was clear and shallow and moved with the slow, ancient
+patience of a river that had been cutting this channel since before the
+Mescalero, since before the Spanish, since before anyone had a word for
+what a river was. He did not draw the Winchester from the scabbard. He
+did not need to, and Barrera would have known it, and drawing it would
+have said something about this moment that was not true.</p>
+<p>Barrera did not turn his head. But he knew. Thomas saw it in the
+shift of the man’s shoulders – a heaviness taken on, the way a horse
+goes heavy when it decides it is done.</p>
+<p>“Thomas Bright Horse,” Barrera said. His voice carried flat across
+the water.</p>
+<p>“Mr. Barrera.”</p>
+<p>The dark bay shifted its weight in the current. Water pushed around
+the horse’s legs and smoothed over the limestone and continued south as
+if nothing of any consequence were happening in the middle of it, which,
+from the river’s perspective, was true.</p>
+<p>“Rangers?” Barrera asked.</p>
+<p>“Behind me. A day, maybe less.”</p>
+<p>Barrera nodded. He looked south one more time – a long look,
+deliberate, measuring a distance he had already decided not to cross.
+Then he turned the dark bay in the current, the water breaking white
+around the horse’s chest as it came around, and rode to the north bank
+and stopped ten feet from where Thomas sat his dun.</p>
+<p>They regarded each other. Two men who had watched the same country
+from different ridges. Who had watched the same ground for different
+purposes. Who understood, in the way that men who work alone in hard
+country understand, that competence did not require agreement and that
+the thing you respected in another man was not his cause but his
+attention.</p>
+<p>Barrera’s rifle was in the scabbard. His hands stayed on the
+horn.</p>
+<p>“I am not going to fight you,” he said. Not as surrender. As
+fact.</p>
+<p>“No,” Thomas said.</p>
+<p>The river ran. A jay called from the pecan trees – a sharp,
+declarative sound that meant nothing except that the bird was alive and
+the morning was the morning and the river was the river. Thomas could
+smell the water and the turned leaves and the horse sweat and the dust
+of three days on a man who had ridden hard and stopped.</p>
+<p>“The woman finished the survey,” Thomas said. He did not know why he
+said it. It was not information Barrera needed. But it was the truth,
+and it was the thing that connected the two of them to the reason either
+of them was sitting at this crossing on this morning, and Thomas had
+learned that when two men reached the end of a long trail, the truth was
+the only thing worth carrying between them.</p>
+<p>The corners of Barrera’s eyes loosened – barely visible, the way
+limestone shifts when water finds the fault line, but structural. He
+looked at Thomas, and in that look was the thing he had never been able
+to name: the recognition that the woman had done what the woman had set
+out to do, and the ground had testified, and no amount of silence or
+loyalty or riding south would change what the numbers said.</p>
+<p>“I know,” Barrera said.</p>
+<p>Thomas nodded. He turned his horse and Barrera fell in beside him,
+and they rode north along the river without speaking, and the water ran
+south behind them, patient, unchosen, the way it always ran.</p>
+</main>
+
+<nav class="chapter-nav">
+  <a href="chapter-16.html" class="prev-chapter nav-link"><span class="nav-label">&larr; Previous</span><span class="nav-chapter-title">The Ride South</span></a>
+  <a href="chapter-18.html" class="next-chapter nav-link"><span class="nav-label">Next &rarr;</span><span class="nav-chapter-title">The Architect's Instrument</span></a>
+</nav>
+
+<!-- TOC Overlay -->
+<div class="toc-overlay">
+  <div class="toc-panel">
+    <div class="toc-book-title">The Meridian Line</div>
+    <h2>Contents</h2>
+    <div class="toc-contents">
+  <ol class="toc-list">
+    <li><a href="chapter-01.html" data-chapter="chapter-01">The Geometry of Dying</a></li>
+    <li><a href="chapter-02.html" data-chapter="chapter-02">The Sheriff's Ledger</a></li>
+    <li><a href="chapter-03.html" data-chapter="chapter-03">First Meridian</a></li>
+    <li><a href="chapter-04.html" data-chapter="chapter-04">Three Points Make a Line</a></li>
+    <li><a href="chapter-05.html" data-chapter="chapter-05">The Language of Ground</a></li>
+    <li><a href="chapter-06.html" data-chapter="chapter-06">What Breaks a Man</a></li>
+    <li><a href="chapter-07.html" data-chapter="chapter-07">Station 147</a></li>
+    <li><a href="chapter-08.html" data-chapter="chapter-08">The Hidden Canyon</a></li>
+    <li><a href="chapter-09.html" data-chapter="chapter-09">The Architecture of the Case</a></li>
+    <li><a href="chapter-10.html" data-chapter="chapter-10">South by Memory</a></li>
+    <li><a href="chapter-11.html" data-chapter="chapter-11">Three Hundred Miles</a></li>
+    <li><a href="chapter-12.html" data-chapter="chapter-12">The Woman in the Cellar's Light</a></li>
+    <li><a href="chapter-13.html" data-chapter="chapter-13">The Young Man in Austin</a></li>
+    <li><a href="chapter-14.html" data-chapter="chapter-14">The System Failing</a></li>
+    <li><a href="chapter-15.html" data-chapter="chapter-15">What the Land Decides</a></li>
+    <li><a href="chapter-16.html" data-chapter="chapter-16">The Ride South</a></li>
+    <li><a href="chapter-17.html" data-chapter="chapter-17">Arrest and Silence</a></li>
+    <li><a href="chapter-18.html" data-chapter="chapter-18">The Architect's Instrument</a></li>
+    <li><a href="chapter-19.html" data-chapter="chapter-19">Testimony</a></li>
+    <li><a href="chapter-20.html" data-chapter="chapter-20">The Distance Closed</a></li>
+  </ol>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+ * Storyforge Web Book — Progressive Enhancement
+ *
+ * The book is fully readable with JavaScript disabled.
+ * Everything in this file is optional enhancement.
+ *
+ * ---------------------------------------------------------------------------
+ * INLINE IN <head> — prevents flash of wrong theme.
+ * Paste this inside a <script> tag before any stylesheets:
+ *
+ * (function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})();
+ *
+ * ---------------------------------------------------------------------------
+ */
+
+(function () {
+  'use strict';
+
+  // ---------------------------------------------------------------------------
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  /** Return a debounced version of fn that waits ms before firing. */
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      var ctx = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(ctx, args); }, ms);
+    };
+  }
+
+  /** Derive a slug for the current chapter from the URL or body attribute. */
+  function getChapterSlug() {
+    var slug = document.body.getAttribute('data-chapter');
+    if (slug) return slug;
+    // Fall back to the last segment of the pathname, minus extension
+    var path = window.location.pathname.replace(/\/+$/, '');
+    var parts = path.split('/');
+    return (parts[parts.length - 1] || 'index').replace(/\.html?$/, '');
+  }
+
+  // ---------------------------------------------------------------------------
+  // 1. Theme switching
+  // ---------------------------------------------------------------------------
+
+  var themes = ['light', 'dark', 'sepia'];
+
+  function currentTheme() {
+    return document.documentElement.dataset.theme || 'light';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('storyforge-theme', theme);
+  }
+
+  function cycleTheme() {
+    var idx = themes.indexOf(currentTheme());
+    setTheme(themes[(idx + 1) % themes.length]);
+  }
+
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', cycleTheme);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 2. Reading position persistence
+  // ---------------------------------------------------------------------------
+
+  var posKey = 'pos-' + getChapterSlug();
+
+  // Restore saved position after layout settles.
+  var savedPos = localStorage.getItem(posKey);
+  if (savedPos !== null) {
+    setTimeout(function () {
+      window.scrollTo(0, parseInt(savedPos, 10));
+    }, 100);
+  }
+
+  // Save position on scroll (debounced).
+  window.addEventListener('scroll', debounce(function () {
+    localStorage.setItem(posKey, String(window.scrollY));
+  }, 500));
+
+  // ---------------------------------------------------------------------------
+  // 3. Chapter completion tracking
+  // ---------------------------------------------------------------------------
+
+  function getChaptersRead() {
+    try { return JSON.parse(localStorage.getItem('chapters-read')) || []; }
+    catch (_) { return []; }
+  }
+
+  function markChapterRead(slug) {
+    var read = getChaptersRead();
+    if (read.indexOf(slug) === -1) {
+      read.push(slug);
+      localStorage.setItem('chapters-read', JSON.stringify(read));
+    }
+  }
+
+  /** Apply .chapter-read to TOC links whose chapters have been completed. */
+  function applyReadClasses() {
+    var read = getChaptersRead();
+    if (!read.length) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var slug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (read.indexOf(slug) !== -1) {
+        links[i].classList.add('chapter-read');
+      }
+    }
+  }
+
+  applyReadClasses();
+
+  // Mark current chapter as read when user scrolls past 90%.
+  var chapterMarked = false;
+  function checkCompletion() {
+    if (chapterMarked) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    if (docHeight <= winHeight) return; // page fits in viewport
+    if (scrollTop / (docHeight - winHeight) >= 0.9) {
+      chapterMarked = true;
+      markChapterRead(getChapterSlug());
+      applyReadClasses();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4. Progress bar
+  // ---------------------------------------------------------------------------
+
+  var progressBar = document.querySelector('.progress-bar');
+
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    var pct = docHeight <= winHeight ? 100 : (scrollTop / (docHeight - winHeight)) * 100;
+    progressBar.style.width = Math.min(pct, 100) + '%';
+  }
+
+  // ---------------------------------------------------------------------------
+  // 5. Auto-hiding navigation
+  // ---------------------------------------------------------------------------
+
+  var bookNav = document.querySelector('.book-nav');
+  var lastScrollY = window.scrollY;
+  var hideTimer = null;
+
+  function handleNavVisibility() {
+    var scrollY = window.scrollY;
+    if (!bookNav) return;
+
+    // Always visible near the top of the page.
+    if (scrollY < 100) {
+      bookNav.classList.remove('hidden');
+      clearTimeout(hideTimer);
+      lastScrollY = scrollY;
+      return;
+    }
+
+    if (scrollY > lastScrollY) {
+      // Scrolling down — hide after 3 seconds.
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        bookNav.classList.add('hidden');
+      }, 3000);
+    } else {
+      // Scrolling up — show immediately.
+      clearTimeout(hideTimer);
+      bookNav.classList.remove('hidden');
+    }
+
+    lastScrollY = scrollY;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Unified scroll handler (uses rAF for smooth progress bar updates)
+  // ---------------------------------------------------------------------------
+
+  var scrollTicking = false;
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(function () {
+        updateProgress();
+        checkCompletion();
+        handleNavVisibility();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  });
+
+  // Initial call so progress bar is correct on load.
+  updateProgress();
+
+  // ---------------------------------------------------------------------------
+  // 6. Keyboard navigation
+  // ---------------------------------------------------------------------------
+
+  document.addEventListener('keydown', function (e) {
+    // Don't capture when the user is typing in a form field.
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) {
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowLeft': {
+        var prev = document.querySelector('.prev-chapter');
+        if (prev && prev.href) window.location.href = prev.href;
+        break;
+      }
+      case 'ArrowRight': {
+        var next = document.querySelector('.next-chapter');
+        if (next && next.href) window.location.href = next.href;
+        break;
+      }
+      case 't':
+      case 'T':
+        toggleToc();
+        break;
+      case 'Escape':
+        closeToc();
+        break;
+    }
+  });
+
+  // ---------------------------------------------------------------------------
+  // 7. TOC overlay toggle
+  // ---------------------------------------------------------------------------
+
+  var tocOverlay = document.querySelector('.toc-overlay');
+  var tocToggle = document.querySelector('.toc-toggle');
+
+  function toggleToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.toggle('active');
+    if (tocOverlay.classList.contains('active')) {
+      var current = tocOverlay.querySelector('.toc-current');
+      if (current) {
+        setTimeout(function () {
+          current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }
+
+  function closeToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.remove('active');
+  }
+
+  if (tocToggle) {
+    tocToggle.addEventListener('click', toggleToc);
+  }
+
+  // Close on backdrop click (click on the overlay itself, not its children).
+  if (tocOverlay) {
+    tocOverlay.addEventListener('click', function (e) {
+      if (e.target === tocOverlay) closeToc();
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 8. Chapter info in navigation
+  // ---------------------------------------------------------------------------
+
+  var chapterNum = document.body.getAttribute('data-chapter-num');
+  var totalChapters = document.body.getAttribute('data-total-chapters');
+
+  if (chapterNum && totalChapters && bookNav) {
+    var info = document.createElement('span');
+    info.className = 'chapter-info';
+    info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
+    bookNav.appendChild(info);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 9. Resume tracking — store last-visited chapter
+  // ---------------------------------------------------------------------------
+
+  var currentSlug = getChapterSlug();
+  if (currentSlug && currentSlug !== 'index' && currentSlug !== 'contents') {
+    localStorage.setItem('storyforge-last-chapter', currentSlug);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 10. TOC current chapter highlight
+  // ---------------------------------------------------------------------------
+
+  function highlightCurrentChapter() {
+    var slug = getChapterSlug();
+    if (!slug) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc-list a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var linkSlug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (linkSlug === slug) {
+        var li = links[i].closest('li');
+        if (li) {
+          li.classList.add('toc-current');
+        }
+      }
+    }
+  }
+
+  highlightCurrentChapter();
+
+})();
+</script>
+</body>
+</html>
