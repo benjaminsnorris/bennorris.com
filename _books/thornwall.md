@@ -1,4 +1,5 @@
 ---
+layout:         book
 title:          "Thornwall"
 date:           2026-03-10 12:00:00-0600
 sub_title:      Epic fantasy

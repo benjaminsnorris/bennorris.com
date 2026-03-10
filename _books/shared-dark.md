@@ -1,4 +1,5 @@
 ---
+layout:         book
 title:          "Shared Dark"
 date:           2026-03-08 12:00:00-0600
 sub_title:      Supernatural literary thriller

@@ -1,4 +1,5 @@
 ---
+layout:         book
 title:          "The Governor"
 date:           2026-03-07 12:00:00-0600
 sub_title:      Political fantasy
