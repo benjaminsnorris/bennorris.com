@@ -69,5 +69,9 @@
     <div class="entry-download">
       <a href="{{ post.external_link | relative_url }}" class="btn">Launch App</a>
     </div>
+  {% elsif post.book_path %}
+    <div class="entry-download">
+      <a href="{{ post.book_path | relative_url }}" class="btn">Read Book</a>
+    </div>
   {% endif %}
 </article>

@@ -100,6 +100,9 @@ collections:
   apps:
     output: true
     permalink: /:collection/:path/
+  books:
+    output: true
+    permalink: /:collection/:path/
 
 # Front Matter Defaults
 defaults:
@@ -121,6 +124,13 @@ defaults:
   - scope:
       path: "_apps"
       type: apps
+    values:
+      layout: post
+      read_time: false
+      excerpt_separator: "<!--more-->"
+  - scope:
+      path: "_books"
+      type: books
     values:
       layout: post
       read_time: false

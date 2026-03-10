@@ -1,0 +1,66 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title | default: "Book" }} — Ben Norris</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #333;
+      background: #f9f9f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .gate-box {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .gate-box h2 {
+      margin-bottom: 0.5rem;
+    }
+    .gate-box p {
+      margin-bottom: 1.5rem;
+      color: #666;
+    }
+    #gate-password {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25em;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .gate-btn {
+      display: inline-block;
+      padding: 0.5em 1.5em;
+      border: none;
+      border-radius: 0.25em;
+      background-color: #00838a;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .gate-btn:hover {
+      background-color: #009aa3;
+    }
+  </style>
+</head>
+<body>
+  <div id="book-gate" data-content="{{ page.content_path }}"></div>
+  <script src="/assets/js/book-gate.js"></script>
+</body>
+</html>
