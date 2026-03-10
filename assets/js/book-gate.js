@@ -1,5 +1,5 @@
 (function () {
-  var PASSWORD = "CHANGE_ME";
+  var PASSWORD = "Sneak peek to my books.";
   var STORAGE_KEY = "book-access-granted";
 
   function isAuthenticated() {
