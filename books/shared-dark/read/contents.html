@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shared Dark by Benjamin Norris</title>
+<title>Contents — Shared Dark</title>
 <meta name="author" content="Benjamin Norris">
-<meta name="description" content="">
 
 <script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
 
@@ -819,23 +818,57 @@ body {
 </head>
 <body>
 
-<div class="book-landing">
+<nav class="book-nav">
+  <a href="index.html" class="nav-title">Shared Dark</a>
+  <div class="nav-controls">
+    <button class="theme-toggle" aria-label="Change theme">
+      <span class="icon-light">&#9788;</span>
+      <span class="icon-dark">&#9790;</span>
+      <span class="icon-sepia">&#9782;</span>
+    </button>
+  </div>
+</nav>
 
-  <img src="cover.png" alt="Shared Dark" class="book-cover">
+<main class="reading-column" style="padding-top: 4em;">
+  <h1 class="contents-title">Contents</h1>
 
-  <div class="book-meta">
-    <h1 class="book-title">Shared Dark</h1>
-    <p class="book-author">Benjamin Norris</p>
-    <p class="book-logline">A victim advocate and a structural engineer share psychic dreams of crimes — she experiences the victims, he the perpetrators — and as the cases escalate from kidnapping to child trafficking, they must confront not just the darkness they witness but the damage it's doing to them, and to whatever they're becoming to each other.</p>
-    
+  <div class="toc-contents">
+  <ol class="toc-list">
+    <li><a href="chapters/chapter-01.html" data-chapter="chapter-01">Claire's Cold</a></li>
+    <li><a href="chapters/chapter-02.html" data-chapter="chapter-02">The Advocate</a></li>
+    <li><a href="chapters/chapter-03.html" data-chapter="chapter-03">The Diner</a></li>
+    <li><a href="chapters/chapter-04.html" data-chapter="chapter-04">The Dark Road</a></li>
+    <li><a href="chapters/chapter-05.html" data-chapter="chapter-05">Claire</a></li>
+    <li><a href="chapters/chapter-06.html" data-chapter="chapter-06">The Fire</a></li>
+    <li><a href="chapters/chapter-07.html" data-chapter="chapter-07">Fells Point</a></li>
+    <li><a href="chapters/chapter-08.html" data-chapter="chapter-08">Watching Ostrowski</a></li>
+    <li><a href="chapters/chapter-09.html" data-chapter="chapter-09">Collision</a></li>
+    <li><a href="chapters/chapter-10.html" data-chapter="chapter-10">Leaving Baltimore</a></li>
+    <li><a href="chapters/chapter-11.html" data-chapter="chapter-11">Every Light On</a></li>
+    <li><a href="chapters/chapter-12.html" data-chapter="chapter-12">The Interrogation</a></li>
+    <li><a href="chapters/chapter-13.html" data-chapter="chapter-13">The Covenant</a></li>
+    <li><a href="chapters/chapter-14.html" data-chapter="chapter-14">Waves</a></li>
+    <li><a href="chapters/chapter-15.html" data-chapter="chapter-15">The Sig Sauer</a></li>
+    <li><a href="chapters/chapter-16.html" data-chapter="chapter-16">Inside Riedel</a></li>
+    <li><a href="chapters/chapter-17.html" data-chapter="chapter-17">The Shell Company</a></li>
+    <li><a href="chapters/chapter-18.html" data-chapter="chapter-18">The Decision</a></li>
+    <li><a href="chapters/chapter-19.html" data-chapter="chapter-19">My Name Is</a></li>
+    <li><a href="chapters/chapter-20.html" data-chapter="chapter-20">Four Children</a></li>
+    <li><a href="chapters/chapter-21.html" data-chapter="chapter-21">Rachel</a></li>
+    <li><a href="chapters/chapter-22.html" data-chapter="chapter-22">Deena</a></li>
+    <li><a href="chapters/chapter-23.html" data-chapter="chapter-23">Your Turn</a></li>
+    <li><a href="chapters/chapter-24.html" data-chapter="chapter-24">Carbonara</a></li>
+    <li><a href="chapters/chapter-25.html" data-chapter="chapter-25">The Morning Watch</a></li>
+  </ol>
+
   </div>
 
-  <div id="resume-link"></div>
-  <a href="chapters/chapter-01.html" class="start-reading">Start Reading</a>
-  <a href="contents.html" class="toc-link">Table of Contents</a>
+  
+</main>
 
-  <p class="book-copyright">&copy; 2026 Benjamin Norris</p>
-</div>
+<nav class="chapter-nav" style="justify-content: center;">
+  <a href="index.html" class="nav-link">&larr; Back to cover</a>
+</nav>
 
 <script>
 /*
@@ -1155,22 +1188,6 @@ body {
 
   highlightCurrentChapter();
 
-})();
-</script>
-<script>
-// Resume-aware landing page
-(function() {
-  var CHAPTER_MAP = {"chapter-01":"Chapter 1: Claire's Cold","chapter-02":"Chapter 2: The Advocate","chapter-03":"Chapter 3: The Diner","chapter-04":"Chapter 4: The Dark Road","chapter-05":"Chapter 5: Claire","chapter-06":"Chapter 6: The Fire","chapter-07":"Chapter 7: Fells Point","chapter-08":"Chapter 8: Watching Ostrowski","chapter-09":"Chapter 9: Collision","chapter-10":"Chapter 10: Leaving Baltimore","chapter-11":"Chapter 11: Every Light On","chapter-12":"Chapter 12: The Interrogation","chapter-13":"Chapter 13: The Covenant","chapter-14":"Chapter 14: Waves","chapter-15":"Chapter 15: The Sig Sauer","chapter-16":"Chapter 16: Inside Riedel","chapter-17":"Chapter 17: The Shell Company","chapter-18":"Chapter 18: The Decision","chapter-19":"Chapter 19: My Name Is","chapter-20":"Chapter 20: Four Children","chapter-21":"Chapter 21: Rachel","chapter-22":"Chapter 22: Deena","chapter-23":"Chapter 23: Your Turn","chapter-24":"Chapter 24: Carbonara","chapter-25":"Chapter 25: The Morning Watch"}
-;
-  var lastChapter = localStorage.getItem('storyforge-last-chapter');
-  if (lastChapter && CHAPTER_MAP[lastChapter]) {
-    var el = document.getElementById('resume-link');
-    if (el) {
-      el.innerHTML = '<a href="chapters/' + lastChapter + '.html" class="resume-link">' +
-        '<span class="resume-label">Continue Reading</span>' +
-        CHAPTER_MAP[lastChapter] + '</a>';
-    }
-  }
 })();
 </script>
 </body>

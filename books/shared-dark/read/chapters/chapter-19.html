@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Name Is — Shared Dark</title>
+<meta name="author" content="Benjamin Norris">
+
+<script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
+
+<style>
+/* ==========================================================================
+   reading.css — Web Book Reading Experience
+   StoryForge production stylesheet
+
+   A reading environment that disappears. Inspired by Butterick's Practical
+   Typography, Tufte CSS, and the tradition of fine bookmaking.
+   ========================================================================== */
+
+/* --- 1. COLOR THEMES ---------------------------------------------------- */
+
+/* Base defaults (light theme) — overridden by [data-theme] selectors below */
+:root {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+    --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+  }
+}
+
+/* Explicit theme overrides — must come after :root to win on specificity */
+[data-theme="light"] {
+  --bg: #faf8f4; --text: #2c2420; --text-dim: #6b5f54;
+  --accent: #8b4513; --surface: #f0ebe3; --border: rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg: #0f0e0d; --text: #d4cec6; --text-dim: #8a8078;
+  --accent: #c4956a; --surface: #1a1816; --border: rgba(255,255,255,0.06);
+}
+[data-theme="sepia"] {
+  --bg: #f4ecd8; --text: #3b2e1e; --text-dim: #6b5a42;
+  --accent: #8b5e3c; --surface: #e8dfc8; --border: rgba(59,46,30,0.1);
+}
+
+[data-theme="dark"] .reading-column,
+[data-theme="dark"] .chapter-content { line-height: 1.65; }
+
+/* --- FONT LOADING ------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('..\/fonts/literata-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Title font — applied to book title, chapter headings, part titles.
+   Loaded via Google Fonts <link> in <head>; fallback to body font. */
+:root { --title-font: 'Literata', Georgia, serif; --title-weight: 700; }
+
+/* --- 2. RESET & BASE ---------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+a { color: var(--text); text-decoration: none; }
+a:hover { color: var(--accent); }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: clamp(18px, 1.15rem + 0.25vw, 21px);
+  line-height: 1.58;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 3. TYPOGRAPHY — THE TEXT COLUMN ------------------------------------
+   The measure: 36em keeps us at 65-75 characters per line.
+   ----------------------------------------------------------------------- */
+
+.chapter-content,
+.reading-column,
+.book-landing {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Book-style paragraphs: indented, no vertical gap */
+.chapter-content p {
+  text-indent: 1.5em;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* First paragraph after structural elements — no indent */
+.chapter-content h1 + p,
+.chapter-content h2 + p,
+.chapter-content h3 + p,
+.chapter-content hr + p,
+.chapter-content blockquote + p {
+  text-indent: 0;
+}
+
+/* --- 4. HEADINGS --------------------------------------------------------
+   Chapter titles (h1): graceful, quiet — a breath before the prose.
+   ----------------------------------------------------------------------- */
+
+.chapter-content h1 {
+  font-family: var(--title-font);
+  font-size: 1.5em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+  margin-top: 3.5em;
+  margin-bottom: 2em;
+  line-height: 1.3;
+  transition: color 0.4s ease;
+}
+
+/* Subtle rule beneath chapter title */
+.chapter-content h1::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin: 0.8em auto 0;
+}
+
+.chapter-content h2 {
+  font-size: 1.15em;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--text);
+  margin: 2em 0 0.75em;
+  line-height: 1.4;
+  transition: color 0.4s ease;
+}
+
+.chapter-content h3 {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  transition: color 0.4s ease;
+}
+
+/* --- 5. SCENE BREAKS ----------------------------------------------------
+   No visible rule. A quiet asterism marks the shift.
+   ----------------------------------------------------------------------- */
+
+.chapter-content hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+  overflow: visible;
+}
+
+.chapter-content hr::after {
+  content: "\2042"; /* asterism */
+  display: inline-block;
+  font-size: 1.2em;
+  color: var(--text-dim);
+  letter-spacing: 0.3em;
+  position: relative;
+  top: -0.1em;
+  transition: color 0.4s ease;
+}
+
+/* --- 6. DROP CAP --------------------------------------------------------
+   Optional. Apply .drop-cap to the chapter-content wrapper.
+   ----------------------------------------------------------------------- */
+
+.drop-cap p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.8;
+  padding-right: 0.08em;
+  margin-top: 0.05em;
+  color: var(--accent);
+  font-weight: normal;
+  transition: color 0.4s ease;
+}
+
+/* --- 7. BLOCKQUOTES (EPIGRAPHS) ----------------------------------------- */
+
+.chapter-content blockquote {
+  max-width: 28em;
+  margin: 2em auto;
+  padding: 0 1.5em;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  color: var(--text-dim);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.chapter-content blockquote p {
+  text-indent: 0;
+  margin-bottom: 0.5em;
+}
+
+.chapter-content blockquote p:last-child { margin-bottom: 0; }
+
+.chapter-content blockquote cite {
+  display: block;
+  margin-top: 0.75em;
+  font-style: normal;
+  font-size: 0.88em;
+  text-align: right;
+  color: var(--text-dim);
+}
+
+/* --- 8. INLINE ELEMENTS ------------------------------------------------- */
+
+.chapter-content strong { font-weight: 700; }
+.chapter-content em { font-style: italic; }
+
+.chapter-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.chapter-content a:hover { border-bottom-color: var(--accent); }
+
+/* --- 9. PROGRESS BAR ---------------------------------------------------- */
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1000;
+  transition: width 0.15s linear, background-color 0.4s ease;
+  pointer-events: none;
+}
+
+/* --- 10. TOP NAVIGATION BAR ---------------------------------------------
+   Translucent strip. Always available, never intrudes.
+   ----------------------------------------------------------------------- */
+
+.book-nav {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.3s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.book-nav.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .book-nav::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  opacity: 0.3;
+}
+
+.book-nav .nav-title {
+  font-family: var(--title-font);
+  font-size: 0.82em;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  transition: color 0.4s ease;
+}
+
+.book-nav .chapter-info {
+  font-family: var(--title-font);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.book-nav .nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+
+.theme-toggle,
+.toc-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
+.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
+
+.theme-toggle:hover,
+.toc-toggle:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Icon visibility per theme */
+.theme-toggle .icon-light,
+.theme-toggle .icon-dark,
+.theme-toggle .icon-sepia { display: none; }
+
+[data-theme="light"] .theme-toggle .icon-light,
+:root:not([data-theme]) .theme-toggle .icon-light { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
+[data-theme="sepia"] .theme-toggle .icon-sepia { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle .icon-light { display: none; }
+  :root:not([data-theme]) .theme-toggle .icon-dark { display: inline; }
+}
+
+/* --- 12. TABLE OF CONTENTS OVERLAY -------------------------------------- */
+
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.toc-overlay.active { opacity: 1; visibility: visible; }
+
+.toc-panel {
+  background: var(--bg);
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2.5em 2em;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.4s ease;
+}
+
+.toc-book-title {
+  font-family: var(--title-font);
+  font-size: 1.1em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 0.3em;
+  transition: color 0.4s ease;
+}
+
+.toc-panel h2 {
+  font-family: var(--title-font);
+  font-size: 0.85em;
+  font-weight: normal;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.toc-panel ol,
+.toc-contents ol { list-style: none; counter-reset: toc-chapter; }
+
+.toc-panel li,
+.toc-contents li {
+  counter-increment: toc-chapter;
+  border-bottom: 1px solid var(--border);
+}
+
+.toc-panel li:last-child,
+.toc-contents li:last-child { border-bottom: none; }
+
+.toc-panel a,
+.toc-contents a {
+  font-family: var(--title-font);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  padding: 0.65em 0.25em;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: color 0.3s ease;
+}
+
+.toc-panel a:hover,
+.toc-contents a:hover { color: var(--accent); }
+
+.toc-panel a::before,
+.toc-contents a::before {
+  content: counter(toc-chapter);
+  font-size: 0.78em;
+  color: var(--text-dim);
+  min-width: 1.5em;
+  text-align: right;
+}
+
+/* Completed chapters */
+.toc-panel li.chapter-read a,
+.toc-contents li.chapter-read a { color: var(--text-dim); }
+
+.toc-panel li.chapter-read a::after {
+  content: "\2713";
+  font-size: 0.78em;
+  margin-left: auto;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+.toc-close {
+  display: block;
+  margin: 1.5em auto 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.85em;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.toc-close:hover { color: var(--text); }
+
+/* --- 13. CHAPTER NAVIGATION (BOTTOM) ------------------------------------
+   The invitation to turn the page.
+   ----------------------------------------------------------------------- */
+
+.chapter-nav {
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 3em 1.5rem 4em;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  transition: border-color 0.4s ease;
+}
+
+.chapter-nav a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.75em 0;
+  min-height: 44px;
+  transition: color 0.3s ease;
+}
+
+.chapter-nav a:hover { color: var(--accent); }
+
+.chapter-nav .nav-label {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+.chapter-nav .nav-chapter-title { font-style: italic; }
+.chapter-nav .nav-prev { text-align: left; }
+.chapter-nav .nav-next { text-align: right; margin-left: auto; }
+
+/* --- 14. INDEX / LANDING PAGE ------------------------------------------- */
+
+.book-landing {
+  text-align: center;
+  padding-top: 6em;
+  padding-bottom: 4em;
+}
+
+.book-cover {
+  max-width: 300px;
+  width: 60%;
+  height: auto;
+  margin: 0 auto 2.5em;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.book-meta { margin-bottom: 3em; }
+
+.book-meta .book-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+  line-height: 1.2;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-author {
+  font-family: var(--title-font);
+  font-size: 1.05em;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.2em;
+  transition: color 0.4s ease;
+}
+
+.book-meta .book-logline {
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 28em;
+  margin: 0 auto;
+  line-height: 1.5;
+  transition: color 0.4s ease;
+}
+
+.start-reading {
+  display: block;
+  max-width: 16em;
+  margin: 0 auto;
+  padding: 0.85em 2.5em;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Literata', Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: 1em;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.start-reading:hover { color: var(--bg); filter: brightness(1.1); transform: translateY(-1px); }
+.start-reading:active { transform: translateY(0); }
+
+.toc-link {
+  display: inline-block;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.15em;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.toc-link:hover { color: var(--text); border-bottom-color: var(--accent); }
+
+/* --- PART LABEL (above chapter heading) --------------------------------- */
+
+.part-label {
+  text-align: center;
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 3em;
+  margin-bottom: 0.5em;
+  transition: color 0.4s ease;
+}
+
+.part-label + h1 {
+  margin-top: 0.5em;
+}
+
+/* --- PART INTERSTITIAL PAGE --------------------------------------------- */
+
+.part-interstitial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2em 1.5rem;
+}
+
+.part-number {
+  font-size: 0.75em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1em;
+}
+
+.part-title {
+  font-family: var(--title-font);
+  font-size: 2em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.08em;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.part-ornament {
+  width: 3em;
+  height: 1px;
+  background: var(--border);
+  margin-top: 2em;
+}
+
+[data-theme="dark"] .part-number { color: var(--accent); }
+[data-theme="dark"] .part-ornament {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+/* --- TOC PART HEADINGS -------------------------------------------------- */
+
+.toc-part {
+  font-family: var(--title-font);
+  font-size: 0.72em;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 1.5em 0 0.5em;
+  padding: 0 0.25em;
+}
+
+.toc-part:first-child { margin-top: 0; }
+
+.toc-panel li.toc-current a,
+.toc-list li.toc-current a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.toc-panel li.toc-current a::before {
+  color: var(--accent);
+}
+
+/* --- RESUME LINK -------------------------------------------------------- */
+
+.resume-link {
+  display: block;
+  margin-bottom: 1.5em;
+  font-family: var(--title-font);
+  font-size: 0.9em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.resume-link:hover { filter: brightness(1.2); }
+
+.resume-label {
+  display: block;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3em;
+}
+
+/* --- CONTENTS PAGE TITLE ------------------------------------------------ */
+
+.contents-title {
+  font-family: var(--title-font);
+  font-size: 1.8em;
+  font-weight: var(--title-weight);
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 1.5em;
+  padding-top: 1em;
+}
+
+/* --- 15. RESPONSIVE ----------------------------------------------------- */
+
+@media (max-width: 639px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { padding-left: 20px; padding-right: 20px; }
+
+  .book-nav { padding: 0.5rem 1rem; }
+
+  .book-nav .nav-title { font-size: 0.72em; max-width: 40%; }
+  .book-nav .chapter-info { font-size: 0.68em; }
+
+  .chapter-content h1 {
+    font-size: 1.25em;
+    margin-top: 2.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .part-label { font-size: 0.65em; margin-top: 2em; }
+
+  .part-interstitial { min-height: 50vh; }
+  .part-title { font-size: 1.5em; }
+
+  .chapter-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .chapter-nav .nav-next {
+    text-align: left;
+    margin-left: 0;
+    padding-top: 1em;
+    border-top: 1px solid var(--border);
+  }
+
+  .book-landing { padding-top: 3em; }
+  .book-meta .book-title { font-size: 1.6em; }
+  .book-cover { max-width: 240px; width: 70%; }
+  .contents-title { font-size: 1.4em; }
+  .toc-panel { padding: 2em 1.5em; width: 95%; }
+  .toc-book-title { font-size: 0.95em; }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .chapter-content,
+  .reading-column,
+  .book-landing { max-width: 38em; padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (pointer: coarse) {
+  .book-nav .nav-controls button,
+  .chapter-nav a,
+  .toc-panel a,
+  .toc-contents a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* --- 16. SELECTION ------------------------------------------------------ */
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--text);
+}
+
+/* --- 17. PRINT ---------------------------------------------------------- */
+
+@media print {
+  .book-nav, .progress-bar, .chapter-nav,
+  .toc-overlay, .theme-toggle, .toc-toggle { display: none !important; }
+
+  body { background: white; color: black; font-size: 11pt; }
+  .chapter-content { max-width: none; padding: 0; }
+  .chapter-content h1 { page-break-before: always; color: black; }
+  .chapter-content h1:first-of-type { page-break-before: avoid; }
+  .chapter-content hr { page-break-after: avoid; }
+  .chapter-content blockquote { color: #333; border-left-color: #ccc; }
+  a { color: black; border-bottom: none; }
+}
+
+/* --- 18. REDUCED MOTION ------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body data-chapter="chapter-19" data-chapter-num="19" data-total-chapters="25">
+
+<div class="progress-bar"></div>
+
+<nav class="book-nav">
+  <a href="../contents.html" class="nav-title">Shared Dark</a>
+  <div class="nav-controls">
+    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
+    <button class="theme-toggle" aria-label="Change theme">
+      <span class="icon-light">&#9788;</span>
+      <span class="icon-dark">&#9790;</span>
+      <span class="icon-sepia">&#9782;</span>
+    </button>
+  </div>
+</nav>
+
+<main class="reading-column chapter-content drop-cap">
+
+<h1 id="chapter-19-my-name-is">Chapter 19: My Name Is</h1>
+<p>The door opened and a man came out carrying a child.</p>
+<p>Girl. Five or six. Wrapped in a gray blanket that dragged against the
+threshold. The man held her the way you hold a bag of groceries — one
+arm under the knees, the other across the back, grip adjusted for
+weight, not comfort. He walked toward the van with the unhurried gait of
+someone on a schedule that was running exactly on time.</p>
+<p>The girl did not struggle. Did not cry. Did not turn her head toward
+the clearing or the birch trees or the flat white sky. She was limp with
+the stillness of a child who had learned — through repetition, through
+the calculus of small bodies in rooms with brass locks — that resistance
+increases pain.</p>
+<p>Maren’s hands stopped shaking.</p>
+<p>Everything stopped. The cold, the shaking, the fifty yards of open
+ground, the arithmetic of three men and a gun in Hank’s holster. The
+sound of her own breathing, which she had been managing since the
+woodpile — twelve per minute, even, professional. All of it stopped and
+what replaced it was white.</p>
+<p>Not a color. A temperature. The inside of a flashover — the word
+arriving from nowhere, from some vocabulary she didn’t own, the moment
+when everything in a room reaches ignition and the air itself catches.
+That was what happened behind her sternum. Eleven years of arriving
+after. Eleven years of sitting across from women with bruises shaped
+like hands and children who flinched at the sound of a door and the
+hollowed-out eyes that already knew nothing would change, and Maren had
+held their hands and she had done the paperwork and she had walked them
+through the system that was supposed to protect them and she had driven
+home and she had not screamed because screaming was not the job.</p>
+<p>The job was witness. The job was aftermath. The job was the parking
+lot at two in the morning and the coffee and the forms and the terrible
+patience of a woman who had made a career of arriving too late.</p>
+<p>Not this time.</p>
+<p>Her body stood before her mind gave permission. Knees straightened,
+boots in the snow, the woodpile’s bark still rough against her palms for
+one more second and then gone. She was upright. She was visible. The
+surplus parka made her a shape against the birch trunks and she did not
+care.</p>
+<p>Hank’s hand found her arm. “Maren—”</p>
+<p>She was already walking.</p>
+<p>Fifty yards of snow. The crunch under her boots louder than anything
+she had ever heard. The man with the child had stopped, one foot on the
+van’s bumper, looking at the shape emerging from the tree line. The
+second man appeared in the side doorway, file box in his hands. On the
+porch, Steen’s hands came out of his vest pockets.</p>
+<p>Maren’s mouth opened and the voice that came out was not the warm,
+practiced, professional voice she had spent eleven years building — the
+voice that said <em>you’re safe now</em> and meant it and cost her
+everything. This was the voice underneath. The one she had never used
+because there had never been a moment that needed it.</p>
+<p>“My name is Maren Cole.” Her boots hit plowed asphalt. The driveway.
+Thirty yards now. “I’m a victim advocate with the Multnomah County
+District Attorney’s Office, and you are going to put that child
+down.”</p>
+<p>The man at the van didn’t move. The girl’s face was turned into the
+blanket and the blanket was gray and the girl’s feet were bare and the
+bare feet were the thing Maren’s eyes found and could not leave — small,
+white, the toenails unpainted, the skin mottled with cold, feet that
+should have been in socks, in shoes, in a house with a carpet and a
+mother who checked the thermostat before bed.</p>
+<p>Twenty yards.</p>
+<p>“Put her down.” Maren’s voice carried across the frozen air and it
+did not shake. “Put her down right now.”</p>
+<p>Behind her — close, closer than she expected — the sound of Hank’s
+boots in the snow. And Rook. Moving fast, low, a dark shape cutting
+through the white. And the click that she felt in her spine before she
+heard it: the holster.</p>
+<p>The man at the van shifted. His free hand moved toward his
+jacket.</p>
+<p>“Don’t.” Hank’s voice. One word. The architecture of it — flat,
+final, a load-bearing wall with nothing behind it but certainty.</p>
+<p>The man’s hand stopped.</p>
+<p>Maren closed the distance. Fifteen yards. Ten. The girl’s bare feet
+were right there, close enough to see the blue tinge at the nails, the
+fine bones visible through skin that was too thin and too cold. Close
+enough to touch.</p>
+<p>“Give her to me,” Maren said. Her voice broke on the last word and
+she did not care. She held out her arms. “Give her to me.”</p>
+<p>The man looked at Hank. At the weapon. At Maren. At the girl in his
+arms who had not made a sound through any of it, whose body was so
+perfectly still that it could have been sleeping, except that sleeping
+children shift and murmur and curl toward warmth, and this child had
+learned that none of those things belonged to her.</p>
+<p>He put the girl down.</p>
+<p>Hank had the Sig on the man at the van and his peripheral vision on
+the other two and the math was simple: three targets, one weapon,
+fifteen rounds in the magazine, and Maren ten feet ahead of him with no
+cover and no vest and no understanding of how fast a situation like this
+becomes a situation you cannot undo.</p>
+<p>She was kneeling. The girl was on the asphalt where the man had set
+her down and Maren was on her knees beside her and the surplus parka
+pooled around her like something collapsed and her hands were on the
+blanket, not pulling, just touching, announcing herself to the body
+before asking it to trust her.</p>
+<p>The man at the van had his hands at his sides. Visible. Good. The
+second man stood in the doorway with a file box he had not put down, as
+if the protocol still mattered, as if there were still a version of the
+next five minutes that ended with him loading boxes into a van and
+driving north to Ely.</p>
+<p>Steen hadn’t moved.</p>
+<p>He stood on the porch with his hands out of his vest pockets now,
+resting on the railing, and his face had done something Hank recognized
+from six different dreams — a redistribution so fast it barely
+registered. The shock metabolized in under two seconds. What replaced it
+was the composure of a man who had spent twelve years building
+contingencies for exactly this moment.</p>
+<p>“You’re trespassing.” Steen’s voice carried across the clearing
+without effort. Conversational. The tone of a property owner addressing
+hikers who had wandered past a posted sign. “This is private land. I
+don’t know who you are, but you need to leave.”</p>
+<p>Behind Hank’s left knee, Rook’s body shifted. He felt her weight
+change — she’d been pressed against his calf, low and flat, and now her
+head came up and her nose worked the air in Steen’s direction, quick
+shallow pulls, reading something in the cold that Hank couldn’t name but
+trusted. Her ears went forward and then flat again. A low sound, below a
+whine, vibrated through her ribs and into his leg.</p>
+<p>Hank adjusted his stance. Feet shoulder-width, weight centered, the
+Sig level at the man by the van because the man by the van was the one
+whose hand had moved. His body remembered this geometry — from before
+the dreams, from ranges at Fort Leonard Wood and qualifying rounds at
+Camp Humphreys and the deep muscle memory of a man who had carried a
+sidearm for eight years and understood in his skeleton what his mind
+tried not to think about: that the weapon was an extension of the arm
+and the arm was an extension of intent and the intent, right now, was to
+keep every person on this driveway exactly where they stood until
+someone with a badge arrived.</p>
+<p>The Sig felt right. That was the problem. Nine years in the safe and
+it fit his hand like it had never left — the stippled grip finding the
+calluses it had built, the trigger pull exactly where his index finger
+expected it, the weight balanced and familiar in a way that his coffee
+cup hadn’t been all week. His hands had been six men’s hands. They had
+been Steen’s hands on the railing. They had been the spreadsheet man’s
+hands on the keyboard. And now they were holding a weapon with the same
+unhurried competence those hands had used to run schedules and count
+money and unlock brass locks, and the competence was indistinguishable.
+That was the thing he would carry out of this clearing. The knowledge
+that his calm and theirs came from the same place in the body.</p>
+<p>“She told you who she is.” Hank’s voice came out flat. Not loud. The
+cold air carried it. “She told you what she does.”</p>
+<p>Steen looked at him. At the weapon. His expression didn’t change.
+“I’m calling the police.”</p>
+<p>Maren’s voice, from the ground, from beside the girl who still had
+not moved or made a sound: “Call Chief Riedel.”</p>
+<p>The name landed.</p>
+<p>Hank watched it land. He watched it cross the fifteen yards of frozen
+air between Maren and the porch and hit Steen in the chest like a round.
+The man’s hands tightened on the railing. A fraction. A quarter-inch of
+knuckle compression that someone who didn’t read structures for a living
+would have missed entirely.</p>
+<p>The second man put the file box down.</p>
+<p>“I don’t know what you’re talking about,” Steen said. The
+conversational tone was still there but the foundation had shifted —
+Hank could hear it the way he heard the difference between a building
+settling and a building failing. Same sounds. Different implications.
+“I’m going to ask you again to leave my property.”</p>
+<p>“Four children.” Maren hadn’t stood up. She was still on her knees,
+one hand on the girl’s blanket, and her voice was the real one, not the
+professional one. Raw and precise and carrying something underneath it
+that Hank had only heard once before, in her apartment when she’d said
+<em>show me your hands</em>. “We know about the rooms. We know about the
+circuit. We know about Iron Range Retreat LLC and Northshore Partners
+and the secondary site near Ely where your van was headed.”</p>
+<p>Steen’s jaw set.</p>
+<p>“And we know about Riedel.” Maren looked up at him. “So go ahead.
+Call the police.”</p>
+<p>The silence lasted three seconds. Hank counted them in heartbeats —
+his own, even, the resting rate of a body that had been trained to hold
+this exact configuration for as long as the situation required. Three
+seconds during which the man at the van looked at Steen and Steen looked
+at Maren and Maren looked at the girl and Hank held all of them in the
+geometry of the Sig’s sightline and the wider architecture of his
+peripheral vision.</p>
+<p>Then the man at the van took a step.</p>
+<p>Not toward his jacket. Toward the van’s cab. Hank tracked the
+movement and shifted the barrel two degrees left and said nothing
+because nothing needed to be said. The man stopped. Looked at him.
+Looked at the gun. Sat down on the van’s bumper with his hands on his
+knees.</p>
+<p>The second man hadn’t moved since he’d put the file box down.</p>
+<p>Steen stood on the porch and his hands were still on the railing and
+his face was doing the thing Hank had seen from the inside — the
+filing-cabinet mind running calculations, sorting options, assessing
+which doors were still open and which had closed. The answer, Hank knew,
+was all of them. All of them had closed.</p>
+<p>Rook moved past Hank’s legs and crossed the driveway to where Maren
+knelt. She lay down in the snow beside the girl, not touching, just
+present — a warm, dark shape against the white ground, sixty pounds of
+animal certainty that the worst part was over.</p>
+<p>Hank held the Sig level. His hands did not shake. Behind his sternum
+the pull that had guided him from Bend to the coast and from the coast
+to Baltimore and from silence to Duluth was quiet for the first time in
+months. Quiet the way a frequency goes quiet when the signal has been
+received.</p>
+<p>He kept the weapon up. He watched. He waited.</p>
+<p>That was the job.</p>
+<p>Steen came down from the porch.</p>
+<p>The porch was fifteen yards from where Hank stood. Maren and the girl
+were between them — ten feet ahead of Hank on the plowed asphalt, low to
+the ground. The van man sat on the bumper twenty feet to Hank’s left.
+The second man stood in the lodge doorway, thirty feet to Hank’s right,
+the file box at his feet. Steen descended the three wooden steps to the
+gravel path that ran from the porch to the driveway, and now he was on
+the same level as everyone else, moving toward Maren.</p>
+<p>He moved like a man in his own house — unhurried, his weight
+centered, hands away from his body in a gesture Hank recognized from a
+thousand hours of range instruction as the careful choreography of a
+person who has decided to appear unarmed. His boots were leather, good
+leather, and they sounded different on the frozen ground than the work
+boots of his men — a lighter strike, the footfall of money.</p>
+<p>“There’s clearly been a misunderstanding.” Steen’s voice had found a
+new register. Not the property-owner tone from before. Something warmer,
+more reasonable, the voice of a man who sat on boards and resolved
+disputes through conversation. He stopped ten feet from Maren and the
+girl — which put him five yards ahead of Hank and to his right, directly
+between Hank’s sightline and the doorway man. He put his hands in his
+vest pockets and took them out again, slowly, showing the palms. “I
+don’t know what you’ve been told, but this is a private retreat
+facility. We provide respite care for at-risk youth through a
+partnership with county services. I’d be happy to show you the
+licensing—”</p>
+<p>“Don’t.” Maren’s voice from the ground. She didn’t look up. Her hand
+was on the girl’s back, over the gray blanket, and Hank could see the
+pressure of her fingers — light, diagnostic, the way she touched people
+in the worst moments of their lives. “Don’t do that.”</p>
+<p>Steen smiled. It was a good smile, the kind that had probably worked
+in boardrooms and fundraising dinners and the sort of polite social
+context where a man’s composure was mistaken for character. It did not
+work here. The smile landed on the frozen air between them and fell.</p>
+<p>Hank tracked Steen and held the van man in his peripheral vision. The
+geometry was getting complicated — Steen now between Hank’s sightline
+and the second man in the doorway, the van man still on the bumper with
+his hands on his knees, Maren and the girl and Rook low to the ground at
+the center of everything. Too many bodies. The triangle he’d been
+holding was becoming a polygon, and polygons had angles he couldn’t
+cover.</p>
+<p>“The police chief is a personal friend,” Steen said. “I’m sure if we
+all just—”</p>
+<p>“We know about Riedel.” Hank kept his voice flat. Level. The Sig
+steady on the van man because the van man was the one whose hand had
+moved twice. “We know what he does for you. A federal warrant is being
+issued right now. You’re done.”</p>
+<p>Steen’s jaw tightened and released. Fast, geological — the surface
+shifting over a fault. Hank had seen it in the dream. The filing-cabinet
+mind, the contingency planner, the man who ran calculations the way Hank
+ran load assessments. Steen was doing the math. Hank watched him do it.
+Watched every option close.</p>
+<p>The van man stood up.</p>
+<p>His hands left his knees and he was upright and his right hand went
+to his jacket — not toward his pocket, not casually, but with the
+deliberate reach of a man going for something he’d put there for exactly
+this reason — and Hank’s body did what eight years of training had built
+it to do.</p>
+<p>The Sig fired.</p>
+<p>The sound erased everything. An event, a physical force that occupied
+the air where other sounds had been and replaced them with a single
+detonating compression that hit Hank’s eardrums and hit the birch trees
+and hit the frozen marsh and came back and hit him again. The recoil
+traveled through his wrist and his forearm and into his shoulder and the
+P226 was back on target before the brass casing finished its arc through
+the cold air, spinning, catching the last gray light.</p>
+<p>The man sat down.</p>
+<p>Not fell. Sat. His knees buckled and he went down on the van’s bumper
+and then off it, onto the plowed asphalt, and his right hand went to his
+left shoulder and gripped it and his mouth was open but no sound came
+out because the shot had taken all the sound there was.</p>
+<p>Silence.</p>
+<p>Hank’s ears rang. A high, steady tone that replaced the world — the
+birch trees, the frozen marsh, the sound of his own breathing, all of it
+submerged under the ringing, as if the shot had cracked the frequency
+the world ran on and left this single sustained note in its place. His
+shoulder ached where the recoil had traveled through it. His wrist. His
+forearm. The kinetic chain of what his body had just done, mapped
+backward from the muzzle to the bone, and every joint along that chain
+registered the event even as his hands stayed level and the Sig stayed
+on target.</p>
+<p>He had fired a weapon at a human being.</p>
+<p>The thought arrived not as language but as fact — physical,
+irrefutable, the way a crack in a load-bearing wall is a fact. His lungs
+pulled air that tasted like cordite and frozen pine and something
+metallic underneath, something that might have been blood or might have
+been the taste of his own adrenaline burning through the back of his
+throat. His pulse hammered in his ears beneath the ringing. He could
+feel it in his wrists, in his jaw, in the soles of his feet on the
+frozen ground. The body’s testimony: you did this. These hands. The same
+hands that had carried Harmon’s patience and Ostrowski’s precision and
+the spreadsheet man’s terrible competence — the hands that had learned
+steadiness from six men’s worth of practiced cruelty — had just put a
+round through a man’s shoulder in the real world, in daylight, on ground
+that was not a dream.</p>
+<p>The ringing faded. Sound returned in pieces — wind in the birch
+canopy, the heater ticking inside the van, a bird somewhere in the marsh
+that had not stopped singing because birds do not stop for what men do
+to each other.</p>
+<p>The girl had not screamed. Maren was over her, body curved around the
+gray blanket, and the girl had not screamed because screaming was not
+something she did anymore. Rook had surged to her feet at the shot —
+Hank had felt her launch from beside Maren, sixty pounds of muscle going
+rigid in a single contraction. She planted herself between the girl and
+the van, hackles raised in a dark ridge from her shoulders to the base
+of her tail, her body angled toward the bleeding man, teeth not bared
+but visible. The low sound in her chest was not a growl and not a whine
+but something between — the sound of an animal that had identified the
+threat and chosen its ground. The second man in the doorway had already
+put his hands up — Hank caught it in his periphery, palms out, fingers
+spread, the fastest surrender he’d ever seen. Steen stood with his hands
+at his sides and his face had gone the color of birch bark.</p>
+<p>Hank held the weapon. His hands did not shake. That was the wrong
+thing. His hands should shake. A man who had just shot another man
+should have hands that registered the event — some tremor, some
+rebellion of the nervous system against what the hands had done. But his
+hands were steady the way the spreadsheet man’s hands had been steady on
+the keyboard. The way Steen’s hands were steady on the railing. The way
+all six men’s hands had been steady in the dreams — competent,
+organized, doing what they had been trained to do without the
+inconvenience of horror. Hank’s hands did not shake and he could not
+tell whether that was the training or the contamination and the
+difference between those two things had never been thinner than it was
+right now, in the silence after the shot, with a man bleeding on the
+asphalt and the Sig still level and his hands — whose hands — still
+doing the job.</p>
+<p>Behind him the trees, the frozen marsh, the flat gray sky. In front
+of him the man on the asphalt gripping his shoulder and the blood coming
+through his fingers — bright, wrong-colored against the cold — and the
+silence that was not silence but the ringing aftermath of a thing that
+could not be taken back.</p>
+<p>Cordite. He could smell it. The sharp chemical bite of it in the
+frozen air, alien and familiar, and his hands were steady, and the man
+was bleeding, and nobody moved.</p>
+<p>The terms they had negotiated in the parking lot — holstered unless
+immediate, active, happening — did not cover what came after. Nine years
+of carrying the permit and never pointing the weapon at a person outside
+a combat zone, and that line was behind him now, and there was no
+engineering for what you did with a foundation once you’d cracked it
+yourself.</p>
+<p>The shot was still in the air. Not the sound — the sound was gone,
+eaten by the birch trees and the frozen marsh and the flat gray nothing
+above them. What remained was the shape of it. The space where the world
+had been one thing and now was another.</p>
+<p>Maren kept her hand on the girl’s back.</p>
+<p>The girl had not flinched. The gun had gone off fifteen yards behind
+her and she had not flinched. Maren’s body registered this fact before
+her mind did — the diagnostic running underneath the crisis, eleven
+years of reading the body’s testimony while the mouth said the calm
+thing and the hands stayed visible and the breath held at twelve per
+minute because someone in this room had to be the still point.</p>
+<p>The girl had not flinched because flinching was a reflex that
+belonged to children who still expected loud sounds to be unusual.</p>
+<p>Maren shifted. Slowly. The parka scraped against the asphalt and she
+moved her hand from the girl’s back to her own knee and then put it
+palm-up on the ground between them. Open. Visible. Here are my hands.
+They are empty. They are yours to take or not take.</p>
+<p>Behind her, Hank’s voice — low, controlled, the flat calm of a man
+holding a perimeter. Talking to someone. The words didn’t matter. What
+mattered was the girl and the gray blanket and the bare feet on the
+plowed asphalt and the cold that was settling into both of them, and the
+fact that the girl had not looked at Maren once since the man put her
+down.</p>
+<p>She was looking at Rook.</p>
+<p>The dog lay in the snow beside them, chin on her paws, dark eyes
+direct. Her nose twitched once toward the girl — a quick, deliberate
+read, the way she scented Hank’s hands after the worst dreams — and then
+she settled. Not panting. Not whining. Just there — without agenda,
+without the complicated machinery of adult intention. Rook’s tail moved
+once against the snow. A single sweep, slow, and it stilled.</p>
+<p>The girl’s hand moved.</p>
+<p>Small. Under the blanket’s edge. Her fingers uncurled from the fist
+Maren hadn’t been able to see and reached toward the dog’s ear, and the
+reach was the most careful thing Maren had ever witnessed — tentative,
+trembling, the fingers stopping an inch from Rook’s fur as if permission
+were a physical barrier she could not cross without it being given.</p>
+<p>Rook leaned her head into the girl’s hand.</p>
+<p>The contact lasted two seconds. The girl’s fingers touched the soft
+fur behind Rook’s ear and her whole body changed — not relaxed, not
+anything as simple as that, but something shifted in the bracing of her
+shoulders, some held thing released by a fraction, the way a fist
+loosens when the hand forgets to grip.</p>
+<p>Maren breathed.</p>
+<p>“Hey.” She kept her voice low. She didn’t have the professional voice
+right now. She had the voice underneath. The one that came from the same
+place as the white heat that had carried her across fifty yards of open
+ground. But quiet now. Banked. “My name’s Maren. You’re safe now.”</p>
+<p>The girl’s hand stayed on Rook’s ear. Her face turned.</p>
+<p>Brown eyes. Thin face. A face that was five or six and looked older
+because old was what happened to children in rooms with brass locks and
+cameras on tripods. Her lips were cracked. Her hair was dark and matted
+and cut short in a way that had nothing to do with style and everything
+to do with maintenance. Around her left wrist, a friendship bracelet —
+plastic beads, pink and white, the string fraying, the kind a child
+makes at a kitchen table with someone who loves them. She’d kept it.
+Through whatever had happened in those rooms, she’d kept it. She looked
+at Maren the way Maren had been looked at a thousand times across intake
+tables — the assessment. Not trust. Not yet. The calculation of whether
+this person was safe enough to speak to.</p>
+<p>“I want to go home,” the girl said.</p>
+<p>Her voice was small and hoarse and it landed in Maren’s chest like a
+fist. Four words. The same four words Maren had heard from women in
+hospital gowns, from teenagers in police stations, from the hollowed-out
+and the broken and the barely-holding-on. The universal first sentence
+of everyone who had been taken from their life and wanted it back.</p>
+<p>“I know,” Maren said. “We’re going to help you get there.”</p>
+<p>The girl’s fingers tightened in Rook’s fur. Rook didn’t move. The
+asphalt was cold under Maren’s knees and the sky was gray and the man on
+the asphalt was still bleeding and somewhere behind her Hank was keeping
+three men still with a weapon that had already spoken once, and the girl
+was five or six and her feet were bare and she wanted to go home.</p>
+<p>Maren didn’t cry. Not yet.</p>
+<p>Hank’s phone was in his left hand. The Sig was in his right. The math
+of this had not changed — three men, one weapon, and the distance
+between holding a situation and losing it measured in seconds — but his
+thumb found Margaret’s number without his eyes leaving the driveway.</p>
+<p>Two rings. Three. The van man was still on the asphalt gripping his
+shoulder and the blood had found a channel through his fingers and was
+pooling on the plowed surface in a shape that looked black in the flat
+light. The second man had not moved. Steen had not moved. Maren had the
+girl and Rook had Maren and the geometry held. Four rings.</p>
+<p>“Okafor.”</p>
+<p>“One child secured. More inside the building. Steen is here. One of
+Steen’s men is down — I shot him. We need that team now.”</p>
+<p>Silence on the line. One second. Two. Hank heard the institutional
+machinery engage — the shift from conversation to coordination, the
+federal prosecutor’s mind reorganizing around facts that had just
+changed everything.</p>
+<p>“Where.”</p>
+<p>“The lakefront property. North of the city. You have the
+address.”</p>
+<p>“Are you armed.”</p>
+<p>“Yes.”</p>
+<p>“Is anyone in immediate danger.”</p>
+<p>“Not right now.”</p>
+<p>“Do not move. Do not let anyone leave. I’m calling the marshals.” The
+line went dead.</p>
+<p>Hank lowered the phone. Pocketed it. Both hands on the Sig now, the
+grip warm where his palm had held it and cold where the air had found
+the metal. His ears were still ringing from the shot. A high, thin
+frequency that sat underneath the other sounds — the wind, the creak of
+birch, the van man’s breathing which had gone shallow and fast, the kind
+of breathing Hank’s field medic training recognized as shock setting in
+but not arterial.</p>
+<p>The man would keep.</p>
+<p>Steen stood at the foot of the porch steps where the shot had stopped
+him, hands at his sides, face still the color of birch bark. He had not
+spoken since the shot. The filing cabinet had run out of drawers.</p>
+<p>Behind Hank, Rook had not moved from the girl’s side. He could hear
+the dog’s breathing — even, animal, a metronome underneath the wind. The
+girl’s fingers were still in her fur.</p>
+<p>Maren’s voice — low, level, the words indistinct but the tone
+unmistakable. She was talking to the girl. Doing the thing she had spent
+eleven years learning to do, the thing that could not be taught and
+could not be faked — sitting with someone in the worst moment of their
+life and making them believe the next moment might be bearable. He did
+not turn around. He kept the weapon on the three men and he listened to
+her voice the way he listened to the sound a building made under load —
+for the frequency that meant it was holding.</p>
+<p>It was holding.</p>
+<p>Minutes passed. The van man’s breathing steadied. The blood stopped
+spreading. Steen’s hands stayed at his sides and the second man’s hands
+stayed up and the cold settled deeper into Hank’s fingers and his
+forearms and the joints of his wrists, and he held the stance because
+holding was what he did. What his body had been built for, trained for,
+what the wall was made of. He stood in the frozen air and he held.</p>
+<p>Then — distant. South. A sound that was not wind and not the
+lake.</p>
+<p>Sirens.</p>
+<p>Low at first. A thread of pitch woven into the birch noise and the
+cold. Growing. Layering. More than one vehicle. More than two. The sound
+thickened and separated into distinct sources — the long wail of federal
+vehicles moving fast on a county road, converging.</p>
+<p>Hank breathed.</p>
+<p>4:41 PM. The cavalry. Twelve agents, U.S. Marshals, a forensic unit,
+social workers. The institutional machinery that Margaret Okafor had
+spent twelve hours assembling, arriving forty-seven minutes after a
+county victim advocate and a structural engineer had done what the
+institutions could not do in time.</p>
+<p>He did not lower the weapon until the first SUV cleared the tree
+line.</p>
+</main>
+
+<nav class="chapter-nav">
+  <a href="chapter-18.html" class="prev-chapter nav-link"><span class="nav-label">&larr; Previous</span><span class="nav-chapter-title">The Decision</span></a>
+  <a href="chapter-20.html" class="next-chapter nav-link"><span class="nav-label">Next &rarr;</span><span class="nav-chapter-title">Four Children</span></a>
+</nav>
+
+<!-- TOC Overlay -->
+<div class="toc-overlay">
+  <div class="toc-panel">
+    <div class="toc-book-title">Shared Dark</div>
+    <h2>Contents</h2>
+    <div class="toc-contents">
+  <ol class="toc-list">
+    <li><a href="chapter-01.html" data-chapter="chapter-01">Claire's Cold</a></li>
+    <li><a href="chapter-02.html" data-chapter="chapter-02">The Advocate</a></li>
+    <li><a href="chapter-03.html" data-chapter="chapter-03">The Diner</a></li>
+    <li><a href="chapter-04.html" data-chapter="chapter-04">The Dark Road</a></li>
+    <li><a href="chapter-05.html" data-chapter="chapter-05">Claire</a></li>
+    <li><a href="chapter-06.html" data-chapter="chapter-06">The Fire</a></li>
+    <li><a href="chapter-07.html" data-chapter="chapter-07">Fells Point</a></li>
+    <li><a href="chapter-08.html" data-chapter="chapter-08">Watching Ostrowski</a></li>
+    <li><a href="chapter-09.html" data-chapter="chapter-09">Collision</a></li>
+    <li><a href="chapter-10.html" data-chapter="chapter-10">Leaving Baltimore</a></li>
+    <li><a href="chapter-11.html" data-chapter="chapter-11">Every Light On</a></li>
+    <li><a href="chapter-12.html" data-chapter="chapter-12">The Interrogation</a></li>
+    <li><a href="chapter-13.html" data-chapter="chapter-13">The Covenant</a></li>
+    <li><a href="chapter-14.html" data-chapter="chapter-14">Waves</a></li>
+    <li><a href="chapter-15.html" data-chapter="chapter-15">The Sig Sauer</a></li>
+    <li><a href="chapter-16.html" data-chapter="chapter-16">Inside Riedel</a></li>
+    <li><a href="chapter-17.html" data-chapter="chapter-17">The Shell Company</a></li>
+    <li><a href="chapter-18.html" data-chapter="chapter-18">The Decision</a></li>
+    <li><a href="chapter-19.html" data-chapter="chapter-19">My Name Is</a></li>
+    <li><a href="chapter-20.html" data-chapter="chapter-20">Four Children</a></li>
+    <li><a href="chapter-21.html" data-chapter="chapter-21">Rachel</a></li>
+    <li><a href="chapter-22.html" data-chapter="chapter-22">Deena</a></li>
+    <li><a href="chapter-23.html" data-chapter="chapter-23">Your Turn</a></li>
+    <li><a href="chapter-24.html" data-chapter="chapter-24">Carbonara</a></li>
+    <li><a href="chapter-25.html" data-chapter="chapter-25">The Morning Watch</a></li>
+  </ol>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+ * Storyforge Web Book — Progressive Enhancement
+ *
+ * The book is fully readable with JavaScript disabled.
+ * Everything in this file is optional enhancement.
+ *
+ * ---------------------------------------------------------------------------
+ * INLINE IN <head> — prevents flash of wrong theme.
+ * Paste this inside a <script> tag before any stylesheets:
+ *
+ * (function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})();
+ *
+ * ---------------------------------------------------------------------------
+ */
+
+(function () {
+  'use strict';
+
+  // ---------------------------------------------------------------------------
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  /** Return a debounced version of fn that waits ms before firing. */
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      var ctx = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(ctx, args); }, ms);
+    };
+  }
+
+  /** Derive a slug for the current chapter from the URL or body attribute. */
+  function getChapterSlug() {
+    var slug = document.body.getAttribute('data-chapter');
+    if (slug) return slug;
+    // Fall back to the last segment of the pathname, minus extension
+    var path = window.location.pathname.replace(/\/+$/, '');
+    var parts = path.split('/');
+    return (parts[parts.length - 1] || 'index').replace(/\.html?$/, '');
+  }
+
+  // ---------------------------------------------------------------------------
+  // 1. Theme switching
+  // ---------------------------------------------------------------------------
+
+  var themes = ['light', 'dark', 'sepia'];
+
+  function currentTheme() {
+    return document.documentElement.dataset.theme || 'light';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('storyforge-theme', theme);
+  }
+
+  function cycleTheme() {
+    var idx = themes.indexOf(currentTheme());
+    setTheme(themes[(idx + 1) % themes.length]);
+  }
+
+  var themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', cycleTheme);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 2. Reading position persistence
+  // ---------------------------------------------------------------------------
+
+  var posKey = 'pos-' + getChapterSlug();
+
+  // Restore saved position after layout settles.
+  var savedPos = localStorage.getItem(posKey);
+  if (savedPos !== null) {
+    setTimeout(function () {
+      window.scrollTo(0, parseInt(savedPos, 10));
+    }, 100);
+  }
+
+  // Save position on scroll (debounced).
+  window.addEventListener('scroll', debounce(function () {
+    localStorage.setItem(posKey, String(window.scrollY));
+  }, 500));
+
+  // ---------------------------------------------------------------------------
+  // 3. Chapter completion tracking
+  // ---------------------------------------------------------------------------
+
+  function getChaptersRead() {
+    try { return JSON.parse(localStorage.getItem('chapters-read')) || []; }
+    catch (_) { return []; }
+  }
+
+  function markChapterRead(slug) {
+    var read = getChaptersRead();
+    if (read.indexOf(slug) === -1) {
+      read.push(slug);
+      localStorage.setItem('chapters-read', JSON.stringify(read));
+    }
+  }
+
+  /** Apply .chapter-read to TOC links whose chapters have been completed. */
+  function applyReadClasses() {
+    var read = getChaptersRead();
+    if (!read.length) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var slug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (read.indexOf(slug) !== -1) {
+        links[i].classList.add('chapter-read');
+      }
+    }
+  }
+
+  applyReadClasses();
+
+  // Mark current chapter as read when user scrolls past 90%.
+  var chapterMarked = false;
+  function checkCompletion() {
+    if (chapterMarked) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    if (docHeight <= winHeight) return; // page fits in viewport
+    if (scrollTop / (docHeight - winHeight) >= 0.9) {
+      chapterMarked = true;
+      markChapterRead(getChapterSlug());
+      applyReadClasses();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4. Progress bar
+  // ---------------------------------------------------------------------------
+
+  var progressBar = document.querySelector('.progress-bar');
+
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight;
+    var winHeight = window.innerHeight;
+    var pct = docHeight <= winHeight ? 100 : (scrollTop / (docHeight - winHeight)) * 100;
+    progressBar.style.width = Math.min(pct, 100) + '%';
+  }
+
+  // ---------------------------------------------------------------------------
+  // 5. Auto-hiding navigation
+  // ---------------------------------------------------------------------------
+
+  var bookNav = document.querySelector('.book-nav');
+  var lastScrollY = window.scrollY;
+  var hideTimer = null;
+
+  function handleNavVisibility() {
+    var scrollY = window.scrollY;
+    if (!bookNav) return;
+
+    // Always visible near the top of the page.
+    if (scrollY < 100) {
+      bookNav.classList.remove('hidden');
+      clearTimeout(hideTimer);
+      lastScrollY = scrollY;
+      return;
+    }
+
+    if (scrollY > lastScrollY) {
+      // Scrolling down — hide after 3 seconds.
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        bookNav.classList.add('hidden');
+      }, 3000);
+    } else {
+      // Scrolling up — show immediately.
+      clearTimeout(hideTimer);
+      bookNav.classList.remove('hidden');
+    }
+
+    lastScrollY = scrollY;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Unified scroll handler (uses rAF for smooth progress bar updates)
+  // ---------------------------------------------------------------------------
+
+  var scrollTicking = false;
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(function () {
+        updateProgress();
+        checkCompletion();
+        handleNavVisibility();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  });
+
+  // Initial call so progress bar is correct on load.
+  updateProgress();
+
+  // ---------------------------------------------------------------------------
+  // 6. Keyboard navigation
+  // ---------------------------------------------------------------------------
+
+  document.addEventListener('keydown', function (e) {
+    // Don't capture when the user is typing in a form field.
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) {
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowLeft': {
+        var prev = document.querySelector('.prev-chapter');
+        if (prev && prev.href) window.location.href = prev.href;
+        break;
+      }
+      case 'ArrowRight': {
+        var next = document.querySelector('.next-chapter');
+        if (next && next.href) window.location.href = next.href;
+        break;
+      }
+      case 't':
+      case 'T':
+        toggleToc();
+        break;
+      case 'Escape':
+        closeToc();
+        break;
+    }
+  });
+
+  // ---------------------------------------------------------------------------
+  // 7. TOC overlay toggle
+  // ---------------------------------------------------------------------------
+
+  var tocOverlay = document.querySelector('.toc-overlay');
+  var tocToggle = document.querySelector('.toc-toggle');
+
+  function toggleToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.toggle('active');
+    if (tocOverlay.classList.contains('active')) {
+      var current = tocOverlay.querySelector('.toc-current');
+      if (current) {
+        setTimeout(function () {
+          current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }
+
+  function closeToc() {
+    if (!tocOverlay) return;
+    tocOverlay.classList.remove('active');
+  }
+
+  if (tocToggle) {
+    tocToggle.addEventListener('click', toggleToc);
+  }
+
+  // Close on backdrop click (click on the overlay itself, not its children).
+  if (tocOverlay) {
+    tocOverlay.addEventListener('click', function (e) {
+      if (e.target === tocOverlay) closeToc();
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 8. Chapter info in navigation
+  // ---------------------------------------------------------------------------
+
+  var chapterNum = document.body.getAttribute('data-chapter-num');
+  var totalChapters = document.body.getAttribute('data-total-chapters');
+
+  if (chapterNum && totalChapters && bookNav) {
+    var info = document.createElement('span');
+    info.className = 'chapter-info';
+    info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
+    bookNav.appendChild(info);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 9. Resume tracking — store last-visited chapter
+  // ---------------------------------------------------------------------------
+
+  var currentSlug = getChapterSlug();
+  if (currentSlug && currentSlug !== 'index' && currentSlug !== 'contents') {
+    localStorage.setItem('storyforge-last-chapter', currentSlug);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 10. TOC current chapter highlight
+  // ---------------------------------------------------------------------------
+
+  function highlightCurrentChapter() {
+    var slug = getChapterSlug();
+    if (!slug) return;
+    var links = document.querySelectorAll('.toc-overlay a, .toc-list a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var linkSlug = href.replace(/^.*\//, '').replace(/\.html?$/, '');
+      if (linkSlug === slug) {
+        var li = links[i].closest('li');
+        if (li) {
+          li.classList.add('toc-current');
+        }
+      }
+    }
+  }
+
+  highlightCurrentChapter();
+
+})();
+</script>
+</body>
+</html>
