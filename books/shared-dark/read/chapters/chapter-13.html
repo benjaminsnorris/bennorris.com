@@ -304,6 +304,7 @@ body {
 }
 
 .book-nav .nav-title {
+  flex: 1;
   font-family: var(--title-font);
   font-size: 0.82em;
   color: var(--text-dim);
@@ -311,43 +312,53 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 50%;
   transition: color 0.4s ease;
 }
 
 .book-nav .chapter-info {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
   font-family: var(--title-font);
   font-size: 0.78em;
   color: var(--text-dim);
   letter-spacing: 0.04em;
   white-space: nowrap;
-  transition: color 0.4s ease;
+  padding: 0.3em 0.6em;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.book-nav .chapter-info:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
 }
 
 .book-nav .nav-controls {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.5rem;
 }
 
-/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+/* --- 11. THEME TOGGLE --------------------------------------------------- */
 
-.theme-toggle,
-.toc-toggle {
+.theme-toggle {
   background: none;
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--text-dim);
   cursor: pointer;
   line-height: 1;
+  font-size: 0.9em;
+  padding: 0.3em 0.55em;
   transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 
-.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
-.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
-
-.theme-toggle:hover,
-.toc-toggle:hover {
+.theme-toggle:hover {
   color: var(--text);
   border-color: var(--text-dim);
   background: var(--surface);
@@ -814,16 +825,746 @@ body {
     scroll-behavior: auto !important;
   }
 }
+/* ==========================================================================
+   annotations.css — Annotation Overlay Styles
+   StoryForge production stylesheet — loaded when --annotate is active
+
+   Theme variables from reading.css:
+     --bg, --text, --text-dim, --accent, --surface, --border
+   Breakpoints: 639px mobile, 640px+ desktop
+   ========================================================================== */
+
+/* --- 1. HIGHLIGHTS ------------------------------------------------------- */
+
+.sf-highlight {
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+  border-radius: 2px;
+  background-color: rgba(255, 220, 80, 0.35); /* fallback for uncolored */
+}
+
+/* Per-color highlights */
+.sf-highlight[data-color="yellow"] { background-color: rgba(255, 220, 80, 0.35); }
+.sf-highlight[data-color="yellow"]:hover { background-color: rgba(255, 220, 80, 0.55); }
+.sf-highlight[data-color="pink"] { background-color: rgba(255, 130, 150, 0.3); }
+.sf-highlight[data-color="pink"]:hover { background-color: rgba(255, 130, 150, 0.5); }
+.sf-highlight[data-color="green"] { background-color: rgba(120, 220, 120, 0.3); }
+.sf-highlight[data-color="green"]:hover { background-color: rgba(120, 220, 120, 0.5); }
+.sf-highlight[data-color="blue"] { background-color: rgba(120, 180, 255, 0.3); }
+.sf-highlight[data-color="blue"]:hover { background-color: rgba(120, 180, 255, 0.5); }
+.sf-highlight[data-color="orange"] { background-color: rgba(255, 180, 80, 0.3); }
+.sf-highlight[data-color="orange"]:hover { background-color: rgba(255, 180, 80, 0.5); }
+
+/* Dot indicator for highlights that have an attached comment */
+.sf-highlight.has-comment::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--sf-hl-color, var(--accent));
+  border-radius: 50%;
+  margin-left: 2px;
+  vertical-align: super;
+}
+
+/* Dark theme — per-color variants (reduced opacity) */
+[data-theme="dark"] .sf-highlight { background-color: rgba(255, 200, 60, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="yellow"] { background-color: rgba(255, 220, 80, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="yellow"]:hover { background-color: rgba(255, 220, 80, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="pink"] { background-color: rgba(255, 130, 150, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="pink"]:hover { background-color: rgba(255, 130, 150, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="green"] { background-color: rgba(120, 220, 120, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="green"]:hover { background-color: rgba(120, 220, 120, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="blue"] { background-color: rgba(120, 180, 255, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="blue"]:hover { background-color: rgba(120, 180, 255, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="orange"] { background-color: rgba(255, 180, 80, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="orange"]:hover { background-color: rgba(255, 180, 80, 0.35); }
+
+/* Sepia theme — per-color variants (warmed tones) */
+[data-theme="sepia"] .sf-highlight { background-color: rgba(200, 160, 60, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="yellow"] { background-color: rgba(200, 170, 60, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="yellow"]:hover { background-color: rgba(200, 170, 60, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="pink"] { background-color: rgba(200, 120, 130, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="pink"]:hover { background-color: rgba(200, 120, 130, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="green"] { background-color: rgba(110, 180, 100, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="green"]:hover { background-color: rgba(110, 180, 100, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="blue"] { background-color: rgba(110, 160, 210, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="blue"]:hover { background-color: rgba(110, 160, 210, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="orange"] { background-color: rgba(200, 150, 70, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="orange"]:hover { background-color: rgba(200, 150, 70, 0.4); }
+
+
+/* --- 2. DESKTOP POPOVER -------------------------------------------------- */
+
+.sf-popover {
+  position: absolute;
+  z-index: 100;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  animation: sf-fade-in 0.15s ease;
+}
+
+.sf-popover button {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 36px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-popover button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* Comment input within popover */
+.sf-comment-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 260px;
+}
+
+.sf-comment-input textarea {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+  min-height: 70px;
+  outline: none;
+  line-height: 1.5;
+}
+
+.sf-comment-input textarea:focus {
+  border-color: var(--accent);
+}
+
+.sf-comment-input .sf-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+/* Color picker popover layout */
+.sf-popover.sf-popover-colors {
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+}
+
+/* Color picker row */
+.sf-color-picker {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 4px 6px;
+}
+
+.sf-color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, transform 0.15s;
+  padding: 0;
+  background: none;
+}
+
+.sf-color-swatch:hover {
+  transform: scale(1.15);
+}
+
+.sf-color-swatch.selected {
+  border-color: var(--text);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text-dim);
+}
+
+/* Note button in popover */
+.sf-popover-note {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.78em;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+.sf-popover-note:hover { color: var(--text); }
+
+@keyframes sf-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* --- 3. MOBILE BOTTOM TOOLBAR -------------------------------------------- */
+
+/* Hidden by default; shown only on mobile via media query below */
+.sf-toolbar { display: none; }
+
+@media (max-width: 639px) {
+  /* Suppress desktop popover entirely on mobile */
+  .sf-popover { display: none !important; }
+
+  .sf-toolbar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 8px 12px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sf-toolbar button {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  .sf-toolbar button:active {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .sf-toolbar button.sf-hidden { display: none; }
+
+  /* Ensure content isn't hidden behind the fixed toolbar */
+  .reading-column { padding-bottom: 70px; }
+}
+
+
+/* --- 4. MARGIN NOTES ----------------------------------------------------- */
+
+.sf-margin-trigger {
+  position: absolute;
+  left: -32px;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Reveal trigger button on paragraph hover (desktop only) */
+@media (min-width: 640px) {
+  [data-scene] > *:hover > .sf-margin-trigger,
+  .sf-margin-trigger:hover { opacity: 1; }
+}
+
+.sf-margin-indicator {
+  position: absolute;
+  left: -28px;
+  top: 0;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: var(--bg);
+}
+
+.sf-note-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin: 12px 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  animation: sf-fade-in 0.15s ease;
+}
+
+.sf-note-panel textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+  min-height: 70px;
+  box-sizing: border-box;
+  outline: none;
+  line-height: 1.5;
+}
+
+.sf-note-panel textarea:focus {
+  border-color: var(--accent);
+}
+
+.sf-note-panel .sf-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.sf-note-panel button {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  min-height: 36px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-note-panel button:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--bg);
+}
+
+/* Export button — match .theme-toggle / .toc-toggle styling */
+.sf-export-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 0.3em 0.55em;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-export-btn:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Badge used to show annotation counts in nav */
+.sf-badge {
+  background: none;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.82em;
+  padding: 0.3em 0.6em;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+
+/* --- 5. COMMENT VIEWER --------------------------------------------------- */
+
+.sf-comment-viewer {
+  position: absolute;
+  z-index: 101;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  max-width: 300px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  animation: sf-fade-in 0.15s ease;
+}
+
+.sf-comment-viewer .sf-timestamp {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+.sf-comment-viewer p {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.sf-comment-viewer .sf-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.sf-comment-viewer button:not(.sf-color-swatch) {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  min-height: 36px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-comment-viewer button:not(.sf-color-swatch):hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--bg);
+}
+
+.sf-comment-viewer button.sf-delete {
+  color: #c0392b;
+  border-color: #c0392b;
+}
+
+.sf-comment-viewer button.sf-delete:hover {
+  color: #e74c3c;
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.08);
+}
+
+
+/* --- 6. STALE ANNOTATIONS PANEL ----------------------------------------- */
+
+.sf-stale-panel {
+  margin-top: 3rem;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  border-left: 3px solid #e67e22;
+}
+
+.sf-stale-panel h3 {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.sf-stale-panel details { margin-bottom: 8px; }
+
+.sf-stale-panel summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.sf-stale-panel blockquote {
+  margin: 4px 0 4px 12px;
+  padding-left: 8px;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.sf-stale-panel button {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+
+/* --- 7. ANNOTATION SIDEBAR ----------------------------------------------- */
+
+.sf-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  padding-top: 44px;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  z-index: 850;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -4px 0 16px rgba(0,0,0,0.1);
+}
+
+.sf-sidebar.active {
+  transform: translateX(0);
+}
+
+.sf-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sf-sidebar-header h3 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.95em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin: 0;
+}
+
+.sf-sidebar-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.4em;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.sf-sidebar-close:hover {
+  color: var(--text);
+}
+
+.sf-sidebar-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sf-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.78em;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.03em;
+  padding: 10px 18px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.sf-filter-row:last-child {
+  border-bottom: none;
+}
+
+.sf-filter-row:hover {
+  background: var(--surface);
+}
+
+.sf-filter-row.selected {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.sf-filter-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sf-filter-label {
+  white-space: nowrap;
+}
+
+.sf-sidebar-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.sf-sidebar-empty {
+  text-align: center;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 0.85em;
+  padding: 2em 1em;
+}
+
+.sf-sidebar-card {
+  display: flex;
+  gap: 10px;
+  padding: 12px 18px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s;
+}
+
+.sf-sidebar-card:hover {
+  background: var(--surface);
+}
+
+.sf-sidebar-card:last-child {
+  border-bottom: none;
+}
+
+.sf-sidebar-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.sf-sidebar-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sf-sidebar-text {
+  font-size: 0.82em;
+  font-style: italic;
+  color: var(--text-dim);
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.sf-sidebar-comment {
+  font-size: 0.85em;
+  color: var(--text);
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.sf-sidebar-type {
+  display: inline-block;
+  font-size: 0.7em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.sf-sidebar-time {
+  font-size: 0.7em;
+  color: var(--text-dim);
+  opacity: 0.7;
+}
+
+.sf-sidebar-footer {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+/* Flash animation for scroll-to */
+@keyframes sf-flash {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0.3; }
+  50% { opacity: 1; }
+  75% { opacity: 0.3; }
+}
+
+.sf-highlight.sf-flash,
+.sf-margin-indicator.sf-flash {
+  animation: sf-flash 1.2s ease;
+}
+
+/* Mobile: bottom sheet instead of sidebar */
+@media (max-width: 639px) {
+  .sf-sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    border-radius: 12px 12px 0 0;
+    transform: translateY(100%);
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+  }
+
+  .sf-sidebar.active {
+    transform: translateY(0);
+  }
+}
+
+
+/* --- 8. PRINT AND REDUCED MOTION ---------------------------------------- */
+
+@media print {
+  /* Remove highlight tinting in print — text should read cleanly */
+  .sf-highlight { background: none !important; }
+  .sf-highlight.has-comment::after { display: none; }
+
+  /* Hide all annotation UI chrome from print output */
+  .sf-popover,
+  .sf-toolbar,
+  .sf-margin-trigger,
+  .sf-margin-indicator,
+  .sf-note-panel,
+  .sf-comment-viewer,
+  .sf-badge,
+  .sf-sidebar,
+  .sf-stale-panel { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-popover,
+  .sf-note-panel,
+  .sf-sidebar,
+  .sf-comment-viewer { animation: none; }
+
+  .sf-sidebar { transition: none; }
+}
 </style>
 </head>
-<body data-chapter="chapter-13" data-chapter-num="13" data-total-chapters="25">
+<body data-book="shared-dark" data-chapter="chapter-13" data-chapter-num="13" data-total-chapters="25">
 
 <div class="progress-bar"></div>
 
 <nav class="book-nav">
   <a href="../contents.html" class="nav-title">Shared Dark</a>
   <div class="nav-controls">
-    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
     <button class="theme-toggle" aria-label="Change theme">
       <span class="icon-light">&#9788;</span>
       <span class="icon-dark">&#9790;</span>
@@ -835,6 +1576,55 @@ body {
 <main class="reading-column chapter-content drop-cap">
 
 <h1 id="chapter-13-the-covenant">Chapter 13: The Covenant</h1>
+<section data-scene="pasta-and-wine">
+<p>She didn’t ask if he was hungry. She opened a cabinet and took down a
+box of spaghetti and set a pot of water on the burner next to the kettle
+she’d already emptied, and her movement through the kitchen — reaching,
+turning, the muscle memory of a space she’d built to hold exactly one
+person — told him more than anything she’d said in the last two
+hours.</p>
+<p>Hank got off the floor. His knees had gone stiff against the
+hardwood. Rook lifted her head to track him, then shifted her attention
+to Maren, ears forward, reading the room.</p>
+<p>Maren crushed two cloves of garlic with the flat of a knife. Olive
+oil in a pan. The garlic hit the oil and the apartment filled with a
+smell that had nothing to do with anything they’d just said to each
+other — just garlic, just oil, just heat doing what heat does to simple
+things.</p>
+<p>She found arugula in the crisper drawer, wilting at the edges. Tore
+it with her hands and set it aside.</p>
+<p>He stood by the counter and watched her work, and the watching
+required nothing and offered nothing and expected nothing, and after
+being taken apart, that was enough.</p>
+<p>The water boiled. She broke the spaghetti in half and dropped it in.
+She didn’t look at him when she said, “Wine’s on top of the fridge.”</p>
+<p>He found the bottle — a Barbera, dust on the shoulders, the kind of
+wine that gets put somewhere and forgotten until a normal evening
+demands it. He poured two glasses. Set one on the counter near her
+hand.</p>
+<p>They ate at her small table by the window. The arugula had gone in at
+the last second, barely wilted, dark green against the pale oil. The
+wine was rough and sat warm in the chest. They didn’t talk. The radiator
+ticked. Rook sighed from the living room floor. Every lamp in the
+apartment was still on, and the light was wrong — too bright, too even,
+the light of a room fortified against darkness rather than built for
+living.</p>
+<p>“Laura told me that loving me was like loving a wall,” he said.</p>
+<p>Maren looked up. Her fork was still, arugula wrapped around the
+tines.</p>
+<p>“Strong and reliable and impossible to get behind. That’s what she
+said.” He took a drink. “She was right. I watched her pack and I didn’t
+say a word, and after she left I poured a glass of water and drank it
+and went to bed.”</p>
+<p>The radiator ticked twice.</p>
+<p>“That was twelve years ago. I haven’t changed the lock.”</p>
+<p>He hadn’t meant to say any of it.</p>
+<p>Maren set her fork down. She didn’t reach for him. She just looked at
+him, direct and level, the same look he’d seen in engineers who’d
+decided a structure was worth the retrofit.</p>
+<hr />
+</section>
+<section data-scene="condiments">
 <p>He hadn’t changed the lock.</p>
 <p>She sat with that while he looked at his wine and the radiator ticked
 and the wrong light poured over everything. Twelve years. The same
@@ -881,13 +1671,13 @@ line. Turned the pepper flakes so the label faced the wall.</p>
 <p>“Leave it,” she said.</p>
 <p>He looked at her. Not the middle distance. Her. His eyes were gray
 and tired and they held the bone-deep exhaustion of a man who had just
-given someone he loved the full inventory of his damage and was waiting
-to find out what it cost.</p>
+given someone the full inventory of his damage and was waiting to find
+out what it cost.</p>
 <p>She didn’t take her hand away. His knuckles under her palm. The
 scarred thumb. The callus ridge. The hands that had carried Claire out
 of a building and called Ostrowski by name and held a jerry can in a
-dream and shook against her skin in Baltimore and were steady now,
-always steady, and she was the one who had to decide what the steadiness
+dream and shook against her skin in Baltimore and were still now, always
+still, and she was the one who had to decide what the stillness
 meant.</p>
 <p>“You don’t get to do this,” she said. “The arranging. The wall. The
 door with the same lock for twelve years.” She pressed his hand flat
@@ -900,22 +1690,25 @@ She let her fingers close around his. “I’m asking you to stay where I
 can see you — all of you, the parts that scare you too.”</p>
 <p>“That’s what you’re offering?”</p>
 <p>“That’s what I’m requiring.”</p>
-<p>His jaw loosened a quarter inch. Not the wall coming down — she’d sat
-with enough people to know that defenses built over twenty years don’t
-dissolve in an evening. But the bracing eased, the way a body changes
-when it stops expecting the blow it was certain was coming.</p>
+<p>His jaw loosened a quarter inch. She’d sat with enough people to know
+that defenses built over twenty years don’t dissolve in an evening. But
+the bracing eased — a body no longer expecting the blow it was certain
+was coming.</p>
 <p>“Okay,” he said.</p>
 <p>She held his hand on the table between the salt and the pepper and
 the jar of red pepper flakes he’d lined up with such desperate, quiet
 precision, and she thought: <em>I chose this.</em></p>
 <p>The condiments stayed where they were.</p>
+<hr />
+</section>
+<section data-scene="relief">
 <p>She didn’t take her hand away.</p>
 <p>That was the thing. Her fingers closed around his knuckles and her
 palm was warm against the scarred thumb and the callus ridge, and she
 didn’t take her hand away, and the weight of that — of being touched by
 someone who had spent two hours cataloguing every crack in his
-foundation and decided to stay in the building — settled into his chest
-like a load he hadn’t known he was bracing against.</p>
+foundation and decided to stay in the building — settled into his
+diaphragm like a load he hadn’t known he was bracing against.</p>
 <p>He turned his hand under hers. Palm to palm. Her fingers were smaller
 than his and her grip was not gentle. It was the grip of someone who had
 made a structural decision and was done reassessing.</p>
@@ -981,7 +1774,7 @@ and he put his mouth there. She shivered. Not from cold.</p>
 up along his hip and the heat of her against him — through the fabric
 still between them — emptied his head of everything except the specific
 temperature of her body against his.</p>
-<p>The rest of the clothes. His hands steady now, hers not. He felt the
+<p>The rest of the clothes. His hands sure now, hers not. He felt the
 tremor in her fingers on his belt, on the waistband, the tremor she’d
 been holding down since the table. He covered her hands with his and
 helped. She exhaled when his weight settled between her thighs — not
@@ -996,11 +1789,10 @@ her come close and pull back, come close and pull back, the rhythm of
 someone who couldn’t decide whether to let the structure fail.</p>
 <p>“Henrik.” His full name. The one nobody used.</p>
 <p>He pressed into her. Slow. The full length of him, and the heat and
-the tightness and the way her body gripped him was something his
-engineering vocabulary could not contain — not load, not tension, not
-any force he’d studied. Just her. Her body around his and her hands on
-his face and her eyes open, looking at him, not closing, not turning
-away, looking.</p>
+the tightness and her body gripping him in something his engineering
+vocabulary could not contain — something no force diagram could hold.
+Just her. Her body around his and her hands on his face and her eyes
+open, looking at him, not closing, not turning away, looking.</p>
 <p>The vulnerability of that was worse than every question she’d asked
 him on her floor.</p>
 <p>He pressed his forehead against hers and felt the architecture of
@@ -1012,6 +1804,23 @@ hooked behind his thigh. His mouth on her throat where he could feel her
 pulse, fast and hard, and the rhythm between them not urgent but
 deliberate, load-bearing, the kind of slow that holds more weight than
 speed ever could.</p>
+<p>She pulled him deeper. Her hips shifted under his and the angle
+changed and the sound she made was not quiet — raw, open-throated, the
+sound of a woman who had stopped engineering her own responses. His hand
+found the back of her thigh and held it and he pressed into her hard
+enough to feel the limit of what their bodies could close between them,
+and still she pulled, and his mouth found hers and the kiss was wet and
+graceless and tasted like both of them.</p>
+<p>He felt her body tighten around him — the slow gathering, the tremor
+that started in her thighs and moved inward, her fingers digging into
+his shoulders, her breath breaking into fragments that had no shape. She
+came with her eyes open and her hands on his face and his name in her
+mouth — two syllables with the whole weight of what she’d chosen behind
+them. He felt it in her body before he heard it — the release, the
+architecture letting go, every held thing letting go at once — and it
+broke something open in his chest that he hadn’t known was sealed, and
+he followed her, and the sound he made was nothing he’d ever heard from
+himself, and her hands held his face through all of it.</p>
 <p>Afterward he couldn’t speak. She didn’t ask him to.</p>
 <p>She lay facing the door. The hallway light was still on, and it found
 the couch through the open doorway — the blanket she’d folded for him,
@@ -1019,8 +1828,8 @@ the pillow from her own bed. The version of the evening she’d planned
 for.</p>
 <p>Her breathing was even. But her hand was gripping the edge of the
 sheet, knuckles white, tendons visible, and she didn’t seem to know she
-was doing it. The advocate’s body confessing what the advocate’s voice
-would never say.</p>
+was doing it. The advocate’s hands saying what the advocate’s voice
+would never.</p>
 <p>He covered her hand. She startled — a small, involuntary jerk — and
 her fingers released the sheet and went still under his palm.</p>
 <p>“Still you?” he said.</p>
@@ -1030,205 +1839,104 @@ turned under his and gripped his fingers with something that was not
 professional, not diagnostic. The grip of someone afraid of what she’d
 chosen, choosing it anyway, in the dark, with the couch empty and every
 wall she’d built for exactly this room standing open.</p>
-<p>The DA’s office had sent the witness prep packet — sixty-two pages
-that Maren printed at work and brought home in a three-ring binder with
-Claire Renaud’s name on the cover.</p>
+<hr />
+</section>
+<section data-scene="prep">
+<p>The DA’s office had sent the witness prep packet — sixty-two pages in
+a three-ring binder with Claire Renaud’s name on the cover.</p>
 <p>Hank was on page twelve. Not by name. By function. <em>Witness:
 structural engineer, identified building characteristics consistent with
-holding site. Deposition scheduled February 14.</em> A paragraph. A man
-reduced to what he’d contributed to the investigation.</p>
+holding site. Deposition scheduled February 14.</em></p>
 <p>She set the binder on the kitchen table between the coffee mugs and
-the legal pad and the silence that had replaced the ease they used to
-carry. The condiments were in the cabinet. She’d left them there.</p>
-<p>“The deposition’s in six weeks,” she said. “You can’t say you dreamed
-it.”</p>
-<p>He looked at her over the binder. The jaw muscle that tightened when
-he was processing load.</p>
+the silence that had replaced the ease they used to carry. The
+condiments were in the cabinet.</p>
+<p>“The deposition’s in six weeks. You can’t say you dreamed it.”</p>
+<p>The jaw muscle that tightened when he was processing load.</p>
 <p>“I know.”</p>
 <p>She walked him through the timeline. What the DA would ask. What
-defense counsel would probe. Where the story had to be airtight and
-where it could breathe.</p>
+defense counsel would probe.</p>
 <p>“You drove to Coos Bay because —”</p>
-<p>“Coastal structural surveys. I was assessing storm damage to
-residential foundations along 101.”</p>
+<p>“Coastal structural surveys. Storm damage to residential foundations
+along 101.”</p>
 <p>“You noticed the building because —”</p>
 <p>“Corrugated steel and poured slab don’t match residential builds in
-that area. The structure was inconsistent with everything around
-it.”</p>
-<p>She wrote it down. His answers were clean, precise, technically sound
-— the precise language of a man who assessed buildings for a living and
-could explain why one caught his attention in terms a jury would
-follow.</p>
-<p>She watched his hands while he talked. His knuckles resting on the
-binder’s edge. The width of his palm against the coffee mug. His hands
-were still. Competent. The hands of a man explaining his professional
-judgment.</p>
+that area.”</p>
+<p>His answers were clean, precise. She watched his hands on the
+binder’s edge — scarred thumb, callus ridge, competent and still.</p>
 <p>She trusted it. She was choosing to trust it, and the choosing sat in
-her chest like a low-grade fever — present, constant, the body’s honest
-record of what the interrogation had cost them both.</p>
+her chest like a low-grade fever.</p>
 <p>“They’ll ask how you happened to be on that road at night.”</p>
 <p>“I drive survey routes after hours when the lots are empty. Rook and
 I do site runs. It’s in my billing records.”</p>
-<p>She made a note. The pen moved even in her hand, the same careful
-pace she brought to every intake and every witness prep in a fluorescent
-room with someone whose life had cracked open.</p>
-<p>He was not a client. He was sitting at her kitchen table with his
-hands visible on the binder and the space between them was exactly the
-width of a three-ring binder and neither of them moved to close it.</p>
+<p>She made a note. He was sitting at her kitchen table and the space
+between them was the width of a three-ring binder and neither of them
+moved to close it.</p>
 <p>“February fourteenth,” she said.</p>
-<p>Something shifted in his jaw. The structural suggestion of humor.</p>
+<p>Something shifted in his jaw.</p>
 <p>“Valentine’s Day.”</p>
 <p>“Wear a tie.”</p>
-<p>She didn’t smile. But her pen stopped, and for a moment the kitchen
-was just a kitchen and the coffee was just coffee and two people were
-doing work they were good at. The competence was the bridge.</p>
-<p>The bridge held. Not the old bridge. A new one — thinner,
+<p>The competence was the bridge — thinner than the old one,
 load-tested, provisional.</p>
 <p>But it held.</p>
-<p>Rook was at the door when he got back. Head on his boots. She hadn’t
-moved them.</p>
-<p>He set down his bag and she pressed her shoulder against his shin and
-stayed there, and he stood in the doorway of his own apartment with one
-hand on her head and the other hanging at his side and looked at what
-he’d built. The topo map. The clean counter. The legal pad centered on
-the kitchen table, blank since Baltimore. Everything in its place. Load
-distributed, nothing decorative, nothing that couldn’t be removed in an
-hour.</p>
-<p>He’d designed this space the way he designed retrofits — to hold
-under stress, to flex without breaking, to need nothing it didn’t
-already have.</p>
-<p>It had worked for twelve years.</p>
-<p>He walked to the kitchen and filled Rook’s bowl and she ate without
-urgency, one kibble at a time, patient as geology. He stood at the
-counter and drank a glass of water and his hands were still on the glass
-and the stillness meant something different now.</p>
-<p>Tuesday he went back to the school retrofit. Danny had questions
-about the shear wall connections he’d left half-drawn. He answered them.
-Wednesday he submitted the Phase 2 assessment and started preliminary
-drawings for a water treatment plant in La Pine. He cooked. He ran with
-Rook in the cold mornings, the high desert air burning clean in his
-lungs, and the run felt good and the air felt right and he was aware,
-for the first time, of how much of his life was designed to feel exactly
-sufficient.</p>
+<p>“Drive safe,” she said.</p>
+<p>He drove back to Bend. Rook slept in the passenger seat. The
+mountains white against a white sky. The silence not empty but full.
+Enough. For now.</p>
 <hr />
-<p>Thursday night, the local news ran Harmon’s name.</p>
-<p>Hank was at the kitchen table with the La Pine drawings spread out,
-Rook asleep on his boots, and the television on the counter doing what
-it always did — providing noise that was not silence.</p>
-<p><em>Dale Harmon, 47, of Coos Bay, has entered a not-guilty plea in
-the kidnapping of Claire Renaud. Trial is set for March. Renaud, an
-emergency room nurse at Bay Area Hospital —</em></p>
-<p>He reached for the remote and turned it off. His hand was still. The
-apartment went quiet — just the baseboard heater ticking and Rook’s
-breathing and the absence of a newscaster’s voice saying a name he’d
-worn like a second skin.</p>
-<p>That night, the dream came fast and thin and left before he could
-hold it.</p>
-<p>The corrugated walls. The gravel floor. The space heater’s orange
-glow. But no body. No woman. No hood, no zip ties, no patient hands.
-Just the building, empty, the ocean audible through the metal siding,
-and the smell — stale air, concrete dust, the sweetness of the heater’s
-element burning dust. He stood in the center of a building he had never
-entered with his own feet and his hands were at his sides and the
-building was empty and the emptiness was not relief.</p>
-<p>He woke at 2:47. Rook was already watching him.</p>
-<p>He lay in the dark and felt the pull — faint, directional, pointed at
-Portland. At a second-floor apartment above a bookstore. At a woman who
-was probably awake with every light on.</p>
-<p>He closed his eyes. Rook put her chin on the mattress. He rested his
-hand on her head and waited for morning.</p>
-<hr />
-<p>Sunday he called his mother. She told him about the neighbor’s dog
-and the upstairs bathroom leak and he listened with the phone on the
-counter and his hands doing something else — this time wiping down the
-stovetop, which was already clean. She asked if he was eating. He said
-yes. She asked if he was seeing anyone. He said it was complicated. She
-paused long enough for him to hear her decide not to push.</p>
+</section>
+<section data-scene="return">
+<p>Rook jumped down from the truck before he’d cut the engine. Straight
+to the boots by the wall. The apartment settled around them — topo map,
+clean counter, legal pad on the kitchen table.</p>
+<p>He went back to work. The school retrofit. La Pine.</p>
+<p>Thursday night, the local news ran Harmon’s name. <em>Not-guilty
+plea. Trial set for March. Claire Renaud named.</em></p>
+<p>He turned it off.</p>
+<p>That night: the corrugated walls. The gravel floor. The space
+heater’s orange glow. But no body. No woman. No hood, no zip ties. Just
+the building, empty, the ocean through the metal siding.</p>
+<p>He woke at 2:47. The pull — faint, directional — pointed at
+Portland.</p>
+<p>Sunday his mother asked if he was seeing anyone. He said it was
+complicated.</p>
 <p>“Complicated is better than empty,” she said.</p>
-<p>After he hung up, he sat at the kitchen table with his hands flat on
-the surface and thought about the man under the Burnside Bridge.</p>
-<p>Monday morning, driving out of Portland. The rain had stopped but the
-bridge deck was still wet, tires hissing on asphalt, and the air through
-the cracked window smelled like river and diesel and the particular cold
-of concrete that never fully dries. The man was under the east end —
-blankets and a shopping cart with a blue tarp over it and a dog, some
-kind of terrier mix, brown, alert, tucked against the abutment where the
-bridge met the bank. The terrier’s ears were up. The man’s face was
-turned away, toward the river. Hank had driven past that stretch a dozen
-times on the way to job sites west of the Cascades. He’d never
-stopped.</p>
-<p>Monday he’d pulled over. Sat in the truck for two minutes with the
-engine running and the wet-concrete smell coming through the vents and
-Rook watching him from the passenger seat. The terrier watched too, ears
-forward, undecided. Then he’d driven on.</p>
-<p>He hadn’t gone to the man. Hadn’t rolled down the window or offered
-anything. He’d just stopped. Noticed. Let his foot come off the gas and
-his hands turn the wheel and his truck idle on the shoulder for two
-minutes while something behind his sternum resettled around the fact
-that the man was there.</p>
-<p>That was the shift. Not what he’d done. What he’d seen.</p>
+<hr />
+</section>
+<section data-scene="nineteen-days-2">
 <p>Nineteen days.</p>
-<p>They talked on the phone. Not every night — some nights Maren worked
-late and came home to the apartment smelling like the bookstore had
-exhaled, and she made tea and sat by the window and didn’t call because
-the silence was enough. Some nights Hank called her, and she could hear
-Rook’s nails on hardwood in the background, and they said nothing
-important, and nothing important was fine.</p>
-<p>She told him about the Huang case. He told her about the water
-treatment plant in La Pine, the way the original foundation had been
-poured without rebar, the whole building balanced on hope and inertia.
-She laughed at that. He was quiet after she laughed, and then he said,
-“Do that again.”</p>
-<p>She didn’t.</p>
-<p>But she smiled into the phone and he probably heard it anyway.</p>
-<p>He told her other things, in the margins of those calls. That Rook
-had claimed the couch — not the dog bed, the couch — and that he’d
-stopped arguing about it. That he’d cooked something with actual
-vegetables, and it hadn’t killed him. That his hands weren’t shaking. He
-said it plainly, and she heard what he meant underneath: the dreams
-hadn’t come back. His hands were his own. He was sleeping through the
-night and waking up in his own body and the water in the shower was
-warm, not scalding. She held the phone against her ear and listened to
-him not say the word <em>normal</em> and understood that he was trying
-it on, testing it like a coat he wasn’t sure fit anymore.</p>
-<p>They didn’t visit. Not because the distance had returned — it hadn’t.
-The three hours between Portland and Bend sat in a different register
-now. Not a wall. Not a silence. Something more like the space between
-breaths, when the lungs are full and the body is deciding what to spend
-the next exhale on.</p>
-<p>She worked. The Delgado case closed — guilty plea, eighteen months,
-protective order permanent. Sofia Delgado came to Maren’s office on a
-Tuesday and sat in the same chair and looked up for the first time and
-said, “What do I do now?” Maren told her the truth: “Whatever you want.
-That’s the whole point.”</p>
-<p>She went home. She bought groceries like a person who planned to eat
-them — not the crisis pantry of canned soup and crackers she’d lived on
-during Baltimore, but actual food. Onions, garlic, the good pasta from
-the Italian place on Hawthorne. She cooked with the windows cracked and
-the street noise coming in and no urgency in her hands. She ran in the
-mornings along the waterfront when the rain was light enough, the river
-flat and gray and going somewhere without urgency. She slept without
-dreaming and she woke without pressing her palms into the mattress, and
-the absence of the ritual felt like standing in a building after the
-tremor has passed — everything still, everything holding, but the body
-remembering.</p>
-<p>On the fourteenth day she booked a flight. Portland to Boise, two
-seats, side by side. No one in the second seat. She didn’t tell Hank.
-She sat at her kitchen table with the confirmation email on her screen
-and thought about what it would mean to go somewhere together that had
-nothing to do with a crime scene or a parking garage dream or the
-remembered weight of someone else’s hands on her body. What it would
-mean to sit next to him at thirty thousand feet and watch him read or
-not read and just be a woman on a plane with a man she’d chosen.</p>
-<p>She didn’t book the return.</p>
+<p>They talked on the phone. Not every night — some nights the silence
+was enough.</p>
+<p>Tuesday of the second week, she called at nine. Couch, chamomile
+going cold.</p>
+<p>He picked up on the first ring.</p>
+<p>“Hey.”</p>
+<p>“Hey.”</p>
+<p>She told him about the woman at the coffee shop who’d ordered a
+twelve-word drink and changed three. He told her Rook had found a tennis
+ball under the porch and placed it on his boot with diplomatic gravity.
+He went quiet and then laughed — low, short, surprised out of him.</p>
+<p>“What are you working on?”</p>
+<p>“La Pine drawings. The original engineer spec’d the outflow pipe at
+six inches. Should be eight.”</p>
+<p>“That sounds like a metaphor.”</p>
+<p>“It’s a damn pipe.”</p>
+<p>“Goodnight, Maren.”</p>
+<p>“Goodnight.”</p>
+<p>He told her other things in the margins of those calls. That his
+hands weren’t shaking. That the dreams hadn’t come back. He was trying
+<em>normal</em> on.</p>
+<p>She worked. She ran. She slept without dreaming, and the absence sat
+in her like standing in a building after the tremor has passed —
+everything holding, but the body remembering.</p>
+<p>On the fourteenth day she booked a flight to Boise. No return.</p>
+<hr />
 <p>On the nineteenth night, her phone rang at 3:47 AM. She was already
-awake. Her feet were on the floor and her hands were shaking and she
-could taste something in the back of her throat that she would later
-identify as the chemical residue of a room that had never held fresh
-air.</p>
+awake. Feet on the floor, hands shaking, something chemical at the back
+of her throat.</p>
 <p>“Hank.”</p>
-<p>“It’s bad.” His voice was stripped to the studs. “It’s the worst one
+<p>“It’s bad.” His voice stripped to the studs. “It’s the worst one
 yet.”</p>
+</section>
 </main>
 
 <nav class="chapter-nav">
@@ -1243,31 +1951,31 @@ yet.”</p>
     <h2>Contents</h2>
     <div class="toc-contents">
   <ol class="toc-list">
-    <li><a href="chapter-01.html" data-chapter="chapter-01">Claire's Cold</a></li>
-    <li><a href="chapter-02.html" data-chapter="chapter-02">The Advocate</a></li>
-    <li><a href="chapter-03.html" data-chapter="chapter-03">The Diner</a></li>
-    <li><a href="chapter-04.html" data-chapter="chapter-04">The Dark Road</a></li>
-    <li><a href="chapter-05.html" data-chapter="chapter-05">Claire</a></li>
-    <li><a href="chapter-06.html" data-chapter="chapter-06">The Fire</a></li>
-    <li><a href="chapter-07.html" data-chapter="chapter-07">Fells Point</a></li>
-    <li><a href="chapter-08.html" data-chapter="chapter-08">Watching Ostrowski</a></li>
-    <li><a href="chapter-09.html" data-chapter="chapter-09">Collision</a></li>
-    <li><a href="chapter-10.html" data-chapter="chapter-10">Leaving Baltimore</a></li>
-    <li><a href="chapter-11.html" data-chapter="chapter-11">Every Light On</a></li>
-    <li><a href="chapter-12.html" data-chapter="chapter-12">The Interrogation</a></li>
-    <li><a href="chapter-13.html" data-chapter="chapter-13">The Covenant</a></li>
-    <li><a href="chapter-14.html" data-chapter="chapter-14">Waves</a></li>
-    <li><a href="chapter-15.html" data-chapter="chapter-15">The Sig Sauer</a></li>
-    <li><a href="chapter-16.html" data-chapter="chapter-16">Inside Riedel</a></li>
-    <li><a href="chapter-17.html" data-chapter="chapter-17">The Shell Company</a></li>
-    <li><a href="chapter-18.html" data-chapter="chapter-18">The Decision</a></li>
-    <li><a href="chapter-19.html" data-chapter="chapter-19">My Name Is</a></li>
-    <li><a href="chapter-20.html" data-chapter="chapter-20">Four Children</a></li>
-    <li><a href="chapter-21.html" data-chapter="chapter-21">Rachel</a></li>
-    <li><a href="chapter-22.html" data-chapter="chapter-22">Deena</a></li>
-    <li><a href="chapter-23.html" data-chapter="chapter-23">Your Turn</a></li>
-    <li><a href="chapter-24.html" data-chapter="chapter-24">Carbonara</a></li>
-    <li><a href="chapter-25.html" data-chapter="chapter-25">The Morning Watch</a></li>
+    <li><a href="chapter-01.html" data-book="shared-dark" data-chapter="chapter-01">Claire's Cold</a></li>
+    <li><a href="chapter-02.html" data-book="shared-dark" data-chapter="chapter-02">The Advocate</a></li>
+    <li><a href="chapter-03.html" data-book="shared-dark" data-chapter="chapter-03">The Diner</a></li>
+    <li><a href="chapter-04.html" data-book="shared-dark" data-chapter="chapter-04">The Dark Road</a></li>
+    <li><a href="chapter-05.html" data-book="shared-dark" data-chapter="chapter-05">Claire</a></li>
+    <li><a href="chapter-06.html" data-book="shared-dark" data-chapter="chapter-06">The Fire</a></li>
+    <li><a href="chapter-07.html" data-book="shared-dark" data-chapter="chapter-07">Fells Point</a></li>
+    <li><a href="chapter-08.html" data-book="shared-dark" data-chapter="chapter-08">Watching Ostrowski</a></li>
+    <li><a href="chapter-09.html" data-book="shared-dark" data-chapter="chapter-09">Collision</a></li>
+    <li><a href="chapter-10.html" data-book="shared-dark" data-chapter="chapter-10">Leaving Baltimore</a></li>
+    <li><a href="chapter-11.html" data-book="shared-dark" data-chapter="chapter-11">Every Light On</a></li>
+    <li><a href="chapter-12.html" data-book="shared-dark" data-chapter="chapter-12">The Interrogation</a></li>
+    <li><a href="chapter-13.html" data-book="shared-dark" data-chapter="chapter-13">The Covenant</a></li>
+    <li><a href="chapter-14.html" data-book="shared-dark" data-chapter="chapter-14">Waves</a></li>
+    <li><a href="chapter-15.html" data-book="shared-dark" data-chapter="chapter-15">The Sig Sauer</a></li>
+    <li><a href="chapter-16.html" data-book="shared-dark" data-chapter="chapter-16">Inside Riedel</a></li>
+    <li><a href="chapter-17.html" data-book="shared-dark" data-chapter="chapter-17">Friday</a></li>
+    <li><a href="chapter-18.html" data-book="shared-dark" data-chapter="chapter-18">The Property</a></li>
+    <li><a href="chapter-19.html" data-book="shared-dark" data-chapter="chapter-19">My Name Is</a></li>
+    <li><a href="chapter-20.html" data-book="shared-dark" data-chapter="chapter-20">Four Children</a></li>
+    <li><a href="chapter-21.html" data-book="shared-dark" data-chapter="chapter-21">Rachel</a></li>
+    <li><a href="chapter-22.html" data-book="shared-dark" data-chapter="chapter-22">Deena</a></li>
+    <li><a href="chapter-23.html" data-book="shared-dark" data-chapter="chapter-23">Your Turn</a></li>
+    <li><a href="chapter-24.html" data-book="shared-dark" data-chapter="chapter-24">Carbonara</a></li>
+    <li><a href="chapter-25.html" data-book="shared-dark" data-chapter="chapter-25">The Morning Watch</a></li>
   </ol>
 
     </div>
@@ -1516,7 +2224,6 @@ yet.”</p>
   // ---------------------------------------------------------------------------
 
   var tocOverlay = document.querySelector('.toc-overlay');
-  var tocToggle = document.querySelector('.toc-toggle');
 
   function toggleToc() {
     if (!tocOverlay) return;
@@ -1536,10 +2243,6 @@ yet.”</p>
     tocOverlay.classList.remove('active');
   }
 
-  if (tocToggle) {
-    tocToggle.addEventListener('click', toggleToc);
-  }
-
   // Close on backdrop click (click on the overlay itself, not its children).
   if (tocOverlay) {
     tocOverlay.addEventListener('click', function (e) {
@@ -1555,10 +2258,17 @@ yet.”</p>
   var totalChapters = document.body.getAttribute('data-total-chapters');
 
   if (chapterNum && totalChapters && bookNav) {
-    var info = document.createElement('span');
+    var info = document.createElement('button');
     info.className = 'chapter-info';
     info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
-    bookNav.appendChild(info);
+    info.setAttribute('aria-label', 'Table of contents');
+    info.addEventListener('click', toggleToc);
+    var navControls = bookNav.querySelector('.nav-controls');
+    if (navControls) {
+      bookNav.insertBefore(info, navControls);
+    } else {
+      bookNav.appendChild(info);
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -1591,6 +2301,1563 @@ yet.”</p>
   }
 
   highlightCurrentChapter();
+
+})();
+// Storyforge Annotation Overlay — loaded when --annotate is active
+(function() {
+  'use strict';
+
+  var bookSlug = document.body.dataset.book || 'unknown';
+  var chapterSlug = document.body.dataset.chapter || 'unknown';
+  var STORAGE_PREFIX = 'storyforge-annotations-' + bookSlug + '-';
+
+  var HIGHLIGHT_COLORS = [
+    { id: 'yellow', label: 'Important', color: '#fcd44f' },
+    { id: 'pink', label: 'Needs Revision', color: '#e8819a' },
+    { id: 'green', label: 'Strong Passage', color: '#6dca6d' },
+    { id: 'blue', label: 'Research Needed', color: '#78b4ff' },
+    { id: 'orange', label: 'Cut / Reconsider', color: '#f0a840' }
+  ];
+
+  // =========================================================================
+  // 1. UUID GENERATOR
+  // =========================================================================
+
+  function uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
+  // =========================================================================
+  // 2. STORAGE FUNCTIONS
+  // =========================================================================
+
+  function storageKey() {
+    return STORAGE_PREFIX + chapterSlug;
+  }
+
+  function loadAnnotations() {
+    try {
+      var raw = localStorage.getItem(storageKey());
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveAnnotations(annotations) {
+    try {
+      localStorage.setItem(storageKey(), JSON.stringify(annotations));
+    } catch (e) {
+      console.warn('[Storyforge Annotations] localStorage full — could not save annotations.', e);
+    }
+  }
+
+  function addAnnotation(annotation) {
+    var annotations = loadAnnotations();
+    annotations.push(annotation);
+    saveAnnotations(annotations);
+    return annotation;
+  }
+
+  function updateAnnotation(id, updates) {
+    var annotations = loadAnnotations();
+    for (var i = 0; i < annotations.length; i++) {
+      if (annotations[i].id === id) {
+        for (var key in updates) {
+          if (Object.prototype.hasOwnProperty.call(updates, key)) {
+            annotations[i][key] = updates[key];
+          }
+        }
+        break;
+      }
+    }
+    saveAnnotations(annotations);
+  }
+
+  function deleteAnnotation(id) {
+    var annotations = loadAnnotations();
+    saveAnnotations(annotations.filter(function(a) { return a.id !== id; }));
+  }
+
+  // =========================================================================
+  // 3. DOM HELPERS
+  // =========================================================================
+
+  var BLOCK_SELECTOR = 'p, blockquote, ul, ol, h1, h2, h3, h4, h5, h6';
+
+  function getSceneForNode(node) {
+    var el = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+    while (el && el !== document.body) {
+      if (el.dataset && el.dataset.scene !== undefined) {
+        return el.dataset.scene;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function getParagraphIndex(node, scene) {
+    var section = document.querySelector('[data-scene="' + scene + '"]');
+    if (!section) return -1;
+
+    var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+    var el = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+
+    // Walk up to find a direct block child of the section
+    while (el && el.parentElement !== section) {
+      el = el.parentElement;
+    }
+    if (!el) return -1;
+
+    for (var i = 0; i < blocks.length; i++) {
+      if (blocks[i] === el) return i;
+    }
+    return -1;
+  }
+
+  function getBlockByIndex(scene, index) {
+    var section = document.querySelector('[data-scene="' + scene + '"]');
+    if (!section) return null;
+    var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+    return blocks[index] || null;
+  }
+
+  // =========================================================================
+  // 4. HIGHLIGHT RENDERING
+  // =========================================================================
+
+  function renderHighlight(annotation) {
+    if (annotation.type === 'margin-note') return;
+
+    var anchor = annotation.anchor;
+    if (!anchor) return;
+
+    var block = getBlockByIndex(annotation.scene, anchor.paragraphIndex);
+    if (!block) return;
+
+    try {
+      // Use TreeWalker to find the text nodes covering the start/end offsets
+      // offsets are relative to the block's full text content
+      var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null, false);
+      var startNode = null, endNode = null;
+      var startOffset = 0, endOffset = 0;
+      var charCount = 0;
+      var node;
+
+      while ((node = walker.nextNode())) {
+        var nodeLen = node.nodeValue.length;
+        if (startNode === null && charCount + nodeLen > anchor.startOffset) {
+          startNode = node;
+          startOffset = anchor.startOffset - charCount;
+        }
+        if (endNode === null && charCount + nodeLen >= anchor.endOffset) {
+          endNode = node;
+          endOffset = anchor.endOffset - charCount;
+          break;
+        }
+        charCount += nodeLen;
+      }
+
+      if (!startNode || !endNode) return;
+
+      var range = document.createRange();
+      range.setStart(startNode, startOffset);
+      range.setEnd(endNode, endOffset);
+
+      var span = document.createElement('span');
+      span.className = 'sf-highlight';
+      if (annotation.comment) span.classList.add('has-comment');
+      span.dataset.annotationId = annotation.id;
+      span.dataset.color = annotation.color || 'yellow';
+      var hlColorObj = HIGHLIGHT_COLORS.find(function(c) { return c.id === (annotation.color || 'yellow'); });
+      if (hlColorObj) span.style.setProperty('--sf-hl-color', hlColorObj.color);
+      range.surroundContents(span);
+    } catch (e) {
+      // Cross-element or other range errors — skip silently
+    }
+  }
+
+  function renderAllHighlights() {
+    var annotations = loadAnnotations();
+    annotations.forEach(function(a) {
+      if (a.type !== 'margin-note') renderHighlight(a);
+    });
+  }
+
+  // =========================================================================
+  // 5. DESKTOP POPOVER
+  // =========================================================================
+
+  var activePopover = null;
+
+  function removePopover() {
+    if (activePopover && activePopover.parentNode) {
+      activePopover.parentNode.removeChild(activePopover);
+    }
+    activePopover = null;
+  }
+
+  function buildColorPicker(onColorClick) {
+    var picker = document.createElement('div');
+    picker.className = 'sf-color-picker';
+    HIGHLIGHT_COLORS.forEach(function(c) {
+      var swatch = document.createElement('button');
+      swatch.className = 'sf-color-swatch';
+      swatch.style.backgroundColor = c.color;
+      swatch.title = c.label;
+      swatch.dataset.color = c.id;
+      swatch.addEventListener('click', function(e) {
+        e.stopPropagation();
+        onColorClick(c.id);
+      });
+      picker.appendChild(swatch);
+    });
+    return picker;
+  }
+
+  function showPopover(x, y, range) {
+    removePopover();
+
+    var popover = document.createElement('div');
+    popover.className = 'sf-popover sf-popover-colors';
+    popover.style.top = (y + window.scrollY) + 'px';
+    popover.style.left = (x + window.scrollX) + 'px';
+
+    var picker = buildColorPicker(function(colorId) {
+      createHighlightFromRange(range, '', colorId);
+      removePopover();
+    });
+    popover.appendChild(picker);
+
+    var noteBtn = document.createElement('button');
+    noteBtn.className = 'sf-popover-note';
+    noteBtn.textContent = 'Note';
+    noteBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showCommentInput(popover, range);
+    });
+    popover.appendChild(noteBtn);
+
+    document.body.appendChild(popover);
+    activePopover = popover;
+  }
+
+  function addTextareaShortcuts(textarea, onSave, onCancel) {
+    textarea.addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        onSave();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        onCancel();
+      }
+    });
+  }
+
+  function showCommentInput(popover, range) {
+    while (popover.firstChild) popover.removeChild(popover.firstChild);
+    popover.className = 'sf-popover';
+
+    var selectedColor = 'yellow';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-comment-input';
+
+    var picker = buildColorPicker(function(colorId) {
+      selectedColor = colorId;
+      var swatches = picker.querySelectorAll('.sf-color-swatch');
+      swatches.forEach(function(s) {
+        if (s.dataset.color === colorId) s.classList.add('selected');
+        else s.classList.remove('selected');
+      });
+    });
+    // Default select yellow
+    var defaultSwatch = picker.querySelector('[data-color="yellow"]');
+    if (defaultSwatch) defaultSwatch.classList.add('selected');
+    wrap.appendChild(picker);
+
+    var textarea = document.createElement('textarea');
+    textarea.placeholder = 'Add a comment…';
+    textarea.rows = 3;
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removePopover();
+      window.getSelection().removeAllRanges();
+    });
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      createHighlightFromRange(range, textarea.value.trim(), selectedColor);
+      removePopover();
+    });
+
+    addTextareaShortcuts(textarea, function() {
+      createHighlightFromRange(range, textarea.value.trim(), selectedColor);
+      removePopover();
+    }, function() {
+      removePopover();
+      window.getSelection().removeAllRanges();
+    });
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    wrap.appendChild(textarea);
+    wrap.appendChild(actions);
+    popover.appendChild(wrap);
+    textarea.focus();
+  }
+
+  function getTextOffsets(block, range) {
+    // Walk text nodes in block to compute character offsets for start/end
+    var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null, false);
+    var startOffset = 0, endOffset = 0;
+    var charCount = 0;
+    var node;
+
+    while ((node = walker.nextNode())) {
+      var nodeLen = node.nodeValue.length;
+      if (node === range.startContainer) {
+        startOffset = charCount + range.startOffset;
+      }
+      if (node === range.endContainer) {
+        endOffset = charCount + range.endOffset;
+        break;
+      }
+      charCount += nodeLen;
+    }
+    return { startOffset: startOffset, endOffset: endOffset };
+  }
+
+  function createHighlightFromRange(range, comment, color) {
+    try {
+      var startNode = range.startContainer;
+      var scene = getSceneForNode(startNode);
+      if (!scene) return;
+
+      var paragraphIndex = getParagraphIndex(startNode, scene);
+      if (paragraphIndex < 0) return;
+
+      var block = getBlockByIndex(scene, paragraphIndex);
+      if (!block) return;
+
+      var offsets = getTextOffsets(block, range);
+      var selectedText = range.toString();
+
+      var annotation = {
+        id: uuid(),
+        type: comment ? 'comment' : 'highlight',
+        chapter: chapterSlug,
+        scene: scene,
+        anchor: {
+          paragraphIndex: paragraphIndex,
+          startOffset: offsets.startOffset,
+          endOffset: offsets.endOffset
+        },
+        selectedText: selectedText,
+        comment: comment,
+        color: color || 'yellow',
+        createdAt: new Date().toISOString()
+      };
+
+      addAnnotation(annotation);
+      renderHighlight(annotation);
+      updateBadge();
+      window.getSelection().removeAllRanges();
+    } catch (e) {
+      console.warn('[Storyforge Annotations] createHighlightFromRange error:', e);
+    }
+  }
+
+  // Desktop mouseup listener
+  document.addEventListener('mouseup', function(e) {
+    if (window.innerWidth < 640) return;
+    if (activePopover && activePopover.contains(e.target)) return;
+
+    var selection = window.getSelection();
+    if (!selection || selection.isCollapsed || !selection.toString().trim()) return;
+
+    var range = selection.getRangeAt(0);
+    var container = range.commonAncestorContainer;
+    var el = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+    if (!el.closest('.chapter-content')) return;
+
+    var rect = range.getBoundingClientRect();
+    showPopover(rect.left, rect.top - 50, range.cloneRange());
+  });
+
+  // Desktop mousedown listener — close popover when clicking outside
+  document.addEventListener('mousedown', function(e) {
+    if (window.innerWidth < 640) return;
+    if (activePopover && !activePopover.contains(e.target)) {
+      removePopover();
+    }
+  });
+
+  // =========================================================================
+  // 6. MOBILE TOOLBAR
+  // =========================================================================
+
+  var toolbar = null;
+  var pendingRange = null;
+
+  function createToolbar() {
+    if (window.innerWidth >= 640) return;
+    if (toolbar) return;
+
+    toolbar = document.createElement('div');
+    toolbar.className = 'sf-toolbar';
+
+    var hlBtn = document.createElement('button');
+    hlBtn.className = 'sf-hidden';
+    hlBtn.dataset.action = 'highlight';
+    hlBtn.textContent = 'Highlight';
+    hlBtn.addEventListener('click', function() {
+      if (pendingRange) {
+        showMobileColorPicker(pendingRange);
+      }
+    });
+
+    var cmBtn = document.createElement('button');
+    cmBtn.className = 'sf-hidden';
+    cmBtn.dataset.action = 'comment';
+    cmBtn.textContent = 'Comment';
+    cmBtn.addEventListener('click', function() {
+      if (pendingRange) {
+        showMobileCommentInput(pendingRange);
+      }
+    });
+
+    var noteBtn = document.createElement('button');
+    noteBtn.dataset.action = 'note';
+    noteBtn.textContent = '+ Note';
+    noteBtn.addEventListener('click', function() {
+      showMobileMarginInput();
+    });
+
+    toolbar.appendChild(hlBtn);
+    toolbar.appendChild(cmBtn);
+    toolbar.appendChild(noteBtn);
+    document.body.appendChild(toolbar);
+  }
+
+  document.addEventListener('selectionchange', function() {
+    if (window.innerWidth >= 640) return;
+    if (!toolbar) return;
+
+    var selection = window.getSelection();
+    if (!selection || selection.isCollapsed || !selection.toString().trim()) {
+      // Delay hide to allow tap registration
+      setTimeout(function() {
+        var sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+          var hlBtn = toolbar.querySelector('[data-action="highlight"]');
+          var cmBtn = toolbar.querySelector('[data-action="comment"]');
+          if (hlBtn) hlBtn.classList.add('sf-hidden');
+          if (cmBtn) cmBtn.classList.add('sf-hidden');
+        }
+      }, 200);
+      return;
+    }
+
+    var range = selection.getRangeAt(0);
+    var container = range.commonAncestorContainer;
+    var el = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+    if (!el.closest('.chapter-content')) return;
+
+    pendingRange = range.cloneRange();
+    var hlBtn = toolbar.querySelector('[data-action="highlight"]');
+    var cmBtn = toolbar.querySelector('[data-action="comment"]');
+    if (hlBtn) hlBtn.classList.remove('sf-hidden');
+    if (cmBtn) cmBtn.classList.remove('sf-hidden');
+  });
+
+  function clearMobileSelection() {
+    window.getSelection().removeAllRanges();
+    pendingRange = null;
+    if (!toolbar) return;
+    var hlBtn = toolbar.querySelector('[data-action="highlight"]');
+    var cmBtn = toolbar.querySelector('[data-action="comment"]');
+    if (hlBtn) hlBtn.classList.add('sf-hidden');
+    if (cmBtn) cmBtn.classList.add('sf-hidden');
+  }
+
+  function showMobileColorPicker(range) {
+    if (!toolbar) return;
+    while (toolbar.firstChild) toolbar.removeChild(toolbar.firstChild);
+
+    var picker = buildColorPicker(function(colorId) {
+      createHighlightFromRange(range, '', colorId);
+      clearMobileSelection();
+      rebuildToolbar();
+    });
+    toolbar.appendChild(picker);
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.style.fontSize = '0.78em';
+    cancelBtn.addEventListener('click', function() {
+      clearMobileSelection();
+      rebuildToolbar();
+    });
+    toolbar.appendChild(cancelBtn);
+  }
+
+  function showMobileCommentInput(range) {
+    if (!toolbar) return;
+    while (toolbar.firstChild) toolbar.removeChild(toolbar.firstChild);
+
+    var selectedColor = 'yellow';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-comment-input';
+    wrap.style.width = '100%';
+
+    var picker = buildColorPicker(function(colorId) {
+      selectedColor = colorId;
+      var swatches = picker.querySelectorAll('.sf-color-swatch');
+      swatches.forEach(function(s) {
+        if (s.dataset.color === colorId) s.classList.add('selected');
+        else s.classList.remove('selected');
+      });
+    });
+    var defaultSwatch = picker.querySelector('[data-color="yellow"]');
+    if (defaultSwatch) defaultSwatch.classList.add('selected');
+    wrap.appendChild(picker);
+
+    var textarea = document.createElement('textarea');
+    textarea.placeholder = 'Add a comment…';
+    textarea.rows = 2;
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function() {
+      clearMobileSelection();
+      rebuildToolbar();
+    });
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function() {
+      createHighlightFromRange(range, textarea.value.trim(), selectedColor);
+      rebuildToolbar();
+    });
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    wrap.appendChild(textarea);
+    wrap.appendChild(actions);
+    toolbar.appendChild(wrap);
+    textarea.focus();
+  }
+
+  function rebuildToolbar() {
+    if (toolbar && toolbar.parentNode) {
+      toolbar.parentNode.removeChild(toolbar);
+    }
+    toolbar = null;
+    pendingRange = null;
+    createToolbar();
+  }
+
+  // =========================================================================
+  // 7. MARGIN NOTES
+  // =========================================================================
+
+  function setupMarginTriggers() {
+    if (window.innerWidth < 640) return; // Desktop only
+
+    var sections = document.querySelectorAll('[data-scene]');
+    sections.forEach(function(section) {
+      var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+      blocks.forEach(function(block, index) {
+        block.style.position = 'relative';
+
+        var trigger = document.createElement('button');
+        trigger.className = 'sf-margin-trigger';
+        trigger.textContent = '+';
+        trigger.title = 'Add margin note';
+        trigger.setAttribute('aria-label', 'Add margin note');
+
+        var scene = section.dataset.scene;
+        trigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          showMarginNoteInput(scene, index, block);
+        });
+
+        block.appendChild(trigger);
+      });
+    });
+  }
+
+  function showMarginNoteInput(scene, paragraphIndex, block) {
+    // Remove any existing note panel
+    var existing = document.querySelector('.sf-note-panel');
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+    var panel = document.createElement('div');
+    panel.className = 'sf-note-panel';
+
+    // Color picker
+    var selectedColor = 'yellow';
+    var colorPicker = document.createElement('div');
+    colorPicker.className = 'sf-color-picker';
+    colorPicker.style.marginBottom = '8px';
+    HIGHLIGHT_COLORS.forEach(function(c) {
+      var swatch = document.createElement('button');
+      swatch.className = 'sf-color-swatch';
+      if (c.id === selectedColor) swatch.classList.add('selected');
+      swatch.style.backgroundColor = c.color;
+      swatch.title = c.label;
+      swatch.addEventListener('click', function(e) {
+        e.preventDefault();
+        selectedColor = c.id;
+        colorPicker.querySelectorAll('.sf-color-swatch').forEach(function(s) { s.classList.remove('selected'); });
+        swatch.classList.add('selected');
+      });
+      colorPicker.appendChild(swatch);
+    });
+    panel.appendChild(colorPicker);
+
+    var textarea = document.createElement('textarea');
+    textarea.placeholder = 'Add a margin note…';
+    textarea.rows = 3;
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    function saveMarginNote() {
+      var text = textarea.value.trim();
+      if (!text) return;
+
+      var annotation = {
+        id: uuid(),
+        type: 'margin-note',
+        chapter: chapterSlug,
+        scene: scene,
+        anchor: { paragraphIndex: paragraphIndex },
+        comment: text,
+        color: selectedColor,
+        createdAt: new Date().toISOString()
+      };
+
+      addAnnotation(annotation);
+      if (panel.parentNode) panel.parentNode.removeChild(panel);
+      renderMarginIndicator(annotation, block);
+      updateBadge();
+    }
+
+    function cancelMarginNote() {
+      if (panel.parentNode) panel.parentNode.removeChild(panel);
+    }
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', cancelMarginNote);
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', saveMarginNote);
+
+    addTextareaShortcuts(textarea, saveMarginNote, cancelMarginNote);
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    panel.appendChild(textarea);
+    panel.appendChild(actions);
+
+    block.insertAdjacentElement('afterend', panel);
+    textarea.focus();
+  }
+
+  function showMobileMarginInput() {
+    var viewportCenter = window.innerHeight / 2;
+    var sections = document.querySelectorAll('[data-scene]');
+    var closestBlock = null;
+    var closestScene = null;
+    var closestIndex = -1;
+    var closestDist = Infinity;
+
+    sections.forEach(function(section) {
+      var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+      blocks.forEach(function(block, index) {
+        var rect = block.getBoundingClientRect();
+        var blockCenter = (rect.top + rect.bottom) / 2;
+        var dist = Math.abs(blockCenter - viewportCenter);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestBlock = block;
+          closestScene = section.dataset.scene;
+          closestIndex = index;
+        }
+      });
+    });
+
+    if (closestBlock) {
+      showMarginNoteInput(closestScene, closestIndex, closestBlock);
+    }
+  }
+
+  function renderMarginIndicator(annotation, block) {
+    var indicator = document.createElement('span');
+    indicator.className = 'sf-margin-indicator';
+    indicator.textContent = '✎';
+    indicator.dataset.annotationId = annotation.id;
+    indicator.title = annotation.comment;
+    var colorObj = HIGHLIGHT_COLORS.find(function(c) { return c.id === (annotation.color || 'yellow'); });
+    if (colorObj) indicator.style.backgroundColor = colorObj.color;
+    indicator.setAttribute('role', 'button');
+    indicator.setAttribute('tabindex', '0');
+    indicator.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showCommentViewer(annotation, indicator);
+    });
+    block.style.position = 'relative';
+    block.appendChild(indicator);
+  }
+
+  function renderAllMarginNotes() {
+    var annotations = loadAnnotations();
+    annotations.forEach(function(a) {
+      if (a.type !== 'margin-note') return;
+      var block = getBlockByIndex(a.scene, a.anchor.paragraphIndex);
+      if (block) renderMarginIndicator(a, block);
+    });
+  }
+
+  // =========================================================================
+  // 8. COMMENT VIEWER
+  // =========================================================================
+
+  var activeViewer = null;
+
+  function removeViewer() {
+    if (activeViewer && activeViewer.parentNode) {
+      activeViewer.parentNode.removeChild(activeViewer);
+    }
+    activeViewer = null;
+  }
+
+  function showCommentViewer(annotation, targetEl) {
+    removeViewer();
+
+    var viewer = document.createElement('div');
+    viewer.className = 'sf-comment-viewer';
+
+    var rect = targetEl.getBoundingClientRect();
+    viewer.style.top = (rect.bottom + window.scrollY + 6) + 'px';
+    viewer.style.left = (rect.left + window.scrollX) + 'px';
+
+    if (annotation.comment) {
+      var commentP = document.createElement('p');
+      commentP.textContent = annotation.comment;
+      viewer.appendChild(commentP);
+    }
+
+    if (annotation.selectedText && (annotation.comment || annotation.type === 'margin-note')) {
+      var quoteP = document.createElement('p');
+      quoteP.style.fontStyle = 'italic';
+      quoteP.style.color = 'var(--text-dim)';
+      var text = annotation.selectedText;
+      if (text.length > 100) text = text.slice(0, 100) + '…';
+      quoteP.textContent = '\u201c' + text + '\u201d';
+      viewer.appendChild(quoteP);
+    }
+
+    if (annotation.createdAt) {
+      var timeEl = document.createElement('time');
+      timeEl.className = 'sf-timestamp';
+      var date = new Date(annotation.createdAt);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12 || 12;
+      var minStr = minutes < 10 ? '0' + minutes : minutes;
+      timeEl.textContent = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' at ' + hours + ':' + minStr + ' ' + ampm;
+      timeEl.setAttribute('datetime', annotation.createdAt);
+      viewer.appendChild(timeEl);
+    }
+
+    // Color picker
+    {
+      var colorRow = document.createElement('div');
+      colorRow.className = 'sf-color-picker';
+      colorRow.style.marginBottom = '8px';
+      HIGHLIGHT_COLORS.forEach(function(c) {
+        var swatch = document.createElement('button');
+        swatch.className = 'sf-color-swatch';
+        if ((annotation.color || 'yellow') === c.id) swatch.classList.add('selected');
+        swatch.style.backgroundColor = c.color;
+        swatch.title = c.label;
+        swatch.addEventListener('click', function(e) {
+          e.stopPropagation();
+          annotation.color = c.id;
+          updateAnnotation(annotation.id, { color: c.id });
+          var hlSpan = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+          if (hlSpan) {
+            hlSpan.dataset.color = c.id;
+            hlSpan.style.setProperty('--sf-hl-color', c.color);
+          }
+          var indEl = document.querySelector('.sf-margin-indicator[data-annotation-id="' + annotation.id + '"]');
+          if (indEl) indEl.style.backgroundColor = c.color;
+          // Update selected state
+          colorRow.querySelectorAll('.sf-color-swatch').forEach(function(s) { s.classList.remove('selected'); });
+          swatch.classList.add('selected');
+          updateBadge();
+        });
+        colorRow.appendChild(swatch);
+      });
+      viewer.appendChild(colorRow);
+    }
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showEditInput(annotation, targetEl);
+    });
+
+    var deleteBtn = document.createElement('button');
+    deleteBtn.className = 'sf-delete';
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      deleteAnnotation(annotation.id);
+
+      // Unwrap highlight span or remove margin indicator
+      var hlSpan = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+      if (hlSpan) {
+        while (hlSpan.firstChild) hlSpan.parentNode.insertBefore(hlSpan.firstChild, hlSpan);
+        hlSpan.parentNode.removeChild(hlSpan);
+      }
+      var indicator = document.querySelector('.sf-margin-indicator[data-annotation-id="' + annotation.id + '"]');
+      if (indicator && indicator.parentNode) indicator.parentNode.removeChild(indicator);
+
+      removeViewer();
+      updateBadge();
+    });
+
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = 'Close';
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removeViewer();
+    });
+
+    actions.appendChild(editBtn);
+    actions.appendChild(deleteBtn);
+    actions.appendChild(closeBtn);
+    viewer.appendChild(actions);
+
+    document.body.appendChild(viewer);
+    activeViewer = viewer;
+  }
+
+  function showEditInput(annotation, targetEl) {
+    removeViewer();
+
+    var viewer = document.createElement('div');
+    viewer.className = 'sf-comment-viewer';
+
+    var rect = targetEl.getBoundingClientRect();
+    viewer.style.top = (rect.bottom + window.scrollY + 6) + 'px';
+    viewer.style.left = (rect.left + window.scrollX) + 'px';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-comment-input';
+
+    var textarea = document.createElement('textarea');
+    textarea.value = annotation.comment || '';
+    textarea.placeholder = 'Add a comment…';
+    textarea.rows = 3;
+
+    function saveEdit() {
+      var newComment = textarea.value.trim();
+      updateAnnotation(annotation.id, { comment: newComment });
+      annotation.comment = newComment;
+
+      var hlSpan = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+      if (hlSpan) {
+        if (newComment) {
+          hlSpan.classList.add('has-comment');
+        } else {
+          hlSpan.classList.remove('has-comment');
+        }
+      }
+
+      removeViewer();
+    }
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removeViewer();
+    });
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      saveEdit();
+    });
+
+    addTextareaShortcuts(textarea, saveEdit, removeViewer);
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    wrap.appendChild(textarea);
+    wrap.appendChild(actions);
+    viewer.appendChild(wrap);
+
+    document.body.appendChild(viewer);
+    activeViewer = viewer;
+    textarea.focus();
+  }
+
+  // Click listener: open viewer on highlight/indicator, close when clicking outside
+  document.addEventListener('click', function(e) {
+    var hlSpan = e.target.closest('.sf-highlight');
+    var indicator = e.target.closest('.sf-margin-indicator');
+
+    if (hlSpan) {
+      var annotationId = hlSpan.dataset.annotationId;
+      var annotations = loadAnnotations();
+      var annotation = null;
+      for (var i = 0; i < annotations.length; i++) {
+        if (annotations[i].id === annotationId) { annotation = annotations[i]; break; }
+      }
+      if (annotation) showCommentViewer(annotation, hlSpan);
+      return;
+    }
+
+    if (indicator) {
+      // Already handled by indicator's own click listener
+      return;
+    }
+
+    if (activeViewer && !activeViewer.contains(e.target)) {
+      removeViewer();
+    }
+  });
+
+  // =========================================================================
+  // 9. BADGE
+  // =========================================================================
+
+  function updateBadge() {
+    var btn = document.querySelector('.sf-export-btn');
+    if (!btn) return;
+
+    var svg = btn.querySelector('svg');
+    // Remove any existing count span
+    var existing = btn.querySelector('.sf-count');
+    if (existing) existing.parentNode.removeChild(existing);
+
+    var annotations = loadAnnotations();
+    if (annotations.length > 0) {
+      var count = document.createElement('span');
+      count.className = 'sf-count';
+      count.style.fontSize = '0.75em';
+      count.textContent = ' ' + annotations.length;
+      btn.appendChild(count);
+    }
+
+    // Refresh sidebar list if open
+    if (sidebarEl && sidebarEl.classList.contains('active')) {
+      renderSidebarList();
+    }
+  }
+
+  // =========================================================================
+  // 10. ANCHOR RE-VALIDATION
+  // =========================================================================
+
+  function revalidateAnchors() {
+    var annotations = loadAnnotations();
+    var stale = [];
+    var valid = [];
+
+    annotations.forEach(function(annotation) {
+      if (annotation.type === 'margin-note') {
+        var block = getBlockByIndex(annotation.scene, annotation.anchor.paragraphIndex);
+        if (!block) {
+          stale.push(annotation);
+        } else {
+          valid.push(annotation);
+        }
+        return;
+      }
+
+      // highlight or comment
+      var block = getBlockByIndex(annotation.scene, annotation.anchor.paragraphIndex);
+      if (block && block.textContent.indexOf(annotation.selectedText) !== -1) {
+        // Still valid at stored location
+        valid.push(annotation);
+        return;
+      }
+
+      // Try scanning +/- 3 paragraphs
+      var found = false;
+      for (var delta = -3; delta <= 3; delta++) {
+        if (delta === 0) continue;
+        var altIndex = annotation.anchor.paragraphIndex + delta;
+        if (altIndex < 0) continue;
+        var altBlock = getBlockByIndex(annotation.scene, altIndex);
+        if (altBlock && altBlock.textContent.indexOf(annotation.selectedText) !== -1) {
+          // Re-anchor: update paragraphIndex
+          var textIdx = altBlock.textContent.indexOf(annotation.selectedText);
+          annotation.anchor.paragraphIndex = altIndex;
+          annotation.anchor.startOffset = textIdx;
+          annotation.anchor.endOffset = textIdx + annotation.selectedText.length;
+          valid.push(annotation);
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        stale.push(annotation);
+      }
+    });
+
+    saveAnnotations(valid);
+    return stale;
+  }
+
+  function renderStalePanel(staleAnnotations) {
+    if (!staleAnnotations || staleAnnotations.length === 0) return;
+
+    var chapterContent = document.querySelector('.chapter-content');
+    if (!chapterContent) return;
+
+    var panel = document.createElement('div');
+    panel.className = 'sf-stale-panel';
+
+    var heading = document.createElement('h3');
+    heading.textContent = staleAnnotations.length + ' annotation' +
+      (staleAnnotations.length !== 1 ? 's' : '') +
+      ' could not be placed (text may have changed)';
+    panel.appendChild(heading);
+
+    staleAnnotations.forEach(function(annotation) {
+      var details = document.createElement('details');
+
+      var summary = document.createElement('summary');
+      summary.textContent = annotation.type.charAt(0).toUpperCase() +
+        annotation.type.slice(1).replace('-', ' ');
+      details.appendChild(summary);
+
+      if (annotation.selectedText) {
+        var quote = document.createElement('blockquote');
+        quote.textContent = annotation.selectedText;
+        details.appendChild(quote);
+      }
+
+      if (annotation.comment) {
+        var commentP = document.createElement('p');
+        commentP.textContent = annotation.comment;
+        commentP.style.fontSize = '0.8rem';
+        commentP.style.margin = '4px 0';
+        details.appendChild(commentP);
+      }
+
+      var deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.addEventListener('click', function() {
+        deleteAnnotation(annotation.id);
+        if (details.parentNode) details.parentNode.removeChild(details);
+        var remaining = panel.querySelectorAll('details');
+        if (remaining.length === 0 && panel.parentNode) {
+          panel.parentNode.removeChild(panel);
+        }
+        updateBadge();
+      });
+      details.appendChild(deleteBtn);
+
+      panel.appendChild(details);
+    });
+
+    chapterContent.appendChild(panel);
+  }
+
+  // =========================================================================
+  // 11. EXPORT
+  // =========================================================================
+
+  function getAllAnnotations() {
+    var all = [];
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        if (key && key.indexOf(STORAGE_PREFIX) === 0) {
+          var chSlug = key.slice(STORAGE_PREFIX.length);
+          var raw = localStorage.getItem(key);
+          if (!raw) continue;
+          var parsed = JSON.parse(raw);
+          parsed.forEach(function(a) {
+            if (!a.chapter) a.chapter = chSlug;
+          });
+          all = all.concat(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn('[Storyforge Annotations] getAllAnnotations error:', e);
+    }
+
+    all.sort(function(a, b) {
+      if (a.chapter < b.chapter) return -1;
+      if (a.chapter > b.chapter) return 1;
+      if (a.scene < b.scene) return -1;
+      if (a.scene > b.scene) return 1;
+      return (a.anchor.paragraphIndex || 0) - (b.anchor.paragraphIndex || 0);
+    });
+
+    return all;
+  }
+
+  function exportJSON(annotations) {
+    var titleEl = document.querySelector('.nav-title');
+    var bookTitle = titleEl ? titleEl.textContent.trim() : bookSlug;
+    return JSON.stringify({
+      book: bookTitle,
+      exportedAt: new Date().toISOString(),
+      annotator: 'author',
+      annotations: annotations
+    }, null, 2);
+  }
+
+  function exportMarkdown(annotations) {
+    // Build chapter title lookup from TOC links
+    var chapterTitles = {};
+    var tocLinks = document.querySelectorAll('.toc-contents a');
+    tocLinks.forEach(function(link) {
+      var href = link.getAttribute('href') || '';
+      var match = href.match(/chapters\/(chapter-\d+)\.html/);
+      if (match) {
+        chapterTitles[match[1]] = link.textContent.trim();
+      }
+    });
+
+    var titleEl = document.querySelector('.nav-title');
+    var bookTitle = titleEl ? titleEl.textContent.trim() : bookSlug;
+    var dateStr = new Date().toISOString().slice(0, 10);
+
+    var lines = [];
+    lines.push('# Annotations: ' + bookTitle);
+    lines.push('Exported: ' + dateStr);
+    lines.push('');
+
+    var currentChapter = null;
+    var currentScene = null;
+
+    annotations.forEach(function(a) {
+      if (a.chapter !== currentChapter) {
+        currentChapter = a.chapter;
+        currentScene = null;
+        var chNum = (currentChapter.match(/chapter-(\d+)/) || [])[1] || '';
+        var chTitle = chapterTitles[currentChapter] ||
+          (chNum ? 'Chapter ' + chNum : currentChapter);
+        lines.push('## ' + chTitle);
+        lines.push('');
+      }
+
+      if (a.scene !== currentScene) {
+        currentScene = a.scene;
+        lines.push('### Scene: ' + currentScene);
+        lines.push('');
+      }
+
+      if (a.type === 'margin-note') {
+        lines.push('*(margin note)*');
+      }
+
+      if (a.selectedText) {
+        lines.push('> \u201c' + a.selectedText + '\u201d');
+      }
+
+      if (a.comment) {
+        lines.push(a.comment);
+      }
+
+      lines.push('');
+    });
+
+    return lines.join('\n');
+  }
+
+  function downloadFile(content, filename, mimeType) {
+    var blob = new Blob([content], { type: mimeType });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function doExport(format) {
+    var annotations, content, filename;
+
+    if (format === 'chapter-json') {
+      annotations = loadAnnotations();
+      content = exportJSON(annotations);
+      filename = bookSlug + '-' + chapterSlug + '-annotations.json';
+      downloadFile(content, filename, 'application/json');
+    } else if (format === 'chapter') {
+      annotations = loadAnnotations();
+      content = exportMarkdown(annotations);
+      filename = bookSlug + '-' + chapterSlug + '-annotations.md';
+      downloadFile(content, filename, 'text/markdown');
+    } else if (format === 'json') {
+      annotations = getAllAnnotations();
+      content = exportJSON(annotations);
+      filename = bookSlug + '-annotations.json';
+      downloadFile(content, filename, 'application/json');
+    } else if (format === 'md') {
+      annotations = getAllAnnotations();
+      content = exportMarkdown(annotations);
+      filename = bookSlug + '-annotations.md';
+      downloadFile(content, filename, 'text/markdown');
+    }
+  }
+
+  // =========================================================================
+  // 11b. ANNOTATION SIDEBAR
+  // =========================================================================
+
+  var sidebarEl = null;
+  var sidebarFilter = null;
+
+  function toggleSidebar() {
+    if (sidebarEl && sidebarEl.classList.contains('active')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  }
+
+  function openSidebar() {
+    if (!sidebarEl) buildSidebar();
+    renderSidebarList();
+    sidebarEl.classList.add('active');
+  }
+
+  function closeSidebar() {
+    if (sidebarEl) sidebarEl.classList.remove('active');
+  }
+
+  function buildSidebar() {
+    sidebarEl = document.createElement('div');
+    sidebarEl.className = 'sf-sidebar';
+
+    // Header
+    var header = document.createElement('div');
+    header.className = 'sf-sidebar-header';
+
+    var title = document.createElement('h3');
+    title.textContent = 'Annotations';
+    header.appendChild(title);
+
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'sf-sidebar-close';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.addEventListener('click', closeSidebar);
+    header.appendChild(closeBtn);
+
+    sidebarEl.appendChild(header);
+
+    // Color legend / filters
+    var filters = document.createElement('div');
+    filters.className = 'sf-sidebar-filters';
+
+    var allBtn = document.createElement('button');
+    allBtn.className = 'sf-filter-row sf-filter-all selected';
+    allBtn.textContent = 'All';
+    allBtn.addEventListener('click', function() {
+      sidebarFilter = null;
+      updateFilterUI();
+      renderSidebarList();
+    });
+    filters.appendChild(allBtn);
+
+    HIGHLIGHT_COLORS.forEach(function(c) {
+      var row = document.createElement('button');
+      row.className = 'sf-filter-row sf-filter-swatch';
+      row.dataset.color = c.id;
+      row.addEventListener('click', function() {
+        sidebarFilter = (sidebarFilter === c.id) ? null : c.id;
+        updateFilterUI();
+        renderSidebarList();
+      });
+
+      var dot = document.createElement('span');
+      dot.className = 'sf-filter-dot';
+      dot.style.backgroundColor = c.color;
+      row.appendChild(dot);
+
+      var label = document.createElement('span');
+      label.className = 'sf-filter-label';
+      label.textContent = c.label;
+      row.appendChild(label);
+
+      filters.appendChild(row);
+    });
+
+    sidebarEl.appendChild(filters);
+
+    // List container
+    var list = document.createElement('div');
+    list.className = 'sf-sidebar-list';
+    sidebarEl.appendChild(list);
+
+    // Footer with export links
+    var footer = document.createElement('div');
+    footer.className = 'sf-sidebar-footer';
+
+    var exportLabel = document.createElement('span');
+    exportLabel.textContent = 'Export: ';
+    exportLabel.style.color = 'var(--text-dim)';
+    exportLabel.style.fontSize = '0.78em';
+    footer.appendChild(exportLabel);
+
+    ['chapter-json', 'chapter', 'json', 'md'].forEach(function(fmt, i) {
+      var labels = { 'chapter-json': 'Chapter JSON', 'chapter': 'Chapter MD', 'json': 'All JSON', 'md': 'All MD' };
+      if (i > 0) {
+        var sep = document.createElement('span');
+        sep.textContent = ' \u00b7 ';
+        sep.style.color = 'var(--text-dim)';
+        sep.style.fontSize = '0.78em';
+        footer.appendChild(sep);
+      }
+      var link = document.createElement('a');
+      link.href = '#';
+      link.textContent = labels[fmt];
+      link.style.color = 'var(--accent)';
+      link.style.fontSize = '0.78em';
+      link.style.textDecoration = 'none';
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        doExport(fmt);
+      });
+      footer.appendChild(link);
+    });
+
+    sidebarEl.appendChild(footer);
+    document.body.appendChild(sidebarEl);
+  }
+
+  function updateFilterUI() {
+    if (!sidebarEl) return;
+    var allBtn = sidebarEl.querySelector('.sf-filter-all');
+    var swatches = sidebarEl.querySelectorAll('.sf-filter-swatch');
+    if (allBtn) {
+      if (sidebarFilter === null) allBtn.classList.add('selected');
+      else allBtn.classList.remove('selected');
+    }
+    swatches.forEach(function(s) {
+      if (s.dataset.color === sidebarFilter) s.classList.add('selected');
+      else s.classList.remove('selected');
+    });
+  }
+
+  function renderSidebarList() {
+    if (!sidebarEl) return;
+    var list = sidebarEl.querySelector('.sf-sidebar-list');
+    if (!list) return;
+    while (list.firstChild) list.removeChild(list.firstChild);
+
+    var annotations = loadAnnotations();
+
+    if (sidebarFilter) {
+      annotations = annotations.filter(function(a) {
+        return (a.color || 'yellow') === sidebarFilter;
+      });
+    }
+
+    if (annotations.length === 0) {
+      var empty = document.createElement('p');
+      empty.className = 'sf-sidebar-empty';
+      empty.textContent = sidebarFilter ? 'No ' + sidebarFilter + ' annotations' : 'No annotations yet';
+      list.appendChild(empty);
+      return;
+    }
+
+    annotations.forEach(function(annotation) {
+      var card = document.createElement('div');
+      card.className = 'sf-sidebar-card';
+      card.addEventListener('click', function() {
+        scrollToAnnotation(annotation);
+        if (window.innerWidth < 640) closeSidebar();
+      });
+
+      // Color dot
+      var dot = document.createElement('span');
+      dot.className = 'sf-sidebar-dot';
+      var colorObj = HIGHLIGHT_COLORS.find(function(c) { return c.id === (annotation.color || 'yellow'); });
+      dot.style.backgroundColor = colorObj ? colorObj.color : '#fcd44f';
+      card.appendChild(dot);
+
+      var content = document.createElement('div');
+      content.className = 'sf-sidebar-card-content';
+
+      // Selected text
+      if (annotation.selectedText) {
+        var textEl = document.createElement('p');
+        textEl.className = 'sf-sidebar-text';
+        var t = annotation.selectedText;
+        if (t.length > 60) t = t.slice(0, 60) + '\u2026';
+        textEl.textContent = '\u201c' + t + '\u201d';
+        content.appendChild(textEl);
+      }
+
+      // Comment
+      if (annotation.comment) {
+        var commentEl = document.createElement('p');
+        commentEl.className = 'sf-sidebar-comment';
+        var c = annotation.comment;
+        if (c.length > 80) c = c.slice(0, 80) + '\u2026';
+        commentEl.textContent = c;
+        content.appendChild(commentEl);
+      }
+
+      // Type label for margin notes
+      if (annotation.type === 'margin-note') {
+        var typeEl = document.createElement('span');
+        typeEl.className = 'sf-sidebar-type';
+        typeEl.textContent = 'Margin note';
+        content.appendChild(typeEl);
+      }
+
+      // Timestamp
+      if (annotation.createdAt) {
+        var timeEl = document.createElement('time');
+        timeEl.className = 'sf-sidebar-time';
+        var date = new Date(annotation.createdAt);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        timeEl.textContent = months[date.getMonth()] + ' ' + date.getDate();
+        content.appendChild(timeEl);
+      }
+
+      card.appendChild(content);
+      list.appendChild(card);
+    });
+  }
+
+  function scrollToAnnotation(annotation) {
+    var el = null;
+    if (annotation.type === 'margin-note') {
+      el = document.querySelector('.sf-margin-indicator[data-annotation-id="' + annotation.id + '"]');
+    } else {
+      el = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+    }
+    if (!el) return;
+
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.add('sf-flash');
+    setTimeout(function() { el.classList.remove('sf-flash'); }, 1200);
+  }
+
+  // Close sidebar on outside click
+  document.addEventListener('click', function(e) {
+    if (!sidebarEl || !sidebarEl.classList.contains('active')) return;
+    if (sidebarEl.contains(e.target)) return;
+    var toggleBtn = document.querySelector('.sf-export-btn');
+    if (toggleBtn && (toggleBtn === e.target || toggleBtn.contains(e.target))) return;
+    closeSidebar();
+  });
+
+  // Close sidebar on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && sidebarEl && sidebarEl.classList.contains('active')) {
+      closeSidebar();
+    }
+  });
+
+  function addExportButton() {
+    var navControls = document.querySelector('.nav-controls');
+    if (!navControls) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'sf-export-btn';
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+    btn.title = 'Annotations';
+    btn.setAttribute('aria-label', 'Annotations');
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+
+    var chapterInfo = navControls.querySelector('.chapter-info');
+    if (chapterInfo) {
+      navControls.insertBefore(btn, chapterInfo);
+    } else {
+      var themeToggle = navControls.querySelector('.theme-toggle');
+      if (themeToggle) {
+        navControls.insertBefore(btn, themeToggle);
+      } else {
+        navControls.appendChild(btn);
+      }
+    }
+  }
+
+  // =========================================================================
+  // 12. KEYBOARD SHORTCUTS
+  // =========================================================================
+
+  document.addEventListener('keydown', function(e) {
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
+
+    if (e.key === 'a' || e.key === 'A') {
+      toggleSidebar();
+    }
+  });
+
+  // =========================================================================
+  // 13. INIT
+  // =========================================================================
+
+  function init() {
+    var stale = revalidateAnchors();
+    renderAllHighlights();
+    renderAllMarginNotes();
+    renderStalePanel(stale);
+    setupMarginTriggers();
+    createToolbar();
+    addExportButton();
+    updateBadge();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 
 })();
 </script>
