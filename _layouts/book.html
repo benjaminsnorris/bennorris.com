@@ -16,3 +16,11 @@ layout: post-base
     <a href="{{ page.book_path | relative_url }}" class="btn">Read Book</a>
   </p>
 {% endif %}
+
+{% if page.dashboard_path %}
+  <hr style="margin: 2em 0;" />
+  <p>Visual overview of the manuscript — POV distribution, scene pacing, character presence, and craft scores at a glance.</p>
+  <p>
+    <a href="{{ page.dashboard_path | relative_url }}" class="btn">View Dashboard</a>
+  </p>
+{% endif %}
