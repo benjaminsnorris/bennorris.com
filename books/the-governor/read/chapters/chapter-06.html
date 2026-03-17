@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Sealed Galleries — The Governor</title>
-<meta name="author" content="Ben Norris">
+<meta name="author" content="">
 
 <script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
 /* ==========================================================================
    reading.css — Web Book Reading Experience
@@ -74,7 +74,7 @@
 
 /* Title font — applied to book title, chapter headings, part titles.
    Loaded via Google Fonts <link> in <head>; fallback to body font. */
-:root { --title-font: 'Playfair Display', 'Literata', Georgia, serif; --title-weight: normal; }
+:root { --title-font: 'Literata', Georgia, serif; --title-weight: 700; }
 
 /* --- 2. RESET & BASE ---------------------------------------------------- */
 
@@ -304,6 +304,7 @@ body {
 }
 
 .book-nav .nav-title {
+  flex: 1;
   font-family: var(--title-font);
   font-size: 0.82em;
   color: var(--text-dim);
@@ -311,43 +312,53 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 50%;
   transition: color 0.4s ease;
 }
 
 .book-nav .chapter-info {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
   font-family: var(--title-font);
   font-size: 0.78em;
   color: var(--text-dim);
   letter-spacing: 0.04em;
   white-space: nowrap;
-  transition: color 0.4s ease;
+  padding: 0.3em 0.6em;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.book-nav .chapter-info:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
 }
 
 .book-nav .nav-controls {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.5rem;
 }
 
-/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+/* --- 11. THEME TOGGLE --------------------------------------------------- */
 
-.theme-toggle,
-.toc-toggle {
+.theme-toggle {
   background: none;
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--text-dim);
   cursor: pointer;
   line-height: 1;
+  font-size: 0.9em;
+  padding: 0.3em 0.55em;
   transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 
-.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
-.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
-
-.theme-toggle:hover,
-.toc-toggle:hover {
+.theme-toggle:hover {
   color: var(--text);
   border-color: var(--text-dim);
   background: var(--surface);
@@ -814,16 +825,746 @@ body {
     scroll-behavior: auto !important;
   }
 }
+/* ==========================================================================
+   annotations.css — Annotation Overlay Styles
+   StoryForge production stylesheet — loaded when --annotate is active
+
+   Theme variables from reading.css:
+     --bg, --text, --text-dim, --accent, --surface, --border
+   Breakpoints: 639px mobile, 640px+ desktop
+   ========================================================================== */
+
+/* --- 1. HIGHLIGHTS ------------------------------------------------------- */
+
+.sf-highlight {
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+  border-radius: 2px;
+  background-color: rgba(255, 220, 80, 0.35); /* fallback for uncolored */
+}
+
+/* Per-color highlights */
+.sf-highlight[data-color="yellow"] { background-color: rgba(255, 220, 80, 0.35); }
+.sf-highlight[data-color="yellow"]:hover { background-color: rgba(255, 220, 80, 0.55); }
+.sf-highlight[data-color="pink"] { background-color: rgba(255, 130, 150, 0.3); }
+.sf-highlight[data-color="pink"]:hover { background-color: rgba(255, 130, 150, 0.5); }
+.sf-highlight[data-color="green"] { background-color: rgba(120, 220, 120, 0.3); }
+.sf-highlight[data-color="green"]:hover { background-color: rgba(120, 220, 120, 0.5); }
+.sf-highlight[data-color="blue"] { background-color: rgba(120, 180, 255, 0.3); }
+.sf-highlight[data-color="blue"]:hover { background-color: rgba(120, 180, 255, 0.5); }
+.sf-highlight[data-color="orange"] { background-color: rgba(255, 180, 80, 0.3); }
+.sf-highlight[data-color="orange"]:hover { background-color: rgba(255, 180, 80, 0.5); }
+
+/* Dot indicator for highlights that have an attached comment */
+.sf-highlight.has-comment::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--sf-hl-color, var(--accent));
+  border-radius: 50%;
+  margin-left: 2px;
+  vertical-align: super;
+}
+
+/* Dark theme — per-color variants (reduced opacity) */
+[data-theme="dark"] .sf-highlight { background-color: rgba(255, 200, 60, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="yellow"] { background-color: rgba(255, 220, 80, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="yellow"]:hover { background-color: rgba(255, 220, 80, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="pink"] { background-color: rgba(255, 130, 150, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="pink"]:hover { background-color: rgba(255, 130, 150, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="green"] { background-color: rgba(120, 220, 120, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="green"]:hover { background-color: rgba(120, 220, 120, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="blue"] { background-color: rgba(120, 180, 255, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="blue"]:hover { background-color: rgba(120, 180, 255, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="orange"] { background-color: rgba(255, 180, 80, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="orange"]:hover { background-color: rgba(255, 180, 80, 0.35); }
+
+/* Sepia theme — per-color variants (warmed tones) */
+[data-theme="sepia"] .sf-highlight { background-color: rgba(200, 160, 60, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="yellow"] { background-color: rgba(200, 170, 60, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="yellow"]:hover { background-color: rgba(200, 170, 60, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="pink"] { background-color: rgba(200, 120, 130, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="pink"]:hover { background-color: rgba(200, 120, 130, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="green"] { background-color: rgba(110, 180, 100, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="green"]:hover { background-color: rgba(110, 180, 100, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="blue"] { background-color: rgba(110, 160, 210, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="blue"]:hover { background-color: rgba(110, 160, 210, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="orange"] { background-color: rgba(200, 150, 70, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="orange"]:hover { background-color: rgba(200, 150, 70, 0.4); }
+
+
+/* --- 2. DESKTOP POPOVER -------------------------------------------------- */
+
+.sf-popover {
+  position: absolute;
+  z-index: 100;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  animation: sf-fade-in 0.15s ease;
+}
+
+.sf-popover button {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 36px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-popover button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* Comment input within popover */
+.sf-comment-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 260px;
+}
+
+.sf-comment-input textarea {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+  min-height: 70px;
+  outline: none;
+  line-height: 1.5;
+}
+
+.sf-comment-input textarea:focus {
+  border-color: var(--accent);
+}
+
+.sf-comment-input .sf-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+/* Color picker popover layout */
+.sf-popover.sf-popover-colors {
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+}
+
+/* Color picker row */
+.sf-color-picker {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 4px 6px;
+}
+
+.sf-color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, transform 0.15s;
+  padding: 0;
+  background: none;
+}
+
+.sf-color-swatch:hover {
+  transform: scale(1.15);
+}
+
+.sf-color-swatch.selected {
+  border-color: var(--text);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text-dim);
+}
+
+/* Note button in popover */
+.sf-popover-note {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.78em;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+.sf-popover-note:hover { color: var(--text); }
+
+@keyframes sf-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* --- 3. MOBILE BOTTOM TOOLBAR -------------------------------------------- */
+
+/* Hidden by default; shown only on mobile via media query below */
+.sf-toolbar { display: none; }
+
+@media (max-width: 639px) {
+  /* Suppress desktop popover entirely on mobile */
+  .sf-popover { display: none !important; }
+
+  .sf-toolbar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 8px 12px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sf-toolbar button {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  .sf-toolbar button:active {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .sf-toolbar button.sf-hidden { display: none; }
+
+  /* Ensure content isn't hidden behind the fixed toolbar */
+  .reading-column { padding-bottom: 70px; }
+}
+
+
+/* --- 4. MARGIN NOTES ----------------------------------------------------- */
+
+.sf-margin-trigger {
+  position: absolute;
+  left: -32px;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Reveal trigger button on paragraph hover (desktop only) */
+@media (min-width: 640px) {
+  [data-scene] > *:hover > .sf-margin-trigger,
+  .sf-margin-trigger:hover { opacity: 1; }
+}
+
+.sf-margin-indicator {
+  position: absolute;
+  left: -28px;
+  top: 0;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: var(--bg);
+}
+
+.sf-note-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin: 12px 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  animation: sf-fade-in 0.15s ease;
+}
+
+.sf-note-panel textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+  min-height: 70px;
+  box-sizing: border-box;
+  outline: none;
+  line-height: 1.5;
+}
+
+.sf-note-panel textarea:focus {
+  border-color: var(--accent);
+}
+
+.sf-note-panel .sf-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.sf-note-panel button {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  min-height: 36px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-note-panel button:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--bg);
+}
+
+/* Export button — match .theme-toggle / .toc-toggle styling */
+.sf-export-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 0.3em 0.55em;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-export-btn:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Badge used to show annotation counts in nav */
+.sf-badge {
+  background: none;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.82em;
+  padding: 0.3em 0.6em;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+
+/* --- 5. COMMENT VIEWER --------------------------------------------------- */
+
+.sf-comment-viewer {
+  position: absolute;
+  z-index: 101;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  max-width: 300px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  animation: sf-fade-in 0.15s ease;
+}
+
+.sf-comment-viewer .sf-timestamp {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+.sf-comment-viewer p {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.sf-comment-viewer .sf-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.sf-comment-viewer button:not(.sf-color-swatch) {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  min-height: 36px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-comment-viewer button:not(.sf-color-swatch):hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--bg);
+}
+
+.sf-comment-viewer button.sf-delete {
+  color: #c0392b;
+  border-color: #c0392b;
+}
+
+.sf-comment-viewer button.sf-delete:hover {
+  color: #e74c3c;
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.08);
+}
+
+
+/* --- 6. STALE ANNOTATIONS PANEL ----------------------------------------- */
+
+.sf-stale-panel {
+  margin-top: 3rem;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  border-left: 3px solid #e67e22;
+}
+
+.sf-stale-panel h3 {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.sf-stale-panel details { margin-bottom: 8px; }
+
+.sf-stale-panel summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.sf-stale-panel blockquote {
+  margin: 4px 0 4px 12px;
+  padding-left: 8px;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.sf-stale-panel button {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+
+/* --- 7. ANNOTATION SIDEBAR ----------------------------------------------- */
+
+.sf-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  padding-top: 44px;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  z-index: 850;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -4px 0 16px rgba(0,0,0,0.1);
+}
+
+.sf-sidebar.active {
+  transform: translateX(0);
+}
+
+.sf-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sf-sidebar-header h3 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.95em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin: 0;
+}
+
+.sf-sidebar-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.4em;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.sf-sidebar-close:hover {
+  color: var(--text);
+}
+
+.sf-sidebar-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sf-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.78em;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.03em;
+  padding: 10px 18px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.sf-filter-row:last-child {
+  border-bottom: none;
+}
+
+.sf-filter-row:hover {
+  background: var(--surface);
+}
+
+.sf-filter-row.selected {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.sf-filter-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sf-filter-label {
+  white-space: nowrap;
+}
+
+.sf-sidebar-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.sf-sidebar-empty {
+  text-align: center;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 0.85em;
+  padding: 2em 1em;
+}
+
+.sf-sidebar-card {
+  display: flex;
+  gap: 10px;
+  padding: 12px 18px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s;
+}
+
+.sf-sidebar-card:hover {
+  background: var(--surface);
+}
+
+.sf-sidebar-card:last-child {
+  border-bottom: none;
+}
+
+.sf-sidebar-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.sf-sidebar-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sf-sidebar-text {
+  font-size: 0.82em;
+  font-style: italic;
+  color: var(--text-dim);
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.sf-sidebar-comment {
+  font-size: 0.85em;
+  color: var(--text);
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.sf-sidebar-type {
+  display: inline-block;
+  font-size: 0.7em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.sf-sidebar-time {
+  font-size: 0.7em;
+  color: var(--text-dim);
+  opacity: 0.7;
+}
+
+.sf-sidebar-footer {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+/* Flash animation for scroll-to */
+@keyframes sf-flash {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0.3; }
+  50% { opacity: 1; }
+  75% { opacity: 0.3; }
+}
+
+.sf-highlight.sf-flash,
+.sf-margin-indicator.sf-flash {
+  animation: sf-flash 1.2s ease;
+}
+
+/* Mobile: bottom sheet instead of sidebar */
+@media (max-width: 639px) {
+  .sf-sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    border-radius: 12px 12px 0 0;
+    transform: translateY(100%);
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+  }
+
+  .sf-sidebar.active {
+    transform: translateY(0);
+  }
+}
+
+
+/* --- 8. PRINT AND REDUCED MOTION ---------------------------------------- */
+
+@media print {
+  /* Remove highlight tinting in print — text should read cleanly */
+  .sf-highlight { background: none !important; }
+  .sf-highlight.has-comment::after { display: none; }
+
+  /* Hide all annotation UI chrome from print output */
+  .sf-popover,
+  .sf-toolbar,
+  .sf-margin-trigger,
+  .sf-margin-indicator,
+  .sf-note-panel,
+  .sf-comment-viewer,
+  .sf-badge,
+  .sf-sidebar,
+  .sf-stale-panel { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-popover,
+  .sf-note-panel,
+  .sf-sidebar,
+  .sf-comment-viewer { animation: none; }
+
+  .sf-sidebar { transition: none; }
+}
 </style>
 </head>
-<body data-chapter="chapter-06" data-chapter-num="6" data-total-chapters="30">
+<body data-book="the-governor" data-chapter="chapter-06" data-chapter-num="6" data-total-chapters="30">
 
 <div class="progress-bar"></div>
 
 <nav class="book-nav">
   <a href="../contents.html" class="nav-title">The Governor</a>
   <div class="nav-controls">
-    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
     <button class="theme-toggle" aria-label="Change theme">
       <span class="icon-light">&#9788;</span>
       <span class="icon-dark">&#9790;</span>
@@ -836,179 +1577,132 @@ body {
 
 <h1 id="chapter-6-the-sealed-galleries">Chapter 6: The Sealed
 Galleries</h1>
-<p>The first thing she noticed was the silence.</p>
-<p>The galleries behind her had their own kind of quiet — the hum and
-drip of systems at rest between shifts. This was different. The sealed
-eastern section held a stillness that had weight, the way deep water had
-weight: layered, patient, pressing against the skin from all directions
-at once. The ambient hum of the active pipe network cut off the moment
-Elias pulled the door shut behind them. The click of the latch was small
-and specific, and then there was nothing.</p>
-<p>Nothing mechanical, anyway.</p>
-<p>The draw was here. Stronger than anything she’d felt from the surface
-— not the attenuated tug through iron and stone that had followed her
-all day, but the source. It pressed against her sternum with a slow,
-even force, like a hand held flat against her chest. Present in a way
-that the word <em>ambient</em> could not contain, as a river was ambient
-if you were standing in it up to your waist.</p>
+<section data-scene="silence-beyond-the-seal">
+<p>Elias pulled the door shut behind them. The latch clicked — small,
+specific — and the pipe network’s hum cut off like a hand closing over a
+bell.</p>
+<p>The silence pressed against her skin.</p>
+<p>Not the absence of sound. A presence. Dense and layered, the way deep
+water was dense — pushing from all directions at once, filling the space
+between her ribs. Her eardrums adjusted, searching for the baseline hum
+that had followed her through every corridor and stairwell since she was
+seventeen years old.</p>
+<p>Nothing.</p>
+<p>And then — beneath the nothing — the draw.</p>
+<p>It hit her sternum like a palm laid flat against her chest. Not the
+attenuated tug through iron and stone that had pulled at her all day.
+The source. Steady, enormous, present the way a river was present if you
+were standing in it.</p>
 <p>Elias struck a match. The lantern caught, and the sealed gallery
 resolved around them in a circle of insufficient amber.</p>
-<p>Iron-ribbed tunnel, ten feet across. She felt the conduits before she
-saw them — pipe runs along both walls, copper-banded at the joints, dark
-with fourteen years of untouched patina. Dead to her Calibrator sense.
-No flow, no vibration, no residual warmth. The floor grating held under
-her weight, heavy iron mesh over drainage channels gone nearly dry — she
-could hear the faintest trickle below, condensation finding its way
-through rock the institution called dormant. The ceiling was low, braced
-with hand-forged brackets, each one slightly different from its
-neighbor. First Expansion work. Sixty years older than the Basin
-districts above them.</p>
-<p>The air was warm. Not steam-warm — the pipes were cold, their
-surfaces dull, dead. The warmth came from the walls. From the caldera
-rock behind the iron and the pipe, radiating a slow mineral heat that
+<p>She felt the conduits before she saw them — pipe runs along both
+walls, dead to her Calibrator sense. No flow. No vibration. The floor
+grating held under her weight, heavy iron mesh over drainage channels
+gone nearly dry. The ceiling was low, braced with hand-forged brackets,
+each one slightly different from its neighbor. First Expansion work.</p>
+<p>The warmth came from the walls. Not the pipes — the pipes were cold.
+The caldera rock behind the iron, radiating a slow mineral heat that
 tasted of copper and ozone and deep time. She breathed it in and felt
-her Calibrator sense unfurl, reaching toward a frequency she had never
-been trained to read.</p>
-<p>Elias lifted the lantern. The light caught the pipe joints, the
-brackets, the grating — and his face. He was reading the infrastructure
-with his hands first, his eyes second. His left hand trailed along the
-nearest conduit as they stood, pressing into the cold metal, and she
-watched recognition settle across his face. The pipes were dead. The
-metal remembered the absence. She caught herself cataloguing his method
-— palm flat, fingers spread, the diagnostic posture of a man who had
-never felt anything deeper than temperature gradient — and stopped.
-Whatever he was reading from the dead iron, his face said it was not
-surface.</p>
-<p>“Temperature differential,” he said. His voice was quiet — pitched
-for pipe tunnels, for spaces where sound carried too far and too
-clearly. “Pipes are cold. Walls are warm. That’s backwards. In an active
-gallery, the pipes carry the heat. Here the heat is in the rock.”</p>
+her Calibrator sense reach toward a frequency she had never been trained
+to read.</p>
+<p>Elias lifted the lantern. His left hand trailed along the nearest
+conduit — the diagnostic posture of a man who had never felt anything
+deeper than temperature gradient.</p>
+<p>“Pipes are cold,” he said. His voice pitched for pipe tunnels. “Walls
+are warm. That’s backwards.”</p>
 <p>She nodded. The draw was not coming from the pipe network. It was
-coming from behind it. Through it. From the caldera stone itself.</p>
+coming through it.</p>
+<p>“Something is pulling,” she said. She pressed her palm flat against
+the gallery wall. The rock was blood-warm. Alive.</p>
+<p>Elias looked at her hand on the stone. Looked at her face. Whatever
+he saw there made him lift the lantern higher and turn toward the
+dark.</p>
+<p>“Then we follow it.”</p>
 <p>They walked.</p>
 <hr />
-<p>The gallery descended in a long, gradual curve, following the caldera
-wall’s natural contour. The lantern threw their shadows in distorted
-arcs across the ribbed ceiling. Elias led — not because she asked him
-to, but because he knew where the grating was sound and where it wasn’t.
-His boots found the solid sections without hesitation — two decades of
-reading the floor beneath his feet. Twice he stopped, shifted left or
-right, and she followed without asking. The third time, he glanced
-back.</p>
-<p>“Grating’s collapsed ahead. Thirty feet. We’ll need to cross on the
-support struts.”</p>
-<p>“You’ve been down here before.”</p>
-<p>“Three times. Before the sealing.” He lifted the lantern higher. The
-gallery stretched ahead of them into darkness that the light could not
-reach. “The eastern section was already marginal when I started. Low
-priority, reduced crew, deferred maintenance. When the Subsidence hit
-and they sealed it, half the deep-gallery engineers thought it was
-overdue.” He paused. “The other half thought it was wrong.”</p>
-<p>“Which half were you?”</p>
-<p>“I was twenty-five. I thought what my supervisor told me to think.”
-The words were even, without self-pity. A gauge reading. “Took me three
-years to learn the difference between following a procedure and
-understanding a system. Took another five to trust what I understood
-over what I was told.”</p>
-<p>The gallery opened slightly — a junction where two conduits diverged,
-the pipes splitting into separate channels that disappeared into the
-rock face on either side. The brackets here were different. Heavier. The
-iron was darker, the forging marks deeper, and the joints were sealed
-not with compound but with what looked like poured metal — a technique
-she had never seen in the active galleries.</p>
+</section>
+<section data-scene="first-expansion">
+<p>The brackets at this junction were different.</p>
+<p>They had been walking thirty minutes through the sealed galleries —
+Elias leading, finding sound grating without hesitation, twice
+redirecting around collapsed floor. The infrastructure thinned with each
+turn. But here, where two conduits diverged into the rock face, the iron
+was darker, the forging marks deeper, the joints sealed not with
+compound but with poured metal she had never seen in the active
+sections.</p>
 <p>Elias touched one of the joints. His fingers traced the seam —
-reading it like a letter. “First Expansion,” he said. “These are among
-the oldest engineered joints in the city. Whoever built this section
-knew what they were doing. The tolerances are tighter than anything we
-install now.” He withdrew his hand. “We lost something. Between then and
-now. I don’t know what to call it. Precision, maybe. Or care.”</p>
-<p>She looked at the joint he’d touched. The metal was warm under her
-gaze — not visibly, not measurably, but she could feel the warmth
-radiating from it at the edge of her perception, as she could feel the
-draw at the edge of her sternum. The rock behind the pipe was alive with
-a heat the institution had classified as dormant.</p>
+reading it like a letter in a language he had taught himself. “First
+Expansion,” he said. “Among the oldest engineered joints in the city.
+Tolerances tighter than anything we install now.” He withdrew his hand.
+“We lost something between then and now. Precision, maybe. Or care.”</p>
+<p>He’d been below the sealed line three times before the galleries
+closed. Twenty-five years old, thinking what his supervisor told him to
+think. “Took me three years to learn the difference between following a
+procedure and understanding a system,” he said. Without self-pity. A
+gauge reading. “Another five to trust what I understood over what I was
+told.”</p>
+<p>She felt the warmth radiating from the joint at the edge of her
+perception, the same way she felt the draw at the edge of her sternum.
+The rock behind the pipe was alive with a heat the institution had
+classified as dormant.</p>
 <p>“Elias.”</p>
 <p>He turned.</p>
-<p>“The thing at Junction Fourteen. The draw. You said it pushed back
-when Haddon’s crew tried standard repairs.” She chose her next words
-with the precision of notation. “If we’re walking toward whatever is
-generating that draw, I need you to understand what might happen to me.
-And I need you to understand it before it happens, not after.”</p>
-<p>His gray eyes held hers. The lantern light caught the silver
-threading his beard and turned it amber. He set down his tool bag —
-lowering it to the grating with care — and leaned against the pipe
-conduit, arms folded.</p>
+<p>“If we’re walking toward whatever is generating that draw, I need you
+to understand what might happen to me. Before it happens, not
+after.”</p>
+<p>His gray eyes held hers. He set down his tool bag — lowering it with
+care, the way he set down any instrument he intended to pick up again —
+and leaned against the conduit, arms folded.</p>
 <p>“Tell me,” he said.</p>
 <hr />
-<p>She explained Calibration as she had never explained it to anyone —
-to a man who did not have the sense, who could not feel what she felt,
-and who needed to understand it anyway because they were walking into a
-place where the cost of misunderstanding could be measured in damage she
-might not recover from.</p>
-<p>“Resonant projection,” she said. “That’s the technical term. When I
-touch a system — a pipe, a junction, a manifold — I extend my awareness
-into it. I push outward from the point of contact, and I feel the
-pressure in the system the way you feel temperature. Directly. As
-sensation, not as data.”</p>
+</section>
+<section data-scene="language-of-depletion">
+<p>“Resonant projection,” she said. “When I touch a system — pipe,
+junction, manifold — I push my awareness into it. I feel the pressure
+the way you feel temperature. Directly.”</p>
 <p>“How far?”</p>
-<p>“Depends on the Calibrator. Most can feel the pipe they’re touching.
-A strong one can feel the junction it feeds into. A handful — twelve,
-maybe, in the whole office — can map an entire junction from a single
-contact point. Three or four can feel a full lateral.”</p>
-<p>“And you?”</p>
-<p>She hesitated — the habit of precision. “I can feel the entire
-eastern network from the surface. I’ve been feeling it all day. Through
-the floor, through the walls, through the stairwell railing in my
-boarding house this morning.” She paused. “At full sensitivity, it
-sings. Not a sound — a pressure, a coherence, all the channels carrying
-their load in concert. You feel the whole system as one thing.”</p>
-<p>He was quiet for a moment. He did not interrupt. He did not ask
-unnecessary questions. His gaze dropped to her hands — the faint tremor
-in them she had not mentioned, the tension held in her wrists.</p>
+<p>“Depends on the Calibrator. Most feel the pipe they’re touching. A
+strong one maps an entire junction from a single contact. A handful can
+feel a full lateral.” She hesitated. “I can feel the entire eastern
+network from the surface. Through the floor, through the walls, through
+the stairwell railing in my boarding house this morning. At full
+sensitivity, it sings. Not a sound — a coherence, all the channels
+carrying their load in concert.”</p>
+<p>He was quiet for a moment. Did not interrupt. His gaze dropped to her
+hands — the tremor she had not mentioned, the tension in her wrists.</p>
 <p>“The cost,” he said.</p>
-<p>“Yes.” She held up her hand, palm open. “Every projection borrows
-something. Vital energy — the Cartography manual calls it resonant
-capacity, but that’s the institution’s word. The truth is simpler. You
-push your hand into cold water, and the cold takes your warmth. The
-further you reach, the more it takes. Pull back in time, the warmth
-returns. Push too far, too long —” She closed her fingers. “The warmth
-doesn’t come back.”</p>
+<p>“Every projection borrows something. You push your hand into cold
+water, and the cold takes your warmth. The further you reach, the more
+it takes. Pull back in time, the warmth returns. Push too far, too long
+—” She closed her fingers. “The warmth doesn’t come back.”</p>
 <p>“Depletion.”</p>
-<p>She looked at him. “You know the word.”</p>
-<p>“I’ve worked with Calibrators for two decades. I know the word. I
-don’t know what it means from the inside.” He uncrossed his arms. His
-hands were at his sides now — open, attentive, waiting for the
-information he actually needed. “What does it look like? If you push too
-far. What am I watching for?”</p>
-<p>Nobody had ever asked her that. Not Dorren, not the training
-protocols that taught Calibrators to track their own depletion — a
-system at the threshold of failure, trusted to gauge its own proximity
-to the edge.</p>
-<p>“Tingling first,” she said. “Fingertips, then hands. If it moves past
-the wrists, I’ve gone further than a routine read. Past the elbows —”
-She paused. “Past the elbows is damage. Not permanent, but real.
-Recovery takes hours, not minutes. There’s a hollow feeling in the
-chest, here —” She touched her sternum. “As if something has been
-borrowed and not yet returned. If the hollow deepens, if it becomes a
-cold absence, if it starts pulling inward instead of sitting still —
-that’s when the projection has exceeded what I can safely sustain.”</p>
+<p>“You know the word.”</p>
+<p>“I’ve worked with Calibrators for two decades. I don’t know what it
+means from the inside.” His hands were at his sides — open, waiting.
+“What am I watching for?”</p>
+<p>Nobody had ever asked her that.</p>
+<p>“Tingling first. Fingertips, then hands. Past the wrists is further
+than routine. Past the elbows is damage — recovery takes hours, not
+minutes. There’s a weight that opens in the chest, here —” She touched
+her sternum. “As if something has been borrowed and not yet returned. If
+that weight deepens into a pulling absence, if it starts drawing inward
+— that’s when the projection has exceeded what I can safely
+sustain.”</p>
 <p>“And the threshold.”</p>
-<p>“The threshold is the line past which depletion becomes permanent.
-You don’t feel it. That’s the danger. You can’t sense the boundary from
-inside the projection. By the time you know you’ve crossed it, you’ve
-already crossed it.”</p>
+<p>“The line past which depletion becomes permanent. You can’t sense the
+boundary from inside the projection. By the time you know you’ve crossed
+it, you’ve already crossed it.”</p>
 <p>“Then how do you know?”</p>
-<p>“You don’t.” She met his eyes. “You need a gauge.”</p>
-<p>He held her gaze for three seconds. Four. His jaw shifted once —
-recalibrating.</p>
-<p>“Then I’ll watch,” he said. “I’ll tell you what I see. You tell me
-what you feel. Between the two of us, we’ll have enough data.”</p>
-<p>She felt the professional tension between them shift — not breaking,
-but finding a position it had not held before.</p>
-<p>“All right,” she said.</p>
+<p>“You don’t. You need a gauge.”</p>
+<p>He held her gaze. Three seconds. Four. His jaw shifted —
+recalibrating. Something settling into position.</p>
+<p>“I’ll watch,” he said. “You tell me what you feel. I’ll tell you what
+I see. Between the two of us, we’ll have enough data.”</p>
 <p>He picked up his tool bag.</p>
 <p>They walked deeper.</p>
 <hr />
+</section>
+<section data-scene="rock-network">
 <p>Tessa found the wall by accident.</p>
 <p>They had been walking for perhaps twenty minutes — she had lost
 precise time, because time moved differently in the sealed galleries,
@@ -1037,9 +1731,7 @@ into something the city above could survive. The architecture was
 intentional, designed, operating at a scale her perception strained to
 hold. Miles of channels — stretching beneath the full breadth of the
 Basin, from the eastern rim wall to the western caldera face. Thousands
-of junctions. A governance system beneath the entire city — and she
-could feel its architecture but could not map it, not in the seconds
-before the cost arrived.</p>
+of junctions.</p>
 <p>And then the draw.</p>
 <p>It reached for her. The rock network felt her projection and
 responded — drew on her resonant capacity with an appetite that was
@@ -1047,12 +1739,13 @@ responded — drew on her resonant capacity with an appetite that was
 she was, pulling her awareness deeper into the stone with a force that
 exceeded anything the mechanical network had ever produced.</p>
 <p>The cost was immediate.</p>
-<p>Tingling — not in her fingertips but everywhere at once. Her entire
-body submerged in cold water. Then numbness, spreading inward from her
-palm, racing up her wrist, her forearm, reaching for her elbow. The
-hollow opened in her chest — not the gentle borrowing of a routine pipe
-read but a sudden, cavernous absence, a hollow where warmth had been and
-was now being drawn out through her hand and into the stone.</p>
+<p>Not the tingling she knew from junction readings — this was
+submersion. Her entire body plunged into something glacial and vast.
+Then weight, spreading inward from her palm, racing up her wrist, her
+forearm, reaching for her elbow. A gravitational pull opened in her
+chest — not the gentle borrowing of a routine pipe read but a sudden,
+cavernous subtraction, as if something essential had been siphoned
+through her hand and into the stone.</p>
 <p>She tried to pull back. The projection resisted — or she resisted,
 she couldn’t tell, because the data was extraordinary. In the fraction
 of a second before pain replaced perception, she felt the network’s
@@ -1060,9 +1753,7 @@ scope: channels running for hundreds of feet in every direction, a web
 of regulated pressure that dwarfed the mechanical system above it, and
 at the edge of her reach, far below and to the south, something that
 pulsed. A heartbeat. Slow, deep, steady — the rhythm of a system so vast
-that its cycles measured in minutes, not seconds. The rhythm of
-something that had been regulating the caldera’s force since before
-there was a city to protect.</p>
+that its cycles measured in minutes, not seconds.</p>
 <p>Then the pain hit, and the data dissolved, and the gallery
 tilted.</p>
 <p>Hands. On her shoulders. Warm and heavy and steady, holding her
@@ -1073,29 +1764,24 @@ circle of lantern light and iron ribs and the face in front of her.</p>
 <p>“Easy.” Elias’s voice. Low, controlled, pitched for the space between
 them and nothing further. “Breathe.”</p>
 <p>She breathed. The air tasted of copper and ozone and the mineral tang
-of deep stone, and it was warm, and she was cold. The numbness had
-pushed past her elbows — both arms, not just the left hand that had
-touched the wall, reaching for her shoulders. The void in her chest was
-a cold fist, pulling inward. Past the line she had described to him
-minutes ago. A debt that would take a full night to repay.</p>
+of deep stone, and it was warm, and she was not. The weight had pushed
+past her elbows — both arms, not just the left hand that had touched the
+wall, a leaden heaviness reaching for her shoulders. The absence in her
+chest was a gravity well, pulling inward. Past the line she had
+described to him minutes ago.</p>
 <p>His hands were still on her shoulders. The weight of his palms
 through the fabric of her coat. The warmth of him, specific and human, a
-counterpoint to the vast, impersonal warmth of the rock. His grip was
-firm without being tight.</p>
+counterpoint to the vast, impersonal warmth of the rock.</p>
 <p>“I’m here,” she said. The words came out thin. She tried again. “I’m
 all right.”</p>
-<p>“You staggered.” His eyes were on her face — reading her. Watching
-for the signs, as he’d said he would. “Your hand was on the wall for
-less than ten seconds. Your eyes went wide and then they went blank. I
-pulled you off when your knees buckled.”</p>
+<p>“You staggered.” His eyes were on her face — reading her. “Your hand
+was on the wall for less than ten seconds. Your eyes went wide and then
+they went blank. I pulled you off when your knees buckled.”</p>
 <p>Ten seconds. She had felt the network for ten seconds, and the cost
-was numbness to the elbows and a cold absence behind her ribs.</p>
+was leaden arms to the elbows and a cold subtraction behind her
+ribs.</p>
 <p>She looked at the gallery wall. Bare caldera stone. Dark, smooth,
-faintly glistening in the lantern light. It looked like nothing. A rock
-face in an abandoned tunnel. If she had not touched it, she would have
-walked past it and known only that the draw was stronger here, that the
-warmth was deeper, that the rock beneath the infrastructure was alive
-and pulling.</p>
+faintly glistening in the lantern light. It looked like nothing.</p>
 <p>“Tessa.” His hands had not moved from her shoulders. “What did you
 feel?”</p>
 <p>“There’s a network in the rock,” she said. “Not the pipes. Behind
@@ -1103,7 +1789,7 @@ them. Below them. In the stone itself. Channels — pressure channels,
 carrying something I don’t have a name for. It’s structured. It branches
 and converges like a circulatory system. It’s been here longer than the
 pipes, longer than the galleries, longer than the city.” She swallowed.
-The copper taste was fading. The numbness was not. “And it’s not
+The copper taste was fading. The heaviness was not. “And it’s not
 dormant. It’s active. I felt it regulating — absorbing pressure from
 below and distributing it outward. Governing it. The whole system
 pulses. There’s a heartbeat, something deep and slow, to the south and
@@ -1115,10 +1801,9 @@ Calibrator’s projection, and when it found one, it reached for it. Not
 hostile. Just — hungry. As if it had been waiting.”</p>
 <p>Elias’s breath left him — a controlled exhale. His hands tightened
 once on her shoulders, briefly, and then he let go.</p>
-<p>The absence of his grip was its own kind of cold.</p>
 <p>“A pressure network in the rock,” he said. “Active. Regulating. With
-a pulse.” He looked at the wall. At the bare stone that looked like
-nothing. “And the mechanical system above it.”</p>
+a pulse.” He looked at the wall. “And the mechanical system above
+it.”</p>
 <p>“Built on top of it,” she said. “That’s what I think. The pipes, the
 conduits, the junctions — they work because this works. The rock network
 regulates what feeds into the mechanical system. If the rock network
@@ -1128,114 +1813,77 @@ the thought with flat certainty. Two years of watching exactly that
 happen. “Fluctuations that don’t make mechanical sense. Anomalies too
 regular to be geological, too deep to be mechanical.” He looked at her.
 Recognition.</p>
-<p>“That’s what I’ve been measuring,” he said. “For two years. I’ve been
-measuring the symptoms of whatever this is breaking down.”</p>
-<p>“Yes.”</p>
-<p>He sat against the gallery wall.</p>
-<p>“Say that again.”</p>
-<p>“The pipe network works because the rock network governs what feeds
-into it.”</p>
-<p>He smiled. Small. Brief. The upward movement of mouth beneath beard,
-barely visible in the amber light. It changed his face. The severity
-softened, and then the weight resettled.</p>
-<p>“I’ve been telling them the problem isn’t at Junction Fourteen,” he
-said quietly. “You’ve just told me the problem isn’t in any junction.
-It’s below every junction.”</p>
-<p>He stood. Looked down the gallery. The walls ahead changed — dark and
-glassy, polished, veined with copper and gold in patterns that refused
-to be geological. The channels converged toward whatever lay beyond.</p>
-<p>“We’ll need rope,” he said. “Wherever that pulse is coming from, it’s
-deeper than we can walk.”</p>
-<p>They turned back without discussion. Elias took the lantern ahead and
-she fell in beside him, close enough that his sleeve brushed her
-shoulder when the gallery curved. Neither of them spoke. Tessa walked
-with her arms pulled close, hands curled against her stomach. The
-numbness was receding, slowly, the tingling that preceded recovery
-creeping down from her elbows toward her wrists. The emptiness in her
-chest had settled — no longer expanding, but present. A debt. The warmth
-she had lost to the wall would return. Eventually. The knowledge would
-not.</p>
-<p>Elias beside her in the dark. His breathing. The measured weight of
-his boots on the stone. The lantern he carried slightly ahead, casting
-their path in warm copper light. He had not asked if she could walk. He
-had not offered his arm. He had simply adjusted his pace to hers —
-slower than their descent, measured, unhurried.</p>
-<p>The gallery climbed in reverse — the long, gradual curve ascending
-toward the iron door and the active sections beyond. The infrastructure
-returned around them, grating underfoot, then pipe conduits reappearing
-along the walls, the iron ribs closing in as they left the bare rock
-behind. The world of human engineering reassembled itself bracket by
-bracket, and with each step the draw at her back grew fainter, though it
-did not disappear. Patient. Vast. Pulling with the slow insistence of a
-tide that knew it had forever.</p>
-<p>In the cold hollow of her chest she carried the memory of a heartbeat
-that was not her own — slow and deep and ancient. The pulse of a system
-that had been governing the caldera’s fire since before the city
-existed.</p>
-<p>Her foot caught an uneven plate, and Elias’s hand found her elbow.
-Fast. Sure. He’d been watching her in his peripheral vision for the last
-ten minutes, reading her balance by proximity, by instinct, by attention
-that could not be faked.</p>
+<p>“That’s what you’ve been measuring,” she said. “For two years. The
+secondary effect of a failure in a system nobody knew existed.”</p>
+<p>They turned back without discussion. She walked with her arms pulled
+close, hands curled against her stomach. The heaviness receded slowly —
+sensation creeping down from her elbows toward her wrists. The emptiness
+in her chest settled. No longer expanding, but present. A debt.</p>
+<p>Elias adjusted his pace to hers without being asked. The gallery
+climbed in reverse, the infrastructure returning — grating underfoot,
+then pipe conduits along the walls, iron ribs closing in as they left
+the bare rock behind. The world of human engineering reassembled bracket
+by bracket. With each step the draw at her back grew fainter, though it
+did not disappear.</p>
+<p>In the quiet space behind her ribs she carried the memory of a
+heartbeat that was not her own.</p>
+<p>Her foot caught an uneven plate. Elias’s hand found her elbow — fast,
+sure. He’d been watching her in his peripheral vision, reading her
+balance by attention that could not be faked.</p>
 <p>He held on longer than the stumble required.</p>
-<p>She felt the warmth of his hand through her sleeve. The numbness in
-her arm receded a fraction beneath his fingers.</p>
-<p>“We come back tomorrow,” he said. His voice was the same low
-register, the same measured tone. But the cadence had shifted.</p>
+<p>“We come back tomorrow,” he said.</p>
 <p>“Tomorrow,” she said.</p>
-<p>He let go. Careful. Deliberate.</p>
-<p>They walked the rest of the gallery in silence. The iron door grew
-closer. His lantern painted the walls in amber light, and the warmth of
-the deep galleries faded behind them, replaced by the cooler air of the
-active sections, the hum of steam in functioning pipes, the world of
-systems she understood.</p>
-<p>Her right arm tingled — the ghost of his grip, still warm through her
-sleeve.</p>
+<p>He let go. Careful. Deliberate. The ghost of his grip stayed warm
+through her sleeve.</p>
 <hr />
-<p>The tingling woke her — not the numbness itself but its retreat,
-sensation flooding back into her forearms like warmth returning to a
-pipe after a valve opens. She flexed her fingers against the blanket.
-The hollow in her chest had contracted overnight. Present but
-manageable. Most of what had been borrowed, returned.</p>
-<p>Most.</p>
-<p>She flexed her hands, testing. Reached — the smallest projection,
-through the building’s bones to the pipes. Normal. And beneath it, the
-draw. Fainter than the gallery but present — and registering differently
-this morning. A metallic taste at the back of her throat, sharp and
-brief, as if the draw had found a different channel in her body to
-announce itself. The low, persistent pull from the east she could not
-now unhear.</p>
-<p>Her survey journal lay on the washstand. She pulled it into her lap
-and turned to the first blank page.</p>
-<p>Standard Cartography notation had no vocabulary for what she had
-felt. She tried. The pipe-run symbol — parallel lines with flow arrows —
-was wrong. The channels were not pipes. They had no walls, no housing,
-no joints. They were the rock itself, conducting pressure the way nerves
-conducted sensation. She drew the symbol anyway and crossed it out.
-Tried the junction marker — the small circle with directional ticks that
-Dorren had taught her in her first week. Wrong again. The junctions she
-had felt were not mechanical intersections but places where the stone’s
-own grain changed direction, density shifting, the channels branching
-the way roots branch, by necessity and not design.</p>
-<p>She set down the pen. Stared at the blank page.</p>
-<p>The notation system she had trained in for five years could not hold
-what she had touched. Every symbol pointed at infrastructure — at the
-things humans had built on top of whatever this was. She needed a
-language for the thing itself.</p>
-<p>She drew anyway. Curved lines for the branching channels, freehand,
-without the ruler she used for pipe runs. Small circles for the
-junctions — but open, not closed, because these junctions did not
-terminate. A heavier line for the trunk pathways running deeper. At the
-center, an arrow pointing east. Toward the heartbeat. She invented a new
-mark for the severed places — a small circle with a line through it —
-and placed three of them along the eastern edge, where she had felt the
-channels end in scar.</p>
-<p>The drawing was imprecise. The channels did not sit still in her
-memory — they shifted, branched, overlapped in ways her two-dimensional
-page could not contain. But the imprecision was the discovery. The map
-was wrong because the system exceeded her notation. That was the first
-true thing the map said.</p>
-<p>She closed the journal. The tingling was almost gone.</p>
+</section>
+<section data-scene="a-new-notation">
+<p>The symbols came before language.</p>
+<p>Tessa sat cross-legged on her bed in the grey before dawn, journal
+open across her knees, and drew what her hands remembered. Not the
+standard cartographic notation — those marks described pressure
+gradients and pipe diameters, mineral deposits and fault lines. Clean.
+Institutional. Built for a world that ended at the junction walls.</p>
+<p>What she’d touched last night had no notation.</p>
+<p>She started with the rock network itself — the branching channels
+that carried the caldera’s geothermal pressure through raw stone. A line
+that split, split again, split again. Capillary geometry. She drew it
+freehand, no straightedge, because the network wasn’t straight. It
+followed the stone’s grain the way water follows slope: inevitable,
+patient, alive.</p>
+<p>For the regulatory architecture — the shaped junctions where the
+network’s own feedback loops balanced pressure across quadrants — she
+needed something different. She tried circles at first. Too static.
+Triangles. Too sharp. She stared at the wall for a long time, then drew
+a circle bisected by a cross: four quadrants, interconnected, each
+affecting the others. The symbol for what governed the flow.</p>
+<p>It looked like nothing in the Cartography reference manual.</p>
+<p>Good.</p>
+<p>She marked depletion with a descending line — not a gradient, not a
+scale, but a stroke that thinned as it fell, the ink spreading where the
+pen slowed. She’d felt that thinning in her fingertips. The way the draw
+pulled and the warmth left incrementally, not in steps but in a slow
+continuous withdrawal, like water sinking into sand.</p>
+<p>For the eastern damage — the severed channels, the dead ends where
+the network’s circulation had been cut — she used a simple mark. A line,
+then a gap. Then nothing.</p>
+<p>She filled three pages before the light through her window shifted
+from grey to pale gold. The notation was imprecise, personal,
+insufficient. It would mean nothing to another cartographer without
+explanation.</p>
+<p>But it was hers. And it described something real — something the
+institutional surveys had never mapped because their notation couldn’t
+hold it. The regulatory architecture. The living network. The
+damage.</p>
+<p>She closed the journal and pressed her palm flat against the wall
+beside her bed. The stone was warm. Three levels below, a trunk line
+carried geothermal water from the eastern quadrant toward the Basin
+center. She could feel it — faintly, the way you feel a distant bell
+more than hear it.</p>
+<p>She dressed, tucked the journal under her arm, and went to work.</p>
 <hr />
+</section>
+<section data-scene="question-between-junctions">
 <p>The Thornveil sang true. Sections three through seven: clean data,
 standard notation, the lateral’s topology exactly what it should be.
 Beneath every reading, the draw pulled — a steady, insistent undertow
@@ -1266,6 +1914,7 @@ ten-second contact with a wall that had nearly taken her elbows.</p>
 <p>She nodded to Pell as she passed. She did not look at the young
 woman.</p>
 <p>She would remember this moment later, with shame.</p>
+</section>
 </main>
 
 <nav class="chapter-nav">
@@ -1280,36 +1929,36 @@ woman.</p>
     <h2>Contents</h2>
     <div class="toc-contents">
   <ol class="toc-list">
-    <li><a href="chapter-01.html" data-chapter="chapter-01">Junction Fourteen</a></li>
-    <li><a href="chapter-02.html" data-chapter="chapter-02">Triage</a></li>
-    <li><a href="chapter-03.html" data-chapter="chapter-03">Ashward Reach</a></li>
-    <li><a href="chapter-04.html" data-chapter="chapter-04">The Draw</a></li>
-    <li><a href="chapter-05.html" data-chapter="chapter-05">Protocol</a></li>
-    <li><a href="chapter-06.html" data-chapter="chapter-06">The Sealed Galleries</a></li>
-    <li><a href="chapter-07.html" data-chapter="chapter-07">The Column</a></li>
-    <li><a href="chapter-08.html" data-chapter="chapter-08">Complicity</a></li>
-    <li><a href="chapter-09.html" data-chapter="chapter-09">Mapping</a></li>
-    <li><a href="chapter-10.html" data-chapter="chapter-10">Four-Eleven-Thirty</a></li>
-    <li><a href="chapter-11.html" data-chapter="chapter-11">The Full Timeline</a></li>
-    <li><a href="chapter-12.html" data-chapter="chapter-12">Eastern Cascade</a></li>
-    <li><a href="chapter-13.html" data-chapter="chapter-13">The Lie of Dormancy</a></li>
-    <li><a href="chapter-14.html" data-chapter="chapter-14">Buried</a></li>
-    <li><a href="chapter-15.html" data-chapter="chapter-15">The Archivist's Box</a></li>
-    <li><a href="chapter-16.html" data-chapter="chapter-16">Article Twelve</a></li>
-    <li><a href="chapter-17.html" data-chapter="chapter-17">The Warning</a></li>
-    <li><a href="chapter-18.html" data-chapter="chapter-18">Five Years</a></li>
-    <li><a href="chapter-19.html" data-chapter="chapter-19">The Order</a></li>
-    <li><a href="chapter-20.html" data-chapter="chapter-20">Cost</a></li>
-    <li><a href="chapter-21.html" data-chapter="chapter-21">Third Watch</a></li>
-    <li><a href="chapter-22.html" data-chapter="chapter-22">Stairwell Nine</a></li>
-    <li><a href="chapter-23.html" data-chapter="chapter-23">The Repair</a></li>
-    <li><a href="chapter-24.html" data-chapter="chapter-24">Dawn</a></li>
-    <li><a href="chapter-25.html" data-chapter="chapter-25">Diminished</a></li>
-    <li><a href="chapter-26.html" data-chapter="chapter-26">Recovery</a></li>
-    <li><a href="chapter-27.html" data-chapter="chapter-27">Clear Sight</a></li>
-    <li><a href="chapter-28.html" data-chapter="chapter-28">Lasting Work</a></li>
-    <li><a href="chapter-29.html" data-chapter="chapter-29">The Team</a></li>
-    <li><a href="chapter-30.html" data-chapter="chapter-30">A Beginning</a></li>
+    <li><a href="chapter-01.html" data-book="the-governor" data-chapter="chapter-01">Junction Fourteen</a></li>
+    <li><a href="chapter-02.html" data-book="the-governor" data-chapter="chapter-02">Triage</a></li>
+    <li><a href="chapter-03.html" data-book="the-governor" data-chapter="chapter-03">Ashward Reach</a></li>
+    <li><a href="chapter-04.html" data-book="the-governor" data-chapter="chapter-04">The Draw</a></li>
+    <li><a href="chapter-05.html" data-book="the-governor" data-chapter="chapter-05">Protocol</a></li>
+    <li><a href="chapter-06.html" data-book="the-governor" data-chapter="chapter-06">The Sealed Galleries</a></li>
+    <li><a href="chapter-07.html" data-book="the-governor" data-chapter="chapter-07">The Column</a></li>
+    <li><a href="chapter-08.html" data-book="the-governor" data-chapter="chapter-08">Complicity</a></li>
+    <li><a href="chapter-09.html" data-book="the-governor" data-chapter="chapter-09">Mapping</a></li>
+    <li><a href="chapter-10.html" data-book="the-governor" data-chapter="chapter-10">Four-Eleven-Thirty</a></li>
+    <li><a href="chapter-11.html" data-book="the-governor" data-chapter="chapter-11">The Full Timeline</a></li>
+    <li><a href="chapter-12.html" data-book="the-governor" data-chapter="chapter-12">Eastern Cascade</a></li>
+    <li><a href="chapter-13.html" data-book="the-governor" data-chapter="chapter-13">The Lie of Dormancy</a></li>
+    <li><a href="chapter-14.html" data-book="the-governor" data-chapter="chapter-14">Buried</a></li>
+    <li><a href="chapter-15.html" data-book="the-governor" data-chapter="chapter-15">The Archivist's Box</a></li>
+    <li><a href="chapter-16.html" data-book="the-governor" data-chapter="chapter-16">Article Twelve</a></li>
+    <li><a href="chapter-17.html" data-book="the-governor" data-chapter="chapter-17">The Warning</a></li>
+    <li><a href="chapter-18.html" data-book="the-governor" data-chapter="chapter-18">Five Years</a></li>
+    <li><a href="chapter-19.html" data-book="the-governor" data-chapter="chapter-19">The Order</a></li>
+    <li><a href="chapter-20.html" data-book="the-governor" data-chapter="chapter-20">Cost</a></li>
+    <li><a href="chapter-21.html" data-book="the-governor" data-chapter="chapter-21">Third Watch</a></li>
+    <li><a href="chapter-22.html" data-book="the-governor" data-chapter="chapter-22">Stairwell Nine</a></li>
+    <li><a href="chapter-23.html" data-book="the-governor" data-chapter="chapter-23">The Repair</a></li>
+    <li><a href="chapter-24.html" data-book="the-governor" data-chapter="chapter-24">Dawn</a></li>
+    <li><a href="chapter-25.html" data-book="the-governor" data-chapter="chapter-25">Diminished</a></li>
+    <li><a href="chapter-26.html" data-book="the-governor" data-chapter="chapter-26">Recovery</a></li>
+    <li><a href="chapter-27.html" data-book="the-governor" data-chapter="chapter-27">Clear Sight</a></li>
+    <li><a href="chapter-28.html" data-book="the-governor" data-chapter="chapter-28">Lasting Work</a></li>
+    <li><a href="chapter-29.html" data-book="the-governor" data-chapter="chapter-29">The Team</a></li>
+    <li><a href="chapter-30.html" data-book="the-governor" data-chapter="chapter-30">A Beginning</a></li>
   </ol>
 
     </div>
@@ -1558,7 +2207,6 @@ woman.</p>
   // ---------------------------------------------------------------------------
 
   var tocOverlay = document.querySelector('.toc-overlay');
-  var tocToggle = document.querySelector('.toc-toggle');
 
   function toggleToc() {
     if (!tocOverlay) return;
@@ -1578,10 +2226,6 @@ woman.</p>
     tocOverlay.classList.remove('active');
   }
 
-  if (tocToggle) {
-    tocToggle.addEventListener('click', toggleToc);
-  }
-
   // Close on backdrop click (click on the overlay itself, not its children).
   if (tocOverlay) {
     tocOverlay.addEventListener('click', function (e) {
@@ -1597,10 +2241,17 @@ woman.</p>
   var totalChapters = document.body.getAttribute('data-total-chapters');
 
   if (chapterNum && totalChapters && bookNav) {
-    var info = document.createElement('span');
+    var info = document.createElement('button');
     info.className = 'chapter-info';
     info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
-    bookNav.appendChild(info);
+    info.setAttribute('aria-label', 'Table of contents');
+    info.addEventListener('click', toggleToc);
+    var navControls = bookNav.querySelector('.nav-controls');
+    if (navControls) {
+      bookNav.insertBefore(info, navControls);
+    } else {
+      bookNav.appendChild(info);
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -1633,6 +2284,1563 @@ woman.</p>
   }
 
   highlightCurrentChapter();
+
+})();
+// Storyforge Annotation Overlay — loaded when --annotate is active
+(function() {
+  'use strict';
+
+  var bookSlug = document.body.dataset.book || 'unknown';
+  var chapterSlug = document.body.dataset.chapter || 'unknown';
+  var STORAGE_PREFIX = 'storyforge-annotations-' + bookSlug + '-';
+
+  var HIGHLIGHT_COLORS = [
+    { id: 'yellow', label: 'Important', color: '#fcd44f' },
+    { id: 'pink', label: 'Needs Revision', color: '#e8819a' },
+    { id: 'green', label: 'Strong Passage', color: '#6dca6d' },
+    { id: 'blue', label: 'Research Needed', color: '#78b4ff' },
+    { id: 'orange', label: 'Cut / Reconsider', color: '#f0a840' }
+  ];
+
+  // =========================================================================
+  // 1. UUID GENERATOR
+  // =========================================================================
+
+  function uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
+  // =========================================================================
+  // 2. STORAGE FUNCTIONS
+  // =========================================================================
+
+  function storageKey() {
+    return STORAGE_PREFIX + chapterSlug;
+  }
+
+  function loadAnnotations() {
+    try {
+      var raw = localStorage.getItem(storageKey());
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveAnnotations(annotations) {
+    try {
+      localStorage.setItem(storageKey(), JSON.stringify(annotations));
+    } catch (e) {
+      console.warn('[Storyforge Annotations] localStorage full — could not save annotations.', e);
+    }
+  }
+
+  function addAnnotation(annotation) {
+    var annotations = loadAnnotations();
+    annotations.push(annotation);
+    saveAnnotations(annotations);
+    return annotation;
+  }
+
+  function updateAnnotation(id, updates) {
+    var annotations = loadAnnotations();
+    for (var i = 0; i < annotations.length; i++) {
+      if (annotations[i].id === id) {
+        for (var key in updates) {
+          if (Object.prototype.hasOwnProperty.call(updates, key)) {
+            annotations[i][key] = updates[key];
+          }
+        }
+        break;
+      }
+    }
+    saveAnnotations(annotations);
+  }
+
+  function deleteAnnotation(id) {
+    var annotations = loadAnnotations();
+    saveAnnotations(annotations.filter(function(a) { return a.id !== id; }));
+  }
+
+  // =========================================================================
+  // 3. DOM HELPERS
+  // =========================================================================
+
+  var BLOCK_SELECTOR = 'p, blockquote, ul, ol, h1, h2, h3, h4, h5, h6';
+
+  function getSceneForNode(node) {
+    var el = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+    while (el && el !== document.body) {
+      if (el.dataset && el.dataset.scene !== undefined) {
+        return el.dataset.scene;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function getParagraphIndex(node, scene) {
+    var section = document.querySelector('[data-scene="' + scene + '"]');
+    if (!section) return -1;
+
+    var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+    var el = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+
+    // Walk up to find a direct block child of the section
+    while (el && el.parentElement !== section) {
+      el = el.parentElement;
+    }
+    if (!el) return -1;
+
+    for (var i = 0; i < blocks.length; i++) {
+      if (blocks[i] === el) return i;
+    }
+    return -1;
+  }
+
+  function getBlockByIndex(scene, index) {
+    var section = document.querySelector('[data-scene="' + scene + '"]');
+    if (!section) return null;
+    var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+    return blocks[index] || null;
+  }
+
+  // =========================================================================
+  // 4. HIGHLIGHT RENDERING
+  // =========================================================================
+
+  function renderHighlight(annotation) {
+    if (annotation.type === 'margin-note') return;
+
+    var anchor = annotation.anchor;
+    if (!anchor) return;
+
+    var block = getBlockByIndex(annotation.scene, anchor.paragraphIndex);
+    if (!block) return;
+
+    try {
+      // Use TreeWalker to find the text nodes covering the start/end offsets
+      // offsets are relative to the block's full text content
+      var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null, false);
+      var startNode = null, endNode = null;
+      var startOffset = 0, endOffset = 0;
+      var charCount = 0;
+      var node;
+
+      while ((node = walker.nextNode())) {
+        var nodeLen = node.nodeValue.length;
+        if (startNode === null && charCount + nodeLen > anchor.startOffset) {
+          startNode = node;
+          startOffset = anchor.startOffset - charCount;
+        }
+        if (endNode === null && charCount + nodeLen >= anchor.endOffset) {
+          endNode = node;
+          endOffset = anchor.endOffset - charCount;
+          break;
+        }
+        charCount += nodeLen;
+      }
+
+      if (!startNode || !endNode) return;
+
+      var range = document.createRange();
+      range.setStart(startNode, startOffset);
+      range.setEnd(endNode, endOffset);
+
+      var span = document.createElement('span');
+      span.className = 'sf-highlight';
+      if (annotation.comment) span.classList.add('has-comment');
+      span.dataset.annotationId = annotation.id;
+      span.dataset.color = annotation.color || 'yellow';
+      var hlColorObj = HIGHLIGHT_COLORS.find(function(c) { return c.id === (annotation.color || 'yellow'); });
+      if (hlColorObj) span.style.setProperty('--sf-hl-color', hlColorObj.color);
+      range.surroundContents(span);
+    } catch (e) {
+      // Cross-element or other range errors — skip silently
+    }
+  }
+
+  function renderAllHighlights() {
+    var annotations = loadAnnotations();
+    annotations.forEach(function(a) {
+      if (a.type !== 'margin-note') renderHighlight(a);
+    });
+  }
+
+  // =========================================================================
+  // 5. DESKTOP POPOVER
+  // =========================================================================
+
+  var activePopover = null;
+
+  function removePopover() {
+    if (activePopover && activePopover.parentNode) {
+      activePopover.parentNode.removeChild(activePopover);
+    }
+    activePopover = null;
+  }
+
+  function buildColorPicker(onColorClick) {
+    var picker = document.createElement('div');
+    picker.className = 'sf-color-picker';
+    HIGHLIGHT_COLORS.forEach(function(c) {
+      var swatch = document.createElement('button');
+      swatch.className = 'sf-color-swatch';
+      swatch.style.backgroundColor = c.color;
+      swatch.title = c.label;
+      swatch.dataset.color = c.id;
+      swatch.addEventListener('click', function(e) {
+        e.stopPropagation();
+        onColorClick(c.id);
+      });
+      picker.appendChild(swatch);
+    });
+    return picker;
+  }
+
+  function showPopover(x, y, range) {
+    removePopover();
+
+    var popover = document.createElement('div');
+    popover.className = 'sf-popover sf-popover-colors';
+    popover.style.top = (y + window.scrollY) + 'px';
+    popover.style.left = (x + window.scrollX) + 'px';
+
+    var picker = buildColorPicker(function(colorId) {
+      createHighlightFromRange(range, '', colorId);
+      removePopover();
+    });
+    popover.appendChild(picker);
+
+    var noteBtn = document.createElement('button');
+    noteBtn.className = 'sf-popover-note';
+    noteBtn.textContent = 'Note';
+    noteBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showCommentInput(popover, range);
+    });
+    popover.appendChild(noteBtn);
+
+    document.body.appendChild(popover);
+    activePopover = popover;
+  }
+
+  function addTextareaShortcuts(textarea, onSave, onCancel) {
+    textarea.addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        onSave();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        onCancel();
+      }
+    });
+  }
+
+  function showCommentInput(popover, range) {
+    while (popover.firstChild) popover.removeChild(popover.firstChild);
+    popover.className = 'sf-popover';
+
+    var selectedColor = 'yellow';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-comment-input';
+
+    var picker = buildColorPicker(function(colorId) {
+      selectedColor = colorId;
+      var swatches = picker.querySelectorAll('.sf-color-swatch');
+      swatches.forEach(function(s) {
+        if (s.dataset.color === colorId) s.classList.add('selected');
+        else s.classList.remove('selected');
+      });
+    });
+    // Default select yellow
+    var defaultSwatch = picker.querySelector('[data-color="yellow"]');
+    if (defaultSwatch) defaultSwatch.classList.add('selected');
+    wrap.appendChild(picker);
+
+    var textarea = document.createElement('textarea');
+    textarea.placeholder = 'Add a comment…';
+    textarea.rows = 3;
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removePopover();
+      window.getSelection().removeAllRanges();
+    });
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      createHighlightFromRange(range, textarea.value.trim(), selectedColor);
+      removePopover();
+    });
+
+    addTextareaShortcuts(textarea, function() {
+      createHighlightFromRange(range, textarea.value.trim(), selectedColor);
+      removePopover();
+    }, function() {
+      removePopover();
+      window.getSelection().removeAllRanges();
+    });
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    wrap.appendChild(textarea);
+    wrap.appendChild(actions);
+    popover.appendChild(wrap);
+    textarea.focus();
+  }
+
+  function getTextOffsets(block, range) {
+    // Walk text nodes in block to compute character offsets for start/end
+    var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null, false);
+    var startOffset = 0, endOffset = 0;
+    var charCount = 0;
+    var node;
+
+    while ((node = walker.nextNode())) {
+      var nodeLen = node.nodeValue.length;
+      if (node === range.startContainer) {
+        startOffset = charCount + range.startOffset;
+      }
+      if (node === range.endContainer) {
+        endOffset = charCount + range.endOffset;
+        break;
+      }
+      charCount += nodeLen;
+    }
+    return { startOffset: startOffset, endOffset: endOffset };
+  }
+
+  function createHighlightFromRange(range, comment, color) {
+    try {
+      var startNode = range.startContainer;
+      var scene = getSceneForNode(startNode);
+      if (!scene) return;
+
+      var paragraphIndex = getParagraphIndex(startNode, scene);
+      if (paragraphIndex < 0) return;
+
+      var block = getBlockByIndex(scene, paragraphIndex);
+      if (!block) return;
+
+      var offsets = getTextOffsets(block, range);
+      var selectedText = range.toString();
+
+      var annotation = {
+        id: uuid(),
+        type: comment ? 'comment' : 'highlight',
+        chapter: chapterSlug,
+        scene: scene,
+        anchor: {
+          paragraphIndex: paragraphIndex,
+          startOffset: offsets.startOffset,
+          endOffset: offsets.endOffset
+        },
+        selectedText: selectedText,
+        comment: comment,
+        color: color || 'yellow',
+        createdAt: new Date().toISOString()
+      };
+
+      addAnnotation(annotation);
+      renderHighlight(annotation);
+      updateBadge();
+      window.getSelection().removeAllRanges();
+    } catch (e) {
+      console.warn('[Storyforge Annotations] createHighlightFromRange error:', e);
+    }
+  }
+
+  // Desktop mouseup listener
+  document.addEventListener('mouseup', function(e) {
+    if (window.innerWidth < 640) return;
+    if (activePopover && activePopover.contains(e.target)) return;
+
+    var selection = window.getSelection();
+    if (!selection || selection.isCollapsed || !selection.toString().trim()) return;
+
+    var range = selection.getRangeAt(0);
+    var container = range.commonAncestorContainer;
+    var el = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+    if (!el.closest('.chapter-content')) return;
+
+    var rect = range.getBoundingClientRect();
+    showPopover(rect.left, rect.top - 50, range.cloneRange());
+  });
+
+  // Desktop mousedown listener — close popover when clicking outside
+  document.addEventListener('mousedown', function(e) {
+    if (window.innerWidth < 640) return;
+    if (activePopover && !activePopover.contains(e.target)) {
+      removePopover();
+    }
+  });
+
+  // =========================================================================
+  // 6. MOBILE TOOLBAR
+  // =========================================================================
+
+  var toolbar = null;
+  var pendingRange = null;
+
+  function createToolbar() {
+    if (window.innerWidth >= 640) return;
+    if (toolbar) return;
+
+    toolbar = document.createElement('div');
+    toolbar.className = 'sf-toolbar';
+
+    var hlBtn = document.createElement('button');
+    hlBtn.className = 'sf-hidden';
+    hlBtn.dataset.action = 'highlight';
+    hlBtn.textContent = 'Highlight';
+    hlBtn.addEventListener('click', function() {
+      if (pendingRange) {
+        showMobileColorPicker(pendingRange);
+      }
+    });
+
+    var cmBtn = document.createElement('button');
+    cmBtn.className = 'sf-hidden';
+    cmBtn.dataset.action = 'comment';
+    cmBtn.textContent = 'Comment';
+    cmBtn.addEventListener('click', function() {
+      if (pendingRange) {
+        showMobileCommentInput(pendingRange);
+      }
+    });
+
+    var noteBtn = document.createElement('button');
+    noteBtn.dataset.action = 'note';
+    noteBtn.textContent = '+ Note';
+    noteBtn.addEventListener('click', function() {
+      showMobileMarginInput();
+    });
+
+    toolbar.appendChild(hlBtn);
+    toolbar.appendChild(cmBtn);
+    toolbar.appendChild(noteBtn);
+    document.body.appendChild(toolbar);
+  }
+
+  document.addEventListener('selectionchange', function() {
+    if (window.innerWidth >= 640) return;
+    if (!toolbar) return;
+
+    var selection = window.getSelection();
+    if (!selection || selection.isCollapsed || !selection.toString().trim()) {
+      // Delay hide to allow tap registration
+      setTimeout(function() {
+        var sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+          var hlBtn = toolbar.querySelector('[data-action="highlight"]');
+          var cmBtn = toolbar.querySelector('[data-action="comment"]');
+          if (hlBtn) hlBtn.classList.add('sf-hidden');
+          if (cmBtn) cmBtn.classList.add('sf-hidden');
+        }
+      }, 200);
+      return;
+    }
+
+    var range = selection.getRangeAt(0);
+    var container = range.commonAncestorContainer;
+    var el = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+    if (!el.closest('.chapter-content')) return;
+
+    pendingRange = range.cloneRange();
+    var hlBtn = toolbar.querySelector('[data-action="highlight"]');
+    var cmBtn = toolbar.querySelector('[data-action="comment"]');
+    if (hlBtn) hlBtn.classList.remove('sf-hidden');
+    if (cmBtn) cmBtn.classList.remove('sf-hidden');
+  });
+
+  function clearMobileSelection() {
+    window.getSelection().removeAllRanges();
+    pendingRange = null;
+    if (!toolbar) return;
+    var hlBtn = toolbar.querySelector('[data-action="highlight"]');
+    var cmBtn = toolbar.querySelector('[data-action="comment"]');
+    if (hlBtn) hlBtn.classList.add('sf-hidden');
+    if (cmBtn) cmBtn.classList.add('sf-hidden');
+  }
+
+  function showMobileColorPicker(range) {
+    if (!toolbar) return;
+    while (toolbar.firstChild) toolbar.removeChild(toolbar.firstChild);
+
+    var picker = buildColorPicker(function(colorId) {
+      createHighlightFromRange(range, '', colorId);
+      clearMobileSelection();
+      rebuildToolbar();
+    });
+    toolbar.appendChild(picker);
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.style.fontSize = '0.78em';
+    cancelBtn.addEventListener('click', function() {
+      clearMobileSelection();
+      rebuildToolbar();
+    });
+    toolbar.appendChild(cancelBtn);
+  }
+
+  function showMobileCommentInput(range) {
+    if (!toolbar) return;
+    while (toolbar.firstChild) toolbar.removeChild(toolbar.firstChild);
+
+    var selectedColor = 'yellow';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-comment-input';
+    wrap.style.width = '100%';
+
+    var picker = buildColorPicker(function(colorId) {
+      selectedColor = colorId;
+      var swatches = picker.querySelectorAll('.sf-color-swatch');
+      swatches.forEach(function(s) {
+        if (s.dataset.color === colorId) s.classList.add('selected');
+        else s.classList.remove('selected');
+      });
+    });
+    var defaultSwatch = picker.querySelector('[data-color="yellow"]');
+    if (defaultSwatch) defaultSwatch.classList.add('selected');
+    wrap.appendChild(picker);
+
+    var textarea = document.createElement('textarea');
+    textarea.placeholder = 'Add a comment…';
+    textarea.rows = 2;
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function() {
+      clearMobileSelection();
+      rebuildToolbar();
+    });
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function() {
+      createHighlightFromRange(range, textarea.value.trim(), selectedColor);
+      rebuildToolbar();
+    });
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    wrap.appendChild(textarea);
+    wrap.appendChild(actions);
+    toolbar.appendChild(wrap);
+    textarea.focus();
+  }
+
+  function rebuildToolbar() {
+    if (toolbar && toolbar.parentNode) {
+      toolbar.parentNode.removeChild(toolbar);
+    }
+    toolbar = null;
+    pendingRange = null;
+    createToolbar();
+  }
+
+  // =========================================================================
+  // 7. MARGIN NOTES
+  // =========================================================================
+
+  function setupMarginTriggers() {
+    if (window.innerWidth < 640) return; // Desktop only
+
+    var sections = document.querySelectorAll('[data-scene]');
+    sections.forEach(function(section) {
+      var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+      blocks.forEach(function(block, index) {
+        block.style.position = 'relative';
+
+        var trigger = document.createElement('button');
+        trigger.className = 'sf-margin-trigger';
+        trigger.textContent = '+';
+        trigger.title = 'Add margin note';
+        trigger.setAttribute('aria-label', 'Add margin note');
+
+        var scene = section.dataset.scene;
+        trigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          showMarginNoteInput(scene, index, block);
+        });
+
+        block.appendChild(trigger);
+      });
+    });
+  }
+
+  function showMarginNoteInput(scene, paragraphIndex, block) {
+    // Remove any existing note panel
+    var existing = document.querySelector('.sf-note-panel');
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+    var panel = document.createElement('div');
+    panel.className = 'sf-note-panel';
+
+    // Color picker
+    var selectedColor = 'yellow';
+    var colorPicker = document.createElement('div');
+    colorPicker.className = 'sf-color-picker';
+    colorPicker.style.marginBottom = '8px';
+    HIGHLIGHT_COLORS.forEach(function(c) {
+      var swatch = document.createElement('button');
+      swatch.className = 'sf-color-swatch';
+      if (c.id === selectedColor) swatch.classList.add('selected');
+      swatch.style.backgroundColor = c.color;
+      swatch.title = c.label;
+      swatch.addEventListener('click', function(e) {
+        e.preventDefault();
+        selectedColor = c.id;
+        colorPicker.querySelectorAll('.sf-color-swatch').forEach(function(s) { s.classList.remove('selected'); });
+        swatch.classList.add('selected');
+      });
+      colorPicker.appendChild(swatch);
+    });
+    panel.appendChild(colorPicker);
+
+    var textarea = document.createElement('textarea');
+    textarea.placeholder = 'Add a margin note…';
+    textarea.rows = 3;
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    function saveMarginNote() {
+      var text = textarea.value.trim();
+      if (!text) return;
+
+      var annotation = {
+        id: uuid(),
+        type: 'margin-note',
+        chapter: chapterSlug,
+        scene: scene,
+        anchor: { paragraphIndex: paragraphIndex },
+        comment: text,
+        color: selectedColor,
+        createdAt: new Date().toISOString()
+      };
+
+      addAnnotation(annotation);
+      if (panel.parentNode) panel.parentNode.removeChild(panel);
+      renderMarginIndicator(annotation, block);
+      updateBadge();
+    }
+
+    function cancelMarginNote() {
+      if (panel.parentNode) panel.parentNode.removeChild(panel);
+    }
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', cancelMarginNote);
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', saveMarginNote);
+
+    addTextareaShortcuts(textarea, saveMarginNote, cancelMarginNote);
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    panel.appendChild(textarea);
+    panel.appendChild(actions);
+
+    block.insertAdjacentElement('afterend', panel);
+    textarea.focus();
+  }
+
+  function showMobileMarginInput() {
+    var viewportCenter = window.innerHeight / 2;
+    var sections = document.querySelectorAll('[data-scene]');
+    var closestBlock = null;
+    var closestScene = null;
+    var closestIndex = -1;
+    var closestDist = Infinity;
+
+    sections.forEach(function(section) {
+      var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+      blocks.forEach(function(block, index) {
+        var rect = block.getBoundingClientRect();
+        var blockCenter = (rect.top + rect.bottom) / 2;
+        var dist = Math.abs(blockCenter - viewportCenter);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestBlock = block;
+          closestScene = section.dataset.scene;
+          closestIndex = index;
+        }
+      });
+    });
+
+    if (closestBlock) {
+      showMarginNoteInput(closestScene, closestIndex, closestBlock);
+    }
+  }
+
+  function renderMarginIndicator(annotation, block) {
+    var indicator = document.createElement('span');
+    indicator.className = 'sf-margin-indicator';
+    indicator.textContent = '✎';
+    indicator.dataset.annotationId = annotation.id;
+    indicator.title = annotation.comment;
+    var colorObj = HIGHLIGHT_COLORS.find(function(c) { return c.id === (annotation.color || 'yellow'); });
+    if (colorObj) indicator.style.backgroundColor = colorObj.color;
+    indicator.setAttribute('role', 'button');
+    indicator.setAttribute('tabindex', '0');
+    indicator.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showCommentViewer(annotation, indicator);
+    });
+    block.style.position = 'relative';
+    block.appendChild(indicator);
+  }
+
+  function renderAllMarginNotes() {
+    var annotations = loadAnnotations();
+    annotations.forEach(function(a) {
+      if (a.type !== 'margin-note') return;
+      var block = getBlockByIndex(a.scene, a.anchor.paragraphIndex);
+      if (block) renderMarginIndicator(a, block);
+    });
+  }
+
+  // =========================================================================
+  // 8. COMMENT VIEWER
+  // =========================================================================
+
+  var activeViewer = null;
+
+  function removeViewer() {
+    if (activeViewer && activeViewer.parentNode) {
+      activeViewer.parentNode.removeChild(activeViewer);
+    }
+    activeViewer = null;
+  }
+
+  function showCommentViewer(annotation, targetEl) {
+    removeViewer();
+
+    var viewer = document.createElement('div');
+    viewer.className = 'sf-comment-viewer';
+
+    var rect = targetEl.getBoundingClientRect();
+    viewer.style.top = (rect.bottom + window.scrollY + 6) + 'px';
+    viewer.style.left = (rect.left + window.scrollX) + 'px';
+
+    if (annotation.comment) {
+      var commentP = document.createElement('p');
+      commentP.textContent = annotation.comment;
+      viewer.appendChild(commentP);
+    }
+
+    if (annotation.selectedText && (annotation.comment || annotation.type === 'margin-note')) {
+      var quoteP = document.createElement('p');
+      quoteP.style.fontStyle = 'italic';
+      quoteP.style.color = 'var(--text-dim)';
+      var text = annotation.selectedText;
+      if (text.length > 100) text = text.slice(0, 100) + '…';
+      quoteP.textContent = '\u201c' + text + '\u201d';
+      viewer.appendChild(quoteP);
+    }
+
+    if (annotation.createdAt) {
+      var timeEl = document.createElement('time');
+      timeEl.className = 'sf-timestamp';
+      var date = new Date(annotation.createdAt);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12 || 12;
+      var minStr = minutes < 10 ? '0' + minutes : minutes;
+      timeEl.textContent = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' at ' + hours + ':' + minStr + ' ' + ampm;
+      timeEl.setAttribute('datetime', annotation.createdAt);
+      viewer.appendChild(timeEl);
+    }
+
+    // Color picker
+    {
+      var colorRow = document.createElement('div');
+      colorRow.className = 'sf-color-picker';
+      colorRow.style.marginBottom = '8px';
+      HIGHLIGHT_COLORS.forEach(function(c) {
+        var swatch = document.createElement('button');
+        swatch.className = 'sf-color-swatch';
+        if ((annotation.color || 'yellow') === c.id) swatch.classList.add('selected');
+        swatch.style.backgroundColor = c.color;
+        swatch.title = c.label;
+        swatch.addEventListener('click', function(e) {
+          e.stopPropagation();
+          annotation.color = c.id;
+          updateAnnotation(annotation.id, { color: c.id });
+          var hlSpan = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+          if (hlSpan) {
+            hlSpan.dataset.color = c.id;
+            hlSpan.style.setProperty('--sf-hl-color', c.color);
+          }
+          var indEl = document.querySelector('.sf-margin-indicator[data-annotation-id="' + annotation.id + '"]');
+          if (indEl) indEl.style.backgroundColor = c.color;
+          // Update selected state
+          colorRow.querySelectorAll('.sf-color-swatch').forEach(function(s) { s.classList.remove('selected'); });
+          swatch.classList.add('selected');
+          updateBadge();
+        });
+        colorRow.appendChild(swatch);
+      });
+      viewer.appendChild(colorRow);
+    }
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showEditInput(annotation, targetEl);
+    });
+
+    var deleteBtn = document.createElement('button');
+    deleteBtn.className = 'sf-delete';
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      deleteAnnotation(annotation.id);
+
+      // Unwrap highlight span or remove margin indicator
+      var hlSpan = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+      if (hlSpan) {
+        while (hlSpan.firstChild) hlSpan.parentNode.insertBefore(hlSpan.firstChild, hlSpan);
+        hlSpan.parentNode.removeChild(hlSpan);
+      }
+      var indicator = document.querySelector('.sf-margin-indicator[data-annotation-id="' + annotation.id + '"]');
+      if (indicator && indicator.parentNode) indicator.parentNode.removeChild(indicator);
+
+      removeViewer();
+      updateBadge();
+    });
+
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = 'Close';
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removeViewer();
+    });
+
+    actions.appendChild(editBtn);
+    actions.appendChild(deleteBtn);
+    actions.appendChild(closeBtn);
+    viewer.appendChild(actions);
+
+    document.body.appendChild(viewer);
+    activeViewer = viewer;
+  }
+
+  function showEditInput(annotation, targetEl) {
+    removeViewer();
+
+    var viewer = document.createElement('div');
+    viewer.className = 'sf-comment-viewer';
+
+    var rect = targetEl.getBoundingClientRect();
+    viewer.style.top = (rect.bottom + window.scrollY + 6) + 'px';
+    viewer.style.left = (rect.left + window.scrollX) + 'px';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-comment-input';
+
+    var textarea = document.createElement('textarea');
+    textarea.value = annotation.comment || '';
+    textarea.placeholder = 'Add a comment…';
+    textarea.rows = 3;
+
+    function saveEdit() {
+      var newComment = textarea.value.trim();
+      updateAnnotation(annotation.id, { comment: newComment });
+      annotation.comment = newComment;
+
+      var hlSpan = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+      if (hlSpan) {
+        if (newComment) {
+          hlSpan.classList.add('has-comment');
+        } else {
+          hlSpan.classList.remove('has-comment');
+        }
+      }
+
+      removeViewer();
+    }
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removeViewer();
+    });
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      saveEdit();
+    });
+
+    addTextareaShortcuts(textarea, saveEdit, removeViewer);
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    wrap.appendChild(textarea);
+    wrap.appendChild(actions);
+    viewer.appendChild(wrap);
+
+    document.body.appendChild(viewer);
+    activeViewer = viewer;
+    textarea.focus();
+  }
+
+  // Click listener: open viewer on highlight/indicator, close when clicking outside
+  document.addEventListener('click', function(e) {
+    var hlSpan = e.target.closest('.sf-highlight');
+    var indicator = e.target.closest('.sf-margin-indicator');
+
+    if (hlSpan) {
+      var annotationId = hlSpan.dataset.annotationId;
+      var annotations = loadAnnotations();
+      var annotation = null;
+      for (var i = 0; i < annotations.length; i++) {
+        if (annotations[i].id === annotationId) { annotation = annotations[i]; break; }
+      }
+      if (annotation) showCommentViewer(annotation, hlSpan);
+      return;
+    }
+
+    if (indicator) {
+      // Already handled by indicator's own click listener
+      return;
+    }
+
+    if (activeViewer && !activeViewer.contains(e.target)) {
+      removeViewer();
+    }
+  });
+
+  // =========================================================================
+  // 9. BADGE
+  // =========================================================================
+
+  function updateBadge() {
+    var btn = document.querySelector('.sf-export-btn');
+    if (!btn) return;
+
+    var svg = btn.querySelector('svg');
+    // Remove any existing count span
+    var existing = btn.querySelector('.sf-count');
+    if (existing) existing.parentNode.removeChild(existing);
+
+    var annotations = loadAnnotations();
+    if (annotations.length > 0) {
+      var count = document.createElement('span');
+      count.className = 'sf-count';
+      count.style.fontSize = '0.75em';
+      count.textContent = ' ' + annotations.length;
+      btn.appendChild(count);
+    }
+
+    // Refresh sidebar list if open
+    if (sidebarEl && sidebarEl.classList.contains('active')) {
+      renderSidebarList();
+    }
+  }
+
+  // =========================================================================
+  // 10. ANCHOR RE-VALIDATION
+  // =========================================================================
+
+  function revalidateAnchors() {
+    var annotations = loadAnnotations();
+    var stale = [];
+    var valid = [];
+
+    annotations.forEach(function(annotation) {
+      if (annotation.type === 'margin-note') {
+        var block = getBlockByIndex(annotation.scene, annotation.anchor.paragraphIndex);
+        if (!block) {
+          stale.push(annotation);
+        } else {
+          valid.push(annotation);
+        }
+        return;
+      }
+
+      // highlight or comment
+      var block = getBlockByIndex(annotation.scene, annotation.anchor.paragraphIndex);
+      if (block && block.textContent.indexOf(annotation.selectedText) !== -1) {
+        // Still valid at stored location
+        valid.push(annotation);
+        return;
+      }
+
+      // Try scanning +/- 3 paragraphs
+      var found = false;
+      for (var delta = -3; delta <= 3; delta++) {
+        if (delta === 0) continue;
+        var altIndex = annotation.anchor.paragraphIndex + delta;
+        if (altIndex < 0) continue;
+        var altBlock = getBlockByIndex(annotation.scene, altIndex);
+        if (altBlock && altBlock.textContent.indexOf(annotation.selectedText) !== -1) {
+          // Re-anchor: update paragraphIndex
+          var textIdx = altBlock.textContent.indexOf(annotation.selectedText);
+          annotation.anchor.paragraphIndex = altIndex;
+          annotation.anchor.startOffset = textIdx;
+          annotation.anchor.endOffset = textIdx + annotation.selectedText.length;
+          valid.push(annotation);
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        stale.push(annotation);
+      }
+    });
+
+    saveAnnotations(valid);
+    return stale;
+  }
+
+  function renderStalePanel(staleAnnotations) {
+    if (!staleAnnotations || staleAnnotations.length === 0) return;
+
+    var chapterContent = document.querySelector('.chapter-content');
+    if (!chapterContent) return;
+
+    var panel = document.createElement('div');
+    panel.className = 'sf-stale-panel';
+
+    var heading = document.createElement('h3');
+    heading.textContent = staleAnnotations.length + ' annotation' +
+      (staleAnnotations.length !== 1 ? 's' : '') +
+      ' could not be placed (text may have changed)';
+    panel.appendChild(heading);
+
+    staleAnnotations.forEach(function(annotation) {
+      var details = document.createElement('details');
+
+      var summary = document.createElement('summary');
+      summary.textContent = annotation.type.charAt(0).toUpperCase() +
+        annotation.type.slice(1).replace('-', ' ');
+      details.appendChild(summary);
+
+      if (annotation.selectedText) {
+        var quote = document.createElement('blockquote');
+        quote.textContent = annotation.selectedText;
+        details.appendChild(quote);
+      }
+
+      if (annotation.comment) {
+        var commentP = document.createElement('p');
+        commentP.textContent = annotation.comment;
+        commentP.style.fontSize = '0.8rem';
+        commentP.style.margin = '4px 0';
+        details.appendChild(commentP);
+      }
+
+      var deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.addEventListener('click', function() {
+        deleteAnnotation(annotation.id);
+        if (details.parentNode) details.parentNode.removeChild(details);
+        var remaining = panel.querySelectorAll('details');
+        if (remaining.length === 0 && panel.parentNode) {
+          panel.parentNode.removeChild(panel);
+        }
+        updateBadge();
+      });
+      details.appendChild(deleteBtn);
+
+      panel.appendChild(details);
+    });
+
+    chapterContent.appendChild(panel);
+  }
+
+  // =========================================================================
+  // 11. EXPORT
+  // =========================================================================
+
+  function getAllAnnotations() {
+    var all = [];
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        if (key && key.indexOf(STORAGE_PREFIX) === 0) {
+          var chSlug = key.slice(STORAGE_PREFIX.length);
+          var raw = localStorage.getItem(key);
+          if (!raw) continue;
+          var parsed = JSON.parse(raw);
+          parsed.forEach(function(a) {
+            if (!a.chapter) a.chapter = chSlug;
+          });
+          all = all.concat(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn('[Storyforge Annotations] getAllAnnotations error:', e);
+    }
+
+    all.sort(function(a, b) {
+      if (a.chapter < b.chapter) return -1;
+      if (a.chapter > b.chapter) return 1;
+      if (a.scene < b.scene) return -1;
+      if (a.scene > b.scene) return 1;
+      return (a.anchor.paragraphIndex || 0) - (b.anchor.paragraphIndex || 0);
+    });
+
+    return all;
+  }
+
+  function exportJSON(annotations) {
+    var titleEl = document.querySelector('.nav-title');
+    var bookTitle = titleEl ? titleEl.textContent.trim() : bookSlug;
+    return JSON.stringify({
+      book: bookTitle,
+      exportedAt: new Date().toISOString(),
+      annotator: 'author',
+      annotations: annotations
+    }, null, 2);
+  }
+
+  function exportMarkdown(annotations) {
+    // Build chapter title lookup from TOC links
+    var chapterTitles = {};
+    var tocLinks = document.querySelectorAll('.toc-contents a');
+    tocLinks.forEach(function(link) {
+      var href = link.getAttribute('href') || '';
+      var match = href.match(/chapters\/(chapter-\d+)\.html/);
+      if (match) {
+        chapterTitles[match[1]] = link.textContent.trim();
+      }
+    });
+
+    var titleEl = document.querySelector('.nav-title');
+    var bookTitle = titleEl ? titleEl.textContent.trim() : bookSlug;
+    var dateStr = new Date().toISOString().slice(0, 10);
+
+    var lines = [];
+    lines.push('# Annotations: ' + bookTitle);
+    lines.push('Exported: ' + dateStr);
+    lines.push('');
+
+    var currentChapter = null;
+    var currentScene = null;
+
+    annotations.forEach(function(a) {
+      if (a.chapter !== currentChapter) {
+        currentChapter = a.chapter;
+        currentScene = null;
+        var chNum = (currentChapter.match(/chapter-(\d+)/) || [])[1] || '';
+        var chTitle = chapterTitles[currentChapter] ||
+          (chNum ? 'Chapter ' + chNum : currentChapter);
+        lines.push('## ' + chTitle);
+        lines.push('');
+      }
+
+      if (a.scene !== currentScene) {
+        currentScene = a.scene;
+        lines.push('### Scene: ' + currentScene);
+        lines.push('');
+      }
+
+      if (a.type === 'margin-note') {
+        lines.push('*(margin note)*');
+      }
+
+      if (a.selectedText) {
+        lines.push('> \u201c' + a.selectedText + '\u201d');
+      }
+
+      if (a.comment) {
+        lines.push(a.comment);
+      }
+
+      lines.push('');
+    });
+
+    return lines.join('\n');
+  }
+
+  function downloadFile(content, filename, mimeType) {
+    var blob = new Blob([content], { type: mimeType });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function doExport(format) {
+    var annotations, content, filename;
+
+    if (format === 'chapter-json') {
+      annotations = loadAnnotations();
+      content = exportJSON(annotations);
+      filename = bookSlug + '-' + chapterSlug + '-annotations.json';
+      downloadFile(content, filename, 'application/json');
+    } else if (format === 'chapter') {
+      annotations = loadAnnotations();
+      content = exportMarkdown(annotations);
+      filename = bookSlug + '-' + chapterSlug + '-annotations.md';
+      downloadFile(content, filename, 'text/markdown');
+    } else if (format === 'json') {
+      annotations = getAllAnnotations();
+      content = exportJSON(annotations);
+      filename = bookSlug + '-annotations.json';
+      downloadFile(content, filename, 'application/json');
+    } else if (format === 'md') {
+      annotations = getAllAnnotations();
+      content = exportMarkdown(annotations);
+      filename = bookSlug + '-annotations.md';
+      downloadFile(content, filename, 'text/markdown');
+    }
+  }
+
+  // =========================================================================
+  // 11b. ANNOTATION SIDEBAR
+  // =========================================================================
+
+  var sidebarEl = null;
+  var sidebarFilter = null;
+
+  function toggleSidebar() {
+    if (sidebarEl && sidebarEl.classList.contains('active')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  }
+
+  function openSidebar() {
+    if (!sidebarEl) buildSidebar();
+    renderSidebarList();
+    sidebarEl.classList.add('active');
+  }
+
+  function closeSidebar() {
+    if (sidebarEl) sidebarEl.classList.remove('active');
+  }
+
+  function buildSidebar() {
+    sidebarEl = document.createElement('div');
+    sidebarEl.className = 'sf-sidebar';
+
+    // Header
+    var header = document.createElement('div');
+    header.className = 'sf-sidebar-header';
+
+    var title = document.createElement('h3');
+    title.textContent = 'Annotations';
+    header.appendChild(title);
+
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'sf-sidebar-close';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.addEventListener('click', closeSidebar);
+    header.appendChild(closeBtn);
+
+    sidebarEl.appendChild(header);
+
+    // Color legend / filters
+    var filters = document.createElement('div');
+    filters.className = 'sf-sidebar-filters';
+
+    var allBtn = document.createElement('button');
+    allBtn.className = 'sf-filter-row sf-filter-all selected';
+    allBtn.textContent = 'All';
+    allBtn.addEventListener('click', function() {
+      sidebarFilter = null;
+      updateFilterUI();
+      renderSidebarList();
+    });
+    filters.appendChild(allBtn);
+
+    HIGHLIGHT_COLORS.forEach(function(c) {
+      var row = document.createElement('button');
+      row.className = 'sf-filter-row sf-filter-swatch';
+      row.dataset.color = c.id;
+      row.addEventListener('click', function() {
+        sidebarFilter = (sidebarFilter === c.id) ? null : c.id;
+        updateFilterUI();
+        renderSidebarList();
+      });
+
+      var dot = document.createElement('span');
+      dot.className = 'sf-filter-dot';
+      dot.style.backgroundColor = c.color;
+      row.appendChild(dot);
+
+      var label = document.createElement('span');
+      label.className = 'sf-filter-label';
+      label.textContent = c.label;
+      row.appendChild(label);
+
+      filters.appendChild(row);
+    });
+
+    sidebarEl.appendChild(filters);
+
+    // List container
+    var list = document.createElement('div');
+    list.className = 'sf-sidebar-list';
+    sidebarEl.appendChild(list);
+
+    // Footer with export links
+    var footer = document.createElement('div');
+    footer.className = 'sf-sidebar-footer';
+
+    var exportLabel = document.createElement('span');
+    exportLabel.textContent = 'Export: ';
+    exportLabel.style.color = 'var(--text-dim)';
+    exportLabel.style.fontSize = '0.78em';
+    footer.appendChild(exportLabel);
+
+    ['chapter-json', 'chapter', 'json', 'md'].forEach(function(fmt, i) {
+      var labels = { 'chapter-json': 'Chapter JSON', 'chapter': 'Chapter MD', 'json': 'All JSON', 'md': 'All MD' };
+      if (i > 0) {
+        var sep = document.createElement('span');
+        sep.textContent = ' \u00b7 ';
+        sep.style.color = 'var(--text-dim)';
+        sep.style.fontSize = '0.78em';
+        footer.appendChild(sep);
+      }
+      var link = document.createElement('a');
+      link.href = '#';
+      link.textContent = labels[fmt];
+      link.style.color = 'var(--accent)';
+      link.style.fontSize = '0.78em';
+      link.style.textDecoration = 'none';
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        doExport(fmt);
+      });
+      footer.appendChild(link);
+    });
+
+    sidebarEl.appendChild(footer);
+    document.body.appendChild(sidebarEl);
+  }
+
+  function updateFilterUI() {
+    if (!sidebarEl) return;
+    var allBtn = sidebarEl.querySelector('.sf-filter-all');
+    var swatches = sidebarEl.querySelectorAll('.sf-filter-swatch');
+    if (allBtn) {
+      if (sidebarFilter === null) allBtn.classList.add('selected');
+      else allBtn.classList.remove('selected');
+    }
+    swatches.forEach(function(s) {
+      if (s.dataset.color === sidebarFilter) s.classList.add('selected');
+      else s.classList.remove('selected');
+    });
+  }
+
+  function renderSidebarList() {
+    if (!sidebarEl) return;
+    var list = sidebarEl.querySelector('.sf-sidebar-list');
+    if (!list) return;
+    while (list.firstChild) list.removeChild(list.firstChild);
+
+    var annotations = loadAnnotations();
+
+    if (sidebarFilter) {
+      annotations = annotations.filter(function(a) {
+        return (a.color || 'yellow') === sidebarFilter;
+      });
+    }
+
+    if (annotations.length === 0) {
+      var empty = document.createElement('p');
+      empty.className = 'sf-sidebar-empty';
+      empty.textContent = sidebarFilter ? 'No ' + sidebarFilter + ' annotations' : 'No annotations yet';
+      list.appendChild(empty);
+      return;
+    }
+
+    annotations.forEach(function(annotation) {
+      var card = document.createElement('div');
+      card.className = 'sf-sidebar-card';
+      card.addEventListener('click', function() {
+        scrollToAnnotation(annotation);
+        if (window.innerWidth < 640) closeSidebar();
+      });
+
+      // Color dot
+      var dot = document.createElement('span');
+      dot.className = 'sf-sidebar-dot';
+      var colorObj = HIGHLIGHT_COLORS.find(function(c) { return c.id === (annotation.color || 'yellow'); });
+      dot.style.backgroundColor = colorObj ? colorObj.color : '#fcd44f';
+      card.appendChild(dot);
+
+      var content = document.createElement('div');
+      content.className = 'sf-sidebar-card-content';
+
+      // Selected text
+      if (annotation.selectedText) {
+        var textEl = document.createElement('p');
+        textEl.className = 'sf-sidebar-text';
+        var t = annotation.selectedText;
+        if (t.length > 60) t = t.slice(0, 60) + '\u2026';
+        textEl.textContent = '\u201c' + t + '\u201d';
+        content.appendChild(textEl);
+      }
+
+      // Comment
+      if (annotation.comment) {
+        var commentEl = document.createElement('p');
+        commentEl.className = 'sf-sidebar-comment';
+        var c = annotation.comment;
+        if (c.length > 80) c = c.slice(0, 80) + '\u2026';
+        commentEl.textContent = c;
+        content.appendChild(commentEl);
+      }
+
+      // Type label for margin notes
+      if (annotation.type === 'margin-note') {
+        var typeEl = document.createElement('span');
+        typeEl.className = 'sf-sidebar-type';
+        typeEl.textContent = 'Margin note';
+        content.appendChild(typeEl);
+      }
+
+      // Timestamp
+      if (annotation.createdAt) {
+        var timeEl = document.createElement('time');
+        timeEl.className = 'sf-sidebar-time';
+        var date = new Date(annotation.createdAt);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        timeEl.textContent = months[date.getMonth()] + ' ' + date.getDate();
+        content.appendChild(timeEl);
+      }
+
+      card.appendChild(content);
+      list.appendChild(card);
+    });
+  }
+
+  function scrollToAnnotation(annotation) {
+    var el = null;
+    if (annotation.type === 'margin-note') {
+      el = document.querySelector('.sf-margin-indicator[data-annotation-id="' + annotation.id + '"]');
+    } else {
+      el = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+    }
+    if (!el) return;
+
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.add('sf-flash');
+    setTimeout(function() { el.classList.remove('sf-flash'); }, 1200);
+  }
+
+  // Close sidebar on outside click
+  document.addEventListener('click', function(e) {
+    if (!sidebarEl || !sidebarEl.classList.contains('active')) return;
+    if (sidebarEl.contains(e.target)) return;
+    var toggleBtn = document.querySelector('.sf-export-btn');
+    if (toggleBtn && (toggleBtn === e.target || toggleBtn.contains(e.target))) return;
+    closeSidebar();
+  });
+
+  // Close sidebar on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && sidebarEl && sidebarEl.classList.contains('active')) {
+      closeSidebar();
+    }
+  });
+
+  function addExportButton() {
+    var navControls = document.querySelector('.nav-controls');
+    if (!navControls) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'sf-export-btn';
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+    btn.title = 'Annotations';
+    btn.setAttribute('aria-label', 'Annotations');
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+
+    var chapterInfo = navControls.querySelector('.chapter-info');
+    if (chapterInfo) {
+      navControls.insertBefore(btn, chapterInfo);
+    } else {
+      var themeToggle = navControls.querySelector('.theme-toggle');
+      if (themeToggle) {
+        navControls.insertBefore(btn, themeToggle);
+      } else {
+        navControls.appendChild(btn);
+      }
+    }
+  }
+
+  // =========================================================================
+  // 12. KEYBOARD SHORTCUTS
+  // =========================================================================
+
+  document.addEventListener('keydown', function(e) {
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
+
+    if (e.key === 'a' || e.key === 'A') {
+      toggleSidebar();
+    }
+  });
+
+  // =========================================================================
+  // 13. INIT
+  // =========================================================================
+
+  function init() {
+    var stale = revalidateAnchors();
+    renderAllHighlights();
+    renderAllMarginNotes();
+    renderStalePanel(stale);
+    setupMarginTriggers();
+    createToolbar();
+    addExportButton();
+    updateBadge();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 
 })();
 </script>

@@ -5,6 +5,7 @@ date:           2026-03-10 12:00:00-0600
 sub_title:      Political fantasy
 cover_image:    /books/the-governor/cover.png
 book_path:      /books/the-governor/read/
+dashboard_path: /books/the-governor/dashboard.html
 ---
 
 In a city built above an ancient, sentient rock network, a Calibrator who can sense the geological system discovers it's being systematically sabotaged — and must navigate institutional conspiracy, her own near-fatal depletion, and a partnership with an engineer to save the hidden foundation that holds everything together.

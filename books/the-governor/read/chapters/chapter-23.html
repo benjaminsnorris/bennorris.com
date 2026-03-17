@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Repair — The Governor</title>
-<meta name="author" content="Ben Norris">
+<meta name="author" content="">
 
 <script>(function(){var t=localStorage.getItem('storyforge-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'})()</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
 /* ==========================================================================
    reading.css — Web Book Reading Experience
@@ -74,7 +74,7 @@
 
 /* Title font — applied to book title, chapter headings, part titles.
    Loaded via Google Fonts <link> in <head>; fallback to body font. */
-:root { --title-font: 'Playfair Display', 'Literata', Georgia, serif; --title-weight: normal; }
+:root { --title-font: 'Literata', Georgia, serif; --title-weight: 700; }
 
 /* --- 2. RESET & BASE ---------------------------------------------------- */
 
@@ -304,6 +304,7 @@ body {
 }
 
 .book-nav .nav-title {
+  flex: 1;
   font-family: var(--title-font);
   font-size: 0.82em;
   color: var(--text-dim);
@@ -311,43 +312,53 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 50%;
   transition: color 0.4s ease;
 }
 
 .book-nav .chapter-info {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
   font-family: var(--title-font);
   font-size: 0.78em;
   color: var(--text-dim);
   letter-spacing: 0.04em;
   white-space: nowrap;
-  transition: color 0.4s ease;
+  padding: 0.3em 0.6em;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.book-nav .chapter-info:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
 }
 
 .book-nav .nav-controls {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.5rem;
 }
 
-/* --- 11. THEME TOGGLE & TOC BUTTON -------------------------------------- */
+/* --- 11. THEME TOGGLE --------------------------------------------------- */
 
-.theme-toggle,
-.toc-toggle {
+.theme-toggle {
   background: none;
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--text-dim);
   cursor: pointer;
   line-height: 1;
+  font-size: 0.9em;
+  padding: 0.3em 0.55em;
   transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 
-.theme-toggle { font-size: 0.9em; padding: 0.3em 0.55em; }
-.toc-toggle { font-size: 0.82em; padding: 0.3em 0.6em; letter-spacing: 0.04em; }
-
-.theme-toggle:hover,
-.toc-toggle:hover {
+.theme-toggle:hover {
   color: var(--text);
   border-color: var(--text-dim);
   background: var(--surface);
@@ -814,16 +825,746 @@ body {
     scroll-behavior: auto !important;
   }
 }
+/* ==========================================================================
+   annotations.css — Annotation Overlay Styles
+   StoryForge production stylesheet — loaded when --annotate is active
+
+   Theme variables from reading.css:
+     --bg, --text, --text-dim, --accent, --surface, --border
+   Breakpoints: 639px mobile, 640px+ desktop
+   ========================================================================== */
+
+/* --- 1. HIGHLIGHTS ------------------------------------------------------- */
+
+.sf-highlight {
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+  border-radius: 2px;
+  background-color: rgba(255, 220, 80, 0.35); /* fallback for uncolored */
+}
+
+/* Per-color highlights */
+.sf-highlight[data-color="yellow"] { background-color: rgba(255, 220, 80, 0.35); }
+.sf-highlight[data-color="yellow"]:hover { background-color: rgba(255, 220, 80, 0.55); }
+.sf-highlight[data-color="pink"] { background-color: rgba(255, 130, 150, 0.3); }
+.sf-highlight[data-color="pink"]:hover { background-color: rgba(255, 130, 150, 0.5); }
+.sf-highlight[data-color="green"] { background-color: rgba(120, 220, 120, 0.3); }
+.sf-highlight[data-color="green"]:hover { background-color: rgba(120, 220, 120, 0.5); }
+.sf-highlight[data-color="blue"] { background-color: rgba(120, 180, 255, 0.3); }
+.sf-highlight[data-color="blue"]:hover { background-color: rgba(120, 180, 255, 0.5); }
+.sf-highlight[data-color="orange"] { background-color: rgba(255, 180, 80, 0.3); }
+.sf-highlight[data-color="orange"]:hover { background-color: rgba(255, 180, 80, 0.5); }
+
+/* Dot indicator for highlights that have an attached comment */
+.sf-highlight.has-comment::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--sf-hl-color, var(--accent));
+  border-radius: 50%;
+  margin-left: 2px;
+  vertical-align: super;
+}
+
+/* Dark theme — per-color variants (reduced opacity) */
+[data-theme="dark"] .sf-highlight { background-color: rgba(255, 200, 60, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="yellow"] { background-color: rgba(255, 220, 80, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="yellow"]:hover { background-color: rgba(255, 220, 80, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="pink"] { background-color: rgba(255, 130, 150, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="pink"]:hover { background-color: rgba(255, 130, 150, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="green"] { background-color: rgba(120, 220, 120, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="green"]:hover { background-color: rgba(120, 220, 120, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="blue"] { background-color: rgba(120, 180, 255, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="blue"]:hover { background-color: rgba(120, 180, 255, 0.35); }
+[data-theme="dark"] .sf-highlight[data-color="orange"] { background-color: rgba(255, 180, 80, 0.2); }
+[data-theme="dark"] .sf-highlight[data-color="orange"]:hover { background-color: rgba(255, 180, 80, 0.35); }
+
+/* Sepia theme — per-color variants (warmed tones) */
+[data-theme="sepia"] .sf-highlight { background-color: rgba(200, 160, 60, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="yellow"] { background-color: rgba(200, 170, 60, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="yellow"]:hover { background-color: rgba(200, 170, 60, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="pink"] { background-color: rgba(200, 120, 130, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="pink"]:hover { background-color: rgba(200, 120, 130, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="green"] { background-color: rgba(110, 180, 100, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="green"]:hover { background-color: rgba(110, 180, 100, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="blue"] { background-color: rgba(110, 160, 210, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="blue"]:hover { background-color: rgba(110, 160, 210, 0.4); }
+[data-theme="sepia"] .sf-highlight[data-color="orange"] { background-color: rgba(200, 150, 70, 0.25); }
+[data-theme="sepia"] .sf-highlight[data-color="orange"]:hover { background-color: rgba(200, 150, 70, 0.4); }
+
+
+/* --- 2. DESKTOP POPOVER -------------------------------------------------- */
+
+.sf-popover {
+  position: absolute;
+  z-index: 100;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  animation: sf-fade-in 0.15s ease;
+}
+
+.sf-popover button {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 36px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-popover button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* Comment input within popover */
+.sf-comment-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 260px;
+}
+
+.sf-comment-input textarea {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+  min-height: 70px;
+  outline: none;
+  line-height: 1.5;
+}
+
+.sf-comment-input textarea:focus {
+  border-color: var(--accent);
+}
+
+.sf-comment-input .sf-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+/* Color picker popover layout */
+.sf-popover.sf-popover-colors {
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+}
+
+/* Color picker row */
+.sf-color-picker {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 4px 6px;
+}
+
+.sf-color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, transform 0.15s;
+  padding: 0;
+  background: none;
+}
+
+.sf-color-swatch:hover {
+  transform: scale(1.15);
+}
+
+.sf-color-swatch.selected {
+  border-color: var(--text);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text-dim);
+}
+
+/* Note button in popover */
+.sf-popover-note {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.78em;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+.sf-popover-note:hover { color: var(--text); }
+
+@keyframes sf-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* --- 3. MOBILE BOTTOM TOOLBAR -------------------------------------------- */
+
+/* Hidden by default; shown only on mobile via media query below */
+.sf-toolbar { display: none; }
+
+@media (max-width: 639px) {
+  /* Suppress desktop popover entirely on mobile */
+  .sf-popover { display: none !important; }
+
+  .sf-toolbar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 8px 12px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sf-toolbar button {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  .sf-toolbar button:active {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .sf-toolbar button.sf-hidden { display: none; }
+
+  /* Ensure content isn't hidden behind the fixed toolbar */
+  .reading-column { padding-bottom: 70px; }
+}
+
+
+/* --- 4. MARGIN NOTES ----------------------------------------------------- */
+
+.sf-margin-trigger {
+  position: absolute;
+  left: -32px;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Reveal trigger button on paragraph hover (desktop only) */
+@media (min-width: 640px) {
+  [data-scene] > *:hover > .sf-margin-trigger,
+  .sf-margin-trigger:hover { opacity: 1; }
+}
+
+.sf-margin-indicator {
+  position: absolute;
+  left: -28px;
+  top: 0;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: var(--bg);
+}
+
+.sf-note-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin: 12px 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  animation: sf-fade-in 0.15s ease;
+}
+
+.sf-note-panel textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+  min-height: 70px;
+  box-sizing: border-box;
+  outline: none;
+  line-height: 1.5;
+}
+
+.sf-note-panel textarea:focus {
+  border-color: var(--accent);
+}
+
+.sf-note-panel .sf-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.sf-note-panel button {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  min-height: 36px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-note-panel button:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--bg);
+}
+
+/* Export button — match .theme-toggle / .toc-toggle styling */
+.sf-export-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 0.3em 0.55em;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-export-btn:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Badge used to show annotation counts in nav */
+.sf-badge {
+  background: none;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.82em;
+  padding: 0.3em 0.6em;
+  line-height: 1;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+
+/* --- 5. COMMENT VIEWER --------------------------------------------------- */
+
+.sf-comment-viewer {
+  position: absolute;
+  z-index: 101;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  max-width: 300px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  animation: sf-fade-in 0.15s ease;
+}
+
+.sf-comment-viewer .sf-timestamp {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+.sf-comment-viewer p {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.sf-comment-viewer .sf-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.sf-comment-viewer button:not(.sf-color-swatch) {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  min-height: 36px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sf-comment-viewer button:not(.sf-color-swatch):hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--bg);
+}
+
+.sf-comment-viewer button.sf-delete {
+  color: #c0392b;
+  border-color: #c0392b;
+}
+
+.sf-comment-viewer button.sf-delete:hover {
+  color: #e74c3c;
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.08);
+}
+
+
+/* --- 6. STALE ANNOTATIONS PANEL ----------------------------------------- */
+
+.sf-stale-panel {
+  margin-top: 3rem;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  border-left: 3px solid #e67e22;
+}
+
+.sf-stale-panel h3 {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.sf-stale-panel details { margin-bottom: 8px; }
+
+.sf-stale-panel summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.sf-stale-panel blockquote {
+  margin: 4px 0 4px 12px;
+  padding-left: 8px;
+  border-left: 2px solid var(--border);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.sf-stale-panel button {
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+
+/* --- 7. ANNOTATION SIDEBAR ----------------------------------------------- */
+
+.sf-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  padding-top: 44px;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  z-index: 850;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -4px 0 16px rgba(0,0,0,0.1);
+}
+
+.sf-sidebar.active {
+  transform: translateX(0);
+}
+
+.sf-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sf-sidebar-header h3 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.95em;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin: 0;
+}
+
+.sf-sidebar-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.4em;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.sf-sidebar-close:hover {
+  color: var(--text);
+}
+
+.sf-sidebar-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sf-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.78em;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.03em;
+  padding: 10px 18px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.sf-filter-row:last-child {
+  border-bottom: none;
+}
+
+.sf-filter-row:hover {
+  background: var(--surface);
+}
+
+.sf-filter-row.selected {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.sf-filter-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sf-filter-label {
+  white-space: nowrap;
+}
+
+.sf-sidebar-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.sf-sidebar-empty {
+  text-align: center;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 0.85em;
+  padding: 2em 1em;
+}
+
+.sf-sidebar-card {
+  display: flex;
+  gap: 10px;
+  padding: 12px 18px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s;
+}
+
+.sf-sidebar-card:hover {
+  background: var(--surface);
+}
+
+.sf-sidebar-card:last-child {
+  border-bottom: none;
+}
+
+.sf-sidebar-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.sf-sidebar-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sf-sidebar-text {
+  font-size: 0.82em;
+  font-style: italic;
+  color: var(--text-dim);
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.sf-sidebar-comment {
+  font-size: 0.85em;
+  color: var(--text);
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.sf-sidebar-type {
+  display: inline-block;
+  font-size: 0.7em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.sf-sidebar-time {
+  font-size: 0.7em;
+  color: var(--text-dim);
+  opacity: 0.7;
+}
+
+.sf-sidebar-footer {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+/* Flash animation for scroll-to */
+@keyframes sf-flash {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0.3; }
+  50% { opacity: 1; }
+  75% { opacity: 0.3; }
+}
+
+.sf-highlight.sf-flash,
+.sf-margin-indicator.sf-flash {
+  animation: sf-flash 1.2s ease;
+}
+
+/* Mobile: bottom sheet instead of sidebar */
+@media (max-width: 639px) {
+  .sf-sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    border-radius: 12px 12px 0 0;
+    transform: translateY(100%);
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+  }
+
+  .sf-sidebar.active {
+    transform: translateY(0);
+  }
+}
+
+
+/* --- 8. PRINT AND REDUCED MOTION ---------------------------------------- */
+
+@media print {
+  /* Remove highlight tinting in print — text should read cleanly */
+  .sf-highlight { background: none !important; }
+  .sf-highlight.has-comment::after { display: none; }
+
+  /* Hide all annotation UI chrome from print output */
+  .sf-popover,
+  .sf-toolbar,
+  .sf-margin-trigger,
+  .sf-margin-indicator,
+  .sf-note-panel,
+  .sf-comment-viewer,
+  .sf-badge,
+  .sf-sidebar,
+  .sf-stale-panel { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-popover,
+  .sf-note-panel,
+  .sf-sidebar,
+  .sf-comment-viewer { animation: none; }
+
+  .sf-sidebar { transition: none; }
+}
 </style>
 </head>
-<body data-chapter="chapter-23" data-chapter-num="23" data-total-chapters="30">
+<body data-book="the-governor" data-chapter="chapter-23" data-chapter-num="23" data-total-chapters="30">
 
 <div class="progress-bar"></div>
 
 <nav class="book-nav">
   <a href="../contents.html" class="nav-title">The Governor</a>
   <div class="nav-controls">
-    <button class="toc-toggle" aria-label="Table of contents">&#9776;</button>
     <button class="theme-toggle" aria-label="Change theme">
       <span class="icon-light">&#9788;</span>
       <span class="icon-dark">&#9790;</span>
@@ -835,6 +1576,7 @@ body {
 <main class="reading-column chapter-content drop-cap">
 
 <h1 id="chapter-23-the-repair">Chapter 23: The Repair</h1>
+<section data-scene="tessa-pushes-into-the-network">
 <p>The network did not wait.</p>
 <p>The moment her palms pressed flat against the column’s surface — the
 stone warm and grooved under her fingers, the channels dense enough to
@@ -884,10 +1626,11 @@ across nineteen years of dead space.</p>
 <p>Thin. Fragile. The faintest whisper of pressure through a channel
 that had been dark for longer than she had been a Calibrator. But
 moving. Connected.</p>
-<p>Pain up both arms. Sharp. Electric. The burn of energy extracted at a
-rate her body could not sustain. The void behind her sternum opened —
-the hollowed space where depletion lived. A crack. A fault line through
-the center of her chest, and on the other side of it, the cold.</p>
+<p>The cost was metallic — a sharp iron taste flooding her mouth, her
+sinuses, as if the repair were extracting something from her blood. The
+burn climbed both arms. Electric. The space behind her sternum split —
+not the familiar subtraction but a fracture, a fault line through the
+center of her chest, and on the other side of it, a pulling dark.</p>
 <p>She pushed again. The second junction. The third. The pattern flowing
 outward from the column, finding the dead ends and the severed termini
 and the channels that had been cut by people who understood exactly what
@@ -896,42 +1639,62 @@ network learning, the self-healing process beginning to take hold.</p>
 <p>Amber light spread across the chamber walls. Fitful. Uneven. New
 channels flickering to life like embers catching in cold wood. The
 eastern quadrant was coming back.</p>
-<p>The pain reached her shoulders.</p>
+<p>The iron taste thickened. Her shoulders locked.</p>
 <hr />
+</section>
+<section data-scene="elias-watching-and-counting">
 <p>Elias released the third companion.</p>
-<p>The man did not move. Face against the warm stone floor. The ground
-was not as stable as he had believed.</p>
+<p>The man did not move. Face against the warm stone floor,
+understanding arriving through the body before the mind caught up.</p>
 <p>Haddon had not moved either. Pistol at his side, finger off the
 trigger guard. The horror that had replaced the flatness. He bent slowly
-and set the pistol on the chamber floor. A man laying down a tool he no
+and set the pistol on the chamber floor — a man laying down a tool he no
 longer intended to use.</p>
 <p>Elias crossed the chamber in six strides. Stone warm through his boot
-soles — too warm. The corrosive agent pooled near the column base,
-eating into rock. He stepped around it.</p>
+soles, too warm. The corrosive agent pooled near the column base, eating
+into rock. He stepped around it.</p>
 <p>Tessa stood at the column. Palms flat against the surface, wrists
 locked, arms rigid to the shoulder. Full extension. Eyes closed. Jaw
-set. Breathing controlled — four seconds in, four seconds out —
-shoulders rigid.</p>
+set. Her breathing was controlled — four seconds in, four seconds out —
+but her shoulders had gone rigid in the way he recognized from the
+blackout: the stillness that preceded total absence.</p>
 <p>He placed his hands on her shoulders.</p>
 <p>No reaction. Past external input. He had learned the sequence:
 hearing went first, then spatial awareness, then responses to his voice.
-The deeper she went, the less of her remained on the surface.</p>
-<p>Tonight she was going deeper than she had ever gone.</p>
+The deeper she went, the less of her remained on the surface. Tonight
+she was going deeper than she had ever gone.</p>
 <p>Her skin was cold through the coat. Colder than the chamber air. He
 knew this cold — had pressed his palms against her frozen fingers after
-every session. The cold of a system spending faster than it stored. Heat
-going from him to her.</p>
-<p>He began to count.</p>
-<p>Breaths. Four seconds in. Four seconds out. Steady.</p>
-<p>But the rated capacity had been downgraded. Eight descents.
-Tolerances tighter, margin thinner.</p>
-<p>He held her shoulders. Counted. Twenty-two years had taught him: the
-most important indicator was the one you almost missed. The one that
-changed before the gauge moved.</p>
-<p>Her breathing was steady. Her temperature was dropping. The warm
-light on the chamber walls was spreading.</p>
-<p>He counted.</p>
+every session. The cold of a system spending faster than it stored, heat
+leaving her through the stone. He started counting.</p>
+<p>Breaths. Four seconds in. Four seconds out. Steady. But the rated
+capacity had been downgraded across eight descents — tolerances tighter,
+margin thinner, the baseline shifted each session by a fraction that
+never fully recovered.</p>
+<p>He held her shoulders. Counted. The warm light on the chamber walls
+was spreading — the eastern quadrant brightening, the repair propagating
+outward from the column in branches, the amber glow filling channels
+that had been dark for nineteen years.</p>
+<p>She was saving it.</p>
+<p>He pressed his thumbs into the trapezius. The diagnostic pressure he
+used on seized valves — a test for response, for whether the system
+could still feel him. The muscle did not yield. He leaned forward, close
+to her ear.</p>
+<p>“Tessa.”</p>
+<p>No response. Past hearing. The protocol demanded it: any stillness,
+called out. No voice response within two seconds, pulled off.</p>
+<p>He counted two seconds.</p>
+<p>She did not respond.</p>
+<p>He did not pull her off.</p>
+<p>The reconnection had to take hold or the work was wasted. She was
+rigid and cold and past hearing, but she was breathing. Four seconds in.
+Four seconds out. The needle touching the red line but not crossing it.
+He kept his hands on her shoulders — the only instrument he had, the
+only gauge that mattered — and he counted, and the chamber blazed around
+them with the light she was rebuilding at the cost of herself.</p>
 <hr />
+</section>
+<section data-scene="deep-repair-eastern-quadrant-reconnecting">
 <p>The network’s eastern quadrant was a map she carried in her body.</p>
 <p>The crossed circles in her journal were the intellectual record. This
 was the original — each channel and junction and terminus as intimate as
@@ -941,13 +1704,14 @@ channels flowing outward from the column, and everywhere it reached, the
 dead connections stirred. Scar tissue thinning. Channel ends reaching.
 Self-healing engaging for the first time in nineteen years.</p>
 <p>The cost climbed.</p>
-<p>Numbness past her shoulders now. The void in her chest was not a
-crack anymore — it was architecture. She was not lending energy. She was
-becoming the pathway. The human bridge between the column’s ancient
+<p>Past her shoulders now — a heaviness that had become gravitational,
+pulling her down through her own skeleton. The fracture in her chest was
+no longer a crack. It was architecture. She was not lending energy. She
+was becoming the pathway. The human bridge between the column’s ancient
 intelligence and the severed network it could no longer reach alone.</p>
 <p>She could not feel the threshold.</p>
 <p>The boundary between recoverable and permanent was a cliff edge
-hidden in fog, and the fog was the numbness itself. His hands on her
+hidden in fog, and the fog was the heaviness itself. His hands on her
 shoulders. His count running. He decides. He pulls her off. Even if she
 fights. Even if the reconnection is building. Even if the repair doesn’t
 hold.</p>
@@ -964,9 +1728,9 @@ recognized — the eastern quadrant’s branching pathways, the regulatory
 architecture coming back. The light spreading not all at once but in
 stages. Each reconnection making the next one possible.</p>
 <p>She could not feel her legs.</p>
-<p>The numbness had reached her waist. Her knees. The soles of her feet,
-where the chamber floor’s warmth should have registered and did not. She
-thought of Sera. She thought of Halder.</p>
+<p>The heaviness had reached her waist. Her knees. The soles of her
+feet, where the chamber floor’s warmth should have registered and did
+not. She thought of Sera. She thought of Halder.</p>
 <p>Her mother’s voice, from a distance: A cost, always a cost.</p>
 <p>She pushed.</p>
 <p>Elias’s hands read the change.</p>
@@ -998,6 +1762,8 @@ Four seconds out. The needle touching the red line but not crossing
 it.</p>
 <p>The needle on the line. His hands on her shoulders. Steady.</p>
 <hr />
+</section>
+<section data-scene="four-seconds-of-not-breathing">
 <p>At the center of the network, where the column’s channels converged
 into the regulatory core, Tessa found the corrosive damage.</p>
 <p>Three junction points where the spray had hit. The dissolution was
@@ -1109,6 +1875,8 @@ held a pipe joint while the sealant cured — steady, patient, not moving
 until the join was set.</p>
 <p>She breathed. And breathed. And breathed.</p>
 <hr />
+</section>
+<section data-scene="waking-up-hi">
 <p>The world came back in pieces.</p>
 <p>Warmth first. His warmth — the gallery warmth, the pipe warmth, the
 specific heat of a man who had spent his life in tunnels where the
@@ -1117,7 +1885,7 @@ through the cold the way the warm light had reached through the
 darkness: slowly, unevenly, a presence rather than a restoration.</p>
 <p>Sound next. His heartbeat. The sound she had listened for two hours
 ago, pressed against his chest in a room with warm pipes and a cot that
-needed shimming. It was there. Steady. The most basic pressure reading.
+needed shimming. Still there. Steady. The most basic pressure reading.
 The one that mattered most.</p>
 <p>Then her hands. She could feel her hands. The detailed sensitivity
 was gone — the Calibrator’s reading of a junction, the fine-grained
@@ -1151,7 +1919,8 @@ someone else.</p>
 <p>Diminished. Not destroyed.</p>
 <p>“Don’t ever do that to me again,” he said.</p>
 <p>She lifted her head. Looked at him. Steel gray eyes in the warm
-light. The four seconds, written on his face.</p>
+light. The four seconds, written on his face. All of them. All the
+seconds he had counted and the four that had been empty.</p>
 <p>“I won’t promise that,” she said.</p>
 <p>Then he pulled her closer. Without measuring. Without calibrating. He
 held her and she let him and the chamber blazed around them with the
@@ -1166,8 +1935,7 @@ need me anymore.”</p>
 <p>“I know.”</p>
 <p>“Elias.”</p>
 <p>“I’m here.”</p>
-<p>The simplest sentence. The one he always gave her. The gauge,
-present.</p>
+<p>The simplest sentence. The one he always gave her.</p>
 <p>She pressed her cheek against his chest. The heartbeat steady beneath
 her ear. Still there.</p>
 <p>At the far wall of the chamber, four figures stood in the restored
@@ -1186,6 +1954,7 @@ sabotaged and left to die, was breathing again.</p>
 the cold — slowly, imperfectly. Something starting where something else
 had ended.</p>
 <p>She breathed. He counted. The network held.</p>
+</section>
 </main>
 
 <nav class="chapter-nav">
@@ -1200,36 +1969,36 @@ had ended.</p>
     <h2>Contents</h2>
     <div class="toc-contents">
   <ol class="toc-list">
-    <li><a href="chapter-01.html" data-chapter="chapter-01">Junction Fourteen</a></li>
-    <li><a href="chapter-02.html" data-chapter="chapter-02">Triage</a></li>
-    <li><a href="chapter-03.html" data-chapter="chapter-03">Ashward Reach</a></li>
-    <li><a href="chapter-04.html" data-chapter="chapter-04">The Draw</a></li>
-    <li><a href="chapter-05.html" data-chapter="chapter-05">Protocol</a></li>
-    <li><a href="chapter-06.html" data-chapter="chapter-06">The Sealed Galleries</a></li>
-    <li><a href="chapter-07.html" data-chapter="chapter-07">The Column</a></li>
-    <li><a href="chapter-08.html" data-chapter="chapter-08">Complicity</a></li>
-    <li><a href="chapter-09.html" data-chapter="chapter-09">Mapping</a></li>
-    <li><a href="chapter-10.html" data-chapter="chapter-10">Four-Eleven-Thirty</a></li>
-    <li><a href="chapter-11.html" data-chapter="chapter-11">The Full Timeline</a></li>
-    <li><a href="chapter-12.html" data-chapter="chapter-12">Eastern Cascade</a></li>
-    <li><a href="chapter-13.html" data-chapter="chapter-13">The Lie of Dormancy</a></li>
-    <li><a href="chapter-14.html" data-chapter="chapter-14">Buried</a></li>
-    <li><a href="chapter-15.html" data-chapter="chapter-15">The Archivist's Box</a></li>
-    <li><a href="chapter-16.html" data-chapter="chapter-16">Article Twelve</a></li>
-    <li><a href="chapter-17.html" data-chapter="chapter-17">The Warning</a></li>
-    <li><a href="chapter-18.html" data-chapter="chapter-18">Five Years</a></li>
-    <li><a href="chapter-19.html" data-chapter="chapter-19">The Order</a></li>
-    <li><a href="chapter-20.html" data-chapter="chapter-20">Cost</a></li>
-    <li><a href="chapter-21.html" data-chapter="chapter-21">Third Watch</a></li>
-    <li><a href="chapter-22.html" data-chapter="chapter-22">Stairwell Nine</a></li>
-    <li><a href="chapter-23.html" data-chapter="chapter-23">The Repair</a></li>
-    <li><a href="chapter-24.html" data-chapter="chapter-24">Dawn</a></li>
-    <li><a href="chapter-25.html" data-chapter="chapter-25">Diminished</a></li>
-    <li><a href="chapter-26.html" data-chapter="chapter-26">Recovery</a></li>
-    <li><a href="chapter-27.html" data-chapter="chapter-27">Clear Sight</a></li>
-    <li><a href="chapter-28.html" data-chapter="chapter-28">Lasting Work</a></li>
-    <li><a href="chapter-29.html" data-chapter="chapter-29">The Team</a></li>
-    <li><a href="chapter-30.html" data-chapter="chapter-30">A Beginning</a></li>
+    <li><a href="chapter-01.html" data-book="the-governor" data-chapter="chapter-01">Junction Fourteen</a></li>
+    <li><a href="chapter-02.html" data-book="the-governor" data-chapter="chapter-02">Triage</a></li>
+    <li><a href="chapter-03.html" data-book="the-governor" data-chapter="chapter-03">Ashward Reach</a></li>
+    <li><a href="chapter-04.html" data-book="the-governor" data-chapter="chapter-04">The Draw</a></li>
+    <li><a href="chapter-05.html" data-book="the-governor" data-chapter="chapter-05">Protocol</a></li>
+    <li><a href="chapter-06.html" data-book="the-governor" data-chapter="chapter-06">The Sealed Galleries</a></li>
+    <li><a href="chapter-07.html" data-book="the-governor" data-chapter="chapter-07">The Column</a></li>
+    <li><a href="chapter-08.html" data-book="the-governor" data-chapter="chapter-08">Complicity</a></li>
+    <li><a href="chapter-09.html" data-book="the-governor" data-chapter="chapter-09">Mapping</a></li>
+    <li><a href="chapter-10.html" data-book="the-governor" data-chapter="chapter-10">Four-Eleven-Thirty</a></li>
+    <li><a href="chapter-11.html" data-book="the-governor" data-chapter="chapter-11">The Full Timeline</a></li>
+    <li><a href="chapter-12.html" data-book="the-governor" data-chapter="chapter-12">Eastern Cascade</a></li>
+    <li><a href="chapter-13.html" data-book="the-governor" data-chapter="chapter-13">The Lie of Dormancy</a></li>
+    <li><a href="chapter-14.html" data-book="the-governor" data-chapter="chapter-14">Buried</a></li>
+    <li><a href="chapter-15.html" data-book="the-governor" data-chapter="chapter-15">The Archivist's Box</a></li>
+    <li><a href="chapter-16.html" data-book="the-governor" data-chapter="chapter-16">Article Twelve</a></li>
+    <li><a href="chapter-17.html" data-book="the-governor" data-chapter="chapter-17">The Warning</a></li>
+    <li><a href="chapter-18.html" data-book="the-governor" data-chapter="chapter-18">Five Years</a></li>
+    <li><a href="chapter-19.html" data-book="the-governor" data-chapter="chapter-19">The Order</a></li>
+    <li><a href="chapter-20.html" data-book="the-governor" data-chapter="chapter-20">Cost</a></li>
+    <li><a href="chapter-21.html" data-book="the-governor" data-chapter="chapter-21">Third Watch</a></li>
+    <li><a href="chapter-22.html" data-book="the-governor" data-chapter="chapter-22">Stairwell Nine</a></li>
+    <li><a href="chapter-23.html" data-book="the-governor" data-chapter="chapter-23">The Repair</a></li>
+    <li><a href="chapter-24.html" data-book="the-governor" data-chapter="chapter-24">Dawn</a></li>
+    <li><a href="chapter-25.html" data-book="the-governor" data-chapter="chapter-25">Diminished</a></li>
+    <li><a href="chapter-26.html" data-book="the-governor" data-chapter="chapter-26">Recovery</a></li>
+    <li><a href="chapter-27.html" data-book="the-governor" data-chapter="chapter-27">Clear Sight</a></li>
+    <li><a href="chapter-28.html" data-book="the-governor" data-chapter="chapter-28">Lasting Work</a></li>
+    <li><a href="chapter-29.html" data-book="the-governor" data-chapter="chapter-29">The Team</a></li>
+    <li><a href="chapter-30.html" data-book="the-governor" data-chapter="chapter-30">A Beginning</a></li>
   </ol>
 
     </div>
@@ -1478,7 +2247,6 @@ had ended.</p>
   // ---------------------------------------------------------------------------
 
   var tocOverlay = document.querySelector('.toc-overlay');
-  var tocToggle = document.querySelector('.toc-toggle');
 
   function toggleToc() {
     if (!tocOverlay) return;
@@ -1498,10 +2266,6 @@ had ended.</p>
     tocOverlay.classList.remove('active');
   }
 
-  if (tocToggle) {
-    tocToggle.addEventListener('click', toggleToc);
-  }
-
   // Close on backdrop click (click on the overlay itself, not its children).
   if (tocOverlay) {
     tocOverlay.addEventListener('click', function (e) {
@@ -1517,10 +2281,17 @@ had ended.</p>
   var totalChapters = document.body.getAttribute('data-total-chapters');
 
   if (chapterNum && totalChapters && bookNav) {
-    var info = document.createElement('span');
+    var info = document.createElement('button');
     info.className = 'chapter-info';
     info.textContent = 'Chapter ' + chapterNum + ' of ' + totalChapters;
-    bookNav.appendChild(info);
+    info.setAttribute('aria-label', 'Table of contents');
+    info.addEventListener('click', toggleToc);
+    var navControls = bookNav.querySelector('.nav-controls');
+    if (navControls) {
+      bookNav.insertBefore(info, navControls);
+    } else {
+      bookNav.appendChild(info);
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -1553,6 +2324,1563 @@ had ended.</p>
   }
 
   highlightCurrentChapter();
+
+})();
+// Storyforge Annotation Overlay — loaded when --annotate is active
+(function() {
+  'use strict';
+
+  var bookSlug = document.body.dataset.book || 'unknown';
+  var chapterSlug = document.body.dataset.chapter || 'unknown';
+  var STORAGE_PREFIX = 'storyforge-annotations-' + bookSlug + '-';
+
+  var HIGHLIGHT_COLORS = [
+    { id: 'yellow', label: 'Important', color: '#fcd44f' },
+    { id: 'pink', label: 'Needs Revision', color: '#e8819a' },
+    { id: 'green', label: 'Strong Passage', color: '#6dca6d' },
+    { id: 'blue', label: 'Research Needed', color: '#78b4ff' },
+    { id: 'orange', label: 'Cut / Reconsider', color: '#f0a840' }
+  ];
+
+  // =========================================================================
+  // 1. UUID GENERATOR
+  // =========================================================================
+
+  function uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
+  // =========================================================================
+  // 2. STORAGE FUNCTIONS
+  // =========================================================================
+
+  function storageKey() {
+    return STORAGE_PREFIX + chapterSlug;
+  }
+
+  function loadAnnotations() {
+    try {
+      var raw = localStorage.getItem(storageKey());
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveAnnotations(annotations) {
+    try {
+      localStorage.setItem(storageKey(), JSON.stringify(annotations));
+    } catch (e) {
+      console.warn('[Storyforge Annotations] localStorage full — could not save annotations.', e);
+    }
+  }
+
+  function addAnnotation(annotation) {
+    var annotations = loadAnnotations();
+    annotations.push(annotation);
+    saveAnnotations(annotations);
+    return annotation;
+  }
+
+  function updateAnnotation(id, updates) {
+    var annotations = loadAnnotations();
+    for (var i = 0; i < annotations.length; i++) {
+      if (annotations[i].id === id) {
+        for (var key in updates) {
+          if (Object.prototype.hasOwnProperty.call(updates, key)) {
+            annotations[i][key] = updates[key];
+          }
+        }
+        break;
+      }
+    }
+    saveAnnotations(annotations);
+  }
+
+  function deleteAnnotation(id) {
+    var annotations = loadAnnotations();
+    saveAnnotations(annotations.filter(function(a) { return a.id !== id; }));
+  }
+
+  // =========================================================================
+  // 3. DOM HELPERS
+  // =========================================================================
+
+  var BLOCK_SELECTOR = 'p, blockquote, ul, ol, h1, h2, h3, h4, h5, h6';
+
+  function getSceneForNode(node) {
+    var el = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+    while (el && el !== document.body) {
+      if (el.dataset && el.dataset.scene !== undefined) {
+        return el.dataset.scene;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function getParagraphIndex(node, scene) {
+    var section = document.querySelector('[data-scene="' + scene + '"]');
+    if (!section) return -1;
+
+    var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+    var el = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+
+    // Walk up to find a direct block child of the section
+    while (el && el.parentElement !== section) {
+      el = el.parentElement;
+    }
+    if (!el) return -1;
+
+    for (var i = 0; i < blocks.length; i++) {
+      if (blocks[i] === el) return i;
+    }
+    return -1;
+  }
+
+  function getBlockByIndex(scene, index) {
+    var section = document.querySelector('[data-scene="' + scene + '"]');
+    if (!section) return null;
+    var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+    return blocks[index] || null;
+  }
+
+  // =========================================================================
+  // 4. HIGHLIGHT RENDERING
+  // =========================================================================
+
+  function renderHighlight(annotation) {
+    if (annotation.type === 'margin-note') return;
+
+    var anchor = annotation.anchor;
+    if (!anchor) return;
+
+    var block = getBlockByIndex(annotation.scene, anchor.paragraphIndex);
+    if (!block) return;
+
+    try {
+      // Use TreeWalker to find the text nodes covering the start/end offsets
+      // offsets are relative to the block's full text content
+      var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null, false);
+      var startNode = null, endNode = null;
+      var startOffset = 0, endOffset = 0;
+      var charCount = 0;
+      var node;
+
+      while ((node = walker.nextNode())) {
+        var nodeLen = node.nodeValue.length;
+        if (startNode === null && charCount + nodeLen > anchor.startOffset) {
+          startNode = node;
+          startOffset = anchor.startOffset - charCount;
+        }
+        if (endNode === null && charCount + nodeLen >= anchor.endOffset) {
+          endNode = node;
+          endOffset = anchor.endOffset - charCount;
+          break;
+        }
+        charCount += nodeLen;
+      }
+
+      if (!startNode || !endNode) return;
+
+      var range = document.createRange();
+      range.setStart(startNode, startOffset);
+      range.setEnd(endNode, endOffset);
+
+      var span = document.createElement('span');
+      span.className = 'sf-highlight';
+      if (annotation.comment) span.classList.add('has-comment');
+      span.dataset.annotationId = annotation.id;
+      span.dataset.color = annotation.color || 'yellow';
+      var hlColorObj = HIGHLIGHT_COLORS.find(function(c) { return c.id === (annotation.color || 'yellow'); });
+      if (hlColorObj) span.style.setProperty('--sf-hl-color', hlColorObj.color);
+      range.surroundContents(span);
+    } catch (e) {
+      // Cross-element or other range errors — skip silently
+    }
+  }
+
+  function renderAllHighlights() {
+    var annotations = loadAnnotations();
+    annotations.forEach(function(a) {
+      if (a.type !== 'margin-note') renderHighlight(a);
+    });
+  }
+
+  // =========================================================================
+  // 5. DESKTOP POPOVER
+  // =========================================================================
+
+  var activePopover = null;
+
+  function removePopover() {
+    if (activePopover && activePopover.parentNode) {
+      activePopover.parentNode.removeChild(activePopover);
+    }
+    activePopover = null;
+  }
+
+  function buildColorPicker(onColorClick) {
+    var picker = document.createElement('div');
+    picker.className = 'sf-color-picker';
+    HIGHLIGHT_COLORS.forEach(function(c) {
+      var swatch = document.createElement('button');
+      swatch.className = 'sf-color-swatch';
+      swatch.style.backgroundColor = c.color;
+      swatch.title = c.label;
+      swatch.dataset.color = c.id;
+      swatch.addEventListener('click', function(e) {
+        e.stopPropagation();
+        onColorClick(c.id);
+      });
+      picker.appendChild(swatch);
+    });
+    return picker;
+  }
+
+  function showPopover(x, y, range) {
+    removePopover();
+
+    var popover = document.createElement('div');
+    popover.className = 'sf-popover sf-popover-colors';
+    popover.style.top = (y + window.scrollY) + 'px';
+    popover.style.left = (x + window.scrollX) + 'px';
+
+    var picker = buildColorPicker(function(colorId) {
+      createHighlightFromRange(range, '', colorId);
+      removePopover();
+    });
+    popover.appendChild(picker);
+
+    var noteBtn = document.createElement('button');
+    noteBtn.className = 'sf-popover-note';
+    noteBtn.textContent = 'Note';
+    noteBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showCommentInput(popover, range);
+    });
+    popover.appendChild(noteBtn);
+
+    document.body.appendChild(popover);
+    activePopover = popover;
+  }
+
+  function addTextareaShortcuts(textarea, onSave, onCancel) {
+    textarea.addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        onSave();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        onCancel();
+      }
+    });
+  }
+
+  function showCommentInput(popover, range) {
+    while (popover.firstChild) popover.removeChild(popover.firstChild);
+    popover.className = 'sf-popover';
+
+    var selectedColor = 'yellow';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-comment-input';
+
+    var picker = buildColorPicker(function(colorId) {
+      selectedColor = colorId;
+      var swatches = picker.querySelectorAll('.sf-color-swatch');
+      swatches.forEach(function(s) {
+        if (s.dataset.color === colorId) s.classList.add('selected');
+        else s.classList.remove('selected');
+      });
+    });
+    // Default select yellow
+    var defaultSwatch = picker.querySelector('[data-color="yellow"]');
+    if (defaultSwatch) defaultSwatch.classList.add('selected');
+    wrap.appendChild(picker);
+
+    var textarea = document.createElement('textarea');
+    textarea.placeholder = 'Add a comment…';
+    textarea.rows = 3;
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removePopover();
+      window.getSelection().removeAllRanges();
+    });
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      createHighlightFromRange(range, textarea.value.trim(), selectedColor);
+      removePopover();
+    });
+
+    addTextareaShortcuts(textarea, function() {
+      createHighlightFromRange(range, textarea.value.trim(), selectedColor);
+      removePopover();
+    }, function() {
+      removePopover();
+      window.getSelection().removeAllRanges();
+    });
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    wrap.appendChild(textarea);
+    wrap.appendChild(actions);
+    popover.appendChild(wrap);
+    textarea.focus();
+  }
+
+  function getTextOffsets(block, range) {
+    // Walk text nodes in block to compute character offsets for start/end
+    var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null, false);
+    var startOffset = 0, endOffset = 0;
+    var charCount = 0;
+    var node;
+
+    while ((node = walker.nextNode())) {
+      var nodeLen = node.nodeValue.length;
+      if (node === range.startContainer) {
+        startOffset = charCount + range.startOffset;
+      }
+      if (node === range.endContainer) {
+        endOffset = charCount + range.endOffset;
+        break;
+      }
+      charCount += nodeLen;
+    }
+    return { startOffset: startOffset, endOffset: endOffset };
+  }
+
+  function createHighlightFromRange(range, comment, color) {
+    try {
+      var startNode = range.startContainer;
+      var scene = getSceneForNode(startNode);
+      if (!scene) return;
+
+      var paragraphIndex = getParagraphIndex(startNode, scene);
+      if (paragraphIndex < 0) return;
+
+      var block = getBlockByIndex(scene, paragraphIndex);
+      if (!block) return;
+
+      var offsets = getTextOffsets(block, range);
+      var selectedText = range.toString();
+
+      var annotation = {
+        id: uuid(),
+        type: comment ? 'comment' : 'highlight',
+        chapter: chapterSlug,
+        scene: scene,
+        anchor: {
+          paragraphIndex: paragraphIndex,
+          startOffset: offsets.startOffset,
+          endOffset: offsets.endOffset
+        },
+        selectedText: selectedText,
+        comment: comment,
+        color: color || 'yellow',
+        createdAt: new Date().toISOString()
+      };
+
+      addAnnotation(annotation);
+      renderHighlight(annotation);
+      updateBadge();
+      window.getSelection().removeAllRanges();
+    } catch (e) {
+      console.warn('[Storyforge Annotations] createHighlightFromRange error:', e);
+    }
+  }
+
+  // Desktop mouseup listener
+  document.addEventListener('mouseup', function(e) {
+    if (window.innerWidth < 640) return;
+    if (activePopover && activePopover.contains(e.target)) return;
+
+    var selection = window.getSelection();
+    if (!selection || selection.isCollapsed || !selection.toString().trim()) return;
+
+    var range = selection.getRangeAt(0);
+    var container = range.commonAncestorContainer;
+    var el = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+    if (!el.closest('.chapter-content')) return;
+
+    var rect = range.getBoundingClientRect();
+    showPopover(rect.left, rect.top - 50, range.cloneRange());
+  });
+
+  // Desktop mousedown listener — close popover when clicking outside
+  document.addEventListener('mousedown', function(e) {
+    if (window.innerWidth < 640) return;
+    if (activePopover && !activePopover.contains(e.target)) {
+      removePopover();
+    }
+  });
+
+  // =========================================================================
+  // 6. MOBILE TOOLBAR
+  // =========================================================================
+
+  var toolbar = null;
+  var pendingRange = null;
+
+  function createToolbar() {
+    if (window.innerWidth >= 640) return;
+    if (toolbar) return;
+
+    toolbar = document.createElement('div');
+    toolbar.className = 'sf-toolbar';
+
+    var hlBtn = document.createElement('button');
+    hlBtn.className = 'sf-hidden';
+    hlBtn.dataset.action = 'highlight';
+    hlBtn.textContent = 'Highlight';
+    hlBtn.addEventListener('click', function() {
+      if (pendingRange) {
+        showMobileColorPicker(pendingRange);
+      }
+    });
+
+    var cmBtn = document.createElement('button');
+    cmBtn.className = 'sf-hidden';
+    cmBtn.dataset.action = 'comment';
+    cmBtn.textContent = 'Comment';
+    cmBtn.addEventListener('click', function() {
+      if (pendingRange) {
+        showMobileCommentInput(pendingRange);
+      }
+    });
+
+    var noteBtn = document.createElement('button');
+    noteBtn.dataset.action = 'note';
+    noteBtn.textContent = '+ Note';
+    noteBtn.addEventListener('click', function() {
+      showMobileMarginInput();
+    });
+
+    toolbar.appendChild(hlBtn);
+    toolbar.appendChild(cmBtn);
+    toolbar.appendChild(noteBtn);
+    document.body.appendChild(toolbar);
+  }
+
+  document.addEventListener('selectionchange', function() {
+    if (window.innerWidth >= 640) return;
+    if (!toolbar) return;
+
+    var selection = window.getSelection();
+    if (!selection || selection.isCollapsed || !selection.toString().trim()) {
+      // Delay hide to allow tap registration
+      setTimeout(function() {
+        var sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+          var hlBtn = toolbar.querySelector('[data-action="highlight"]');
+          var cmBtn = toolbar.querySelector('[data-action="comment"]');
+          if (hlBtn) hlBtn.classList.add('sf-hidden');
+          if (cmBtn) cmBtn.classList.add('sf-hidden');
+        }
+      }, 200);
+      return;
+    }
+
+    var range = selection.getRangeAt(0);
+    var container = range.commonAncestorContainer;
+    var el = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+    if (!el.closest('.chapter-content')) return;
+
+    pendingRange = range.cloneRange();
+    var hlBtn = toolbar.querySelector('[data-action="highlight"]');
+    var cmBtn = toolbar.querySelector('[data-action="comment"]');
+    if (hlBtn) hlBtn.classList.remove('sf-hidden');
+    if (cmBtn) cmBtn.classList.remove('sf-hidden');
+  });
+
+  function clearMobileSelection() {
+    window.getSelection().removeAllRanges();
+    pendingRange = null;
+    if (!toolbar) return;
+    var hlBtn = toolbar.querySelector('[data-action="highlight"]');
+    var cmBtn = toolbar.querySelector('[data-action="comment"]');
+    if (hlBtn) hlBtn.classList.add('sf-hidden');
+    if (cmBtn) cmBtn.classList.add('sf-hidden');
+  }
+
+  function showMobileColorPicker(range) {
+    if (!toolbar) return;
+    while (toolbar.firstChild) toolbar.removeChild(toolbar.firstChild);
+
+    var picker = buildColorPicker(function(colorId) {
+      createHighlightFromRange(range, '', colorId);
+      clearMobileSelection();
+      rebuildToolbar();
+    });
+    toolbar.appendChild(picker);
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.style.fontSize = '0.78em';
+    cancelBtn.addEventListener('click', function() {
+      clearMobileSelection();
+      rebuildToolbar();
+    });
+    toolbar.appendChild(cancelBtn);
+  }
+
+  function showMobileCommentInput(range) {
+    if (!toolbar) return;
+    while (toolbar.firstChild) toolbar.removeChild(toolbar.firstChild);
+
+    var selectedColor = 'yellow';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-comment-input';
+    wrap.style.width = '100%';
+
+    var picker = buildColorPicker(function(colorId) {
+      selectedColor = colorId;
+      var swatches = picker.querySelectorAll('.sf-color-swatch');
+      swatches.forEach(function(s) {
+        if (s.dataset.color === colorId) s.classList.add('selected');
+        else s.classList.remove('selected');
+      });
+    });
+    var defaultSwatch = picker.querySelector('[data-color="yellow"]');
+    if (defaultSwatch) defaultSwatch.classList.add('selected');
+    wrap.appendChild(picker);
+
+    var textarea = document.createElement('textarea');
+    textarea.placeholder = 'Add a comment…';
+    textarea.rows = 2;
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function() {
+      clearMobileSelection();
+      rebuildToolbar();
+    });
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function() {
+      createHighlightFromRange(range, textarea.value.trim(), selectedColor);
+      rebuildToolbar();
+    });
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    wrap.appendChild(textarea);
+    wrap.appendChild(actions);
+    toolbar.appendChild(wrap);
+    textarea.focus();
+  }
+
+  function rebuildToolbar() {
+    if (toolbar && toolbar.parentNode) {
+      toolbar.parentNode.removeChild(toolbar);
+    }
+    toolbar = null;
+    pendingRange = null;
+    createToolbar();
+  }
+
+  // =========================================================================
+  // 7. MARGIN NOTES
+  // =========================================================================
+
+  function setupMarginTriggers() {
+    if (window.innerWidth < 640) return; // Desktop only
+
+    var sections = document.querySelectorAll('[data-scene]');
+    sections.forEach(function(section) {
+      var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+      blocks.forEach(function(block, index) {
+        block.style.position = 'relative';
+
+        var trigger = document.createElement('button');
+        trigger.className = 'sf-margin-trigger';
+        trigger.textContent = '+';
+        trigger.title = 'Add margin note';
+        trigger.setAttribute('aria-label', 'Add margin note');
+
+        var scene = section.dataset.scene;
+        trigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          showMarginNoteInput(scene, index, block);
+        });
+
+        block.appendChild(trigger);
+      });
+    });
+  }
+
+  function showMarginNoteInput(scene, paragraphIndex, block) {
+    // Remove any existing note panel
+    var existing = document.querySelector('.sf-note-panel');
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+    var panel = document.createElement('div');
+    panel.className = 'sf-note-panel';
+
+    // Color picker
+    var selectedColor = 'yellow';
+    var colorPicker = document.createElement('div');
+    colorPicker.className = 'sf-color-picker';
+    colorPicker.style.marginBottom = '8px';
+    HIGHLIGHT_COLORS.forEach(function(c) {
+      var swatch = document.createElement('button');
+      swatch.className = 'sf-color-swatch';
+      if (c.id === selectedColor) swatch.classList.add('selected');
+      swatch.style.backgroundColor = c.color;
+      swatch.title = c.label;
+      swatch.addEventListener('click', function(e) {
+        e.preventDefault();
+        selectedColor = c.id;
+        colorPicker.querySelectorAll('.sf-color-swatch').forEach(function(s) { s.classList.remove('selected'); });
+        swatch.classList.add('selected');
+      });
+      colorPicker.appendChild(swatch);
+    });
+    panel.appendChild(colorPicker);
+
+    var textarea = document.createElement('textarea');
+    textarea.placeholder = 'Add a margin note…';
+    textarea.rows = 3;
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    function saveMarginNote() {
+      var text = textarea.value.trim();
+      if (!text) return;
+
+      var annotation = {
+        id: uuid(),
+        type: 'margin-note',
+        chapter: chapterSlug,
+        scene: scene,
+        anchor: { paragraphIndex: paragraphIndex },
+        comment: text,
+        color: selectedColor,
+        createdAt: new Date().toISOString()
+      };
+
+      addAnnotation(annotation);
+      if (panel.parentNode) panel.parentNode.removeChild(panel);
+      renderMarginIndicator(annotation, block);
+      updateBadge();
+    }
+
+    function cancelMarginNote() {
+      if (panel.parentNode) panel.parentNode.removeChild(panel);
+    }
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', cancelMarginNote);
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', saveMarginNote);
+
+    addTextareaShortcuts(textarea, saveMarginNote, cancelMarginNote);
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    panel.appendChild(textarea);
+    panel.appendChild(actions);
+
+    block.insertAdjacentElement('afterend', panel);
+    textarea.focus();
+  }
+
+  function showMobileMarginInput() {
+    var viewportCenter = window.innerHeight / 2;
+    var sections = document.querySelectorAll('[data-scene]');
+    var closestBlock = null;
+    var closestScene = null;
+    var closestIndex = -1;
+    var closestDist = Infinity;
+
+    sections.forEach(function(section) {
+      var blocks = section.querySelectorAll(BLOCK_SELECTOR);
+      blocks.forEach(function(block, index) {
+        var rect = block.getBoundingClientRect();
+        var blockCenter = (rect.top + rect.bottom) / 2;
+        var dist = Math.abs(blockCenter - viewportCenter);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestBlock = block;
+          closestScene = section.dataset.scene;
+          closestIndex = index;
+        }
+      });
+    });
+
+    if (closestBlock) {
+      showMarginNoteInput(closestScene, closestIndex, closestBlock);
+    }
+  }
+
+  function renderMarginIndicator(annotation, block) {
+    var indicator = document.createElement('span');
+    indicator.className = 'sf-margin-indicator';
+    indicator.textContent = '✎';
+    indicator.dataset.annotationId = annotation.id;
+    indicator.title = annotation.comment;
+    var colorObj = HIGHLIGHT_COLORS.find(function(c) { return c.id === (annotation.color || 'yellow'); });
+    if (colorObj) indicator.style.backgroundColor = colorObj.color;
+    indicator.setAttribute('role', 'button');
+    indicator.setAttribute('tabindex', '0');
+    indicator.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showCommentViewer(annotation, indicator);
+    });
+    block.style.position = 'relative';
+    block.appendChild(indicator);
+  }
+
+  function renderAllMarginNotes() {
+    var annotations = loadAnnotations();
+    annotations.forEach(function(a) {
+      if (a.type !== 'margin-note') return;
+      var block = getBlockByIndex(a.scene, a.anchor.paragraphIndex);
+      if (block) renderMarginIndicator(a, block);
+    });
+  }
+
+  // =========================================================================
+  // 8. COMMENT VIEWER
+  // =========================================================================
+
+  var activeViewer = null;
+
+  function removeViewer() {
+    if (activeViewer && activeViewer.parentNode) {
+      activeViewer.parentNode.removeChild(activeViewer);
+    }
+    activeViewer = null;
+  }
+
+  function showCommentViewer(annotation, targetEl) {
+    removeViewer();
+
+    var viewer = document.createElement('div');
+    viewer.className = 'sf-comment-viewer';
+
+    var rect = targetEl.getBoundingClientRect();
+    viewer.style.top = (rect.bottom + window.scrollY + 6) + 'px';
+    viewer.style.left = (rect.left + window.scrollX) + 'px';
+
+    if (annotation.comment) {
+      var commentP = document.createElement('p');
+      commentP.textContent = annotation.comment;
+      viewer.appendChild(commentP);
+    }
+
+    if (annotation.selectedText && (annotation.comment || annotation.type === 'margin-note')) {
+      var quoteP = document.createElement('p');
+      quoteP.style.fontStyle = 'italic';
+      quoteP.style.color = 'var(--text-dim)';
+      var text = annotation.selectedText;
+      if (text.length > 100) text = text.slice(0, 100) + '…';
+      quoteP.textContent = '\u201c' + text + '\u201d';
+      viewer.appendChild(quoteP);
+    }
+
+    if (annotation.createdAt) {
+      var timeEl = document.createElement('time');
+      timeEl.className = 'sf-timestamp';
+      var date = new Date(annotation.createdAt);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12 || 12;
+      var minStr = minutes < 10 ? '0' + minutes : minutes;
+      timeEl.textContent = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' at ' + hours + ':' + minStr + ' ' + ampm;
+      timeEl.setAttribute('datetime', annotation.createdAt);
+      viewer.appendChild(timeEl);
+    }
+
+    // Color picker
+    {
+      var colorRow = document.createElement('div');
+      colorRow.className = 'sf-color-picker';
+      colorRow.style.marginBottom = '8px';
+      HIGHLIGHT_COLORS.forEach(function(c) {
+        var swatch = document.createElement('button');
+        swatch.className = 'sf-color-swatch';
+        if ((annotation.color || 'yellow') === c.id) swatch.classList.add('selected');
+        swatch.style.backgroundColor = c.color;
+        swatch.title = c.label;
+        swatch.addEventListener('click', function(e) {
+          e.stopPropagation();
+          annotation.color = c.id;
+          updateAnnotation(annotation.id, { color: c.id });
+          var hlSpan = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+          if (hlSpan) {
+            hlSpan.dataset.color = c.id;
+            hlSpan.style.setProperty('--sf-hl-color', c.color);
+          }
+          var indEl = document.querySelector('.sf-margin-indicator[data-annotation-id="' + annotation.id + '"]');
+          if (indEl) indEl.style.backgroundColor = c.color;
+          // Update selected state
+          colorRow.querySelectorAll('.sf-color-swatch').forEach(function(s) { s.classList.remove('selected'); });
+          swatch.classList.add('selected');
+          updateBadge();
+        });
+        colorRow.appendChild(swatch);
+      });
+      viewer.appendChild(colorRow);
+    }
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showEditInput(annotation, targetEl);
+    });
+
+    var deleteBtn = document.createElement('button');
+    deleteBtn.className = 'sf-delete';
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      deleteAnnotation(annotation.id);
+
+      // Unwrap highlight span or remove margin indicator
+      var hlSpan = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+      if (hlSpan) {
+        while (hlSpan.firstChild) hlSpan.parentNode.insertBefore(hlSpan.firstChild, hlSpan);
+        hlSpan.parentNode.removeChild(hlSpan);
+      }
+      var indicator = document.querySelector('.sf-margin-indicator[data-annotation-id="' + annotation.id + '"]');
+      if (indicator && indicator.parentNode) indicator.parentNode.removeChild(indicator);
+
+      removeViewer();
+      updateBadge();
+    });
+
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = 'Close';
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removeViewer();
+    });
+
+    actions.appendChild(editBtn);
+    actions.appendChild(deleteBtn);
+    actions.appendChild(closeBtn);
+    viewer.appendChild(actions);
+
+    document.body.appendChild(viewer);
+    activeViewer = viewer;
+  }
+
+  function showEditInput(annotation, targetEl) {
+    removeViewer();
+
+    var viewer = document.createElement('div');
+    viewer.className = 'sf-comment-viewer';
+
+    var rect = targetEl.getBoundingClientRect();
+    viewer.style.top = (rect.bottom + window.scrollY + 6) + 'px';
+    viewer.style.left = (rect.left + window.scrollX) + 'px';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-comment-input';
+
+    var textarea = document.createElement('textarea');
+    textarea.value = annotation.comment || '';
+    textarea.placeholder = 'Add a comment…';
+    textarea.rows = 3;
+
+    function saveEdit() {
+      var newComment = textarea.value.trim();
+      updateAnnotation(annotation.id, { comment: newComment });
+      annotation.comment = newComment;
+
+      var hlSpan = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+      if (hlSpan) {
+        if (newComment) {
+          hlSpan.classList.add('has-comment');
+        } else {
+          hlSpan.classList.remove('has-comment');
+        }
+      }
+
+      removeViewer();
+    }
+
+    var actions = document.createElement('div');
+    actions.className = 'sf-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removeViewer();
+    });
+
+    var saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      saveEdit();
+    });
+
+    addTextareaShortcuts(textarea, saveEdit, removeViewer);
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(saveBtn);
+    wrap.appendChild(textarea);
+    wrap.appendChild(actions);
+    viewer.appendChild(wrap);
+
+    document.body.appendChild(viewer);
+    activeViewer = viewer;
+    textarea.focus();
+  }
+
+  // Click listener: open viewer on highlight/indicator, close when clicking outside
+  document.addEventListener('click', function(e) {
+    var hlSpan = e.target.closest('.sf-highlight');
+    var indicator = e.target.closest('.sf-margin-indicator');
+
+    if (hlSpan) {
+      var annotationId = hlSpan.dataset.annotationId;
+      var annotations = loadAnnotations();
+      var annotation = null;
+      for (var i = 0; i < annotations.length; i++) {
+        if (annotations[i].id === annotationId) { annotation = annotations[i]; break; }
+      }
+      if (annotation) showCommentViewer(annotation, hlSpan);
+      return;
+    }
+
+    if (indicator) {
+      // Already handled by indicator's own click listener
+      return;
+    }
+
+    if (activeViewer && !activeViewer.contains(e.target)) {
+      removeViewer();
+    }
+  });
+
+  // =========================================================================
+  // 9. BADGE
+  // =========================================================================
+
+  function updateBadge() {
+    var btn = document.querySelector('.sf-export-btn');
+    if (!btn) return;
+
+    var svg = btn.querySelector('svg');
+    // Remove any existing count span
+    var existing = btn.querySelector('.sf-count');
+    if (existing) existing.parentNode.removeChild(existing);
+
+    var annotations = loadAnnotations();
+    if (annotations.length > 0) {
+      var count = document.createElement('span');
+      count.className = 'sf-count';
+      count.style.fontSize = '0.75em';
+      count.textContent = ' ' + annotations.length;
+      btn.appendChild(count);
+    }
+
+    // Refresh sidebar list if open
+    if (sidebarEl && sidebarEl.classList.contains('active')) {
+      renderSidebarList();
+    }
+  }
+
+  // =========================================================================
+  // 10. ANCHOR RE-VALIDATION
+  // =========================================================================
+
+  function revalidateAnchors() {
+    var annotations = loadAnnotations();
+    var stale = [];
+    var valid = [];
+
+    annotations.forEach(function(annotation) {
+      if (annotation.type === 'margin-note') {
+        var block = getBlockByIndex(annotation.scene, annotation.anchor.paragraphIndex);
+        if (!block) {
+          stale.push(annotation);
+        } else {
+          valid.push(annotation);
+        }
+        return;
+      }
+
+      // highlight or comment
+      var block = getBlockByIndex(annotation.scene, annotation.anchor.paragraphIndex);
+      if (block && block.textContent.indexOf(annotation.selectedText) !== -1) {
+        // Still valid at stored location
+        valid.push(annotation);
+        return;
+      }
+
+      // Try scanning +/- 3 paragraphs
+      var found = false;
+      for (var delta = -3; delta <= 3; delta++) {
+        if (delta === 0) continue;
+        var altIndex = annotation.anchor.paragraphIndex + delta;
+        if (altIndex < 0) continue;
+        var altBlock = getBlockByIndex(annotation.scene, altIndex);
+        if (altBlock && altBlock.textContent.indexOf(annotation.selectedText) !== -1) {
+          // Re-anchor: update paragraphIndex
+          var textIdx = altBlock.textContent.indexOf(annotation.selectedText);
+          annotation.anchor.paragraphIndex = altIndex;
+          annotation.anchor.startOffset = textIdx;
+          annotation.anchor.endOffset = textIdx + annotation.selectedText.length;
+          valid.push(annotation);
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        stale.push(annotation);
+      }
+    });
+
+    saveAnnotations(valid);
+    return stale;
+  }
+
+  function renderStalePanel(staleAnnotations) {
+    if (!staleAnnotations || staleAnnotations.length === 0) return;
+
+    var chapterContent = document.querySelector('.chapter-content');
+    if (!chapterContent) return;
+
+    var panel = document.createElement('div');
+    panel.className = 'sf-stale-panel';
+
+    var heading = document.createElement('h3');
+    heading.textContent = staleAnnotations.length + ' annotation' +
+      (staleAnnotations.length !== 1 ? 's' : '') +
+      ' could not be placed (text may have changed)';
+    panel.appendChild(heading);
+
+    staleAnnotations.forEach(function(annotation) {
+      var details = document.createElement('details');
+
+      var summary = document.createElement('summary');
+      summary.textContent = annotation.type.charAt(0).toUpperCase() +
+        annotation.type.slice(1).replace('-', ' ');
+      details.appendChild(summary);
+
+      if (annotation.selectedText) {
+        var quote = document.createElement('blockquote');
+        quote.textContent = annotation.selectedText;
+        details.appendChild(quote);
+      }
+
+      if (annotation.comment) {
+        var commentP = document.createElement('p');
+        commentP.textContent = annotation.comment;
+        commentP.style.fontSize = '0.8rem';
+        commentP.style.margin = '4px 0';
+        details.appendChild(commentP);
+      }
+
+      var deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.addEventListener('click', function() {
+        deleteAnnotation(annotation.id);
+        if (details.parentNode) details.parentNode.removeChild(details);
+        var remaining = panel.querySelectorAll('details');
+        if (remaining.length === 0 && panel.parentNode) {
+          panel.parentNode.removeChild(panel);
+        }
+        updateBadge();
+      });
+      details.appendChild(deleteBtn);
+
+      panel.appendChild(details);
+    });
+
+    chapterContent.appendChild(panel);
+  }
+
+  // =========================================================================
+  // 11. EXPORT
+  // =========================================================================
+
+  function getAllAnnotations() {
+    var all = [];
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        if (key && key.indexOf(STORAGE_PREFIX) === 0) {
+          var chSlug = key.slice(STORAGE_PREFIX.length);
+          var raw = localStorage.getItem(key);
+          if (!raw) continue;
+          var parsed = JSON.parse(raw);
+          parsed.forEach(function(a) {
+            if (!a.chapter) a.chapter = chSlug;
+          });
+          all = all.concat(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn('[Storyforge Annotations] getAllAnnotations error:', e);
+    }
+
+    all.sort(function(a, b) {
+      if (a.chapter < b.chapter) return -1;
+      if (a.chapter > b.chapter) return 1;
+      if (a.scene < b.scene) return -1;
+      if (a.scene > b.scene) return 1;
+      return (a.anchor.paragraphIndex || 0) - (b.anchor.paragraphIndex || 0);
+    });
+
+    return all;
+  }
+
+  function exportJSON(annotations) {
+    var titleEl = document.querySelector('.nav-title');
+    var bookTitle = titleEl ? titleEl.textContent.trim() : bookSlug;
+    return JSON.stringify({
+      book: bookTitle,
+      exportedAt: new Date().toISOString(),
+      annotator: 'author',
+      annotations: annotations
+    }, null, 2);
+  }
+
+  function exportMarkdown(annotations) {
+    // Build chapter title lookup from TOC links
+    var chapterTitles = {};
+    var tocLinks = document.querySelectorAll('.toc-contents a');
+    tocLinks.forEach(function(link) {
+      var href = link.getAttribute('href') || '';
+      var match = href.match(/chapters\/(chapter-\d+)\.html/);
+      if (match) {
+        chapterTitles[match[1]] = link.textContent.trim();
+      }
+    });
+
+    var titleEl = document.querySelector('.nav-title');
+    var bookTitle = titleEl ? titleEl.textContent.trim() : bookSlug;
+    var dateStr = new Date().toISOString().slice(0, 10);
+
+    var lines = [];
+    lines.push('# Annotations: ' + bookTitle);
+    lines.push('Exported: ' + dateStr);
+    lines.push('');
+
+    var currentChapter = null;
+    var currentScene = null;
+
+    annotations.forEach(function(a) {
+      if (a.chapter !== currentChapter) {
+        currentChapter = a.chapter;
+        currentScene = null;
+        var chNum = (currentChapter.match(/chapter-(\d+)/) || [])[1] || '';
+        var chTitle = chapterTitles[currentChapter] ||
+          (chNum ? 'Chapter ' + chNum : currentChapter);
+        lines.push('## ' + chTitle);
+        lines.push('');
+      }
+
+      if (a.scene !== currentScene) {
+        currentScene = a.scene;
+        lines.push('### Scene: ' + currentScene);
+        lines.push('');
+      }
+
+      if (a.type === 'margin-note') {
+        lines.push('*(margin note)*');
+      }
+
+      if (a.selectedText) {
+        lines.push('> \u201c' + a.selectedText + '\u201d');
+      }
+
+      if (a.comment) {
+        lines.push(a.comment);
+      }
+
+      lines.push('');
+    });
+
+    return lines.join('\n');
+  }
+
+  function downloadFile(content, filename, mimeType) {
+    var blob = new Blob([content], { type: mimeType });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function doExport(format) {
+    var annotations, content, filename;
+
+    if (format === 'chapter-json') {
+      annotations = loadAnnotations();
+      content = exportJSON(annotations);
+      filename = bookSlug + '-' + chapterSlug + '-annotations.json';
+      downloadFile(content, filename, 'application/json');
+    } else if (format === 'chapter') {
+      annotations = loadAnnotations();
+      content = exportMarkdown(annotations);
+      filename = bookSlug + '-' + chapterSlug + '-annotations.md';
+      downloadFile(content, filename, 'text/markdown');
+    } else if (format === 'json') {
+      annotations = getAllAnnotations();
+      content = exportJSON(annotations);
+      filename = bookSlug + '-annotations.json';
+      downloadFile(content, filename, 'application/json');
+    } else if (format === 'md') {
+      annotations = getAllAnnotations();
+      content = exportMarkdown(annotations);
+      filename = bookSlug + '-annotations.md';
+      downloadFile(content, filename, 'text/markdown');
+    }
+  }
+
+  // =========================================================================
+  // 11b. ANNOTATION SIDEBAR
+  // =========================================================================
+
+  var sidebarEl = null;
+  var sidebarFilter = null;
+
+  function toggleSidebar() {
+    if (sidebarEl && sidebarEl.classList.contains('active')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  }
+
+  function openSidebar() {
+    if (!sidebarEl) buildSidebar();
+    renderSidebarList();
+    sidebarEl.classList.add('active');
+  }
+
+  function closeSidebar() {
+    if (sidebarEl) sidebarEl.classList.remove('active');
+  }
+
+  function buildSidebar() {
+    sidebarEl = document.createElement('div');
+    sidebarEl.className = 'sf-sidebar';
+
+    // Header
+    var header = document.createElement('div');
+    header.className = 'sf-sidebar-header';
+
+    var title = document.createElement('h3');
+    title.textContent = 'Annotations';
+    header.appendChild(title);
+
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'sf-sidebar-close';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.addEventListener('click', closeSidebar);
+    header.appendChild(closeBtn);
+
+    sidebarEl.appendChild(header);
+
+    // Color legend / filters
+    var filters = document.createElement('div');
+    filters.className = 'sf-sidebar-filters';
+
+    var allBtn = document.createElement('button');
+    allBtn.className = 'sf-filter-row sf-filter-all selected';
+    allBtn.textContent = 'All';
+    allBtn.addEventListener('click', function() {
+      sidebarFilter = null;
+      updateFilterUI();
+      renderSidebarList();
+    });
+    filters.appendChild(allBtn);
+
+    HIGHLIGHT_COLORS.forEach(function(c) {
+      var row = document.createElement('button');
+      row.className = 'sf-filter-row sf-filter-swatch';
+      row.dataset.color = c.id;
+      row.addEventListener('click', function() {
+        sidebarFilter = (sidebarFilter === c.id) ? null : c.id;
+        updateFilterUI();
+        renderSidebarList();
+      });
+
+      var dot = document.createElement('span');
+      dot.className = 'sf-filter-dot';
+      dot.style.backgroundColor = c.color;
+      row.appendChild(dot);
+
+      var label = document.createElement('span');
+      label.className = 'sf-filter-label';
+      label.textContent = c.label;
+      row.appendChild(label);
+
+      filters.appendChild(row);
+    });
+
+    sidebarEl.appendChild(filters);
+
+    // List container
+    var list = document.createElement('div');
+    list.className = 'sf-sidebar-list';
+    sidebarEl.appendChild(list);
+
+    // Footer with export links
+    var footer = document.createElement('div');
+    footer.className = 'sf-sidebar-footer';
+
+    var exportLabel = document.createElement('span');
+    exportLabel.textContent = 'Export: ';
+    exportLabel.style.color = 'var(--text-dim)';
+    exportLabel.style.fontSize = '0.78em';
+    footer.appendChild(exportLabel);
+
+    ['chapter-json', 'chapter', 'json', 'md'].forEach(function(fmt, i) {
+      var labels = { 'chapter-json': 'Chapter JSON', 'chapter': 'Chapter MD', 'json': 'All JSON', 'md': 'All MD' };
+      if (i > 0) {
+        var sep = document.createElement('span');
+        sep.textContent = ' \u00b7 ';
+        sep.style.color = 'var(--text-dim)';
+        sep.style.fontSize = '0.78em';
+        footer.appendChild(sep);
+      }
+      var link = document.createElement('a');
+      link.href = '#';
+      link.textContent = labels[fmt];
+      link.style.color = 'var(--accent)';
+      link.style.fontSize = '0.78em';
+      link.style.textDecoration = 'none';
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        doExport(fmt);
+      });
+      footer.appendChild(link);
+    });
+
+    sidebarEl.appendChild(footer);
+    document.body.appendChild(sidebarEl);
+  }
+
+  function updateFilterUI() {
+    if (!sidebarEl) return;
+    var allBtn = sidebarEl.querySelector('.sf-filter-all');
+    var swatches = sidebarEl.querySelectorAll('.sf-filter-swatch');
+    if (allBtn) {
+      if (sidebarFilter === null) allBtn.classList.add('selected');
+      else allBtn.classList.remove('selected');
+    }
+    swatches.forEach(function(s) {
+      if (s.dataset.color === sidebarFilter) s.classList.add('selected');
+      else s.classList.remove('selected');
+    });
+  }
+
+  function renderSidebarList() {
+    if (!sidebarEl) return;
+    var list = sidebarEl.querySelector('.sf-sidebar-list');
+    if (!list) return;
+    while (list.firstChild) list.removeChild(list.firstChild);
+
+    var annotations = loadAnnotations();
+
+    if (sidebarFilter) {
+      annotations = annotations.filter(function(a) {
+        return (a.color || 'yellow') === sidebarFilter;
+      });
+    }
+
+    if (annotations.length === 0) {
+      var empty = document.createElement('p');
+      empty.className = 'sf-sidebar-empty';
+      empty.textContent = sidebarFilter ? 'No ' + sidebarFilter + ' annotations' : 'No annotations yet';
+      list.appendChild(empty);
+      return;
+    }
+
+    annotations.forEach(function(annotation) {
+      var card = document.createElement('div');
+      card.className = 'sf-sidebar-card';
+      card.addEventListener('click', function() {
+        scrollToAnnotation(annotation);
+        if (window.innerWidth < 640) closeSidebar();
+      });
+
+      // Color dot
+      var dot = document.createElement('span');
+      dot.className = 'sf-sidebar-dot';
+      var colorObj = HIGHLIGHT_COLORS.find(function(c) { return c.id === (annotation.color || 'yellow'); });
+      dot.style.backgroundColor = colorObj ? colorObj.color : '#fcd44f';
+      card.appendChild(dot);
+
+      var content = document.createElement('div');
+      content.className = 'sf-sidebar-card-content';
+
+      // Selected text
+      if (annotation.selectedText) {
+        var textEl = document.createElement('p');
+        textEl.className = 'sf-sidebar-text';
+        var t = annotation.selectedText;
+        if (t.length > 60) t = t.slice(0, 60) + '\u2026';
+        textEl.textContent = '\u201c' + t + '\u201d';
+        content.appendChild(textEl);
+      }
+
+      // Comment
+      if (annotation.comment) {
+        var commentEl = document.createElement('p');
+        commentEl.className = 'sf-sidebar-comment';
+        var c = annotation.comment;
+        if (c.length > 80) c = c.slice(0, 80) + '\u2026';
+        commentEl.textContent = c;
+        content.appendChild(commentEl);
+      }
+
+      // Type label for margin notes
+      if (annotation.type === 'margin-note') {
+        var typeEl = document.createElement('span');
+        typeEl.className = 'sf-sidebar-type';
+        typeEl.textContent = 'Margin note';
+        content.appendChild(typeEl);
+      }
+
+      // Timestamp
+      if (annotation.createdAt) {
+        var timeEl = document.createElement('time');
+        timeEl.className = 'sf-sidebar-time';
+        var date = new Date(annotation.createdAt);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        timeEl.textContent = months[date.getMonth()] + ' ' + date.getDate();
+        content.appendChild(timeEl);
+      }
+
+      card.appendChild(content);
+      list.appendChild(card);
+    });
+  }
+
+  function scrollToAnnotation(annotation) {
+    var el = null;
+    if (annotation.type === 'margin-note') {
+      el = document.querySelector('.sf-margin-indicator[data-annotation-id="' + annotation.id + '"]');
+    } else {
+      el = document.querySelector('.sf-highlight[data-annotation-id="' + annotation.id + '"]');
+    }
+    if (!el) return;
+
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.add('sf-flash');
+    setTimeout(function() { el.classList.remove('sf-flash'); }, 1200);
+  }
+
+  // Close sidebar on outside click
+  document.addEventListener('click', function(e) {
+    if (!sidebarEl || !sidebarEl.classList.contains('active')) return;
+    if (sidebarEl.contains(e.target)) return;
+    var toggleBtn = document.querySelector('.sf-export-btn');
+    if (toggleBtn && (toggleBtn === e.target || toggleBtn.contains(e.target))) return;
+    closeSidebar();
+  });
+
+  // Close sidebar on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && sidebarEl && sidebarEl.classList.contains('active')) {
+      closeSidebar();
+    }
+  });
+
+  function addExportButton() {
+    var navControls = document.querySelector('.nav-controls');
+    if (!navControls) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'sf-export-btn';
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+    btn.title = 'Annotations';
+    btn.setAttribute('aria-label', 'Annotations');
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+
+    var chapterInfo = navControls.querySelector('.chapter-info');
+    if (chapterInfo) {
+      navControls.insertBefore(btn, chapterInfo);
+    } else {
+      var themeToggle = navControls.querySelector('.theme-toggle');
+      if (themeToggle) {
+        navControls.insertBefore(btn, themeToggle);
+      } else {
+        navControls.appendChild(btn);
+      }
+    }
+  }
+
+  // =========================================================================
+  // 12. KEYBOARD SHORTCUTS
+  // =========================================================================
+
+  document.addEventListener('keydown', function(e) {
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
+
+    if (e.key === 'a' || e.key === 'A') {
+      toggleSidebar();
+    }
+  });
+
+  // =========================================================================
+  // 13. INIT
+  // =========================================================================
+
+  function init() {
+    var stale = revalidateAnchors();
+    renderAllHighlights();
+    renderAllMarginNotes();
+    renderStalePanel(stale);
+    setupMarginTriggers();
+    createToolbar();
+    addExportButton();
+    updateBadge();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 
 })();
 </script>
