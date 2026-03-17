@@ -5,6 +5,7 @@ date:           2026-03-07 12:00:00-0600
 sub_title:      Supernatural literary thriller
 cover_image:    /books/shared-dark/cover.png
 book_path:      /books/shared-dark/read/
+dashboard_path: /books/shared-dark/dashboard.html
 ---
 
 Two strangers discover they share psychic dreams of crimes in progress — she experiences the victims, he the perpetrators — and as the cases escalate, the darkness they absorb threatens to destroy them and the bond forming between them.
