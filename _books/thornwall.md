@@ -4,7 +4,6 @@ title:          "Thornwall"
 date:           2026-03-10 12:00:00-0600
 sub_title:      Epic fantasy
 cover_image:    /books/thornwall/cover.png
-book_path:      /books/thornwall/read/
 ---
 
 For twenty-three years, Kael has knelt at the fissure beneath Thornwall Hold and burned. The Accord calls it service. The technique they taught him calls it protection. His slowly vanishing memories call it something else.
