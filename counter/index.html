@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="robots" content="noindex">
+  <title>Counter &mdash; Ben Norris</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { height: 100%; }
+    body {
+      font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior-y: none;
+    }
+    .display {
+      font-family: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+      letter-spacing: -0.02em;
+    }
+    @keyframes pop { 0% { transform: scale(1); } 35% { transform: scale(1.07); } 100% { transform: scale(1); } }
+    .num-pop { animation: pop 0.18s ease-out; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .slide-in { animation: slideIn 0.25s ease-out; }
+    button:focus, input:focus, select:focus { outline: none; }
+    button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+    button, input, select { touch-action: manipulation; }
+    /* Scroll-lock when a modal is open */
+    body.modal-open { overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+  (function () {
+    'use strict';
+
+    // ===================================================================
+    //  ICONS (lucide paths, inlined)
+    // ===================================================================
+    const ICON_PATHS = {
+      plus:        '<path d="M5 12h14"/><path d="M12 5v14"/>',
+      minus:       '<path d="M5 12h14"/>',
+      rotateCcw:   '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
+      trash:       '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>',
+      mapPin:      '<path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+      chevronLeft: '<path d="m15 18-6-6 6-6"/>',
+      chevronRight:'<path d="m9 18 6-6-6-6"/>',
+      check:       '<path d="M20 6 9 17l-5-5"/>',
+      circle:      '<circle cx="12" cy="12" r="10"/>',
+      flag:        '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>',
+      copy:        '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+      play:        '<polygon points="6 3 20 12 6 21 6 3" fill="currentColor"/>',
+      listPlus:    '<path d="M11 12H3"/><path d="M16 6H3"/><path d="M16 18H3"/><path d="M18 9v6"/><path d="M21 12h-6"/>',
+      pencil:      '<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/>',
+      x:           '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+      calendar:    '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+      arrowLeft:   '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+      download:    '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><line x1="12" y1="15" x2="12" y2="3"/>',
+      fileJson:    '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M10 13a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1"/><path d="M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1"/>',
+      fileCsv:     '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13v5"/><path d="M12 13v5"/><path d="M16 13v5"/>',
+    };
+    function icon(name, size, strokeWidth, extraClass) {
+      size = size || 20;
+      strokeWidth = strokeWidth || 2;
+      extraClass = extraClass || '';
+      const paths = ICON_PATHS[name];
+      if (!paths) return '';
+      return '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + strokeWidth + '" stroke-linecap="round" stroke-linejoin="round" class="' + extraClass + '" aria-hidden="true">' + paths + '</svg>';
+    }
+
+    // ===================================================================
+    //  STATE + STORAGE
+    // ===================================================================
+    const STORAGE_KEY = 'bennorris-counter-v1';
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { events: [], activeEventId: null };
+        const parsed = JSON.parse(raw);
+        const events = (parsed.events || []).map(function (e) {
+          return {
+            id: e.id,
+            name: e.name || '',
+            date: e.date || '',
+            createdAt: e.createdAt || new Date().toISOString(),
+            updatedAt: e.updatedAt || e.createdAt || new Date().toISOString(),
+            rooms: (e.rooms || []).map(function (r) {
+              return { id: r.id, name: r.name || '', count: r.count || 0, visited: !!r.visited };
+            }),
+            currentIndex: e.currentIndex || 0,
+            mode: e.mode === 'counting' || e.mode === 'review' ? e.mode : 'setup',
+          };
+        });
+        const activeEventId = events.some(function (e) { return e.id === parsed.activeEventId; })
+          ? parsed.activeEventId : null;
+        return { events: events, activeEventId: activeEventId };
+      } catch (err) {
+        return { events: [], activeEventId: null };
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          events: state.events,
+          activeEventId: state.activeEventId,
+        }));
+      } catch (err) { /* quota or private mode */ }
+    }
+
+    let state = loadState();
+
+    // Transient UI state (not persisted)
+    let ui = {
+      renamingRoomId: null,
+      renameValue: '',
+      copiedFlash: false,
+      modal: null, // 'export-current' | 'export-all' | 'new-event'
+      autofocusId: null,
+    };
+
+    // ===================================================================
+    //  THEME
+    // ===================================================================
+    let dark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const handler = function (e) { dark = e.matches; render(); };
+      if (mq.addEventListener) mq.addEventListener('change', handler);
+      else if (mq.addListener) mq.addListener(handler);
+    }
+    function theme() {
+      return dark ? {
+        page: 'bg-neutral-950 text-stone-50',
+        muted: 'text-neutral-400',
+        dim: 'text-neutral-500',
+        panel: 'bg-neutral-900',
+        panelSub: 'bg-neutral-800',
+        border: 'border-neutral-800',
+        borderSoft: 'border-neutral-800/60',
+        input: 'bg-neutral-900 border-neutral-700 text-stone-50 placeholder-neutral-500 focus:border-amber-400',
+        accent: 'bg-amber-400 text-neutral-950 hover:bg-amber-300 active:bg-amber-300',
+        accentSoft: 'bg-amber-400/10 border-amber-400/30 text-amber-300',
+        accentBorder: 'border-amber-400/60',
+        secondary: 'bg-neutral-800 hover:bg-neutral-700 active:bg-neutral-700 text-stone-100 border-neutral-700',
+        ghost: 'hover:bg-neutral-800/60 active:bg-neutral-800/60 text-stone-100',
+        danger: 'text-red-400 hover:bg-red-500/10',
+        check: 'text-emerald-400',
+        backdrop: 'bg-black/60',
+        link: 'text-neutral-400 hover:text-amber-300',
+      } : {
+        page: 'bg-stone-50 text-stone-950',
+        muted: 'text-stone-600',
+        dim: 'text-stone-500',
+        panel: 'bg-white',
+        panelSub: 'bg-stone-100',
+        border: 'border-stone-200',
+        borderSoft: 'border-stone-200/60',
+        input: 'bg-white border-stone-300 text-stone-950 placeholder-stone-400 focus:border-amber-500',
+        accent: 'bg-amber-500 text-white hover:bg-amber-600 active:bg-amber-600',
+        accentSoft: 'bg-amber-500/10 border-amber-500/40 text-amber-700',
+        accentBorder: 'border-amber-500/60',
+        secondary: 'bg-stone-100 hover:bg-stone-200 active:bg-stone-200 text-stone-900 border-stone-200',
+        ghost: 'hover:bg-stone-100 active:bg-stone-100 text-stone-900',
+        danger: 'text-red-600 hover:bg-red-500/10',
+        check: 'text-emerald-600',
+        backdrop: 'bg-stone-950/40',
+        link: 'text-stone-500 hover:text-amber-700',
+      };
+    }
+
+    // ===================================================================
+    //  HELPERS
+    // ===================================================================
+    function buzz(pattern) {
+      if (typeof pattern === 'undefined') pattern = 15;
+      if (navigator.vibrate) { try { navigator.vibrate(pattern); } catch (e) { /* noop */ } }
+    }
+    function escapeHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+    function newId(prefix) {
+      return (prefix || '') + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+    }
+    function todayISO() {
+      const d = new Date();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return d.getFullYear() + '-' + m + '-' + day;
+    }
+    function formatDate(iso) {
+      if (!iso) return '';
+      // Treat as local date to avoid TZ shift
+      const parts = iso.split('-');
+      if (parts.length !== 3) return iso;
+      const d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+      if (isNaN(d.getTime())) return iso;
+      return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    function activeEvent() {
+      if (!state.activeEventId) return null;
+      return state.events.find(function (e) { return e.id === state.activeEventId; }) || null;
+    }
+    function eventTotal(ev) {
+      return ev.rooms.reduce(function (s, r) { return s + r.count; }, 0);
+    }
+    function touch(ev) { ev.updatedAt = new Date().toISOString(); }
+
+    // ===================================================================
+    //  EVENT-LIST ACTIONS
+    // ===================================================================
+    function createEvent(name, date) {
+      const trimmed = (name || '').trim();
+      if (!trimmed) return;
+      const ev = {
+        id: newId('ev_'),
+        name: trimmed,
+        date: date || todayISO(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        rooms: [],
+        currentIndex: 0,
+        mode: 'setup',
+      };
+      state.events.unshift(ev);
+      state.activeEventId = ev.id;
+      ui.modal = null;
+      saveState();
+      buzz(20);
+      render();
+    }
+    function openEvent(id) {
+      state.activeEventId = id;
+      saveState();
+      buzz(8);
+      render();
+    }
+    function closeEvent() {
+      state.activeEventId = null;
+      ui.renamingRoomId = null;
+      ui.renameValue = '';
+      ui.copiedFlash = false;
+      saveState();
+      render();
+    }
+    function deleteEvent(id) {
+      const ev = state.events.find(function (e) { return e.id === id; });
+      if (!ev) return;
+      const msg = 'Delete "' + ev.name + '"? All rooms and counts for this event will be lost.';
+      if (!window.confirm(msg)) return;
+      state.events = state.events.filter(function (e) { return e.id !== id; });
+      if (state.activeEventId === id) state.activeEventId = null;
+      saveState();
+      buzz(50);
+      render();
+    }
+
+    // ===================================================================
+    //  ROOM ACTIONS (operate on active event)
+    // ===================================================================
+    function addRooms(raw) {
+      const ev = activeEvent(); if (!ev) return;
+      const names = String(raw || '').split(/\r?\n/).map(function (n) { return n.trim(); }).filter(Boolean);
+      if (names.length === 0) return;
+      const created = names.map(function (n) {
+        return { id: newId('r_'), name: n, count: 0, visited: false };
+      });
+      ev.rooms = ev.rooms.concat(created);
+      touch(ev);
+      saveState();
+      buzz(10);
+      render();
+      // Scroll the newly added items into view
+      setTimeout(function () {
+        const sentinel = document.getElementById('list-end');
+        if (sentinel && sentinel.scrollIntoView) sentinel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 30);
+    }
+    function removeRoom(id) {
+      const ev = activeEvent(); if (!ev) return;
+      const idx = ev.rooms.findIndex(function (r) { return r.id === id; });
+      if (idx === -1) return;
+      ev.rooms.splice(idx, 1);
+      if (ev.mode === 'counting') {
+        if (idx < ev.currentIndex) ev.currentIndex = Math.max(0, ev.currentIndex - 1);
+        else if (idx === ev.currentIndex) ev.currentIndex = Math.min(ev.currentIndex, ev.rooms.length - 1);
+        if (ev.currentIndex < 0) ev.currentIndex = 0;
+      }
+      touch(ev);
+      saveState();
+      buzz(8);
+      render();
+    }
+
+    function startCounting() {
+      const ev = activeEvent(); if (!ev) return;
+      if (ev.rooms.length === 0) {
+        ev.rooms = [{ id: newId('r_'), name: 'Location 1', count: 0, visited: false }];
+      }
+      ev.currentIndex = 0;
+      ev.mode = 'counting';
+      touch(ev);
+      saveState();
+      buzz(25);
+      render();
+    }
+    function finish() {
+      const ev = activeEvent(); if (!ev) return;
+      ev.mode = 'review';
+      touch(ev);
+      saveState();
+      buzz([25, 35, 25]);
+      render();
+    }
+    function continueCounting() {
+      const ev = activeEvent(); if (!ev) return;
+      const nextIdx = ev.rooms.findIndex(function (r) { return !r.visited; });
+      ev.currentIndex = nextIdx === -1 ? 0 : nextIdx;
+      ev.mode = 'counting';
+      touch(ev);
+      saveState();
+      buzz(15);
+      render();
+    }
+    function startOver() {
+      const ev = activeEvent(); if (!ev) return;
+      if (!window.confirm('Start over? All rooms and counts will be cleared for this event.')) return;
+      ev.rooms = [];
+      ev.currentIndex = 0;
+      ev.mode = 'setup';
+      touch(ev);
+      saveState();
+      buzz(60);
+      render();
+    }
+    function resetCountsKeepRooms() {
+      const ev = activeEvent(); if (!ev) return;
+      if (!window.confirm('Reset counts to 0 but keep the room list?')) return;
+      ev.rooms = ev.rooms.map(function (r) { return { id: r.id, name: r.name, count: 0, visited: false }; });
+      ev.currentIndex = 0;
+      ev.mode = 'counting';
+      touch(ev);
+      saveState();
+      buzz(40);
+      render();
+    }
+    function incrementCurrent() {
+      const ev = activeEvent(); if (!ev || !ev.rooms[ev.currentIndex]) return;
+      const r = ev.rooms[ev.currentIndex];
+      r.count += 1;
+      r.visited = true;
+      touch(ev);
+      saveState();
+      buzz(15);
+      render();
+    }
+    function decrementCurrent() {
+      const ev = activeEvent(); if (!ev) return;
+      const r = ev.rooms[ev.currentIndex];
+      if (!r || r.count <= 0) return;
+      r.count = Math.max(0, r.count - 1);
+      touch(ev);
+      saveState();
+      buzz(8);
+      render();
+    }
+    function markVisitedAndAdvance() {
+      const ev = activeEvent(); if (!ev) return;
+      const r = ev.rooms[ev.currentIndex];
+      if (r) r.visited = true;
+      if (ev.currentIndex >= ev.rooms.length - 1) {
+        ev.mode = 'review';
+        buzz([25, 35, 25]);
+      } else {
+        ev.currentIndex += 1;
+        buzz(20);
+      }
+      touch(ev);
+      saveState();
+      render();
+    }
+    function goToPrev() {
+      const ev = activeEvent(); if (!ev) return;
+      if (ev.currentIndex > 0) {
+        ev.currentIndex -= 1;
+        touch(ev);
+        saveState();
+        buzz(15);
+        render();
+      }
+    }
+    function jumpToRoom(idx) {
+      const ev = activeEvent(); if (!ev) return;
+      ev.currentIndex = idx;
+      touch(ev);
+      saveState();
+      buzz(12);
+      render();
+    }
+    function startRename(roomId) {
+      const ev = activeEvent(); if (!ev) return;
+      const room = ev.rooms.find(function (r) { return r.id === roomId; });
+      if (!room) return;
+      ui.renamingRoomId = roomId;
+      ui.renameValue = room.name;
+      ui.autofocusId = 'rename-input';
+      render();
+    }
+    function commitRename(value) {
+      const ev = activeEvent();
+      const trimmed = String(value == null ? '' : value).trim();
+      if (ev && trimmed && ui.renamingRoomId != null) {
+        const room = ev.rooms.find(function (r) { return r.id === ui.renamingRoomId; });
+        if (room) {
+          room.name = trimmed;
+          touch(ev);
+          saveState();
+          buzz(10);
+        }
+      }
+      ui.renamingRoomId = null;
+      ui.renameValue = '';
+      render();
+    }
+    function cancelRename() {
+      ui.renamingRoomId = null;
+      ui.renameValue = '';
+      render();
+    }
+
+    // ===================================================================
+    //  COPY / EXPORT
+    // ===================================================================
+    function copyResults() {
+      const ev = activeEvent(); if (!ev) return;
+      const total = eventTotal(ev);
+      const lines = [
+        ev.name + (ev.date ? ' (' + ev.date + ')' : ''),
+        'Total: ' + total,
+        '',
+      ].concat(ev.rooms.map(function (r) { return r.name + ': ' + r.count; }));
+      const text = lines.join('\n');
+      const done = function () {
+        ui.copiedFlash = true;
+        render();
+        setTimeout(function () { ui.copiedFlash = false; render(); }, 1600);
+        buzz(15);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () {
+          fallbackCopy(text); done();
+        });
+      } else {
+        fallbackCopy(text); done();
+      }
+    }
+    function fallbackCopy(text) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch (e) { /* noop */ }
+    }
+
+    function csvEscape(value) {
+      const s = String(value == null ? '' : value);
+      if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+      return s;
+    }
+    function slugify(s) {
+      return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'event';
+    }
+    function buildCSV(events) {
+      const rows = [['Event', 'Event Date', 'Room', 'Count', 'Visited']];
+      events.forEach(function (ev) {
+        if (ev.rooms.length === 0) {
+          rows.push([ev.name, ev.date, '', 0, '']);
+        } else {
+          ev.rooms.forEach(function (r) {
+            rows.push([ev.name, ev.date, r.name, r.count, r.visited ? 'yes' : 'no']);
+          });
+        }
+      });
+      return rows.map(function (row) {
+        return row.map(csvEscape).join(',');
+      }).join('\r\n');
+    }
+    function buildJSON(events) {
+      const payload = events.map(function (ev) {
+        return {
+          name: ev.name,
+          date: ev.date,
+          createdAt: ev.createdAt,
+          updatedAt: ev.updatedAt,
+          total: eventTotal(ev),
+          rooms: ev.rooms.map(function (r) {
+            return { name: r.name, count: r.count, visited: r.visited };
+          }),
+        };
+      });
+      return JSON.stringify(events.length === 1 ? payload[0] : payload, null, 2);
+    }
+    function download(filename, mime, content) {
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    }
+    function exportFilename(events, ext) {
+      if (events.length === 1) {
+        const ev = events[0];
+        return 'counter-' + slugify(ev.name) + '-' + (ev.date || todayISO()) + '.' + ext;
+      }
+      return 'counter-all-events-' + todayISO() + '.' + ext;
+    }
+    function exportEvents(scope, format) {
+      let events;
+      if (scope === 'current') {
+        const ev = activeEvent();
+        if (!ev) return;
+        events = [ev];
+      } else {
+        events = state.events.slice();
+      }
+      if (events.length === 0) return;
+      if (format === 'csv') {
+        download(exportFilename(events, 'csv'), 'text/csv', buildCSV(events));
+      } else {
+        download(exportFilename(events, 'json'), 'application/json', buildJSON(events));
+      }
+      ui.modal = null;
+      buzz(15);
+      render();
+    }
+
+    // ===================================================================
+    //  RENDER
+    // ===================================================================
+    function render() {
+      const t = theme();
+      const view = state.activeEventId ? renderEvent(t) : renderEventsList(t);
+      const modalHtml = ui.modal ? renderModal(t) : '';
+      const root = document.getElementById('app');
+      root.className = 'min-h-screen ' + t.page;
+      root.innerHTML =
+        '<div class="max-w-md mx-auto min-h-screen flex flex-col">' + view + '</div>' +
+        modalHtml;
+      document.body.classList.toggle('modal-open', !!ui.modal);
+      attachListeners();
+      // restore autofocus
+      if (ui.autofocusId) {
+        const el = document.getElementById(ui.autofocusId);
+        if (el && el.focus) {
+          el.focus();
+          if (typeof el.select === 'function') el.select();
+        }
+        ui.autofocusId = null;
+      }
+    }
+
+    // ----- Site link footer (consistent across views) -----
+    function siteFooter(t) {
+      return '' +
+        '<footer class="px-5 py-5 text-center text-xs">' +
+          '<a href="https://bennorris.com/" class="' + t.link + ' transition-colors inline-flex items-center gap-1.5">' +
+            icon('arrowLeft', 12, 2.5) +
+            '<span>bennorris.com</span>' +
+          '</a>' +
+        '</footer>';
+    }
+
+    // ===================================================================
+    //  EVENTS LIST VIEW
+    // ===================================================================
+    function renderEventsList(t) {
+      const events = state.events;
+      const hasEvents = events.length > 0;
+      let listHtml;
+      if (hasEvents) {
+        listHtml =
+          '<div class="text-xs uppercase tracking-widest font-semibold mb-3 px-1 ' + t.dim + '">' +
+            events.length + ' event' + (events.length === 1 ? '' : 's') +
+          '</div>' +
+          '<ul class="space-y-2">' +
+            events.map(function (ev) {
+              const total = eventTotal(ev);
+              const roomsLabel = ev.rooms.length + ' room' + (ev.rooms.length === 1 ? '' : 's');
+              const status = ev.mode === 'review' ? 'Reviewed' : ev.mode === 'counting' ? 'In progress' : 'Setup';
+              return '' +
+                '<li class="slide-in flex items-stretch gap-2">' +
+                  '<button data-action="open-event" data-id="' + escapeHtml(ev.id) + '" ' +
+                    'class="flex-1 text-left flex items-center gap-3 p-3.5 rounded-2xl border ' + t.panel + ' ' + t.border + ' ' + t.ghost + ' transition-colors active:scale-[0.99]">' +
+                    '<div class="w-10 h-10 rounded-lg border flex items-center justify-center shrink-0 ' + t.accentSoft + '">' +
+                      icon('mapPin', 18, 2.25) +
+                    '</div>' +
+                    '<div class="flex-1 min-w-0">' +
+                      '<div class="font-semibold truncate">' + escapeHtml(ev.name) + '</div>' +
+                      '<div class="text-xs mt-0.5 font-medium ' + t.dim + '">' +
+                        escapeHtml(formatDate(ev.date)) + ' &middot; ' + roomsLabel + ' &middot; ' + status +
+                      '</div>' +
+                    '</div>' +
+                    '<div class="text-right shrink-0">' +
+                      '<div class="text-2xl font-extrabold tabular-nums leading-none display ' + (total === 0 ? t.dim : '') + '">' + total + '</div>' +
+                      '<div class="text-[10px] uppercase tracking-widest font-semibold ' + t.dim + ' mt-1">total</div>' +
+                    '</div>' +
+                  '</button>' +
+                  '<button data-action="delete-event" data-id="' + escapeHtml(ev.id) + '" ' +
+                    'class="w-11 rounded-2xl border flex items-center justify-center transition-colors ' + t.panel + ' ' + t.border + ' ' + t.danger + '" ' +
+                    'aria-label="Delete event">' +
+                    icon('trash', 16) +
+                  '</button>' +
+                '</li>';
+            }).join('') +
+          '</ul>';
+      } else {
+        listHtml =
+          '<div class="text-center py-12 ' + t.dim + '">' +
+            '<div class="w-14 h-14 rounded-2xl border flex items-center justify-center mb-3 mx-auto opacity-70 ' + t.border + '">' +
+              icon('calendar', 22) +
+            '</div>' +
+            '<div class="text-sm font-medium ' + t.muted + '">No events yet</div>' +
+            '<div class="text-xs mt-1.5 opacity-80 leading-relaxed max-w-[18rem] mx-auto">' +
+              'Start a new event to set up rooms and count attendance. Everything saves automatically to this browser.' +
+            '</div>' +
+          '</div>';
+      }
+
+      const exportBtn = hasEvents
+        ? '<button data-action="open-export-all" ' +
+            'class="text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors font-semibold border ' + t.ghost + ' ' + t.borderSoft + '">' +
+            icon('download', 12, 2.5) + 'Export all' +
+          '</button>'
+        : '';
+
+      return '' +
+        '<header class="px-5 pt-5 pb-4 flex items-center justify-between border-b ' + t.border + '">' +
+          '<div class="flex items-center gap-3 min-w-0">' +
+            '<div class="w-9 h-9 rounded-lg border flex items-center justify-center shrink-0 ' + t.accentSoft + '">' +
+              icon('mapPin', 18, 2.25) +
+            '</div>' +
+            '<div class="min-w-0">' +
+              '<div class="text-xs uppercase tracking-widest font-semibold ' + t.dim + '">Counter</div>' +
+              '<div class="text-base font-bold leading-tight truncate display">Events</div>' +
+            '</div>' +
+          '</div>' +
+          exportBtn +
+        '</header>' +
+        '<main class="flex-1 overflow-y-auto px-5 py-4">' + listHtml + '</main>' +
+        '<section class="px-5 pt-4 pb-6 border-t ' + t.border + ' ' + t.panel + '">' +
+          '<button data-action="open-new-event" ' +
+            'class="w-full h-20 rounded-3xl font-extrabold text-xl flex items-center justify-center gap-3 active:scale-95 transition-transform shadow-lg display ' + t.accent + '">' +
+            icon('plus', 28, 3) +
+            '<span>New event</span>' +
+          '</button>' +
+        '</section>' +
+        siteFooter(t);
+    }
+
+    // ===================================================================
+    //  EVENT (setup / counting / review) VIEW
+    // ===================================================================
+    function renderEvent(t) {
+      const ev = activeEvent();
+      if (!ev) return renderEventsList(t);
+      let body;
+      if (ev.mode === 'counting') body = renderCounting(t, ev);
+      else if (ev.mode === 'review') body = renderReview(t, ev);
+      else body = renderSetup(t, ev);
+      return body + siteFooter(t);
+    }
+
+    function renderEventHeader(t, ev) {
+      const total = eventTotal(ev);
+      const showTotal = ev.mode === 'counting' || ev.mode === 'review';
+      let crumb;
+      if (ev.mode === 'counting') crumb = 'Room ' + (ev.currentIndex + 1) + ' of ' + ev.rooms.length;
+      else if (ev.mode === 'review') crumb = 'Review';
+      else crumb = 'Setup';
+      let title;
+      if (ev.mode === 'counting') {
+        const r = ev.rooms[ev.currentIndex];
+        title = r ? r.name : 'Counter';
+      } else if (ev.mode === 'review') {
+        title = ev.name;
+      } else {
+        title = ev.name;
+      }
+      return '' +
+        '<header class="px-5 pt-5 pb-4 flex items-center justify-between border-b ' + t.border + '">' +
+          '<div class="flex items-center gap-2 min-w-0">' +
+            '<button data-action="close-event" aria-label="Back to events" ' +
+              'class="w-9 h-9 -ml-1 rounded-lg flex items-center justify-center shrink-0 transition-colors ' + t.ghost + '">' +
+              icon('arrowLeft', 18, 2.25) +
+            '</button>' +
+            '<div class="min-w-0">' +
+              '<div class="text-xs uppercase tracking-widest font-semibold ' + t.dim + '">' + escapeHtml(crumb) + '</div>' +
+              '<div class="text-base font-bold leading-tight truncate display">' + escapeHtml(title) + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="flex items-center gap-2 shrink-0">' +
+            (showTotal
+              ? '<div class="flex items-baseline gap-2 px-3.5 py-2 rounded-full border ' + t.accentSoft + '">' +
+                  '<span class="text-xs uppercase tracking-widest font-semibold opacity-80">Total</span>' +
+                  '<span class="text-xl font-extrabold tabular-nums display">' + total + '</span>' +
+                '</div>'
+              : '') +
+            '<button data-action="open-export-current" aria-label="Export this event" ' +
+              'class="w-9 h-9 rounded-lg border flex items-center justify-center transition-colors ' + t.ghost + ' ' + t.borderSoft + '">' +
+              icon('download', 16, 2.25) +
+            '</button>' +
+          '</div>' +
+        '</header>';
+    }
+
+    // ----- Setup -----
+    function renderSetup(t, ev) {
+      const hasRooms = ev.rooms.length > 0;
+      const list = hasRooms
+        ? '<div class="text-xs uppercase tracking-widest font-semibold mb-3 px-1 ' + t.dim + '">' +
+            ev.rooms.length + ' room' + (ev.rooms.length === 1 ? '' : 's') +
+          '</div>' +
+          '<ul class="space-y-2">' +
+            ev.rooms.map(function (room, idx) {
+              return '<li class="slide-in flex items-center gap-3 p-3.5 rounded-2xl border ' + t.panel + ' ' + t.border + '">' +
+                '<div class="w-7 h-7 rounded-md flex items-center justify-center text-xs font-bold tabular-nums shrink-0 display ' + t.panelSub + ' ' + t.dim + '">' + (idx + 1) + '</div>' +
+                '<div class="flex-1 min-w-0 font-semibold truncate">' + escapeHtml(room.name) + '</div>' +
+                '<button data-action="remove-room" data-id="' + escapeHtml(room.id) + '" aria-label="Remove ' + escapeHtml(room.name) + '" ' +
+                  'class="w-9 h-9 rounded-lg flex items-center justify-center transition-colors ' + t.danger + '">' +
+                  icon('trash', 16) +
+                '</button>' +
+              '</li>';
+            }).join('') +
+            '<li id="list-end"></li>' +
+          '</ul>'
+        : '<div class="text-center py-10 ' + t.dim + '">' +
+            '<div class="w-14 h-14 rounded-2xl border flex items-center justify-center mb-3 mx-auto opacity-70 ' + t.border + '">' +
+              icon('listPlus', 22) +
+            '</div>' +
+            '<div class="text-sm font-medium ' + t.muted + '">No rooms added yet</div>' +
+            '<div class="text-xs mt-1.5 opacity-80 leading-relaxed max-w-[16rem] mx-auto">' +
+              'Add rooms above, or just tap Start Counting to begin &mdash; you can name and add rooms as you go.' +
+            '</div>' +
+          '</div>';
+
+      return renderEventHeader(t, ev) +
+        '<main class="flex-1 overflow-y-auto px-5 py-4">' +
+          '<div class="text-sm leading-relaxed mb-4 ' + t.muted + '">' +
+            'Add the rooms or areas you&rsquo;ll walk through. You can also paste a list &mdash; one room per line.' +
+          '</div>' +
+          '<div class="flex gap-2 mb-5">' +
+            '<input id="draft-room-input" type="text" placeholder="Room name&hellip;" autocomplete="off" autocapitalize="words" maxlength="60" ' +
+              'class="flex-1 h-12 px-4 rounded-xl border-2 text-base font-medium transition-colors ' + t.input + '">' +
+            '<button data-action="add-room" aria-label="Add room" ' +
+              'class="h-12 w-12 rounded-xl border-2 flex items-center justify-center disabled:opacity-30 active:scale-95 transition-transform ' + t.secondary + '">' +
+              icon('plus', 22, 2.5) +
+            '</button>' +
+          '</div>' +
+          list +
+        '</main>' +
+        '<section class="px-5 pt-4 pb-6 border-t ' + t.border + ' ' + t.panel + '">' +
+          '<button data-action="start-counting" ' +
+            'class="w-full h-28 rounded-3xl font-extrabold text-2xl flex items-center justify-center gap-3 active:scale-95 transition-transform shadow-lg display ' + t.accent + '">' +
+            icon('play', 32, 3) +
+            '<span>Start Counting</span>' +
+          '</button>' +
+        '</section>';
+    }
+
+    // ----- Counting -----
+    function renderCounting(t, ev) {
+      const visitedCount = ev.rooms.filter(function (r) { return r.visited; }).length;
+      const current = ev.rooms[ev.currentIndex] || null;
+      const isLast = ev.currentIndex >= ev.rooms.length - 1;
+
+      const listHtml = '<ul class="space-y-2">' +
+        ev.rooms.map(function (room, idx) {
+          const isCurrent = idx === ev.currentIndex;
+          const isCompleted = room.visited && !isCurrent;
+          const isUpcoming = !room.visited && !isCurrent;
+          const indicator = isCompleted
+            ? '<span class="' + t.check + '">' + icon('check', 20, 2.75) + '</span>'
+            : isCurrent
+              ? '<div class="w-5 h-5 rounded-full flex items-center justify-center ' + t.accent + '">' + icon('chevronRight', 14, 3) + '</div>'
+              : '<span class="' + t.dim + '">' + icon('circle', 20, 2) + '</span>';
+          const subLabel = isCurrent ? 'Counting now' : isCompleted ? 'Done' : 'Up next';
+          const countDisplay = (isUpcoming && room.count === 0) ? '&ndash;' : String(room.count);
+          return '<li>' +
+            '<button data-action="jump" data-idx="' + idx + '" ' +
+              'class="w-full flex items-center gap-3 p-3.5 rounded-2xl border-2 transition-all text-left active:scale-95 ' +
+                (isCurrent ? (t.panel + ' ' + t.accentBorder + ' shadow-md') : (t.panel + ' ' + t.borderSoft + ' ' + t.ghost)) + '">' +
+              '<div class="shrink-0">' + indicator + '</div>' +
+              '<div class="flex-1 min-w-0">' +
+                '<div class="font-semibold truncate ' + (isUpcoming ? t.muted : '') + '">' + escapeHtml(room.name) + '</div>' +
+                '<div class="text-xs mt-0.5 font-medium ' + t.dim + '">' + subLabel + '</div>' +
+              '</div>' +
+              '<div class="text-2xl font-extrabold tabular-nums leading-none display ' + (isUpcoming ? t.dim : '') + '">' + countDisplay + '</div>' +
+            '</button>' +
+          '</li>';
+        }).join('') +
+        '<li id="list-end"></li>' +
+      '</ul>';
+
+      // Rename UI for the active room
+      let nameRow;
+      if (current && ui.renamingRoomId === current.id) {
+        nameRow = '<div class="flex items-center gap-1.5 mb-1">' +
+            '<input id="rename-input" type="text" maxlength="60" ' +
+              'class="flex-1 min-w-0 h-8 px-2 -mx-2 rounded-md border-2 text-xs uppercase tracking-widest font-semibold ' + t.input + '" ' +
+              'value="' + escapeHtml(ui.renameValue) + '">' +
+            '<button data-action="cancel-rename" data-mousedown-prevent="1" aria-label="Cancel rename" ' +
+              'class="shrink-0 w-7 h-7 rounded-md flex items-center justify-center ' + t.ghost + '">' +
+              icon('x', 14, 2.5) +
+            '</button>' +
+          '</div>';
+      } else if (current) {
+        nameRow = '<button data-action="start-rename" data-id="' + escapeHtml(current.id) + '" ' +
+            'class="flex items-center gap-1.5 mb-1 -mx-1 px-1 py-0.5 rounded-md max-w-full transition-colors ' + t.ghost + '">' +
+            '<span class="text-xs uppercase tracking-widest font-semibold truncate ' + t.dim + '">' + escapeHtml(current.name) + '</span>' +
+            '<span class="shrink-0 ' + t.dim + ' opacity-60">' + icon('pencil', 11, 2.5) + '</span>' +
+          '</button>';
+      } else {
+        nameRow = '<div class="text-xs uppercase tracking-widest font-semibold ' + t.dim + ' mb-1">No room</div>';
+      }
+
+      const currentCount = current ? current.count : 0;
+      const decDisabled = !current || current.count === 0;
+      const nextLabel = isLast
+        ? icon('flag', 18, 2.5) + 'Finish'
+        : 'Next' + icon('chevronRight', 20, 2.5);
+
+      return renderEventHeader(t, ev) +
+        '<main class="flex-1 overflow-y-auto px-5 py-4">' +
+          '<div class="flex items-center justify-between mb-3 px-1">' +
+            '<div class="text-xs uppercase tracking-widest font-semibold ' + t.dim + '">' +
+              visitedCount + ' of ' + ev.rooms.length + ' visited' +
+            '</div>' +
+            '<button data-action="finish" ' +
+              'class="text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors font-semibold border ' + t.ghost + ' ' + t.borderSoft + '">' +
+              icon('flag', 12, 2.5) + 'Finish now' +
+            '</button>' +
+          '</div>' +
+          listHtml +
+          '<div class="flex gap-2 mt-4 pt-4 border-t ' + t.borderSoft + '">' +
+            '<input id="draft-room-input" type="text" placeholder="Add another room&hellip;" autocomplete="off" autocapitalize="words" maxlength="60" ' +
+              'class="flex-1 h-11 px-4 rounded-xl border-2 text-sm font-medium transition-colors ' + t.input + '">' +
+            '<button data-action="add-room" aria-label="Add room" ' +
+              'class="h-11 w-11 rounded-xl border-2 flex items-center justify-center disabled:opacity-30 active:scale-95 transition-transform ' + t.secondary + '">' +
+              icon('plus', 20, 2.5) +
+            '</button>' +
+          '</div>' +
+        '</main>' +
+        '<section class="px-5 pt-5 pb-6 border-t space-y-4 ' + t.border + ' ' + t.panel + '">' +
+          '<div class="flex items-end justify-between gap-4">' +
+            '<div class="min-w-0 flex-1">' +
+              nameRow +
+              '<div key="' + currentCount + '" class="num-pop text-7xl font-extrabold tabular-nums leading-none display">' + currentCount + '</div>' +
+            '</div>' +
+            '<button data-action="dec" ' + (decDisabled ? 'disabled' : '') + ' aria-label="Decrement" ' +
+              'class="shrink-0 h-20 w-20 rounded-2xl border-2 flex items-center justify-center disabled:opacity-30 active:scale-95 transition-transform ' + t.secondary + '">' +
+              icon('minus', 32, 2.75) +
+            '</button>' +
+          '</div>' +
+          '<div class="grid grid-cols-2 gap-2">' +
+            '<button data-action="prev" ' + (ev.currentIndex === 0 ? 'disabled' : '') + ' ' +
+              'class="h-20 rounded-2xl border-2 font-semibold text-base flex items-center justify-center gap-1.5 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-transform ' + t.secondary + '">' +
+              icon('chevronLeft', 20, 2.5) + 'Previous' +
+            '</button>' +
+            '<button data-action="next" ' +
+              'class="h-20 rounded-2xl border-2 font-semibold text-base flex items-center justify-center gap-1.5 active:scale-95 transition-transform ' + t.secondary + '">' +
+              nextLabel +
+            '</button>' +
+          '</div>' +
+          '<button data-action="inc" ' +
+            'class="w-full h-28 rounded-3xl font-extrabold text-2xl flex items-center justify-center gap-3 active:scale-95 transition-transform shadow-lg display ' + t.accent + '">' +
+            icon('plus', 40, 3) + '<span>Add Person</span>' +
+          '</button>' +
+        '</section>';
+    }
+
+    // ----- Review -----
+    function renderReview(t, ev) {
+      const total = eventTotal(ev);
+      const breakdown = '<ul class="space-y-2">' +
+        ev.rooms.map(function (room, idx) {
+          return '<li class="flex items-center gap-3 p-3.5 rounded-2xl border ' + t.panel + ' ' + t.border + '">' +
+            '<div class="w-7 h-7 rounded-md flex items-center justify-center text-xs font-bold tabular-nums shrink-0 display ' + t.panelSub + ' ' + t.dim + '">' + (idx + 1) + '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="font-semibold truncate">' + escapeHtml(room.name) + '</div>' +
+              (!room.visited ? '<div class="text-xs mt-0.5 font-medium ' + t.dim + '">Not visited</div>' : '') +
+            '</div>' +
+            '<div class="text-3xl font-extrabold tabular-nums leading-none display ' + (room.count === 0 ? t.dim : '') + '">' + room.count + '</div>' +
+          '</li>';
+        }).join('') +
+      '</ul>';
+
+      const empty = ev.rooms.length === 0
+        ? '<div class="text-center py-8 ' + t.dim + ' text-sm">No rooms in this event yet.</div>'
+        : breakdown;
+
+      return renderEventHeader(t, ev) +
+        '<main class="flex-1 overflow-y-auto px-5 py-4">' +
+          '<div class="rounded-3xl border-2 px-5 py-6 mb-5 flex items-baseline justify-between ' + t.accentSoft + '">' +
+            '<div>' +
+              '<div class="text-xs uppercase tracking-widest font-semibold opacity-80">Grand Total</div>' +
+              '<div class="text-xs mt-1 opacity-70">across ' + ev.rooms.length + ' room' + (ev.rooms.length === 1 ? '' : 's') + '</div>' +
+            '</div>' +
+            '<div class="text-6xl font-extrabold tabular-nums leading-none display">' + total + '</div>' +
+          '</div>' +
+          '<div class="text-xs uppercase tracking-widest font-semibold mb-3 px-1 ' + t.dim + '">Breakdown</div>' +
+          empty +
+        '</main>' +
+        '<section class="px-5 pt-4 pb-6 border-t space-y-2 ' + t.border + ' ' + t.panel + '">' +
+          '<button data-action="copy-results" ' +
+            'class="w-full h-14 rounded-2xl border-2 font-semibold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform ' + t.secondary + '">' +
+            icon('copy', 16, 2.5) + (ui.copiedFlash ? 'Copied!' : 'Copy results') +
+          '</button>' +
+          '<div class="grid grid-cols-2 gap-2">' +
+            '<button data-action="continue-counting" ' +
+              'class="h-14 rounded-2xl border-2 font-semibold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform ' + t.secondary + '">' +
+              icon('chevronLeft', 16, 2.5) + 'Keep counting' +
+            '</button>' +
+            '<button data-action="reset-counts" ' +
+              'class="h-14 rounded-2xl border-2 font-semibold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform ' + t.secondary + '">' +
+              icon('rotateCcw', 16, 2.5) + 'Recount' +
+            '</button>' +
+          '</div>' +
+          '<button data-action="start-over" ' +
+            'class="w-full h-12 rounded-xl font-semibold text-sm flex items-center justify-center gap-1.5 transition-colors ' + t.danger + '">' +
+            icon('trash', 14, 2.5) + 'Clear everything' +
+          '</button>' +
+        '</section>';
+    }
+
+    // ===================================================================
+    //  MODALS (new event, export current, export all)
+    // ===================================================================
+    function renderModal(t) {
+      let inner = '';
+      if (ui.modal === 'new-event') inner = renderNewEventModal(t);
+      else if (ui.modal === 'export-current' || ui.modal === 'export-all') inner = renderExportModal(t, ui.modal === 'current' || ui.modal === 'export-current' ? 'current' : 'all');
+      return '<div data-action="close-modal" data-backdrop="1" ' +
+          'class="fixed inset-0 z-50 ' + t.backdrop + ' flex items-end sm:items-center justify-center px-3 pb-3 sm:pb-0">' +
+          '<div class="w-full max-w-md rounded-3xl border-2 ' + t.panel + ' ' + t.border + ' shadow-2xl overflow-hidden" data-modal-card="1">' +
+            inner +
+          '</div>' +
+        '</div>';
+    }
+
+    function renderNewEventModal(t) {
+      return '<form data-action="submit-new-event" class="p-5">' +
+        '<div class="flex items-start justify-between mb-4">' +
+          '<div>' +
+            '<div class="text-xs uppercase tracking-widest font-semibold ' + t.dim + '">New event</div>' +
+            '<div class="text-base font-bold leading-tight display">Set name and date</div>' +
+          '</div>' +
+          '<button type="button" data-action="close-modal" aria-label="Close" ' +
+            'class="w-9 h-9 -mr-1 -mt-1 rounded-lg flex items-center justify-center transition-colors ' + t.ghost + '">' +
+            icon('x', 18, 2.5) +
+          '</button>' +
+        '</div>' +
+        '<label class="block text-xs uppercase tracking-widest font-semibold mb-1.5 ' + t.dim + '">Name</label>' +
+        '<input id="new-event-name" type="text" required maxlength="80" autocomplete="off" autocapitalize="words" placeholder="e.g. October open house" ' +
+          'class="w-full h-12 px-4 rounded-xl border-2 text-base font-medium transition-colors mb-4 ' + t.input + '">' +
+        '<label class="block text-xs uppercase tracking-widest font-semibold mb-1.5 ' + t.dim + '">Date</label>' +
+        '<input id="new-event-date" type="date" value="' + todayISO() + '" ' +
+          'class="w-full h-12 px-4 rounded-xl border-2 text-base font-medium transition-colors mb-5 ' + t.input + '">' +
+        '<button type="submit" ' +
+          'class="w-full h-14 rounded-2xl font-extrabold text-base flex items-center justify-center gap-2 active:scale-95 transition-transform shadow display ' + t.accent + '">' +
+          icon('plus', 20, 3) + 'Create event' +
+        '</button>' +
+      '</form>';
+    }
+
+    function renderExportModal(t, scope) {
+      const isAll = scope === 'all';
+      const ev = activeEvent();
+      const headline = isAll
+        ? state.events.length + ' event' + (state.events.length === 1 ? '' : 's')
+        : (ev ? ev.name : '');
+      const sub = isAll ? 'Export everything stored in this browser.' : 'Export this event only.';
+      return '<div class="p-5">' +
+        '<div class="flex items-start justify-between mb-4">' +
+          '<div class="min-w-0">' +
+            '<div class="text-xs uppercase tracking-widest font-semibold ' + t.dim + '">Export ' + (isAll ? 'all events' : 'event') + '</div>' +
+            '<div class="text-base font-bold leading-tight truncate display">' + escapeHtml(headline) + '</div>' +
+            '<div class="text-xs mt-1 ' + t.muted + '">' + sub + '</div>' +
+          '</div>' +
+          '<button type="button" data-action="close-modal" aria-label="Close" ' +
+            'class="w-9 h-9 -mr-1 -mt-1 rounded-lg flex items-center justify-center transition-colors ' + t.ghost + '">' +
+            icon('x', 18, 2.5) +
+          '</button>' +
+        '</div>' +
+        '<div class="grid grid-cols-2 gap-2">' +
+          '<button data-action="export" data-scope="' + scope + '" data-format="csv" ' +
+            'class="h-24 rounded-2xl border-2 font-semibold text-sm flex flex-col items-center justify-center gap-1.5 active:scale-95 transition-transform ' + t.secondary + '">' +
+            icon('fileCsv', 24, 2) + 'CSV' +
+          '</button>' +
+          '<button data-action="export" data-scope="' + scope + '" data-format="json" ' +
+            'class="h-24 rounded-2xl border-2 font-semibold text-sm flex flex-col items-center justify-center gap-1.5 active:scale-95 transition-transform ' + t.secondary + '">' +
+            icon('fileJson', 24, 2) + 'JSON' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+    }
+
+    // ===================================================================
+    //  EVENT HANDLERS
+    // ===================================================================
+    function getDraftRoomValue() {
+      const el = document.getElementById('draft-room-input');
+      return el ? el.value : '';
+    }
+    function clearDraftRoom() {
+      const el = document.getElementById('draft-room-input');
+      if (el) el.value = '';
+    }
+
+    function attachListeners() {
+      const root = document.getElementById('app');
+
+      // Click delegation
+      root.onclick = function (e) {
+        // mousedown-prevent buttons (e.g. cancel-rename) keep input focus during click
+        // (the actual prevent happens in mousedown below)
+        const btn = e.target.closest('[data-action]');
+        if (!btn) return;
+        // Backdrop click: only close if the click landed on the backdrop element itself
+        if (btn.dataset.backdrop && e.target !== btn) return;
+        const action = btn.dataset.action;
+        handleAction(action, btn, e);
+      };
+
+      // Mousedown prevent default for "preserve focus" buttons (matches React's onMouseDown)
+      root.onmousedown = function (e) {
+        const btn = e.target.closest('[data-mousedown-prevent="1"]');
+        if (btn) e.preventDefault();
+      };
+
+      // Draft room input (setup + counting)
+      const draftInput = document.getElementById('draft-room-input');
+      if (draftInput) {
+        draftInput.onkeydown = function (e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const val = draftInput.value;
+            if (val.trim()) { addRooms(val); }
+          }
+        };
+        draftInput.onpaste = function (e) {
+          const text = (e.clipboardData && e.clipboardData.getData('text')) || '';
+          if (text.indexOf('\n') !== -1) {
+            e.preventDefault();
+            addRooms(text);
+          }
+        };
+      }
+
+      // Rename input
+      const renameInput = document.getElementById('rename-input');
+      if (renameInput) {
+        renameInput.oninput = function () { ui.renameValue = renameInput.value; };
+        renameInput.onkeydown = function (e) {
+          if (e.key === 'Enter') { e.preventDefault(); commitRename(renameInput.value); }
+          else if (e.key === 'Escape') { e.preventDefault(); cancelRename(); }
+        };
+        renameInput.onblur = function () { commitRename(renameInput.value); };
+      }
+
+      // New event form
+      const newEventForm = document.querySelector('[data-action="submit-new-event"]');
+      if (newEventForm) {
+        newEventForm.onsubmit = function (e) {
+          e.preventDefault();
+          const nameEl = document.getElementById('new-event-name');
+          const dateEl = document.getElementById('new-event-date');
+          const name = nameEl ? nameEl.value : '';
+          const date = dateEl && dateEl.value ? dateEl.value : todayISO();
+          if (!name.trim()) { if (nameEl) nameEl.focus(); return; }
+          createEvent(name, date);
+        };
+      }
+
+      // Document-wide Escape closes modal
+      document.onkeydown = function (e) {
+        if (e.key === 'Escape' && ui.modal) {
+          ui.modal = null;
+          render();
+        }
+      };
+    }
+
+    function handleAction(action, btn, e) {
+      switch (action) {
+        // Events list
+        case 'open-event': openEvent(btn.dataset.id); return;
+        case 'delete-event': deleteEvent(btn.dataset.id); return;
+        case 'open-new-event':
+          ui.modal = 'new-event';
+          ui.autofocusId = 'new-event-name';
+          render();
+          return;
+        case 'open-export-all':
+          if (state.events.length === 0) return;
+          ui.modal = 'export-all';
+          render();
+          return;
+        case 'open-export-current':
+          if (!activeEvent()) return;
+          ui.modal = 'export-current';
+          render();
+          return;
+        case 'export':
+          exportEvents(btn.dataset.scope, btn.dataset.format);
+          return;
+        case 'close-modal':
+          ui.modal = null;
+          render();
+          return;
+        case 'submit-new-event':
+          // handled by form submit listener
+          return;
+
+        // Event view
+        case 'close-event': closeEvent(); return;
+        case 'add-room':
+          {
+            const val = getDraftRoomValue();
+            if (val.trim()) {
+              clearDraftRoom();
+              addRooms(val);
+            }
+          }
+          return;
+        case 'remove-room': removeRoom(btn.dataset.id); return;
+        case 'start-counting': startCounting(); return;
+        case 'finish': finish(); return;
+        case 'continue-counting': continueCounting(); return;
+        case 'start-over': startOver(); return;
+        case 'reset-counts': resetCountsKeepRooms(); return;
+        case 'inc': incrementCurrent(); return;
+        case 'dec': decrementCurrent(); return;
+        case 'next': markVisitedAndAdvance(); return;
+        case 'prev': goToPrev(); return;
+        case 'jump': jumpToRoom(parseInt(btn.dataset.idx, 10)); return;
+        case 'start-rename': startRename(btn.dataset.id); return;
+        case 'cancel-rename': cancelRename(); return;
+        case 'copy-results': copyResults(); return;
+      }
+    }
+
+    // ===================================================================
+    //  INIT
+    // ===================================================================
+    render();
+  })();
+  </script>
+</body>
+</html>
