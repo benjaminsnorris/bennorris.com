@@ -1,0 +1,277 @@
+#!/usr/bin/env python3
+"""Publish a Claude-generated HTML artifact as a progress-tracking course.
+
+    bin/publish-course ~/Downloads/artifact.html "Linear Algebra Crash Course"
+    bin/publish-course ~/Downloads/artifact.html --slug linear-algebra
+
+Writes courses/<slug>/index.html, having made exactly two changes to the
+artifact:
+
+  1. Injected a deferred course-store.js tag near the top of <head>, carrying
+     the course slug.
+  2. Retagged the artifact's own inline scripts as type="text/course-deferred",
+     so course-store.js can run them after remote progress has loaded.
+
+Nothing else about the artifact is touched -- its markup, styles and logic ship
+verbatim, which is what keeps this a copy-and-push operation rather than a
+port. Re-running against an already-published course is safe.
+
+This is also the retrofit path for artifacts that predate the store: run it
+once per file and they gain sync without edits of their own.
+"""
+
+import argparse
+import pathlib
+import re
+import subprocess
+import sys
+
+REPO = pathlib.Path(__file__).resolve().parent.parent
+STORE_SRC = '/assets/js/course-store.js'
+DEFERRED_TYPE = 'text/course-deferred'
+
+# Script types that hold executable code. Anything else (application/json,
+# text/template, importmap, ...) is data the artifact reads at runtime and must
+# be left exactly where it is.
+CODE_TYPES = {'', 'text/javascript', 'application/javascript', 'module'}
+
+SCRIPT_OPEN = re.compile(r'<script\b([^>]*)>', re.IGNORECASE)
+SCRIPT_BOUNDARY = re.compile(r'<script\b|</script\s*>', re.IGNORECASE)
+ATTR_SRC = re.compile(r'\bsrc\s*=', re.IGNORECASE)
+ATTR_TYPE = re.compile(r'\btype\s*=\s*["\']?([^"\'\s>]*)', re.IGNORECASE)
+HEAD_OPEN = re.compile(r'<head\b[^>]*>', re.IGNORECASE)
+CHARSET = re.compile(r'<meta\b[^>]*charset\b[^>]*>', re.IGNORECASE)
+HTML_OPEN = re.compile(r'<html\b', re.IGNORECASE)
+
+
+def slugify(text):
+    slug = re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')
+    if not slug:
+        sys.exit('error: title produced an empty slug; pass --slug explicitly')
+    return slug
+
+
+def find_body_end(html, start):
+    """Index just past the </script> closing the element whose body starts here.
+
+    Bundled artifacts frequently contain the literal text "<script>" inside
+    their own JavaScript. A real HTML parser enters a double-escaped state at
+    that point, so the *next* </script> does not close the element -- and a
+    naive search would stop early and split the bundle mid-expression. Counting
+    depth reproduces that behaviour closely enough.
+    """
+    depth = 1
+    pos = start
+    while True:
+        match = SCRIPT_BOUNDARY.search(html, pos)
+        if not match:
+            return len(html)
+        if match.group(0).startswith('</'):
+            depth -= 1
+            if depth == 0:
+                return match.end()
+        else:
+            depth += 1
+        pos = match.end()
+
+
+def retag_inline_scripts(html):
+    """Mark inline code scripts as deferred. Returns (html, count).
+
+    Walks the document with a cursor that jumps over each script's body, so
+    text that merely looks like a script tag inside JavaScript is never
+    rewritten. An earlier regex-over-everything version corrupted a 380KB
+    bundle exactly that way.
+    """
+    count = 0
+    out = []
+    pos = 0
+
+    def rewrite_open_tag(match):
+        nonlocal count
+        attrs = match.group(1)
+
+        # External scripts (CDN libraries) are left alone: they do not touch
+        # localStorage, and letting them load normally preserves both their
+        # download parallelism and their ordering ahead of inline code.
+        if ATTR_SRC.search(attrs):
+            return match.group(0)
+
+        type_match = ATTR_TYPE.search(attrs)
+        script_type = (type_match.group(1) if type_match else '').lower()
+        if script_type not in CODE_TYPES:
+            return match.group(0)
+        if script_type == DEFERRED_TYPE:
+            return match.group(0)
+
+        count += 1
+        # Strip any existing type, then apply ours. ES modules are flagged so
+        # course-store.js can restore type="module" when re-executing them.
+        cleaned = ATTR_TYPE.sub('', attrs).rstrip()
+        marker = ' data-course-module' if script_type == 'module' else ''
+        return '<script type="%s"%s%s>' % (
+            DEFERRED_TYPE,
+            marker,
+            (' ' + cleaned.strip()) if cleaned.strip() else '',
+        )
+
+    while True:
+        match = SCRIPT_OPEN.search(html, pos)
+        if not match:
+            out.append(html[pos:])
+            break
+        out.append(html[pos : match.start()])
+        out.append(rewrite_open_tag(match))
+        body_end = find_body_end(html, match.end())
+        out.append(html[match.end() : body_end])
+        pos = body_end
+
+    return ''.join(out), count
+
+
+def ensure_document(html):
+    """Wrap a bare fragment in a document shell. Returns (html, wrapped).
+
+    Not every artifact arrives as a full document -- some begin straight at
+    <title> or <style> with no doctype, <html> or <head>. Browsers render those
+    in quirks mode with a locale-derived encoding, which is how UTF-8 punctuation
+    turns into mojibake. A stray <title> inside <body> is fine: the parser
+    handles it with the in-head rules, so document.title still resolves.
+    """
+    if HTML_OPEN.search(html) or HEAD_OPEN.search(html):
+        return html, False
+
+    shell = (
+        '<!doctype html>\n'
+        '<html lang="en">\n'
+        '<head>\n'
+        '    <meta charset="utf-8">\n'
+        '    <meta name="viewport" content="width=device-width, '
+        'initial-scale=1">\n'
+        '</head>\n'
+        '<body>\n'
+        '%s\n'
+        '</body>\n'
+        '</html>\n'
+    )
+    return shell % html.strip(), True
+
+
+def ensure_charset(html):
+    """Guarantee a <meta charset> declaration. Returns (html, added).
+
+    Artifacts do not always include one. GitHub Pages happens to send
+    charset=utf-8 in its Content-Type header, which masks the omission live --
+    but the same file then renders mojibake locally, over file://, or anywhere
+    the header differs. Declaring it in the document removes the dependency.
+    """
+    if CHARSET.search(html):
+        return html, False
+
+    head = HEAD_OPEN.search(html)
+    if not head:
+        return html, False
+    at = head.end()
+    return html[:at] + '\n    <meta charset="utf-8">' + html[at:], True
+
+
+def inject_store(html, slug):
+    """Insert the two script tags early in <head>, after any charset meta."""
+    # One tag, deferred. course-store.js fetches supabase-js itself, so an
+    # unreachable CDN cannot stall the artifact.
+    tags = '\n    <script src="%s" defer data-course-slug="%s"></script>' % (
+        STORE_SRC,
+        slug,
+    )
+
+    head = HEAD_OPEN.search(html)
+    if head:
+        # Go after <meta charset> when there is one: the encoding declaration
+        # must stay near the top of the document, and inserting above it would
+        # push it down for no benefit.
+        charset = CHARSET.search(html, head.end())
+        at = charset.end() if charset else head.end()
+        return html[:at] + tags + html[at:]
+
+    # Artifacts nearly always have a <head>; if one does not, prepend so the
+    # store still runs before any inline script in the document.
+    return tags.lstrip('\n') + '\n' + html
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('source', help='path to the artifact HTML file')
+    parser.add_argument('title', nargs='?', help='course title (used for slug)')
+    parser.add_argument('--slug', help='slug override')
+    parser.add_argument(
+        '--commit', action='store_true', help='git add + commit the result'
+    )
+    parser.add_argument(
+        '--no-store',
+        action='store_true',
+        help='publish verbatim, without progress tracking (static reading '
+        'material with no state to persist)',
+    )
+    args = parser.parse_args()
+
+    if not args.title and not args.slug:
+        sys.exit('error: provide a title or --slug')
+
+    source = pathlib.Path(args.source).expanduser()
+    if not source.is_file():
+        sys.exit('error: no such file: %s' % source)
+
+    slug = args.slug or slugify(args.title)
+    html = source.read_text(encoding='utf-8')
+
+    html, wrapped = ensure_document(html)
+    if wrapped:
+        print('- wrapped bare fragment in a document shell')
+
+    html, charset_added = ensure_charset(html)
+    if charset_added:
+        print('- added missing <meta charset="utf-8">')
+
+    if args.no_store:
+        print('- --no-store: publishing verbatim, no progress tracking')
+        deferred = -1
+    elif STORE_SRC in html:
+        print('- store already present; leaving script tags as they are')
+        deferred = html.count('type="%s"' % DEFERRED_TYPE)
+    else:
+        html, deferred = retag_inline_scripts(html)
+        html = inject_store(html, slug)
+
+    if deferred == 0:
+        print(
+            '! no inline scripts were deferred -- if this artifact keeps its\n'
+            '  progress in memory or IndexedDB rather than localStorage, the\n'
+            '  store has nothing to intercept and it needs a real edit.'
+        )
+
+    target = REPO / 'courses' / slug / 'index.html'
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(html, encoding='utf-8')
+
+    rel = target.relative_to(REPO)
+    print('published %s' % rel)
+    print('  slug:            %s' % slug)
+    print(
+        '  inline scripts:  %s'
+        % ('n/a (no store)' if deferred < 0 else '%d deferred' % deferred)
+    )
+    print('  url:             https://bennorris.com/courses/%s/' % slug)
+
+    if args.commit:
+        subprocess.run(['git', '-C', str(REPO), 'add', str(rel)], check=True)
+        subprocess.run(
+            ['git', '-C', str(REPO), 'commit', '-m', 'Publish course: %s' % slug],
+            check=True,
+        )
+        print('  committed (not pushed)')
+    else:
+        print('\nnext: git add %s && git commit && git push' % rel)
+
+
+if __name__ == '__main__':
+    main()

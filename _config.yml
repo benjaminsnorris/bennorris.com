@@ -70,6 +70,10 @@ feed:
 exclude:
   - .asset-cache
   - .bundle
+  - .env
+  - .env.*
+  - bin
+  - supabase
   - .codeclimate.yml
   - .editorconfig
   - .gitattributes
