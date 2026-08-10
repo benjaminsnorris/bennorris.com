@@ -21,10 +21,16 @@ once per file and they gain sync without edits of their own.
 """
 
 import argparse
+import html as html_mod
 import pathlib
 import re
 import subprocess
 import sys
+
+try:
+    import yaml
+except ImportError:  # index maintenance degrades to a warning, not a failure
+    yaml = None
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
 STORE_SRC = '/assets/js/course-store.js'
@@ -41,6 +47,7 @@ ATTR_SRC = re.compile(r'\bsrc\s*=', re.IGNORECASE)
 ATTR_TYPE = re.compile(r'\btype\s*=\s*["\']?([^"\'\s>]*)', re.IGNORECASE)
 HEAD_OPEN = re.compile(r'<head\b[^>]*>', re.IGNORECASE)
 CHARSET = re.compile(r'<meta\b[^>]*charset\b[^>]*>', re.IGNORECASE)
+TITLE = re.compile(r'<title[^>]*>(.*?)</title>', re.IGNORECASE | re.DOTALL)
 HTML_OPEN = re.compile(r'<html\b', re.IGNORECASE)
 
 
@@ -175,6 +182,74 @@ def ensure_charset(html):
     return html[:at] + '\n    <meta charset="utf-8">' + html[at:], True
 
 
+def extract_title(html):
+    """The artifact's own <title>, collapsed to one line."""
+    match = TITLE.search(html)
+    if not match:
+        return ''
+    return html_mod.unescape(' '.join(match.group(1).split()))
+
+
+def upsert_course_index(slug, title, tracked):
+    """Add or refresh this course's entry in _data/courses.yml.
+
+    Returns 'added', 'updated', None, or 'skipped' when PyYAML is missing.
+
+    Only rewrites the file when something actually changed, so hand-written
+    descriptions and header comments survive untouched in the common case.
+    """
+    if yaml is None:
+        return 'skipped'
+
+    path = REPO / '_data' / 'courses.yml'
+    raw = path.read_text(encoding='utf-8') if path.exists() else ''
+    entries = yaml.safe_load(raw) if raw.strip() else []
+    if not isinstance(entries, list):
+        entries = []
+
+    outcome = None
+    for entry in entries:
+        if isinstance(entry, dict) and entry.get('slug') == slug:
+            if title and entry.get('title') != title:
+                entry['title'] = title
+                outcome = 'updated'
+            if entry.get('tracked') != tracked:
+                entry['tracked'] = tracked
+                outcome = 'updated'
+            break
+    else:
+        entries.append(
+            {
+                'slug': slug,
+                'title': title or slug,
+                'description': '',
+                'tracked': tracked,
+            }
+        )
+        outcome = 'added'
+
+    if not outcome:
+        return None
+
+    # Preserve the leading comment block; PyYAML would otherwise drop it.
+    header_lines = []
+    for line in raw.splitlines():
+        if line.startswith('#') or not line.strip():
+            header_lines.append(line)
+        else:
+            break
+    header = '\n'.join(header_lines).rstrip('\n')
+    body = yaml.safe_dump(
+        entries, sort_keys=False, allow_unicode=True, default_flow_style=False, width=78
+    )
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        (header + '\n\n' if header else '') + body, encoding='utf-8'
+    )
+    return outcome
+
+
 def inject_store(html, slug):
     """Insert the two script tags early in <head>, after any charset meta."""
     # One tag, deferred. course-store.js fetches supabase-js itself, so an
@@ -223,6 +298,7 @@ def main():
 
     slug = args.slug or slugify(args.title)
     html = source.read_text(encoding='utf-8')
+    title = args.title or extract_title(html)
 
     html, wrapped = ensure_document(html)
     if wrapped:
@@ -253,24 +329,40 @@ def main():
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(html, encoding='utf-8')
 
+    index_result = upsert_course_index(slug, title, not args.no_store)
+    if index_result == 'added':
+        print('- added to _data/courses.yml (write a description there)')
+    elif index_result == 'updated':
+        print('- refreshed entry in _data/courses.yml')
+    elif index_result == 'skipped':
+        print('! PyYAML missing: could not update _data/courses.yml')
+
     rel = target.relative_to(REPO)
     print('published %s' % rel)
     print('  slug:            %s' % slug)
+    print('  title:           %s' % (title or '(none found)'))
     print(
         '  inline scripts:  %s'
         % ('n/a (no store)' if deferred < 0 else '%d deferred' % deferred)
     )
     print('  url:             https://bennorris.com/courses/%s/' % slug)
 
+    # The index entry is part of publishing, so it travels with the course.
+    # Paths are named explicitly rather than using `git add .`, which would pick
+    # up unrelated work in progress elsewhere in the repo.
+    paths = [str(rel)]
+    if index_result in ('added', 'updated'):
+        paths.append('_data/courses.yml')
+
     if args.commit:
-        subprocess.run(['git', '-C', str(REPO), 'add', str(rel)], check=True)
+        subprocess.run(['git', '-C', str(REPO), 'add'] + paths, check=True)
         subprocess.run(
             ['git', '-C', str(REPO), 'commit', '-m', 'Publish course: %s' % slug],
             check=True,
         )
         print('  committed (not pushed)')
     else:
-        print('\nnext: git add %s && git commit && git push' % rel)
+        print('\nnext: git add %s && git commit && git push' % ' '.join(paths))
 
 
 if __name__ == '__main__':

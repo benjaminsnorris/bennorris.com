@@ -1,0 +1,32 @@
+# Index for /courses/.
+#
+# bin/publish-course adds an entry here when it publishes a new course, and
+# updates `title` and `tracked` if they change. Descriptions are yours to write
+# by hand -- the tool never overwrites one it did not create.
+#
+# The tool rewrites this file only when something actually changed, so hand
+# edits survive. Comments inside the list below do not: keep notes up here.
+#
+# tracked: true  -> progress persists (signed in: across devices)
+# tracked: false -> static reading material, published with --no-store
+
+- slug: instrument-log
+  title: Instrument Log — Classical Psychometrics for Eval Rubrics
+  description: >-
+    Classical test theory, the kappa family, ICC and generalizability theory —
+    measurement thinking applied to eval rubrics.
+  tracked: true
+
+- slug: record-linkage
+  title: Probabilistic Record Linkage — A Six-Week Course
+  description: >-
+    Deciding when two records describe the same thing, built on Fellegi &
+    Sunter (JASA, 1969).
+  tracked: true
+
+- slug: context-graphs
+  title: Context Graphs — A Cadence Crash Course
+  description: >-
+    How context graphs connect people to the priorities that matter. A crash
+    course in systems and data modeling.
+  tracked: false

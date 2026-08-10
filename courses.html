@@ -1,0 +1,81 @@
+---
+title: Courses
+layout: page
+permalink: /courses/
+---
+
+{%- comment -%}
+  Deliberately absent from _data/theme.yml navigation_pages, so this page is
+  reachable by URL but not linked in the site nav.
+
+  Entries come from _data/courses.yml, which bin/publish-course maintains. The
+  courses themselves are standalone documents under /courses/<slug>/ -- they are
+  not Jekyll pages, so they cannot be enumerated with site collections.
+
+  Styling stays on currentColor and opacity rather than fixed colours so it
+  holds up across the theme skins.
+{%- endcomment -%}
+
+<style>
+  .course-index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .course-index > li {
+    padding: 1.25em 0;
+    border-bottom: 1px solid;
+    border-color: currentColor;
+    border-color: color-mix(in srgb, currentColor 15%, transparent);
+  }
+
+  .course-index > li:first-child {
+    border-top: 1px solid;
+    border-color: currentColor;
+    border-color: color-mix(in srgb, currentColor 15%, transparent);
+  }
+
+  .course-index h2 {
+    margin: 0 0 0.3em;
+    font-size: 1.25em;
+    line-height: 1.3;
+  }
+
+  .course-index p {
+    margin: 0;
+    max-width: 34em;
+  }
+
+  .course-index .course-meta {
+    margin-top: 0.5em;
+    font-size: 0.8em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+</style>
+
+<p>
+  Courses I have built to learn a topic properly. Some track your progress as
+  you work through them; sign in on a course to carry that progress between
+  devices.
+</p>
+
+<ul class="course-index">
+  {%- for course in site.data.courses %}
+  <li>
+    <h2>
+      <a href="{{ '/courses/' | append: course.slug | append: '/' | relative_url }}">
+        {{ course.title | escape }}
+      </a>
+    </h2>
+    {%- if course.description %}
+    <p>{{ course.description | escape }}</p>
+    {%- endif %}
+    <p class="course-meta">
+      {%- if course.tracked %}Progress saved{% else %}Reading{% endif -%}
+    </p>
+  </li>
+  {%- endfor %}
+</ul>
