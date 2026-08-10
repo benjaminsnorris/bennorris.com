@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Context Graphs — A Cadence Crash Course</title>
+<style>
+  :root {
+    /* neutrals — cool paper, slight blue bias (chosen, not defaulted) */
+    --ground: #F6F8FA;
+    --surface: #FFFFFF;
+    --surface-2: #F0F3F6;
+    --ink: #14181F;
+    --ink-soft: #444D59;
+    --ink-mute: #737C89;
+    --border: #E1E6EC;
+    --border-strong: #CDD5DE;
+    /* accent — "edge" teal */
+    --edge: #0E7B84;
+    --edge-soft: #DCEEF0;
+    --node: #2B3A8C;
+    /* semantic — provenance chips (separate from accent) */
+    --fact: #1F7A4D;
+    --fact-bg: #E4F2EA;
+    --infer: #955C0C;
+    --infer-bg: #F6ECD9;
+    --vendor: #6B47A6;
+    --vendor-bg: #EEE7F7;
+    --warn: #B23A2E;
+    --warn-bg: #F7E5E2;
+
+    --measure: 68ch;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0D1117;
+      --surface: #151B23;
+      --surface-2: #1C232D;
+      --ink: #E7ECF2;
+      --ink-soft: #B3BCC8;
+      --ink-mute: #838D9A;
+      --border: #262E39;
+      --border-strong: #37414E;
+      --edge: #38B9C4;
+      --edge-soft: #12333A;
+      --node: #8C97E8;
+      --fact: #5DBE8B;   --fact-bg: #13291D;
+      --infer: #D6A24A; --infer-bg: #2E2411;
+      --vendor: #B196E0; --vendor-bg: #221A33;
+      --warn: #E4796B;   --warn-bg: #2E1815;
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #F6F8FA; --surface: #FFFFFF; --surface-2: #F0F3F6;
+    --ink: #14181F; --ink-soft: #444D59; --ink-mute: #737C89;
+    --border: #E1E6EC; --border-strong: #CDD5DE;
+    --edge: #0E7B84; --edge-soft: #DCEEF0; --node: #2B3A8C;
+    --fact: #1F7A4D; --fact-bg: #E4F2EA;
+    --infer: #955C0C; --infer-bg: #F6ECD9;
+    --vendor: #6B47A6; --vendor-bg: #EEE7F7;
+    --warn: #B23A2E; --warn-bg: #F7E5E2;
+  }
+  :root[data-theme="dark"] {
+    --ground: #0D1117; --surface: #151B23; --surface-2: #1C232D;
+    --ink: #E7ECF2; --ink-soft: #B3BCC8; --ink-mute: #838D9A;
+    --border: #262E39; --border-strong: #37414E;
+    --edge: #38B9C4; --edge-soft: #12333A; --node: #8C97E8;
+    --fact: #5DBE8B; --fact-bg: #13291D;
+    --infer: #D6A24A; --infer-bg: #2E2411;
+    --vendor: #B196E0; --vendor-bg: #221A33;
+    --warn: #E4796B; --warn-bg: #2E1815;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--sans); font-size: 17px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--edge); color: #fff; }
+
+  /* ---------- shell ---------- */
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .layout { display: grid; grid-template-columns: 1fr; gap: 0; }
+  @media (min-width: 1080px) {
+    .layout { grid-template-columns: 248px minmax(0, 1fr); gap: 56px; align-items: start; }
+  }
+
+  /* ---------- header ---------- */
+  header.masthead {
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(120% 140% at 88% -10%, var(--edge-soft) 0%, transparent 55%),
+      var(--surface);
+  }
+  .masthead-inner { padding: 54px 0 40px; display: grid; gap: 30px; }
+  @media (min-width: 860px) { .masthead-inner { grid-template-columns: 1.35fr 1fr; align-items: center; gap: 40px; } }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--edge); margin: 0 0 14px;
+  }
+  h1.title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(2.1rem, 5vw, 3.3rem);
+    line-height: 1.04; letter-spacing: -0.015em; margin: 0 0 18px; text-wrap: balance;
+  }
+  h1.title em { font-style: italic; color: var(--edge); }
+  .standfirst { font-size: 1.12rem; color: var(--ink-soft); max-width: 46ch; margin: 0; }
+  .provenance {
+    margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px 18px;
+    font-family: var(--mono); font-size: 12px; color: var(--ink-mute);
+  }
+  .provenance b { color: var(--ink); font-weight: 600; }
+
+  figure.hero-graph { margin: 0; }
+  figure.hero-graph svg { width: 100%; height: auto; display: block; }
+  figure.hero-graph figcaption {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-mute);
+    margin-top: 10px; letter-spacing: 0.02em;
+  }
+
+  /* ---------- TOC ---------- */
+  nav.toc { position: static; padding: 32px 0; }
+  @media (min-width: 1080px) {
+    nav.toc { position: sticky; top: 0; max-height: 100vh; overflow-y: auto; padding: 40px 0; }
+  }
+  nav.toc .toc-label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-mute); margin: 0 0 14px;
+  }
+  nav.toc ol { list-style: none; margin: 0 0 22px; padding: 0; counter-reset: mod; }
+  nav.toc ol.appendix { counter-reset: none; }
+  nav.toc li { margin: 0; }
+  nav.toc a {
+    display: flex; gap: 10px; align-items: baseline;
+    padding: 6px 10px; border-radius: 7px; margin-left: -10px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14.5px; line-height: 1.3;
+    transition: background .12s, color .12s;
+  }
+  nav.toc a:hover { background: var(--surface-2); color: var(--ink); }
+  nav.toc ol:not(.appendix) a::before {
+    counter-increment: mod; content: counter(mod);
+    font-family: var(--mono); font-size: 11px; color: var(--edge);
+    min-width: 16px; font-weight: 600; padding-top: 1px;
+  }
+  nav.toc ol.appendix a::before {
+    content: "§"; color: var(--ink-mute); font-family: var(--mono); font-size: 12px; min-width: 16px;
+  }
+
+  /* ---------- article ---------- */
+  main { padding: 8px 0 96px; min-width: 0; }
+  section.module { padding: 40px 0 8px; border-top: 1px solid var(--border); }
+  section.module:first-of-type { border-top: none; }
+  .mod-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+  .mod-num {
+    font-family: var(--mono); font-size: 13px; font-weight: 600; color: #fff;
+    background: var(--edge); border-radius: 6px; padding: 3px 9px; letter-spacing: 0.04em;
+    flex: none;
+  }
+  h2 {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.012em; line-height: 1.12; margin: 0; text-wrap: balance;
+  }
+  h3 {
+    font-family: var(--serif); font-weight: 600; font-size: 1.28rem;
+    margin: 34px 0 6px; letter-spacing: -0.01em;
+  }
+  h4 {
+    font-family: var(--sans); font-weight: 650; font-size: 0.82rem;
+    text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-mute);
+    margin: 26px 0 8px;
+  }
+  main p, main li { max-width: var(--measure); }
+  main p { margin: 14px 0; }
+  main a { color: var(--edge); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+  strong { font-weight: 650; color: var(--ink); }
+  main ul, main ol { padding-left: 22px; }
+  main li { margin: 7px 0; }
+  .lede { font-size: 1.08rem; color: var(--ink-soft); max-width: var(--measure); }
+
+  dfn { font-style: normal; font-weight: 650; color: var(--ink); border-bottom: 2px solid var(--edge-soft); }
+
+  /* ---------- provenance chips ---------- */
+  .chip {
+    display: inline-block; font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 7px; border-radius: 5px;
+    vertical-align: 1.5px; white-space: nowrap;
+  }
+  .chip.fact { color: var(--fact); background: var(--fact-bg); }
+  .chip.infer { color: var(--infer); background: var(--infer-bg); }
+  .chip.vendor { color: var(--vendor); background: var(--vendor-bg); }
+  .chip.disagree { color: var(--warn); background: var(--warn-bg); }
+
+  cite.src { font-style: normal; }
+  cite.src a {
+    font-family: var(--mono); font-size: 0.78em; text-decoration: none;
+    color: var(--edge); background: var(--edge-soft); padding: 0 5px; border-radius: 4px;
+    vertical-align: 1px; white-space: nowrap;
+  }
+  cite.src a:hover { background: var(--edge); color: #fff; }
+
+  /* ---------- callouts ---------- */
+  .cadence {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--edge); border-radius: 10px;
+    padding: 18px 22px; margin: 22px 0; max-width: var(--measure);
+  }
+  .cadence .k {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--edge); display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: 600;
+  }
+  .cadence .k::before { content: "◆"; font-size: 9px; }
+  .cadence p { margin: 6px 0; font-size: 0.98rem; }
+  .cadence p:last-child { margin-bottom: 0; }
+
+  .note {
+    border: 1px solid var(--border); background: var(--surface-2);
+    border-radius: 10px; padding: 16px 20px; margin: 20px 0; max-width: var(--measure);
+    font-size: 0.96rem; color: var(--ink-soft);
+  }
+  .note .k { font-weight: 650; color: var(--ink); }
+
+  /* ---------- code ---------- */
+  pre {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; overflow-x: auto; margin: 18px 0; max-width: 100%;
+    font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--ink);
+  }
+  pre .cm { color: var(--ink-mute); font-style: italic; }
+  pre .kw { color: var(--node); font-weight: 600; }
+  pre .fn { color: var(--edge); }
+  code {
+    font-family: var(--mono); font-size: 0.86em;
+    background: var(--surface-2); padding: 1px 5px; border-radius: 4px; color: var(--ink);
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  .code-label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-mute); margin: 18px 0 -8px;
+  }
+
+  /* ---------- tables ---------- */
+  .tbl-wrap { overflow-x: auto; margin: 18px 0; border: 1px solid var(--border); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 520px; }
+  th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--ink-mute); background: var(--surface-2); font-weight: 600; position: sticky; top: 0;
+  }
+  tr:last-child td { border-bottom: none; }
+  td code { font-size: 12px; }
+  .tbl-wrap table { background: var(--surface); }
+
+  /* ---------- diagram figures ---------- */
+  figure.diagram {
+    margin: 24px 0; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px; max-width: 100%; overflow-x: auto;
+  }
+  figure.diagram svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+  figure.diagram figcaption {
+    font-size: 0.86rem; color: var(--ink-mute); margin-top: 14px; text-align: center; max-width: 60ch; margin-inline: auto;
+  }
+
+  /* ---------- references ---------- */
+  ol.refs { counter-reset: ref; list-style: none; padding: 0; }
+  ol.refs li {
+    counter-increment: ref; position: relative; padding-left: 46px; margin: 12px 0;
+    max-width: var(--measure); font-size: 0.94rem; color: var(--ink-soft);
+  }
+  ol.refs li::before {
+    content: "S" counter(ref); position: absolute; left: 0; top: 1px;
+    font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--edge);
+    background: var(--edge-soft); padding: 2px 6px; border-radius: 5px;
+  }
+  ol.refs .q { display: inline-block; margin-top: 2px; }
+  ol.refs a { word-break: break-word; }
+  .tier { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-mute); }
+
+  /* legend row */
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 16px 0 4px; max-width: var(--measure); }
+  .legend span { font-size: 0.88rem; color: var(--ink-soft); display: flex; align-items: center; gap: 7px; }
+
+  hr.rule { border: none; border-top: 1px solid var(--border); margin: 34px 0; }
+
+  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--edge); font-weight: 600; }
+
+  footer.foot { border-top: 1px solid var(--border); padding: 30px 0 60px; color: var(--ink-mute); font-size: 0.86rem; }
+  footer.foot p { max-width: var(--measure); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  :focus-visible { outline: 2px solid var(--edge); outline-offset: 2px; border-radius: 3px; }
+</style>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div>
+      <p class="eyebrow">Crash Course · Systems &amp; Data Modeling</p>
+      <h1 class="title">Context Graphs, and how they connect <em>people</em> to <em>priorities</em></h1>
+      <p class="standfirst">A zero-to-fluent course on the graph substrate behind modern AI memory — grounded, at every step, in Cadence's real domain model.</p>
+      <div class="provenance">
+        <span><b>23</b> sources fetched</span>
+        <span><b>109</b> claims extracted</span>
+        <span><b>25</b> adversarially verified</span>
+        <span><b>0</b> refuted</span>
+      </div>
+    </div>
+    <figure class="hero-graph" aria-label="A small graph: a person node linked to a rock, which ladders up to a company rock, plus links to a measurable and a weekly pulse.">
+      <svg viewBox="0 0 380 240" role="img">
+        <defs>
+          <marker id="ah" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="var(--edge)"></path>
+          </marker>
+        </defs>
+        <g stroke="var(--edge)" stroke-width="1.4" fill="none" marker-end="url(#ah)" opacity="0.85">
+          <path d="M78,120 L168,66"></path>
+          <path d="M78,120 L168,178"></path>
+          <path d="M198,60 L300,44"></path>
+          <path d="M198,182 L300,120"></path>
+          <path d="M198,182 L300,196"></path>
+        </g>
+        <!-- person -->
+        <circle cx="60" cy="120" r="19" fill="var(--node)"></circle>
+        <text x="60" y="124" text-anchor="middle" fill="#fff" font-family="var(--mono)" font-size="9">Person</text>
+        <!-- rock -->
+        <rect x="170" y="46" width="52" height="30" rx="5" fill="var(--edge)"></rect>
+        <text x="196" y="65" text-anchor="middle" fill="#fff" font-family="var(--mono)" font-size="9">Rock</text>
+        <!-- measurable -->
+        <rect x="170" y="167" width="52" height="30" rx="5" fill="var(--edge)"></rect>
+        <text x="196" y="186" text-anchor="middle" fill="#fff" font-family="var(--mono)" font-size="8.5">Metric</text>
+        <!-- company rock -->
+        <rect x="302" y="28" width="66" height="32" rx="5" fill="none" stroke="var(--node)" stroke-width="1.6" stroke-dasharray="4 3"></rect>
+        <text x="335" y="42" text-anchor="middle" fill="var(--node)" font-family="var(--mono)" font-size="8">Company</text>
+        <text x="335" y="53" text-anchor="middle" fill="var(--node)" font-family="var(--mono)" font-size="8">Rock · t1</text>
+        <!-- pulse -->
+        <circle cx="320" cy="120" r="17" fill="none" stroke="var(--edge)" stroke-width="1.6"></circle>
+        <text x="320" y="123" text-anchor="middle" fill="var(--edge)" font-family="var(--mono)" font-size="8">Pulse</text>
+        <!-- second pulse/week -->
+        <circle cx="320" cy="196" r="15" fill="none" stroke="var(--ink-mute)" stroke-width="1.4"></circle>
+        <text x="320" y="199" text-anchor="middle" fill="var(--ink-mute)" font-family="var(--mono)" font-size="7.5">wk-1</text>
+      </svg>
+      <figcaption>The multi-hop path this course keeps returning to: <code>Person → Rock → parent → Company&nbsp;Rock</code>.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="toc" aria-label="Course contents">
+    <p class="toc-label">The modules</p>
+    <ol>
+      <li><a href="#m1">Definitions &amp; lineage</a></li>
+      <li><a href="#m2">Theoretical foundations</a></li>
+      <li><a href="#m3">Construction</a></li>
+      <li><a href="#m4">Storage &amp; query</a></li>
+      <li><a href="#m5">Retrieval &amp; reasoning · GraphRAG</a></li>
+      <li><a href="#m6">The Cadence payload</a></li>
+      <li><a href="#m7">Pitfalls &amp; anti-patterns</a></li>
+      <li><a href="#m8">Learning path &amp; exercises</a></li>
+    </ol>
+    <p class="toc-label">Reference</p>
+    <ol class="appendix">
+      <li><a href="#how">How to read this</a></li>
+      <li><a href="#caveats">Caveats &amp; open questions</a></li>
+      <li><a href="#refs">Sources</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- HOW TO READ -->
+    <section class="module" id="how">
+      <div class="mod-head"><span class="mod-num">00</span><h2>How to read this</h2></div>
+      <p class="lede">This is a course, not a summary. Eight modules build from "what is a graph" to a concrete design for Cadence's people-to-priorities graph, with a worked query that flat retrieval cannot answer. Every claim is tagged by how much you should trust it.</p>
+      <div class="legend">
+        <span><span class="chip fact">Sourced&nbsp;fact</span> verified against a primary source (cited)</span>
+        <span><span class="chip infer">Inference</span> my reasoning / application to Cadence — not in any source</span>
+        <span><span class="chip vendor">Vendor&nbsp;framing</span> true but authored by a party selling the thing</span>
+        <span><span class="chip disagree">Contested</span> the field disagrees</span>
+      </div>
+      <div class="note">
+        <span class="k">The single most important caveat up front.</span> The literature almost never uses the exact phrase "context graph." Reviewed sources talk about <em>knowledge graphs</em>, <em>graph-based agent memory</em>, <em>temporal knowledge graphs</em>, and <em>property graphs</em>. "Context graph" is largely a product/vendor framing layered over that established substrate <span class="chip vendor">Vendor framing</span>. Treat it as a <em>synthesis term</em>, not a canonical technical category. Everywhere this course maps a concept onto Cadence's schema, that mapping is <span class="chip infer">Inference</span> — no source in the set is Cadence-specific.
+      </div>
+    </section>
+
+    <!-- MODULE 1 -->
+    <section class="module" id="m1">
+      <div class="mod-head"><span class="mod-num">01</span><h2>Definitions &amp; lineage — what a context graph actually is</h2></div>
+      <p class="lede">Start with the family tree, because the vocabulary is a minefield of near-synonyms that vendors use loosely.</p>
+
+      <h3>The ancestor: semantic networks</h3>
+      <p>A <dfn>semantic network</dfn> (Quillian, 1960s) is a knowledge base that represents semantic relations between concepts as a directed or undirected graph whose vertices are concepts and whose edges are semantic relations <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S11</a></cite>. This is the decades-old root of everything below: nodes-are-things, edges-are-meaning.</p>
+
+      <h3>The workhorse: knowledge graphs</h3>
+      <p>A <dfn>knowledge graph (KG)</dfn> is a semantic network populated with real-world entities and their relationships, usually at scale, usually meant to be queried and reasoned over. Modern KGs come in two competing data models (Module 2). The important lineage fact: a KG is the substrate; "context graph" is a <em>usage</em> of that substrate.</p>
+
+      <h3>The disputed term: context graph</h3>
+      <p>Here the field genuinely disagrees <span class="chip disagree">Contested</span>. One camp (TrustGraph) frames a context graph as distinct layers — ontological grounding + AI-optimized retrieval — built <em>on top of</em> a base knowledge graph <span class="chip vendor">Vendor framing</span> <cite class="src"><a href="#refs">S12</a></cite>. Another camp states flatly that <strong>"a context graph <em>is</em> a knowledge graph; the distinction is not in the underlying data structure — it is in what the graph is optimized to do"</strong> <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S12</a></cite>. A third, code-tooling usage defines it as "a graph where nodes represent chunks of information (files, functions, concepts, past conversations) and edges represent relationships (imports, calls, references, similarity)" <span class="chip vendor">Vendor framing</span>.</p>
+      <p><strong>The working definition for this course</strong> <span class="chip infer">Inference</span>: a <dfn>context graph</dfn> is a labeled, typed, often temporally-aware graph that serves as an explicit <em>relational memory / grounding layer</em> — most often for an LLM. Structurally it is a knowledge graph; the word "context" names its <em>job</em> (feed relevant, connected context to a reasoning system), not a new data structure.</p>
+
+      <h3>The LLM "memory / context layer"</h3>
+      <p>The newest sense of the term. <dfn>Graph-based agent memory</dfn> uses a graph as an LLM's long-term memory because it "can naturally encode relational dependencies between memory elements... due to its intrinsic ability to model entity relationships, capture hierarchical semantics, and support flexible traversal" — capabilities that fixed-length token windows, vector databases, and log buffers lack <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S1</a></cite>.</p>
+
+      <div class="cadence">
+        <div class="k">Why this matters for Cadence</div>
+        <p>Cadence already <em>has</em> a knowledge graph — it's just spelled "Postgres." People, Rocks, Projects, Tasks, Measurables and their foreign keys are a labeled property graph in disguise. The question this course answers is not "should we invent a graph?" but "when does exposing that structure <em>as</em> a graph — for traversal and for grounding AI — earn its keep?" <span class="chip infer">Inference</span></p>
+      </div>
+    </section>
+
+    <!-- MODULE 2 -->
+    <section class="module" id="m2">
+      <div class="mod-head"><span class="mod-num">02</span><h2>Theoretical foundations</h2></div>
+      <p class="lede">The load-bearing theory: two data models, how you attach meaning and metadata to edges, and how you model time. Time is the part Cadence cannot skip.</p>
+
+      <h3>Two data models: RDF triples vs. Labeled Property Graphs</h3>
+      <p>There are two dominant graph data models at different abstraction levels <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S4</a></cite>:</p>
+      <ul>
+        <li><dfn>RDF</dfn> (Resource Description Framework, from the W3C semantic-web world): everything is a <em>triple</em> — <code>subject – predicate – object</code>. Fine-grained, standardized, great for open-world data integration.</li>
+        <li><dfn>Labeled Property Graph (LPG)</dfn> (from graph-DB vendors like Neo4j): nodes and edges are first-class objects that carry <em>inlined key-value properties</em> and labels.</li>
+      </ul>
+      <p>"The two models look at graphs from different abstraction layers (triples in RDF vs. edges connecting vertices with inlined properties in LPGs)" <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S4</a></cite>. A unifying <dfn>Statement Graphs</dfn> model can represent both and be queried by either family of query language — but only as a read-only, two-language (SPARQL + Gremlin) proof-of-concept, not production <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S4</a></cite>.</p>
+      <p>A practical difference that bites: in RDF, relationships are <em>not</em> first-class — you can't distinguish two relationships of the same type between the same two nodes without join-table-style workarounds; LPGs give every relationship its own identity and properties <span class="chip vendor">Vendor framing</span> <cite class="src"><a href="#refs">S13</a></cite>.</p>
+
+      <figure class="diagram" aria-label="Left: an RDF triple as three nodes. Right: the same fact as an LPG edge with properties inlined.">
+        <svg viewBox="0 0 640 190" role="img">
+          <text x="8" y="18" fill="var(--ink-mute)" font-family="var(--mono)" font-size="11">RDF — reify to annotate</text>
+          <circle cx="60" cy="70" r="26" fill="var(--node)"></circle><text x="60" y="74" text-anchor="middle" fill="#fff" font-size="10" font-family="var(--mono)">Person</text>
+          <circle cx="230" cy="70" r="26" fill="var(--node)"></circle><text x="230" y="74" text-anchor="middle" fill="#fff" font-size="10" font-family="var(--mono)">Rock</text>
+          <line x1="88" y1="70" x2="202" y2="70" stroke="var(--edge)" stroke-width="1.5" marker-end="url(#ah2)"></line>
+          <text x="145" y="62" text-anchor="middle" fill="var(--edge)" font-size="9" font-family="var(--mono)">captainOf</text>
+          <text x="145" y="120" text-anchor="middle" fill="var(--warn)" font-size="9" font-family="var(--mono)">+4 extra triples</text>
+          <text x="145" y="134" text-anchor="middle" fill="var(--warn)" font-size="9" font-family="var(--mono)">to say "since 2024"</text>
+          <line x1="330" y1="20" x2="330" y2="170" stroke="var(--border-strong)" stroke-width="1"></line>
+          <text x="360" y="18" fill="var(--ink-mute)" font-family="var(--mono)" font-size="11">LPG — annotate in place</text>
+          <circle cx="410" cy="70" r="26" fill="var(--node)"></circle><text x="410" y="74" text-anchor="middle" fill="#fff" font-size="10" font-family="var(--mono)">Person</text>
+          <circle cx="590" cy="70" r="26" fill="var(--node)"></circle><text x="590" y="74" text-anchor="middle" fill="#fff" font-size="10" font-family="var(--mono)">Rock</text>
+          <line x1="438" y1="70" x2="562" y2="70" stroke="var(--edge)" stroke-width="1.5" marker-end="url(#ah2)"></line>
+          <text x="500" y="60" text-anchor="middle" fill="var(--edge)" font-size="9" font-family="var(--mono)">CAPTAIN_OF</text>
+          <text x="500" y="120" text-anchor="middle" fill="var(--ink-soft)" font-size="9" font-family="var(--mono)">{ since: 2024,</text>
+          <text x="500" y="133" text-anchor="middle" fill="var(--ink-soft)" font-size="9" font-family="var(--mono)">confidence: 0.9 }</text>
+          <defs><marker id="ah2" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="var(--edge)"></path></marker></defs>
+        </svg>
+        <figcaption>Attaching metadata to a relationship: RDF traditionally needs <em>reification</em> (4 extra triples); an LPG puts properties directly on the edge.</figcaption>
+      </figure>
+
+      <h3>Edge semantics, provenance, confidence, weighting</h3>
+      <p>You will want to say things <em>about</em> a relationship — who asserted it, when, with what confidence. Traditional RDF <dfn>reification</dfn> (modeling a statement as its own resource so you can annotate it) is widely regarded as "cumbersome, misunderstood, unpopular" and is "one of the most persistent criticisms of RDF... compared to LPGs" — per Ora Lassila, co-author of the original 1999 RDF spec <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S8</a></cite>. <dfn>RDF-star / RDF 1.2</dfn> fixes this with "triple terms" that annotate a statement directly, superseding the old reification vocabulary as the preferred mechanism (without removing it) <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S8</a></cite>.</p>
+      <p><strong>Takeaway</strong> <span class="chip infer">Inference</span>: to carry "this task supports this rock — confidence 0.8, asserted by AI on 2026-07-01," an LPG edge property or an RDF-star triple term both work; the LPG is simpler. Classic reification is the anti-pattern to avoid.</p>
+
+      <h3>Temporal &amp; bitemporal modeling — the part Cadence lives or dies on</h3>
+      <p>This is the single most Cadence-load-bearing area of the theory. <dfn>Bitemporal</dfn> modeling adds two orthogonal time axes <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S5</a> <a href="#refs">S6</a></cite>:</p>
+      <ul>
+        <li><dfn>Valid time</dfn> — when a fact holds in the real world (<em>when was this rock actually in effect</em>).</li>
+        <li><dfn>Transaction time</dfn> — when the fact was recorded/asserted (<em>what did we believe last Tuesday</em>).</li>
+      </ul>
+      <p>The <dfn>BiTemporal RDF (BiTRDF)</dfn> model integrates both to enable "time travel" querying of dynamic and historical knowledge, and does so by embedding time as a reference directly into resources "rather than appending timestamps as auxiliary attributes... avoid[ing] the complexity of reification-based approaches" <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S5</a></cite>. The bitemporal combination is stable, peer-reviewed theory in the Snodgrass lineage <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S6</a></cite>.</p>
+      <p>Caution on maturity: the broader <dfn>spatio-temporal KG</dfn> subfield is immature and fragmented — "unified modeling frameworks are largely absent and most current models are tailored to specific use cases rather than designed for reuse" <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S7</a></cite>. There is no off-the-shelf temporal-graph standard to adopt wholesale; you design edge semantics and annotation strategy deliberately.</p>
+
+      <div class="cadence">
+        <div class="k">Why this matters for Cadence</div>
+        <p>Cadence's priorities change <em>weekly</em>. Two questions the product must answer are literally the two time axes: "what did this person's priorities look like as-of the pulse they filled out three weeks ago" (transaction time) and "which rocks were <em>in effect</em> during Q2" (valid time) <span class="chip infer">Inference</span>. Good news — the relational schema already encodes valid time in places: <code>MeasurableResponsibility.effectiveFrom / effectiveTo</code> (null = still active) is textbook valid-time modeling, and <code>PerformanceReviewPeriod(year, month)</code> / <code>WeeklyReflection.weekOf</code> give you period anchors. Any graph projection must preserve these, not flatten them to "current state."</p>
+      </div>
+
+      <h3>Ontology design &amp; entity resolution</h3>
+      <p>An <dfn>ontology</dfn> is the formal schema of entity types and allowed relationships. <dfn>Entity resolution</dfn> is deciding when two records are the same real-world thing. Poor entity resolution is "one of the most common sources of data 'garbage'" in knowledge graphs, degrading downstream retrieval accuracy <span class="chip vendor">Vendor framing</span> <cite class="src"><a href="#refs">S14</a></cite> — a theme that returns as a hard pitfall in Module 7.</p>
+    </section>
+
+    <!-- MODULE 3 -->
+    <section class="module" id="m3">
+      <div class="mod-head"><span class="mod-num">03</span><h2>Construction — how a context graph gets populated</h2></div>
+      <p class="lede">Two very different intake paths: structured data (ETL) and unstructured text (extraction). Cadence has a lot of the first and a little of the second, and the second is where LLMs earn their place.</p>
+
+      <h3>The canonical pipeline</h3>
+      <p>A production KG-construction pipeline from unstructured text decomposes into a defined component set — <strong>data loader → text splitter → chunk embedder → schema builder → lexical graph builder → entity &amp; relation extractor → graph pruner → KG writer → entity resolver</strong> (some optional) <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S9</a></cite>. The extractor operates per text chunk, and the <strong>schema grounds the LLM to a predefined list of allowed node and relationship types</strong> rather than letting it invent arbitrary entities <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S9</a></cite>.</p>
+      <p>Nuance the source is explicit about <span class="chip disagree">Contested</span>: the schema is a <em>soft</em> guide by default; hard enforcement requires the graph-pruner step (<code>additional_node_types=False</code>) <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S9</a></cite>.</p>
+
+      <figure class="diagram" aria-label="Pipeline from source through splitter, extractor with schema, pruner, writer, to entity resolver.">
+        <svg viewBox="0 0 720 96" role="img">
+          <defs><marker id="ah3" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--ink-mute)"></path></marker></defs>
+          <g font-family="var(--mono)" font-size="9.5" text-anchor="middle">
+            <g><rect x="6" y="34" width="86" height="30" rx="6" fill="var(--surface-2)" stroke="var(--border-strong)"></rect><text x="49" y="53" fill="var(--ink)">source rows</text></g>
+            <g><rect x="118" y="34" width="86" height="30" rx="6" fill="var(--surface-2)" stroke="var(--border-strong)"></rect><text x="161" y="49" fill="var(--ink)">split /</text><text x="161" y="60" fill="var(--ink)">embed</text></g>
+            <g><rect x="230" y="28" width="98" height="42" rx="6" fill="var(--edge-soft)" stroke="var(--edge)"></rect><text x="279" y="46" fill="var(--edge)">extract</text><text x="279" y="58" fill="var(--edge)">(schema)</text></g>
+            <g><rect x="354" y="34" width="80" height="30" rx="6" fill="var(--surface-2)" stroke="var(--border-strong)"></rect><text x="394" y="53" fill="var(--ink)">prune</text></g>
+            <g><rect x="460" y="34" width="80" height="30" rx="6" fill="var(--surface-2)" stroke="var(--border-strong)"></rect><text x="500" y="53" fill="var(--ink)">write</text></g>
+            <g><rect x="566" y="28" width="104" height="42" rx="6" fill="var(--edge-soft)" stroke="var(--edge)"></rect><text x="618" y="46" fill="var(--edge)">entity</text><text x="618" y="58" fill="var(--edge)">resolve</text></g>
+          </g>
+          <g stroke="var(--ink-mute)" stroke-width="1.2" marker-end="url(#ah3)">
+            <line x1="94" y1="49" x2="114" y2="49"></line><line x1="206" y1="49" x2="226" y2="49"></line>
+            <line x1="330" y1="49" x2="350" y2="49"></line><line x1="436" y1="49" x2="456" y2="49"></line>
+            <line x1="542" y1="49" x2="562" y2="49"></line>
+          </g>
+        </svg>
+        <figcaption>The two teal stages — schema-grounded extraction and entity resolution — are where quality is won or lost.</figcaption>
+      </figure>
+
+      <div class="cadence">
+        <div class="k">Why this matters for Cadence</div>
+        <p>Most of Cadence's graph is <em>already structured</em>: people, rocks, projects, tasks, measurables are relational rows with foreign keys. For those, "construction" is <strong>ETL / projection</strong>, not NER — you don't extract a <code>captainOf</code> edge from prose, you read <code>Rock.captainId</code>. The extraction pipeline above applies to exactly one surface: the <strong>free text of check-ins and weekly pulses</strong> (<code>WeeklyReflection.content</code>, <code>PulseConversation</code>) <span class="chip infer">Inference</span>. That is where an LLM turns "I'm blocked on the billing migration until Dana ships the API" into a typed <code>BLOCKED_BY</code> edge — grounded to a schema so it can't invent node types Cadence doesn't have.</p>
+      </div>
+
+      <h3>Incremental update, dedup, conflict resolution</h3>
+      <p>The entity-resolver stage is not optional in practice: failing to resolve duplicates produces garbage-in/garbage-out retrieval <span class="chip vendor">Vendor framing</span> <cite class="src"><a href="#refs">S14</a></cite>. For a live app the hard part is keeping the graph <em>fresh</em> as source rows change weekly — covered as an open question in the caveats, because the sources diagnose the drift problem far better than they solve it for transactional apps.</p>
+    </section>
+
+    <!-- MODULE 4 -->
+    <section class="module" id="m4">
+      <div class="mod-head"><span class="mod-num">04</span><h2>Storage &amp; query</h2></div>
+      <p class="lede">Native graph database, or a graph <em>view</em> over the relational store you already have? The honest answer for Cadence is "probably the second, at first" — and the sources give you the decision rule.</p>
+
+      <h3>The engines and their languages</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Model</th><th>Representative store</th><th>Query language</th><th>Best at</th></tr></thead>
+          <tbody>
+            <tr><td>LPG</td><td>Neo4j, Memgraph, FalkorDB, TigerGraph</td><td>Cypher → <dfn>GQL</dfn> (ISO standard), Gremlin</td><td>Property-rich domains, deep traversal</td></tr>
+            <tr><td>RDF</td><td>Triple stores (GraphDB, Blazegraph)</td><td>SPARQL</td><td>Open-world integration, standards, inference</td></tr>
+            <tr><td>Relational-as-graph</td><td>Postgres + recursive CTEs; PuppyGraph</td><td>SQL (recursive), or a graph layer over SQL</td><td>Reusing an existing source-of-truth</td></tr>
+            <tr><td>Vector / hybrid</td><td>pgvector, dedicated vector DBs</td><td>ANN search + filters</td><td>Fuzzy recall, semantic similarity</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The decision rule that actually matters</h3>
+      <p>The most useful contrarian finding in the whole research set <span class="chip vendor">Vendor framing</span> <cite class="src"><a href="#refs">S18</a></cite>: <strong>"Don't pick based on schema. Pick based on query shape."</strong> Having relational or highly-connected data does <em>not</em> by itself justify a graph database — many-to-many relationships (students↔courses) are handled fine by SQL join tables. Graph databases win when you traverse relationships directly instead of executing deep, variable-length JOINs, delivering multi-hop results "in seconds where relational databases struggle" <span class="chip vendor">Vendor framing</span> <cite class="src"><a href="#refs">S17</a></cite>.</p>
+
+      <div class="cadence">
+        <div class="k">Why this matters for Cadence</div>
+        <p>Cadence's schema is deeply connected, but connectedness alone is not the trigger <span class="chip infer">Inference</span>. The trigger is <em>query shape</em>: fixed-depth questions ("who is the captain of this rock") are perfect SQL and should stay SQL. Variable-depth questions ("trace this task up through every parent rock to whatever company rock, if any, it ladders to") are where the <code>Rock.parentId</code> self-reference forces recursive CTEs that get ugly and slow — the graph-shaped queries. Start by exposing a <em>graph view</em> over Postgres for those, and only consider a native store if traversal depth or breadth hits a perf cliff (Module 7).</p>
+      </div>
+    </section>
+
+    <!-- MODULE 5 -->
+    <section class="module" id="m5">
+      <div class="mod-head"><span class="mod-num">05</span><h2>Retrieval &amp; reasoning — GraphRAG, and why graph beats flat embeddings</h2></div>
+      <p class="lede">This is the "why bother" module. The case for a context graph over plain vector search rests on two verified claims about what similarity-only retrieval structurally cannot do.</p>
+
+      <h3>The structural argument</h3>
+      <p>Graph-based memory explicitly encodes relational dependencies that fixed-length token sequences, vector databases, and log buffers cannot <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S1</a></cite>. And pure similarity matching fails on multi-hop queries for a precise reason: <strong>"answers to complex queries often depend on entities not in the original query. Pure similarity matching cannot bridge this gap"</strong>, and separately, <strong>"similarity does not guarantee relevance"</strong> <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S1</a></cite>.</p>
+      <p>Honest nuance <span class="chip disagree">Contested</span>: embeddings encode <em>some</em> relational information implicitly, so the advantage is explicit-vs-implicit structure — and well-built hybrid (vector + graph) systems often win over either alone <span class="chip infer">Inference</span>.</p>
+
+      <h3>GraphRAG, mechanically</h3>
+      <p><dfn>GraphRAG</dfn> (Edge et al., Microsoft Research, 2024) is a two-stage LLM-built index plus map-reduce querying <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S2</a> <a href="#refs">S3</a></cite>:</p>
+      <ol>
+        <li>Use an LLM to derive an entity knowledge graph from source documents.</li>
+        <li>Apply <dfn>community detection</dfn> (the Leiden algorithm) to group closely related entities into a hierarchy, and pre-generate a summary per community.</li>
+        <li>At query time, each community summary yields a partial answer; all partials are aggregated into a final response.</li>
+      </ol>
+      <p>The problem it was built to solve: conventional/naive vector RAG "fails on global questions directed at an entire text corpus, such as 'What are the main themes in the dataset?', since this is inherently a query-focused summarization task, rather than an explicit retrieval task" <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S2</a> <a href="#refs">S3</a></cite>. On ~1M-token datasets, GraphRAG showed "substantial improvements over a conventional RAG baseline for both the comprehensiveness and diversity of generated answers" <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S2</a></cite>.</p>
+      <div class="note">
+        <span class="k">Read the last claim with care.</span> That is the vendor's own LLM-as-judge win-rate evaluation on a specific dataset regime — a bounded result, not a universal law <span class="chip vendor">Vendor framing</span>. Later systematic work adds nuance about GraphRAG's limits in other regimes.
+      </div>
+
+      <h3>No single structure wins</h3>
+      <p>Crucially, the survey states there is no dominant structure — it's an objective-dependent trade-off: <strong>"precision and explicit multiple-hop reasoning favor relational graphs; compression and conceptual abstraction favor hierarchical or tree-like summaries; temporal fidelity motivates temporal knowledge graphs... cross-modal or fuzzy recall often favors vector stores or hybrid systems"</strong> <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S1</a></cite>.</p>
+
+      <div class="cadence">
+        <div class="k">Why this matters for Cadence</div>
+        <p>Read that quote as a Cadence architecture directive <span class="chip infer">Inference</span>: use a <strong>relational-graph layer</strong> for precise multi-hop alignment questions (Module 6's worked example), <strong>hierarchical community summaries</strong> for the Today Brief and weekly rollups ("what themes dominated this team's check-ins this quarter" is exactly the global-sensemaking question flat RAG is bad at), and a <strong>temporal layer</strong> for trending — not one monolithic graph trying to be all three.</p>
+      </div>
+    </section>
+
+    <!-- MODULE 6 -->
+    <section class="module" id="m6">
+      <div class="mod-head"><span class="mod-num">06</span><h2>The Cadence payload — designing the people-to-priorities graph</h2></div>
+      <p class="lede">Everything above, applied. This module maps Cadence's real schema to graph entities and edges, works a query flat retrieval can't answer, and says plainly where the graph is overkill. All schema facts below were read from <code>prisma/schema.prisma</code>; all design recommendations are <span class="chip infer">Inference</span>.</p>
+
+      <h3>The entities (nodes)</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Node</th><th>Model · table</th><th>Identity note</th></tr></thead>
+          <tbody>
+            <tr><td>Person</td><td><code>Person</code> · <code>people</code></td><td>Global account. Hub of the graph. No <code>orgId</code> — org tie via membership.</td></tr>
+            <tr><td>Org identity</td><td><code>ParticipantIdentity</code> · <code>participant_identity</code></td><td>Per-org projection; meetings/calendar layers FK <em>here</em>, never at <code>Person.id</code>.</td></tr>
+            <tr><td>Org</td><td><code>Organization</code> · <code>organizations</code></td><td>Tenant root; self-referential hierarchy.</td></tr>
+            <tr><td>Team / AOR</td><td><code>Group</code> · <code>groups</code></td><td>Self-referential tree; <code>members[]</code> M:N to Person.</td></tr>
+            <tr><td>Rock</td><td><code>Rock</code> · <code>rocks</code></td><td><code>parentId</code> self-ref; <code>tier 1 = company</code>. <strong>This is the "goal."</strong></td></tr>
+            <tr><td>Project</td><td><code>Project</code> · <code>projects</code></td><td>Dual parent: <code>parentRockId</code> + <code>parentProjectId</code>.</td></tr>
+            <tr><td>Task</td><td><code>Task</code> · <code>tasks</code></td><td>Parent arc: <code>rockId</code> | <code>projectId</code> | <code>groupId</code>.</td></tr>
+            <tr><td>Measurable</td><td><code>Measurable</code> · <code>measurables</code></td><td>Scorecard metric; <code>MeasurableSource</code> = metric→metric rollup graph.</td></tr>
+            <tr><td>Weekly pulse</td><td><code>WeeklyReflection</code> · <code>weekly_reflections</code></td><td>Keyed by <code>weekOf</code> (Monday). The pulse subject.</td></tr>
+            <tr><td>Check-in / review</td><td><code>PerformanceReview</code>, <code>QuarterlyPerformanceReview</code></td><td>Keyed by <code>periodYear/periodMonth</code> and <code>(year, quarter)</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <span class="k">Surprise finding from the schema.</span> There is <strong>no <code>Goal</code> model</strong> — Goals were removed (issue #1252). The "goal" concept now lives entirely as the <strong>Rock hierarchy</strong>: a <code>Rock</code> with <code>parentId = null</code> and <code>tier = 1</code> <em>is</em> the company goal. Any "alignment to goals" feature is really "does this ladder up to a tier-1 rock." This changes how you phrase every alignment query.
+      </div>
+
+      <h3>The edges (typed relationships)</h3>
+      <p>These are the real foreign keys, grouped by what they connect <span class="chip infer">Inference on grouping; FKs are fact</span>:</p>
+      <h4>Person → work</h4>
+      <ul>
+        <li><code>CAPTAIN_OF</code> / <code>CREATED</code> / <code>CONTRIBUTES_TO</code> → Rock (<code>captainId</code>, <code>createdById</code>, <code>contributors[]</code>)</li>
+        <li><code>ASSIGNED</code> → Task (<code>Task.assigneeId</code>)</li>
+        <li><code>MEMBER_OF</code> / <code>CAPTAINS</code> → Group (<code>Group.members[]</code>, <code>captainId</code>)</li>
+      </ul>
+      <h4>Person → measurable (the accountability truth table)</h4>
+      <ul>
+        <li><code>RESPONSIBLE_FOR</code> → Measurable via <code>MeasurableResponsibility</code> (source = CAPTAIN/MEMBER, <code>effectiveTo = null</code> means active) — <strong>this, not a bare <code>ownerId</code>, is where person↔metric accountability lives, and it is valid-time-stamped.</strong></li>
+      </ul>
+      <h4>Work → work (the "ladder", i.e. the goal chain)</h4>
+      <ul>
+        <li><code>PARENT</code> → Rock (<code>Rock.parentId</code>, self-ref — climb to <code>tier 1</code>)</li>
+        <li><code>SUPPORTS</code> → Rock/Project (<code>Project.parentRockId</code>, <code>Task.rockId/projectId</code>)</li>
+        <li><code>MEASURES</code> → work item via <code>MeasurableWorkItemLink</code> (polymorphic <code>itemType</code>)</li>
+      </ul>
+      <h4>Person → time (pulse / check-in linkage)</h4>
+      <ul>
+        <li><code>REFLECTED</code> → WeeklyReflection (<code>userId</code>, keyed <code>weekOf</code>)</li>
+        <li><code>PulseConversation</code> uses the <strong>ADR-0073 typed-FK exclusive arc</strong>: exactly one of <code>reflectionId</code> | <code>reviewPeriodId</code> | <code>quarterlyReviewPeriodId</code> (enforced by a SQL <code>CHECK</code>). This is Cadence's own answer to polymorphic edges — worth studying as the house pattern for any new cross-type edge.</li>
+      </ul>
+
+      <hr class="rule">
+
+      <h3>Worked example — the query flat retrieval cannot answer</h3>
+      <p class="kicker">The payoff</p>
+      <p>The question a manager actually wants: <strong>"Which of my reports are working on priorities that don't ladder up to any active company rock?"</strong> This is a multi-hop, negation-over-traversal question. A vector search over check-in text cannot answer it — the answer depends on entities (the company rocks) that are <em>not in the query</em>, exactly the failure mode the survey names <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S1</a></cite>.</p>
+
+      <p class="code-label">As a graph traversal (Cypher-style pseudocode)</p>
+      <pre><code><span class="cm">// reports of manager M, their active rocks, that DON'T reach a tier-1 company rock</span>
+<span class="kw">MATCH</span> (m:Person {id:$managerId})&lt;-[:REPORTS_TO]-(r:Person)
+<span class="kw">MATCH</span> (r)-[:CAPTAIN_OF|CONTRIBUTES_TO]-&gt;(rock:Rock {state:'active'})
+<span class="kw">WHERE</span> <span class="kw">NOT EXISTS</span> {
+  (rock)-[:PARENT*1..5]-&gt;(company:Rock {tier:1, state:'active'})
+}
+<span class="kw">RETURN</span> r.name, rock.title <span class="cm">// the misaligned work, per report</span></code></pre>
+      <p>The variable-length <code>[:PARENT*1..5]</code> traversal is the whole game: one clause climbs an arbitrary-depth ladder. In SQL that same climb is a recursive CTE:</p>
+      <pre><code><span class="cm">-- the same "does it reach a tier-1 rock" test, recursively</span>
+<span class="kw">WITH RECURSIVE</span> ladder <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> id, "parentId", tier <span class="kw">FROM</span> rocks <span class="kw">WHERE</span> id = <span class="fn">rock.id</span>
+  <span class="kw">UNION ALL</span>
+  <span class="kw">SELECT</span> p.id, p."parentId", p.tier
+  <span class="kw">FROM</span> rocks p <span class="kw">JOIN</span> ladder l <span class="kw">ON</span> p.id = l."parentId"
+)
+<span class="kw">SELECT</span> <span class="kw">NOT EXISTS</span> (<span class="kw">SELECT</span> 1 <span class="kw">FROM</span> ladder <span class="kw">WHERE</span> tier = 1 <span class="kw">AND</span> state='active');</code></pre>
+      <p>Both work. The point is <em>not</em> "SQL can't" — it demonstrably can. The point <span class="chip infer">Inference</span> is that as these questions compose ("...and whose owner also flagged feeling blocked in last week's pulse, and whose measurable is trending down"), the recursive-CTE version multiplies in complexity while the graph version adds one <code>MATCH</code> clause each. That compounding is the real, honest case for a graph layer — consistent with the "pick by query shape" rule <span class="chip vendor">Vendor framing</span> <cite class="src"><a href="#refs">S18</a></cite>.</p>
+
+      <hr class="rule">
+
+      <h3>Product features the graph unlocks</h3>
+      <ul>
+        <li><strong>Who's blocked</strong> — a <code>BLOCKED_BY</code> edge extracted from pulse text, traversed to find chains and their root cause.</li>
+        <li><strong>Starved priorities</strong> — company rocks (tier-1) with few or no <code>CONTRIBUTES_TO</code> / <code>ASSIGNED</code> edges reaching them: attention is a graph property.</li>
+        <li><strong>Alignment</strong> — the worked example above, run org-wide.</li>
+        <li><strong>Manager-bias correction</strong> — grounding an AI review draft on the <em>actual</em> edges (tasks completed, measurables moved) rather than the manager's recalled narrative <span class="chip infer">Inference; aligns with existing Cadence philosophy</span>.</li>
+        <li><strong>AI chat / briefs / recommendations</strong> — GraphRAG-style community summaries over the org subgraph, so a brief cites real connected entities instead of hallucinating them.</li>
+      </ul>
+
+      <h3>Multi-tenancy / org-scoping</h3>
+      <p><span class="chip disagree">Open problem — no source covers this.</span> None of the reviewed sources address enforcing per-org isolation within a shared context graph. Cadence's answer already exists in the relational layer — RLS + <code>orgId</code> on every tenant row (ADR-0023). The design question <span class="chip infer">Inference</span>: is org a <em>node label</em>, an <em>edge/property filter</em>, or a <em>physically partitioned subgraph</em>? A projection-from-relational approach inherits RLS for free and is the safest default; a native store would need org isolation rebuilt from scratch, which is a strong argument against standing one up early.</p>
+
+      <h3>Where a context graph is overkill for Cadence</h3>
+      <p><span class="chip infer">Inference throughout</span> — fixed-depth lookups (this rock's captain, this task's assignee, this week's pulse for this person) are perfect relational queries and gain nothing from a graph. Simple many-to-many (person↔group membership) is a join table, and "relationships alone don't justify a graph database" <span class="chip vendor">Vendor framing</span> <cite class="src"><a href="#refs">S18</a></cite>. Reserve the graph for variable-depth traversal, negation-over-paths, and AI grounding. Everything else stays in Postgres.</p>
+    </section>
+
+    <!-- MODULE 7 -->
+    <section class="module" id="m7">
+      <div class="mod-head"><span class="mod-num">07</span><h2>Pitfalls &amp; anti-patterns</h2></div>
+      <p class="lede">These failure modes are empirical, not theoretical. The two that will bite Cadence hardest are entity-resolution debt and drift from the source-of-truth.</p>
+
+      <h3>Inconsistency at scale is the norm, not the exception</h3>
+      <p>Large real-world KGs routinely contain logically contradicting statements. Testing across DBpedia, YAGO, and LOD-a-lot — over <strong>28 billion triples</strong> — revealed billions of contradictions, condensable into compact anti-pattern catalogs (222 / 13 / 135 anti-patterns respectively); LOD-a-lot alone "contains over a billion contradictions" <span class="chip fact">Sourced fact</span> <cite class="src"><a href="#refs">S10</a></cite>.</p>
+
+      <h3>The catalog</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Anti-pattern</th><th>What goes wrong</th><th>Cadence risk <span style="text-transform:none;letter-spacing:0">(inference)</span></th></tr></thead>
+          <tbody>
+            <tr><td>Over-modeling ("ontology that never ends")</td><td>Teams try to model every entity upfront; the graph never ships <span class="chip vendor">Vendor</span> <cite class="src"><a href="#refs">S16</a></cite></td><td>Don't model all 40+ tables. Start with Person→Rock→Task→Measurable + the ladder.</td></tr>
+            <tr><td>Too-small scope</td><td>A single-domain graph shows no advantage over the relational system it copied <span class="chip vendor">Vendor</span> <cite class="src"><a href="#refs">S16</a></cite></td><td>Value shows up when spanning hard-to-join surfaces — e.g. structured work + free-text pulses.</td></tr>
+            <tr><td>Super nodes</td><td>Very high-degree nodes turn "sub-millisecond traversals into multi-second" ones <span class="chip vendor">Vendor</span> <cite class="src"><a href="#refs">S15</a></cite></td><td>An org node, or a hyper-active Person, connected to everything = the perf cliff.</td></tr>
+            <tr><td>Entity-resolution debt</td><td>Duplicate/unresolved entities cause garbage retrieval <span class="chip vendor">Vendor</span> <cite class="src"><a href="#refs">S14</a></cite></td><td>Duplicate <code>Person</code> vs <code>ParticipantIdentity</code> nodes — respect the existing FK discipline (identities point at Person).</td></tr>
+            <tr><td>Graph drift from source-of-truth</td><td>The graph and the system-of-record diverge over time <span class="chip fact">Fact (analogous)</span> <cite class="src"><a href="#refs">S10</a></cite></td><td>Weekly-changing priorities guarantee drift unless the graph is <em>projected</em> from Postgres with a reconciliation cadence.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cadence">
+        <div class="k">Why this matters for Cadence</div>
+        <p>The inconsistency literature is the strongest argument for <strong>projection over a hand-maintained parallel graph</strong> <span class="chip infer">Inference</span>. If the graph is a derived view of Postgres (the source-of-truth), entity resolution is inherited (Cadence already resolved identity via the Person/ParticipantIdentity split) and drift is bounded by refresh latency, not by an ever-growing pile of contradictions. A separately-maintained graph would re-import every one of these failure modes.</p>
+      </div>
+    </section>
+
+    <!-- MODULE 8 -->
+    <section class="module" id="m8">
+      <div class="mod-head"><span class="mod-num">08</span><h2>Learning path &amp; hands-on exercises</h2></div>
+      <p class="lede">Read in this order; each item earns its place. Then do the exercises against Cadence's own data — that is where fluency actually forms.</p>
+
+      <h3>Reading list, prioritized</h3>
+      <ol>
+        <li><strong>Start here — the "why":</strong> Edge et al., <em>From Local to Global: A Graph RAG Approach</em> (arXiv:2404.16130) <cite class="src"><a href="#refs">S2</a></cite>. The canonical GraphRAG paper. Read the abstract and §1–2 for the flat-RAG failure argument.</li>
+        <li><strong>The map of the field:</strong> <em>Graph-based Agent Memory: Taxonomy, Techniques, and Applications</em> (arXiv:2602.05665) <cite class="src"><a href="#refs">S1</a></cite>. §V (structure trade-offs) and §VI-A (why similarity fails) are the load-bearing sections.</li>
+        <li><strong>The data-model decision:</strong> Gelling et al., <em>Bridging graph data models</em> (arXiv:2304.13097) <cite class="src"><a href="#refs">S4</a></cite> for RDF vs LPG done rigorously; Lassila's RDF-star intro <cite class="src"><a href="#refs">S8</a></cite> for edge-metadata.</li>
+        <li><strong>Time:</strong> <em>Time Travel with the BiTemporal RDF Model</em> (MDPI Mathematics 13:2109) <cite class="src"><a href="#refs">S5</a></cite> — the valid-time/transaction-time distinction Cadence needs.</li>
+        <li><strong>Build it:</strong> the Neo4j GraphRAG Python KG-builder docs <cite class="src"><a href="#refs">S9</a></cite> — the concrete pipeline, hands-on.</li>
+        <li><strong>Stay honest:</strong> de Groot et al., <em>Analysing Large Inconsistent KGs Using Anti-patterns</em> <cite class="src"><a href="#refs">S10</a></cite>, and the "pick by query shape" argument <cite class="src"><a href="#refs">S18</a></cite>.</li>
+      </ol>
+
+      <h3>Exercises against Cadence data</h3>
+      <ol>
+        <li><strong>Recursive CTE warm-up.</strong> Write the SQL that, for one Rock, climbs <code>parentId</code> to determine whether it reaches an active <code>tier=1</code> rock. You now understand the ladder in the relational world.</li>
+        <li><strong>Feel the pain.</strong> Extend it: reports of a manager × their active rocks × the ladder test × "and their measurable is trending down." Watch the CTE grow. This is the graph's motivation, felt firsthand.</li>
+        <li><strong>Project a subgraph.</strong> Export one org's Person / Rock / Task / Measurable rows + FKs into an LPG (Neo4j or in-memory) and re-run exercise 2 as Cypher. Compare clause count and readability.</li>
+        <li><strong>Extraction.</strong> Take 20 real <code>WeeklyReflection.content</code> rows; prompt an LLM to extract <code>BLOCKED_BY</code> edges grounded to a fixed schema (Person, Rock, Task only). Measure precision. This is Module 3 for real.</li>
+        <li><strong>Temporal query.</strong> Using <code>MeasurableResponsibility.effectiveFrom/effectiveTo</code>, answer "who was responsible for this metric as-of last quarter" — valid-time in practice.</li>
+        <li><strong>Drift check.</strong> Snapshot the projected graph, change a rock's parent in Postgres, and measure how your reconciliation cadence catches it. Feel the source-of-truth discipline from Module 7.</li>
+      </ol>
+    </section>
+
+    <!-- CAVEATS -->
+    <section class="module" id="caveats">
+      <div class="mod-head"><span class="mod-num">§</span><h2>Caveats &amp; open questions</h2></div>
+      <h4>How much to trust this</h4>
+      <p>The strongest sources cluster on two poles: the 2024 Microsoft GraphRAG paper (canonical but vendor-authored, evaluated via LLM-as-judge win-rates on a specific ~1M-token regime) and 2025–2026 arXiv surveys (current but non-peer-reviewed, stating architecture as assertion rather than measured result). The bitemporal claims rest on peer-reviewed MDPI/ACM sources and stable Snodgrass-lineage theory — those are solid. One source (MDPI BiTRDF full text) returned 403 on fetch and was verified via search excerpt only. Several "fails/cannot" framings are the cited authors' characterizations of baselines; well-engineered hybrids partially close those gaps.</p>
+      <h4>Genuinely open questions the research did not answer</h4>
+      <ul>
+        <li><strong>Org-scoping a shared graph:</strong> node label vs property filter vs partitioned subgraph — traversal-perf and leakage trade-offs unaddressed by any source.</li>
+        <li><strong>Native store vs graph-view-over-Postgres for Cadence's scale:</strong> the perf-cliff crossover point is described only abstractly.</li>
+        <li><strong>Operational query-language / algorithm guidance</strong> (Cypher vs SPARQL vs Gremlin; which centrality/community algorithms for "starved priorities") — under-covered beyond GraphRAG's Leiden default.</li>
+        <li><strong>Reconciliation cadence for a live app with weekly-changing priorities</strong> — the drift problem is well-diagnosed at web scale but has no validated incremental-update recipe for a transactional product.</li>
+      </ul>
+    </section>
+
+    <!-- REFERENCES -->
+    <section class="module" id="refs">
+      <div class="mod-head"><span class="mod-num">§</span><h2>Sources</h2></div>
+      <p class="lede">25 claims were adversarially verified (2-of-3 refute votes required to kill a claim); all 25 survived. Tier reflects source quality.</p>
+      <ol class="refs">
+        <li><span class="tier">primary · arXiv</span><br>Graph-based Agent Memory: Taxonomy, Techniques, and Applications (2026). <a href="https://arxiv.org/html/2602.05665v1">arxiv.org/html/2602.05665v1</a></li>
+        <li><span class="tier">primary · arXiv</span><br>Edge et al., From Local to Global: A Graph RAG Approach to Query-Focused Summarization (Microsoft, 2024). <a href="https://arxiv.org/abs/2404.16130">arxiv.org/abs/2404.16130</a></li>
+        <li><span class="tier">primary · vendor research</span><br>Microsoft Research publication page for the GraphRAG paper. <a href="https://www.microsoft.com/en-us/research/publication/from-local-to-global-a-graph-rag-approach-to-query-focused-summarization/">microsoft.com/en-us/research/publication/…</a></li>
+        <li><span class="tier">primary · peer-reviewed</span><br>Gelling, Fletcher, Schmidt, Bridging graph data models (arXiv:2304.13097, Springer 2024). <a href="https://arxiv.org/pdf/2304.13097">arxiv.org/pdf/2304.13097</a></li>
+        <li><span class="tier">primary · peer-reviewed</span><br>Time Travel with the BiTemporal RDF Model, MDPI Mathematics 13(13):2109 (2025). <a href="https://www.mdpi.com/2227-7390/13/13/2109">mdpi.com/2227-7390/13/13/2109</a></li>
+        <li><span class="tier">primary · peer-reviewed</span><br>Chekol &amp; Stuckenschmidt, Towards Probabilistic Bitemporal Knowledge Graphs (WWW 2018). <a href="https://dl.acm.org/doi/fullHtml/10.1145/3184558.3191637">dl.acm.org/doi/…/3191637</a></li>
+        <li><span class="tier">primary · arXiv survey</span><br>Plamper, Köpcke, Groß, A Survey on Spatio-Temporal Knowledge Graph Models (arXiv:2512.16487, 2025). <a href="https://arxiv.org/abs/2512.16487">arxiv.org/abs/2512.16487</a></li>
+        <li><span class="tier">primary · standards author</span><br>Ora Lassila, RDF-star intro, W3C TPAC 2024. <a href="https://www.lassila.org/publications/2024/TPAC2024/RDF-star-intro/Overview.html">lassila.org/publications/2024/TPAC2024/…</a></li>
+        <li><span class="tier">primary · framework docs</span><br>Neo4j GraphRAG Python — KG Builder user guide. <a href="https://neo4j.com/docs/neo4j-graphrag-python/current/user_guide_kg_builder.html">neo4j.com/docs/neo4j-graphrag-python/…</a></li>
+        <li><span class="tier">primary · peer-reviewed</span><br>de Groot, Raad, Schlobach, Analysing Large Inconsistent Knowledge Graphs Using Anti-patterns (Springer, 2021). <a href="https://link.springer.com/chapter/10.1007/978-3-030-77385-4_3">link.springer.com/chapter/10.1007/978-3-030-77385-4_3</a></li>
+        <li><span class="tier">secondary</span><br>Wikipedia — Semantic network. <a href="https://en.wikipedia.org/wiki/Semantic_network">en.wikipedia.org/wiki/Semantic_network</a></li>
+        <li><span class="tier">blog · vendor</span><br>TrustGraph — Context Graph vs. Knowledge Graph. <a href="https://trustgraph.ai/guides/key-concepts/context-graph-vs-knowledge-graph/">trustgraph.ai/guides/key-concepts/…</a></li>
+        <li><span class="tier">blog · vendor</span><br>Neo4j — RDF vs Property Graphs. <a href="https://neo4j.com/blog/knowledge-graph/rdf-vs-property-graphs-knowledge-graphs/">neo4j.com/blog/knowledge-graph/…</a></li>
+        <li><span class="tier">blog</span><br>Modern Data 101 — Entity Resolution at Scale. <a href="https://www.moderndata101.com/blogs/entity-resolution-at-scale-deduplication-strategies-for-knowledge-graph-construction">moderndata101.com/blogs/entity-resolution-at-scale…</a></li>
+        <li><span class="tier">blog · vendor</span><br>FalkorDB — Graph Database Anti-patterns &amp; AI Performance (super nodes). <a href="https://www.falkordb.com/blog/graph-database-anti-patterns-ai-performance/">falkordb.com/blog/graph-database-anti-patterns-ai-performance/</a></li>
+        <li><span class="tier">blog · practitioner</span><br>Semantic Arts — Six Enterprise Knowledge Graph Anti-Patterns. <a href="https://www.semanticarts.com/six-enterprise-knowledge-graph-anti-patterns/">semanticarts.com/six-enterprise-knowledge-graph-anti-patterns/</a></li>
+        <li><span class="tier">blog · vendor</span><br>PuppyGraph — Graph Database vs Relational Database. <a href="https://www.puppygraph.com/blog/graph-database-vs-relational-database">puppygraph.com/blog/graph-database-vs-relational-database</a></li>
+        <li><span class="tier">blog</span><br>"RDBMS vs Graph DB: Why relationships alone don't justify a graph database." <a href="https://medium.com/@go-fireball/rdbms-vs-graph-db-why-relationships-alone-dont-justify-a-graph-database-8cf8dad5013f">medium.com/@go-fireball/…</a></li>
+        <li><span class="tier">blog · vendor</span><br>AWS — Improving RAG accuracy with GraphRAG. <a href="https://aws.amazon.com/blogs/machine-learning/improving-retrieval-augmented-generation-accuracy-with-graphrag/">aws.amazon.com/blogs/machine-learning/…graphrag/</a></li>
+        <li><span class="tier">blog · vendor</span><br>Senzing — Knowledge Graphs &amp; GraphRAG. <a href="https://senzing.com/knowledge-graphs-graphrag/">senzing.com/knowledge-graphs-graphrag/</a></li>
+      </ol>
+      <p style="color:var(--ink-mute); font-size:0.86rem; margin-top:22px;">Cadence schema facts (Modules 6–8) were read directly from <code>prisma/schema.prisma</code> and confirmed in <code>src/lib/person-measurables.ts</code>, <code>src/app/today/today-data.ts</code>, and ADRs 0069 / 0073 / 0074 / 0075 — not from any web source. All such facts are labeled as schema-derived; all design recommendations built on them are labeled <span class="chip infer">Inference</span>.</p>
+    </section>
+
+    <footer class="foot">
+      <p>Assembled from a 5-angle deep-research fan-out (105 agents, 23 sources, 25 adversarially-verified claims) plus a direct read of the Cadence schema. Provenance chips are not decoration — they tell you exactly how far to trust each line. The one thing to remember: Cadence already owns a knowledge graph in Postgres; the work is deciding <em>which</em> questions deserve to be asked as graph traversals, and grounding AI on the real edges rather than recalled narrative.</p>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

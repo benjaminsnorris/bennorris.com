@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="record-linkage"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probabilistic Record Linkage — A Six-Week Course</title>
+<meta name="description" content="A six-week self-study course on probabilistic record linkage, from the Fellegi-Sunter theorem to a working entity resolution system. Readings, derivations, and labs.">
+<meta name="author" content="Ben Norris">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Probabilistic Record Linkage — A Six-Week Course">
+<meta property="og:description" content="From Fellegi-Sunter (1969) to a working entity resolution system you can defend. Six weeks of readings, derivations, and labs.">
+<!-- Set these to the live URL once you know the path: -->
+<!-- <link rel="canonical" href="https://bennorris.com/record-linkage/"> -->
+<!-- <meta property="og:url" content="https://bennorris.com/record-linkage/"> -->
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7ECF0;
+  --raised:#F6F8FA;
+  --ink:#141C26;
+  --ink-soft:#5B6976;
+  --ink-faint:#8B98A3;
+  --rule:#C6D1DA;
+  --rule-soft:#DBE3E9;
+  --yes:#1B5E4A;
+  --maybe:#A8660C;
+  --no:#8C3B4A;
+  --cool:#2D4B8E;
+  --font-d:'IBM Plex Sans Condensed','Helvetica Neue','Arial Narrow',sans-serif;
+  --font-b:'IBM Plex Serif',Georgia,'Times New Roman',serif;
+  --font-m:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font-b);font-size:16.5px;line-height:1.62;
+  padding-bottom:5rem;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* ---------- masthead ---------- */
+header{padding:44px 0 0}
+.eyebrow{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-faint);margin:0 0 14px;
+}
+h1{
+  font-family:var(--font-d);font-weight:700;font-size:clamp(34px,7.6vw,58px);
+  line-height:.98;letter-spacing:-.015em;margin:0;text-transform:uppercase;
+}
+h1 span{display:block;color:var(--ink-soft)}
+.subtitle{
+  font-family:var(--font-b);font-style:italic;color:var(--ink-soft);
+  margin:16px 0 0;font-size:16px;max-width:52ch;
+}
+
+/* ---------- evidence ledger ---------- */
+.ledger{
+  margin:30px 0 0;background:var(--raised);
+  border:1px solid var(--rule);border-radius:3px;padding:16px 16px 12px;
+}
+.ledger-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:12px;flex-wrap:wrap;margin-bottom:6px;
+}
+.ledger-title{
+  font-family:var(--font-m);font-size:10.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-faint);
+}
+.ledger-verdict{font-family:var(--font-m);font-size:12.5px;font-weight:600}
+.ledger svg{display:block;width:100%;height:auto}
+.ledger-note{
+  font-family:var(--font-m);font-size:11px;color:var(--ink-faint);
+  margin-top:8px;line-height:1.5;
+}
+
+/* ---------- tab rail ---------- */
+nav{
+  position:sticky;top:0;z-index:20;background:var(--paper);
+  border-bottom:1px solid var(--rule);margin-top:26px;
+}
+.rail{
+  display:flex;gap:0;overflow-x:auto;max-width:820px;margin:0 auto;
+  padding:0 20px;scrollbar-width:none;
+}
+.rail::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto;appearance:none;background:none;border:0;
+  border-bottom:2px solid transparent;cursor:pointer;
+  font-family:var(--font-m);font-size:11.5px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-faint);
+  padding:13px 13px 11px;white-space:nowrap;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tab .dot{
+  display:inline-block;width:5px;height:5px;border-radius:50%;
+  background:var(--rule);margin-left:6px;vertical-align:middle;
+}
+.tab .dot.part{background:var(--maybe)}
+.tab .dot.done{background:var(--yes)}
+
+/* ---------- panels ---------- */
+main{padding-top:34px}
+.panel[hidden]{display:none}
+.wk-num{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--maybe);margin:0 0 6px;
+}
+h2{
+  font-family:var(--font-d);font-weight:700;font-size:clamp(26px,5vw,38px);
+  line-height:1.05;letter-spacing:-.01em;margin:0 0 14px;
+}
+.objective{
+  border-left:3px solid var(--ink);padding-left:15px;margin:0 0 8px;
+  font-size:17px;
+}
+.objective strong{font-weight:500;font-style:italic}
+.aside{
+  font-family:var(--font-m);font-size:12.5px;line-height:1.6;
+  color:var(--maybe);margin:14px 0 0;
+}
+
+/* ---------- blocks ---------- */
+.block{margin:34px 0 0;border-top:1px solid var(--rule);padding-top:16px}
+.block-head{
+  display:flex;align-items:baseline;gap:10px;margin-bottom:4px;
+}
+.block-label{
+  font-family:var(--font-m);font-size:11px;font-weight:600;letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.block-time{font-family:var(--font-m);font-size:11px;color:var(--ink-faint)}
+.block-intro{margin:2px 0 14px;color:var(--ink-soft);font-size:15.5px}
+
+/* ---------- checkable items ---------- */
+.item{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:11px 12px;margin:0 0 6px;background:var(--raised);
+  border:1px solid var(--rule-soft);border-radius:3px;
+  transition:opacity .18s ease,border-color .18s ease;
+}
+.item:has(input:checked){opacity:.5;border-color:var(--rule-soft)}
+.item input{
+  appearance:none;flex:0 0 auto;width:15px;height:15px;margin:5px 0 0;
+  border:1.5px solid var(--ink-faint);border-radius:2px;
+  background:transparent;cursor:pointer;position:relative;
+}
+.item input:checked{background:var(--yes);border-color:var(--yes)}
+.item input:checked::after{
+  content:"";position:absolute;left:4px;top:.5px;width:4px;height:9px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg);
+}
+.item input:focus-visible{outline:2px solid var(--cool);outline-offset:2px}
+.item-body{flex:1;min-width:0}
+.item-title{font-size:15.5px;line-height:1.45}
+.item-title code{
+  font-family:var(--font-m);font-size:13px;background:#dde5eb;
+  padding:1px 4px;border-radius:2px;
+}
+.item-meta{
+  font-family:var(--font-m);font-size:11.5px;color:var(--ink-faint);
+  margin-top:3px;line-height:1.5;
+}
+.item-note{font-size:14.5px;color:var(--ink-soft);margin-top:5px;font-style:italic}
+.item a{
+  font-family:var(--font-m);font-size:11.5px;color:var(--cool);
+  text-decoration:none;border-bottom:1px solid #b9c6dd;
+  display:inline-block;margin-top:6px;letter-spacing:.02em;
+}
+.item a:hover{border-bottom-color:var(--cool);background:#e2e9f5}
+.item a::after{content:" ↗";letter-spacing:0}
+
+/* math + code */
+pre{
+  font-family:var(--font-m);font-size:13px;line-height:1.65;
+  background:#dfe6ec;border-left:2px solid var(--cool);
+  padding:11px 13px;margin:10px 0 0;overflow-x:auto;border-radius:0 2px 2px 0;
+}
+.answer{
+  font-family:var(--font-m);font-size:12.5px;margin-top:8px;
+  color:var(--yes);background:#e0eae6;padding:7px 10px;border-radius:2px;
+  line-height:1.55;
+}
+.answer b{font-weight:600}
+
+/* cold check */
+.cold{
+  background:transparent;border:1px dashed var(--maybe);
+  border-radius:3px;padding:14px 16px;margin-top:12px;
+}
+.cold p{margin:0 0 8px;font-size:14.5px;color:var(--ink-soft)}
+.cold ul{margin:0;padding-left:20px;font-size:15.5px}
+.cold li{margin-bottom:5px}
+
+/* reference shelf */
+.shelf-group{margin:26px 0 0}
+.shelf-group h3{
+  font-family:var(--font-d);font-size:19px;font-weight:600;
+  margin:0 0 10px;letter-spacing:-.005em;
+}
+.ref{
+  padding:9px 0;border-bottom:1px solid var(--rule-soft);
+  display:flex;flex-direction:column;gap:2px;
+}
+.ref-t{font-size:15.5px}
+.ref-t b{font-weight:500}
+.ref-d{font-family:var(--font-m);font-size:11.5px;color:var(--ink-faint);line-height:1.5}
+.ref a{
+  font-family:var(--font-m);font-size:11.5px;color:var(--cool);
+  text-decoration:none;border-bottom:1px solid #b9c6dd;align-self:flex-start;margin-top:3px;
+}
+.ref a::after{content:" ↗"}
+
+/* footer controls */
+.controls{
+  margin-top:44px;padding-top:16px;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.reset{
+  appearance:none;background:none;border:1px solid var(--rule);
+  border-radius:2px;padding:7px 13px;cursor:pointer;
+  font-family:var(--font-m);font-size:11px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.reset:hover{border-color:var(--no);color:var(--no)}
+.status{font-family:var(--font-m);font-size:11px;color:var(--ink-faint)}
+.colophon{
+  font-family:var(--font-b);font-style:italic;color:var(--ink-soft);
+  font-size:15px;margin:34px 0 0;padding-top:18px;border-top:1px solid var(--rule);
+  max-width:56ch;
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){
+  body{font-size:16px}
+  .item{padding:10px}
+  header{padding-top:30px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Fellegi &amp; Sunter · JASA 1969 · six weeks</p>
+    <h1>Probabilistic<span>Record Linkage</span></h1>
+    <p class="subtitle">Deciding when two records are the same thing — and, more usefully, when to refuse to decide.</p>
+
+    <div class="ledger">
+      <div class="ledger-head">
+        <span class="ledger-title">Evidence ledger</span>
+        <span class="ledger-verdict" id="verdict">−16.0 bits · non-link</span>
+      </div>
+      <svg id="waterfall" viewBox="0 0 620 168" role="img" aria-labelledby="wfdesc">
+        <desc id="wfdesc">Cumulative match weight across six weeks, shown as a waterfall against two decision thresholds.</desc>
+      </svg>
+      <p class="ledger-note">You start 16 bits in the hole — the prior odds that any two records match. Each completed task is evidence. Cross the lower threshold and you leave the non-link region; cross the upper one and you know this material.</p>
+    </div>
+  </header>
+</div>
+
+<nav><div class="rail" id="rail" role="tablist"></div></nav>
+
+<div class="wrap">
+  <main id="main"></main>
+  <div class="controls">
+    <span class="status" id="status">Progress saves automatically.</span>
+    <button class="reset" id="reset">Clear all progress</button>
+  </div>
+  <p class="colophon">If you only remember one thing: the theorem doesn't tell you how to be certain. It tells you the cheapest honest way to admit you aren't.</p>
+</div>
+
+<script type="text/course-deferred">
+/* ============================== COURSE DATA ============================== */
+const SETUP = {
+  id:"setup", tab:"Setup", num:"Before you start", title:"Environment", bits:0,
+  objective:"Twenty minutes of plumbing so that Week 1 is about ideas, not pip.",
+  blocks:[{
+    label:"Install", color:"var(--cool)", time:"~20 min",
+    intro:"One virtualenv, six notebooks, one running notes file.",
+    items:[
+      {id:"s1", t:"Create the environment", pre:"mkdir record-linkage && cd record-linkage\npython3 -m venv .venv && source .venv/bin/activate\npip install splink recordlinkage pandas numpy matplotlib jupyter duckdb"},
+      {id:"s2", t:"Create <code>week1.ipynb</code> through <code>week6.ipynb</code>, plus a single <code>notes.md</code>", note:"Every Write block goes in notes.md. By Week 6 that file is the thing you actually keep."},
+      {id:"s3", t:"Load the starter dataset and look at it for ten minutes", pre:"from splink import splink_datasets\ndf = splink_datasets.fake_1000", note:"1,000 records with ground-truth cluster IDs. Small enough to eyeball, corrupted enough to be interesting. Check splink.datasets for the full built-in list in your version."}
+    ]
+  }]
+};
+
+const WEEKS = [
+{
+  id:"w1", tab:"Week 1", num:"Week one", title:"Why exact matching fails", bits:3,
+  objective:"Record linkage is a <strong>base rate</strong> problem before it is a similarity problem. Almost everyone who reinvents this badly fails here, not at the math.",
+  blocks:[
+    {label:"Read", color:"var(--cool)", time:"~1 hr", items:[
+      {id:"w1r1", t:"An Interactive Introduction to Record Linkage", meta:"Robin Linacre · interactive", note:"Start here. The best pedagogy in the field, and you can drag the sliders.", url:"https://www.robinlinacre.com/intro_to_probabilistic_linkage/"},
+      {id:"w1r2", t:"Probabilistic vs Deterministic linkage", meta:"Splink topic guide", note:"Short. Frames the choice you're about to justify with your own numbers.", url:"https://moj-analytical-services.github.io/splink/topic_guides/theory/probabilistic_vs_deterministic.html"},
+      {id:"w1r3", t:"Fellegi &amp; Sunter (1969) — abstract and §1 only", meta:"JASA 64(328):1183–1210 · full PDF", note:"Just to see the shape of it. You return properly in Week 2.", url:"https://www.cs.cornell.edu/~shmat/courses/cs6434/fellegi-sunter.pdf"},
+      {id:"w1r4", t:"An Introduction to Probabilistic Record Linkage", meta:"Bristol · slides · optional", note:"Gentle visual backup if the first reading moved too fast.", url:"https://www.bristol.ac.uk/media-library/sites/cmm/migrated/documents/problinkage.pdf"}
+    ]},
+    {label:"Derive", color:"var(--maybe)", time:"~1 hr",
+     intro:"On paper. Do the arithmetic — the numbers are the lesson.", items:[
+      {id:"w1d1", t:"<b>1.1 The product space.</b> Files A and B hold 50,000 person records each. About 40,000 individuals appear in both. How many candidate pairs are in A×B? How many are true matches, how many non-matches? What is the prior probability that a random pair matches?", ans:"2.5×10⁹ pairs · 40,000 matches · prior ≈ <b>1.6×10⁻⁵</b>"},
+      {id:"w1d2", t:"<b>1.2 The precision trap.</b> A deterministic rule has a per-pair false positive rate of 0.001 and catches every true match. How many false links? What is the precision?", ans:"~2.5 million false links · precision ≈ <b>1.6%</b>. Sit with that."},
+      {id:"w1d3", t:"<b>1.3 What you actually need.</b> Now you want 90% recall and 95% precision on the same files. How many false positives can you afford, and what per-pair false positive rate does that imply?", ans:"36,000 TP · ~1,895 FP allowed · rate ≈ <b>7.6×10⁻⁷</b>, under one in a million"},
+      {id:"w1d4", t:"<b>1.4 Blocking, informally.</b> You can't score 2.5 billion pairs on a laptop. Say you only compare pairs agreeing on birth year. Roughly how many pairs survive? What kind of true match does this discard forever — and why is that loss invisible in every metric you compute downstream?"},
+      {id:"w1d5", t:"Write the answer to 1.3 at the top of a page and keep it. It is the reason this entire field exists."}
+    ]},
+    {label:"Build", color:"var(--yes)", time:"~2.5 hrs",
+     intro:"Lab 1 — the deterministic baseline, and watching it fail.", items:[
+      {id:"w1b1", t:"Load <code>fake_1000</code> and characterize the noise before you model it. How exactly are names, dates and cities corrupted?"},
+      {id:"w1b2", t:"Generate all pairs. At 1,000 records that's ~500k — small enough to brute force."},
+      {id:"w1b3", t:"Implement four deterministic rules of decreasing strictness", pre:"1.  first name + surname + DOB + city\n2.  first name + surname + DOB\n3.  surname + DOB\n4.  surname + birth year"},
+      {id:"w1b4", t:"For each rule compute TP, FP, FN, precision, recall, F1 against the ground-truth cluster IDs. Produce one table."},
+      {id:"w1b5", t:"Plot precision against recall for the four rules.", note:"The curve is not gentle. Loosening a rule enough to catch noisy matches drowns you in false positives, and nothing in between is any good. There is no threshold on a deterministic rule that reaches the corner of that plot."}
+    ]},
+    {label:"Write", color:"var(--no)", time:"~30 min", items:[
+      {id:"w1w1", t:"Half a page in <code>notes.md</code>: <i>“Why can't I just write better matching rules?”</i>", note:"If your answer is “because the data is messy,” go back. The right answer is about the size of the non-match class."}
+    ]}
+  ],
+  cold:["Why does class imbalance make precision brutally sensitive to the false positive rate?","What does blocking buy you, and what does it cost you?","Why is recall lost to blocking uncountable without ground truth?"]
+},
+{
+  id:"w2", tab:"Week 2", num:"Week two", title:"m, u, and match weights", bits:5,
+  objective:"Replace binary rules with a <strong>quantity of evidence, measured in bits</strong>. This is the conceptual core of the course.",
+  blocks:[
+    {label:"Read", color:"var(--cool)", time:"~1 hr", items:[
+      {id:"w2r1", t:"Fellegi &amp; Sunter — Sections 1 to 3", meta:"the primary source · full PDF", note:"Dense 1969 typesetting. Read for the setup: the partition of A×B into M and U, the comparison space Γ, and the definitions of m(γ) and u(γ).", url:"https://www.cs.cornell.edu/~shmat/courses/cs6434/fellegi-sunter.pdf"},
+      {id:"w2r2", t:"The mathematics of the Fellegi Sunter model", meta:"Robin Linacre", note:"Read only after attempting derivation 2.2 yourself.", url:"https://www.robinlinacre.com/maths_of_fellegi_sunter/"},
+      {id:"w2r3", t:"Visualising the Fellegi Sunter model", meta:"Robin Linacre · interactive", note:"Where the waterfall chart comes from. You build one below.", url:"https://www.robinlinacre.com/visualising_fellegi_sunter/"},
+      {id:"w2r4", t:"Seminar slides on the 1969 paper", meta:"Duke · optional", note:"Scaffolding if the original notation fights you.", url:"http://www2.stat.duke.edu/~rcs46/linkage/presentations/01-baiLi_FelleigSunter1969.pdf"}
+    ]},
+    {label:"Derive", color:"var(--maybe)", time:"~1 hr", items:[
+      {id:"w2d1", t:"<b>2.1 The two probabilities.</b> Define m<sub>k</sub> = P(field k agrees | true match) and u<sub>k</sub> = P(field k agrees | not a match) in your own words. Which is a property of your <i>data quality</i>? Which is a property of your <i>population</i>?", note:"Getting this distinction clean is most of Week 4."},
+      {id:"w2d2", t:"<b>2.2 Derive the log-odds form.</b> From Bayes, assuming conditional independence given match status, show:", pre:"log₂ odds(match | γ) = log₂ odds(match) + Σₖ log₂( mₖ(γₖ) / uₖ(γₖ) )", note:"The term log₂(mₖ/uₖ) is the partial match weight for field k. Units: bits of evidence."},
+      {id:"w2d3", t:"<b>2.3 Weights by hand.</b> Surname with m = 0.95, u = 0.001. Compute the agreement weight log₂(0.95/0.001) and the disagreement weight log₂(0.05/0.999). Then explain why the asymmetry is correct and not a bug.", ans:"agreement <b>+9.9 bits</b> · disagreement <b>−4.3 bits</b>"},
+      {id:"w2d4", t:"<b>2.4 Frequency matters.</b> Same field, two values. “Smith” appears in 1% of records, “Kirkendoll” in 0.002%. Keep m = 0.95. Compute both agreement weights.", ans:"Smith <b>≈6.6 bits</b> · Kirkendoll <b>≈15.5 bits</b> — a nine-bit gap on the same field. This is term frequency adjustment, and it's what a genealogist has always done by instinct."},
+      {id:"w2d5", t:"<b>2.5 The prior, in bits.</b> Take your Week 1 prior odds of 1.6×10⁻⁵. What is that in log₂? Does agreeing on the surname “Smith” get you anywhere near even odds? What combination of fields would?", ans:"<b>≈ −16 bits</b>. Every pair starts almost certainly a non-match, and evidence has to climb out of that hole."},
+      {id:"w2d6", t:"<b>2.6</b> Rewrite Fellegi &amp; Sunter's m(γ)/u(γ) ratio in terms of your per-field weights. Confirm the sum-of-logs form is the same object."}
+    ]},
+    {label:"Build", color:"var(--yes)", time:"~2.5 hrs",
+     intro:"Lab 2 — score every pair with parameters you set by judgment.", items:[
+      {id:"w2b1", t:"Write a comparison function turning a record pair into a comparison vector γ. Start binary agree/disagree, then add a third level for near-agreement (edit distance ≤ 2)."},
+      {id:"w2b2", t:"Hand-set m and u per field, writing your reasoning <i>before</i> you look at ground truth.", note:"For u on a roughly uniform categorical field, 1/n_distinct is a decent first guess. For m, ask: if these really are the same person, how often does this field still disagree?"},
+      {id:"w2b3", t:"Score all pairs: prior log-odds plus the sum of partial weights. Convert to probability with p = odds/(1+odds)."},
+      {id:"w2b4", t:"Plot the histogram of total match weights.", note:"You should see two humps and a valley. That valley is Week 3's subject."},
+      {id:"w2b5", t:"Build a waterfall chart for three pairs: an obvious match, an obvious non-match, and one from the middle. Bars start at the prior and step by each field's contribution.", note:"Study the middle one. Could you decide? That question is the rest of the course."}
+    ]},
+    {label:"Write", color:"var(--no)", time:"~30 min", items:[
+      {id:"w2w1", t:"One line per field on why you chose that m and that u. Then check against ground truth and note where intuition failed.", note:"Most people badly overestimate m — they assume their data is cleaner than it is."}
+    ]}
+  ],
+  cold:["What is a partial match weight, in one sentence, with units?","Why is agreement on a rare value worth more than on a common one? Give the formula.","What does conditional independence assume, and name one field pair in real data where it's clearly false.","Why does the prior enter as a constant offset in log space?"]
+},
+{
+  id:"w3", tab:"Week 3", num:"Week three", title:"The fundamental theorem", bits:6,
+  objective:"The actual result Fellegi and Sunter proved — and why it makes <strong>“I don't know”</strong> a first-class, optimized output rather than a failure.",
+  aside:"This is the week that pays for the course. Don't rush it.",
+  blocks:[
+    {label:"Read", color:"var(--cool)", time:"~1 hr", items:[
+      {id:"w3r1", t:"Fellegi &amp; Sunter — Section 4, the theorem and its proof", meta:"the payload · full PDF", note:"Slow down here. Everything else in the course is scaffolding for this section.", url:"https://www.cs.cornell.edu/~shmat/courses/cs6434/fellegi-sunter.pdf"},
+      {id:"w3r2", t:"Revisiting the probabilistic method of record linkage — §1", meta:"arXiv 1911.01874", note:"Makes the Neyman-Pearson connection explicit.", url:"https://arxiv.org/pdf/1911.01874"},
+      {id:"w3r3", t:"(Almost) All of Entity Resolution — §4.2", meta:"Binette &amp; Steorts · arXiv 2008.04443", note:"Compact modern restatement of the same theorem.", url:"https://arxiv.org/pdf/2008.04443"}
+    ]},
+    {label:"Derive", color:"var(--maybe)", time:"~1.5 hrs", items:[
+      {id:"w3d1", t:"<b>3.1 State the rule.</b> Sort comparison vectors by weight descending, choose two thresholds:", pre:"weight > T_μ    → link            (A₁)\nweight < T_λ    → non-link        (A₃)\nT_λ ≤ w ≤ T_μ   → possible link   (A₂)  → human review", note:"Then write out what happens when T_μ = T_λ. What have you thrown away?"},
+      {id:"w3d2", t:"<b>3.2 The two error rates.</b> μ = P(link | actually non-match), λ = P(non-link | actually match). Show you hit these exactly by cumulating u(γ) down from the top until it reaches μ, and m(γ) up from the bottom until it reaches λ."},
+      {id:"w3d3", t:"<b>3.3 The theorem.</b> State it in your own words: among all rules achieving error rates ≤ μ and ≤ λ, the likelihood-ratio ordering <i>minimizes the number of pairs sent to review</i>. Then map it onto Neyman-Pearson — what is the null hypothesis, the test statistic, the rejection region?"},
+      {id:"w3d4", t:"<b>3.3b</b> The theorem minimizes human review subject to fixed error rates. Restate that as a claim about cost. What is it assuming about the relative cost of the three actions?"},
+      {id:"w3d5", t:"<b>3.4 The randomization subtlety.</b> The weight distribution is discrete, so you can't usually cumulate to exactly μ. Fellegi and Sunter randomize at the boundary. Explain the problem, then explain why nobody does this in production — and what that shortcut costs."},
+      {id:"w3d6", t:"<b>3.5 The assumption everyone forgets.</b> The theorem assumes m(γ) and u(γ) are <i>known</i>. In practice they're estimated. Write down two ways an error in your estimates makes your “guaranteed” error rates a fiction.", note:"Keep this note. You need it next week."},
+      {id:"w3d7", t:"<b>3.6 Design question.</b> Pick a linkage problem you actually care about. State the cost of a false link, the cost of a missed link, and the cost of one unit of human review. Given those three, what μ and λ would you set, and why?", note:"Most systems never make this explicit. The 1969 paper forces you to. That's the discipline worth importing."}
+    ]},
+    {label:"Build", color:"var(--yes)", time:"~2.5 hrs",
+     intro:"Lab 3 — implement the decision rule, then find its price.", items:[
+      {id:"w3b1", t:"Implement threshold selection: given target μ and λ, return T_μ and T_λ by cumulating estimated u and m over the sorted weights."},
+      {id:"w3b2", t:"Verify against ground truth that you hit your target error rates. You probably won't hit them exactly. Investigate why."},
+      {id:"w3b3", t:"<b>The money chart.</b> Sweep μ and λ from 10⁻² down to 10⁻⁶. For each pair, record how many pairs land in the review zone. Plot review volume against error tolerance.", note:"Read your own chart: how much does it cost, in human hours, to halve your false positive rate? Is the curve linear? What does its shape say about where to stop tightening?"},
+      {id:"w3b4", t:"Break it on purpose: perturb one field's m by 20% and re-run. How far do realized error rates drift from nominal?", note:"This is exercise 3.5 made empirical."}
+    ]},
+    {label:"Write", color:"var(--no)", time:"~30 min", items:[
+      {id:"w3w1", t:"One page: <i>“How I would set the thresholds for [my problem], and what evidence would change my mind.”</i> Include the review-volume curve.", note:"This is the document you'd hand to whoever has to staff the review queue."}
+    ]}
+  ],
+  cold:["State the fundamental theorem for record linkage in one sentence.","What does it minimize, and subject to what?","Why are μ and λ inputs, not outputs?","What breaks when m and u are estimated rather than known?"]
+},
+{
+  id:"w4", tab:"Week 4", num:"Week four", title:"Estimation without labels", bits:5,
+  objective:"Resolve the central paradox: to estimate the model you need to know which pairs match, but <strong>finding which pairs match is the entire problem</strong>.",
+  blocks:[
+    {label:"Read", color:"var(--cool)", time:"~1 hr", items:[
+      {id:"w4r1", t:"The Intuition Behind Expectation Maximisation for Record Linkage", meta:"Robin Linacre", note:"Read first. The gentlest correct treatment of the paradox and its resolution.", url:"https://www.robinlinacre.com/em_intuition/"},
+      {id:"w4r2", t:"The Estimation of Match Validity under the Fellegi-Sunter model", meta:"Resnick · NORC · JSM 2017", note:"Missing data patterns and relaxing the independence assumption, from a practitioner.", url:"https://www.norc.org/content/dam/norc-org/documents/standard-projects-pdf/Resnick_2017_JSM.pdf"},
+      {id:"w4r3", t:"Large Scale Record Linkage in the Presence of Missing Data", meta:"arXiv 2104.09677", note:"How missingness interacts with estimation at scale.", url:"https://arxiv.org/pdf/2104.09677"},
+      {id:"w4r4", t:"Probabilistic Linkage Training — full series", meta:"Robin Linacre · index page", note:"Worth reading end to end this week now that the pieces connect.", url:"https://www.robinlinacre.com/probabilistic_linkage/"}
+    ]},
+    {label:"Derive", color:"var(--maybe)", time:"~1.5 hrs", items:[
+      {id:"w4d1", t:"<b>4.1 The mixture model.</b> Write the observed-data likelihood for N pairs under a two-component latent class model:", pre:"L(m, u, λ) = Πₚ [ λ·m(γₚ) + (1 − λ)·u(γₚ) ]\n\nwhere  m(γ) = Πₖ mₖ(γₖ)   and   u(γ) = Πₖ uₖ(γₖ)", note:"Identify precisely which independence assumptions you just used. There are two, and they are different."},
+      {id:"w4d2", t:"<b>4.2 Derive the E-step.</b> Show the posterior responsibility of the match class is:", pre:"ξₚ = λ·m(γₚ) / [ λ·m(γₚ) + (1 − λ)·u(γₚ) ]", note:"Note this is exactly the match probability from Week 2. Same quantity, new job."},
+      {id:"w4d3", t:"<b>4.3 Derive the M-step.</b> Show the updates are soft-weighted counts:", pre:"λ      = (1/N) Σₚ ξₚ\nmₖ(ℓ)  = Σ_{p: γₚₖ = ℓ} ξₚ / Σₚ ξₚ\nuₖ(ℓ)  = Σ_{p: γₚₖ = ℓ} (1 − ξₚ) / Σₚ (1 − ξₚ)", note:"Then explain in words why soft weights beat hard-assigning each pair with a 0.5 cutoff."},
+      {id:"w4d4", t:"<b>4.4 Identifiability.</b> The model is symmetric under swapping the two classes. What stops EM converging to a solution where the “match” class is actually the non-matches? What constraint do practitioners impose, and is it always safe?"},
+      {id:"w4d5", t:"<b>4.5 Why u should not come from EM.</b> Splink and fastLink estimate u by random sampling — draw random pairs, assume essentially all are non-matches (Week 1 justifies this), measure agreement directly. Explain why that's more reliable and more honest than letting EM find u. Then explain why the same trick fails for m."}
+    ]},
+    {label:"Build", color:"var(--yes)", time:"~2.5 hrs",
+     intro:"Lab 4 — EM from scratch. No libraries.", items:[
+      {id:"w4b1", t:"Implement the E and M steps as derived. About 80 lines. Loop to convergence on the log-likelihood."},
+      {id:"w4b2", t:"Run on your Week 2 comparison vectors, initialized naively (m = 0.9, u = 0.1, λ small). Plot log-likelihood per iteration.", note:"Confirm monotonic increase. If it isn't monotonic, you have a bug."},
+      {id:"w4b3", t:"Compare converged m̂ and û against ground truth. Which fields does EM nail, and which does it get wrong?", note:"Look for the pattern. It will be the correlated fields."},
+      {id:"w4b4", t:"<b>Break it #1:</b> initialize badly (m = 0.5, u = 0.5). Where does it land?"},
+      {id:"w4b5", t:"<b>Break it #2:</b> run on the unblocked pair set, then a heavily blocked one. Explain the difference in û.", note:"Subtle and important: blocking changes the population of non-matches, so EM on blocked pairs returns a u that isn't the u you want."},
+      {id:"w4b6", t:"<b>Break it #3:</b> introduce two deliberately correlated fields — city and postcode. Watch the model become overconfident, and quantify it."},
+      {id:"w4b7", t:"Implement the hybrid: u by random sampling, m by EM. Compare against ground truth. It should be better. Say why."}
+    ]},
+    {label:"Write", color:"var(--no)", time:"~30 min", items:[
+      {id:"w4w1", t:"One page: <i>“Three ways my EM run lied to me, and how I detected each.”</i> Be specific.", note:"The most useful page you'll write all course."}
+    ]}
+  ],
+  cold:["What is the latent variable in this mixture model?","Why is the E-step's ξ identical to the match probability?","Why does blocking corrupt EM's estimate of u?","What do correlated fields do to your match weights, and in which direction?"]
+},
+{
+  id:"w5", tab:"Week 5", num:"Week five", title:"Production reality", bits:4,
+  objective:"Everything between the 1969 paper and <strong>a system that runs weekly without lying to anyone</strong>.",
+  blocks:[
+    {label:"Read", color:"var(--cool)", time:"~1.5 hrs", items:[
+      {id:"w5r1", t:"Splink — documentation and tutorial", meta:"UK Ministry of Justice · Python", note:"Work through the tutorial notebooks properly this week, don't just read them.", url:"https://moj-analytical-services.github.io/splink/index.html"},
+      {id:"w5r2", t:"Running Splink in Production at the Ministry of Justice", meta:"Splink blog", note:"How a real team operates linkage as a repeatable, auditable data product.", url:"https://moj-analytical-services.github.io/splink/blog/2026/01/29/running-splink-in-production.html"},
+      {id:"w5r3", t:"Splink: Fast, accurate and scalable record linkage", meta:"gov.uk data blog", note:"The short origin story and why they built rather than bought.", url:"https://dataingovernment.blog.gov.uk/2022/09/23/splink-fast-accurate-and-scalable-record-linkage/"},
+      {id:"w5r4", t:"Peter Christen, <i>Data Matching</i> (Springer 2012) — blocking and string comparison chapters", meta:"the standard textbook · optional"}
+    ]},
+    {label:"Study", color:"var(--maybe)", time:"~1 hr",
+     intro:"Six things the paper doesn't tell you. Take a note on each.", items:[
+      {id:"w5s1", t:"<b>Blocking.</b> Multiple complementary rules unioned together; how to estimate the recall each one loses; how to count generated pairs before running anything.", note:"Every true match excluded by every blocking rule is lost with no error bar."},
+      {id:"w5s2", t:"<b>String comparators.</b> Jaro-Winkler, Levenshtein, Damerau-Levenshtein, Jaccard on tokens, phonetic codes (Soundex, Double Metaphone).", note:"These produce comparison levels, not weights. The comparator gives you γ; the model still has to learn what each level is worth."},
+      {id:"w5s3", t:"<b>Term frequency adjustments.</b> Exercise 2.4 implemented for real. Splink supports it directly — turn it on, turn it off, measure."},
+      {id:"w5s4", t:"<b>Conditional dependence.</b> Your fields are correlated and naive Bayes is false. Drop redundant fields, model interactions, or calibrate.", note:"FS models are surprisingly robust to mild violation — but “surprisingly robust” isn't “unaffected,” and the failure mode is always overconfidence."},
+      {id:"w5s5", t:"<b>Transitivity and clustering.</b> The model scores pairs; you want entities. If A links B and B links C but A doesn't link C, what do you do?", note:"Connected components over-merges catastrophically at scale — one bad link chains two clusters together. Cluster size distributions are your best diagnostic."},
+      {id:"w5s6", t:"<b>Missing data.</b> A blank field is not a disagreement. Give it its own comparison level with its own m and u, or the model punishes sparse records for being sparse."}
+    ]},
+    {label:"Build", color:"var(--yes)", time:"~3 hrs",
+     intro:"Lab 5 — a real Splink model, understood rather than copied.", items:[
+      {id:"w5b1", t:"Build a full Splink model on <code>fake_1000</code>. You now know what every field in the settings object means — confirm that as you go."},
+      {id:"w5b2", t:"Design and evaluate three blocking strategies. For each report pairs generated, estimated recall retained, and runtime."},
+      {id:"w5b3", t:"Train with <code>estimate_u_using_random_sampling</code> and <code>estimate_parameters_using_expectation_maximisation</code>. Compare Splink's learned m/u against your Week 4 from-scratch results — where they differ, work out which is right."},
+      {id:"w5b4", t:"Generate the interactive diagnostics: match weights chart, waterfalls, parameter comparisons. Compare Splink's waterfall to the one you hand-built in Week 2."},
+      {id:"w5b5", t:"Cluster at three thresholds and plot cluster size distributions. Find the over-merged giant cluster — there's always one — and diagnose which link caused it."},
+      {id:"w5b6", t:"Toggle term frequency adjustments on and off. Quantify the difference in precision and recall."},
+      {id:"w5b7", t:"Re-run on a larger dataset (the historical persons set, or FEBRL via <code>recordlinkage</code>). Note what breaks that didn't break at 1,000 records."}
+    ]},
+    {label:"Write", color:"var(--no)", time:"~30 min", items:[
+      {id:"w5w1", t:"A one-page model card: fields, comparison levels, blocking rules and their recall cost, estimation method, thresholds and their justification, known failure modes, and what you'd monitor if this ran weekly."}
+    ]}
+  ],
+  cold:["Why is recall lost to blocking fundamentally harder to measure than recall lost to thresholding?","Why does Jaro-Winkler weight early characters more heavily, and when is that assumption wrong?","What is the failure mode of connected-components clustering, and what makes it worse as data grows?","Why must a missing value be its own comparison level?"]
+},
+{
+  id:"w6", tab:"Week 6", num:"Week six", title:"Capstone", bits:3,
+  objective:"Take the theory somewhere it wasn't designed to go, and <strong>find out where it holds</strong>.",
+  aside:"Pick one track as primary. Skim the other — the contrast is most of the lesson.",
+  blocks:[
+    {label:"Track A — Historical records", color:"var(--cool)", time:"primary or skim",
+     intro:"The original problem domain, and the one where the intuition is oldest.", items:[
+      {id:"w6a1", t:"<b>The task.</b> Link individuals across two historical sources — census extracts a decade apart, or a census against vital records. Splink's historical persons dataset works, or source your own from IPUMS linked-census samples."},
+      {id:"w6a2", t:"<b>Ages drift.</b> Birth years are reported inconsistently and rounded. Design comparison levels encoding “off by one year” as meaningfully different from “off by fifteen.”"},
+      {id:"w6a3", t:"<b>Names move.</b> They anglicize, abbreviate, and get transcribed by different hands. Where do phonetic codes help, and where do they actively hurt?"},
+      {id:"w6a4", t:"<b>Households are relational evidence the model can't see.</b> Two records sharing a spouse and three children with matching names is overwhelming — but pairwise FS has no slot for it. Sketch how you'd incorporate it.", note:"Look up graph-based household linkage if you want the literature."},
+      {id:"w6a5", t:"<b>Women's surnames change.</b> Model it or lose them — and note that losing them systematically is a bias, not just an error."},
+      {id:"w6a6", t:"<b>Deliverable:</b> a trained model, an evaluation against known links, and a written analysis of which FS assumptions broke and what you did about it."}
+    ]},
+    {label:"Track B — Semantic entity resolution", color:"var(--maybe)", time:"primary or skim",
+     intro:"Taking the framework somewhere Fellegi and Sunter would not recognize.", items:[
+      {id:"w6b1", t:"<b>The task.</b> Resolve entity mentions in unstructured text — meeting transcripts, email, docs — against a structured system of record. When someone says “the Jordan thing,” which tracked entity is that?"},
+      {id:"w6b2", t:"<b>Your fields are semantic, not categorical.</b> The comparison isn't “surname agrees” but “embedding similarity 0.83.” Bin similarity into levels and learn m/u per bin.", note:"Then check: are the learned weights monotonic in similarity? If not, something is wrong and finding out what is the exercise."},
+      {id:"w6b3", t:"<b>u is genuinely hard here.</b> In classical linkage u comes from population frequency. What's the analogue for “a random mention coincidentally resembles a random tracked project”? Design a random-sampling procedure for it.", note:"This is the crux of the track."},
+      {id:"w6b4", t:"<b>The prior isn't tiny.</b> Unlike census linkage, most mentions in a work meeting probably do refer to something tracked. Recompute the prior in bits, and note what that does to threshold placement."},
+      {id:"w6b5", t:"<b>The review zone is the product.</b> Design what the system <i>says</i> when a weight lands between thresholds.", note:"“I found three mentions I couldn't confidently attribute” is a different product than silently guessing — and both differ from silently dropping them."},
+      {id:"w6b6", t:"<b>Where FS breaks down.</b> LLM-extracted entities aren't independent draws from a population; the extractor has biases, and its errors correlate with the model's. Write about this honestly.", note:"The most interesting unsolved part of the whole course."},
+      {id:"w6b7", t:"<b>Deliverable:</b> a design document plus a working prototype on 50–100 hand-labeled mentions. The doc states μ, λ, and the three costs from exercise 3.6 explicitly."}
+    ]},
+    {label:"Write", color:"var(--no)", time:"~1.5 hrs",
+     intro:"Two to three pages in notes.md. Both tracks.", items:[
+      {id:"w6w1", t:"<b>1.</b> What Fellegi-Sunter actually gives you that ad-hoc matching doesn't.", note:"Be precise. “It's probabilistic” is not an answer."},
+      {id:"w6w2", t:"<b>2.</b> Where the 1969 assumptions break in your domain, ranked by how much damage each does."},
+      {id:"w6w3", t:"<b>3.</b> The transferable principle. The two-threshold structure treats “insufficient evidence” as a designed output with a computed cost. Where else in your work is a system inferring when it should be naming a gap?", note:"Write that down concretely. This is why you took the course."},
+      {id:"w6w4", t:"<b>4.</b> What you'd build next, and what you'd need to know first."}
+    ]}
+  ],
+  cold:["Which Fellegi-Sunter assumption is most load-bearing in your chosen domain?","If you had to defend your threshold choice to someone paying for the review queue, what would you show them?","Where, outside record linkage, does your work silently infer where it should name a gap?"]
+}];
+
+const SHELF = [
+  {h:"Primary sources", items:[
+    {t:"Fellegi &amp; Sunter (1969), <b>A Theory for Record Linkage</b>", d:"JASA 64(328):1183–1210 · full PDF, free", u:"https://www.cs.cornell.edu/~shmat/courses/cs6434/fellegi-sunter.pdf"},
+    {t:"Newcombe et al. (1959), <b>Automatic Linkage of Vital Records</b>", d:"Science 130:954–959 · the origin; the paper FS formalized"},
+    {t:"Jaro (1989)", d:"String comparison, developed on the Tampa census"},
+    {t:"Winkler (1988, 1990, 2006)", d:"EM estimation, the Jaro-Winkler extension, and the standard survey"}
+  ]},
+  {h:"Modern surveys", items:[
+    {t:"Binette &amp; Steorts, <b>(Almost) All of Entity Resolution</b>", d:"arXiv 2008.04443 · the best short survey", u:"https://arxiv.org/pdf/2008.04443"},
+    {t:"<b>Revisiting the probabilistic method of record linkage</b>", d:"arXiv 1911.01874 · fifty years on, with the Neyman-Pearson framing", u:"https://arxiv.org/pdf/1911.01874"},
+    {t:"Peter Christen, <b>Data Matching</b> (Springer 2012)", d:"The standard textbook"},
+    {t:"<b>An Introduction to Probabilistic Record Linkage</b>", d:"Bristol · slides", u:"https://www.bristol.ac.uk/media-library/sites/cmm/migrated/documents/problinkage.pdf"}
+  ]},
+  {h:"Bayesian and modern extensions", items:[
+    {t:"<b>Fast Bayesian Record Linkage With Record-Specific Disagreement Parameters</b>", d:"arXiv 2003.04238", u:"https://arxiv.org/pdf/2003.04238"},
+    {t:"<b>Scaling Bayesian Probabilistic Record Linkage with Post-Hoc Blocking</b>", d:"arXiv 1905.05337 · California Great Registers", u:"https://arxiv.org/pdf/1905.05337"},
+    {t:"<b>Large Scale Record Linkage in the Presence of Missing Data</b>", d:"arXiv 2104.09677", u:"https://arxiv.org/pdf/2104.09677"},
+    {t:"<b>Analysis of Linked Files: A Missing Data Perspective</b>", d:"arXiv 2406.14717", u:"https://arxiv.org/pdf/2406.14717"},
+    {t:"Resnick, <b>Estimation of Match Validity under Fellegi-Sunter</b>", d:"NORC · JSM 2017", u:"https://www.norc.org/content/dam/norc-org/documents/standard-projects-pdf/Resnick_2017_JSM.pdf"}
+  ]},
+  {h:"Teaching materials", items:[
+    {t:"Robin Linacre, <b>Probabilistic Linkage Training</b>", d:"The full interactive series · best pedagogy in the field", u:"https://www.robinlinacre.com/probabilistic_linkage/"},
+    {t:"— An Interactive Introduction to Record Linkage", d:"Start here in Week 1", u:"https://www.robinlinacre.com/intro_to_probabilistic_linkage/"},
+    {t:"— The mathematics of the Fellegi Sunter model", d:"Week 2", u:"https://www.robinlinacre.com/maths_of_fellegi_sunter/"},
+    {t:"— Visualising the Fellegi Sunter model", d:"Week 2", u:"https://www.robinlinacre.com/visualising_fellegi_sunter/"},
+    {t:"— The Intuition Behind EM", d:"Week 4", u:"https://www.robinlinacre.com/em_intuition/"},
+    {t:"Seminar slides on the 1969 paper", d:"Duke · scaffolding for the original notation", u:"http://www2.stat.duke.edu/~rcs46/linkage/presentations/01-baiLi_FelleigSunter1969.pdf"}
+  ]},
+  {h:"Software", items:[
+    {t:"<b>Splink</b> — Python, UK Ministry of Justice", d:"FS + EM, DuckDB and Spark backends, excellent diagnostics. The one to learn.", u:"https://moj-analytical-services.github.io/splink/index.html"},
+    {t:"<b>fastLink</b> — R, Enamorado / Fifield / Imai", d:"Closest to the statistical literature; handles missingness well"},
+    {t:"<b>recordlinkage</b> — Python, de Bruin", d:"Good for learning; ships the FEBRL datasets"},
+    {t:"<b>dedupe</b> — Python", d:"Active learning approach, a different philosophy"}
+  ]}
+];
+
+/* ============================== STATE ============================== */
+const KEY = "rl-course-progress";
+let done = {};
+const ALL = [SETUP, ...WEEKS];
+const idsFor = s => s.blocks.flatMap(b => b.items.map(i => i.id));
+
+/* Portable storage: uses the Claude artifact API when present, browser
+   localStorage when published to the web, and falls back to memory
+   (private browsing, storage disabled) without breaking anything. */
+const store = (function(){
+  const mem = {};
+  const hasClaude = typeof window.storage === "object"
+                 && window.storage !== null
+                 && typeof window.storage.get === "function";
+  let hasLocal = false;
+  try{
+    window.localStorage.setItem("__probe__","1");
+    window.localStorage.removeItem("__probe__");
+    hasLocal = true;
+  }catch(e){ hasLocal = false; }
+
+  return {
+    mode: hasClaude ? "claude" : hasLocal ? "local" : "memory",
+    async get(k){
+      if(hasClaude){ try{ const r = await window.storage.get(k); return (r && r.value) || null; }catch(e){} }
+      if(hasLocal){ try{ return window.localStorage.getItem(k); }catch(e){} }
+      return mem[k] || null;
+    },
+    async set(k,v){
+      if(hasClaude){ try{ await window.storage.set(k,v); return true; }catch(e){} }
+      if(hasLocal){ try{ window.localStorage.setItem(k,v); return true; }catch(e){} }
+      mem[k] = v;
+      return this.mode === "memory" ? false : true;
+    },
+    async del(k){
+      if(hasClaude){ try{ await window.storage.delete(k); }catch(e){} }
+      if(hasLocal){ try{ window.localStorage.removeItem(k); }catch(e){} }
+      delete mem[k];
+    }
+  };
+})();
+
+async function load(){
+  try{
+    const raw = await store.get(KEY);
+    if(raw) done = JSON.parse(raw);
+  }catch(e){ done = {}; }
+}
+let saveTimer;
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async ()=>{
+    const ok = await store.set(KEY, JSON.stringify(done));
+    setStatus(ok ? "Saved." : "Progress kept for this session only — storage is unavailable.");
+  }, 350);
+}
+function setStatus(m){
+  const el = document.getElementById("status");
+  el.textContent = m;
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>{ el.textContent = "Progress saves automatically."; }, 2600);
+}
+
+/* ============================== RENDER ============================== */
+function itemHTML(it){
+  const checked = done[it.id] ? " checked" : "";
+  let inner = `<div class="item-title">${it.t}</div>`;
+  if(it.meta)  inner += `<div class="item-meta">${it.meta}</div>`;
+  if(it.pre)   inner += `<pre>${it.pre}</pre>`;
+  if(it.note)  inner += `<div class="item-note">${it.note}</div>`;
+  if(it.ans)   inner += `<div class="answer">Check: ${it.ans}</div>`;
+  if(it.url)   inner += `<a href="${it.url}" target="_blank" rel="noopener">Open the full text</a>`;
+  return `<label class="item">
+    <input type="checkbox" data-id="${it.id}"${checked} aria-label="Mark complete">
+    <div class="item-body">${inner}</div>
+  </label>`;
+}
+
+function sectionHTML(s){
+  let h = `<p class="wk-num">${s.num}</p><h2>${s.title}</h2>`;
+  if(s.objective) h += `<p class="objective">${s.objective}</p>`;
+  if(s.aside)     h += `<p class="aside">▸ ${s.aside}</p>`;
+  for(const b of s.blocks){
+    h += `<section class="block">
+      <div class="block-head">
+        <span class="block-label" style="color:${b.color}">${b.label}</span>
+        ${b.time ? `<span class="block-time">${b.time}</span>` : ""}
+      </div>`;
+    if(b.intro) h += `<p class="block-intro">${b.intro}</p>`;
+    h += b.items.map(itemHTML).join("");
+    h += `</section>`;
+  }
+  if(s.cold){
+    h += `<section class="block">
+      <div class="block-head"><span class="block-label" style="color:var(--maybe)">Can you explain it cold?</span></div>
+      <div class="cold">
+        <p>Say these out loud, without notes, before moving on. If one won't come, repeat the week — the material compounds.</p>
+        <ul>${s.cold.map(c=>`<li>${c}</li>`).join("")}</ul>
+      </div>
+    </section>`;
+  }
+  return h;
+}
+
+function shelfHTML(){
+  let h = `<p class="wk-num">Appendix</p><h2>Reference shelf</h2>
+  <p class="objective">Everything cited across the six weeks, in one place. Links go to free full text where it exists.</p>`;
+  for(const g of SHELF){
+    h += `<div class="shelf-group"><h3>${g.h}</h3>`;
+    for(const r of g.items){
+      h += `<div class="ref"><div class="ref-t">${r.t}</div><div class="ref-d">${r.d}</div>`;
+      if(r.u) h += `<a href="${r.u}" target="_blank" rel="noopener">Open</a>`;
+      h += `</div>`;
+    }
+    h += `</div>`;
+  }
+  return h;
+}
+
+function build(){
+  const rail = document.getElementById("rail");
+  const main = document.getElementById("main");
+  rail.innerHTML = ALL.map((s,i)=>
+    `<button class="tab" role="tab" data-i="${i}" aria-selected="${i===0}" aria-controls="p${i}">${s.tab}<span class="dot" data-dot="${s.id}"></span></button>`
+  ).join("") + `<button class="tab" role="tab" data-i="ref" aria-selected="false" aria-controls="pref">Reference</button>`;
+
+  main.innerHTML = ALL.map((s,i)=>
+    `<div class="panel" id="p${i}" role="tabpanel"${i===0?"":" hidden"}>${sectionHTML(s)}</div>`
+  ).join("") + `<div class="panel" id="pref" role="tabpanel" hidden>${shelfHTML()}</div>`;
+
+  rail.addEventListener("click", e=>{
+    const b = e.target.closest(".tab"); if(!b) return;
+    show(b.dataset.i);
+  });
+  main.addEventListener("change", e=>{
+    const c = e.target.closest("input[type=checkbox]"); if(!c) return;
+    if(c.checked) done[c.dataset.id] = 1; else delete done[c.dataset.id];
+    save(); paint();
+  });
+  document.getElementById("reset").addEventListener("click", async ()=>{
+    if(!confirm("Clear every checkbox in all six weeks? This can't be undone.")) return;
+    done = {};
+    document.querySelectorAll("#main input[type=checkbox]").forEach(c=>c.checked=false);
+    await store.del(KEY);
+    paint(); setStatus("Progress cleared.");
+  });
+}
+
+function show(i){
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected", t.dataset.i===String(i)));
+  document.querySelectorAll(".panel").forEach(p=>p.hidden = true);
+  document.getElementById(i==="ref" ? "pref" : "p"+i).hidden = false;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ---------- the evidence waterfall ---------- */
+const PRIOR = -16, T_LO = -6, T_HI = 2, Y_TOP = 12, Y_BOT = -18;
+function paint(){
+  // per-section dots
+  for(const s of ALL){
+    const ids = idsFor(s), n = ids.filter(i=>done[i]).length;
+    const dot = document.querySelector(`[data-dot="${s.id}"]`);
+    if(dot) dot.className = "dot" + (n===0 ? "" : n===ids.length ? " done" : " part");
+  }
+
+  const W = 620, H = 168, PADL = 46, PADR = 12, PADT = 10, PADB = 22;
+  const y = v => PADT + (Y_TOP - v) / (Y_TOP - Y_BOT) * (H - PADT - PADB);
+  const colW = (W - PADL - PADR) / 6;
+
+  let running = PRIOR, svg = "";
+
+  // zone bands
+  svg += `<rect x="${PADL}" y="${y(Y_TOP)}" width="${W-PADL-PADR}" height="${y(T_HI)-y(Y_TOP)}" fill="#1B5E4A" opacity="0.07"/>`;
+  svg += `<rect x="${PADL}" y="${y(T_HI)}" width="${W-PADL-PADR}" height="${y(T_LO)-y(T_HI)}" fill="#A8660C" opacity="0.10"/>`;
+  svg += `<rect x="${PADL}" y="${y(T_LO)}" width="${W-PADL-PADR}" height="${y(Y_BOT)-y(T_LO)}" fill="#8C3B4A" opacity="0.06"/>`;
+
+  // threshold lines
+  for(const [v,lab,col] of [[T_HI,"T μ","#1B5E4A"],[T_LO,"T λ","#8C3B4A"]]){
+    svg += `<line x1="${PADL}" y1="${y(v)}" x2="${W-PADR}" y2="${y(v)}" stroke="${col}" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>`;
+    svg += `<text x="${PADL-6}" y="${y(v)+3.5}" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="${col}">${lab}</text>`;
+  }
+  // prior marker
+  svg += `<text x="${PADL-6}" y="${y(PRIOR)+3.5}" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#8B98A3">prior</text>`;
+  svg += `<line x1="${PADL}" y1="${y(PRIOR)}" x2="${W-PADR}" y2="${y(PRIOR)}" stroke="#8B98A3" stroke-width="1" opacity="0.45"/>`;
+
+  WEEKS.forEach((wk,i)=>{
+    const ids = idsFor(wk);
+    const frac = ids.length ? ids.filter(id=>done[id]).length / ids.length : 0;
+    const gain = wk.bits * frac;
+    const x = PADL + i*colW + colW*0.18, bw = colW*0.64;
+    const top = y(running + gain), bot = y(running);
+    const col = (running + gain) >= T_HI ? "#1B5E4A" : (running + gain) >= T_LO ? "#A8660C" : "#8C3B4A";
+
+    // ghost of the full week's potential
+    svg += `<rect x="${x}" y="${y(running + wk.bits)}" width="${bw}" height="${Math.max(1,y(running)-y(running+wk.bits))}" fill="none" stroke="#8B98A3" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>`;
+    if(gain > 0.01)
+      svg += `<rect x="${x}" y="${top}" width="${bw}" height="${Math.max(1.5, bot-top)}" fill="${col}" opacity="0.85"/>`;
+    if(i < 5)
+      svg += `<line x1="${x+bw}" y1="${top}" x2="${PADL+(i+1)*colW+colW*0.18}" y2="${top}" stroke="#5B6976" stroke-width="1" stroke-dasharray="2 2" opacity="0.45"/>`;
+    svg += `<text x="${x+bw/2}" y="${H-7}" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#8B98A3">W${i+1}</text>`;
+    running += gain;
+  });
+
+  document.getElementById("waterfall").innerHTML = svg;
+
+  const verdict = running >= T_HI ? "link" : running >= T_LO ? "possible link — review" : "non-link";
+  const vcol = running >= T_HI ? "var(--yes)" : running >= T_LO ? "var(--maybe)" : "var(--no)";
+  const v = document.getElementById("verdict");
+  v.textContent = `${running>=0?"+":"−"}${Math.abs(running).toFixed(1)} bits · ${verdict}`;
+  v.style.color = vcol;
+}
+
+(async function init(){
+  await load();
+  build();
+  paint();
+})();
+</script>
+</body>
+</html>
