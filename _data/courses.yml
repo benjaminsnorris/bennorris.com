@@ -49,3 +49,11 @@
   description: >-
     Advance to sending messages with Morse code via sound or light.
   tracked: true
+
+- slug: graphical-perception
+  title: Graphical Perception
+  description: >-
+    Which visual encodings a reader actually decodes accurately, from Cleveland
+    & McGill (JASA, 1984) to a chart you can defend with measurements you took
+    yourself.
+  tracked: true

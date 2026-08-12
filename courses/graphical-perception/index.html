@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="graphical-perception"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elementary Perceptual Tasks — A Working Course in Graphical Perception</title>
+<meta name="description" content="A five-unit course on graphical perception. Replicate Cleveland &amp; McGill's 1984 experiment on yourself, learn why the encoding ranking is really three rankings, and rebuild a chart you own with evidence.">
+<meta name="author" content="Ben Norris">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elementary Perceptual Tasks — A Working Course in Graphical Perception">
+<meta property="og:description" content="Replicate Cleveland &amp; McGill's 1984 experiment on yourself, then rebuild a chart you own with evidence. Five units, about twenty hours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light dark;
+
+  --paper:#EDEFE9;
+  --card:#F8F9F4;
+  --sunk:#E3E6DD;
+  --ink:#161A16;
+  --ink-2:#4B534C;
+  --ink-3:#656C65;
+  --rule:#C9D0C5;
+  --edge:#848881;
+  --rule-2:#DDE2D8;
+  --blue:#1F3A5F;
+  --blue-soft:#E0E7F0;
+  --amber:#965708;
+  --amber-soft:#F3E6D2;
+  --good:#2B6146;
+  --bad:#8A2F3A;
+  --btn-fg:#FBFCF9;
+
+  --f-display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --f-body:'Newsreader',Georgia,'Times New Roman',serif;
+  --f-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --w:44rem;
+  --r:3px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#161A15;
+    --card:#1D211C;
+    --sunk:#232823;
+    --ink:#E7EAE1;
+    --ink-2:#AFB6AC;
+    --ink-3:#838B82;
+    --rule:#333A31;
+    --edge:#616F5E;
+    --rule-2:#272D26;
+    --blue:#89ADDB;
+    --blue-soft:#1E2A38;
+    --amber:#DFA34C;
+    --amber-soft:#2E2517;
+    --good:#6FBE97;
+    --bad:#D98A93;
+  }
+}
+[data-theme="light"]{
+  color-scheme: light;
+  --paper:#EDEFE9;--card:#F8F9F4;--sunk:#E3E6DD;--ink:#161A16;--ink-2:#4B534C;--ink-3:#656C65;--edge:#848881;
+  --rule:#C9D0C5;--rule-2:#DDE2D8;--blue:#1F3A5F;--blue-soft:#E0E7F0;--amber:#965708;
+  --amber-soft:#F3E6D2;--good:#2B6146;--bad:#8A2F3A;--btn-fg:#FBFCF9;
+}
+[data-theme="dark"]{
+  color-scheme: dark;
+  --paper:#161A15;--card:#1D211C;--sunk:#232823;--ink:#E7EAE1;--ink-2:#AFB6AC;--ink-3:#838B82;--edge:#616F5E;
+  --rule:#333A31;--rule-2:#272D26;--blue:#89ADDB;--blue-soft:#1E2A38;--amber:#DFA34C;
+  --amber-soft:#2E2517;--good:#6FBE97;--bad:#D98A93;--btn-fg:#12150F;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--f-body);font-size:17px;line-height:1.6;
+  font-optical-sizing:auto;
+  padding-bottom:4rem;
+  overflow-x:hidden;
+}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 18px}
+p{margin:0 0 .85em}
+a{color:var(--blue);text-underline-offset:2px;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{
+  outline:2px solid var(--amber);outline-offset:2px}
+hr{border:0;border-top:1px solid var(--rule-2);margin:2rem 0}
+
+.eyebrow{
+  font-family:var(--f-display);font-weight:600;font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 .35rem}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;line-height:1.16;margin:0 0 .5rem}
+h1{font-size:1.72rem;letter-spacing:-.015em}
+h2{font-size:1.3rem;letter-spacing:-.01em;margin-top:0}
+h3{font-size:1.02rem}
+h4{font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.lede{font-size:1.06rem;color:var(--ink-2)}
+small,.small{font-size:.83rem}
+code,.mono{font-family:var(--f-mono);font-size:.86em}
+em.term{font-style:normal;font-family:var(--f-mono);font-size:.88em;background:var(--sunk);
+  padding:.05em .3em;border-radius:2px}
+
+/* ---------- masthead + meter ---------- */
+.mast{border-bottom:1px solid var(--rule);background:var(--card)}
+.mast .wrap{padding-top:1.1rem;padding-bottom:.9rem}
+.mast h1{margin-bottom:.15rem}
+.mast .sub{font-size:.92rem;color:var(--ink-2);margin:0}
+
+.meter{margin-top:1rem;border:1px solid var(--rule);border-radius:var(--r);
+  background:var(--paper);padding:.7rem .8rem}
+.meter-head{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;margin-bottom:.5rem}
+.meter-rank{font-family:var(--f-display);font-weight:700;font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--amber)}
+.meter-count{font-family:var(--f-mono);font-size:.7rem;color:var(--ink-3)}
+.meter-stage{height:52px;display:block;width:100%}
+.meter-note{font-size:.78rem;color:var(--ink-2);margin:.45rem 0 0;line-height:1.4}
+.meter-note b{font-weight:600;color:var(--ink)}
+.meter-reveal{font-family:var(--f-mono);font-size:.7rem;color:var(--ink-3);background:none;
+  border:0;padding:.75rem 0 .4rem;min-height:44px;cursor:pointer;text-align:left;
+  text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- nav ---------- */
+nav.tabs{position:sticky;top:0;z-index:20;background:var(--paper);
+  border-bottom:1px solid var(--rule);}
+nav.tabs .wrap{display:flex;gap:0;padding:0;overflow-x:auto;scrollbar-width:none}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+nav.tabs button{
+  flex:0 0 auto;background:none;border:0;border-bottom:2px solid transparent;
+  font-family:var(--f-display);font-weight:600;font-size:.74rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);padding:.95rem .85rem;cursor:pointer;min-height:44px}
+nav.tabs button:first-child{padding-left:18px}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--amber)}
+
+/* ---------- cards / blocks ---------- */
+.card{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
+  padding:1.1rem 1.05rem;margin:1.4rem 0}
+.card.flat{background:none;border-style:dashed}
+.unit{margin:2.6rem 0 0;padding-top:1.6rem;border-top:1px solid var(--rule)}
+.unit-meta{font-family:var(--f-mono);font-size:.74rem;color:var(--ink-3);margin:.1rem 0 .9rem}
+.evidence{border-left:3px solid var(--amber);background:var(--amber-soft);
+  padding:.65rem .8rem;margin:0 0 1.1rem;border-radius:0 var(--r) var(--r) 0}
+.evidence .eyebrow{color:var(--amber);margin-bottom:.2rem}
+.evidence p{margin:0;font-size:.94rem}
+
+.block{border:1px solid var(--rule-2);border-radius:var(--r);margin:.7rem 0;background:var(--card)}
+.block>summary{list-style:none;cursor:pointer;padding:.75rem .85rem;display:flex;
+  align-items:flex-start;gap:.6rem;min-height:44px}
+.block>summary::-webkit-details-marker{display:none}
+.block>summary:hover{background:var(--sunk)}
+.blk-label{font-family:var(--f-display);font-weight:600;font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--blue);flex:0 0 auto;padding-top:.14rem}
+.blk-title{flex:1 1 auto;font-size:.97rem;line-height:1.35}
+.blk-time{font-family:var(--f-mono);font-size:.72rem;color:var(--ink-3);flex:0 0 auto;padding-top:.2rem}
+.block[open]>summary{border-bottom:1px solid var(--rule-2)}
+.blk-body{padding:.9rem .85rem 1rem}
+.blk-body>:last-child{margin-bottom:0}
+
+.tick{display:flex;align-items:center;gap:.55rem;margin-top:.9rem;padding-top:.7rem;
+  border-top:1px dashed var(--rule);font-size:.85rem;color:var(--ink-2);cursor:pointer;min-height:44px}
+.tick input{width:19px;height:19px;accent-color:var(--amber);flex:0 0 auto}
+
+/* ---------- provenance chips ---------- */
+.chip{display:inline-block;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.02em;
+  padding:.08em .38em;border-radius:2px;vertical-align:.12em;white-space:nowrap;
+  border:1px solid var(--rule);color:var(--ink-2);background:var(--sunk)}
+.chip.src{color:var(--blue);border-color:var(--blue);background:var(--blue-soft)}
+.chip.src a{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor}
+.chip.infer{color:var(--amber);border-color:var(--amber);background:var(--amber-soft)}
+.chip.contested{color:var(--bad);border-color:var(--bad)}
+.chip.single{color:var(--ink-2)}
+.chip.vendor{color:var(--ink);border-style:dashed}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--rule);border-radius:var(--r);padding:.85rem;margin:1rem 0;background:var(--paper)}
+.ex .eyebrow{color:var(--amber)}
+.ex textarea,.ex input[type=text],.ex input[type=number]{
+  width:100%;font-family:var(--f-mono);font-size:.86rem;background:var(--card);
+  color:var(--ink);border:1px solid var(--edge);border-radius:2px;padding:.55rem;margin:.4rem 0}
+.ex textarea{min-height:5.5rem;resize:vertical;line-height:1.5}
+.conf{display:flex;gap:.3rem;align-items:center;flex-wrap:wrap;margin:.5rem 0}
+.conf span{font-size:.78rem;color:var(--ink-3);margin-right:.2rem}
+.conf button{min-width:44px;min-height:44px;font-family:var(--f-mono);font-size:.8rem;
+  background:var(--card);color:var(--ink-2);border:1px solid var(--edge);border-radius:2px;cursor:pointer}
+.conf button[aria-pressed="true"]{background:var(--amber);color:var(--btn-fg);border-color:var(--amber)}
+.reveal{margin-top:.6rem;padding:.75rem .8rem;border:1px solid var(--rule);border-left:3px solid var(--good);
+  border-radius:0 var(--r) var(--r) 0;background:var(--card);font-size:.92rem}
+.reveal[hidden]{display:none}
+.gate{font-family:var(--f-display);font-weight:600;font-size:.76rem;letter-spacing:.06em;
+  text-transform:uppercase;background:var(--ink);color:var(--paper);border:0;border-radius:2px;
+  padding:.6rem .9rem;cursor:pointer;min-height:44px}
+.gate[disabled]{opacity:.4;cursor:not-allowed}
+.calib{font-family:var(--f-mono);font-size:.78rem;margin-top:.5rem;color:var(--ink-2)}
+
+button.act{font-family:var(--f-display);font-weight:600;font-size:.78rem;letter-spacing:.05em;
+  background:var(--card);color:var(--ink);border:1px solid var(--edge);border-radius:2px;
+  padding:.6rem .85rem;cursor:pointer;min-height:44px}
+button.act.primary{background:var(--amber);border-color:var(--amber);color:var(--btn-fg)}
+button.act:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+
+/* ---------- tables ---------- */
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;
+  border:1px solid var(--rule-2);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;min-width:26rem;font-size:.86rem}
+tr[id]:target td{background:var(--amber-soft)}
+th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--rule-2);vertical-align:top}
+th{font-family:var(--f-display);font-weight:600;font-size:.7rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+td.num{font-family:var(--f-mono);text-align:right;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+
+/* ---------- lab ---------- */
+.stim{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
+  padding:.8rem;display:flex;justify-content:center}
+.stim svg{width:100%;height:auto;max-width:340px;display:block}
+.trialbar{display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--f-mono);font-size:.74rem;color:var(--ink-3);margin-bottom:.5rem}
+.answer{display:flex;gap:.5rem;align-items:center;margin-top:.8rem;flex-wrap:wrap}
+.answer input[type=number]{width:6rem;font-family:var(--f-mono);font-size:1.1rem;padding:.6rem;
+  background:var(--card);color:var(--ink);border:1px solid var(--edge);border-radius:2px;min-height:44px}
+.ladder{width:100%;height:auto;display:block;margin:.6rem 0}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;font-family:var(--f-mono);font-size:.74rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.3rem}
+
+.footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--rule);
+  font-size:.8rem;color:var(--ink-3)}
+.footer .row{margin-top:.7rem}
+.toast{position:fixed;left:16px;right:auto;max-width:calc(100% - 120px);bottom:16px;background:var(--ink);
+  color:var(--paper);font-family:var(--f-mono);font-size:.78rem;padding:.5rem .8rem;border-radius:3px;
+  opacity:0;pointer-events:none;transition:opacity .25s;z-index:50}
+.toast.on{opacity:.95}
+
+[hidden]{display:none !important}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+@media (min-width:600px){
+  body{font-size:17.5px}
+  h1{font-size:2rem}
+  .wrap{padding:0 24px}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <p class="eyebrow">A working course · five units · ~20 hours</p>
+    <h1>Elementary Perceptual Tasks</h1>
+    <p class="sub">Graphical perception, from the 1984 experiment to a chart you can defend.</p>
+
+    <div class="meter" id="meter">
+      <div class="meter-head">
+        <span class="meter-rank" id="meterRank">Rank 6 of 6 — shading</span>
+        <span class="meter-count" id="meterCount">0 / 22 blocks</span>
+      </div>
+      <svg class="meter-stage" id="meterStage" viewBox="0 0 340 52" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Progress meter"></svg>
+      <p class="meter-note" id="meterNote"></p>
+      <button class="meter-reveal" id="meterReveal">Read it numerically instead</button>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <div class="wrap">
+    <button role="tab" data-view="course" aria-selected="true">Course</button>
+    <button role="tab" data-view="lab" aria-selected="false">Lab</button>
+    <button role="tab" data-view="records" aria-selected="false">Records</button>
+    <button role="tab" data-view="sources" aria-selected="false">Sources</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ==================== COURSE ==================== -->
+<section id="view-course">
+
+  <div class="card">
+    <p class="eyebrow">What you'll be able to do</p>
+    <p class="lede">Take a chart you are responsible for, state the decoding task it asks of its reader, predict which encodings will fail and roughly by how much, and defend the redesign with evidence — including evidence you collected yourself.</p>
+    <p class="small" style="margin-bottom:0">Not "understand graphical perception." The deliverable is a stack of decision records and one rebuilt chart with a measured defense.</p>
+  </div>
+
+  <div class="card">
+    <h3>Where you're starting from</h3>
+    <p class="small">Assumed: you build charts and progress meters in HTML/SVG regularly; log scales, robust estimators and bootstrap confidence intervals are familiar or a one-line refresher; you've absorbed the folk rule that bar charts beat pie charts. Assumed absent: any contact with the primary literature, and any experience running a perception experiment. If that's wrong in either direction, the fading in Units 3–5 will feel off — adjust by skipping the worked examples or by slowing down.</p>
+
+    <h3 style="margin-top:1.2rem">What this course does not do</h3>
+    <ul class="small" style="margin:0 0 .5rem;padding-left:1.1rem">
+      <li><b>No color science.</b> Colormaps, gamut, contrast — a different course. Color appears here only as a low-ranked channel.</li>
+      <li><b>No uncertainty visualization.</b> Error bars, hypothetical outcome plots, quantile dotplots: out of scope, and genuinely important.</li>
+      <li><b>No task taxonomies.</b> Brehmer &amp; Munzner's why/what/how is the natural sequel; this course stops at the elementary level on purpose.</li>
+      <li><b>No aesthetics, branding, or chart-junk arguments.</b> Where the evidence runs out, the course says so rather than substituting taste.</li>
+      <li><b>No accessibility treatment.</b> Named where it collides with the material, never taught.</li>
+      <li><b>No interaction.</b> Everything here is about static decoding.</li>
+    </ul>
+
+    <h3 style="margin-top:1.2rem">Time</h3>
+    <p class="small" style="margin-bottom:0">About <b>20 hours</b> across five units. That figure already has the 2.5&times; correction applied — the raw design is roughly 8 hours, and learners consistently take far longer than the raw estimate. Every block below carries its own estimate. Blocks are sitting-sized: you can open one, close it, and stop.</p>
+    <p class="small" style="margin-bottom:0">One more thing the attrition data is clear about, and it has nothing to do with the material: cohort formats complete at substantially higher rates than solo self-paced study, and social isolation is a commonly cited reason people abandon courses. If you actually want to finish this, the highest-leverage move available is to talk one other person into working through it alongside you.</p>
+  </div>
+
+  <div class="card flat">
+    <p class="eyebrow">How claims are marked</p>
+    <p class="small" style="margin-bottom:.4rem">Every load-bearing claim carries a marker. <span class="chip src"><a href="#S4">S4</a></span> a sourced fact, keyed to the numbered list in Sources. <span class="chip infer">Inference</span> my reasoning, in no source. <span class="chip contested">Contested</span> the field genuinely disagrees. <span class="chip single">Single study</span> real but unreplicated. <span class="chip vendor">Vendor framing</span> true, but authored by someone selling the thing.</p>
+    <p class="small" style="margin-bottom:0">The last one matters more here than you'd expect. Two of the six central sources were written by people at Tableau.</p>
+  </div>
+
+  <!-- ============ UNIT 1 ============ -->
+  <article class="unit" id="u1">
+    <p class="eyebrow">Unit One</p>
+    <h2>Run the experiment on yourself</h2>
+    <p class="unit-meta">~3 h 15 m &nbsp;·&nbsp; 4 blocks &nbsp;·&nbsp; threshold 1 opens here</p>
+
+    <div class="evidence">
+      <p class="eyebrow">Evidence this unit produces</p>
+      <p>Your own accuracy ladder across four encodings, and Decision Record #1: one real chart you own, decomposed.</p>
+    </div>
+
+    <p>Most people meet this material as a ranked list they are asked to believe. That's the half-crossing — you can recite "position beats angle" for years without it changing a single decision, because a list is not evidence, it's the residue of evidence.</p>
+    <p>So Unit One starts at the other end. You will sit the 1984 experiment before you read the 1984 paper. Twenty-four stimuli, four encodings, quick visual judgments, no measuring. Then you'll compute your own log-error midmeans and put your ladder next to theirs.</p>
+    <p><b>Expect your ladder to be noisier than the published one and possibly out of order in places.</b> Six trials per encoding against their fifty-one subjects times ten ratios <span class="chip src"><a href="#S1">S1</a></span> is not a fair fight. That gap is the unit's real subject.</p>
+
+    <details class="block" data-block="u1-judge">
+      <summary><span class="blk-label">Judge</span><span class="blk-title">Sit Round 1 in the Lab: 24 stimuli, four encodings.</span><span class="blk-time">40 m</span></summary>
+      <div class="blk-body">
+        <p>Go to the <b>Lab</b> tab and run Round 1 before reading anything else. The instructions there mirror the original: identify which of the two marked values is smaller, then <i>make a quick visual judgment</i> of what percentage the smaller is of the larger. Do not measure with a finger, a pencil, or a screenshot tool. Do not go back and revise.</p>
+        <p class="small">The four types are position along a common scale, length in a divided bar, angle in a pie, and circular area in a bubble chart. Heer &amp; Bostock unified all four into one response format so they could be compared directly <span class="chip src"><a href="#S2">S2</a></span>; Cleveland &amp; McGill ran position-length and position-angle as two separate experiments and explicitly warned that the means from one should not be compared with the means from the other <span class="chip src"><a href="#S1">S1</a></span>. You're following the later format.</p>
+        <div class="tick"><input type="checkbox" data-done="u1-judge"><span>Round 1 complete — my ladder is on the screen.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u1-read">
+      <summary><span class="blk-label">Read</span><span class="blk-title">Cleveland &amp; McGill 1984, sections 1 through 4.5.</span><span class="blk-time">1 h</span></summary>
+      <div class="blk-body">
+        <p><a href="https://www.math.pku.edu.cn/teachers/xirb/Courses/biostatistics/Biostatistics2016/GraphicalPerception_Jasa1984.pdf" target="_blank" rel="noopener">Full text, free scan (PDF)</a> — <i>Journal of the American Statistical Association</i> 79(387), September 1984, pp. 531–554. <span class="chip src"><a href="#S1">S1</a></span></p>
+        <p>Read for three things and let the rest wash past:</p>
+        <ul class="small">
+          <li><b>Section 2</b> — the ten elementary tasks, and their care about what they are <i>not</i> claiming. Note that they say plainly the ten are not distinct, not exhaustive, and overlapping; that a circle shown to a viewer has an area but also a diameter and a circumference.</li>
+          <li><b>Section 3</b> — the ordering, and the honest paragraph about where it came from. It is not derived. It is assembled from psychophysics, their own tinkering, and prior experiments, and then <i>tested</i>.</li>
+          <li><b>Section 4</b> — the experimental design and the analysis. This is the part you just lived. You'll return to it in Unit Two.</li>
+        </ul>
+        <p class="small">One sentence to hold onto, from their Section 6: they had no proof that laboratory results work in the field, only that it appeared plausible. The founding paper of evidence-based chart design is more careful about its own limits than most of what has been built on top of it. <span class="chip src"><a href="#S1">S1</a></span></p>
+        <div class="tick"><input type="checkbox" data-done="u1-read"><span>Read sections 1–4.5.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u1-build">
+      <summary><span class="blk-label">Build</span><span class="blk-title">Decision Record #1 — the whole artifact, crudely, today.</span><span class="blk-time">1 h 15 m</span></summary>
+      <div class="blk-body">
+        <p>Pick one chart you are actually responsible for. Not a hypothetical, not a famous bad chart from the internet. Something that will be looked at this week by someone whose decisions you care about.</p>
+        <p>Fill in the record in the <b>Records</b> tab. It is deliberately crude — five fields, no template, no scoring. By Unit Four you will find it embarrassing, and that is the measurement.</p>
+        <p class="small">This is the whole task in miniature: what value is encoded, in what channel, what judgment the reader makes, what you predict the error looks like, and what you'd change. The capstone is this, done well, with numbers.</p>
+        <div class="tick"><input type="checkbox" data-done="u1-build"><span>Decision Record #1 written.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u1-write">
+      <summary><span class="blk-label">Write</span><span class="blk-title">Where my ladder disagrees with theirs — and one reason it might.</span><span class="blk-time">20 m</span></summary>
+      <div class="blk-body">
+        <p>In the Records tab, under <b>Unit 1 note</b>. Two paragraphs, maximum.</p>
+        <p class="small">Resist the two easy answers ("I'm just bad at this" and "the ranking is wrong"). The interesting answers are about the instrument: how many trials you ran, how the values happened to fall, whether you were rushing, whether one encoding's stimuli happened to draw easier ratios. Cleveland &amp; McGill found the error depended on the true percentage itself <span class="chip src"><a href="#S1">S1</a></span> — six trials cannot average that out.</p>
+        <div class="tick"><input type="checkbox" data-done="u1-write"><span>Unit 1 note written.</span></div>
+      </div>
+    </details>
+  </article>
+
+  <!-- ============ UNIT 2 ============ -->
+  <article class="unit" id="u2">
+    <p class="eyebrow">Unit Two</p>
+    <h2>The measure, not the ranking</h2>
+    <p class="unit-meta">~3 h 50 m &nbsp;·&nbsp; 4 blocks &nbsp;·&nbsp; threshold 1 closes here</p>
+
+    <div class="evidence">
+      <p class="eyebrow">Evidence this unit produces</p>
+      <p>A short piece called <b>"how the estimator changed my answer"</b>: your own ladder recomputed three ways, with the ranking changes marked.</p>
+    </div>
+
+    <p>Here is the thing that separates crossing this threshold from mimicking it. Anyone can repeat the ranking. Almost nobody can say why the accuracy measure is <span class="mono">log₂(|judged − true| + ⅛)</span> and not <span class="mono">|judged − true|</span>, or why the summary is a midmean and not a mean. And if you can't defend the measure, you don't have evidence — you have a hierarchy you're quoting.</p>
+    <p><b>This is the liminal stretch of the course.</b> Somewhere in the middle of the derivations you will feel that this is pedantry standing between you and the useful part. That feeling is the crossing. The useful part <i>is</i> this: the ranking is a summary statistic, and summary statistics have choices in them.</p>
+
+    <details class="block" data-block="u2-derive">
+      <summary><span class="blk-label">Derive</span><span class="blk-title">Five exercises on the error measure — including one that is wrong.</span><span class="blk-time">1 h 15 m</span></summary>
+      <div class="blk-body">
+
+        <div class="ex" data-ex="e1">
+          <p class="eyebrow">Exercise 1 · worked example</p>
+          <p>A subject judges 60% when the true value is 45%. Compute the log absolute error.</p>
+          <p class="small"><b>Worked:</b> |60 − 45| = 15. 15 + 0.125 = 15.125. log₂(15.125) = ln(15.125)/ln(2) = 2.716/0.693 = <b>3.92</b>.</p>
+          <p class="small" style="margin-bottom:0">Nothing hidden. Note the units: a difference of 1.0 on this scale is a doubling of absolute error. Cleveland &amp; McGill chose base 2 because average relative errors tended to change by factors of less than ten <span class="chip src"><a href="#S1">S1</a></span> — base 10 would have compressed everything into a narrow band.</p>
+        </div>
+
+        <div class="ex" data-ex="e2">
+          <p class="eyebrow">Exercise 2 · completion problem</p>
+          <p>A subject judges 47% when the true value is 47%. The absolute error is 0. What is log₂(0)?</p>
+          <p class="small">Fill in the consequence, then the fix:</p>
+          <textarea data-ans="e2" placeholder="What breaks, and what does the +1/8 do about it?"></textarea>
+          <div class="conf" data-conf="e2"><span>Confidence before you check:</span>
+            <button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button><button data-c="5">5</button></div>
+          <button class="gate" data-gate="e2">Check answer</button>
+          <div class="reveal" data-rev="e2" hidden>
+            <p class="small" style="margin-bottom:.5em">log₂(0) is undefined — it runs to negative infinity. Perfect answers would blow up the scale. Adding ⅛ before the log floors the measure at log₂(0.125) = −3, so an exact hit scores −3 rather than nothing at all.</p>
+            <p class="small" style="margin-bottom:0">Cleveland &amp; McGill's own reason: the ⅛ was added to prevent a distortion of the scale at the bottom end, because absolute errors in some cases got very close to zero <span class="chip src"><a href="#S1">S1</a></span>. Note what this quietly does — it makes the difference between a 0-point error and a 1-point error much smaller than the difference between a 10-point and a 20-point error. The measure cares about relative error, and stops caring near perfection.</p>
+          </div>
+          <p class="calib" data-calib="e2"></p>
+        </div>
+
+        <div class="ex" data-ex="e3">
+          <p class="eyebrow">Exercise 3 · independent</p>
+          <p>Cleveland &amp; McGill report that in the position-length experiment, the larger of the two length values was 1.32 log units above the smallest of the three position values, and the smaller length value was 0.51 log units above the largest position value <span class="chip src"><a href="#S1">S1</a></span>.</p>
+          <p>Convert both to plain factors, and state the range in one sentence a colleague would understand.</p>
+          <input type="text" data-ans="e3" placeholder="factor for 1.32 =        factor for 0.51 =">
+          <textarea data-ans="e3b" placeholder="The sentence for a colleague."></textarea>
+          <div class="conf" data-conf="e3"><span>Confidence:</span>
+            <button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button><button data-c="5">5</button></div>
+          <button class="gate" data-gate="e3">Check answer</button>
+          <div class="reveal" data-rev="e3" hidden>
+            <p class="small" style="margin-bottom:.5em">2<sup>1.32</sup> = 2.5. 2<sup>0.51</sup> = 1.4. Their own sentence: average errors for length judgments were 40% to 250% larger than those for position judgments <span class="chip src"><a href="#S1">S1</a></span>.</p>
+            <p class="small" style="margin-bottom:0">Notice how much weaker that is than "bar charts are better than pie charts." It's a range, it's about one experiment's specific stimuli, and the low end — 40% — is the kind of difference a slightly better label could swamp.</p>
+          </div>
+          <p class="calib" data-calib="e3"></p>
+        </div>
+
+        <div class="ex" data-ex="e4">
+          <p class="eyebrow">Exercise 4 · independent</p>
+          <p>In the position-angle experiment the gap between angle and position was 0.97 log units, with a 95% bootstrap interval of (0.79, 1.15) <span class="chip src"><a href="#S1">S1</a></span>. Separately, 88% of the large errors — those above 4 log units — occurred on angle judgments, at a rate 7.3 times that of position <span class="chip src"><a href="#S1">S1</a></span>.</p>
+          <p>These two numbers describe the same data. Why would you quote the second one to a product team and the first one to a statistician?</p>
+          <textarea data-ans="e4" placeholder="Your answer."></textarea>
+          <div class="conf" data-conf="e4"><span>Confidence:</span>
+            <button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button><button data-c="5">5</button></div>
+          <button class="gate" data-gate="e4">Check answer</button>
+          <div class="reveal" data-rev="e4" hidden>
+            <p class="small" style="margin-bottom:.5em">The mean difference (a factor of about 1.96) describes the typical reader. The large-error rate describes the tail — how often someone is badly, decision-changingly wrong. A product team is usually insuring against the tail; the mean is nearly irrelevant to them. A statistician wants the interval because it tells them whether the effect is real at all.</p>
+            <p class="small" style="margin-bottom:0"><span class="chip infer">Inference</span> The second framing is also the more honest one for most business charts, and it is almost never the one that gets quoted. Cleveland &amp; McGill reported both. The folklore kept the ordering and dropped both numbers.</p>
+          </div>
+          <p class="calib" data-calib="e4"></p>
+        </div>
+
+        <div class="ex" data-ex="e5">
+          <p class="eyebrow">Exercise 5 · find the break</p>
+          <p>A colleague drops this into a design doc. Every sentence sounds informed. <b>Three of them are wrong.</b> Find them.</p>
+          <blockquote style="margin:.6rem 0;padding:.6rem .8rem;border-left:3px solid var(--rule);font-size:.93rem;color:var(--ink-2)">
+            Cleveland &amp; McGill measured a 0.97 log-unit gap between angle and position, so pie charts are about 97% less accurate than bar charts. They also found position errors of 1.40 against length errors of 2.72, so length is roughly twice as bad. And since their 51 subjects split into technical and non-technical groups, with the technical group performing better, the gap should be smaller for our engineering audience.
+          </blockquote>
+          <textarea data-ans="e5" placeholder="Three breaks." style="min-height:6.5rem"></textarea>
+          <div class="conf" data-conf="e5"><span>Confidence:</span>
+            <button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button><button data-c="5">5</button></div>
+          <button class="gate" data-gate="e5">Check</button>
+          <div class="reveal" data-rev="e5" hidden>
+            <ol class="small" style="padding-left:1.2rem;margin-top:0;margin-bottom:.5em">
+              <li><b>0.97 log units is not 97%.</b> It is a factor of 2<sup>0.97</sup> = 1.96 — angle judgments carried roughly double the error <span class="chip src"><a href="#S1">S1</a></span>. The unit was silently dropped, and "97% less accurate" also inverts the direction: the measure is error, so more is worse, not less.</li>
+              <li><b>The two figures come from different experiments.</b> 1.40 and 2.72 are position-length; 0.97 is position-angle. Cleveland &amp; McGill state it would be inappropriate to compare means across the two <span class="chip src"><a href="#S1">S1</a></span>. Within position-length the gap is 1.32 log units, a factor of 2.5 — not "roughly twice."</li>
+              <li><b>The expertise claim is invented.</b> They reported that they did <i>not</i> detect any difference between the technical and non-technical groups, and treated the subjects as one homogeneous sample on the grounds that these are very basic tasks carried out in everyday activities <span class="chip src"><a href="#S1">S1</a></span>. This is citation invention in miniature — a hypothesis becoming a fact by being attributed.</li>
+            </ol>
+            <p class="small" style="margin-bottom:0">The third one is the dangerous one, because it is the sentence a reader is least likely to check and the one most likely to shape a decision.</p>
+          </div>
+          <p class="calib" data-calib="e5"></p>
+        </div>
+
+        <div class="tick"><input type="checkbox" data-done="u2-derive"><span>All five exercises attempted before revealing.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u2-read">
+      <summary><span class="blk-label">Read</span><span class="blk-title">Heer &amp; Bostock 2010 — the replication, and what moved.</span><span class="blk-time">45 m</span></summary>
+      <div class="blk-body">
+        <p><a href="http://vis.stanford.edu/files/2010-MTurk-CHI.pdf" target="_blank" rel="noopener">Crowdsourcing Graphical Perception (PDF)</a> — ACM CHI 2010, pp. 203–212. <span class="chip src"><a href="#S2">S2</a></span></p>
+        <p>Read Experiments 1A and 1B closely; skim the Mechanical Turk performance analysis unless the methodology interests you.</p>
+        <ul class="small">
+          <li>The ranking held. Position still significantly outperformed length. <span class="chip src"><a href="#S2">S2</a></span></li>
+          <li>Types 1 and 2 came closer together than in the original, which they attribute to a smaller display shrinking the distance effect. <span class="chip src"><a href="#S2">S2</a></span></li>
+          <li><b>Angle did not underperform length, though theory predicted it should.</b> They say so plainly. Hold that; Unit Three is built on it. <span class="chip src"><a href="#S2">S2</a></span></li>
+          <li>Rectangular areas were judged <i>worst</i> when the two rectangles were square — aspect ratio 1:1. Which means squarified treemap algorithms are optimizing toward the hardest case, and readers benefit from the algorithm's failure to fully succeed. <span class="chip src"><a href="#S2">S2</a></span> <span class="chip single">Single study</span></li>
+          <li>Practical numbers worth stealing: gridlines want at least 8 pixels of separation, and pushing chart height past about 80 pixels bought no accuracy on a 0–100 scale. <span class="chip src"><a href="#S2">S2</a></span> <span class="chip single">Single study</span></li>
+        </ul>
+        <p class="small">Also worth noticing as a matter of craft: without a qualification task, over 10% of their responses were unusable, and they attribute that to confusion rather than cheating <span class="chip src"><a href="#S2">S2</a></span>. Any time you put a chart in front of people to test it, most of what you're measuring at first is whether they understood the question.</p>
+        <div class="tick"><input type="checkbox" data-done="u2-read"><span>Read Experiments 1A and 1B.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u2-estimator">
+      <summary><span class="blk-label">Build</span><span class="blk-title">Recompute your own ladder three ways.</span><span class="blk-time">1 h 30 m</span></summary>
+      <div class="blk-body">
+        <p>In the Lab, under your Round 1 results, there is an <b>estimator switch</b>. It recomputes your ladder under three summaries: midmean (what they used), plain mean, and median. It also lets you drop the ⅛.</p>
+        <p>Work through this deliberately:</p>
+        <ol class="small">
+          <li>Record your ranking under each of the three summaries. Note every place two encodings swap.</li>
+          <li>Find the single trial that moves the most under the switch, and look at it again. It will usually be one bad guess.</li>
+          <li>Turn off the ⅛ and see which cell breaks or distorts.</li>
+        </ol>
+        <p><b>Deliverable</b>, in Records: a piece called <i>how the estimator changed my answer</i>. Three or four paragraphs. It should end with a sentence you'd be willing to say out loud in a design review about how much confidence a ranking built on six trials deserves.</p>
+        <p class="small"><span class="chip infer">Inference</span> The midmean — the mean of the middle two quartiles — was chosen because their log errors showed frequent outliers, mild skew, and clumping at multiples of five, since people like round numbers <span class="chip src"><a href="#S1">S1</a></span>. With six trials per type, this implementation drops the highest and lowest and averages the middle four. That is a much blunter instrument than theirs and you should treat your own ladder accordingly.</p>
+        <div class="tick"><input type="checkbox" data-done="u2-estimator"><span>Ladder recomputed three ways; piece written.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u2-recall">
+      <summary><span class="blk-label">Recall</span><span class="blk-title">Cold check — no scrolling back.</span><span class="blk-time">20 m</span></summary>
+      <div class="blk-body">
+        <div class="ex" data-ex="r1">
+          <p class="eyebrow">Retrieval · Unit 1 material</p>
+          <p>Without reopening Unit One or the Records tab: what channel does the chart in your Decision Record #1 use, and what judgment did you say its reader makes? Write it from memory first, then go compare.</p>
+          <textarea data-ans="r1" placeholder="From memory."></textarea>
+          <div class="conf" data-conf="r1"><span>Confidence:</span>
+            <button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button><button data-c="5">5</button></div>
+          <button class="gate" data-gate="r1">I've written it — now let me compare</button>
+          <div class="reveal" data-rev="r1" hidden>
+            <p class="small" style="margin-bottom:0">Open Records and compare. If the two match, the record was doing real work. If your memory is vaguer than what you wrote, the record was doing the work <i>for</i> you — which is fine, but means you haven't internalized it yet. If your memory is <i>sharper</i> than the record, the record is underwritten; go fix it now.</p>
+          </div>
+          <p class="calib" data-calib="r1"></p>
+        </div>
+        <div class="tick"><input type="checkbox" data-done="u2-recall"><span>Cold check done.</span></div>
+      </div>
+    </details>
+  </article>
+
+  <!-- ============ UNIT 3 ============ -->
+  <article class="unit" id="u3">
+    <p class="eyebrow">Unit Three</p>
+    <h2>The task, not the chart</h2>
+    <p class="unit-meta">~4 h 25 m &nbsp;·&nbsp; 5 blocks &nbsp;·&nbsp; threshold 2</p>
+
+    <div class="evidence">
+      <p class="eyebrow">Evidence this unit produces</p>
+      <p>Round 2 of the experiment — the same charts, a different question, your own error moving. Plus Decision Records #2, #3 and #4, now written task-first.</p>
+    </div>
+
+    <p>Everything to this point could still collapse into the folk version: rank the channels, pick a high one, ship. Unit Three is where that stops working, and it stops working because of a 1987 result that the folklore simply lost.</p>
+    <p>Simkin &amp; Hastie showed 40 subjects simple bar charts, divided bar charts and pie charts, and asked two different kinds of question about them. For a <b>comparison</b> judgment — this segment against that one — the expected order held: position, then length, then angle. For a <b>proportion-of-the-whole</b> judgment, angle in a pie chart was <i>as accurate as</i> position in a simple bar chart, and <i>more accurate than</i> length in a divided bar. <span class="chip src"><a href="#S3">S3</a></span></p>
+    <p>Same charts. Same eyes. Different question. Different ranking.</p>
+    <p>So the ranking is not a property of the chart. It is a property of the pairing of a chart with a decoding task — and the task is set by what the reader wants to know, which is a thing you have to go find out rather than assume.</p>
+
+    <details class="block" data-block="u3-read">
+      <summary><span class="blk-label">Read</span><span class="blk-title">Simkin &amp; Hastie 1987.</span><span class="blk-time">1 h</span></summary>
+      <div class="blk-body">
+        <p><a href="https://classes.engineering.wustl.edu/cse557/spring2017/readings/information-processing-analysis.pdf" target="_blank" rel="noopener">An Information-Processing Analysis of Graph Perception (PDF)</a> — JASA 82(398), June 1987, pp. 454–465. <span class="chip src"><a href="#S3">S3</a></span></p>
+        <p>Read for the mechanism, not just the result. Their argument is that people arrive at a chart with <i>schemata</i> — generic expectations about what kind of message a chart type carries — and that those expectations govern which elementary process gets run. A pie chart tells your visual system it is being asked about parts of a whole, so it recruits an anchoring-and-adjustment process suited to that, and does well. Ask it a comparison question instead and the machinery is mismatched.</p>
+        <p class="small">Provenance note: 40 undergraduates on a CRT, one paper, 1987 <span class="chip single">Single study</span>. Spence &amp; Lewandowsky later found pie charts performing well for comparing combinations of proportions <span class="chip src"><a href="#S9">S9</a></span>, so the direction has support, but treat the specific finding as one solid result rather than a settled law.</p>
+        <div class="tick"><input type="checkbox" data-done="u3-read"><span>Read Simkin &amp; Hastie.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u3-judge">
+      <summary><span class="blk-label">Judge</span><span class="blk-title">Round 2 in the Lab — same stimuli, new question.</span><span class="blk-time">25 m</span></summary>
+      <div class="blk-body">
+        <p>Round 2 shows you pies and divided bars again. The <b>question changes</b>: instead of "what percent is the smaller of the larger," you'll be asked "what percent of the whole is the marked segment."</p>
+        <p>Before you start, the Lab will ask you to predict which encoding will come out ahead this time, and how confident you are. Do that honestly — the prediction is the instrument, not a formality.</p>
+        <p class="small"><span class="chip infer">Inference</span> Twelve trials cannot replicate Simkin &amp; Hastie, and yours may well come out the other way. What you're buying is not a result. It's the experience of the same chart behaving differently under a different question, which is much harder to un-know than a sentence about it.</p>
+        <div class="tick"><input type="checkbox" data-done="u3-judge"><span>Round 2 complete; prediction logged before running.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u3-derive">
+      <summary><span class="blk-label">Derive</span><span class="blk-title">Which task is this? Six real questions.</span><span class="blk-time">45 m</span></summary>
+      <div class="blk-body">
+        <p>For each question below, name the elementary perceptual task it demands, then name a chart that would serve it and one that would sabotage it. This is method-choosing, not method-executing — the harder and more useful skill.</p>
+
+        <div class="ex" data-ex="t1">
+          <ol class="small" style="padding-left:1.2rem;margin-top:0">
+            <li>"Is support ticket volume trending up or down this quarter?"</li>
+            <li>"Which of our seven regions is the biggest?"</li>
+            <li>"Roughly what share of total spend is infrastructure?"</li>
+            <li>"Did the gap between plan and actual widen or narrow after March?"</li>
+            <li>"Which two of these forty accounts are outliers on both axes?"</li>
+            <li>"Is the West region bigger than the East region?"</li>
+          </ol>
+          <textarea data-ans="t1" placeholder="1. task / good / bad&#10;2. …" style="min-height:9rem"></textarea>
+          <div class="conf" data-conf="t1"><span>Confidence:</span>
+            <button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button><button data-c="5">5</button></div>
+          <button class="gate" data-gate="t1">Check answers</button>
+          <div class="reveal" data-rev="t1" hidden>
+            <ol class="small" style="padding-left:1.2rem;margin-top:0;margin-bottom:.5em">
+              <li><b>Direction / slope.</b> A line chart serves it. A table sabotages it — Cleveland &amp; McGill's Figure 8 makes exactly this point: strip the ability to perceive slope and the nonlinear pattern becomes very hard to see <span class="chip src"><a href="#S1">S1</a></span>.</li>
+              <li><b>Position along a common scale</b>, plus ordering. A sorted dot chart or bar chart serves it. A choropleth map sabotages it — that's shading, rank 6, and the state areas distort it besides <span class="chip src"><a href="#S1">S1</a></span>.</li>
+              <li><b>Proportion of the whole.</b> This is the Simkin &amp; Hastie case: a pie is defensible here and a divided bar is <i>worse</i> <span class="chip src"><a href="#S3">S3</a></span>. A sorted bar chart with no total shown answers a different question than the one asked.</li>
+              <li><b>Length</b> — a vertical distance between two curves — which is the trap. Cleveland &amp; McGill were emphatic: judging differences between curves is so bad they didn't bother running subjects, and the brain reads minimum distance between curves rather than vertical distance <span class="chip src"><a href="#S1">S1</a></span>. Plot the difference directly as its own series.</li>
+              <li><b>Position along two common scales simultaneously</b>, plus a detection task. A scatterplot serves it. Two separate bar charts destroy it.</li>
+              <li><b>Position along a common scale</b> — but note this is a two-value comparison, and the honest answer may be that a sentence beats every chart. Ehrenberg's point, which Cleveland &amp; McGill concede: if conveying numbers precisely were the only goal, tables would be better <span class="chip src"><a href="#S1">S1</a></span>.</li>
+            </ol>
+            <p class="small" style="margin-bottom:0">If you got 3 and 4 the same way round as the folklore would have them, that's the threshold biting.</p>
+          </div>
+          <p class="calib" data-calib="t1"></p>
+        </div>
+        <div class="tick"><input type="checkbox" data-done="u3-derive"><span>Six questions answered before revealing.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u3-build">
+      <summary><span class="blk-label">Build</span><span class="blk-title">Decision Records #2, #3, #4 — task first.</span><span class="blk-time">2 h</span></summary>
+      <div class="blk-body">
+        <p>Three more charts you own. The order of the fields inverts: <b>state the reader's judgment before you name the channel.</b> If you can't state the judgment, you have found something more important than a chart problem — go ask the reader.</p>
+        <p class="small">Records #2 and #3 give you the field prompts. <b>Record #4 gives you a blank box.</b> Write it in whatever shape the chart actually needs. If the scaffold was doing real work, you'll feel its absence; that's the point of removing it.</p>
+        <div class="tick"><input type="checkbox" data-done="u3-build"><span>Records #2–#4 written.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u3-write">
+      <summary><span class="blk-label">Write</span><span class="blk-title">One chart I would now defend that I would have replaced last month.</span><span class="blk-time">15 m</span></summary>
+      <div class="blk-body">
+        <p>In Records. One paragraph. The point is to catch the threshold in the act: find a case where the ranking alone would have told you to change something, and the task analysis tells you to leave it alone.</p>
+        <p class="small">If you can't find one, say so — and say what that suggests about how you were choosing charts before.</p>
+        <div class="tick"><input type="checkbox" data-done="u3-write"><span>Written.</span></div>
+      </div>
+    </details>
+  </article>
+
+  <!-- ============ UNIT 4 ============ -->
+  <article class="unit" id="u4">
+    <p class="eyebrow">Unit Four</p>
+    <h2>Three rankings, one of them tested</h2>
+    <p class="unit-meta">~3 h 50 m &nbsp;·&nbsp; 4 blocks &nbsp;·&nbsp; threshold 3</p>
+
+    <div class="evidence">
+      <p class="eyebrow">Evidence this unit produces</p>
+      <p>A provenance table for your own encoding vocabulary: every channel you actually use, marked <i>measured</i>, <i>extended by reasoning</i>, or <i>folklore</i>.</p>
+    </div>
+
+    <p>The ranking you've been working with is the quantitative one. In 1986 Jock Mackinlay built APT, a program that designed charts automatically, and to do that he had to make the ranking machine-readable. Two things came out of it.</p>
+    <p>First, a pair of criteria that are still the cleanest formulation anyone has: a graphical language is <b>expressive</b> if it states all of the facts and only the facts, and <b>effective</b> if the human visual system can decode it readily. Expressiveness is a truth condition; effectiveness is a perception condition. Most bad charts fail the first and get argued about on the second. <span class="chip src"><a href="#S4">S4</a></span></p>
+    <p>Second, and this is the threshold: Mackinlay said outright that the Cleveland &amp; McGill ranking does not address non-quantitative information, which involves different perceptual tasks and <i>different task rankings</i> — noting that color sits at the bottom of the quantitative ranking and is a very effective way to encode nominal sets. <span class="chip src"><a href="#S4">S4</a></span></p>
+    <p>So he produced three rankings: quantitative, ordinal, nominal. The one everybody quotes is the quantitative one. And here is the part that almost never travels with the table: <b>Cleveland &amp; McGill empirically verified the basic properties of the quantitative ranking. The ordinal and nominal columns are Mackinlay's extension</b> — reasoned from Bertin and from psychophysics, not measured. <span class="chip src"><a href="#S4">S4</a></span> <span class="chip infer">Inference</span></p>
+
+    <details class="block" data-block="u4-read">
+      <summary><span class="blk-label">Read</span><span class="blk-title">Mackinlay 1986, and then Kosara's demolition.</span><span class="blk-time">1 h 15 m</span></summary>
+      <div class="blk-body">
+        <p><a href="https://dl.acm.org/doi/10.1145/22949.22950" target="_blank" rel="noopener">Automating the Design of Graphical Presentations of Relational Information</a> — ACM TOG 5(2), April 1986, pp. 110–141. Read the expressiveness and effectiveness sections and Figures 14–15 and the ranking tables. <span class="chip src"><a href="#S4">S4</a></span> <span class="chip vendor">Vendor framing</span></p>
+        <p>The three columns as they are conventionally transcribed:</p>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>#</th><th>Quantitative</th><th>Ordinal</th><th>Nominal</th></tr></thead>
+            <tbody>
+              <tr><td class="num">1</td><td>Position</td><td>Position</td><td>Position</td></tr>
+              <tr><td class="num">2</td><td>Length</td><td>Density (value)</td><td>Color hue</td></tr>
+              <tr><td class="num">3</td><td>Angle</td><td>Color saturation</td><td>Texture</td></tr>
+              <tr><td class="num">4</td><td>Slope</td><td>Color hue</td><td>Connection</td></tr>
+              <tr><td class="num">5</td><td>Area</td><td>Texture</td><td>Containment</td></tr>
+              <tr><td class="num">6</td><td>Volume</td><td>Connection</td><td>Density (value)</td></tr>
+              <tr><td class="num">7</td><td>Density (value)</td><td>Containment</td><td>Color saturation</td></tr>
+              <tr><td class="num">8</td><td>Color saturation</td><td>Length</td><td>Shape</td></tr>
+              <tr><td class="num">9</td><td>Color hue</td><td>Angle</td><td>Length</td></tr>
+              <tr><td class="num">10</td><td>Texture</td><td>Slope</td><td>Angle</td></tr>
+              <tr><td class="num">11</td><td>Connection</td><td>Area</td><td>Slope</td></tr>
+              <tr><td class="num">12</td><td>Containment</td><td>Volume</td><td>Area</td></tr>
+              <tr><td class="num">13</td><td>Shape</td><td>Shape</td><td>Volume</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">Look at where <b>length</b> sits. Second for quantitative data, eighth for ordinal, ninth for nominal. If you encode a nominal category with bar length you are using a channel that is nearly the worst available for that data type <i>and</i> silently asserting an ordering the data doesn't have — an expressiveness violation, not merely an ineffective one. <span class="chip src"><a href="#S4">S4</a></span></p>
+
+        <p style="margin-top:1.2rem">Then read <a href="https://kosara.net/papers/2016/Kosara-BELIV-2016.pdf" target="_blank" rel="noopener">An Empire Built on Sand: Reexamining What We Think We Know About Visualization</a> — BELIV 2016. <span class="chip src"><a href="#S6">S6</a></span> <span class="chip vendor">Vendor framing</span></p>
+        <p>Kosara traces the belief that we read pie charts by central angle back to a 1926 study in which participants were <i>asked which cue they used</i> and just over half said central angle — and that, he argues, is how it became established as fact. <span class="chip src"><a href="#S6">S6</a></span></p>
+        <p>His own work with Skau then tested it: they built pie variants that isolated arc, angle and area, and varied donut inner radius from filled pie to thin outline. Both studies point to <b>angle being the least important cue</b>, and to donut charts being about as accurate as pies. <span class="chip src"><a href="#S5">S5</a></span> <span class="chip contested">Contested</span></p>
+        <p class="small">Sit with what that does to the chain. Cleveland &amp; McGill's position-angle experiment used a pie chart as the stimulus for the <em class="term">angle</em> task <span class="chip src"><a href="#S1">S1</a></span>. If readers aren't primarily using angle to read pies, then the experiment measured something real — pies are worse than bars for that comparison — but the <i>label</i> on the finding may be wrong. The result survives; the mechanism doesn't.</p>
+        <div class="tick"><input type="checkbox" data-done="u4-read"><span>Read Mackinlay and Kosara.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u4-derive">
+      <summary><span class="blk-label">Derive</span><span class="blk-title">Expressiveness before effectiveness — four datasets.</span><span class="blk-time">45 m</span></summary>
+      <div class="blk-body">
+        <div class="ex" data-ex="x1">
+          <p class="eyebrow">Independent · no worked example this time</p>
+          <p>For each, type the data (quantitative / ordinal / nominal), name a channel you'd choose, and say which criterion rules out your <i>second</i> choice — expressiveness or effectiveness.</p>
+          <ol class="small" style="padding-left:1.2rem">
+            <li>Twelve engineering teams, each with an owner's name.</li>
+            <li>Severity of incidents: sev-1 through sev-4.</li>
+            <li>Monthly recurring revenue by account, spanning three orders of magnitude.</li>
+            <li>Deploy status per service: passing, failing, not configured.</li>
+          </ol>
+          <textarea data-ans="x1" placeholder="1. type / channel / what rules out the runner-up&#10;…" style="min-height:8rem"></textarea>
+          <div class="conf" data-conf="x1"><span>Confidence:</span>
+            <button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button><button data-c="5">5</button></div>
+          <button class="gate" data-gate="x1">Check</button>
+          <div class="reveal" data-rev="x1" hidden>
+            <p class="small" style="margin-bottom:.5em">The specific channels are arguable; what isn't arguable is the shape of the reasoning. (1) is nominal — color hue is second in that column and bar length is ninth, and length additionally <i>asserts an order</i> that team names don't have, which is an expressiveness failure. (2) is ordinal — density or saturation rank high there and preserve order; hue ranks fourth for ordinal and, more importantly, doesn't carry order, so it fails expressiveness for a severity scale. (3) is quantitative — position, on a log scale, and the three-orders span is why area would be a disaster twice over: area is fifth, and Stevens' power law means area judgments carry a systematic bias with an exponent well below 1 <span class="chip src"><a href="#S1">S1</a></span> <span class="chip src"><a href="#S8">S8</a></span>. (4) is nominal with a conventional color mapping, and the trap is that "not configured" is a different kind of thing from "failing" — a missing state, not a value.</p>
+            <p class="small" style="margin-bottom:0">The discipline worth taking away: <b>run expressiveness first.</b> It's a yes/no question about truth and it eliminates most of the candidates before any perceptual argument starts. <span class="chip src"><a href="#S4">S4</a></span></p>
+          </div>
+          <p class="calib" data-calib="x1"></p>
+        </div>
+        <div class="tick"><input type="checkbox" data-done="u4-derive"><span>Attempted before revealing.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u4-build">
+      <summary><span class="blk-label">Build</span><span class="blk-title">Audit your own encoding vocabulary.</span><span class="blk-time">1 h 30 m</span></summary>
+      <div class="blk-body">
+        <p>List every visual channel you have actually used in the last year — in dashboards, decks, docs, product UI. For each one, mark its provenance:</p>
+        <ul class="small">
+          <li><b>Measured</b> — there is an experiment behind its position in the ranking, and you could name it.</li>
+          <li><b>Extended by reasoning</b> — someone credible derived it from something measured. Mackinlay's ordinal and nominal columns live here. <span class="chip src"><a href="#S4">S4</a></span></li>
+          <li><b>Folklore</b> — you believe it and cannot say where it came from.</li>
+        </ul>
+        <p>Write it into Records as a table. Expect the folklore column to be the longest, and expect it to contain at least one rule you have enforced on other people.</p>
+        <p class="small"><span class="chip infer">Inference</span> This is the block that carries the threshold. Not the rankings themselves — the habit of asking, of any design rule you're about to apply, whether anyone ever measured it. That habit transfers to every technical field you work in, which is what makes it worth four hours.</p>
+        <div class="tick"><input type="checkbox" data-done="u4-build"><span>Provenance table written.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u4-write">
+      <summary><span class="blk-label">Write</span><span class="blk-title">One rule I've been applying that was never tested.</span><span class="blk-time">20 m</span></summary>
+      <div class="blk-body">
+        <p>In Records. Name it, name where you think you picked it up, and say what you'll do about it — which may legitimately be "keep applying it, and stop citing it as though it were evidence."</p>
+        <div class="tick"><input type="checkbox" data-done="u4-write"><span>Written.</span></div>
+      </div>
+    </details>
+  </article>
+
+  <!-- ============ UNIT 5 ============ -->
+  <article class="unit" id="u5">
+    <p class="eyebrow">Unit Five</p>
+    <h2>Rebuild something you own, then test it</h2>
+    <p class="unit-meta">~5 h &nbsp;·&nbsp; 4 blocks &nbsp;·&nbsp; no scaffolding</p>
+
+    <div class="evidence">
+      <p class="eyebrow">Evidence this unit produces</p>
+      <p>A rebuilt chart, a cold measurement of yourself against the original, and a one-page defense memo that someone could disagree with on the merits.</p>
+    </div>
+
+    <p>No new reading. No prompts. Take the worst chart in your decision records and fix it — and then do the thing almost nobody does, which is check whether the fix worked.</p>
+
+    <details class="block" data-block="u5-pick">
+      <summary><span class="blk-label">Choose</span><span class="blk-title">Pick the target and state the win condition first.</span><span class="blk-time">20 m</span></summary>
+      <div class="blk-body">
+        <p>Before touching the design, write down what would count as an improvement and what would count as a wash. If you can't specify that in advance, you will find an improvement no matter what you build.</p>
+        <div class="tick"><input type="checkbox" data-done="u5-pick"><span>Target and win condition written.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u5-rebuild">
+      <summary><span class="blk-label">Rebuild</span><span class="blk-title">Redesign it, task-first.</span><span class="blk-time">2 h</span></summary>
+      <div class="blk-body">
+        <p>Constraints, all of which you now have reasons for: expressiveness before effectiveness; the reader's actual judgment before the channel; and a stated cost for every place you deliberately chose a lower-ranked channel, because there are legitimate reasons to and "it looked better" is occasionally one of them if you say so out loud.</p>
+        <div class="tick"><input type="checkbox" data-done="u5-rebuild"><span>Redesign built.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u5-cold">
+      <summary><span class="blk-label">Test</span><span class="blk-title">Round 3 — the cold re-run, at least five days later.</span><span class="blk-time">40 m</span></summary>
+      <div class="blk-body">
+        <p>The Lab has a third round: the same four encodings, fresh stimuli. It stays locked until five days after you finished Round 1.</p>
+        <p>The lock is deliberate. Running it now would measure how well you remember Round 1; running it cold measures whether anything durable changed. You can override the lock, and if you do, the Lab will label the result as contaminated rather than pretend otherwise.</p>
+        <p class="small"><span class="chip infer">Inference</span> Interpret the comparison carefully. Improvement here is <i>practice</i>, not perception — your visual system did not get better in a week. What it plausibly measures is whether you've learned to stop trusting the encodings that deserve less trust.</p>
+        <div class="tick"><input type="checkbox" data-done="u5-cold"><span>Round 3 run cold.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u5-defend">
+      <summary><span class="blk-label">Defend</span><span class="blk-title">The memo.</span><span class="blk-time">1 h</span></summary>
+      <div class="blk-body">
+        <p>One page. Three paragraphs and a table.</p>
+        <ol class="small">
+          <li><b>The reader and the judgment.</b> Who looks at this, and what are they trying to decide.</li>
+          <li><b>The encoding and its cost.</b> What you chose, what you rejected, and the estimated or measured error difference — with the source or the honest statement that you're extrapolating.</li>
+          <li><b>What would change your mind.</b> The result that would make you rebuild it again.</li>
+        </ol>
+        <p>Plus the provenance table for every claim in it: measured, extended, or folklore.</p>
+        <p class="small">If the memo contains a sentence you couldn't defend in front of someone who has read Cleveland &amp; McGill, cut it. That's the exit criterion for the whole course.</p>
+        <div class="tick"><input type="checkbox" data-done="u5-defend"><span>Memo written.</span></div>
+      </div>
+    </details>
+
+    <details class="block" data-block="u5-track-b">
+      <summary><span class="blk-label">Track B</span><span class="blk-title">Optional: re-encode this course's own progress meter.</span><span class="blk-time">+2 h</span></summary>
+      <div class="blk-body">
+        <p>The meter at the top of this page is an argument. It renders your progress in a deliberately terrible channel and re-encodes upward as you go, ending on a dot against a common scale — which is Cleveland &amp; McGill's own §5.3 progression from shaded patch map to framed rectangle to dot chart, run on you instead of on a map of murder rates. <span class="chip src"><a href="#S1">S1</a></span></p>
+        <p>It is also, right now, unevaluated. Nobody tested it. It is exactly the kind of thing this course teaches you to distrust.</p>
+        <p>So: audit it. Is the sequence defensible? Does the framed-rectangle stage actually behave like position-along-nonaligned-scales, or is it just a bar with a box around it? Is the whole conceit an expressiveness violation — encoding an ordinal thing (progress through five units) in a quantitative channel? Then rebuild it and say why yours is better.</p>
+        <p class="small">A course that teaches a discipline it does not practice is worth less than one that admits where it is exempting itself. This block exists to close that gap.</p>
+        <div class="tick"><input type="checkbox" data-done="u5-track-b"><span>Meter audited and rebuilt.</span></div>
+      </div>
+    </details>
+  </article>
+
+</section>
+
+<!-- ==================== LAB ==================== -->
+<section id="view-lab" hidden>
+  <div class="card">
+    <p class="eyebrow">The instrument</p>
+    <h2>Proportional judgment</h2>
+    <p class="small">Three rounds. Round 1 replicates the comparison task across four encodings. Round 2 changes the question to proportion-of-the-whole. Round 3 is a cold re-run, locked for five days after Round 1.</p>
+    <p class="small" style="margin-bottom:0"><b>Rules, from the original:</b> make a quick visual judgment. Do not measure — not with a finger, not with a pencil, not by screenshotting and counting pixels. Do not revise an answer once submitted. Cleveland &amp; McGill omitted tick marks and labels except at the extremes precisely so that subjects couldn't read values off an axis and divide <span class="chip src"><a href="#S1">S1</a></span>; the stimuli here do the same.</p>
+  </div>
+
+  <div id="labHome"></div>
+  <div id="labRun" hidden></div>
+  <div id="labResults"></div>
+</section>
+
+<!-- ==================== RECORDS ==================== -->
+<section id="view-records" hidden>
+  <div class="card">
+    <p class="eyebrow">Your work</p>
+    <h2>Decision records &amp; deliverables</h2>
+    <p class="small" style="margin-bottom:0">Everything typed here is saved in this browser only. Use Export before you rely on it.</p>
+  </div>
+  <div id="recordsBody"></div>
+</section>
+
+<!-- ==================== SOURCES ==================== -->
+<section id="view-sources" hidden>
+  <div class="card">
+    <p class="eyebrow">Sourcing</p>
+    <h2>How this course was built</h2>
+    <p class="small">Every threshold rests on a primary source. Below, each source carries a <b>read depth</b>, because "cited" and "read" are different things and courses routinely blur them. Two of the six central sources come from authors at Tableau, which sells visualization software; that isn't disqualifying, it's disclosable.</p>
+    <p class="small" style="margin-bottom:0">Where a claim in this course rests on a source read only at abstract depth, the claim is marked in the text and stated narrowly.</p>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>ID</th><th>Source</th><th>Tier</th><th>Read depth</th></tr></thead>
+      <tbody>
+        <tr id="S1"><td class="num">S1</td><td>Cleveland, W. S. &amp; McGill, R. (1984). Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods. <i>JASA</i> 79(387), 531–554. <a href="https://www.math.pku.edu.cn/teachers/xirb/Courses/biostatistics/Biostatistics2016/GraphicalPerception_Jasa1984.pdf" target="_blank" rel="noopener">PDF</a></td><td>1</td><td>Full text</td></tr>
+        <tr id="S2"><td class="num">S2</td><td>Heer, J. &amp; Bostock, M. (2010). Crowdsourcing Graphical Perception. <i>ACM CHI</i>, 203–212. <a href="http://vis.stanford.edu/files/2010-MTurk-CHI.pdf" target="_blank" rel="noopener">PDF</a></td><td>1</td><td>Full text</td></tr>
+        <tr id="S3"><td class="num">S3</td><td>Simkin, D. &amp; Hastie, R. (1987). An Information-Processing Analysis of Graph Perception. <i>JASA</i> 82(398), 454–465. <a href="https://classes.engineering.wustl.edu/cse557/spring2017/readings/information-processing-analysis.pdf" target="_blank" rel="noopener">PDF</a></td><td>1</td><td>Abstract + method section</td></tr>
+        <tr id="S4"><td class="num">S4</td><td>Mackinlay, J. (1986). Automating the Design of Graphical Presentations of Relational Information. <i>ACM TOG</i> 5(2), 110–141. <a href="https://dl.acm.org/doi/10.1145/22949.22950" target="_blank" rel="noopener">DOI</a></td><td>1</td><td>Abstract + quoted passages on the ranking extension</td></tr>
+        <tr id="S5"><td class="num">S5</td><td>Skau, D. &amp; Kosara, R. (2016). Arcs, Angles, or Areas: Individual Data Encodings in Pie and Donut Charts. <i>CGF</i> 35(3), 121–130. <a href="https://kosara.net/publications/Skau-EuroVis-2016" target="_blank" rel="noopener">Page</a></td><td>1</td><td>Abstract only</td></tr>
+        <tr id="S6"><td class="num">S6</td><td>Kosara, R. (2016). An Empire Built on Sand: Reexamining What We Think We Know About Visualization. <i>BELIV</i>. <a href="https://kosara.net/papers/2016/Kosara-BELIV-2016.pdf" target="_blank" rel="noopener">PDF</a></td><td>2</td><td>Partial — the pie-chart provenance argument</td></tr>
+        <tr id="S7"><td class="num">S7</td><td>Bertin, J. (1967). <i>Sémiologie Graphique.</i> Gauthier-Villars.</td><td>2</td><td><b>Not read.</b> Cited here only as the acknowledged ancestor of S4, exactly as S1 and S2 cite it.</td></tr>
+        <tr id="S8"><td class="num">S8</td><td>Stevens, S. S. (1975). <i>Psychophysics.</i> Wiley. — the power law, p = ka<sup>α</sup></td><td>2</td><td>Not read; reached through S1's discussion of exponents for length, area and volume</td></tr>
+        <tr id="S9"><td class="num">S9</td><td>Spence, I. &amp; Lewandowsky, S. (1991). Displaying Proportions and Percentages. <i>Applied Cognitive Psychology</i> 5, 61–77.</td><td>1</td><td>Abstract only; used to corroborate direction, not magnitude</td></tr>
+        <tr id="S10"><td class="num">S10</td><td>Zeng &amp; Battle (2023). A Review and Collation of Graphical Perception Knowledge for Visualization Recommendation. <i>ACM CHI</i>. <a href="https://dl.acm.org/doi/full/10.1145/3544548.3581349" target="_blank" rel="noopener">DOI</a></td><td>3</td><td>Abstract; a route into the modern literature, not a load-bearing source</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>What was searched for and not found</h3>
+    <p class="small">A refutation search was run for each central claim. The material result: the ranking itself has replicated repeatedly, but its <i>interpretation</i> is contested in two specific places — whether angle is what readers use in a pie chart <span class="chip src"><a href="#S5">S5</a></span> <span class="chip src"><a href="#S6">S6</a></span>, and whether any single ranking survives contact with varying tasks and contexts <span class="chip src"><a href="#S3">S3</a></span> <span class="chip src"><a href="#S10">S10</a></span>. Both are taught in this course rather than smoothed over.</p>
+    <p class="small" style="margin-bottom:0">No serious challenge was found to the core position-beats-length-and-angle finding for comparison judgments. If you find one, that would be worth more than finishing the course.</p>
+  </div>
+</section>
+
+</main>
+
+<div class="footer wrap">
+  <p>Progress lives in this browser. Nothing is sent anywhere.</p>
+  <div class="row">
+    <button class="act" id="btnExport">Export progress</button>
+    <button class="act" id="btnImport">Import</button>
+    <button class="act" id="btnTheme">Theme: auto</button>
+    <button class="act" id="btnReset">Reset everything</button>
+  </div>
+  <p class="small" style="margin-top:1rem">Built for bennorris.com/courses. Sources and read depths in the Sources tab.</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="text/course-deferred">
+(function(){
+"use strict";
+
+/* ============================================================
+   STORAGE — window.storage (Claude) → localStorage → memory
+   One key, versioned JSON blob. The publish pipeline prefixes it.
+   ============================================================ */
+var KEY = "state";
+var store = (function(){
+  var hasClaude = (typeof window.storage === "object" && window.storage !== null);
+  var hasLocal = (function(){ try{ window.localStorage.setItem("__t","1");
+    window.localStorage.removeItem("__t"); return true; }catch(e){ return false; } })();
+  var mem = {};
+  return {
+    mode: hasClaude ? "claude" : (hasLocal ? "local" : "memory"),
+    get: function(k){
+      if(hasClaude){ try{ return Promise.resolve(window.storage.get(k)).then(function(r){
+        return (r && r.value) || null; }).catch(function(){ return null; }); }catch(e){} }
+      if(hasLocal){ try{ return Promise.resolve(window.localStorage.getItem(k)); }catch(e){} }
+      return Promise.resolve(mem[k] || null);
+    },
+    set: function(k,v){
+      if(hasClaude){ try{ return Promise.resolve(window.storage.set(k,v))
+        .then(function(){ return true; }).catch(function(){ return false; }); }catch(e){} }
+      if(hasLocal){ try{ window.localStorage.setItem(k,v); return Promise.resolve(true); }catch(e){} }
+      mem[k]=v; return Promise.resolve(false);
+    },
+    del: function(k){
+      if(hasClaude){ try{ Promise.resolve(window.storage.delete(k)).catch(function(){}); }catch(e){} }
+      if(hasLocal){ try{ window.localStorage.removeItem(k); }catch(e){} }
+      delete mem[k]; return Promise.resolve(true);
+    }
+  };
+})();
+
+var SCHEMA = 1;
+function freshState(){
+  return { v:SCHEMA, theme:"auto", done:{}, doneAt:{}, ans:{}, conf:{},
+           revealed:{}, trials:{}, meta:{} };
+}
+/* Migration path, present from the first commit. Cloud sync means a schema
+   change breaks every device at once with no local fallback, so every future
+   shape change adds a case here and bumps SCHEMA — it never mutates in place. */
+function migrate(o){
+  if(!o || typeof o!=="object") return freshState();
+  var v = o.v || 0;
+  if(v===0){                        // pre-versioned blobs, if any ever shipped
+    o.doneAt = o.doneAt || {};
+    o.v = 1;
+  }
+  var f = freshState();
+  Object.keys(f).forEach(function(k){ if(o[k]===undefined) o[k]=f[k]; });
+  o.v = SCHEMA;
+  return o;
+}
+var S = freshState();
+var saveTimer=null;
+function write(){ return store.set(KEY, JSON.stringify(S)); }
+function save(now){
+  clearTimeout(saveTimer);
+  if(now){ write(); return; }
+  saveTimer = setTimeout(function(){
+    write().then(function(ok){ if(!ok) toast("Not saved — storage unavailable"); });
+  }, 300);
+}
+/* Flush pending writes before the page goes away — otherwise a toggle
+   followed immediately by a navigation is silently lost. */
+window.addEventListener("pagehide", function(){ clearTimeout(saveTimer); write(); });
+document.addEventListener("visibilitychange", function(){
+  if(document.visibilityState==="hidden"){ clearTimeout(saveTimer); write(); }
+});
+function toast(msg){
+  var t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("on");
+  setTimeout(function(){ t.classList.remove("on"); }, 2200);
+}
+function $(s,r){ return (r||document).querySelector(s); }
+function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+
+/* ============================================================
+   PROGRESS METER — Cleveland & McGill §5.3, run on the reader.
+   Shading → area → length → framed rectangle → position.
+   The number is identical at every stage. Your ability to read
+   it is not. That is the entire argument of the 1984 paper.
+   ============================================================ */
+var BLOCKS = ["u1-judge","u1-read","u1-build","u1-write",
+  "u2-derive","u2-read","u2-estimator","u2-recall",
+  "u3-read","u3-judge","u3-derive","u3-build","u3-write",
+  "u4-read","u4-derive","u4-build","u4-write",
+  "u5-pick","u5-rebuild","u5-cold","u5-defend","u5-track-b"];
+
+var STAGES = [
+  { at:0.00, rank:"Rank 6 of 6 — shading",
+    note:"Your progress is encoded as <b>shading</b>: the bottom of the hierarchy, where Cleveland &amp; McGill put statistical maps with shading before recommending radical surgery on them. You almost certainly cannot read a number off this. Keep going and the meter will re-encode itself upward." },
+  { at:0.20, rank:"Rank 4 of 6 — area",
+    note:"Now <b>area</b>. Better, and still biased: Stevens' power law gives area judgments an exponent below 1, so you are systematically underestimating. Heer &amp; Bostock found area judgments hardest of all when the shapes compared were square." },
+  { at:0.40, rank:"Rank 3 of 6 — length",
+    note:"<b>Length</b>, unframed and unscaled. In the 1984 position-length experiment, length errors ran 40% to 250% larger than position errors, and length judgments produced large errors at 5.3 times the rate." },
+  { at:0.60, rank:"Rank 2 of 6 — position, non-aligned scales",
+    note:"A <b>framed rectangle</b>. The frame adds an unfilled bar, and by Weber's law the short unfilled remainder makes small differences detectable that the long filled bar hides. Same data, one extra rectangle, materially better decoding." },
+  { at:0.80, rank:"Rank 1 of 6 — position, common scale",
+    note:"<b>Position along a common scale</b>, with ticks only at the extremes — as in the original stimuli, so you cannot read a value off the axis and divide. This is as good as the hierarchy gets." }
+];
+
+function progress(){
+  var n=0; for(var i=0;i<BLOCKS.length;i++){ if(S.done[BLOCKS[i]]) n++; }
+  return { n:n, total:BLOCKS.length, p:n/BLOCKS.length };
+}
+function stageFor(p){
+  var s=STAGES[0];
+  for(var i=0;i<STAGES.length;i++){ if(p>=STAGES[i].at) s=STAGES[i]; }
+  return s;
+}
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+function drawMeter(){
+  var pr=progress(), p=pr.p, st=stageFor(p);
+  var svg=document.getElementById("meterStage");
+  var ink=css("--ink"), rule=css("--rule"), amber=css("--amber"), faint=css("--ink-3");
+  var W=340, H=52, x0=14, x1=326, mid=26, w=x1-x0;
+  var g="";
+
+  if(st.at===0.00){
+    g += '<rect x="'+x0+'" y="10" width="'+w+'" height="32" fill="'+ink+'" fill-opacity="'+(0.06+p*0.9).toFixed(3)+'" stroke="'+css("--edge")+'" stroke-width="1"/>';
+  } else if(st.at===0.20){
+    var rmax=20, r=rmax*Math.sqrt(p);
+    g += '<circle cx="'+(x0+22)+'" cy="'+mid+'" r="'+r.toFixed(2)+'" fill="'+amber+'" fill-opacity="0.85"/>';
+    g += '<circle cx="'+(x0+22)+'" cy="'+mid+'" r="'+rmax+'" fill="none" stroke="'+rule+'" stroke-dasharray="2 3"/>';
+  } else if(st.at===0.40){
+    g += '<rect x="'+x0+'" y="17" width="'+(w*p).toFixed(1)+'" height="18" fill="'+amber+'"/>';
+  } else if(st.at===0.60){
+    g += '<rect x="'+x0+'" y="12" width="'+w+'" height="28" fill="none" stroke="'+ink+'" stroke-width="1.4"/>';
+    g += '<rect x="'+x0+'" y="12" width="'+(w*p).toFixed(1)+'" height="28" fill="'+amber+'" fill-opacity="0.9"/>';
+  } else {
+    g += '<line x1="'+x0+'" y1="'+mid+'" x2="'+x1+'" y2="'+mid+'" stroke="'+css("--edge")+'" stroke-width="1.2"/>';
+    g += '<line x1="'+x0+'" y1="'+(mid-6)+'" x2="'+x0+'" y2="'+(mid+6)+'" stroke="'+ink+'"/>';
+    g += '<line x1="'+x1+'" y1="'+(mid-6)+'" x2="'+x1+'" y2="'+(mid+6)+'" stroke="'+ink+'"/>';
+    g += '<circle cx="'+(x0+w*p).toFixed(1)+'" cy="'+mid+'" r="6" fill="'+amber+'"/>';
+    g += '<text x="'+x0+'" y="'+(mid+20)+'" font-family="monospace" font-size="9" fill="'+faint+'">0</text>';
+    g += '<text x="'+x1+'" y="'+(mid+20)+'" text-anchor="end" font-family="monospace" font-size="9" fill="'+faint+'">100</text>';
+  }
+  svg.innerHTML=g;
+  document.getElementById("meterRank").textContent = st.rank;
+  document.getElementById("meterCount").textContent = pr.n+" / "+pr.total+" blocks";
+  var note = st.note;
+  if(S.meta.numeric){ note += ' <b>' + Math.round(p*100) + '% complete.</b> (Ehrenberg\u2019s point, which Cleveland &amp; McGill concede: if conveying the number were the only goal, a table would beat every chart above.)'; }
+  document.getElementById("meterNote").innerHTML = note;
+  document.getElementById("meterReveal").textContent =
+    S.meta.numeric ? "Hide the number" : "Read it numerically instead";
+}
+
+/* ============================================================
+   TABS
+   ============================================================ */
+$$('nav.tabs button').forEach(function(b){
+  b.addEventListener("click", function(){
+    $$('nav.tabs button').forEach(function(o){ o.setAttribute("aria-selected", o===b ? "true":"false"); });
+    ["course","lab","records","sources"].forEach(function(v){
+      document.getElementById("view-"+v).hidden = (v!==b.dataset.view);
+    });
+    window.scrollTo(0,0);
+  });
+});
+function goTab(v){ var b=$('nav.tabs button[data-view="'+v+'"]'); if(b) b.click(); }
+
+/* ============================================================
+   BLOCKS + TICKS
+   ============================================================ */
+function wireTicks(){
+  $$('.tick').forEach(function(t){
+    var cb=$('input',t);
+    if(!cb) return;
+    t.addEventListener("click", function(e){
+      if(e.target!==cb) cb.checked=!cb.checked;
+      S.done[cb.dataset.done]=cb.checked;
+      if(cb.checked) S.doneAt[cb.dataset.done]=Date.now(); else delete S.doneAt[cb.dataset.done];
+      save(true); drawMeter();
+    });
+  });
+}
+function restoreTicks(){
+  $$('.tick input').forEach(function(cb){ cb.checked = !!S.done[cb.dataset.done]; });
+}
+
+/* ============================================================
+   EXERCISES — generation before feedback, calibration before reveal
+   ============================================================ */
+function wireExercises(){
+  $$('[data-ans]').forEach(function(el){
+    el.addEventListener("input", function(){ S.ans[el.dataset.ans]=el.value; save(); });
+  });
+  $$('.conf').forEach(function(box){
+    var id=box.dataset.conf;
+    $$('button',box).forEach(function(b){
+      b.addEventListener("click", function(){
+        S.conf[id]=parseInt(b.dataset.c,10);
+        $$('button',box).forEach(function(o){ o.setAttribute("aria-pressed", o===b?"true":"false"); });
+        save(true); updateGate(id);
+      });
+    });
+  });
+  $$('.gate').forEach(function(g){
+    var id=g.dataset.gate;
+    if(!g.dataset.label) g.dataset.label=g.textContent.trim();
+    g.addEventListener("click", function(){
+      S.revealed[id]=true; save(true); showReveal(id);
+    });
+    updateGate(id);
+  });
+  $$('[data-ans]').forEach(function(el){
+    el.addEventListener("input", function(){
+      var ex=el.closest(".ex"); if(ex) updateGate(ex.dataset.ex);
+    });
+  });
+}
+function answered(id){
+  var ex=$('[data-ex="'+id+'"]'); if(!ex) return false;
+  var fields=$$('[data-ans]',ex);
+  if(!fields.length) return true;
+  return fields.some(function(f){ return (S.ans[f.dataset.ans]||"").trim().length>=8; });
+}
+function updateGate(id){
+  var g=$('.gate[data-gate="'+id+'"]'); if(!g) return;
+  if(S.revealed[id]){ g.disabled=false; g.textContent="Answer shown"; return; }
+  var ok = answered(id) && S.conf[id];
+  g.disabled = !ok;
+  g.textContent = ok ? (g.dataset.label || "Check answer")
+    : (S.conf[id] ? "Write an attempt first" : "Rate your confidence first");
+}
+function showReveal(id){
+  var r=$('[data-rev="'+id+'"]'); if(r) r.hidden=false;
+  var g=$('.gate[data-gate="'+id+'"]'); if(g){ g.disabled=false; g.textContent="Answer shown"; }
+  var c=$('[data-calib="'+id+'"]');
+  if(c && S.conf[id]){
+    var words = ["","1 — a guess","2 — shaky","3 — even odds","4 — fairly sure","5 — confident"];
+    c.textContent = "You went in at " + words[S.conf[id]] + ". Note the gap between that and how it actually went — that gap is the only calibration instrument a solo learner has.";
+  }
+}
+function restoreExercises(){
+  $$('[data-ans]').forEach(function(el){ if(S.ans[el.dataset.ans]) el.value=S.ans[el.dataset.ans]; });
+  $$('.conf').forEach(function(box){
+    var id=box.dataset.conf;
+    if(S.conf[id]) $$('button',box).forEach(function(b){
+      b.setAttribute("aria-pressed", parseInt(b.dataset.c,10)===S.conf[id] ? "true":"false"); });
+  });
+  Object.keys(S.revealed).forEach(function(id){ if(S.revealed[id]) showReveal(id); });
+  $$('.gate').forEach(function(g){ updateGate(g.dataset.gate); });
+}
+
+/* ============================================================
+   THE LAB
+   Stimuli follow Cleveland & McGill's construction: values on
+   s_i = 10 * 10^((i-1)/12), ratios between .18 and .83, no tick
+   marks or labels except at the extremes, one response format
+   for every encoding (Heer & Bostock's unification).
+   ============================================================ */
+function rng(seed){ var s=seed>>>0; return function(){ s=(1664525*s+1013904223)>>>0; return s/4294967296; }; }
+function svals(){ var a=[]; for(var i=1;i<=10;i++) a.push(10*Math.pow(10,(i-1)/12)); return a; }
+
+var TYPES = {
+  pos:  { label:"Position, common scale", short:"position", ref:1.40 },
+  len:  { label:"Length, divided bar",    short:"length",   ref:2.72 },
+  ang:  { label:"Angle, pie",             short:"angle",    ref:null },
+  area: { label:"Circular area, bubble",  short:"area",     ref:null }
+};
+var TYPES2 = {
+  wpie: { label:"Pie \u2014 share of whole",         short:"pie",        ref:null },
+  wbar: { label:"Divided bar \u2014 share of whole", short:"divided bar", ref:null }
+};
+
+function makeTrials(seed, mode){
+  var r=rng(seed), V=svals(), out=[];
+  var ds=[1,2,3,4,6,8];
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(r()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+
+  if(mode==="whole"){
+    ["wpie","wbar"].forEach(function(ty){
+      for(var k=0;k<6;k++){
+        var vals=[], sum=0;
+        for(var i=0;i<5;i++){ var v=6+r()*30; vals.push(v); sum+=v; }
+        for(var i2=0;i2<5;i2++) vals[i2]=vals[i2]/sum*100;
+        var m=Math.floor(r()*5);
+        out.push({ type:ty, vals:vals, mark:[m], truth:vals[m] });
+      }
+    });
+  } else {
+    Object.keys(TYPES).forEach(function(ty){
+      var order=shuffle(ds.slice());
+      for(var k=0;k<6;k++){
+        var d=order[k], hi=3+Math.floor(r()*(7-Math.min(d,5))), lo=hi-d;
+        if(lo<0){ lo=0; hi=d; }
+        var big=V[hi], small=V[lo];
+        var truth=100*small/big;
+        var vals=[]; for(var i=0;i<5;i++) vals.push(V[Math.floor(r()*10)]);
+        var ia=Math.floor(r()*5), ib=(ia+1+Math.floor(r()*4))%5;
+        if(r()<0.5){ vals[ia]=small; vals[ib]=big; } else { vals[ia]=big; vals[ib]=small; }
+        out.push({ type:ty, vals:vals, mark:[ia,ib], truth:truth });
+      }
+    });
+  }
+  return shuffle(out);
+}
+
+function C(){ return { ink:css("--ink"), rule:css("--rule"), card:css("--card"),
+  paper:css("--paper"), amber:css("--amber"), faint:css("--ink-3") }; }
+
+function svgWrap(inner){
+  return '<svg viewBox="0 0 340 250" role="img" aria-label="Judgment stimulus">'+inner+'</svg>';
+}
+function dot(x,y,c){ return '<circle cx="'+x+'" cy="'+y+'" r="4" fill="'+c+'"/>'; }
+function lab(x,y,t,c){ return '<text x="'+x+'" y="'+y+'" text-anchor="middle" font-family="monospace" font-size="12" fill="'+c+'">'+t+'</text>'; }
+
+function drawPos(t){
+  var c=C(), g="", base=215, top=25, hmax=base-top, maxv=60;
+  var bw=38, gap=16, x=30;
+  g+='<line x1="18" y1="'+base+'" x2="322" y2="'+base+'" stroke="'+c.ink+'" stroke-width="1"/>';
+  g+='<line x1="18" y1="'+top+'" x2="24" y2="'+top+'" stroke="'+c.ink+'"/>';
+  g+='<line x1="18" y1="'+base+'" x2="18" y2="'+top+'" stroke="'+c.rule+'"/>';
+  for(var i=0;i<5;i++){
+    var h=t.vals[i]/maxv*hmax, y=base-h;
+    g+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" fill="none" stroke="'+c.ink+'" stroke-width="1.25"/>';
+    if(t.mark.indexOf(i)>=0){
+      g+=dot(x+bw/2, y+13, c.amber);
+      g+=lab(x+bw/2, base+18, (i===t.mark[0]?"A":"B"), c.ink);
+    }
+    x+=bw+gap;
+  }
+  return svgWrap(g);
+}
+function drawLen(t){
+  var c=C(), g="", base=225, top=20, hmax=base-top;
+  var groups=[[0,1,2],[3,4,2]], xs=[70,200], bw=64;
+  var seq=[t.vals[0], t.vals[1], t.vals[2], t.vals[3], t.vals[4]];
+  var a=t.mark[0], b=t.mark[1];
+  var stacks=[
+    [ seq[0]*0.5, t.vals[a], seq[2]*0.6, seq[1]*0.4 ],
+    [ seq[3]*0.35, seq[4]*0.5, t.vals[b], seq[0]*0.3 ]
+  ];
+  var totals=stacks.map(function(s){ return s.reduce(function(p,q){return p+q;},0); });
+  var maxT=Math.max(totals[0],totals[1])*1.08;
+  for(var k=0;k<2;k++){
+    var y=base, offset=(k===0?0:1);
+    for(var j=0;j<stacks[k].length;j++){
+      var h=stacks[k][j]/maxT*hmax;
+      y-=h;
+      g+='<rect x="'+xs[k]+'" y="'+y+'" width="'+bw+'" height="'+h+'" fill="none" stroke="'+c.ink+'" stroke-width="1.1"/>';
+      var isMark = (k===0 && j===1) || (k===1 && j===2);
+      if(isMark) g+=dot(xs[k]+bw/2, y+h/2, c.amber);
+    }
+    g+=lab(xs[k]+bw/2, base+18, (k===0?"A":"B"), c.ink);
+  }
+  g+='<line x1="40" y1="'+base+'" x2="300" y2="'+base+'" stroke="'+c.ink+'" stroke-width="1"/>';
+  return svgWrap(g);
+}
+function drawAng(t){
+  var c=C(), g="", cx=170, cy=118, R=92;
+  var sum=t.vals.reduce(function(p,q){return p+q;},0), acc=-Math.PI/2;
+  for(var i=0;i<5;i++){
+    var frac=t.vals[i]/sum, a0=acc, a1=acc+frac*Math.PI*2; acc=a1;
+    var x0=cx+R*Math.cos(a0), y0=cy+R*Math.sin(a0), x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
+    var large = (a1-a0)>Math.PI ? 1 : 0;
+    g+='<path d="M'+cx+' '+cy+' L'+x0.toFixed(1)+' '+y0.toFixed(1)+' A'+R+' '+R+' 0 '+large+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z" fill="none" stroke="'+c.ink+'" stroke-width="1.25"/>';
+    if(t.mark.indexOf(i)>=0){
+      var am=(a0+a1)/2, mx=cx+R*0.62*Math.cos(am), my=cy+R*0.62*Math.sin(am);
+      g+=dot(mx,my,c.amber);
+      g+=lab(cx+R*0.86*Math.cos(am), cy+R*0.86*Math.sin(am)+4, (i===t.mark[0]?"A":"B"), c.ink);
+    }
+  }
+  return svgWrap(g);
+}
+function drawArea(t){
+  var c=C(), g="";
+  var pts=[[70,70],[240,62],[150,132],[62,190],[258,182]];
+  var maxv=Math.max.apply(null,t.vals), k=52/Math.sqrt(maxv);
+  for(var i=0;i<5;i++){
+    var r=k*Math.sqrt(t.vals[i]);
+    g+='<circle cx="'+pts[i][0]+'" cy="'+pts[i][1]+'" r="'+r.toFixed(1)+'" fill="none" stroke="'+c.ink+'" stroke-width="1.25"/>';
+    if(t.mark.indexOf(i)>=0){
+      g+=dot(pts[i][0],pts[i][1],c.amber);
+      g+=lab(pts[i][0], pts[i][1]-r-7, (i===t.mark[0]?"A":"B"), c.ink);
+    }
+  }
+  return svgWrap(g);
+}
+function drawWpie(t){
+  var c=C(), g="", cx=170, cy=118, R=92, acc=-Math.PI/2;
+  for(var i=0;i<5;i++){
+    var frac=t.vals[i]/100, a0=acc, a1=acc+frac*Math.PI*2; acc=a1;
+    var x0=cx+R*Math.cos(a0), y0=cy+R*Math.sin(a0), x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
+    var large=(a1-a0)>Math.PI?1:0;
+    g+='<path d="M'+cx+' '+cy+' L'+x0.toFixed(1)+' '+y0.toFixed(1)+' A'+R+' '+R+' 0 '+large+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z" fill="none" stroke="'+c.ink+'" stroke-width="1.25"/>';
+    if(i===t.mark[0]){
+      var am=(a0+a1)/2;
+      g+=dot(cx+R*0.62*Math.cos(am), cy+R*0.62*Math.sin(am), c.amber);
+    }
+  }
+  return svgWrap(g);
+}
+function drawWbar(t){
+  var c=C(), g="", base=228, top=20, hmax=base-top, x=130, bw=80, y=base;
+  for(var i=0;i<5;i++){
+    var h=t.vals[i]/100*hmax; y-=h;
+    g+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" fill="none" stroke="'+c.ink+'" stroke-width="1.1"/>';
+    if(i===t.mark[0]) g+=dot(x+bw/2, y+h/2, c.amber);
+  }
+  return svgWrap(g);
+}
+var DRAW = { pos:drawPos, len:drawLen, ang:drawAng, area:drawArea, wpie:drawWpie, wbar:drawWbar };
+
+/* ---- scoring ---- */
+function logErr(judged, truth, eps){
+  var e = (eps===false) ? 0 : 0.125;
+  var d = Math.abs(judged-truth)+e;
+  if(d<=0) return null;
+  return Math.log(d)/Math.LN2;
+}
+function midmean(a){
+  if(!a.length) return null;
+  var s=a.slice().sort(function(x,y){return x-y;});
+  var k=Math.floor(s.length/4);
+  var m=s.slice(k, s.length-k);
+  if(!m.length) m=s;
+  return m.reduce(function(p,q){return p+q;},0)/m.length;
+}
+function meanOf(a){ return a.length? a.reduce(function(p,q){return p+q;},0)/a.length : null; }
+function medianOf(a){ if(!a.length) return null; var s=a.slice().sort(function(x,y){return x-y;});
+  var h=Math.floor(s.length/2); return s.length%2 ? s[h] : (s[h-1]+s[h])/2; }
+
+/* ---- lab state machine ---- */
+var run = null;
+function startRound(round){
+  var seeds = { r1:20260811, r2:771987, r3:41984 };
+  var mode = (round==="r2") ? "whole" : "cmp";
+  run = { round:round, mode:mode, i:0, trials:makeTrials(seeds[round], mode), rows:[], t0:0 };
+  document.getElementById("labHome").hidden=true;
+  document.getElementById("labRun").hidden=false;
+  document.getElementById("labResults").hidden=true;
+  renderTrial();
+}
+function renderTrial(){
+  var box=document.getElementById("labRun");
+  if(run.i>=run.trials.length){ finishRound(); return; }
+  var t=run.trials[run.i];
+  var q = (run.mode==="whole")
+    ? "What percentage <b>of the whole</b> is the marked segment?"
+    : "Which is smaller? Then: what percentage is the smaller of the larger?";
+  var picker = (run.mode==="whole") ? "" :
+    '<div class="row" style="margin-top:.6rem"><span class="small" style="margin-right:.3rem">Smaller:</span>'+
+    '<button class="act" data-pick="A">A</button><button class="act" data-pick="B">B</button>'+
+    '<span class="small" id="pickState" style="color:var(--ink-3)"></span></div>';
+  box.innerHTML =
+    '<div class="card">'+
+      '<div class="trialbar"><span>'+run.round.toUpperCase()+' · trial '+(run.i+1)+' of '+run.trials.length+'</span>'+
+      '<span>quick visual judgment — do not measure</span></div>'+
+      '<div class="stim">'+DRAW[t.type](t)+'</div>'+
+      '<p class="small" style="margin-top:.8rem">'+q+'</p>'+
+      picker+
+      '<div class="answer"><input type="number" id="jv" min="0" max="100" step="1" inputmode="numeric" placeholder="%">'+
+        '<button class="act primary" id="submit">Submit</button>'+
+        '<button class="act" id="abort">Stop and save</button></div>'+
+    '</div>';
+  run.t0=Date.now(); run.pick=null;
+  $$('[data-pick]',box).forEach(function(b){
+    b.addEventListener("click", function(){
+      run.pick=b.dataset.pick;
+      $$('[data-pick]',box).forEach(function(o){ o.classList.toggle("primary", o===b); });
+    });
+  });
+  $("#jv").focus();
+  $("#jv").addEventListener("keydown", function(e){ if(e.key==="Enter") $("#submit").click(); });
+  $("#submit").addEventListener("click", function(){
+    var v=parseFloat($("#jv").value);
+    if(isNaN(v)||v<0||v>100){ toast("Enter a percentage between 0 and 100"); return; }
+    var t=run.trials[run.i];
+    var smaller = (run.mode==="whole") ? null
+      : (t.vals[t.mark[0]] <= t.vals[t.mark[1]] ? "A" : "B");
+    run.rows.push({ type:t.type, truth:t.truth, judged:v, ms:Date.now()-run.t0,
+      pickOK: (smaller===null) ? null : (run.pick===smaller) });
+    run.i++; renderTrial();
+  });
+  $("#abort").addEventListener("click", function(){ finishRound(true); });
+}
+function finishRound(partial){
+  if(run.rows.length){
+    S.trials[run.round]={ at:Date.now(), mode:run.mode, rows:run.rows, partial:!!partial };
+    if(run.round==="r1" && !partial) S.meta.r1done=Date.now();
+    save(true);
+  }
+  document.getElementById("labRun").hidden=true;
+  run=null;
+  renderLab();
+  toast(partial ? "Saved partial round" : "Round complete");
+}
+
+/* ---- ladder chart ---- */
+function ladder(rows, typeMap, opts){
+  opts=opts||{};
+  var c=C(), keys=Object.keys(typeMap);
+  var series={}; keys.forEach(function(k){ series[k]=[]; });
+  rows.forEach(function(r){
+    if(!series[r.type]) return;
+    var e=logErr(r.judged, r.truth, opts.eps);
+    if(e!==null && isFinite(e)) series[r.type].push(e);
+  });
+  var summarize = opts.est==="mean" ? meanOf : (opts.est==="median" ? medianOf : midmean);
+  var vals=[]; keys.forEach(function(k){ var v=summarize(series[k]); if(v!==null) vals.push(v); });
+  keys.forEach(function(k){ if(typeMap[k].ref!=null) vals.push(typeMap[k].ref); });
+  if(!vals.length) return "<p class='small'>No data yet.</p>";
+  var lo=Math.min.apply(null,vals)-0.4, hi=Math.max.apply(null,vals)+0.4;
+  lo=Math.floor(lo*2)/2; hi=Math.ceil(hi*2)/2;
+  var W=340, rowH=34, H=keys.length*rowH+42, x0=118, x1=326;
+  function X(v){ return x0+(v-lo)/(hi-lo)*(x1-x0); }
+  var g='';
+  for(var tick=lo; tick<=hi+0.001; tick+=0.5){
+    g+='<line x1="'+X(tick).toFixed(1)+'" y1="16" x2="'+X(tick).toFixed(1)+'" y2="'+(H-26)+'" stroke="'+c.rule+'" stroke-width="0.6"/>';
+    g+='<text x="'+X(tick).toFixed(1)+'" y="'+(H-12)+'" text-anchor="middle" font-family="monospace" font-size="9" fill="'+c.faint+'">'+tick.toFixed(1)+'</text>';
+  }
+  keys.forEach(function(k,i){
+    var y=30+i*rowH;
+    g+='<text x="0" y="'+(y+4)+'" font-family="monospace" font-size="10" fill="'+c.ink+'">'+(typeMap[k].short||typeMap[k].label)+'</text>';
+    g+='<line x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" stroke="'+c.rule+'" stroke-width="0.5" stroke-dasharray="1 3"/>';
+    var v=summarize(series[k]);
+    if(typeMap[k].ref!=null){
+      g+='<circle cx="'+X(typeMap[k].ref).toFixed(1)+'" cy="'+y+'" r="4.5" fill="none" stroke="'+css("--blue")+'" stroke-width="1.6"/>';
+    }
+    if(v!==null) g+='<circle cx="'+X(v).toFixed(1)+'" cy="'+y+'" r="5" fill="'+c.amber+'"/>';
+  });
+  g+='<text x="'+((x0+x1)/2)+'" y="12" text-anchor="middle" font-family="monospace" font-size="9" fill="'+c.faint+'">log\u2082 absolute error \u2014 lower is more accurate</text>';
+  return '<svg class="ladder" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Accuracy ladder">'+g+'</svg>';
+}
+
+function summaryTable(rows, typeMap, opts){
+  opts=opts||{};
+  var summarize = opts.est==="mean" ? meanOf : (opts.est==="median" ? medianOf : midmean);
+  var keys=Object.keys(typeMap), series={};
+  keys.forEach(function(k){ series[k]=[]; });
+  rows.forEach(function(r){ if(series[r.type]){ var e=logErr(r.judged,r.truth,opts.eps);
+    if(e!==null&&isFinite(e)) series[r.type].push(e); } });
+  var scored = keys.map(function(k){ return { k:k, v:summarize(series[k]), n:series[k].length }; })
+    .filter(function(o){ return o.v!==null; })
+    .sort(function(a,b){ return a.v-b.v; });
+  var h='<div class="scroll"><table><thead><tr><th>Your rank</th><th>Encoding</th><th>Your score</th><th>Published</th><th>n</th></tr></thead><tbody>';
+  scored.forEach(function(o,i){
+    h+='<tr><td class="num">'+(i+1)+'</td><td>'+typeMap[o.k].label+'</td><td class="num">'+o.v.toFixed(2)+'</td>'+
+       '<td class="num">'+(typeMap[o.k].ref!=null ? typeMap[o.k].ref.toFixed(2) : "\u2014")+'</td>'+
+       '<td class="num">'+o.n+'</td></tr>';
+  });
+  h+='</tbody></table></div>';
+  return h;
+}
+
+function renderLab(){
+  var home=document.getElementById("labHome");
+  var res=document.getElementById("labResults");
+  var r1=S.trials.r1, r2=S.trials.r2, r3=S.trials.r3;
+  var days = S.meta.r1done ? (Date.now()-S.meta.r1done)/86400000 : null;
+  var r3Ready = S.meta.r3override || (days!==null && days>=5);
+
+  home.hidden=false;
+  home.innerHTML =
+    '<div class="card"><h3>Round 1 · comparison task</h3>'+
+      '<p class="small">24 stimuli across four encodings. What percentage is the smaller of the larger? About 8 minutes.</p>'+
+      '<div class="row"><button class="act primary" data-start="r1">'+(r1?"Run again (overwrites)":"Start Round 1")+'</button>'+
+      (r1?'<span class="small" style="color:var(--ink-3)">completed '+new Date(r1.at).toLocaleDateString()+'</span>':'')+'</div></div>'+
+
+    '<div class="card"><h3>Round 2 · proportion of the whole</h3>'+
+      '<p class="small">12 stimuli, pies and divided bars only. The question changes; predict first.</p>'+
+      (S.ans["r2pred"]?'':'<p class="small" style="color:var(--amber)">Log your prediction below before you run it.</p>')+
+      '<textarea data-ans="r2pred" placeholder="Which encoding will win this time, and why? How confident are you?" style="width:100%;font-family:var(--f-mono);font-size:.86rem;background:var(--paper);color:var(--ink);border:1px solid var(--edge);border-radius:2px;padding:.55rem;min-height:4.5rem"></textarea>'+
+      '<div class="row"><button class="act primary" data-start="r2" '+(S.ans["r2pred"]&&S.ans["r2pred"].length>10?'':'disabled')+'>'+(r2?"Run again (overwrites)":"Start Round 2")+'</button></div></div>'+
+
+    '<div class="card"><h3>Round 3 · the cold re-run</h3>'+
+      '<p class="small">Same four encodings as Round 1, fresh stimuli. Locked until five days after Round 1 — running it warm measures your memory, not your perception.</p>'+
+      (r3Ready
+        ? '<div class="row"><button class="act primary" data-start="r3">'+(r3?"Run again (overwrites)":"Start Round 3")+'</button>'+(S.meta.r3override?'<span class="small" style="color:var(--bad)">override used — results contaminated</span>':'')+'</div>'
+        : '<div class="row"><button class="act" disabled>Locked</button>'+
+          '<span class="small" style="color:var(--ink-3)">'+(days===null?"finish Round 1 first":"unlocks in "+Math.ceil(5-days)+" day(s)")+'</span>'+
+          (days!==null?'<button class="act" id="ovr">Override anyway</button>':'')+'</div>')+
+    '</div>';
+
+  $$('[data-start]',home).forEach(function(b){
+    b.addEventListener("click", function(){ startRound(b.dataset.start); });
+  });
+  var ta=$('[data-ans="r2pred"]',home);
+  if(ta){ ta.value=S.ans["r2pred"]||"";
+    ta.addEventListener("input", function(){ S.ans["r2pred"]=ta.value; save();
+      var btn=$('[data-start="r2"]',home); if(btn) btn.disabled = ta.value.trim().length<=10; }); }
+  var ov=document.getElementById("ovr");
+  if(ov) ov.addEventListener("click", function(){ S.meta.r3override=true; save(); renderLab(); });
+
+  /* results */
+  var est=S.meta.est||"midmean", eps=(S.meta.eps===false)?false:true;
+  var h="";
+  if(r1){
+    h+='<div class="card"><h3>Round 1 results</h3>'+
+      '<div class="row" style="margin-bottom:.6rem">'+
+      ["midmean","mean","median"].map(function(e){
+        return '<button class="act'+(est===e?" primary":"")+'" data-est="'+e+'">'+e+'</button>'; }).join("")+
+      '<button class="act'+(eps?"":" primary")+'" data-eps="1">'+(eps?"drop the \u215B":"restore the \u215B")+'</button></div>'+
+      ladder(r1.rows, TYPES, {est:est, eps:eps})+
+      '<div class="legend"><span><i style="background:'+css("--amber")+'"></i>your midmean</span>'+
+      '<span><i style="border:1.6px solid '+css("--blue")+';background:none"></i>Cleveland &amp; McGill 1984</span></div>'+
+      summaryTable(r1.rows, TYPES, {est:est, eps:eps})+
+      '<p class="small">The published points come from the position-length experiment only: Type 1 at 1.40 and Type 5 at 2.72 log units <span class="chip src"><a href="#S1">S1</a></span>. <b>There is deliberately no published point for angle or area.</b> Cleveland &amp; McGill ran position-angle as a separate experiment with a different task format and said explicitly that means from one should not be compared with means from the other; Heer &amp; Bostock unified the format in 2010 but the paper reports its comparison graphically rather than as numbers. Rather than invent a point, this course leaves the cell empty and names the gap.</p>'+
+      (function(){
+        var bad=r1.rows.filter(function(r){ return r.pickOK===false; }).length;
+        var slow=medianOf(r1.rows.map(function(r){ return r.ms; }));
+        return '<p class="small" style="margin-bottom:0">Your verification question — picking which mark was smaller — was wrong on <b>'+bad+' of '+r1.rows.length+'</b> trials. Heer &amp; Bostock got 14 wrong out of 3,481, or 0.4% <span class="chip src"><a href="#S2">S2</a></span>; a much higher rate here means you were rushing or misreading the stimulus, not that your perception is unusual. Median time per trial: '+Math.round(slow/1000)+'s — and treat that number with suspicion, since browser-collected response times were unreliable in their study too.</p>';
+      })()+
+      '</div>';
+  }
+  if(r2){
+    h+='<div class="card"><h3>Round 2 results — proportion of the whole</h3>'+
+      ladder(r2.rows, TYPES2, {est:est, eps:eps})+
+      summaryTable(r2.rows, TYPES2, {est:est, eps:eps})+
+      '<p class="small" style="margin-bottom:0">Compare against your prediction above, and against Round 1\u2019s ordering of pie versus divided bar. Simkin &amp; Hastie found angle in a pie as accurate as position in a simple bar, and better than length in a divided bar, once the question became share-of-whole <span class="chip src"><a href="#S3">S3</a></span>. Twelve trials will not settle it for you. The point is that the question moved and the ranking moved with it.</p></div>';
+  }
+  if(r3 && r1){
+    h+='<div class="card"><h3>Round 3 — cold re-run</h3>'+
+      ladder(r3.rows, TYPES, {est:est, eps:eps})+
+      summaryTable(r3.rows, TYPES, {est:est, eps:eps})+
+      '<p class="small" style="margin-bottom:0">'+(S.meta.r3override?'<b style="color:var(--bad)">Run warm — treat as contaminated.</b> ':'')+
+      'Any improvement here is practice and strategy, not perception. Your visual system did not change in a week. What may have changed is how much you trust each encoding before you answer.</p></div>';
+  }
+  if(!r1) h+='<div class="card flat"><p class="small" style="margin-bottom:0">Results appear here after Round 1.</p></div>';
+  res.innerHTML=h; res.hidden=false;
+
+  $$('[data-est]',res).forEach(function(b){
+    b.addEventListener("click", function(){ S.meta.est=b.dataset.est; save(); renderLab(); }); });
+  var eb=$('[data-eps]',res);
+  if(eb) eb.addEventListener("click", function(){ S.meta.eps = (S.meta.eps===false); save(); renderLab(); });
+}
+
+/* ============================================================
+   RECORDS
+   ============================================================ */
+var RECORDS = [
+  { h:"Decision Record #1", sub:"Unit 1 · crude and complete, on purpose",
+    fields:[["dr1a","What chart, and who reads it?"],["dr1b","What value is encoded, in what channel?"],
+      ["dr1c","What judgment does the reader actually make?"],["dr1d","What do you predict the error looks like?"],
+      ["dr1e","What would you change?"]] },
+  { h:"Unit 1 note", sub:"Where my ladder disagrees with theirs",
+    fields:[["n1","Two paragraphs, maximum."]] },
+  { h:"How the estimator changed my answer", sub:"Unit 2 deliverable",
+    fields:[["n2","Three or four paragraphs. End with the sentence you'd say out loud in a design review."]] },
+  { h:"Decision Record #2", sub:"Unit 3 · judgment before channel",
+    fields:[["dr2a","What judgment does the reader make?"],["dr2b","What chart is it, and what channel?"],
+      ["dr2c","Does the channel serve that judgment? Evidence?"],["dr2d","Change or defend?"]] },
+  { h:"Decision Record #3", sub:"Unit 3 · judgment before channel",
+    fields:[["dr3a","What judgment does the reader make?"],["dr3b","What chart is it, and what channel?"],
+      ["dr3c","Does the channel serve that judgment? Evidence?"],["dr3d","Change or defend?"]] },
+  { h:"Decision Record #4", sub:"Unit 3 · no scaffold — write it in the shape the chart needs",
+    fields:[["dr4","(blank on purpose)"]] },
+  { h:"One chart I'd now defend", sub:"Unit 3 · one paragraph",
+    fields:[["n3","Where the ranking alone would have told you to change something, and the task analysis says leave it."]] },
+  { h:"Encoding provenance table", sub:"Unit 4 · measured / extended / folklore",
+    fields:[["n4","Channel — provenance — where you think you got it."]] },
+  { h:"One rule I've been applying that was never tested", sub:"Unit 4",
+    fields:[["n5","Name it, source it if you can, say what you'll do."]] },
+  { h:"Capstone: target and win condition", sub:"Unit 5 · written before the redesign",
+    fields:[["c1","What counts as an improvement. What counts as a wash."]] },
+  { h:"Capstone: the defense memo", sub:"Unit 5 · one page",
+    fields:[["c2","1. The reader and the judgment. 2. The encoding and its cost. 3. What would change your mind."]] }
+];
+function renderRecords(){
+  var box=document.getElementById("recordsBody"), h="";
+  RECORDS.forEach(function(r){
+    h+='<div class="card"><p class="eyebrow">'+r.sub+'</p><h3>'+r.h+'</h3>';
+    r.fields.forEach(function(f){
+      h+='<label class="small" style="display:block;margin-top:.7rem;color:var(--ink-2)">'+f[1]+'</label>'+
+         '<textarea data-ans="'+f[0]+'" style="width:100%;font-family:var(--f-mono);font-size:.86rem;'+
+         'background:var(--paper);color:var(--ink);border:1px solid var(--edge);border-radius:2px;'+
+         'padding:.55rem;min-height:'+(r.fields.length===1?"9rem":"4.2rem")+';resize:vertical;line-height:1.5"></textarea>';
+    });
+    h+='</div>';
+  });
+  box.innerHTML=h;
+  $$('[data-ans]',box).forEach(function(el){
+    el.value=S.ans[el.dataset.ans]||"";
+    el.addEventListener("input", function(){ S.ans[el.dataset.ans]=el.value; save(); });
+  });
+}
+
+/* ============================================================
+   THEME / EXPORT / IMPORT / RESET
+   ============================================================ */
+function applyTheme(){
+  if(S.theme==="auto") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme", S.theme);
+  var b=document.getElementById("btnTheme");
+  if(b) b.textContent="Theme: "+S.theme;
+  drawMeter();
+  if(!document.getElementById("view-lab").hidden) renderLab();
+}
+document.getElementById("btnTheme").addEventListener("click", function(){
+  S.theme = S.theme==="auto" ? "light" : (S.theme==="light" ? "dark" : "auto");
+  save(true); applyTheme();
+});
+document.getElementById("meterReveal").addEventListener("click", function(){
+  S.meta.numeric=!S.meta.numeric; save(true); drawMeter();
+});
+document.getElementById("btnExport").addEventListener("click", function(){
+  var data=JSON.stringify(S,null,2);
+  try{
+    var blob=new Blob([data],{type:"application/json"});
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="graphical-perception-progress.json";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast("Exported");
+  }catch(e){
+    var w=window.open("","_blank"); if(w){ w.document.write("<pre>"+data.replace(/</g,"&lt;")+"</pre>"); }
+  }
+  if(navigator.clipboard) navigator.clipboard.writeText(data).catch(function(){});
+});
+document.getElementById("btnImport").addEventListener("click", function(){
+  var panel=document.getElementById("importPanel");
+  if(panel){ panel.remove(); return; }
+  panel=document.createElement("div");
+  panel.id="importPanel"; panel.className="card";
+  panel.innerHTML='<p class="small">Paste an exported file below, then confirm. This replaces everything.</p>'+
+    '<textarea id="importText" style="width:100%;min-height:7rem;font-family:var(--f-mono);font-size:.8rem;'+
+    'background:var(--paper);color:var(--ink);border:1px solid var(--edge);border-radius:2px;padding:.5rem"></textarea>'+
+    '<div class="row"><button class="act primary" id="importGo">Replace my progress</button></div>';
+  this.parentNode.parentNode.appendChild(panel);
+  document.getElementById("importGo").addEventListener("click", function(){
+    try{
+      var obj=JSON.parse(document.getElementById("importText").value);
+      if(!obj || typeof obj!=="object") throw new Error("bad");
+      S = migrate(obj); save(true); location.reload();
+    }catch(e){ toast("That didn't parse as saved progress"); }
+  });
+});
+document.getElementById("btnReset").addEventListener("click", function(){
+  if(!window.confirm("Erase all progress, answers and trial data? This cannot be undone.")) return;
+  store.del(KEY).then(function(){ location.reload(); });
+});
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+store.get(KEY).then(function(raw){
+  var upgraded=false;
+  if(raw){
+    try{
+      var parsed=JSON.parse(raw);
+      upgraded = (parsed && parsed.v!==SCHEMA);
+      S = migrate(parsed);
+    }catch(e){ S = freshState(); upgraded=true; }
+  }
+  /* Persist the migrated shape immediately rather than waiting for the first
+     edit, so every device converges on the current schema on next open. */
+  if(upgraded) save(true);
+  applyTheme();
+  wireTicks(); restoreTicks();
+  wireExercises(); restoreExercises();
+  renderRecords();
+  renderLab();
+  drawMeter();
+  if(store.mode==="memory") toast("Storage unavailable — progress will not persist");
+});
+
+})();
+</script>
+
+</body>
+</html>
