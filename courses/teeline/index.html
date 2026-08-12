@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="teeline"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teeline to 100 — Six Weeks to a Readable Shorthand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#E9EBE4;
+    --panel:#F5F6F1;
+    --ink:#16233A;
+    --ink-soft:#4A5568;
+    --rule:#C2C8BC;
+    --signal:#0E7C7B;
+    --alarm:#A3271A;
+    --serif:"Source Serif 4",Georgia,serif;
+    --cond:"IBM Plex Sans Condensed","Helvetica Neue",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --wrap:min(720px,100% - 2.5rem);
+    --surface:#FFFFFF;
+    --btn-fg:#FFFFFF;
+    --alarm-bg:#FBF3F1;
+    --mark:#FFF6C2;
+    color-scheme:light dark;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--serif);font-size:1.0625rem;line-height:1.62;
+    padding-bottom:6rem;
+  }
+  .wrap{width:var(--wrap);margin-inline:auto}
+  h1,h2,h3,.eyebrow,.blocklabel,.btn,.chip,.tab{font-family:var(--cond)}
+  h1{font-size:clamp(2rem,7vw,3.1rem);line-height:1.02;font-weight:700;letter-spacing:-.02em;margin:0 0 .4rem}
+  h2{font-size:clamp(1.35rem,4.6vw,1.85rem);line-height:1.12;font-weight:700;letter-spacing:-.01em;margin:0 0 .3rem}
+  h3{font-size:1.02rem;font-weight:600;letter-spacing:.01em;margin:1.6rem 0 .4rem}
+  p{margin:0 0 .95rem}
+  a{color:var(--signal);text-underline-offset:2px}
+  .eyebrow{
+    font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--ink-soft);margin:0 0 .5rem
+  }
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* ---- masthead ---- */
+  header.mast{padding:3rem 0 1.5rem;border-bottom:1px solid var(--rule)}
+  .cap{font-size:1.1rem;border-left:3px solid var(--signal);padding-left:1rem;margin:1.4rem 0 0;color:var(--ink)}
+  .cap strong{font-weight:600}
+
+  /* ---- the meter (signature element) ---- */
+  .meter{background:var(--panel);border:1px solid var(--rule);margin:2rem 0;padding:1.3rem 1.2rem 1.1rem}
+  .ceil{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap}
+  .ceil-n{font-family:var(--mono);font-size:clamp(2.6rem,11vw,4rem);font-weight:600;line-height:.9;letter-spacing:-.04em;color:var(--signal)}
+  .ceil-u{font-family:var(--cond);font-size:.9rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .ceil-sub{font-size:.9rem;color:var(--ink-soft);margin:.5rem 0 1rem;line-height:1.45}
+  .strip{display:flex;height:34px;border:1px solid var(--ink);background:var(--surface);overflow:hidden}
+  .seg{position:relative;border-right:1px solid var(--rule);transition:background .5s ease}
+  .seg:last-child{border-right:0}
+  .seg.on{background:var(--signal)}
+  .striplabels{display:flex;margin-top:.35rem;font-family:var(--mono);font-size:.62rem;color:var(--ink-soft);letter-spacing:.02em}
+  .striplabels span{text-align:left;padding-right:2px}
+  .metermath{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:.9rem;line-height:1.5;word-break:break-word}
+
+  /* ---- provenance chips ---- */
+  .chip{
+    display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.05em;
+    text-transform:uppercase;padding:.1rem .38rem;margin:0 .1rem;border:1px solid;
+    white-space:nowrap;vertical-align:.08em;line-height:1.5;border-radius:2px
+  }
+  .chip a{text-decoration:none;color:inherit;border-bottom:1px dotted}
+  .chip.src{color:#14532D;border-color:#14532D;background:#E3EFE6}
+  .chip.infer{color:#3730A3;border-color:#3730A3;background:#E6E6F5}
+  .chip.vendor{color:#78350F;border-color:#78350F;background:#F5EBDD}
+  .chip.contested{color:var(--alarm);border-color:var(--alarm);background:#F5E4E1}
+  .chip.single{color:#5B4A00;border-color:#5B4A00;background:#F2EFDC}
+  .legend{background:var(--panel);border:1px solid var(--rule);padding:1rem 1.1rem;margin:1.6rem 0;font-size:.9rem}
+  .legend p{margin:0 0 .55rem}
+  .legend ul{margin:.4rem 0 0;padding-left:0;list-style:none}
+  .legend li{margin-bottom:.3rem;line-height:1.5}
+
+  /* ---- non-goals ---- */
+  .nongoals{border:1px solid var(--ink);padding:1.1rem 1.2rem;margin:1.8rem 0}
+  .nongoals ul{margin:.5rem 0 0;padding-left:1.1rem}
+  .nongoals li{margin-bottom:.45rem}
+
+  /* ---- weeks ---- */
+  .week{border-top:1px solid var(--rule);padding-top:2.2rem;margin-top:2.6rem}
+  .wk-n{font-family:var(--mono);font-size:.78rem;font-weight:600;letter-spacing:.14em;color:var(--signal);margin-bottom:.35rem}
+  .wk-thresh{font-size:.88rem;color:var(--ink-soft);font-style:italic;margin:.35rem 0 1.1rem}
+  .artifact{background:var(--panel);border-left:3px solid var(--ink);padding:.85rem 1rem;margin:1.1rem 0;font-size:.94rem}
+  .artifact b{font-family:var(--cond);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;display:block;margin-bottom:.25rem;color:var(--ink-soft)}
+
+  /* ---- blocks ---- */
+  .block{display:flex;gap:.85rem;align-items:flex-start;border-bottom:1px dotted var(--rule);padding:.8rem 0}
+  .block:last-of-type{border-bottom:0}
+  .block input[type=checkbox]{
+    appearance:none;flex:0 0 auto;width:20px;height:20px;margin:.18rem 0 0;
+    border:1.5px solid var(--ink);background:var(--surface);cursor:pointer;border-radius:2px
+  }
+  .block input[type=checkbox]:checked{background:var(--signal);border-color:var(--signal)}
+  .block input[type=checkbox]:checked::after{content:"";display:block;width:5px;height:10px;margin:2px 0 0 6px;border:solid var(--ground);border-width:0 2px 2px 0;transform:rotate(42deg)}
+  .block input[type=checkbox]:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+  .bd{flex:1;min-width:0}
+  .blocklabel{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--signal)}
+  .blocktime{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);margin-left:.4rem}
+  .bd p{margin:.15rem 0 0;font-size:.97rem}
+
+  /* ---- liminal warning ---- */
+  .liminal{border:1.5px solid var(--alarm);background:var(--alarm-bg);padding:1rem 1.1rem;margin:1.5rem 0}
+  .liminal .eyebrow{color:var(--alarm)}
+  .liminal p{margin:0;font-size:.95rem}
+
+  /* ---- checks ---- */
+  .check{background:var(--panel);border:1px solid var(--rule);padding:1.1rem 1.15rem;margin:1.5rem 0}
+  .check .q{font-weight:600;margin:0 0 .8rem}
+  .tagrow{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.7rem}
+  .tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);border:1px solid var(--rule);padding:.08rem .35rem}
+  .conf{margin:.2rem 0 .8rem}
+  .conf-lab{font-family:var(--cond);font-size:.72rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.4rem}
+  .conf-btns{display:flex;gap:.35rem;flex-wrap:wrap}
+  .cbtn{
+    font-family:var(--mono);font-size:.8rem;padding:.4rem .6rem;background:var(--surface);
+    border:1px solid var(--ink);cursor:pointer;color:var(--ink);flex:1;min-width:64px
+  }
+  .cbtn[aria-pressed=true]{background:var(--ink);color:var(--btn-fg)}
+  .cbtn:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+  .attempt{width:100%;font-family:var(--serif);font-size:.97rem;padding:.6rem;border:1px solid var(--rule);background:var(--surface);color:var(--ink);min-height:76px;resize:vertical}
+  .attempt:focus-visible{outline:2px solid var(--signal);outline-offset:0}
+  .btn{
+    font-size:.78rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    padding:.55rem .95rem;background:var(--ink);color:var(--btn-fg);border:0;cursor:pointer;margin-top:.7rem
+  }
+  .btn:disabled{background:var(--rule);color:#7A8272;cursor:not-allowed}
+  .btn:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+  .reveal{display:none;border-top:1px solid var(--rule);margin-top:.9rem;padding-top:.9rem;font-size:.95rem}
+  .reveal.open{display:block}
+  .gap{font-family:var(--mono);font-size:.75rem;padding:.4rem .55rem;margin-bottom:.7rem;border-left:3px solid var(--signal);background:var(--surface)}
+
+  /* ---- misc ---- */
+  table{width:100%;border-collapse:collapse;margin:1.1rem 0;font-size:.9rem}
+  th,td{text-align:left;padding:.45rem .5rem;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-family:var(--cond);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.src{font-size:.86rem;line-height:1.55;padding-left:1.5rem}
+  ol.src li{margin-bottom:.6rem}
+  ol.src li:target{background:var(--mark);outline:3px solid var(--mark)}
+  footer{border-top:1px solid var(--rule);margin-top:3rem;padding-top:1.6rem;font-size:.87rem;color:var(--ink-soft)}
+  .resetline{margin-top:1.4rem}
+  .reset{background:none;border:1px solid var(--rule);color:var(--ink-soft);font-family:var(--cond);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;padding:.4rem .7rem;cursor:pointer}
+
+  /* ---- dark: an instrument panel at night, not an inversion ---------- */
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ground:#151A18;
+      --panel:#1E2522;
+      --surface:#0F1513;
+      --ink:#E4E8DF;
+      --ink-soft:#9AA69C;
+      --rule:#5C6A61;
+      --signal:#45C0B7;
+      --alarm:#E8705A;
+      --alarm-bg:#2A1A17;
+      --btn-fg:#151A18;
+      --mark:#4A3F12;
+    }
+    .chip.src{color:#8FD9A4;border-color:#3E6B4C;background:#18251C}
+    .chip.infer{color:#AFAFEE;border-color:#4A4A7A;background:#1B1B2A}
+    .chip.vendor{color:#E0B980;border-color:#7A5E30;background:#26200F}
+    .chip.contested{color:var(--alarm);border-color:#7A3A30;background:#2A1A17}
+    .chip.single{color:#D6C97A;border-color:#6B6030;background:#242210}
+    .block input[type=checkbox]:checked{background:var(--signal);border-color:var(--signal)}
+    .strip{border-color:var(--ink-soft)}
+    ol.src li:target{color:#FFF0B8}
+  }
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <p class="eyebrow">A self-study course &middot; Teeline shorthand</p>
+    <h1>Teeline to 100</h1>
+    <p class="eyebrow" style="margin-top:.6rem">Six weeks &middot; ~30 hours &middot; then a regimen</p>
+    <p class="cap"><strong>At the end of this course you can</strong> take a passage dictated at 60&nbsp;wpm in Teeline and transcribe it accurately twenty-four hours later &mdash; and you have a speed-building regimen, designed by you, that runs from 60 toward 100.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ METER ============ -->
+  <section class="meter" aria-labelledby="meterh">
+    <p class="eyebrow" id="meterh">Your ceiling, not your speed</p>
+    <div class="ceil">
+      <span class="ceil-n num" id="ceilNum">50</span>
+      <span class="ceil-u">wpm ceiling</span>
+    </div>
+    <p class="ceil-sub" id="ceilSub">You have automatic outlines for <b class="num">0%</b> of running English. That is what caps you &mdash; not your hand.</p>
+    <div class="strip" id="strip" role="img" aria-label="Coverage of running English by automatic outlines"></div>
+    <div class="striplabels">
+      <span style="flex:25">top 10</span>
+      <span style="flex:23">to 100</span>
+      <span style="flex:16">to 500</span>
+      <span style="flex:11">to 1k</span>
+      <span style="flex:25">the long tail</span>
+    </div>
+    <p class="metermath" id="meterMath"></p>
+  </section>
+
+  <!-- ============ HOW TO READ THE CLAIMS ============ -->
+  <section class="legend">
+    <p class="eyebrow" style="margin-bottom:.6rem">How to read the claims in this course</p>
+    <p>Every load-bearing claim carries a marker. Numbered ones key to the <a href="#sources">source list</a>, so you can check any single sentence rather than trusting the whole document.</p>
+    <ul>
+      <li><span class="chip src">Sourced fact</span> traceable to a numbered source</li>
+      <li><span class="chip infer">Inference</span> my reasoning or a model &mdash; in no source</li>
+      <li><span class="chip vendor">Vendor framing</span> true, but written by someone selling it</li>
+      <li><span class="chip contested">Contested</span> the evidence genuinely disagrees</li>
+      <li><span class="chip single">Single study</span> real, but unreplicated</li>
+    </ul>
+  </section>
+
+  <!-- ============ NON-GOALS ============ -->
+  <section class="nongoals">
+    <p class="eyebrow">What this course is not</p>
+    <ul>
+      <li><b>It is not a Teeline textbook, and it does not contain the alphabet.</b> The letterforms are lookup-able facts and I will not reproduce them from memory &mdash; that is exactly the kind of detail that gets confidently invented. You need a real chart before Week&nbsp;1. See <a href="#prereq">Before you start</a>.</li>
+      <li><b>It will not get you to 100 wpm.</b> It gets you a correct system, a readable hand at 60, and a regimen. The remaining 40 wpm is drill hours that no course design shortcuts. A UK journalism degree budgets 150 learning hours for a <em>minimum</em> pass at 80 wpm &mdash; in the second year of shorthand <span class="chip src">Sourced fact <a href="#S3">S3</a></span>.</li>
+      <li><b>It does not cover NCTJ exam technique</b>, court or medical vocabulary, or Teeline's advanced special outlines.</li>
+      <li><b>It does not claim shorthand will make you understand meetings better.</b> The famous study on handwritten notes argued the opposite &mdash; that verbatim transcription is <em>shallower</em> processing than writing in your own words <span class="chip single">Single study <a href="#S10">S10</a></span>. Its own direct replication then found no consistent difference between any group, including people who took no notes at all <span class="chip contested">Contested <a href="#S11">S11</a></span>. So: this course buys you a better <em>record</em>. Any claim it buys you better comprehension is unsupported in both directions.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PREREQ ============ -->
+  <section id="prereq">
+    <h2>Before you start</h2>
+    <p class="eyebrow" style="margin-top:.8rem">The one dependency this course does not satisfy</p>
+    <p>Teeline's letters are derived from the printed alphabet with the redundant strokes stripped away, which is why it is the fastest of the major systems to learn <span class="chip src">Sourced fact <a href="#S5">S5</a></span>. That derivation is a principle I can teach. The twenty-six specific shapes are not &mdash; get them from a real chart, not from me.</p>
+    <div class="gap" style="margin:1.1rem 0">GAP, NAMED: 26 letterforms + ~60 core short forms. Not in this file. Source them before Week 1 Block B.</div>
+    <p>Either of these works:</p>
+    <table>
+      <tr><th>Source</th><th>Cost</th><th>Covers</th></tr>
+      <tr><td><a href="https://teeline.online/learn/introduction">teeline.online</a></td><td class="n">free</td><td>alphabet, early lessons, worked outlines</td></tr>
+      <tr><td><em>Teeline Gold Standard for Journalists</em>, Cartwright</td><td class="n">~£30</td><td>the whole system to 100 wpm; the book the NCTJ builds its distance course around <span class="chip src">Sourced fact <a href="#S1">S1</a></span></td></tr>
+    </table>
+    <p>You also need: a pen you can write with for twenty minutes without gripping, a lined pad, and <b>a way to play speech at a controlled tempo</b>. That last one is not optional &mdash; it is the whole engine of Weeks 4&ndash;6, and it is the single practical reason Teeline beats Gregg for a solo learner. The NCTJ's own distance plan is built around graded audio running 60 to 100 wpm <span class="chip src">Sourced fact <a href="#S2">S2</a></span>.</p>
+
+    <h3>Where the hours go</h3>
+    <table>
+      <tr><th>&nbsp;</th><th>Raw estimate</th><th>Published</th></tr>
+      <tr><td>Six weeks of blocks</td><td class="n">~12 hrs</td><td class="n">~30 hrs</td></tr>
+      <tr><td>After the course, 60&nbsp;&rarr;&nbsp;100</td><td class="n">&mdash;</td><td class="n">100&ndash;200 hrs</td></tr>
+    </table>
+    <p style="font-size:.9rem;color:var(--ink-soft)">The published figure is the raw estimate multiplied by 2.5, because self-study learners consistently overrun their own estimates by roughly that factor <span class="chip infer">Inference</span>. If 30 hours across six weeks is not real for you, the honest move is to decide that now rather than in Week 3.</p>
+  </section>
+
+  <!-- ============ WEEK 1 ============ -->
+  <section class="week" id="w1">
+    <p class="wk-n">WEEK 01</p>
+    <h2>Write something unreadable, today</h2>
+    <p class="wk-thresh">Threshold 1 opens: you are not writing words. You are writing a skeleton that a specific reader &mdash; you, tomorrow &mdash; will reconstruct.</p>
+
+    <div class="artifact"><b>This week produces</b>Two sentences, dictated to you, written in bad Teeline, and transcribed twenty-four hours later. It will be a mess. It is still the whole task, and every later week is the same task done better.</div>
+
+    <p>Most shorthand courses open with the alphabet and reach real dictation around week five. That ordering is why people quit in week two. You are doing the entire loop &mdash; hear, encode, wait, decode &mdash; in the first sitting, badly, so that the thing you improve is a thing you have already done.</p>
+
+    <p>Here is the idea the whole system rests on. Longhand is a <em>lossless</em> encoding: every letter is present, and anyone can read it, at any distance in time. Shorthand is <em>lossy</em>, deliberately, and it is tuned for one decoder in one context &mdash; you, who was in the room, reading within a day. Teeline drops vowels that are not the first or last letter of a word <span class="chip src">Sourced fact <a href="#S5">S5</a></span> not because vowels are unimportant, but because <em>you already have them</em> from context, and the pen does not.</p>
+
+    <p>This is why shorthand rots. A page you can read in an hour may be genuinely unrecoverable in a month &mdash; you were the decoder, and the context you were decoding against is gone.</p>
+
+    <div class="block"><input type="checkbox" data-unit="w1a"><div class="bd"><span class="blocklabel">Prime</span><span class="blocktime">~20 min</span><p>Read this week's section. Write down, in one sentence, what you expect to be hardest. Keep it &mdash; Week 5 asks you to check it.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w1b"><div class="bd"><span class="blocklabel">Learn</span><span class="blocktime">~60 min</span><p>Get the alphabet chart. Copy each letter twenty times, saying the letter aloud as you write it. Do not try to memorise &mdash; that comes from use. You are building a motor habit, not a lookup table.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w1c"><div class="bd"><span class="blocklabel">Take</span><span class="blocktime">~25 min</span><p>Have something read two sentences to you slowly &mdash; roughly 30 wpm, half of comfortable speech. Write them in Teeline. Look up letters mid-sentence. It will be terrible. Do not rewrite it neatly.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w1d"><div class="bd"><span class="blocklabel">Read back</span><span class="blocktime">~15 min, next day</span><p>Twenty-four hours later, transcribe what you wrote, without the audio. Mark every word you could not recover. That list is your actual syllabus.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w1e"><div class="bd"><span class="blocklabel">Log</span><span class="blocktime">~10 min</span><p>For each unrecovered word, write why: wrong stroke, missing stroke, or right stroke and no context. The three failures have three different fixes, and telling them apart is most of the skill.</p></div></div>
+
+    <div class="check" data-check="c1">
+      <div class="tagrow"><span class="tag">Self-explanation</span><span class="tag">Worked example given</span></div>
+      <p class="q">You wrote an outline for "management" and tomorrow you cannot read it. Before you look at anything: which of the three failures is <em>most likely</em>, and what does that imply about the fix?</p>
+      <div class="conf"><div class="conf-lab">First &mdash; how confident are you?</div><div class="conf-btns">
+        <button class="cbtn" data-conf="1">Guessing</button><button class="cbtn" data-conf="2">Shaky</button><button class="cbtn" data-conf="3">Fairly sure</button><button class="cbtn" data-conf="4">Certain</button>
+      </div></div>
+      <textarea class="attempt" placeholder="Commit to an answer. Wrong beats blank &mdash; the reveal is worth much less if you have not tried to produce it."></textarea>
+      <button class="btn" data-act="reveal" disabled>Show the answer</button>
+      <div class="reveal">
+        <p><b>Right stroke, no context</b> &mdash; almost always, for a word like this. "Management" is a content word carrying most of the sentence's meaning, so unlike "the" or "of" you cannot reconstruct it from the grammar around it. Its skeleton after vowel elision is thin, and thin skeletons for content words are where lossy encoding actually loses.</p>
+        <p>The fix is therefore <em>not</em> "write more carefully." It is that high-value, low-redundancy words need a fuller outline than the general rule gives them &mdash; you spend strokes where context cannot pay you back. Notice that this is the opposite of the trade you make on function words, and hold onto that: Week 3 turns it into the course's central economy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WEEK 2 ============ -->
+  <section class="week" id="w2">
+    <p class="wk-n">WEEK 02</p>
+    <h2>The skeleton</h2>
+    <p class="wk-thresh">Threshold 1 crosses: stop transcribing, start encoding.</p>
+
+    <div class="artifact"><b>This week produces</b>A 40 wpm passage taken with no mid-sentence lookups, and a personal list of the outlines that broke.</div>
+
+    <p>Last week you looked up letters while writing. This week you will not, which means you will write wrong outlines instead. That is the correct trade and it is not a compromise &mdash; a wrong outline you can reconstruct is worth more than a right outline that cost you three seconds, because the three seconds cost you the next clause.</p>
+
+    <div class="liminal">
+      <p class="eyebrow">You are supposed to feel stuck here</p>
+      <p>Week 2 is where most people conclude they are bad at this. The specific sensation: you know the letters, and you still cannot produce them at speed without stopping. That gap is not a sign you learned the alphabet badly. It is the gap between knowing a thing and having automated it, and it closes with hours, not insight. If Week 2 feels like Week 1 with more frustration, you are exactly where you should be.</p>
+    </div>
+
+    <div class="block"><input type="checkbox" data-unit="w2a"><div class="bd"><span class="blocklabel">Drill</span><span class="blocktime">~45 min &times; 4 sessions</span><p>Four short sessions, not one long one. Copy connected prose &mdash; not word lists &mdash; from anything to hand. Never stop to look a letter up. If you do not know it, invent something and circle it.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w2b"><div class="bd"><span class="blocklabel">Take</span><span class="blocktime">~30 min</span><p>A passage at 40 wpm. Same rule: no lookups, ever, for any reason.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w2c"><div class="bd"><span class="blocklabel">Read back</span><span class="blocktime">~20 min, next day</span><p>Transcribe cold. Then check every circled invention against the chart.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w2d"><div class="bd"><span class="blocklabel">Write</span><span class="blocktime">~15 min</span><p>Answer in prose, for yourself: which words did you lose, and did they share anything? Most people find their losses cluster. Say what the cluster is.</p></div></div>
+
+    <div class="check" data-check="c2">
+      <div class="tagrow"><span class="tag">Completion problem</span><span class="tag">Interleaved &mdash; choose the principle</span></div>
+      <p class="q">You are taking dictation and hit the phrase <em>"we should probably review the department's budget."</em> Three of those words deserve very different treatment. Name which words get which treatment, and why &mdash; do not describe the outlines, describe the <em>decisions</em>.</p>
+      <div class="conf"><div class="conf-lab">First &mdash; how confident are you?</div><div class="conf-btns">
+        <button class="cbtn" data-conf="1">Guessing</button><button class="cbtn" data-conf="2">Shaky</button><button class="cbtn" data-conf="3">Fairly sure</button><button class="cbtn" data-conf="4">Certain</button>
+      </div></div>
+      <textarea class="attempt" placeholder="Three decisions. Name them before you look."></textarea>
+      <button class="btn" data-act="reveal" disabled>Show the answer</button>
+      <div class="reveal">
+        <p><b>"we", "the"</b> &mdash; maximum compression, no thought. These are so frequent and so recoverable from grammar that any stroke beyond the minimum is waste. They should cost you nothing because they should not be decisions at all.</p>
+        <p><b>"probably"</b> &mdash; the interesting case. Long, but low-information: drop it entirely and the sentence survives with its meaning almost intact. The honest treatment is a stub, or nothing, and this is the first time you will feel the difference between a transcript and a record.</p>
+        <p><b>"budget"</b> &mdash; spend here. Short word, but it is the only thing in the sentence that cannot be reconstructed from anything else. Content words in a domain you know are the exception to compression.</p>
+        <p>If you answered in terms of stroke shapes rather than decisions, reread Week 1's close. The system is the easy half; knowing where to spend is the skill.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WEEK 3 ============ -->
+  <section class="week" id="w3">
+    <p class="wk-n">WEEK 03</p>
+    <h2>Where the words actually are</h2>
+    <p class="wk-thresh">Threshold 2: frequency is the entire economy. A hundred outlines buy you half of English.</p>
+
+    <div class="artifact"><b>This week produces</b>Roughly a hundred outlines you can write without deciding &mdash; and a measurable jump in your ceiling above.</div>
+
+    <p>Here is the fact the whole craft is built on, and it is much more extreme than it sounds. In a ten-million-word sample of the Cambridge English Corpus, the top ten words cover about a quarter of everything you will ever encounter, and the top hundred cover close to half <span class="chip src">Sourced fact <a href="#S7">S7</a></span>. An independent count on the Wall Street Journal treebank lands in the same place: the hundred most frequent words are 48.1% of all tokens, and the top five hundred are 63.6% <span class="chip src">Sourced fact <a href="#S8">S8</a></span>. Two unrelated corpora, two methods, the same answer.</p>
+
+    <p>Read that as an investment schedule. A hundred outlines &mdash; a week of work &mdash; automates half of everything anyone will ever say to you. The next four hundred buy fifteen points. The five hundred after that buy about eleven <span class="chip src">Sourced fact <a href="#S9">S9</a></span>. Everything past roughly a thousand is the long tail, and no amount of study makes it pay.</p>
+
+    <p>Which means: <b>the most common mistake in learning shorthand is studying it evenly.</b> The brief-form list is not a vocabulary to get through. It is a ranked buy order, and the first hundred entries matter more than the rest of the book combined.</p>
+
+    <div class="block"><input type="checkbox" data-unit="w3a"><div class="bd"><span class="blocklabel">Read</span><span class="blocktime">~30 min</span><p>Find the short-form list in your source. Rank it against a frequency list of English rather than taking the book's order.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w3b"><div class="bd"><span class="blocklabel">Drill</span><span class="blocktime">~40 min &times; 5 sessions</span><p>The top hundred only. Spaced across five days, not massed &mdash; distributed practice is one of the two best-evidenced study techniques there is <span class="chip src">Sourced fact <a href="#S15">S15</a></span>. Write each in context, in a sentence, never as an isolated item.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w3c"><div class="bd"><span class="blocklabel">Take</span><span class="blocktime">~30 min</span><p>A 50 wpm passage. Count how many times you hesitated. Write the number down &mdash; Week 5 needs it.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w3d"><div class="bd"><span class="blocklabel">Read back</span><span class="blocktime">~20 min, next day</span></div></div>
+
+    <div class="check" data-check="c3">
+      <div class="tagrow"><span class="tag">Delayed &mdash; Week 1 material</span><span class="tag">No scaffold</span></div>
+      <p class="q">Week 1 claimed shorthand "rots" &mdash; readable in an hour, unrecoverable in a month. You now know the frequency structure of English. Explain the rot in terms of it. Why does a page of shorthand decay <em>unevenly</em>?</p>
+      <div class="conf"><div class="conf-lab">First &mdash; how confident are you?</div><div class="conf-btns">
+        <button class="cbtn" data-conf="1">Guessing</button><button class="cbtn" data-conf="2">Shaky</button><button class="cbtn" data-conf="3">Fairly sure</button><button class="cbtn" data-conf="4">Certain</button>
+      </div></div>
+      <textarea class="attempt" placeholder="Connect the two weeks yourself before you look."></textarea>
+      <button class="btn" data-act="reveal" disabled>Show the answer</button>
+      <div class="reveal">
+        <p>The frequent half of your page never rots. Function words are recoverable from grammar alone, forever, by anyone &mdash; they carry almost no information, which is exactly why they compress so well. The decay is entirely in the long tail: the proper nouns, the figures, the domain terms, the one number someone said once. Those are the words with no redundancy to reconstruct from, and they are precisely the words you took the note <em>for</em>.</p>
+        <p>So shorthand decay is not uniform fading. It is the selective loss of exactly the content you cared about, while the connective tissue stays perfectly legible. This is why readback discipline is a same-day habit and not a preference, and it is also why every week of this course puts the readback twenty-four hours later rather than immediately &mdash; an immediate readback measures nothing, because nothing has decayed yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WEEK 4 ============ -->
+  <section class="week" id="w4">
+    <p class="wk-n">WEEK 04</p>
+    <h2>Joining</h2>
+    <p class="wk-thresh">Threshold 2 extends: the unit of writing is not the word.</p>
+
+    <div class="artifact"><b>This week produces</b>Ten to fifteen word-groups of your own invention, drawn from things you actually say at work, plus a 55 wpm passage using them.</div>
+
+    <p>Teeline's practical ceiling comes largely from a habit rather than from the system: experienced writers invent their own groupings, joining common word sequences into single unbroken outlines, and that is a substantial part of how speeds near 150 wpm get reached at all <span class="chip src">Sourced fact <a href="#S5">S5</a></span>. Every pen lift costs time. A phrase written as one movement is not four outlines quickly &mdash; it is one outline.</p>
+
+    <p>This is also where the course stops being about Teeline and starts being about you. The highest-value groupings are not in any book, because they are the phrases <em>you</em> hear twenty times a week. Someone taking board minutes and someone taking clinical notes should end up with visibly different shorthand, and if yours looks like the textbook's after a year, you have not finished learning it.</p>
+
+    <div class="block"><input type="checkbox" data-unit="w4a"><div class="bd"><span class="blocklabel">Mine</span><span class="blocktime">~30 min</span><p>Go through your last month of real notes. Find the phrases that recur. Not general English &mdash; your English. Names, recurring constructions, the four things people always say in your meetings.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w4b"><div class="bd"><span class="blocklabel">Build</span><span class="blocktime">~45 min</span><p>Design a joined outline for each. Test: can you write it in one movement, and read it back tomorrow with nothing else on the page? If either fails, it is a bad grouping. Discard it and do not be precious &mdash; most first attempts fail.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w4c"><div class="bd"><span class="blocklabel">Drill</span><span class="blocktime">~35 min &times; 4</span><p>Your groupings only, in running prose.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w4d"><div class="bd"><span class="blocklabel">Take</span><span class="blocktime">~30 min</span><p>55 wpm. Count hesitations again.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w4e"><div class="bd"><span class="blocklabel">Read back</span><span class="blocktime">~20 min, next day</span></div></div>
+
+    <div class="check" data-check="c4">
+      <div class="tagrow"><span class="tag">Interleaved &mdash; four principles, choose</span><span class="tag">Independent</span></div>
+      <p class="q">Four situations. For each, name which of the course's principles applies &mdash; vowel elision, short form, word grouping, or spend-more-strokes &mdash; and say why the other three are wrong.<br><br>(a) A name you will hear forty times this quarter.<br>(b) "In my opinion."<br>(c) A dollar figure, said once.<br>(d) "Organisation."</p>
+      <div class="conf"><div class="conf-lab">First &mdash; how confident are you?</div><div class="conf-btns">
+        <button class="cbtn" data-conf="1">Guessing</button><button class="cbtn" data-conf="2">Shaky</button><button class="cbtn" data-conf="3">Fairly sure</button><button class="cbtn" data-conf="4">Certain</button>
+      </div></div>
+      <textarea class="attempt" placeholder="Four answers, each with a reason the others fail."></textarea>
+      <button class="btn" data-act="reveal" disabled>Show the answer</button>
+      <div class="reveal">
+        <p><b>(a) Personal short form.</b> Frequency is local, not global. This name is nowhere near the top thousand words of English but it is in <em>your</em> top hundred, and the frequency argument applies to the corpus you personally face. Not a grouping &mdash; it is one word.</p>
+        <p><b>(b) Word grouping.</b> Four words, fully predictable in sequence, near-zero information. One movement. Elision alone would still cost you four outlines and three pen lifts.</p>
+        <p><b>(c) Spend more strokes.</b> The instinct after three weeks of compression is to compress it, and that instinct is wrong here. Zero redundancy, zero recoverability, said once, and almost certainly the reason the note exists. Write it fully. Consider writing it twice.</p>
+        <p><b>(d) Vowel elision, and nothing clever.</b> Long, but ordinary &mdash; the general rule handles it. Not frequent enough in most people's speech to earn a short form, not part of a fixed phrase. The skill here is recognising the case that needs no special treatment, which is the hardest one to see once you have learned four techniques and want to use them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WEEK 5 ============ -->
+  <section class="week" id="w5">
+    <p class="wk-n">WEEK 05</p>
+    <h2>The hesitation audit</h2>
+    <p class="wk-thresh">Threshold 3: speed is not hand speed. Speed is the absence of decisions.</p>
+
+    <div class="artifact"><b>This week produces</b>A ranked list of the twenty outlines that cost you the most time, and evidence that your ceiling is set by pauses rather than by pen velocity.</div>
+
+    <p>Take the numbers you have been writing down. At 60 wpm you have one second per word. An outline you know costs perhaps four-tenths of that. An outline you have to <em>think</em> about costs a second or more &mdash; and worse, you lose the words spoken during the thinking, so a single hesitation typically costs two or three words rather than one.</p>
+
+    <p>Run the arithmetic and the conclusion is uncomfortable: writing faster is nearly worthless, and eliminating a hesitation is worth roughly three times what it looks like <span class="chip infer">Inference</span>. The meter at the top of this page is built on exactly that model &mdash; it computes a ceiling from your coverage, and you can inspect the equation. It is a teaching device, not a measurement of you.</p>
+
+    <div class="liminal">
+      <p class="eyebrow">The Week 5 dip is real</p>
+      <p>When you start consciously auditing your pauses, your speed usually drops for a week or two. You have made an automatic process deliberate in order to inspect it, which is the only way to fix it and is also temporarily disabling. Push through this by continuing to take dictation, not by returning to what felt smooth. Difficulty that slows you down now and improves retention later is the mechanism, not a side effect <span class="chip src">Sourced fact <a href="#S14">S14</a></span>.</p>
+    </div>
+
+    <div class="block"><input type="checkbox" data-unit="w5a"><div class="bd"><span class="blocklabel">Instrument</span><span class="blocktime">~40 min</span><p>Take a 55 wpm passage and mark the page every time you pause &mdash; a tick in the margin, no analysis. Then transcribe and list what caused each one.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w5b"><div class="bd"><span class="blocklabel">Rank</span><span class="blocktime">~25 min</span><p>Sort by cost, which is frequency &times; delay, not delay alone. A half-second pause on a word you hit thirty times beats a two-second pause on a word you hit once.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w5c"><div class="bd"><span class="blocklabel">Drill</span><span class="blocktime">~30 min &times; 5</span><p>Your top twenty only. This is the highest-return practice in the entire course, and it is available to you only because you measured.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w5d"><div class="bd"><span class="blocklabel">Check</span><span class="blocktime">~10 min</span><p>Find the Week 1 note where you predicted what would be hardest. Compare. Most people are wrong about themselves in a specific and useful direction.</p></div></div>
+
+    <div class="check" data-check="c5">
+      <div class="tagrow"><span class="tag">Delayed &mdash; Weeks 1&ndash;4</span><span class="tag">Erroneous example &mdash; find the break</span></div>
+      <p class="q">Someone tells you: <em>"I've plateaued at 70 wpm, so I'm doing timed drills every day &mdash; same passage, pushing to write faster and faster until my hand can keep up."</em><br><br>Everything in that plan is wrong. Identify each error and what it should be instead.</p>
+      <div class="conf"><div class="conf-lab">First &mdash; how confident are you?</div><div class="conf-btns">
+        <button class="cbtn" data-conf="1">Guessing</button><button class="cbtn" data-conf="2">Shaky</button><button class="cbtn" data-conf="3">Fairly sure</button><button class="cbtn" data-conf="4">Certain</button>
+      </div></div>
+      <textarea class="attempt" placeholder="At least three errors. Name the fix for each."></textarea>
+      <button class="btn" data-act="reveal" disabled>Show the answer</button>
+      <div class="reveal">
+        <p><b>"Until my hand can keep up."</b> The hand is not the constraint and never was. Pen velocity is a rounding error next to lookup latency. They are training the one variable that does not bind.</p>
+        <p><b>"Same passage."</b> Repeating one passage trains recall of that passage. Within three days they are writing from memory, the hesitations disappear, and the measurement becomes meaningless while feeling like progress &mdash; fluency mistaken for learning, which is the defining failure of solo study.</p>
+        <p><b>"Every day, pushing faster."</b> No diagnosis anywhere. They have not asked <em>which words</em> cost them the plateau. Without the audit they are practising the 95% they already have automatic, at the expense of the 5% that is actually capping them.</p>
+        <p><b>What it should be:</b> varied unseen passages at a speed they can <em>just</em> sustain accurately; hesitations marked and ranked; targeted drill on the top twenty; then a tempo increase of five wpm only once accuracy holds. Speed is a result you are permitted to have, not a thing you can practise directly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WEEK 6 ============ -->
+  <section class="week" id="w6">
+    <p class="wk-n">WEEK 06</p>
+    <h2>Build your own ladder</h2>
+    <p class="wk-thresh">All three thresholds, applied without scaffolding. This week has no worked example.</p>
+
+    <div class="artifact"><b>This week produces</b>The capstone &mdash; a 60 wpm passage transcribed accurately at 24 hours &mdash; and a written regimen for 60&nbsp;&rarr;&nbsp;100 that you designed, that you will actually run.</div>
+
+    <p>Weeks 1 and 2 showed you fully worked answers. Weeks 3 and 4 gave you partial ones. This week gives you none, because the thing being tested is whether you can now diagnose yourself &mdash; and the honest measure of this course is not your speed in Week 6 but whether you are still practising in month six. That is where shorthand is actually lost: a working journalist who passed at 100 wpm reported losing substantial speed within months of stopping <span class="chip vendor">Vendor framing <a href="#S13">S13</a></span> &mdash; a practitioner account in a piece promoting shorthand, so read the direction as reliable and the magnitude as not.</p>
+
+    <div class="block"><input type="checkbox" data-unit="w6a"><div class="bd"><span class="blocklabel">Capstone</span><span class="blocktime">~40 min</span><p>An unseen 60 wpm passage. Transcribe at 24 hours. Score it: words lost, and which of the three failure types each was.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w6b"><div class="bd"><span class="blocklabel">Design</span><span class="blocktime">~60 min</span><p>Write your regimen. It must specify: session length, weekly frequency, where unseen passages come from, how you decide to raise the tempo, and what you do when you miss a week. No template &mdash; if you cannot write it yourself you have not crossed Threshold 3.</p></div></div>
+    <div class="block"><input type="checkbox" data-unit="w6c"><div class="bd"><span class="blocklabel">Commit</span><span class="blocktime">~15 min</span><p>Put it in your calendar as recurring blocks, and tell one person you are doing it. Cohort formats complete at substantially higher rates than solo self-paced study, and isolation is among the most-cited reasons people abandon courses <span class="chip src">Sourced fact <a href="#S15">S15</a></span>. One other person is a cheap intervention on the highest-risk variable.</p></div></div>
+
+    <div class="check" data-check="c6">
+      <div class="tagrow"><span class="tag">Calibration &mdash; final</span><span class="tag">No answer given</span></div>
+      <p class="q">Predict your accurate, sustainable speed on an unseen passage in six months, assuming you run the regimen you just wrote. Then say what evidence you are using &mdash; and whether it is evidence about shorthand or about yourself.</p>
+      <div class="conf"><div class="conf-lab">First &mdash; how confident are you?</div><div class="conf-btns">
+        <button class="cbtn" data-conf="1">Guessing</button><button class="cbtn" data-conf="2">Shaky</button><button class="cbtn" data-conf="3">Fairly sure</button><button class="cbtn" data-conf="4">Certain</button>
+      </div></div>
+      <textarea class="attempt" placeholder="Write the number and the reasoning. Come back in six months."></textarea>
+      <button class="btn" data-act="reveal" disabled>Save it</button>
+      <div class="reveal">
+        <p>There is no answer here. The item exists so that in six months you have a dated, specific prediction to check yourself against &mdash; which is the only calibration instrument available to someone studying alone.</p>
+        <p>One thing worth knowing before you write the number: people reliably predict their future knowledge will stay roughly where it is now, discounting both further study and forgetting. Whatever you wrote is probably too close to today's speed in both directions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AFTER ============ -->
+  <section class="week" id="after">
+    <p class="wk-n">AFTER</p>
+    <h2>60 &rarr; 100 &rarr; 150</h2>
+    <p>The course ends at 60 wpm and a regimen. The rest is a longer road than most people are told, so here it is plainly.</p>
+    <table>
+      <tr><th>Stage</th><th>Rough hours</th><th>What changes</th></tr>
+      <tr><td>60 &rarr; 80</td><td class="n">40&ndash;80</td><td>Short forms become automatic. Mostly drill.</td></tr>
+      <tr><td>80 &rarr; 100</td><td class="n">60&ndash;120</td><td>Your own groupings do the work. This is the long middle.</td></tr>
+      <tr><td>100 &rarr; 150</td><td class="n">not hours &mdash; years</td><td>Ceiling territory. Teeline reaches it, but few writers do.</td></tr>
+    </table>
+    <p style="font-size:.92rem">Those figures are my estimates, not measurements <span class="chip infer">Inference</span>, anchored on one hard published number: a second-year university Teeline module allocates 150 total learning hours to reach a minimum pass at 80 wpm <span class="chip src">Sourced fact <a href="#S3">S3</a></span>. On 100, the target is well established &mdash; it is the NCTJ's gold standard and the threshold for professional eligibility <span class="chip src">Sourced fact <a href="#S1">S1</a>, <a href="#S6">S6</a></span>. On 150, be careful what you read: it is described as achievable in Teeline largely through personal word groupings <span class="chip src">Sourced fact <a href="#S5">S5</a></span>, but the sources making that claim are promotional rather than measured <span class="chip vendor">Vendor framing</span>. Treat 150 as the top of the range, not the plan.</p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="week" id="sources">
+    <p class="wk-n">SOURCES</p>
+    <h2>Every numbered claim</h2>
+    <p style="font-size:.92rem;color:var(--ink-soft)">Marked by how they were checked. <b>Opened</b> means I read the source while building this. <b>Carried</b> means it is established literature I did not re-verify here &mdash; treat those as weaker, and check them yourself before relying on them.</p>
+    <ol class="src">
+      <li id="S1"><b>NCTJ, Shorthand</b> &mdash; 100 wpm as the professional standard; Cartwright's <em>Teeline Gold Standard for Journalists</em> as the recommended text, designed to take a beginner to 100. <a href="https://www.nctj.com/qualifications-courses/shorthand/">nctj.com</a> &middot; <em>Opened</em></li>
+      <li id="S2"><b>NCTJ, distance learning</b> &mdash; graded audio, 60&ndash;100 wpm progression; exams 60&ndash;120. <a href="https://www.nctj.com/news/new-format-shorthand-distance-learning/">nctj.com</a> &middot; <em>Opened</em></li>
+      <li id="S3"><b>Staffordshire University, JOUR50277 (Shorthand 2)</b> &mdash; 150 total learning hours; minimum pass 80 wpm; second-year module. <a href="https://evision.staffs.ac.uk/module_descriptors/JOUR50277.html">module descriptor</a> &middot; <em>Opened</em>. The single most useful number in this course, because it is an institution's own budgeting rather than a promise to a prospective student.</li>
+      <li id="S4"><b>University of Sheffield</b> &mdash; 60 then 100 wpm progression. <a href="https://sheffield.ac.uk/ijc/shorthand-summer-plan">sheffield.ac.uk</a> &middot; <em>Opened</em></li>
+      <li id="S5"><b>Teeline shorthand</b>, Wikipedia &mdash; alphabet-derived letterforms; vowels dropped when not first or last; 150 wpm attributed to personal word groupings. <em>Opened</em>. Tertiary, and its 150 wpm figure traces to a trade-press citation, so the mechanism is trustworthy and the number is not.</li>
+      <li id="S6"><b>teeline.online</b> &mdash; 60 for the diploma, 100 gold standard, some writers past 120. <a href="https://teeline.online/learn/introduction">teeline.online</a> &middot; <em>Opened</em></li>
+      <li id="S7"><b>New General Service List, Coverage</b> &mdash; 10-million-word Cambridge English Corpus sample: top 10 words ≈25%, top 100 ≈50%, top 2000 = 83%. <a href="https://www.newgeneralservicelist.com/coverage">newgeneralservicelist.com</a> &middot; <em>Opened</em></li>
+      <li id="S8"><b>Penn Treebank / Wall Street Journal counts</b> &mdash; top 10 slightly over 25%; top 100 = 48.1%; top 500 = 63.6%. <em>Opened</em>. Deliberately included as an independent corpus and method from S7, because a single frequency source would be the weakest link in the course's central argument. They agree.</li>
+      <li id="S9"><b>Nation &amp; Waring (1997)</b>, vocabulary size and text coverage, Brown corpus (Francis &amp; Ku&#269;era 1982). <a href="https://www.lextutor.ca/research/nation_waring_97.html">lextutor.ca</a> &middot; <em>Opened</em></li>
+      <li id="S10"><b>Mueller &amp; Oppenheimer (2014)</b>, <em>The Pen Is Mightier Than the Keyboard</em>, Psychological Science 25(6), 1159&ndash;1168 &mdash; verbatim transcription as shallower processing. <em>Opened (abstract)</em>. Famous, and the direct ancestor of nearly every "write your notes by hand" claim you have encountered.</li>
+      <li id="S11"><b>Morehead, Dunlosky &amp; Rawson (2019)</b>, Educational Psychology Review 31(3), 753&ndash;780 &mdash; direct replication and extension of S10. No consistent differences between groups, including a group that took no notes; meta-analysis of direct replications found small non-significant effects favouring longhand. <a href="https://link.springer.com/article/10.1007/s10648-019-09468-2">Springer</a> &middot; <em>Opened (abstract)</em>. I searched for this specifically rather than citing S10 alone, and it substantially changed the non-goals of this course.</li>
+      <li id="S13"><b>Practitioner account</b>, trainee reporter on losing speed after passing at 100 wpm, in a piece promoting shorthand learning. <em>Opened</em>. Tier 4 &mdash; direction only.</li>
+      <li id="S14"><b>Bjork &amp; Bjork (2011)</b>, <em>Making Things Hard on Yourself, But in a Good Way</em> &mdash; desirable difficulties; the learning/performance distinction. <em>Carried</em></li>
+      <li id="S15"><b>Hattie &amp; Donoghue (2021)</b>, meta-analysis of ten learning techniques; <b>Dunlosky et al. (2013)</b> &mdash; distributed practice and practice testing as the two best-supported techniques. Cohort completion and isolation effects from MOOC attrition literature. <em>Carried</em></li>
+    </ol>
+    <p style="font-size:.88rem;color:var(--ink-soft)">S12 is deliberately absent &mdash; it was a forum post about Gregg's memory load that informed the system choice but supports nothing in the course itself, and leaving the gap visible is cheaper than renumbering.</p>
+  </section>
+
+  <footer>
+    <p>Built with the self-study-course skill. Three thresholds, working-competence archetype, six weeks. The progress meter is a model of the frequency&ndash;hesitation relationship, not a measurement of your ability &mdash; its arithmetic is printed above so you can disagree with it.</p>
+    <p class="resetline"><button class="reset" id="resetBtn">Clear all progress</button></p>
+  </footer>
+
+</main>
+
+<script type="text/course-deferred">
+/* ---- state ---------------------------------------------------------- */
+var KEY = 'state', SV = 1;
+var S = null;
+
+function fresh(){ return { v:SV, units:{}, checks:{}, updated:null }; }
+
+function migrate(o){
+  if(!o || typeof o !== 'object') return fresh();
+  if(!o.v) o.v = SV;
+  if(!o.units) o.units = {};
+  if(!o.checks) o.checks = {};
+  return o;
+}
+
+function load(){
+  try { return migrate(JSON.parse(localStorage.getItem(KEY))); }
+  catch(e){ return fresh(); }
+}
+
+function save(){
+  S.updated = Date.now();
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){}
+}
+
+S = load();
+</script>
+
+<script type="text/course-deferred">
+/* ---- the meter: coverage of running English -> implied wpm ceiling ----
+   Coverage steps are keyed to real corpus data (S7/S8/S9). The ceiling is a
+   deliberately simple two-rate model, exposed in the UI so it can be argued
+   with. It is a teaching device, not an assessment.                      */
+var T_AUTO = 0.42, T_SLOW = 1.20;
+
+var COVER = {
+  w1:0.00, w2:0.10, w3:0.48, w4:0.64, w5:0.70, w6:0.75
+};
+var WEEK_UNITS = {
+  w1:['w1a','w1b','w1c','w1d','w1e'],
+  w2:['w2a','w2b','w2c','w2d'],
+  w3:['w3a','w3b','w3c','w3d'],
+  w4:['w4a','w4b','w4c','w4d','w4e'],
+  w5:['w5a','w5b','w5c','w5d'],
+  w6:['w6a','w6b','w6c']
+};
+var ORDER = ['w1','w2','w3','w4','w5','w6'];
+
+/* Each week owns the increment between its coverage and the previous week's,
+   earned proportionally to blocks completed. Order-independent, and zero when
+   nothing is done. */
+function coverage(){
+  var c = 0, prev = 0;
+  for (var i=0;i<ORDER.length;i++){
+    var w = ORDER[i], list = WEEK_UNITS[w], done = 0;
+    for (var j=0;j<list.length;j++) if (S.units[list[j]]) done++;
+    c += (COVER[w] - prev) * (done / list.length);
+    prev = COVER[w];
+  }
+  return c;
+}
+
+function ceiling(c){ return Math.round(60 / (c*T_AUTO + (1-c)*T_SLOW)); }
+
+function buildStrip(){
+  var el = document.getElementById('strip');
+  el.innerHTML = '';
+  for (var i=0;i<100;i++){
+    var d = document.createElement('div');
+    d.className = 'seg'; d.style.flex = '1';
+    el.appendChild(d);
+  }
+}
+
+function renderMeter(){
+  var c = coverage(), n = ceiling(c), pct = Math.round(c*100);
+  document.getElementById('ceilNum').textContent = n;
+  document.getElementById('ceilSub').innerHTML =
+    'You have automatic outlines for <b class="num">' + pct + '%</b> of running English. ' +
+    (pct < 45
+      ? 'That is what caps you &mdash; not your hand.'
+      : 'Past this point the long tail stops paying, and pen economy takes over.');
+  var segs = document.getElementById('strip').children;
+  for (var i=0;i<segs.length;i++){
+    if (i < pct) segs[i].classList.add('on'); else segs[i].classList.remove('on');
+  }
+  document.getElementById('meterMath').innerHTML =
+    'ceiling = 60 / ( ' + c.toFixed(2) + '&times;' + T_AUTO.toFixed(2) + 's + ' +
+    (1-c).toFixed(2) + '&times;' + T_SLOW.toFixed(2) + 's ) = <b>' + n + ' wpm</b><br>' +
+    'Two rates: a known outline costs ~0.40s, one you have to think about ~1.15s. ' +
+    'Coverage steps come from corpus counts (S7, S8, S9); the rates are my estimates. ' +
+    'Change either number and the argument survives &mdash; that is the point of printing it.';
+}
+
+buildStrip();
+</script>
+
+<script type="text/course-deferred">
+/* ---- unit checkboxes ------------------------------------------------- */
+(function(){
+  var boxes = document.querySelectorAll('input[data-unit]');
+  for (var i=0;i<boxes.length;i++){
+    (function(box){
+      var id = box.getAttribute('data-unit');
+      box.checked = !!S.units[id];
+      box.addEventListener('change', function(){
+        if (box.checked) S.units[id] = Date.now();
+        else delete S.units[id];
+        save(); renderMeter();
+      });
+    })(boxes[i]);
+  }
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---- checks: confidence before reveal, attempt before answer ---------- */
+(function(){
+  var blocks = document.querySelectorAll('.check');
+
+  for (var i=0;i<blocks.length;i++){
+    (function(root){
+      var id      = root.getAttribute('data-check');
+      var confBtns= root.querySelectorAll('.cbtn');
+      var ta      = root.querySelector('.attempt');
+      var btn     = root.querySelector('[data-act=reveal]');
+      var rev     = root.querySelector('.reveal');
+      var rec     = S.checks[id] || {};
+
+      function gate(){
+        btn.disabled = !(rec.conf && ta.value.trim().length > 12);
+      }
+
+      for (var k=0;k<confBtns.length;k++){
+        (function(b){
+          var val = +b.getAttribute('data-conf');
+          if (rec.conf === val) b.setAttribute('aria-pressed','true');
+          else b.setAttribute('aria-pressed','false');
+          b.addEventListener('click', function(){
+            if (rec.revealed) return;
+            rec.conf = val;
+            for (var m=0;m<confBtns.length;m++) confBtns[m].setAttribute('aria-pressed','false');
+            b.setAttribute('aria-pressed','true');
+            S.checks[id] = rec; save(); gate();
+          });
+        })(confBtns[k]);
+      }
+
+      if (rec.text) ta.value = rec.text;
+      ta.addEventListener('input', function(){
+        rec.text = ta.value; S.checks[id] = rec; save(); gate();
+      });
+
+      if (rec.revealed){ rev.classList.add('open'); btn.textContent = 'Answer shown'; btn.disabled = true; }
+
+      btn.addEventListener('click', function(){
+        rec.revealed = Date.now();
+        S.checks[id] = rec; save();
+        rev.classList.add('open');
+        btn.textContent = 'Answer shown';
+        btn.disabled = true;
+        rev.scrollIntoView({behavior:'smooth', block:'nearest'});
+      });
+
+      gate();
+    })(blocks[i]);
+  }
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---- reset + first paint --------------------------------------------- */
+document.getElementById('resetBtn').addEventListener('click', function(){
+  if (!confirm('Clear every checkbox, confidence rating and written answer? This cannot be undone.')) return;
+  S = fresh(); save(); location.reload();
+});
+renderMeter();
+</script>
+
+</body>
+</html>

@@ -30,3 +30,10 @@
     How context graphs connect people to the priorities that matter. A crash
     course in systems and data modeling.
   tracked: false
+
+- slug: teeline
+  title: Teeline Shorthand to 100
+  description: >-
+    Six weeks to take a passage in Teeline and transcribe it accurately twenty-
+    four hours later.
+  tracked: true
