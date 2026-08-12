@@ -65,3 +65,11 @@
     rather than a measurement. Ends in a token palette and a contrast policy
     you can defend.
   tracked: true
+
+- slug: map-projections
+  title: Map Projections
+  description: >-
+    Flattening a sphere is impossible by Gauss's theorem, not by clumsiness, so
+    every map is a choice about which invariant to break. Tissot's indicatrix
+    makes the cost computable; the deliverable is a projection decision memo.
+  tracked: true

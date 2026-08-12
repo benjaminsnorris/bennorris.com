@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="map-projections"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What a Flat Map Costs You: Map Projections for People Who Have to Choose One</title>
+<style>
+:root{
+  color-scheme: light dark;
+  --ground:#F6F8FA; --surface:#FFFFFF; --panel:#F0F3F6;
+  --ink:#14181F; --ink-soft:#444D59; --ink-mute:#5F6874;
+  --rule:#D8DEE6; --rule-strong:#7C8694; --btn-fg:#FFFFFF;
+  --signal:#0E6F78; --signal-bg:#E0F1F2;
+  --fact:#1B6B44; --fact-bg:#E4F2EA;
+  --infer:#8A540B; --infer-bg:#F6ECD9;
+  --vendor:#5E3F96; --vendor-bg:#EEE7F7;
+  --contested:#96334F; --contested-bg:#F8E6ED;
+  --single:#265596; --single-bg:#E4EDF9;
+  --warn-bg:#FDF3E3; --warn-rule:#E0B463;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ground:#0E1116; --surface:#151A21; --panel:#1B2129;
+    --ink:#E8EDF3; --ink-soft:#B3BDC9; --ink-mute:#8F9CAB;
+    --rule:#2C343F; --rule-strong:#687687; --btn-fg:#08111A;
+    --signal:#48C4CE; --signal-bg:#0F2C30;
+    --fact:#7BD3A0; --fact-bg:#10291C;
+    --infer:#E0B463; --infer-bg:#2C2210;
+    --vendor:#B99BE8; --vendor-bg:#241C33;
+    --contested:#E893AE; --contested-bg:#331522;
+    --single:#8FB6EF; --single-bg:#16233A;
+    --warn-bg:#2A2110; --warn-rule:#8A6A24;
+  }
+}
+[data-theme="light"]{
+  color-scheme: light;
+  --ground:#F6F8FA; --surface:#FFFFFF; --panel:#F0F3F6;
+  --ink:#14181F; --ink-soft:#444D59; --ink-mute:#5F6874;
+  --rule:#D8DEE6; --rule-strong:#7C8694; --btn-fg:#FFFFFF;
+  --signal:#0E6F78; --signal-bg:#E0F1F2;
+  --fact:#1B6B44; --fact-bg:#E4F2EA;
+  --infer:#8A540B; --infer-bg:#F6ECD9;
+  --vendor:#5E3F96; --vendor-bg:#EEE7F7;
+  --contested:#96334F; --contested-bg:#F8E6ED;
+  --single:#265596; --single-bg:#E4EDF9;
+  --warn-bg:#FDF3E3; --warn-rule:#E0B463;
+}
+[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0E1116; --surface:#151A21; --panel:#1B2129;
+  --ink:#E8EDF3; --ink-soft:#B3BDC9; --ink-mute:#8F9CAB;
+  --rule:#2C343F; --rule-strong:#687687; --btn-fg:#08111A;
+  --signal:#48C4CE; --signal-bg:#0F2C30;
+  --fact:#7BD3A0; --fact-bg:#10291C;
+  --infer:#E0B463; --infer-bg:#2C2210;
+  --vendor:#B99BE8; --vendor-bg:#241C33;
+  --contested:#E893AE; --contested-bg:#331522;
+  --single:#8FB6EF; --single-bg:#16233A;
+  --warn-bg:#2A2110; --warn-rule:#8A6A24;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  padding-bottom:96px;
+}
+.wrap{max-width:44rem;margin:0 auto;padding:0 16px}
+h1{font-size:1.6rem;line-height:1.24;letter-spacing:-.015em;margin:.2em 0 .3em}
+h2{font-size:1.25rem;line-height:1.3;letter-spacing:-.01em;margin:2.2rem 0 .4rem}
+h3{font-size:1.02rem;margin:1.5rem 0 .35rem}
+h4{font-size:.94rem;margin:1.1rem 0 .3rem;color:var(--ink-soft)}
+p,li{overflow-wrap:break-word}
+a{color:var(--signal)}
+small,.small{font-size:.85rem}
+code{font-family:var(--mono);font-size:.88em;background:var(--panel);padding:.1em .35em;border-radius:4px}
+hr{border:0;border-top:1px solid var(--rule);margin:2rem 0}
+
+header.top{background:var(--surface);border-bottom:1px solid var(--rule);padding:14px 0 10px}
+.toprow{display:flex;align-items:flex-start;gap:12px;justify-content:space-between}
+.kicker{font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-mute);margin:0}
+.theme-btn{
+  flex:0 0 auto;min-height:44px;min-width:44px;padding:0 12px;
+  background:var(--panel);color:var(--ink);border:1px solid var(--rule-strong);
+  border-radius:8px;font-size:.82rem;cursor:pointer;
+}
+.theme-btn:hover{border-color:var(--signal)}
+
+/* ---- progress meter ---- */
+.meter{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:12px;margin:14px 0 4px}
+.meter svg{display:block;width:100%;height:auto}
+.meter .cap{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-top:8px}
+.meter .big{font-size:1.05rem;font-weight:650;font-variant-numeric:tabular-nums}
+.meter .note{font-size:.8rem;color:var(--ink-mute);margin:.45rem 0 0;line-height:1.45}
+.gr{stroke:var(--rule);stroke-width:.7;fill:none}
+.frame{stroke:var(--rule-strong);stroke-width:1.2;fill:none}
+.ind-off{fill:none;stroke:var(--rule-strong);stroke-width:1;stroke-dasharray:2 2.4}
+.ind-on{fill:var(--signal);fill-opacity:.22;stroke:var(--signal);stroke-width:1.4}
+
+/* ---- panels ---- */
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px;margin:14px 0}
+.card h3:first-child,.card h2:first-child{margin-top:0}
+.panel{background:var(--panel);border-radius:10px;padding:12px 14px;margin:12px 0}
+.warn{background:var(--warn-bg);border-left:3px solid var(--warn-rule);border-radius:0 8px 8px 0;padding:12px 14px;margin:14px 0}
+.liminal{background:var(--signal-bg);border-left:3px solid var(--signal);border-radius:0 8px 8px 0;padding:12px 14px;margin:14px 0}
+.liminal p:last-child,.warn p:last-child,.panel p:last-child{margin-bottom:0}
+.liminal p:first-child,.warn p:first-child,.panel p:first-child{margin-top:0}
+.tag{display:inline-block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--signal);margin-bottom:.3rem}
+
+/* ---- provenance chips ---- */
+.chip{
+  display:inline-block;font-size:.7rem;line-height:1.5;padding:.05em .5em;border-radius:999px;
+  white-space:nowrap;vertical-align:baseline;font-weight:600;letter-spacing:.01em;
+}
+.chip a{text-decoration:none;color:inherit;border-bottom:1px dotted currentColor}
+.chip.src{background:var(--fact-bg);color:var(--fact)}
+.chip.infer{background:var(--infer-bg);color:var(--infer)}
+.chip.vendor{background:var(--vendor-bg);color:var(--vendor)}
+.chip.contested{background:var(--contested-bg);color:var(--contested)}
+.chip.single{background:var(--single-bg);color:var(--single)}
+
+/* ---- week + block ---- */
+.week{margin-top:2.4rem}
+.week > .whead{border-top:2px solid var(--ink);padding-top:.6rem}
+.whead .wnum{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute)}
+.block{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px;margin:14px 0}
+.block.is-done{border-color:var(--signal)}
+.bh{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:.5rem}
+.blabel{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--btn-fg);background:var(--signal);padding:.2em .6em;border-radius:999px}
+.best{font-size:.78rem;color:var(--ink-mute);font-variant-numeric:tabular-nums}
+.evidence{font-size:.86rem;color:var(--ink-soft);border-left:2px solid var(--rule-strong);padding-left:10px;margin:.2rem 0 .9rem}
+.done-btn{
+  display:block;width:100%;min-height:44px;margin-top:14px;padding:10px 14px;
+  background:var(--panel);color:var(--ink);border:1px solid var(--rule-strong);
+  border-radius:9px;font-size:.9rem;cursor:pointer;
+}
+.done-btn:hover{border-color:var(--signal)}
+.done-btn[aria-pressed="true"]{background:var(--signal);color:var(--btn-fg);border-color:var(--signal);font-weight:600}
+
+/* ---- math + tables ---- */
+.math{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--panel);border-radius:8px;padding:12px 14px;margin:12px 0}
+.math .eq{font-family:var(--mono);font-size:.92rem;white-space:nowrap;display:block}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0;border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:.87rem;min-width:24rem}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{background:var(--panel);font-weight:650}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:.85rem}
+
+/* ---- bench ---- */
+.bench{background:var(--surface);border:1px solid var(--rule-strong);border-radius:12px;padding:14px;margin:16px 0}
+.bench .row{display:grid;grid-template-columns:1fr;gap:12px}
+.ctrl label{display:block;font-size:.8rem;color:var(--ink-soft);margin-bottom:.3rem;font-weight:600}
+.ctrl select,.ctrl input[type=range]{width:100%}
+.ctrl select{min-height:44px;padding:8px;border-radius:8px;border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink);font-size:.9rem}
+input[type=range]{height:44px;accent-color:var(--signal)}
+.readout{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.ro{background:var(--panel);border-radius:8px;padding:8px 10px}
+.ro .k{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-mute)}
+.ro .v{font-family:var(--mono);font-size:1rem;font-weight:600;font-variant-numeric:tabular-nums}
+.benchsvg{display:block;width:100%;max-width:260px;height:auto;margin:4px auto 0}
+
+/* ---- self-check ---- */
+.check{border:1px solid var(--rule-strong);border-radius:12px;padding:14px;margin:16px 0;background:var(--surface)}
+.check .qtag{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--ink-mute)}
+.check textarea{
+  width:100%;min-height:88px;margin-top:8px;padding:10px;border-radius:8px;
+  border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink);
+  font:inherit;font-size:.9rem;resize:vertical;
+}
+.conf{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.conf button, .out button{
+  flex:1 1 auto;min-height:44px;min-width:64px;padding:6px 8px;font-size:.82rem;
+  background:var(--panel);color:var(--ink);border:1px solid var(--rule-strong);border-radius:8px;cursor:pointer;
+}
+.conf button[aria-pressed="true"],.out button[aria-pressed="true"]{background:var(--signal);color:var(--btn-fg);border-color:var(--signal);font-weight:650}
+.reveal{
+  display:block;width:100%;min-height:44px;margin-top:10px;padding:10px;border-radius:9px;
+  border:1px solid var(--signal);background:var(--signal);color:var(--btn-fg);font-size:.9rem;font-weight:600;cursor:pointer;
+}
+.reveal[disabled]{opacity:.5;cursor:not-allowed;background:var(--panel);color:var(--ink-mute);border-color:var(--rule-strong)}
+.answer{margin-top:12px;border-top:1px dashed var(--rule-strong);padding-top:10px}
+.answer[hidden]{display:none}
+.calibnote{font-size:.83rem;color:var(--ink-soft);margin-top:10px}
+.out{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+
+/* ---- sources ---- */
+.sources li{margin-bottom:.65rem;font-size:.88rem}
+.tier{font-family:var(--mono);font-size:.74rem;color:var(--ink-mute);border:1px solid var(--rule-strong);border-radius:4px;padding:0 .3em;margin-left:.3em}
+:target{scroll-margin-top:12px}
+li[id]:target{background:var(--signal-bg);border-radius:6px}
+
+@media (min-width:640px){
+  body{font-size:17px}
+  h1{font-size:2rem}
+  .bench .row{grid-template-columns:1fr 260px}
+  .readout{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="toprow">
+      <div>
+        <p class="kicker">Self-study course &middot; working competence</p>
+        <h1>What a Flat Map Costs You</h1>
+      </div>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Change colour theme">Theme</button>
+    </div>
+
+    <div class="meter" id="meter">
+      <svg viewBox="0 0 380 200" role="img" aria-labelledby="meterTitle">
+        <title id="meterTitle">Distortion field: measured points on an equirectangular world</title>
+        <g id="grat"></g>
+        <rect x="10" y="20" width="360" height="160" class="frame" rx="2"></rect>
+        <g id="inds"></g>
+      </svg>
+      <div class="cap">
+        <span class="big"><span id="mDone">0</span> / 18 points measured</span>
+        <span class="small" style="color:var(--ink-mute)">mean &omega; over measured points: <span id="mOmega">&mdash;</span></span>
+      </div>
+      <p class="note">Each block you finish measures one more point of the distortion field on an equirectangular world &mdash; the ellipse is the real Tissot indicatrix there, semi-axes sec&nbsp;&phi; by 1. Watch the mean angular deformation as you go: it does not fall. Measuring distortion is not reducing it. That distinction is the whole course.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section class="card" id="start">
+  <h2 style="margin-top:0">Start here</h2>
+
+  <h3>The capability</h3>
+  <p>At the end of this course, <strong>you can take a real mapping brief &mdash; a region and a purpose &mdash; choose a projection and an aspect, and defend the choice with computed distortion numbers at the points that matter, while stating plainly what the choice costs.</strong></p>
+  <p>Not &ldquo;understand map projections.&rdquo; The artifact is a one-page <em>projection decision memo</em>: brief, choice, distortion table, rejected alternative, stated cost. You write a crude one in Week&nbsp;1 and a defensible one in Week&nbsp;6.</p>
+
+  <h3>The three thresholds</h3>
+  <p>A threshold is an idea you cannot half-cross. You either see the domain differently afterwards or you have learned to talk like someone who does. There are three here, and everything in the six weeks exists to get you over one of them.</p>
+  <ol>
+    <li><strong>Distortion is a theorem, not a design flaw.</strong> Gauss proved that flattening a sphere is impossible, not merely difficult. Every map is therefore a decision about which invariant to break &mdash; there is no clever projection waiting to be found.</li>
+    <li><strong>Distortion is local, directional, and computable.</strong> At each point a projection is a little linear map with two principal scale factors. &ldquo;This map is bad&rdquo; becomes &ldquo;at 60&deg;N this projection inflates area 4&times; and deforms angles by 0&deg;.&rdquo;</li>
+    <li><strong>&ldquo;Best&rdquo; is a minimax you define.</strong> There is no best projection, and not because that's a diplomatic thing to say. A ranking exists only once you fix a region, an error measure, and a weighting &mdash; and changing the weighting changes the winner.</li>
+  </ol>
+
+  <h3>Where you're starting from</h3>
+  <p>This course assumes: comfortable with trigonometry, including <code>sec</code>, radians, and inverse functions; calculus seen but rusty &mdash; you'll recognise a derivative but wouldn't want to compute one under time pressure; no differential geometry at all; able to read technical documentation and run a few lines of code; has used web maps as a user, never as a GIS practitioner.</p>
+  <p><strong>The calculus accommodation is deliberate.</strong> Every derivative you need is handed to you. Your job is to <em>verify</em> it numerically rather than re-derive it &mdash; which is what a working practitioner actually does, and which happens to be a better check than re-deriving, because it catches transcription errors too.</p>
+
+  <h3>Non-goals</h3>
+  <p>Stated up front, because a bounded scope is the only kind you can finish:</p>
+  <ul>
+    <li><strong>The Earth is a sphere here.</strong> The ellipsoid appears exactly once, in Week&nbsp;6, and only to explain why Web Mercator is wrong. Real geodesy &mdash; datums, geoids, ellipsoidal formulas &mdash; is a different and larger subject.</li>
+    <li><strong>No datum or coordinate transformations.</strong> NAD 27 to NAD 83 is a data problem, not a projection problem, and conflating them is the most common way to get a map subtly wrong.</li>
+    <li><strong>No GIS software.</strong> Nothing here is a QGIS, ArcGIS, PROJ, or D3 tutorial. You will finish able to say what to ask those tools for.</li>
+    <li><strong>You will not design a projection.</strong> Choosing and defending is a working competence; inventing is a research career.</li>
+    <li><strong>No cartographic design.</strong> Colour, type, symbology, generalisation, labelling &mdash; all real, all absent.</li>
+    <li><strong>Only normal, transverse, and oblique aspects of a handful of projections.</strong> Roughly seven, chosen because their scale factors have exact closed forms you can check by hand. Snyder catalogues hundreds.</li>
+  </ul>
+
+  <h3>Time budget</h3>
+  <p><strong>About 21 hours</strong>, across 6 weeks, in 18 blocks of 40&ndash;105 minutes. Each block is one sitting: openable and closeable in a single go, on a phone if that's the sitting you have.</p>
+  <p>That 21 already includes the standard 2.5&times; realism multiplier. The unmultiplied estimate was about 8 hours, and the unmultiplied estimate is always a lie. If you have 8 hours, do Weeks 1&ndash;3 and stop after Threshold&nbsp;2 &mdash; two thresholds crossed beats three skimmed, and the second one is where the practical leverage is.</p>
+
+  <h3>How claims are marked</h3>
+  <p>Every load-bearing claim carries a chip. The taxonomy is small on purpose:</p>
+  <ul class="small">
+    <li><span class="chip src">Sourced fact <a href="#S2">S2</a></span> &mdash; traceable to a numbered source at the bottom, which I opened and read.</li>
+    <li><span class="chip infer">Inference</span> &mdash; my reasoning or application. In no source. Check it yourself.</li>
+    <li><span class="chip contested">Contested</span> &mdash; the field genuinely disagrees, and you are about to meet the disagreement rather than a tidied version of it.</li>
+    <li><span class="chip single">Single study</span> &mdash; real, but one result, unreplicated.</li>
+    <li><span class="chip vendor">Vendor framing</span> &mdash; true, but written by a party with something to sell. Rare in a 200-year-old mathematical field, which is itself worth noticing; it shows up here only around web mapping.</li>
+  </ul>
+  <p class="small" style="color:var(--ink-mute)">The sources list also records <em>how</em> each was read &mdash; in full, in part, or only as cited by someone else. Citing a paper you have only met through another paper's summary is the specific failure this course is most exposed to, so it's disclosed rather than hidden.</p>
+</section>
+
+<section class="card" id="bench">
+  <h2 style="margin-top:0">The distortion bench</h2>
+  <p>You'll use this in almost every block. Pick a projection and a latitude; it gives you the two principal scale factors and the resulting area and angle errors, plus the indicatrix itself.</p>
+  <p class="small" style="color:var(--ink-mute)">Sphere of radius 1, normal aspect for the cylindricals, polar aspect for the azimuthals (so latitude 0 sits at the rim of the disk). <em>h</em> is scale along the meridian, <em>k</em> along the parallel. All seven have exact closed forms &mdash; nothing here is approximated, so you can check any value by hand.</p>
+
+  <div class="bench">
+    <div class="row">
+      <div>
+        <div class="ctrl">
+          <label for="bProj">Projection</label>
+          <select id="bProj">
+            <option value="merc">Mercator (cylindrical, conformal)</option>
+            <option value="plate">Plate carr&eacute;e / equirectangular</option>
+            <option value="lcea">Lambert cylindrical equal-area (std par 0&deg;)</option>
+            <option value="gall">Gall&ndash;Peters (cyl. equal-area, std par 45&deg;)</option>
+            <option value="azeq">Azimuthal equidistant (polar)</option>
+            <option value="lazea">Lambert azimuthal equal-area (polar)</option>
+            <option value="stereo">Stereographic (polar, conformal)</option>
+          </select>
+        </div>
+        <div class="ctrl" style="margin-top:12px">
+          <label for="bLat">Latitude: <span id="bLatVal" style="font-family:var(--mono)">45&deg;</span></label>
+          <input type="range" id="bLat" min="0" max="89" step="1" value="45">
+        </div>
+        <div class="readout">
+          <div class="ro"><div class="k">h &middot; meridian</div><div class="v" id="roH">&mdash;</div></div>
+          <div class="ro"><div class="k">k &middot; parallel</div><div class="v" id="roK">&mdash;</div></div>
+          <div class="ro"><div class="k">area &middot; hk</div><div class="v" id="roA">&mdash;</div></div>
+          <div class="ro"><div class="k">&omega; &middot; max angle</div><div class="v" id="roW">&mdash;</div></div>
+        </div>
+        <p class="small" id="bNote" style="color:var(--ink-soft);margin-bottom:0"></p>
+      </div>
+      <div>
+        <svg class="benchsvg" viewBox="0 0 200 200" role="img" aria-labelledby="benchTitle">
+          <title id="benchTitle">Tissot indicatrix at the selected point</title>
+          <circle cx="100" cy="100" r="34" fill="none" stroke="var(--rule-strong)" stroke-width="1" stroke-dasharray="3 3"></circle>
+          <ellipse id="bEll" cx="100" cy="100" rx="34" ry="34" fill="var(--signal)" fill-opacity=".2" stroke="var(--signal)" stroke-width="1.6"></ellipse>
+        </svg>
+        <p class="small" style="text-align:center;color:var(--ink-mute);margin:.4rem 0 0">Dashed: the circle on the globe.<br>Solid: what the map makes of it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="week" id="w1">
+  <div class="whead">
+    <p class="wnum">Week 1 &middot; ~3.0 hrs</p>
+    <h2 style="margin-top:0">Make the whole thing badly</h2>
+  </div>
+  <p>No orientation week. By Sunday you will have written the actual artifact this course exists to teach &mdash; a projection decision memo &mdash; and it will be bad, and you will know exactly which parts are bad. That's the point: the rest of the course is repairing a thing you already built rather than assembling one you've never seen.</p>
+
+  <div class="block" data-block="w1b1">
+    <div class="bh"><span class="blabel">Read</span><span class="best">~40 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a written brief for one real map you would actually make &mdash; region, purpose, and the one question a reader must be able to answer from it.</p>
+
+    <h3>The decision you're actually making</h3>
+    <p>Almost everyone approaches projections backwards: they ask &ldquo;which projection is most accurate?&rdquo; The question has no answer, and the reason it has no answer is Week&nbsp;2's threshold. The question that does have an answer is: <em>given what this map is for, which distortion can I afford?</em></p>
+    <p>Snyder, whose 1987 USGS manual is the closest thing the field has to a standard reference, opens with exactly this. He writes that since a flat map cannot be made without distortion, the cartographer must choose what to show accurately at the expense of everything else, or accept a compromise across several properties <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. And he is blunt that it cannot be said there is one best projection, and that it is even risky to claim you've found the best one for a given application unless the parameters have been artificially constricted <span class="chip src">Sourced fact <a href="#S2">S2</a></span>.</p>
+    <p>Note what that second sentence does. It's not modesty. It's a warning that &ldquo;best for this application&rdquo; is a claim that smuggles in a definition of best, and that you should be suspicious of your own version of it. Hold onto that; it becomes Threshold&nbsp;3.</p>
+
+    <h3>The five characteristics</h3>
+    <p>Snyder lists the properties a projection can be built to preserve <span class="chip src">Sourced fact <a href="#S2">S2</a></span>:</p>
+    <div class="tw"><table>
+      <thead><tr><th>Property</th><th>What is preserved</th><th>Where it fails</th></tr></thead>
+      <tbody>
+        <tr><td>Equal-area</td><td>Area, everywhere, exactly</td><td>Shapes and angles, badly, away from the standard lines</td></tr>
+        <tr><td>Conformal</td><td>Local angles at every point; shapes of <em>small</em> features</td><td>Area, without limit</td></tr>
+        <tr><td>Equidistant</td><td>Scale along certain lines only</td><td>Everywhere else</td></tr>
+        <tr><td>Azimuthal</td><td>Direction from one centre point</td><td>Direction between any other pair</td></tr>
+        <tr><td>Compromise</td><td>Nothing exactly</td><td>Nothing catastrophically</td></tr>
+      </tbody>
+    </table></div>
+    <p>Two traps live in that table, and both catch experienced people.</p>
+    <p><strong>Conformal does not mean shapes are right.</strong> Snyder is careful: conformality applies on a point or infinitesimal basis, while equal-area applies on a finite, map-wide basis <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. Mercator is perfectly conformal and Greenland is still monstrous. Nothing is broken. Continent-scale shape is not a local property, so a local guarantee says nothing about it.</p>
+    <p><strong>Equidistant does not mean distances are right.</strong> No projection preserves all distances &mdash; equidistant projections hold true scale along <em>selected lines</em>, usually meridians from a centre <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. &ldquo;Azimuthal equidistant&rdquo; means distances from <em>the centre point</em> are true. Distances between two arbitrary points on it are not.</p>
+
+    <h3>Your brief</h3>
+    <p>Pick a real map. Not a hypothetical &mdash; a map you'd plausibly make, because you'll be living with it for six weeks. Something with a region and a job to do: a county's school-district boundaries, migration paths for a family line across two centuries, service coverage for a set of sites, a walking route.</p>
+    <p>Write three lines. Region and its rough latitude span. Purpose in one sentence. The one question a reader must be able to answer correctly from the map &mdash; and be specific, because &ldquo;understand the area&rdquo; is not a question.</p>
+    <button class="done-btn" type="button" data-done="w1b1" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w1b2">
+    <div class="bh"><span class="blabel">Compute</span><span class="best">~50 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> one number &mdash; the area inflation your default web map applies at your region's latitude &mdash; computed by hand and checked against the bench.</p>
+
+    <div class="check" data-item="q1">
+      <p class="qtag">Predict first &middot; before you read on</p>
+      <p>Google Maps, OpenStreetMap and almost every web basemap use a Mercator. On a Mercator, <strong>how many times too large does a country at 60&deg;N appear</strong>, compared with the same country at the equator? Commit to a number before you look. Guessing is fine &mdash; the guess is what makes the answer stick.</p>
+      <textarea data-role="attempt" placeholder="My number, and roughly why I think that&hellip;"></textarea>
+      <p class="small" style="margin:.6rem 0 0;color:var(--ink-mute)">How confident are you, before the reveal?</p>
+      <div class="conf" data-role="conf">
+        <button type="button" data-c="1">Guessing</button>
+        <button type="button" data-c="2">Shaky</button>
+        <button type="button" data-c="3">Fairly sure</button>
+        <button type="button" data-c="4">Confident</button>
+      </div>
+      <button class="reveal" type="button" disabled>Write an attempt and pick a confidence to unlock</button>
+      <div class="answer" hidden>
+        <p><strong>Four times.</strong> Not 1.15, not &ldquo;a bit,&rdquo; not 2. Four.</p>
+        <p>The Mercator's scale factor along both the meridian and the parallel is sec&nbsp;&phi; &mdash; it stretches equally in every direction at a point, which is exactly what makes it conformal <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. Area scales as the product of the two:</p>
+        <div class="math"><span class="eq">area scale = h &times; k = sec &phi; &times; sec &phi; = sec&sup2; &phi;</span></div>
+        <p>At &phi;&nbsp;=&nbsp;60&deg;, cos&nbsp;60&deg;&nbsp;=&nbsp;0.5, so sec&nbsp;60&deg;&nbsp;=&nbsp;2, and the area scale is 4. Scandinavia, Britain, most of Canada and all of Russia are drawn at roughly four times the areal scale of Kenya on the map you use every day. Set the bench to Mercator and drag to 60&deg; to confirm; then drag to 75&deg; and watch it pass 14.</p>
+        <p class="calibnote">How did that go?</p>
+        <div class="out" data-role="out">
+          <button type="button" data-o="got">Got it</button>
+          <button type="button" data-o="partly">Partly</button>
+          <button type="button" data-o="missed">Missed it</button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Worked example &mdash; fully scaffolded</h3>
+    <p>This week you copy a worked example exactly, changing only the latitude. The scaffolding comes off in Week&nbsp;3 and is gone by Week&nbsp;5; if you look back at this block in six weeks and it feels patronising, the fading worked.</p>
+    <p>Take a region centred at 42&deg;N (roughly Chicago, Rome, or northern Utah).</p>
+    <ol>
+      <li>cos&nbsp;42&deg;&nbsp;=&nbsp;0.7431</li>
+      <li>sec&nbsp;42&deg;&nbsp;=&nbsp;1&nbsp;/&nbsp;0.7431&nbsp;=&nbsp;1.3456</li>
+      <li>So <em>h</em>&nbsp;=&nbsp;<em>k</em>&nbsp;=&nbsp;1.3456. Lengths are 34.6% too long in every direction.</li>
+      <li>Area scale = 1.3456&sup2; = <strong>1.811</strong>. Areas are 81% too large.</li>
+      <li>Angular deformation &omega;&nbsp;=&nbsp;0, because <em>h</em>&nbsp;=&nbsp;<em>k</em>. Mercator is conformal; that's the whole trade.</li>
+    </ol>
+    <p>Now do it for your own region's centre latitude. Then set the bench to Mercator and that latitude and confirm all four readouts match your arithmetic. If they don't, it's almost always a degrees-versus-radians error in the calculator, which is a mistake you want to make now rather than in Week&nbsp;6.</p>
+    <div class="warn">
+      <p><strong>One thing to notice, and carry.</strong> That single number &mdash; 1.811 &mdash; is more useful than any amount of arguing about whether Mercator is a good projection. It is specific, it is checkable, and it converts an aesthetic complaint into a stated cost. Producing numbers like it, for the points that matter, is the entire working competence.</p>
+    </div>
+    <button class="done-btn" type="button" data-done="w1b2" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w1b3">
+    <div class="bh"><span class="blabel">Write</span><span class="best">~90 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> Decision Memo v0 &mdash; complete, one page, and knowingly bad.</p>
+    <p>Five sections. Write all five even where you have nothing yet; the empty ones are the syllabus for the next five weeks.</p>
+    <ol>
+      <li><strong>Brief.</strong> Region, purpose, the one question a reader must answer. From the last block.</li>
+      <li><strong>Choice.</strong> Which projection, which aspect, which standard parallel(s) or central meridian. You don't know how to choose yet &mdash; choose anyway, and write down why you chose it, including &ldquo;it's what the tool defaults to.&rdquo; That sentence is data about how most maps get made.</li>
+      <li><strong>Distortion table.</strong> Three points: your region's centre and its two most extreme corners. Columns for <em>h</em>, <em>k</em>, area, and &omega;. Fill them in from the bench. This week you can only do it honestly for the seven projections in the bench &mdash; if your choice isn't one of them, use the closest cylindrical and write &ldquo;approximation&rdquo; in the margin.</li>
+      <li><strong>Rejected alternative.</strong> Name one other projection you could have used, and one sentence on why not. It will be a weak sentence. Leave it weak.</li>
+      <li><strong>The cost.</strong> One sentence: what this map will systematically mislead a reader about. Every map has one. If you can't write this line, you don't yet know what you chose.</li>
+    </ol>
+    <div class="liminal">
+      <p><strong>Expect this to feel premature.</strong> It is. You are being asked to produce the whole artifact before you have the concepts that make it defensible, and the discomfort is doing work: the empty spots in section 3 and the weakness of section 4 are what Weeks 3 and 6 will be answering. A course that saved the memo for the end would leave you assembling an unfamiliar thing while also tired. Keep the file; you'll rewrite it in Week&nbsp;6 and diffing the two is the most honest measure of progress this course offers.</p>
+    </div>
+    <button class="done-btn" type="button" data-done="w1b3" aria-pressed="false">Mark this block done</button>
+  </div>
+</section>
+
+<section class="week" id="w2">
+  <div class="whead">
+    <p class="wnum">Week 2 &middot; ~3.5 hrs &middot; Threshold 1</p>
+    <h2 style="margin-top:0">It's a theorem, not a tradeoff</h2>
+  </div>
+  <p>Most people carry a vague sense that flattening the Earth is hard, and that a sufficiently clever projection might mostly solve it. That belief is not slightly wrong. It is the thing the whole field is built on the negation of, and until it goes, every projection choice looks like a compromise between competing engineering options rather than a decision about which law to break.</p>
+
+  <div class="block" data-block="w2b1">
+    <div class="bh"><span class="blabel">Read</span><span class="best">~60 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a one-paragraph written statement, in your own words, of why a cylinder can be unrolled flat and a sphere cannot.</p>
+
+    <h3>Two kinds of curvature</h3>
+    <p>Roll a sheet of paper into a tube. Nothing on the paper changed: distances between printed points are the same, angles are the same, a drawn circle is still a circle. Now try to wrap that same sheet around a ball. It creases, or it tears. The difference is not about effort or dexterity &mdash; it's a mathematical fact about the two surfaces.</p>
+    <p>Gauss's <em>Theorema Egregium</em> of 1827 says that a surface's Gaussian curvature can be determined entirely from measurements made <em>within</em> the surface &mdash; angles, distances, and their rates of change &mdash; without any reference to the surrounding space it sits in <span class="chip src">Sourced fact <a href="#S1">S1</a></span>. Gauss's own statement of the consequence: if a curved surface is developed upon any other surface whatever, the measure of curvature at each point remains unchanged <span class="chip src">Sourced fact <a href="#S1">S1</a></span>.</p>
+    <p>The payoff for mapmakers is immediate. A plane has Gaussian curvature 0 everywhere. A sphere of radius <em>R</em> has curvature 1/<em>R</em>&sup2; everywhere, which is not 0. Since curvature is preserved by any distance-preserving map, and these two curvatures differ, <strong>there is no distance-preserving map from any patch of sphere to any patch of plane</strong> &mdash; not for the whole Earth, not for a continent, not for a city block <span class="chip src">Sourced fact <a href="#S1">S1</a></span>.</p>
+    <p>A cylinder, by contrast, has Gaussian curvature 0 &mdash; intrinsically it is as flat as a plane, which is exactly why the paper rolls without complaint <span class="chip src">Sourced fact <a href="#S1">S1</a></span>. This is why cylinders, cones and planes are called <em>developable</em> surfaces, and why they are the three shapes projections are built around <span class="chip src">Sourced fact <a href="#S2">S2</a></span>.</p>
+
+    <h3>The word &ldquo;impossible&rdquo; is doing real work</h3>
+    <p>Snyder states the consequence flatly in his list of properties: no map can be both equal-area and conformal <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. Not &ldquo;no known map,&rdquo; not &ldquo;no practical map.&rdquo; None, ever, for any region however small. There is no research programme that will produce one, and a claim to have found one is a claim to have refuted Gauss.</p>
+    <p>Do the paper experiment if you haven't. Take an orange, or a tennis ball, and a sheet of paper, and spend a minute genuinely trying. The tactile version of this is not a teaching gimmick; the feeling of the paper refusing is closer to the theorem than the sentence is.</p>
+    <button class="done-btn" type="button" data-done="w2b1" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w2b2">
+    <div class="bh"><span class="blabel">Derive</span><span class="best">~75 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a written four-step proof, in your own hand, that conformal and equal-area are mutually exclusive.</p>
+
+    <div class="liminal">
+      <p><strong>This is the liminal stretch of the course.</strong> The argument below is four lines long and will feel like a trick &mdash; like it proves something by definition rather than about the world. That feeling is the crossing, not a sign you've misunderstood. Sit in it. People who report understanding Threshold&nbsp;1 immediately have usually acquired the sentence rather than the idea, and the tell is that they still expect a clever projection to come along eventually.</p>
+    </div>
+
+    <p>You need one fact from Week&nbsp;3, stated now and earned later: at each point, a projection turns an infinitesimally small circle on the globe into an infinitesimally small but perfect ellipse on the map, with semi-axes <em>a</em> and <em>b</em> <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. That ellipse is Tissot's indicatrix, and it is the complete local description of what the projection does.</p>
+
+    <h3>The argument</h3>
+    <ol>
+      <li><strong>Conformal means the indicatrix is a circle.</strong> If local angles are preserved, the scale factor at a point must be the same in every direction &mdash; stretch more one way than another and you have bent the angles between them. So <em>a</em>&nbsp;=&nbsp;<em>b</em>. Snyder states this directly: on a conformal projection the ellipse is a circle, an ellipse of zero eccentricity <span class="chip src">Sourced fact <a href="#S2">S2</a></span>.</li>
+      <li><strong>Equal-area means the indicatrix has unit area.</strong> The ellipse's area is proportional to <em>ab</em>. Preserve areas everywhere and <em>ab</em>&nbsp;=&nbsp;1 at every point.</li>
+      <li><strong>Both at once forces an isometry.</strong> If <em>a</em>&nbsp;=&nbsp;<em>b</em> and <em>ab</em>&nbsp;=&nbsp;1, then <em>a</em>&sup2;&nbsp;=&nbsp;1, so <em>a</em>&nbsp;=&nbsp;<em>b</em>&nbsp;=&nbsp;1. Every infinitesimal circle maps to an identical circle: every length, in every direction, at every point, is preserved. That is precisely the definition of a distance-preserving map.</li>
+      <li><strong>Gauss forbids it.</strong> A distance-preserving map preserves Gaussian curvature. Sphere: 1/<em>R</em>&sup2;. Plane: 0. Contradiction <span class="chip src">Sourced fact <a href="#S1">S1</a></span>. Therefore no projection is both. <span class="chip infer">Inference</span> &mdash; the four-step chain is my assembly; each link is sourced, the chain is not quoted from anywhere.</li>
+    </ol>
+    <p>Write it out yourself, longhand, without looking. Not because writing is virtuous, but because this specific argument is short enough to feel understood while reading and is routinely not.</p>
+
+    <h3>Why this changes the job</h3>
+    <p>Before: choose the most accurate projection. After: <strong>choose which of area, angle, and distance to sacrifice, in which regions, by how much.</strong> The second question is answerable, has a professional literature, and has numbers in it. The first is a category error.</p>
+    <p>It also reframes every argument you'll ever see about a map being &ldquo;wrong.&rdquo; A map is not wrong for distorting. A map is wrong when its distortion undermines the question it exists to answer &mdash; and that's a judgement about fit between distortion and purpose, which is why your brief had to name a question. <span class="chip infer">Inference</span></p>
+    <button class="done-btn" type="button" data-done="w2b2" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w2b3">
+    <div class="bh"><span class="blabel">Retrieve &amp; write</span><span class="best">~75 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> two answered retrieval items, and a corrected sentence 5 in your memo.</p>
+
+    <div class="check" data-item="q2">
+      <p class="qtag">Self-check &middot; delayed retrieval from Week 1</p>
+      <p>Without scrolling up: last week you computed that Mercator inflates area by sec&sup2;&nbsp;&phi;, and that at 60&deg;N this is 4&times;. <strong>What is Mercator's angular deformation &omega; at 60&deg;N, and why?</strong> Then: does that answer make Mercator a good projection or a bad one?</p>
+      <textarea data-role="attempt" placeholder="&omega; at 60&deg;N is&hellip; because&hellip;"></textarea>
+      <p class="small" style="margin:.6rem 0 0;color:var(--ink-mute)">Confidence before the reveal:</p>
+      <div class="conf" data-role="conf">
+        <button type="button" data-c="1">Guessing</button>
+        <button type="button" data-c="2">Shaky</button>
+        <button type="button" data-c="3">Fairly sure</button>
+        <button type="button" data-c="4">Confident</button>
+      </div>
+      <button class="reveal" type="button" disabled>Write an attempt and pick a confidence to unlock</button>
+      <div class="answer" hidden>
+        <p><strong>&omega;&nbsp;=&nbsp;0, at 60&deg;N and everywhere else</strong> (except at the poles, where the projection breaks down entirely). Mercator's <em>h</em> and <em>k</em> are both sec&nbsp;&phi;, so <em>a</em>&nbsp;=&nbsp;<em>b</em>, so the indicatrix is a circle, so no angle is deformed. Snyder: for a conformal map &omega; is zero <span class="chip src">Sourced fact <a href="#S2">S2</a></span>.</p>
+        <p>The second half is the real question, and the answer is <strong>neither</strong>. A projection with zero angular deformation and unbounded area error is exactly right for the job Mercator was built for &mdash; a constant compass bearing draws as a straight line, which is what a navigator needs &mdash; and exactly wrong for comparing the sizes of countries. The properties are facts; good and bad are relations between those facts and a purpose. If your answer graded the projection rather than matching it to a use, that's Threshold&nbsp;1 not yet fully across.</p>
+        <p class="calibnote">How did that go?</p>
+        <div class="out" data-role="out">
+          <button type="button" data-o="got">Got it</button>
+          <button type="button" data-o="partly">Partly</button>
+          <button type="button" data-o="missed">Missed it</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="check" data-item="q3">
+      <p class="qtag">Self-check &middot; explain it, don't recite it</p>
+      <p>A colleague says: &ldquo;Surely with modern computing we could find a projection that's basically distortion-free for a single country. It's a small area.&rdquo; <strong>Answer them in three sentences.</strong> Then answer the harder follow-up: if the theorem forbids it for any patch however small, why do surveyors get away with treating a county as flat?</p>
+      <textarea data-role="attempt" placeholder="Three sentences, then the follow-up&hellip;"></textarea>
+      <p class="small" style="margin:.6rem 0 0;color:var(--ink-mute)">Confidence before the reveal:</p>
+      <div class="conf" data-role="conf">
+        <button type="button" data-c="1">Guessing</button>
+        <button type="button" data-c="2">Shaky</button>
+        <button type="button" data-c="3">Fairly sure</button>
+        <button type="button" data-c="4">Confident</button>
+      </div>
+      <button class="reveal" type="button" disabled>Write an attempt and pick a confidence to unlock</button>
+      <div class="answer" hidden>
+        <p><strong>The three sentences:</strong> curvature is intrinsic, so it can't be computed away; a sphere's is 1/<em>R</em>&sup2; and a plane's is 0; no amount of computation makes a distance-preserving map exist, because Gauss proved one cannot. Computation changes which distortion you get and where you put it, never whether you get one.</p>
+        <p><strong>The follow-up is the interesting half.</strong> Zero distortion is impossible; <em>negligible</em> distortion is routine. Snyder notes that for a region the size of a small town the distortion may be barely measurable on many projections &mdash; though he adds that it can still be serious with other projections, which is the part people drop <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. He also gives the scale at which the assumption breaks the other way: the Earth's flattening of about one part in three hundred becomes a necessary part of calculations at 1:100,000 or larger <span class="chip src">Sourced fact <a href="#S2">S2</a></span>.</p>
+        <p>So the honest formulation is: <em>the error is bounded and you can compute the bound.</em> That is a completely different claim from &ldquo;there's no distortion,&rdquo; and the difference between them is the difference between a professional and someone repeating a phrase. If your answer said the theorem &ldquo;doesn't matter at small scales,&rdquo; sharpen it to &ldquo;the error falls below my tolerance, and here is the tolerance.&rdquo;</p>
+        <p class="calibnote">How did that go?</p>
+        <div class="out" data-role="out">
+          <button type="button" data-o="got">Got it</button>
+          <button type="button" data-o="partly">Partly</button>
+          <button type="button" data-o="missed">Missed it</button>
+        </div>
+      </div>
+    </div>
+
+    <p><strong>Then go back to your memo</strong> and rewrite section 5 &mdash; the cost. Last week it was probably a hedge. Now it should name a specific property you gave up and a specific reader who could be misled by it.</p>
+    <button class="done-btn" type="button" data-done="w2b3" aria-pressed="false">Mark this block done</button>
+  </div>
+</section>
+
+<section class="week" id="w3">
+  <div class="whead">
+    <p class="wnum">Week 3 &middot; ~3.75 hrs &middot; Threshold 2</p>
+    <h2 style="margin-top:0">Distortion is a local, directional, computable thing</h2>
+  </div>
+  <p>Threshold&nbsp;1 told you distortion is unavoidable. On its own that's demoralising and slightly useless &mdash; it's the point most popular treatments stop at, which is why they end in hand-waving about how all maps lie. Threshold&nbsp;2 is the one that converts the problem into arithmetic.</p>
+
+  <div class="block" data-block="w3b1">
+    <div class="bh"><span class="blabel">Read</span><span class="best">~60 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a filled-in table of <em>h</em>, <em>k</em>, <em>ab</em> and &omega; at 0&deg;, 30&deg;, 60&deg; for two projections, computed by hand and reconciled with the bench.</p>
+
+    <h3>The indicatrix</h3>
+    <p>Tissot published his analysis of projection distortion in 1859 and 1881 <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. <span class="chip infer">Inference</span> The reason it survived 150 years is that it turns a global, qualitative complaint into a local, quantitative one.</p>
+    <p>The claim is exact. An infinitely small circle on the Earth projects as an infinitely small but <em>perfect</em> ellipse on any map projection <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. Not approximately an ellipse. Any smooth map, zoomed in far enough, is a linear transformation, and linear transformations take circles to ellipses. Everything local about a projection is contained in that ellipse's two semi-axes, <em>a</em> and <em>b</em>.</p>
+    <p>From them you read off everything:</p>
+    <div class="tw"><table>
+      <thead><tr><th>Quantity</th><th>From the ellipse</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Areal scale</td><td class="num">a &times; b</td><td>1 means equal-area at that point</td></tr>
+        <tr><td>Max angular deformation &omega;</td><td class="num">sin(&omega;/2) = (a&minus;b)/(a+b)</td><td>0 means conformal at that point</td></tr>
+        <tr><td>Isotropy</td><td class="num">a / b</td><td>1 means shapes locally undistorted</td></tr>
+      </tbody>
+    </table></div>
+    <p>The &omega; formula is Snyder's equation 4-1 <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. Sanity-check it before trusting it: set <em>a</em>&nbsp;=&nbsp;<em>b</em> and the numerator is 0, so &omega;&nbsp;=&nbsp;0 &mdash; conformal, as it must be. That two-second check is the habit; do it to every formula you're handed.</p>
+    <p class="small" style="color:var(--ink-mute)">A note on provenance, since this course keeps insisting on it: I have read Snyder's presentation of Tissot, not Tissot. The 1881 <em>M&eacute;moire</em> is a source I am citing at one remove <a href="#S4">S4</a>, which is exactly the amplification failure this course warns about &mdash; disclosed here rather than laundered into a confident citation.</p>
+
+    <h3>h and k: the practical shortcut</h3>
+    <p>Finding <em>a</em> and <em>b</em> in general is work. But for the normal aspect of cylindrical, conic, and polar azimuthal projections, meridians and parallels cross at right angles and line up with the ellipse's axes &mdash; so the two scale factors you can compute directly <em>are</em> <em>a</em> and <em>b</em> <span class="chip src">Sourced fact <a href="#S2">S2</a></span>:</p>
+    <ul>
+      <li><strong>h</strong> &mdash; scale factor along the meridian (north&ndash;south)</li>
+      <li><strong>k</strong> &mdash; scale factor along the parallel (east&ndash;west)</li>
+    </ul>
+    <p>Snyder: when the meridians and parallels coincide with <em>a</em> and <em>b</em>, &omega; may be calculated from equation 4-1 substituting <em>h</em> and <em>k</em>, and the scale factor in any other direction falls between them <span class="chip src">Sourced fact <a href="#S2">S2</a></span>. That last clause is a free bound: <em>h</em> and <em>k</em> bracket every direction. For a general projection the computation of &omega; is much more complicated <span class="chip src">Sourced fact <a href="#S2">S2</a></span> &mdash; which is precisely why this course sticks to seven projections in their normal or polar aspects.</p>
+    <p>For any cylindrical projection given by <em>x</em> as a function of longitude and <em>y</em> as a function of latitude, on a sphere of radius <em>R</em>, Snyder's equations 4-2 and 4-3 are <span class="chip src">Sourced fact <a href="#S2">S2</a></span>:</p>
+    <div class="math"><span class="eq">h = (1/R) &middot; dy/d&phi;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k = (1/(R cos &phi;)) &middot; dx/d&lambda;</span></div>
+    <p>Read them as ratios, which is all they are: <em>h</em> compares how far you move on the map when you move a degree north to how far that is on the globe. <em>k</em> does the same going east &mdash; and the cos&nbsp;&phi; is there because a degree of longitude on the globe shrinks as you go poleward. That factor is the entire source of cylindrical distortion.</p>
+    <button class="done-btn" type="button" data-done="w3b1" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w3b2">
+    <div class="bh"><span class="blabel">Derive</span><span class="best">~90 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> three derivations of <em>h</em> and <em>k</em> &mdash; one copied, one completed, one unaided &mdash; each checked numerically against the bench.</p>
+    <p>The scaffolding fades inside this single block. Notice it happening.</p>
+
+    <h4>1. Fully worked: plate carr&eacute;e</h4>
+    <p>The simplest projection there is: <em>x</em>&nbsp;=&nbsp;<em>R&lambda;</em>, <em>y</em>&nbsp;=&nbsp;<em>R&phi;</em>. Longitude becomes horizontal position, latitude becomes vertical position, in radians.</p>
+    <div class="math"><span class="eq">dy/d&phi; = R&nbsp;&nbsp;&rarr;&nbsp;&nbsp;h = (1/R)(R) = 1</span></div>
+    <div class="math"><span class="eq">dx/d&lambda; = R&nbsp;&nbsp;&rarr;&nbsp;&nbsp;k = (1/(R cos &phi;))(R) = sec &phi;</span></div>
+    <p>So <em>h</em>&nbsp;=&nbsp;1 always &mdash; scale along meridians is perfect, which is why it's also called equidistant cylindrical &mdash; and <em>k</em>&nbsp;=&nbsp;sec&nbsp;&phi;. Areal scale <em>hk</em>&nbsp;=&nbsp;sec&nbsp;&phi;, so it is not equal-area. And <em>h</em>&nbsp;&ne;&nbsp;<em>k</em> away from the equator, so it is not conformal either. It is the projection that gives up both, which is why Goldberg and Gott use it as the baseline everything else is normalised against <span class="chip src">Sourced fact <a href="#S6">S6</a></span>.</p>
+    <p>At 60&deg;: <em>h</em>&nbsp;=&nbsp;1, <em>k</em>&nbsp;=&nbsp;2, area&nbsp;=&nbsp;2, and sin(&omega;/2)&nbsp;=&nbsp;(2&minus;1)/(2+1)&nbsp;=&nbsp;1/3, so &omega;&nbsp;=&nbsp;2&nbsp;&middot;&nbsp;arcsin(0.3333)&nbsp;=&nbsp;<strong>38.94&deg;</strong>. Check it on the bench.</p>
+
+    <h4>2. Completion problem: Lambert cylindrical equal-area</h4>
+    <p>Now the same for <em>x</em>&nbsp;=&nbsp;<em>R&lambda;</em>, <em>y</em>&nbsp;=&nbsp;<em>R</em>&nbsp;sin&nbsp;&phi;. Two of four steps are done for you.</p>
+    <div class="math"><span class="eq">dy/d&phi; = R cos &phi;&nbsp;&nbsp;&rarr;&nbsp;&nbsp;h = ________</span></div>
+    <div class="math"><span class="eq">dx/d&lambda; = R&nbsp;&nbsp;&rarr;&nbsp;&nbsp;k = ________</span></div>
+    <div class="math"><span class="eq">areal scale = h &times; k = ________</span></div>
+    <p>The third line is the point: if you've done it right, the &phi; cancels and you get exactly 1, at every latitude. That's what &ldquo;equal-area&rdquo; means, made mechanical. Verify at three latitudes on the bench before moving on.</p>
+
+    <h4>3. Unaided: Gall&ndash;Peters</h4>
+    <p>Gall&ndash;Peters is the same cylindrical equal-area idea with its standard parallels moved to 45&deg;: <em>x</em>&nbsp;=&nbsp;<em>R&lambda;</em>&nbsp;cos&nbsp;45&deg;, <em>y</em>&nbsp;=&nbsp;<em>R</em>&nbsp;sin&nbsp;&phi;&nbsp;/&nbsp;cos&nbsp;45&deg;. No steps given. Find <em>h</em>, <em>k</em>, and <em>hk</em>, then predict &mdash; before computing &mdash; what happens at exactly 45&deg;, and why anyone would want that.</p>
+    <p>Then check on the bench. If <em>hk</em> didn't come out to 1, the arithmetic slipped; the cos&nbsp;45&deg; appears once in each factor and cancels.</p>
+
+    <div class="warn">
+      <p><strong>Verifying a handed-over derivative without redoing the calculus.</strong> You were told <em>dy</em>/<em>d&phi;</em>&nbsp;=&nbsp;<em>R</em>&nbsp;cos&nbsp;&phi; for <em>y</em>&nbsp;=&nbsp;<em>R</em>&nbsp;sin&nbsp;&phi;. Check it numerically instead of trusting it: with <em>R</em>&nbsp;=&nbsp;1 at &phi;&nbsp;=&nbsp;1.0 radians, compute (sin(1.001)&nbsp;&minus;&nbsp;sin(0.999))&nbsp;/&nbsp;0.002 and compare to cos(1.0)&nbsp;=&nbsp;0.5403. Agreement to four decimals means the derivative is right <em>and</em> you transcribed it right &mdash; a re-derivation only catches the first. This is the working practitioner's check, and it's the technique you'll use every time this course hands you a formula.</p>
+    </div>
+    <button class="done-btn" type="button" data-done="w3b2" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w3b3">
+    <div class="bh"><span class="blabel">Compute</span><span class="best">~75 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a three-line verification table confirming, or refuting, three published claims from a 2021 peer-reviewed paper &mdash; using only your own arithmetic.</p>
+
+    <h3>Auditing a paper with a pocket calculator</h3>
+    <p>Gott, Goldberg and Vanderbei describe the behaviour of three azimuthal projections at the rim of a double-sided disk map &mdash; the rim being the equator, 90&deg; from the pole at the centre. They state, in prose, three specific things <span class="chip src">Sourced fact <a href="#S6">S6</a></span>:</p>
+    <ol>
+      <li>On the stereographic version, areas at the edge are <strong>four times</strong> enlarged relative to the centre.</li>
+      <li>On the Lambert equal-area version, local shapes at the edge are distorted <strong>2:1</strong>.</li>
+      <li>On the azimuthal equidistant version, areas at the edge are <strong>&pi;/2</strong> larger than at the centre, and shapes are &pi;/2&nbsp;:&nbsp;1 elongated.</li>
+    </ol>
+    <p>You can now check all three yourself. Set the bench to each projection in turn, drag latitude to 0&deg; (the rim), and read off the areal scale <em>hk</em> and the elongation <em>k/h</em>.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Projection at the rim</th><th class="num">hk</th><th class="num">k/h</th><th>Paper's claim</th></tr></thead>
+      <tbody>
+        <tr><td>Stereographic (polar)</td><td class="num">?</td><td class="num">?</td><td>area 4&times;</td></tr>
+        <tr><td>Lambert azimuthal equal-area</td><td class="num">?</td><td class="num">?</td><td>shape 2:1</td></tr>
+        <tr><td>Azimuthal equidistant</td><td class="num">?</td><td class="num">?</td><td>area and shape &pi;/2</td></tr>
+      </tbody>
+    </table></div>
+    <p>Fill in the table. All three claims hold exactly &mdash; 4.0000, 2.0000, and 1.5708 twice, which is &pi;/2 to four decimals.</p>
+    <p>Sit with what you just did. You verified quantitative claims in a peer-reviewed astrophysics paper from first principles, in about fifteen minutes, with a slider and arithmetic. <span class="chip infer">Inference</span> That capability is the actual product of Threshold&nbsp;2: not knowing what Tissot said, but being unable to be told a distortion claim you can't check.</p>
+
+    <div class="check" data-item="q4">
+      <p class="qtag">Self-check &middot; choosing the method, not executing one</p>
+      <p>Three situations. For each, say <strong>which quantity you'd compute &mdash; <em>hk</em>, &omega;, <em>k/h</em>, or none of them &mdash; and why.</strong> The skill being tested is picking the tool, not turning the handle.</p>
+      <ol>
+        <li>A choropleth of disease incidence per square kilometre across a continent.</li>
+        <li>A nautical chart for a small boat crossing the Irish Sea on a fixed compass bearing.</li>
+        <li>A map showing which of two hospitals is nearer for each household in a county.</li>
+      </ol>
+      <textarea data-role="attempt" placeholder="1) &hellip; 2) &hellip; 3) &hellip;"></textarea>
+      <p class="small" style="margin:.6rem 0 0;color:var(--ink-mute)">Confidence before the reveal:</p>
+      <div class="conf" data-role="conf">
+        <button type="button" data-c="1">Guessing</button>
+        <button type="button" data-c="2">Shaky</button>
+        <button type="button" data-c="3">Fairly sure</button>
+        <button type="button" data-c="4">Confident</button>
+      </div>
+      <button class="reveal" type="button" disabled>Write an attempt and pick a confidence to unlock</button>
+      <div class="answer" hidden>
+        <p><strong>1. <em>hk</em>.</strong> The map's whole claim is a ratio with area in the denominator; if <em>hk</em> varies across the continent, the visual comparison between north and south is corrupted before any data problem enters. You want <em>hk</em>&nbsp;=&nbsp;1 everywhere &mdash; an equal-area projection, non-negotiably.</p>
+        <p><strong>2. &omega;.</strong> A fixed compass bearing is a rhumb line, and the reason Mercator exists is that rhumb lines draw straight on it. Angular fidelity is the job; area error over the Irish Sea is irrelevant. You want &omega;&nbsp;=&nbsp;0.</p>
+        <p><strong>3. Arguably none of them &mdash; and that's the interesting one.</strong> Nearest-hospital is a distance comparison, and none of these three quantities is a distance error; they're all local, and over a county the local distortion of any sensible projection is tiny. The real risks are the aspect and the standard lines (Week&nbsp;5) and, more likely, the datum. If you answered &ldquo;<em>hk</em> and &omega; are both near enough to 1 and 0 that neither decides it,&rdquo; that's the right shape of answer: a competent practitioner knows when the numbers <em>don't</em> discriminate. If you reached for a formula because a formula was available, that's worth noticing about yourself.</p>
+        <p class="calibnote">How did that go?</p>
+        <div class="out" data-role="out">
+          <button type="button" data-o="got">Got it</button>
+          <button type="button" data-o="partly">Partly</button>
+          <button type="button" data-o="missed">Missed it</button>
+        </div>
+      </div>
+    </div>
+
+    <p><strong>Now fill in your memo's section 3 properly.</strong> Three points, four columns, real numbers. That table was empty in Week&nbsp;1. It is the difference between an opinion and a memo.</p>
+    <button class="done-btn" type="button" data-done="w3b3" aria-pressed="false">Mark this block done</button>
+  </div>
+</section>
+<section class="week" id="w4">
+  <div class="whead">
+    <p class="wnum">Week 4 &middot; ~3.0 hrs</p>
+    <h2 style="margin-top:0">What each property buys, and what it charges</h2>
+  </div>
+  <p>No new threshold this week. This is consolidation and interleaving &mdash; the week where the two crossings you've made get attached to a decision procedure, and where you practise the thing that is actually hard: not computing a distortion, but knowing which one to compute.</p>
+
+  <div class="block" data-block="w4b1">
+    <div class="bh"><span class="blabel">Read</span><span class="best">~60 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a one-page decision table in your own words, mapping purposes to properties, with the failure mode of each written next to it.</p>
+
+    <h3>The four families</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Family</th><th>Guarantee</th><th>Price</th><th>Reach for it when</th></tr></thead>
+      <tbody>
+        <tr><td>Conformal</td><td>&omega;&nbsp;=&nbsp;0 at every point</td><td><em>hk</em> unbounded</td><td>Angles, bearings, local shape, large-scale topographic sheets</td></tr>
+        <tr><td>Equal-area</td><td><em>hk</em>&nbsp;=&nbsp;1 at every point</td><td>&omega; large away from standard lines</td><td>Densities, rates per unit area, any visual size comparison</td></tr>
+        <tr><td>Equidistant</td><td>True scale along selected lines only</td><td>Neither area nor angle</td><td>Distance <em>from a centre</em>, range rings, travel time from one point</td></tr>
+        <tr><td>Compromise</td><td>Nothing exactly</td><td>Nothing catastrophically</td><td>General reference world maps where no single quantity dominates</td></tr>
+      </tbody>
+    </table></div>
+    <p>Snyder's manual ends its general section with a selection list organised by region and purpose rather than by mathematics <span class="chip src">Sourced fact <a href="#S3">S3</a></span>. Some entries worth internalising, because they encode decades of practice:</p>
+    <ul>
+      <li><strong>Region with predominant east&ndash;west extent, away from the equator:</strong> Lambert conformal conic if you need angles, Albers equal-area conic if you need areas <span class="chip src">Sourced fact <a href="#S3">S3</a></span>. This is most mid-latitude countries and US states.</li>
+      <li><strong>Predominant north&ndash;south extent:</strong> transverse Mercator, or transverse cylindrical equal-area <span class="chip src">Sourced fact <a href="#S3">S3</a></span>. Chile, Norway, Vietnam.</li>
+      <li><strong>Roughly equal extent in all directions:</strong> an azimuthal &mdash; stereographic for conformal, Lambert azimuthal equal-area otherwise, in whatever aspect centres your region <span class="chip src">Sourced fact <a href="#S3">S3</a></span>. Africa, Australia, an ocean basin.</li>
+      <li><strong>Straight rhumb lines:</strong> Mercator, and only Mercator <span class="chip src">Sourced fact <a href="#S3">S3</a></span>.</li>
+      <li><strong>Straight great-circle routes:</strong> gnomonic, for less than a hemisphere <span class="chip src">Sourced fact <a href="#S3">S3</a></span>.</li>
+    </ul>
+    <p>Notice the structure of that list. The first question is never &ldquo;which projection&rdquo; &mdash; it's the <em>shape of the region</em>, then the property. Two questions, in that order, and the projection falls out. <span class="chip infer">Inference</span></p>
+
+    <h3>The compromise family is not a cop-out</h3>
+    <p>It's tempting to read &ldquo;preserves nothing exactly&rdquo; as failure. But if your map has no single dominant quantitative job &mdash; a wall map, a reference map, an illustration &mdash; then optimising one property to exactness while letting another run to infinity is the worse choice. This is the reasoning behind the professional recommendation to abandon rectangular world maps in favour of minimum-error or compromise projections <span class="chip src">Sourced fact <a href="#S12">S12</a></span> <span class="chip contested">Contested</span> &mdash; and you'll meet the objection to that recommendation in Week&nbsp;6.</p>
+    <button class="done-btn" type="button" data-done="w4b1" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w4b2">
+    <div class="bh"><span class="blabel">Choose</span><span class="best">~60 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> eight briefs classified, each with a one-line justification, and at least one you got wrong and can say why.</p>
+
+    <div class="check" data-item="q5">
+      <p class="qtag">Self-check &middot; interleaved &mdash; which method, and why</p>
+      <p>For each brief, name <strong>the property you'd require</strong> (conformal / equal-area / equidistant / azimuthal / compromise) and <strong>one sentence of justification</strong>. They're deliberately shuffled so you can't pattern-match off the preceding paragraph.</p>
+      <ol>
+        <li>A dot map of every Latter-day Saint congregation worldwide, for a wall in a foyer.</li>
+        <li>Deforestation, in hectares lost per province, across the Congo Basin.</li>
+        <li>Flight-time rings from a single airport hub.</li>
+        <li>A cadastral survey plan for a 40-acre parcel.</li>
+        <li>Shipping lanes across the North Atlantic, drawn for a vessel holding a constant heading.</li>
+        <li>Population density by district for Chile.</li>
+        <li>Which emergency services depot is closest, for each village in a mountainous county.</li>
+        <li>A map showing that Greenland is much smaller than Africa, made specifically to correct that misconception.</li>
+      </ol>
+      <textarea data-role="attempt" placeholder="1) &hellip; 2) &hellip; 3) &hellip; 4) &hellip; 5) &hellip; 6) &hellip; 7) &hellip; 8) &hellip;"></textarea>
+      <p class="small" style="margin:.6rem 0 0;color:var(--ink-mute)">Confidence before the reveal:</p>
+      <div class="conf" data-role="conf">
+        <button type="button" data-c="1">Guessing</button>
+        <button type="button" data-c="2">Shaky</button>
+        <button type="button" data-c="3">Fairly sure</button>
+        <button type="button" data-c="4">Confident</button>
+      </div>
+      <button class="reveal" type="button" disabled>Write an attempt and pick a confidence to unlock</button>
+      <div class="answer" hidden>
+        <p><strong>1. Compromise.</strong> No quantity dominates; it's a reference map read at a distance. This is the Winkel Tripel / Robinson use case, and the one where arguing about exactness is beside the point.</p>
+        <p><strong>2. Equal-area, non-negotiable.</strong> Hectares are the unit. Congo spans the equator with modest north&ndash;south extent, so a Lambert azimuthal equal-area centred on the basin, or an Albers, both work.</p>
+        <p><strong>3. Azimuthal equidistant, centred on the hub.</strong> Note what it does <em>not</em> give you: distances between any two other airports on the map are wrong. Rings from the centre only.</p>
+        <p><strong>4. Conformal.</strong> Forty acres &mdash; the distortion of almost anything is negligible, but survey convention is conformal (transverse Mercator or Lambert conformal conic via a state plane system) because angles are what a surveyor measures. Here the real risk isn't the projection, it's using the wrong datum.</p>
+        <p><strong>5. Conformal, specifically Mercator.</strong> &ldquo;Constant heading&rdquo; is the tell &mdash; rhumb line &mdash; and Mercator is the only projection that draws them straight <span class="chip src">Sourced fact <a href="#S3">S3</a></span>. This is the one brief where the projection is genuinely forced.</p>
+        <p><strong>6. Equal-area &mdash; and transverse.</strong> Density needs equal-area; Chile's shape needs a north&ndash;south-extent projection <span class="chip src">Sourced fact <a href="#S3">S3</a></span>. If you said equal-area but not transverse, that's Week&nbsp;5 and you're early.</p>
+        <p><strong>7. Probably none of them decide it</strong> &mdash; this is the same trap as Week&nbsp;3's item 3, deliberately repeated in a new costume to see whether the lesson transferred. A county is small; every family is fine; use whatever the local grid system uses. If you reached for a property here, the pull toward answering the question as asked is worth noticing.</p>
+        <p><strong>8. Equal-area &mdash; and this is the one that deserves an argument.</strong> The purpose is explicitly a size comparison, so <em>hk</em>&nbsp;=&nbsp;1 is the requirement. But a cylindrical equal-area achieves it while shearing Greenland into a smear, and a reader may reasonably conclude the map is lying in a different direction. That tension &mdash; between a defensible quantitative choice and a misleading visual result &mdash; is the whole Peters controversy, which you'll meet in Week&nbsp;6.</p>
+        <p class="calibnote">How did that go? Be honest about the two &ldquo;none of them&rdquo; items in particular.</p>
+        <div class="out" data-role="out">
+          <button type="button" data-o="got">Got it</button>
+          <button type="button" data-o="partly">Partly</button>
+          <button type="button" data-o="missed">Missed it</button>
+        </div>
+      </div>
+    </div>
+    <button class="done-btn" type="button" data-done="w4b2" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w4b3">
+    <div class="bh"><span class="blabel">Retrieve</span><span class="best">~60 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> two retrieval items from earlier weeks answered cold, and section 4 of your memo &mdash; the rejected alternative &mdash; rewritten with numbers in it.</p>
+
+    <div class="check" data-item="q6">
+      <p class="qtag">Self-check &middot; delayed retrieval from Weeks 2&ndash;3</p>
+      <p>Cold, no scrolling. <strong>(a)</strong> State the four-step argument that no projection is both conformal and equal-area. <strong>(b)</strong> A colleague shows you a projection and says &ldquo;<em>hk</em>&nbsp;=&nbsp;1 everywhere and &omega; is under 2&deg; everywhere.&rdquo; Is that possible? What would you check first?</p>
+      <textarea data-role="attempt" placeholder="(a) &hellip; (b) &hellip;"></textarea>
+      <p class="small" style="margin:.6rem 0 0;color:var(--ink-mute)">Confidence before the reveal:</p>
+      <div class="conf" data-role="conf">
+        <button type="button" data-c="1">Guessing</button>
+        <button type="button" data-c="2">Shaky</button>
+        <button type="button" data-c="3">Fairly sure</button>
+        <button type="button" data-c="4">Confident</button>
+      </div>
+      <button class="reveal" type="button" disabled>Write an attempt and pick a confidence to unlock</button>
+      <div class="answer" hidden>
+        <p><strong>(a)</strong> Conformal &rarr; <em>a</em>&nbsp;=&nbsp;<em>b</em>. Equal-area &rarr; <em>ab</em>&nbsp;=&nbsp;1. Together &rarr; <em>a</em>&nbsp;=&nbsp;<em>b</em>&nbsp;=&nbsp;1, an isometry. Isometries preserve Gaussian curvature, but sphere and plane differ, so no such map exists <span class="chip src">Sourced fact <a href="#S1">S1</a>, <a href="#S2">S2</a></span>.</p>
+        <p><strong>(b)</strong> <strong>Yes, possible &mdash; and that's the subtle part.</strong> The theorem forbids &omega;&nbsp;=&nbsp;0 <em>exactly</em>, everywhere, alongside <em>hk</em>&nbsp;=&nbsp;1. It says nothing against &omega; being small but non-zero. The first thing to check is therefore <strong>over what region</strong> the claim holds: over a city, entirely unremarkable; over a hemisphere, extraordinary and probably a misunderstanding of what's being measured.</p>
+        <p>If your instinct was &ldquo;impossible, Gauss says so,&rdquo; you've grabbed the theorem's slogan rather than its statement &mdash; a specific and common way of half-crossing Threshold&nbsp;1. The theorem is an exactness constraint, not a smallness constraint, and confusing the two turns a precise result into a vibe.</p>
+        <p class="calibnote">How did that go?</p>
+        <div class="out" data-role="out">
+          <button type="button" data-o="got">Got it</button>
+          <button type="button" data-o="partly">Partly</button>
+          <button type="button" data-o="missed">Missed it</button>
+        </div>
+      </div>
+    </div>
+
+    <p><strong>Memo work.</strong> Section 4 was one weak sentence in Week&nbsp;1. Rewrite it: name the alternative, give its <em>hk</em> and &omega; at your three points, and reject it on a number rather than a preference.</p>
+    <button class="done-btn" type="button" data-done="w4b3" aria-pressed="false">Mark this block done</button>
+  </div>
+</section>
+
+<section class="week" id="w5">
+  <div class="whead">
+    <p class="wnum">Week 5 &middot; ~3.75 hrs</p>
+    <h2 style="margin-top:0">Aspect and placement beat family</h2>
+  </div>
+  <p>Almost every popular treatment of projections stops at the family &mdash; Mercator versus Peters versus Robinson, as though the choice were between named brands. In practice the two decisions that most reduce distortion on a real regional map are <em>where you point the projection</em> and <em>where you put the lines of true scale</em>, and both are usually free.</p>
+
+  <div class="block" data-block="w5b1">
+    <div class="bh"><span class="blabel">Read</span><span class="best">~60 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a sketch, with labels, of your region under tangent and secant placement, marking where scale is exactly true in each.</p>
+
+    <h3>Tangent and secant</h3>
+    <p>A cylinder wrapped around the globe touches it along one line &mdash; the equator, in the normal aspect &mdash; and scale is true only there. But the cylinder or cone can instead <em>cut</em> the globe at two parallels rather than touching at one, which conceptually gives two standard parallels <span class="chip src">Sourced fact <a href="#S2">S2</a></span>.</p>
+    <p>The consequence is worth deriving rather than accepting. Tangent placement puts zero error at one line and lets error grow monotonically away from it &mdash; so across a region the error is 0 at one edge and maximal at the other. Secant placement puts the true-scale lines <em>inside</em> the region, so scale is slightly too small in the middle and slightly too large at both edges. The maximum absolute error is roughly halved. <span class="chip infer">Inference</span> &mdash; and one you can check on the bench in ninety seconds.</p>
+    <p><strong>Do check it.</strong> Take a band from 30&deg; to 60&deg;. Compare the Lambert cylindrical equal-area (standard parallel 0&deg;, tangent, far from the region) with Gall&ndash;Peters (standard parallels 45&deg;, sitting right in the middle of it), reading <em>k</em> at both 30&deg; and 60&deg;:</p>
+    <div class="tw"><table>
+      <thead><tr><th>Placement</th><th class="num">k at 30&deg;</th><th class="num">k at 60&deg;</th><th class="num">worst |k&minus;1|</th></tr></thead>
+      <tbody>
+        <tr><td>Standard parallel 0&deg;</td><td class="num">1.155</td><td class="num">2.000</td><td class="num">100%</td></tr>
+        <tr><td>Standard parallels 45&deg;</td><td class="num">0.816</td><td class="num">1.414</td><td class="num">41%</td></tr>
+      </tbody>
+    </table></div>
+    <p>Same family, same guarantee, identical equal-area property &mdash; and less than half the worst-case linear error, purely from moving a parameter. Snyder makes the same point generally: by choosing the locations of the true-scale lines properly, scale errors elsewhere may be minimised <span class="chip src">Sourced fact <a href="#S2">S2</a></span>.</p>
+
+    <h3>Aspect</h3>
+    <p>The axis of the cylinder or cone need not match the Earth's axis, and the plane need not touch a pole. Tilting them produces the oblique, transverse and equatorial aspects, in which meridians and parallels are generally no longer straight lines or circular arcs; what were standard parallels become standard lines that don't follow parallels at all <span class="chip src">Sourced fact <a href="#S2">S2</a></span>.</p>
+    <p>This is the single highest-leverage move in the course. A transverse Mercator is a Mercator rotated 90&deg;, so its line of true scale runs north&ndash;south along a chosen central meridian instead of east&ndash;west along the equator &mdash; which is why it, not Mercator, is the standard for north&ndash;south countries and for national grid systems <span class="chip src">Sourced fact <a href="#S3">S3</a></span>.</p>
+    <p>The Universal Transverse Mercator system takes this to its logical end: divide the world into zones narrow enough that distortion within any one zone stays below a preset level <span class="chip src">Sourced fact <a href="#S2">S2</a></span>, and apply a slight scale reduction along the central meridian &mdash; a factor of 0.9996 &mdash; so each zone is secant rather than tangent, splitting the error between the middle and the edges <span class="chip src">Sourced fact <a href="#S16">S16</a></span>.</p>
+    <p>That's the whole idea of this week, industrialised: choose the family for the property, then spend your remaining freedom on aspect and standard lines.</p>
+    <button class="done-btn" type="button" data-done="w5b1" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w5b2">
+    <div class="bh"><span class="blabel">Compute</span><span class="best">~90 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a chosen standard parallel for your own region, with the worst-case error before and after, in writing.</p>
+    <p>No worked example this week. You have the tools; use them.</p>
+    <ol>
+      <li>Take your region's latitude span, &phi;<sub>south</sub> to &phi;<sub>north</sub>.</li>
+      <li>For a cylindrical equal-area with standard parallel &phi;<sub>s</sub>, the parallel scale factor is <em>k</em>&nbsp;=&nbsp;cos&nbsp;&phi;<sub>s</sub>&nbsp;/&nbsp;cos&nbsp;&phi;. Confirm this against the bench by checking that Gall&ndash;Peters, where &phi;<sub>s</sub>&nbsp;=&nbsp;45&deg;, reports <em>k</em>&nbsp;=&nbsp;1 at exactly 45&deg;.</li>
+      <li>Compute the worst |<em>k</em>&nbsp;&minus;&nbsp;1| across your band for &phi;<sub>s</sub>&nbsp;=&nbsp;0.</li>
+      <li>Now find the &phi;<sub>s</sub> that minimises the worst error across your band. You can do this by search &mdash; try five values and take the best &mdash; which is what minimax optimisation looks like before anyone dresses it up.</li>
+      <li>Write down both worst-case numbers and the ratio between them. That ratio is what the parameter was worth.</li>
+    </ol>
+    <div class="liminal">
+      <p><strong>You have just done Threshold&nbsp;3 without being told.</strong> Step 4 required you to decide, silently, that &ldquo;best&rdquo; meant <em>minimising the worst error across the band</em>. You could instead have minimised the average error, or the error weighted by where the population lives, or the error at the one city that matters &mdash; and each of those would have selected a different &phi;<sub>s</sub>. Notice that you made that choice and didn't announce it. Next week is about announcing it.</p>
+    </div>
+    <button class="done-btn" type="button" data-done="w5b2" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w5b3">
+    <div class="bh"><span class="blabel">Build</span><span class="best">~75 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a four-candidate comparison table for your own brief, with a defended shortlist of two.</p>
+    <p>Build the table you'd hand to a colleague. Rows: four candidate projections, chosen using Week&nbsp;4's region-shape-then-property procedure, each with a specified aspect and standard line(s). Columns: <em>hk</em> and &omega; at your region's centre and at its two worst corners, plus one column for &ldquo;what this costs the reader.&rdquo;</p>
+    <p>Then cut it to two, in writing, on the numbers. Keep the cut ones visible &mdash; a shortlist that shows its rejects is a defensible artifact; one that shows only the winner is an assertion.</p>
+    <p class="small" style="color:var(--ink-mute)">If your region needs a conic and the bench doesn't have one: the bench is deliberately limited to projections with exact closed forms you can verify by hand. Use the closest cylindrical or azimuthal as a bound, note the substitution in the table, and say which direction the real numbers would move. Naming a gap beats quietly filling it with something that looks like a number.</p>
+    <button class="done-btn" type="button" data-done="w5b3" aria-pressed="false">Mark this block done</button>
+  </div>
+</section>
+
+<section class="week" id="w6">
+  <div class="whead">
+    <p class="wnum">Week 6 &middot; ~3.75 hrs &middot; Threshold 3</p>
+    <h2 style="margin-top:0">&ldquo;Best&rdquo; is a minimax you define</h2>
+  </div>
+  <p>The last threshold is the uncomfortable one, because it takes away the answer you came for. There is no best projection. Not as diplomacy &mdash; as a structural fact about what a ranking is.</p>
+
+  <div class="block" data-block="w6b1">
+    <div class="bh"><span class="blabel">Read</span><span class="best">~60 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a written statement of the error measure, region, and weighting under which your Week&nbsp;5 shortlist winner is optimal &mdash; and one alternative weighting under which it isn't.</p>
+
+    <h3>Optimality needs three inputs before it means anything</h3>
+    <p>The classical result here is Chebyshev's: the best conformal map of a closed region of the sphere &mdash; in the sense of minimising the sum of the squares of the scale errors &mdash; is one that has constant scale along the region's boundary <span class="chip src">Sourced fact <a href="#S15">S15</a></span>.</p>
+    <p>Read the qualifiers rather than the conclusion. <em>Best</em> is defined only after fixing: the class of maps considered (conformal ones), the error measure (sum of squared scale errors), and the region (a specific closed boundary). Change any one and the theorem's answer changes. This is not a weakness of Chebyshev's result &mdash; it's what a well-posed optimality claim looks like, and it's the template for reading every &ldquo;best map&rdquo; claim you'll ever see. <span class="chip infer">Inference</span></p>
+
+    <h3>A modern attempt at a single score</h3>
+    <p>Goldberg and Gott proposed six error measures for whole-world maps: isotropy, area, flexion (the bending of great-circle routes on the map), skewness (lopsidedness), distances, and boundary cuts <span class="chip src">Sourced fact <a href="#S6">S6</a></span>. The first two are Tissot's <em>a</em> and <em>b</em> in disguise &mdash; isotropy is the RMS of ln(<em>a/b</em>), area the RMS of ln(<em>ab</em>) relative to its mean <span class="chip src">Sourced fact <a href="#S6">S6</a></span> &mdash; so Threshold&nbsp;2 is literally the first two columns of the modern state of the art. The other four require first derivatives of the metric and are genuinely new.</p>
+    <p>Each error is normalised against the equirectangular projection and the squares are summed, so the equirectangular scores exactly 6 and lower is better <span class="chip src">Sourced fact <a href="#S6">S6</a></span>:</p>
+    <div class="tw"><table>
+      <thead><tr><th>Projection</th><th class="num">I</th><th class="num">A</th><th class="num">F</th><th class="num">S</th><th class="num">D</th><th class="num">B</th><th class="num">&Sigma;&sigma;&sup2;</th></tr></thead>
+      <tbody>
+        <tr><td>Equirectangular</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">6.000</td></tr>
+        <tr><td>Mercator</td><td class="num">0</td><td class="num">4.203</td><td class="num">1.0</td><td class="num">1.145</td><td class="num">0.960</td><td class="num">1</td><td class="num">8.308</td></tr>
+        <tr><td>Eckert IV</td><td class="num">1.877</td><td class="num">0</td><td class="num">1.369</td><td class="num">0.846</td><td class="num">0.755</td><td class="num">1</td><td class="num">5.847</td></tr>
+        <tr><td>Winkel Tripel</td><td class="num">0.923</td><td class="num">0.288</td><td class="num">1.337</td><td class="num">0.321</td><td class="num">0.694</td><td class="num">1</td><td class="num">4.563</td></tr>
+        <tr><td>Gott&ndash;Wagner</td><td class="num">0.600</td><td class="num">0.605</td><td class="num">1.136</td><td class="num">0.374</td><td class="num">0.782</td><td class="num">1</td><td class="num">4.497</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small" style="color:var(--ink-mute)">Values as published <span class="chip src">Sourced fact <a href="#S6">S6</a></span>. Read the Mercator row across: perfect isotropy, worst area error in the table, worst total. Every column is a real property; the total is a choice.</p>
+    <p>Note the zeros. Mercator scores 0 on isotropy because it is conformal; Eckert IV scores 0 on area because it is equal-area. No row has both zeros, and after Week&nbsp;2 you know no row ever can.</p>
+    <button class="done-btn" type="button" data-done="w6b1" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w6b2">
+    <div class="bh"><span class="blabel">Judge</span><span class="best">~60 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> a written position on each of three contested cases, each naming what would change your mind.</p>
+
+    <h3>Case 1: the score that changed its mind</h3>
+    <p>The preprint of the Goldberg&ndash;Gott paper concluded, in its v1 abstract, that the Kavrayskiy VII projection beat the popular Winkel Tripel in every category except boundary cuts, where they tied, and had the lowest normalised errors of all projections studied <span class="chip src">Sourced fact <a href="#S7">S7</a></span>. The published version and every later citation report the Winkel Tripel as the winner <span class="chip src">Sourced fact <a href="#S5">S5</a>, <a href="#S6">S6</a></span>.</p>
+    <p>Same authors, same six measures, same projections, different answer. The authors are open about the mechanism: the combination of the six error terms depends on the choice of normalising projection <span class="chip src">Sourced fact <a href="#S6">S6</a></span>. They also say, of their own later projection, that they tried only one candidate specifically to avoid &ldquo;teaching to the test&rdquo; <span class="chip src">Sourced fact <a href="#S6">S6</a></span> &mdash; an admission that the metric is gameable by anyone willing to optimise against it.</p>
+    <p>This is Threshold&nbsp;3 in a single example, and it is not a scandal. It is what happens when a multi-objective problem is compressed into one number: the compression is a value judgement wearing a decimal point. <span class="chip infer">Inference</span></p>
+
+    <h3>Case 2: Peters</h3>
+    <p>The Gall&ndash;Peters projection &mdash; a cylindrical equal-area with standard parallels at 45&deg;, which you derived in Week&nbsp;3 &mdash; became the centre of a long public argument about the politics of map design. Peters argued that Mercator was culturally unfair to developing countries, shown smaller than they should be <span class="chip src">Sourced fact <a href="#S6">S6</a></span>. Academic cartographers responded largely by assessing the map as cartographic design rather than debating each claim <span class="chip src">Sourced fact <a href="#S11">S11</a></span> <span class="chip contested">Contested</span>. In 1989 and 1990, seven North American geographic organisations adopted a resolution rejecting <em>all</em> rectangular world maps &mdash; a category containing both Mercator and Gall&ndash;Peters &mdash; though the North American Cartographic Information Society declined to endorse it <span class="chip src">Sourced fact <a href="#S12">S12</a></span>. Denis Wood later called it an idiotic resolution <span class="chip src">Sourced fact <a href="#S13">S13</a></span> <span class="chip contested">Contested</span>.</p>
+    <p>You now have the equipment to hold both halves at once. Peters' quantitative complaint is <em>correct</em>: Mercator's area error is real, unbounded, and systematically favours high latitudes &mdash; you computed sec&sup2;&nbsp;&phi; in Week&nbsp;1. The professional objection is <em>also</em> correct: fixing area by adopting a cylindrical equal-area buys <em>hk</em>&nbsp;=&nbsp;1 at the price of &omega; reaching 73.7&deg; at 60&deg; latitude on the tangent version, and shapes shear badly. Both parties were right about their own error term and disagreed about the weighting, which is exactly the structure of Case&nbsp;1. <span class="chip infer">Inference</span></p>
+    <p class="small" style="color:var(--ink-mute)">Provenance note: I have not read Robinson 1985, the 1989 resolution text, or Wood 2003 directly &mdash; they are cited here at one remove <a href="#S11">S11</a> <a href="#S12">S12</a> <a href="#S13">S13</a>. Treat the characterisations as second-hand and the mathematics as first-hand.</p>
+
+    <h3>Case 3: the projection you use every day is broken in a way nobody minds</h3>
+    <p>Web Mercator, EPSG:3857, is what almost every web basemap renders in. It applies the <em>spherical</em> Mercator formulas to <em>ellipsoidal</em> coordinates, taking the sphere radius to be the ellipsoid's semi-major axis. The EPSG registry's own entry for it says plainly: not a recognised geodetic system; uses spherical development of ellipsoidal coordinates; relative to true ellipsoidal Mercator it gives errors of 0.7 percent in scale and northing differences up to 43&nbsp;km on the map, 21&nbsp;km on the ground <span class="chip src">Sourced fact <a href="#S8">S8</a></span>.</p>
+    <p>The consequence that should make you sit up: unlike either the spherical or the ellipsoidal Mercator, this method <strong>is not conformal</strong> &mdash; the scale factor varies with azimuth, which creates angular distortion <span class="chip src">Sourced fact <a href="#S9">S9</a></span>. The single property Mercator exists to provide is the one the web version quietly gave up, in exchange for tile arithmetic that was faster in 2005.</p>
+    <p>Vendor guidance on this is worth reading with the chip attached: Esri's explanation frames the issue as positional accuracy declining with latitude and reassures that it is unlikely to cause problems unless a coordinate system is mislabelled <span class="chip src">Sourced fact <a href="#S10">S10</a></span> <span class="chip vendor">Vendor framing</span>. That's true. It is also written by a company whose products default to it.</p>
+    <p><strong>And the practical verdict is still: usually fine.</strong> For rendering tiles it is fine. For measuring areas or distances across latitudes it is not, and no amount of it being the default makes it so. Threshold&nbsp;3 doesn't say all choices are equal; it says the defence has to name the purpose. <span class="chip infer">Inference</span></p>
+
+    <div class="check" data-item="q7">
+      <p class="qtag">Self-check &middot; delayed retrieval, all the way back to Week 1</p>
+      <p>In Week&nbsp;1 you wrote why you'd picked your projection, and for many people the honest answer was &ldquo;it's the default.&rdquo; <strong>Given all three cases above, write the strongest possible defence of using the default</strong> &mdash; then say precisely what would have to be true of your brief for that defence to fail.</p>
+      <textarea data-role="attempt" placeholder="The defence: &hellip; It fails when: &hellip;"></textarea>
+      <p class="small" style="margin:.6rem 0 0;color:var(--ink-mute)">Confidence before the reveal:</p>
+      <div class="conf" data-role="conf">
+        <button type="button" data-c="1">Guessing</button>
+        <button type="button" data-c="2">Shaky</button>
+        <button type="button" data-c="3">Fairly sure</button>
+        <button type="button" data-c="4">Confident</button>
+      </div>
+      <button class="reveal" type="button" disabled>Write an attempt and pick a confidence to unlock</button>
+      <div class="answer" hidden>
+        <p><strong>The strongest defence is real, and it isn't laziness.</strong> Defaults carry interoperability: your data lines up with everyone else's, tiles are cached, colleagues can reproduce your work, and the error is documented and bounded. A choice that is 3% worse on distortion and 90% cheaper on integration is often the right professional call, and pretending otherwise is its own kind of amateurism.</p>
+        <p><strong>It fails when the map's one question depends on a quantity the default corrupts.</strong> Concretely: any area comparison across more than a few degrees of latitude; any density or per-unit-area rate; any distance measurement taken off the map; any bearing taken off Web Mercator specifically, since it isn't conformal <span class="chip src">Sourced fact <a href="#S9">S9</a></span>. If your Week&nbsp;1 question was one of those, the default was wrong from the start and the last six weeks were the discovery of that.</p>
+        <p>The answer this course is looking for is not &ldquo;never use the default.&rdquo; It's that you can now say <em>under what conditions</em> the default is defensible, which is the difference between following a convention and choosing one.</p>
+        <p class="calibnote">How did that go?</p>
+        <div class="out" data-role="out">
+          <button type="button" data-o="got">Got it</button>
+          <button type="button" data-o="partly">Partly</button>
+          <button type="button" data-o="missed">Missed it</button>
+        </div>
+      </div>
+    </div>
+    <button class="done-btn" type="button" data-done="w6b2" aria-pressed="false">Mark this block done</button>
+  </div>
+
+  <div class="block" data-block="w6b3">
+    <div class="bh"><span class="blabel">Capstone</span><span class="best">~105 min</span></div>
+    <p class="evidence"><strong>Evidence this block produces:</strong> Decision Memo v1 &mdash; and the Week&nbsp;1 version placed beside it.</p>
+    <p>Same five sections, no scaffolding, no template beyond the headings. What's changed is what each section now has to survive.</p>
+    <ol>
+      <li><strong>Brief.</strong> Unchanged, unless six weeks taught you the question was wrong. If it did, say so &mdash; that's a finding, not a failure.</li>
+      <li><strong>Choice.</strong> Family, aspect, standard line(s), each justified separately. Region shape first, property second, placement third.</li>
+      <li><strong>Distortion table.</strong> Centre and two worst corners; <em>hk</em>, &omega;, and the worst |<em>k</em>&nbsp;&minus;&nbsp;1| across the region. Every number computed and checkable.</li>
+      <li><strong>Rejected alternative.</strong> One serious candidate, rejected on a number, with the number.</li>
+      <li><strong>The cost &mdash; and the criterion.</strong> This is the new part and the whole of Threshold&nbsp;3. State what the map systematically misleads about, <em>and</em> state the error measure and weighting under which your choice is optimal. Then name one different weighting a reasonable colleague might prefer and what it would select instead.</li>
+    </ol>
+    <p>Then open the Week&nbsp;1 memo next to it. The distance between them is the course.</p>
+
+    <div class="liminal">
+      <p><strong>If you finish feeling less certain than when you started, that's the correct outcome.</strong> You arrived wanting to know which projection is best. You're leaving able to say why that question has no answer, able to compute what any given answer costs, and able to state the conditions under which your own answer holds. That is a smaller claim and a much more defensible one, and it's what working competence in this field actually consists of.</p>
+    </div>
+
+    <h3>Where to go next, if you want to</h3>
+    <ul>
+      <li><strong>The ellipsoid and datums.</strong> The largest non-goal here, and the source of more real-world map errors than projection choice ever is.</li>
+      <li><strong>Conics properly.</strong> Lambert conformal conic and Albers cover most national mapping and were deliberately left out because their scale factors don't reduce to one-line closed forms.</li>
+      <li><strong>Snyder's manual end to end.</strong> Forward and inverse equations for every projection you'll meet, with numerical examples <a href="#S2">S2</a>.</li>
+      <li><strong>Finite distortion.</strong> Tissot is infinitesimal; flexion and skewness are the first derivatives of the metric and catch continental-scale errors Tissot cannot see <a href="#S6">S6</a>.</li>
+    </ul>
+    <button class="done-btn" type="button" data-done="w6b3" aria-pressed="false">Mark this block done</button>
+  </div>
+</section>
+
+<section class="card" id="calibration">
+  <h2 style="margin-top:0">Your calibration</h2>
+  <p class="small" style="color:var(--ink-mute)">Confidence you predicted, against how it actually went. A solo learner has almost no feedback loops; this is the cheapest one there is. Overconfidence on missed items is the signal worth acting on &mdash; it marks the concepts you'd have sworn you had.</p>
+  <div id="calibBody"><p class="small">No self-checks completed yet.</p></div>
+</section>
+
+<section class="card" id="sources">
+  <h2 style="margin-top:0">Sources</h2>
+  <p class="small" style="color:var(--ink-mute)">Each entry says how it was actually read. &ldquo;Read in full&rdquo; and &ldquo;cited at one remove&rdquo; are very different warrants, and collapsing them is the most common way course material acquires unearned authority.</p>
+  <ol class="sources">
+    <li id="S1"><strong>Gauss, C. F. (1827), <em>Theorema Egregium</em></strong>, as stated in standard differential-geometry treatments. <span class="tier">Tier 2</span> Read: modern statements and Gauss's translated formulation, not the original Latin memoir. Load-bearing for Threshold&nbsp;1 &mdash; curvature is intrinsic, isometries preserve it, sphere and plane differ, therefore no isometry exists even locally.</li>
+    <li id="S2"><strong>Snyder, J. P. (1987), <em>Map Projections&mdash;A Working Manual</em>, USGS Professional Paper 1395.</strong> <span class="tier">Tier 1</span> Read in full: the general-concepts material through &sect;6, covering characteristics of projections, the datum and ellipsoid, scale variation and angular distortion including Tissot's indicatrix and equations 4-1 through 4-5, and the classification and selection sections. The single most load-bearing source in this course.</li>
+    <li id="S3"><strong>Snyder (1987), &sect;6, &ldquo;Suggested projections.&rdquo;</strong> <span class="tier">Tier 1</span> Read in full. The region-and-purpose selection list underpinning Week&nbsp;4.</li>
+    <li id="S4"><strong>Tissot, N. A. (1881), <em>M&eacute;moire sur la repr&eacute;sentation des surfaces</em>.</strong> <span class="tier">Tier 1</span> <em>Not read.</em> Cited at one remove, via Snyder <a href="#S2">S2</a>, who cites Tissot 1859 and 1881. Every indicatrix claim in this course traces to Snyder's presentation, not to Tissot.</li>
+    <li id="S5"><strong>Goldberg, D. M. &amp; Gott, J. R. III (2007), &ldquo;Flexion and Skewness in Map Projections of the Earth,&rdquo; <em>Cartographica</em> 42(4):297&ndash;318.</strong> <span class="tier">Tier 1</span> Read: abstract and the authors' own detailed summary in <a href="#S6">S6</a>. Full text not obtained. All six-error values quoted here are taken from <a href="#S6">S6</a>, not from this paper directly.</li>
+    <li id="S6"><strong>Gott, J. R. III, Goldberg, D. M. &amp; Vanderbei, R. J. (2021), &ldquo;Flat Maps that improve on the Winkel Tripel,&rdquo; arXiv:2102.08176.</strong> <span class="tier">Tier 1</span> Read in full, including both error tables. Source of the six-measure definitions, the normalised scores, the Chebyshev citation, and the azimuthal edge-behaviour claims verified in Week&nbsp;3.</li>
+    <li id="S7"><strong>arXiv:astro-ph/0608501v1 (2006), abstract of the preprint of <a href="#S5">S5</a>.</strong> <span class="tier">Tier 1</span> Read: abstract only. Reports Kavrayskiy VII as beating the Winkel Tripel in all categories except boundary cuts and having the lowest normalised errors &mdash; a conclusion the published version does not carry. The basis for Week&nbsp;6, Case&nbsp;1.</li>
+    <li id="S8"><strong>EPSG registry entry for EPSG:3857, &ldquo;WGS 84 / Pseudo-Mercator.&rdquo;</strong> <span class="tier">Tier 1</span> Read: the registry remarks and area-of-use fields. Source of &ldquo;not a recognised geodetic system,&rdquo; the 0.7% scale error, and the 43&nbsp;km / 21&nbsp;km northing figures.</li>
+    <li id="S9"><strong>Rollins, C. &amp; Paniccia, M., &ldquo;NGA's Position on Web-Mercator&rdquo; (US National Geospatial-Intelligence Agency briefing), and the associated 2014 advisory notice.</strong> <span class="tier">Tier 2</span> Read: briefing outline and quoted advisory text. Source of the non-conformality claim &mdash; scale factor varying as a function of azimuth.</li>
+    <li id="S10"><strong>Esri, &ldquo;What does the NGA Web Mercator advisory mean for Esri Defense and Intelligence users?&rdquo;</strong> <span class="tier">Tier 4</span> Read in part. Included specifically as the vendor-framing example: accurate, and written by a party whose products default to the projection under discussion.</li>
+    <li id="S11"><strong>Robinson, A. H. (1985), &ldquo;Arno Peters and His New Cartography,&rdquo; <em>The American Cartographer</em> 12(2):103&ndash;111.</strong> <span class="tier">Tier 1</span> <em>Not read.</em> Cited at one remove through secondary accounts. The characterisation of the professional response in Week&nbsp;6 is second-hand and should be treated as such.</li>
+    <li id="S12"><strong>Resolution rejecting rectangular world maps, adopted by seven North American geographic organisations, 1989&ndash;1990; <em>The American Cartographer</em> 16(3):222&ndash;223; see also Robinson (1990), &ldquo;Rectangular World Maps&mdash;No!&rdquo;</strong> <span class="tier">Tier 1</span> <em>Not read.</em> Cited at one remove, including the detail that NACIS declined to endorse it.</li>
+    <li id="S13"><strong>Wood, D. (2003), &ldquo;Cartography is Dead (Thank God!),&rdquo; <em>Cartographic Perspectives</em> 45:4&ndash;7.</strong> <span class="tier">Tier 1</span> <em>Not read.</em> Cited at one remove for the dissenting characterisation of the 1989 resolution.</li>
+    <li id="S14"><strong>Snyder, J. P. (1993), <em>Flattening the Earth: Two Thousand Years of Map Projections</em>.</strong> <span class="tier">Tier 2</span> <em>Not read.</em> The standard history; listed as the route onward, and as the source <a href="#S6">S6</a> cites for Chebyshev.</li>
+    <li id="S15"><strong>Chebyshev's criterion for the best conformal map of a region.</strong> <span class="tier">Tier 2</span> <em>Read at two removes</em> &mdash; via <a href="#S6">S6</a>, which cites <a href="#S14">S14</a> p.140. The weakest citation chain in this course; flagged rather than smoothed over.</li>
+    <li id="S16"><strong>Snyder (1987), UTM section, p.57 &mdash; central meridian scale factor 0.9996.</strong> <span class="tier">Tier 1</span> <em>Not read.</em> The manual's contents and grid-zone discussion were read; the UTM page itself was not opened. The constant is very widely documented, which is not the same as verified.</li>
+  </ol>
+  <h3>What this course is weakest on</h3>
+  <p class="small">Three honest exposures. <strong>One:</strong> Tissot is cited entirely through Snyder <a href="#S4">S4</a>. <strong>Two:</strong> the six-measure scores come from the 2021 successor paper rather than the 2007 original <a href="#S5">S5</a>, which is exactly the amplification pattern &mdash; citing a source's summary of itself &mdash; that the sourcing discipline warns against; it is disclosed because it could not be avoided without the paywalled original. <strong>Three:</strong> the entire Peters section rests on secondary accounts <a href="#S11">S11</a>&ndash;<a href="#S13">S13</a>. The mathematics throughout is first-hand and independently verified; the history is not.</p>
+</section>
+
+</main>
+<footer class="wrap" style="margin-top:2.5rem;border-top:1px solid var(--rule);padding-top:1rem">
+  <p class="small" style="color:var(--ink-mute);max-width:36rem">Progress, notes and confidence ratings are saved to this browser. Six weeks, 18 blocks, three thresholds. Nothing here reduces distortion; all of it makes distortion sayable.</p>
+</footer>
+
+<script type="text/course-deferred">
+/* ---- 1. state ---------------------------------------------------------- */
+(function(){
+  var KEY = 'state', VERSION = 1;
+  function fresh(){ return { v:VERSION, theme:'auto', blocks:{}, items:{} }; }
+  function migrate(s){
+    if(!s || typeof s !== 'object') return fresh();
+    if(!s.v) s.v = VERSION;              /* pre-version blobs adopt v1 */
+    if(!s.blocks) s.blocks = {};
+    if(!s.items) s.items = {};
+    if(!s.theme) s.theme = 'auto';
+    return s;
+  }
+  var st;
+  try { st = migrate(JSON.parse(localStorage.getItem(KEY))); }
+  catch(e){ st = fresh(); }
+  var listeners = [];
+  window.Course = {
+    get: function(){ return st; },
+    save: function(){
+      try { localStorage.setItem(KEY, JSON.stringify(st)); } catch(e){}
+      for(var i=0;i<listeners.length;i++){ try{ listeners[i](st); }catch(e){} }
+    },
+    onChange: function(fn){ listeners.push(fn); },
+    BLOCK_ORDER: ['w1b1','w1b2','w1b3','w2b1','w2b2','w2b3','w3b1','w3b2','w3b3',
+                  'w4b1','w4b2','w4b3','w5b1','w5b2','w5b3','w6b1','w6b2','w6b3']
+  };
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---- 2. theme ---------------------------------------------------------- */
+(function(){
+  var st = window.Course.get(), btn = document.getElementById('themeBtn');
+  var order = ['auto','light','dark'];
+  var label = { auto:'Theme: auto', light:'Theme: light', dark:'Theme: dark' };
+  function apply(){
+    if(st.theme === 'auto') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', st.theme);
+    btn.textContent = label[st.theme];
+  }
+  btn.addEventListener('click', function(){
+    st.theme = order[(order.indexOf(st.theme) + 1) % 3];
+    apply(); window.Course.save();
+  });
+  apply();
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---- 3. progress meter: a Tissot field on an equirectangular world ------ */
+(function(){
+  var LATS = [62, 18, -38];
+  var LONS = [-150, -90, -30, 30, 90, 150];
+  /* scattered reveal order so the field fills unevenly, as a survey would */
+  var ORDER = [7,14,2,11,16,5,0,9,13,3,17,6,10,1,15,8,12,4];
+  var X0 = 190, YC = 100, YS = 160/180, RY = 9;
+  var pts = [];
+  for(var r=0; r<LATS.length; r++){
+    for(var c=0; c<LONS.length; c++){
+      var lat = LATS[r], sec = 1/Math.cos(lat*Math.PI/180);
+      pts.push({ x: X0 + LONS[c], y: YC - lat*YS, rx: RY*sec, ry: RY,
+                 omega: 2*Math.asin((sec-1)/(sec+1))*180/Math.PI });
+    }
+  }
+  var NS = 'http://www.w3.org/2000/svg';
+  var grat = document.getElementById('grat');
+  for(var lon=-150; lon<=150; lon+=30){
+    var l = document.createElementNS(NS,'line');
+    l.setAttribute('x1', X0+lon); l.setAttribute('x2', X0+lon);
+    l.setAttribute('y1', 20); l.setAttribute('y2', 180);
+    l.setAttribute('class','gr'); grat.appendChild(l);
+  }
+  for(var lat=-60; lat<=60; lat+=30){
+    var p = document.createElementNS(NS,'line');
+    p.setAttribute('x1', 10); p.setAttribute('x2', 370);
+    p.setAttribute('y1', YC-lat*YS); p.setAttribute('y2', YC-lat*YS);
+    p.setAttribute('class','gr'); grat.appendChild(p);
+  }
+  var inds = document.getElementById('inds'), els = [];
+  pts.forEach(function(pt){
+    var e = document.createElementNS(NS,'ellipse');
+    e.setAttribute('cx', pt.x); e.setAttribute('cy', pt.y);
+    e.setAttribute('rx', 2.2); e.setAttribute('ry', 2.2);
+    e.setAttribute('class','ind-off');
+    inds.appendChild(e); els.push(e);
+  });
+  function render(st){
+    var done = window.Course.BLOCK_ORDER.filter(function(b){ return st.blocks[b]; }).length;
+    var on = {};
+    for(var i=0; i<done && i<ORDER.length; i++) on[ORDER[i]] = true;
+    var sum = 0, n = 0;
+    els.forEach(function(e, i){
+      if(on[i]){
+        e.setAttribute('class','ind-on');
+        e.setAttribute('rx', pts[i].rx); e.setAttribute('ry', pts[i].ry);
+        sum += pts[i].omega; n++;
+      } else {
+        e.setAttribute('class','ind-off');
+        e.setAttribute('rx', 2.2); e.setAttribute('ry', 2.2);
+      }
+    });
+    document.getElementById('mDone').textContent = done;
+    document.getElementById('mOmega').textContent = n ? (sum/n).toFixed(1) + '\u00B0' : '\u2014';
+  }
+  window.Course.onChange(render);
+  render(window.Course.get());
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---- 4. the distortion bench ------------------------------------------- */
+(function(){
+  var D = Math.PI/180;
+  var P = {
+    merc:  { f:function(p){ var s=1/Math.cos(p*D); return [s,s]; },
+             note:'Conformal: h and k are both sec \u03C6, so the indicatrix stays a circle and \u03C9 = 0 at every latitude. Area is the price, and it is unbounded.' },
+    plate: { f:function(p){ return [1, 1/Math.cos(p*D)]; },
+             note:'Neither conformal nor equal-area. True scale along every meridian, which is what \u201Cequidistant cylindrical\u201D means \u2014 and nothing else. The baseline everything is normalised against.' },
+    lcea:  { f:function(p){ return [Math.cos(p*D), 1/Math.cos(p*D)]; },
+             note:'Equal-area: hk = 1 at every latitude, exactly. Watch \u03C9 instead \u2014 it passes 73\u00B0 by 60\u00B0 latitude. This is what equal-area costs on a tangent cylinder.' },
+    gall:  { f:function(p){ var c=Math.cos(45*D); return [Math.cos(p*D)/c, c/Math.cos(p*D)]; },
+             note:'The same equal-area guarantee with standard parallels moved to 45\u00B0. Compare \u03C9 here with the tangent version at the same latitude: secant placement is nearly free.' },
+    azeq:  { f:function(p){ var t=(90-p)*D; return [1, t<1e-9 ? 1 : t/Math.sin(t)]; },
+             note:'Polar aspect: latitude 0 sits at the rim. True scale along every meridian, so distance from the pole is exact \u2014 distance between two other points is not.' },
+    lazea: { f:function(p){ var t=(90-p)*D; return [Math.cos(t/2), 1/Math.cos(t/2)]; },
+             note:'Equal-area in polar aspect. At the rim, k/h reaches exactly 2 \u2014 the 2:1 shape distortion the 2021 paper reports.' },
+    stereo:{ f:function(p){ var t=(90-p)*D, s=1/(Math.cos(t/2)*Math.cos(t/2)); return [s,s]; },
+             note:'Conformal in polar aspect: \u03C9 = 0 everywhere. At the rim, hk = 4 exactly \u2014 the four-fold area enlargement the 2021 paper reports.' }
+  };
+  var sel = document.getElementById('bProj'), lat = document.getElementById('bLat');
+  function draw(){
+    var p = +lat.value, r = P[sel.value].f(p), h = r[0], k = r[1];
+    var a = Math.max(h,k), b = Math.min(h,k);
+    var w = 2*Math.asin((a-b)/(a+b))/D;
+    document.getElementById('bLatVal').textContent = p + '\u00B0';
+    document.getElementById('roH').textContent = h.toFixed(4);
+    document.getElementById('roK').textContent = k.toFixed(4);
+    document.getElementById('roA').textContent = (h*k).toFixed(4);
+    document.getElementById('roW').textContent = w.toFixed(2) + '\u00B0';
+    document.getElementById('bNote').textContent = P[sel.value].note;
+    /* normalise so the larger axis fills the frame; the shape is the message */
+    var scale = 34/Math.max(a, 1);
+    var e = document.getElementById('bEll');
+    e.setAttribute('rx', Math.max(1.2, Math.min(88, k*scale)));
+    e.setAttribute('ry', Math.max(1.2, Math.min(88, h*scale)));
+  }
+  sel.addEventListener('change', draw);
+  lat.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---- 5. blocks, self-checks, calibration -------------------------------- */
+(function(){
+  var st = window.Course.get();
+
+  /* block completion */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-done]'), function(btn){
+    var id = btn.getAttribute('data-done');
+    function paint(){
+      var on = !!st.blocks[id];
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.textContent = on ? 'Done \u2014 one more point measured' : 'Mark this block done';
+      var card = btn.closest('.block');
+      if(card) card.classList.toggle('is-done', on);
+    }
+    btn.addEventListener('click', function(){
+      if(st.blocks[id]) delete st.blocks[id]; else st.blocks[id] = Date.now();
+      paint(); window.Course.save();
+    });
+    paint();
+  });
+
+  /* self-check items */
+  var CONF = { 1:'Guessing', 2:'Shaky', 3:'Fairly sure', 4:'Confident' };
+  var OUT  = { got:'Got it', partly:'Partly', missed:'Missed it' };
+
+  Array.prototype.forEach.call(document.querySelectorAll('.check'), function(box){
+    var id = box.getAttribute('data-item');
+    var rec = st.items[id] || (st.items[id] = { conf:null, attempt:'', revealed:null, outcome:null });
+    var ta = box.querySelector('[data-role="attempt"]');
+    var confWrap = box.querySelector('[data-role="conf"]');
+    var outWrap = box.querySelector('[data-role="out"]');
+    var reveal = box.querySelector('.reveal');
+    var answer = box.querySelector('.answer');
+
+    function gate(){
+      var ready = (ta.value.trim().length >= 20) && rec.conf;
+      if(rec.revealed){
+        reveal.hidden = true; answer.hidden = false; return;
+      }
+      reveal.disabled = !ready;
+      reveal.textContent = ready ? 'Reveal the answer'
+        : (rec.conf ? 'Write at least a sentence to unlock' : 'Write an attempt and pick a confidence to unlock');
+    }
+    ta.value = rec.attempt || '';
+    ta.addEventListener('input', function(){
+      rec.attempt = ta.value; gate();
+    });
+    ta.addEventListener('blur', function(){ window.Course.save(); });
+
+    Array.prototype.forEach.call(confWrap.querySelectorAll('button'), function(b){
+      b.setAttribute('aria-pressed', String(rec.conf === +b.getAttribute('data-c')));
+      b.addEventListener('click', function(){
+        rec.conf = +b.getAttribute('data-c');
+        Array.prototype.forEach.call(confWrap.querySelectorAll('button'), function(x){
+          x.setAttribute('aria-pressed', String(rec.conf === +x.getAttribute('data-c')));
+        });
+        gate(); window.Course.save();
+      });
+    });
+
+    reveal.addEventListener('click', function(){
+      rec.revealed = Date.now(); rec.attempt = ta.value;
+      gate(); window.Course.save();
+      answer.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    });
+
+    if(outWrap){
+      Array.prototype.forEach.call(outWrap.querySelectorAll('button'), function(b){
+        b.setAttribute('aria-pressed', String(rec.outcome === b.getAttribute('data-o')));
+        b.addEventListener('click', function(){
+          rec.outcome = b.getAttribute('data-o');
+          Array.prototype.forEach.call(outWrap.querySelectorAll('button'), function(x){
+            x.setAttribute('aria-pressed', String(rec.outcome === x.getAttribute('data-o')));
+          });
+          window.Course.save();
+        });
+      });
+    }
+    gate();
+  });
+
+  /* calibration table */
+  function calib(){
+    var rows = [], gaps = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('.check'), function(box){
+      var id = box.getAttribute('data-item'), rec = st.items[id];
+      if(!rec || !rec.revealed || !rec.outcome) return;
+      var over = (rec.conf >= 3 && rec.outcome !== 'got');
+      if(over) gaps++;
+      rows.push('<tr><td>' + id.toUpperCase() + '</td><td>' + (CONF[rec.conf] || '\u2014') +
+                '</td><td>' + OUT[rec.outcome] + '</td><td>' + (over ? 'overconfident' : '\u2014') + '</td></tr>');
+    });
+    var el = document.getElementById('calibBody');
+    if(!rows.length){ el.innerHTML = '<p class="small">No self-checks completed yet.</p>'; return; }
+    el.innerHTML = '<div class="tw"><table><thead><tr><th>Item</th><th>Predicted</th><th>Actual</th><th>Gap</th></tr></thead><tbody>' +
+      rows.join('') + '</tbody></table></div>' +
+      '<p class="small" style="color:var(--ink-soft)">' +
+      (gaps ? gaps + ' item' + (gaps>1?'s':'') + ' where you were fairly sure or confident and it did not land. Those are the concepts to revisit \u2014 not the ones you knew you were guessing at.'
+            : 'No overconfidence gaps so far. Keep predicting before revealing; the instrument only works if the prediction is honest.') + '</p>';
+  }
+  window.Course.onChange(calib);
+  calib();
+})();
+</script>
+
+</body>
+</html>
