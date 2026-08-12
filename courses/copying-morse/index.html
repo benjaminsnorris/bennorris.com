@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="copying-morse"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Copying Morse</title>
+<style>
+:root{
+  color-scheme:light;
+  /* --- light values --- */
+  --l-paper:#E2E7DD; --l-paper2:#EDF0E9; --l-field:#FBFCFA;
+  --l-rule:#B2BCA9; --l-rule-soft:#CFD6C7; --l-rule-strong:#17211C;
+  --l-ink:#17211C; --l-ink-soft:#414E47; --l-ink-faint:#5E685F;
+  --l-brass:#816010; --l-brass-lt:#A67C1A; --l-brass-deep:#6E520C; --l-brass-on:#FFF9EC;
+  --l-teal:#175450; --l-oxide:#8C3421;
+  --l-btn-bg:#17211C; --l-btn-fg:#E2E7DD; --l-btn-bd:#17211C; --l-btn-hover:#25352C;
+  --l-ghost-hover:#D4D9CE;
+  --l-tint-good:#D6E4DF; --l-tint-warn:#F3E7CE; --l-tint-alert:#F4DED6;
+  --l-src-fg:#175450; --l-src-bd:#8FB2AB; --l-src-bg:#D6E4DF;
+  --l-infer-fg:#4C3D78; --l-infer-bd:#AA9EC4; --l-infer-bg:#E1DCEE;
+  --l-vendor-fg:#8C3421; --l-vendor-bd:#C4937F; --l-vendor-bg:#F4DED6;
+  --l-cont-fg:#754C0D; --l-cont-bd:#CBA766; --l-cont-bg:#F3E7CE;
+  --l-single-fg:#414E47; --l-single-bd:#AEB9AC; --l-single-bg:#DFE4DC;
+
+  /* --- dark values: the night operating position --- */
+  --d-paper:#171A15; --d-paper2:#1E221C; --d-field:#0F120D;
+  --d-rule:#3E463B; --d-rule-soft:#22261F; --d-rule-strong:#4E5849;
+  --d-ink:#DFE5D8; --d-ink-soft:#AAB4A2; --d-ink-faint:#8A9482;
+  --d-brass:#D9A441; --d-brass-lt:#F0C56B; --d-brass-deep:#B8862C; --d-brass-on:#15130C;
+  --d-teal:#6FC2B4; --d-oxide:#E08A6B;
+  --d-btn-bg:#333A2F; --d-btn-fg:#E4EADD; --d-btn-bd:#57614F; --d-btn-hover:#424B3C;
+  --d-ghost-hover:#262C22;
+  --d-tint-good:#14302B; --d-tint-warn:#2B2110; --d-tint-alert:#31170F;
+  --d-src-fg:#7FCFC0; --d-src-bd:#2E5B54; --d-src-bg:#14302B;
+  --d-infer-fg:#B7AADF; --d-infer-bd:#4A3F69; --d-infer-bg:#241E38;
+  --d-vendor-fg:#E8A183; --d-vendor-bd:#6B3A2A; --d-vendor-bg:#31170F;
+  --d-cont-fg:#E3B75E; --d-cont-bd:#634A22; --d-cont-bg:#2B2110;
+  --d-single-fg:#AEB8A7; --d-single-bd:#3F473C; --d-single-bg:#22261F;
+
+  /* --- active mapping (light by default) --- */
+  --paper:var(--l-paper); --paper-2:var(--l-paper2); --field:var(--l-field);
+  --rule:var(--l-rule); --rule-soft:var(--l-rule-soft); --rule-strong:var(--l-rule-strong);
+  --ink:var(--l-ink); --ink-soft:var(--l-ink-soft); --ink-faint:var(--l-ink-faint);
+  --brass:var(--l-brass); --brass-lt:var(--l-brass-lt); --brass-deep:var(--l-brass-deep); --brass-on:var(--l-brass-on);
+  --teal:var(--l-teal); --oxide:var(--l-oxide);
+  --btn-bg:var(--l-btn-bg); --btn-fg:var(--l-btn-fg); --btn-bd:var(--l-btn-bd); --btn-hover:var(--l-btn-hover);
+  --ghost-hover:var(--l-ghost-hover);
+  --tint-good:var(--l-tint-good); --tint-warn:var(--l-tint-warn); --tint-alert:var(--l-tint-alert);
+  --src-fg:var(--l-src-fg); --src-bd:var(--l-src-bd); --src-bg:var(--l-src-bg);
+  --infer-fg:var(--l-infer-fg); --infer-bd:var(--l-infer-bd); --infer-bg:var(--l-infer-bg);
+  --vendor-fg:var(--l-vendor-fg); --vendor-bd:var(--l-vendor-bd); --vendor-bg:var(--l-vendor-bg);
+  --cont-fg:var(--l-cont-fg); --cont-bd:var(--l-cont-bd); --cont-bg:var(--l-cont-bg);
+  --single-fg:var(--l-single-fg); --single-bd:var(--l-single-bd); --single-bg:var(--l-single-bg);
+
+  --mono:ui-monospace,"SFMono-Regular","Cascadia Mono",Menlo,Consolas,monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
+/* Dark mapping. Values live once above; only the mapping repeats. */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:var(--d-paper); --paper-2:var(--d-paper2); --field:var(--d-field);
+  --rule:var(--d-rule); --rule-soft:var(--d-rule-soft); --rule-strong:var(--d-rule-strong);
+  --ink:var(--d-ink); --ink-soft:var(--d-ink-soft); --ink-faint:var(--d-ink-faint);
+  --brass:var(--d-brass); --brass-lt:var(--d-brass-lt); --brass-deep:var(--d-brass-deep); --brass-on:var(--d-brass-on);
+  --teal:var(--d-teal); --oxide:var(--d-oxide);
+  --btn-bg:var(--d-btn-bg); --btn-fg:var(--d-btn-fg); --btn-bd:var(--d-btn-bd); --btn-hover:var(--d-btn-hover);
+  --ghost-hover:var(--d-ghost-hover);
+  --tint-good:var(--d-tint-good); --tint-warn:var(--d-tint-warn); --tint-alert:var(--d-tint-alert);
+  --src-fg:var(--d-src-fg); --src-bd:var(--d-src-bd); --src-bg:var(--d-src-bg);
+  --infer-fg:var(--d-infer-fg); --infer-bd:var(--d-infer-bd); --infer-bg:var(--d-infer-bg);
+  --vendor-fg:var(--d-vendor-fg); --vendor-bd:var(--d-vendor-bd); --vendor-bg:var(--d-vendor-bg);
+  --cont-fg:var(--d-cont-fg); --cont-bd:var(--d-cont-bd); --cont-bg:var(--d-cont-bg);
+  --single-fg:var(--d-single-fg); --single-bd:var(--d-single-bd); --single-bg:var(--d-single-bg);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:var(--d-paper); --paper-2:var(--d-paper2); --field:var(--d-field);
+    --rule:var(--d-rule); --rule-soft:var(--d-rule-soft); --rule-strong:var(--d-rule-strong);
+    --ink:var(--d-ink); --ink-soft:var(--d-ink-soft); --ink-faint:var(--d-ink-faint);
+    --brass:var(--d-brass); --brass-lt:var(--d-brass-lt); --brass-deep:var(--d-brass-deep); --brass-on:var(--d-brass-on);
+    --teal:var(--d-teal); --oxide:var(--d-oxide);
+    --btn-bg:var(--d-btn-bg); --btn-fg:var(--d-btn-fg); --btn-bd:var(--d-btn-bd); --btn-hover:var(--d-btn-hover);
+    --ghost-hover:var(--d-ghost-hover);
+    --tint-good:var(--d-tint-good); --tint-warn:var(--d-tint-warn); --tint-alert:var(--d-tint-alert);
+    --src-fg:var(--d-src-fg); --src-bd:var(--d-src-bd); --src-bg:var(--d-src-bg);
+    --infer-fg:var(--d-infer-fg); --infer-bd:var(--d-infer-bd); --infer-bg:var(--d-infer-bg);
+    --vendor-fg:var(--d-vendor-fg); --vendor-bd:var(--d-vendor-bd); --vendor-bg:var(--d-vendor-bg);
+    --cont-fg:var(--d-cont-fg); --cont-bd:var(--d-cont-bd); --cont-bg:var(--d-cont-bg);
+    --single-fg:var(--d-single-fg); --single-bd:var(--d-single-bd); --single-bg:var(--d-single-bg);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:17px;line-height:1.62;
+  background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 30px,var(--rule-soft) 30px,var(--rule-soft) 31px);
+}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 140px}
+
+/* ---- telegram header ---- */
+.masthead{padding:34px 0 26px;border-bottom:2px solid var(--rule-strong)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 18px}
+h1{
+  font-family:var(--mono);font-weight:600;font-size:clamp(26px,6.4vw,42px);
+  letter-spacing:.06em;text-transform:uppercase;line-height:1.12;margin:0 0 14px;
+}
+.deck{font-size:19px;line-height:1.5;margin:0;color:var(--ink-soft);max-width:34em}
+
+/* ---- meter ---- */
+.meter{margin:26px 0 0;padding:18px 0 6px;border-top:1px solid var(--rule)}
+.meter-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.meter svg{width:100%;height:auto;display:block;cursor:pointer}
+.meter svg rect{transition:fill .45s ease,opacity .45s ease}
+.el-off{fill:none;stroke:var(--ink-faint);stroke-width:.16;opacity:.7}
+.el-on{fill:var(--brass)}
+.el-live{fill:var(--oxide)}
+.meter-cap{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:8px;letter-spacing:.04em}
+
+/* ---- generic ---- */
+h2{font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin:0 0 6px}
+h3{font-family:var(--serif);font-size:22px;line-height:1.25;margin:0 0 10px;font-weight:600}
+p{margin:0 0 15px}
+a{color:var(--teal)}
+.small{font-size:15px;color:var(--ink-soft)}
+strong{font-weight:600}
+em{font-style:italic}
+
+/* ---- panels ---- */
+.panel{background:var(--paper-2);border:1px solid var(--rule);border-radius:2px;padding:20px;margin:0 0 22px}
+.panel-tight{padding:16px}
+
+/* ---- provenance chips ---- */
+.chip{
+  display:inline;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+  text-transform:uppercase;padding:2px 6px;border-radius:2px;white-space:nowrap;
+  vertical-align:.09em;margin:0 1px;border:1px solid;
+}
+.chip a{text-decoration:none;font-weight:700;color:inherit}
+.chip.src{color:var(--src-fg);border-color:var(--src-bd);background:var(--src-bg)}
+.chip.infer{color:var(--infer-fg);border-color:var(--infer-bd);background:var(--infer-bg)}
+.chip.vendor{color:var(--vendor-fg);border-color:var(--vendor-bd);background:var(--vendor-bg)}
+.chip.contested{color:var(--cont-fg);border-color:var(--cont-bd);background:var(--cont-bg)}
+.chip.single{color:var(--single-fg);border-color:var(--single-bd);background:var(--single-bg)}
+.legend{display:flex;flex-wrap:wrap;gap:7px 10px;margin:14px 0 0}
+.legend span{font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+
+/* ---- week sections ---- */
+.week{border-top:2px solid var(--rule-strong);margin-top:44px;padding-top:20px}
+.week-head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px}
+.week-no{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);font-weight:700}
+.week-time{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-left:auto;letter-spacing:.08em}
+.artifact{border-left:3px solid var(--brass);padding:10px 0 10px 14px;margin:0 0 22px;font-size:16px}
+.artifact b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);display:block;margin-bottom:4px;font-weight:700}
+
+/* ---- blocks ---- */
+.block{border:1px solid var(--rule);border-radius:2px;margin:0 0 16px;background:var(--paper-2)}
+.block-head{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.block-label{font-family:var(--mono);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700}
+.block-est{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-left:auto}
+.block-body{padding:16px}
+.block.done .block-head{background:var(--tint-good)}
+.block.done .block-label{color:var(--teal)}
+
+/* ---- controls ---- */
+button{font-family:var(--mono);font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;
+  background:var(--btn-bg);color:var(--btn-fg);border:1px solid var(--btn-bd);border-radius:2px;
+  padding:9px 15px;cursor:pointer;font-weight:600}
+button:hover{background:var(--btn-hover)}
+button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--ink-faint)}
+button.ghost:hover{background:var(--ghost-hover)}
+button.brass{background:var(--brass);border-color:var(--brass);color:var(--brass-on)}
+button.brass:hover{background:var(--brass-deep)}
+button:disabled{opacity:.4;cursor:not-allowed}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 0}
+input[type=text]{font-family:var(--mono);font-size:16px;letter-spacing:.18em;text-transform:uppercase;
+  padding:11px 12px;border:1px solid var(--ink-faint);border-radius:2px;background:var(--field);color:var(--ink);width:100%}
+input[type=text]:focus{outline:2px solid var(--brass);outline-offset:1px}
+input[type=range]{width:100%;accent-color:var(--brass)}
+label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:5px}
+
+/* ---- settings ---- */
+.settings{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+.settings .val{font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:600}
+@media(max-width:520px){.settings{grid-template-columns:1fr}}
+
+/* ---- confidence ---- */
+.conf{margin:14px 0 0;padding:14px;background:var(--tint-warn);border:1px dashed var(--brass);border-radius:2px}
+.conf-q{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cont-fg);margin-bottom:9px}
+.conf-btns{display:flex;gap:6px;flex-wrap:wrap}
+.conf-btns button{background:transparent;color:var(--cont-fg);border-color:var(--cont-bd);font-size:12px;padding:7px 11px}
+.conf-btns button.sel{background:var(--brass);color:var(--brass-on);border-color:var(--brass)}
+.reveal{margin-top:14px;padding-top:14px;border-top:1px solid var(--rule)}
+.gap-note{font-family:var(--mono);font-size:12px;padding:9px 12px;border-radius:2px;margin-top:12px}
+.gap-good{background:var(--tint-good);color:var(--src-fg)}
+.gap-over{background:var(--tint-alert);color:var(--vendor-fg)}
+.gap-under{background:var(--tint-warn);color:var(--cont-fg)}
+
+/* ---- drill ---- */
+.drill-out{font-family:var(--mono);font-size:clamp(17px,4.6vw,23px);letter-spacing:.3em;
+  background:var(--field);border:1px solid var(--rule);border-radius:2px;padding:16px;
+  min-height:58px;word-break:break-all;margin:12px 0}
+.hit{color:var(--teal);font-weight:700}
+.miss{color:var(--oxide);font-weight:700;border-bottom:2px solid var(--oxide)}
+.score{font-family:var(--mono);font-size:13px;margin-top:10px;color:var(--ink-soft)}
+.setchars{font-family:var(--mono);font-size:13px;letter-spacing:.28em;color:var(--brass);font-weight:700}
+
+/* ---- liminal warning ---- */
+.liminal{border:1px solid var(--cont-bd);border-left:5px solid var(--brass);background:var(--tint-warn);padding:16px;margin:0 0 20px;border-radius:2px}
+.liminal b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cont-fg);display:block;margin-bottom:6px}
+
+/* ---- chart gate ---- */
+.gate{border:1px dashed var(--vendor-bd);padding:14px;border-radius:2px;background:var(--tint-alert);margin:16px 0}
+.gate p{margin:0 0 10px;font-size:15px}
+
+/* ---- sources ---- */
+.srclist{list-style:none;padding:0;margin:0;counter-reset:s}
+.srclist li{font-size:14.5px;line-height:1.5;padding:11px 0 11px 44px;border-bottom:1px solid var(--rule);position:relative}
+.srclist li::before{content:attr(data-id);position:absolute;left:0;top:11px;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--brass);letter-spacing:.05em}
+.tier{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-top:3px}
+
+/* ---- misc ---- */
+.tdiag{width:100%;height:auto;display:block;margin:14px 0;cursor:pointer}
+.tdiag rect{fill:var(--brass)}
+.tdiag .lbl{font-family:var(--mono);font-size:2.1px;fill:var(--ink-soft);letter-spacing:.02em}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:14px 0}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+ul.tight{margin:0 0 15px;padding-left:20px}
+ul.tight li{margin-bottom:6px}
+.formula{font-family:var(--mono);font-size:15px;background:var(--field);border:1px solid var(--rule);padding:14px;border-radius:2px}
+.callout-alert{background:var(--tint-alert);border-color:var(--vendor-bd);margin-top:18px}
+.mast-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.mast-top .eyebrow{margin-bottom:0}
+.theme-btn{flex:none;font-size:11px;padding:6px 11px;letter-spacing:.12em}
+/* --- straight key --- */
+.key-pad{user-select:none;-webkit-user-select:none;touch-action:none;cursor:pointer;
+  background:var(--field);border:2px solid var(--ink-faint);border-radius:3px;
+  padding:30px 16px;text-align:center;transition:background .04s,border-color .04s}
+.key-pad:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.key-pad.down{background:var(--brass);border-color:var(--brass)}
+.key-pad.down .key-hint,.key-pad.down .key-sub{color:var(--brass-on)}
+.key-hint{display:block;font-family:var(--mono);font-size:14px;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:700;color:var(--ink)}
+.key-sub{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-faint);margin-top:6px}
+.key-target{font-family:var(--mono);font-size:13px;letter-spacing:.1em;margin:12px 0 0;color:var(--ink-soft)}
+.key-target b{color:var(--brass);letter-spacing:.2em}
+.key-live{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:8px;letter-spacing:.06em}
+.chanrow{display:flex;gap:8px;flex-wrap:wrap}
+.chanrow button.sel{background:var(--brass);color:var(--brass-on);border-color:var(--brass)}
+.chanrow button:disabled{opacity:.35}
+.lamp-float{position:fixed;top:12px;right:12px;z-index:900;width:54px;height:54px;border-radius:50%;
+  background:var(--field);border:2px solid var(--ink-faint);transition:background .03s,box-shadow .03s}
+.lamp-float.on{background:var(--brass-lt);box-shadow:0 0 20px var(--brass)}
+/* --- lamp --- */
+.lamp-wrap{display:flex;align-items:center;gap:14px;margin:14px 0}
+.lamp{width:76px;height:76px;flex:none;border-radius:50%;background:var(--field);
+  border:2px solid var(--ink-faint);transition:background .03s,box-shadow .03s}
+.lamp.on{background:var(--brass-lt);box-shadow:0 0 22px var(--brass)}
+.lamp-meta{font-family:var(--mono);font-size:11px;color:var(--ink-faint);line-height:1.5}
+/* The lamp is a physical light source, not chrome: it stays true black/white in
+   both themes because a theme-dimmed "white" is useless as an actual torch. */
+.lamp-overlay{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column}
+.lamp-close{position:absolute;top:14px;left:14px;z-index:2}
+.lamp-face{flex:1;background:#000;touch-action:none;user-select:none;-webkit-user-select:none}
+.lamp-face.on{background:#fff}
+.playing{animation:pulse .5s ease}
+@keyframes pulse{50%{opacity:.45}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.foot{margin-top:56px;padding-top:22px;border-top:2px solid var(--rule-strong);font-size:14px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="lamp-float" id="lamp-float" hidden aria-hidden="true"></div>
+<header class="masthead">
+  <div class="mast-top">
+    <p class="eyebrow">Self-study course &middot; working competence &middot; 10 weeks &middot; part 1 of 2</p>
+    <button class="ghost theme-btn" id="theme-btn" type="button" aria-pressed="false">Night</button>
+  </div>
+  <h1>Copying Morse</h1>
+  <p class="deck">Morse is a spoken language that happens to have a written notation. This course teaches the listening. It never shows you the chart.</p>
+</header>
+<div class="meter" id="meter">
+  <div class="meter-top"><span>Progress</span><span id="meter-pct">0%</span></div>
+  <svg id="meter-svg" viewBox="0 0 41 6" preserveAspectRatio="none" role="img" aria-label="Progress shown as the word LISTEN in Morse timing"></svg>
+  <p class="meter-cap" id="meter-cap">This bar is the word LISTEN, drawn to scale in real Morse timing. Tap it to hear where you are.</p>
+</div>
+
+<section class="panel" style="margin-top:30px">
+  <h2>What you will be able to do</h2>
+  <p style="margin-bottom:18px"><strong>Copy an unfamiliar plain-text transmission onto paper</strong> &mdash; the full 26-letter alphabet, sent at 12&nbsp;WPM character speed, at 90% character accuracy, cold, with no chart and no replay. And run the drill regimen that carries you onward without this course.</p>
+  <h2>Where this starts you</h2>
+  <p class="small" style="margin-bottom:18px">No exposure to Morse whatsoever. Comfortable with structured self-study and technical reading. No radio, no key, no licence, no musical training assumed. Headphones and a pencil are the entire equipment list.</p>
+  <h2>What this is not</h2>
+  <ul class="tight small">
+    <li><strong>Not sending.</strong> Receiving only. Producing code is a motor skill with its own threshold and its own feedback problem, and it has its own course &mdash; <a href="sending-morse.html">Sending Morse</a>, which assumes you have finished Week&nbsp;6 here.</li>
+    <li><strong>Letters only.</strong> All 26, but no numerals, punctuation, prosigns, Q-codes, or on-air abbreviations.</li>
+    <li><strong>Not licensing.</strong> No regulations, no electronics theory.</li>
+    <li><strong>Not speed.</strong> 12&nbsp;WPM character speed. Contest and ragchew speeds are a longer project.</li>
+    <li><strong>Not "Morse in a weekend."</strong> The budget below is honest and it is not small.</li>
+  </ul>
+  <h2 style="margin-top:20px">Time budget</h2>
+  <p style="margin-bottom:14px">Roughly <strong>24&ndash;26 hours</strong> across ten weeks, published per block so you can decide one sitting at a time. That figure already has the standard 2.5&times; correction applied &mdash; self-study consistently runs long. <span class="chip src">Sourced fact <a href="#S6">S6</a></span></p>
+  <p class="small" style="margin-bottom:0"><strong>Week&nbsp;6 is a real stopping point.</strong> It crosses all three thresholds and leaves you copying sixteen letters &mdash; a genuine skill. Weeks&nbsp;7&ndash;8 close the alphabet, Week&nbsp;9 adds light and is self-contained. Stopping at any of those boundaries leaves something whole rather than something half-crossed. <span class="chip infer">Inference</span></p>
+</section>
+<section class="panel">
+  <h2>How claims are marked</h2>
+  <p class="small">Morse instruction has an unusual evidence problem: the primary research is a 1935 German engineering dissertation and a handful of pre-1960 psychology papers, while nearly all modern writing about it is published by people selling an app. Every load-bearing claim below carries a marker so you can tell which is which.</p>
+  <div class="legend">
+    <span><span class="chip src">Sourced fact <a href="#sources">S#</a></span> traceable to a numbered source</span>
+    <span><span class="chip infer">Inference</span> my reasoning, in no source</span>
+    <span><span class="chip vendor">Vendor framing</span> authored by someone selling the thing</span>
+    <span><span class="chip contested">Contested</span> the field genuinely disagrees</span>
+    <span><span class="chip single">Single study</span> real but unreplicated</span>
+  </div>
+</section><section class="panel">
+  <h2>Sound settings</h2>
+  <p class="small">These persist. Leave character speed at 12 unless a block tells you otherwise &mdash; that number is the whole argument of Week&nbsp;2.</p>
+  <div class="settings">
+    <div>
+      <label for="s-char">Character speed &mdash; <span class="val" id="v-char">12</span> WPM</label>
+      <input type="range" id="s-char" min="8" max="25" step="1" value="12">
+    </div>
+    <div>
+      <label for="s-eff">Effective speed &mdash; <span class="val" id="v-eff">5</span> WPM</label>
+      <input type="range" id="s-eff" min="3" max="25" step="1" value="5">
+    </div>
+    <div>
+      <label for="s-tone">Tone &mdash; <span class="val" id="v-tone">600</span> Hz</label>
+      <input type="range" id="s-tone" min="400" max="900" step="10" value="600">
+    </div>
+    <div>
+      <label for="s-vol">Volume &mdash; <span class="val" id="v-vol">50</span>%</label>
+      <input type="range" id="s-vol" min="0" max="100" step="5" value="50">
+    </div>
+  </div>
+  <div class="btnrow"><button class="ghost" id="test-tone">Test output</button></div>
+</section><section class="panel" id="silent">
+  <h2>Silent practice &mdash; and a note on order</h2>
+  <p class="small">Everything in this course runs on any of four channels. Pick one here and every exercise, every drill and every self-check uses it. Two of them are completely silent, so a meeting or a five-minute gap is practisable.</p>
+  <div class="chanrow" id="chanrow">
+    <button class="ghost" data-chan="sound">Sound</button>
+    <button class="ghost" data-chan="haptic">Vibration</button>
+    <button class="ghost" data-chan="light">Light</button>
+    <button class="ghost" data-chan="both">Sound + light</button>
+  </div>
+  <p class="small" id="chan-note" style="margin-top:12px"></p>
+  <div class="panel panel-tight" style="margin-top:16px">
+    <p style="margin-bottom:8px"><strong>Which channel should you learn on first?</strong></p>
+    <p class="small" style="margin-bottom:10px">The common answer &mdash; "I learn better visually" &mdash; is the one part worth examining. Pashler and colleagues reviewed the evidence for matching instruction to a learner's preferred modality and found the studies with the right design either failed to show the effect or contradicted it. Preferences are real; the benefit from meshing instruction to them is not established. <span class="chip src">Sourced fact <a href="#S9">S9</a></span></p>
+    <p class="small" style="margin-bottom:10px"><strong>But that research does not settle this case</strong>, because it is about presenting the <em>same</em> content in different formats. Here the format is the content. Morse by ear and Morse by light are not two presentations of one skill &mdash; they are two skills with different targets. So the real question is not which suits you; it is which one you actually want. <span class="chip infer">Inference</span></p>
+    <ul class="tight small" style="margin-bottom:0">
+      <li><strong>Want to copy radio CW?</strong> The target is auditory. Learn on sound; use vibration when you cannot listen.</li>
+      <li><strong>Want to read signal lamps and send with a torch?</strong> The target is visual. Learn on light from Week&nbsp;1 &mdash; that is not a compromise, it is the actual skill. Accept the 6&nbsp;WPM ceiling.</li>
+      <li><strong>Want both?</strong> Sound first is the better bet, because the auditory channel can carry 12&nbsp;WPM and the visual channel cannot, so the harder-won timing is learned at the rate that supports it.</li>
+    </ul>
+  </div>
+  <p class="small" style="margin-top:14px"><strong>Why vibration is the good silent option.</strong> The flash-rate limit is a photosensitivity constraint and applies only to light. Vibration has no such ceiling, so it runs at the full 12&nbsp;WPM character speed &mdash; above Koch's critical rate, unlike the lamp. It is the only silent channel that does not force you below the speed where the pattern holds together. <span class="chip infer">Inference</span></p>
+  <p class="small"><strong>And sending is silent already.</strong> Any key exercise works with the sound off: tap, and the analyser still measures your timing. That is real practice you can do under a table.</p>
+</section>
+<section class="week" data-week="1">
+  <div class="week-head"><span class="week-no">Week 1</span><span class="week-time">~2 hrs &middot; 5 blocks</span></div>
+  <h3>Copy something real, today</h3>
+  <div class="artifact"><b>This week produces</b>A sheet of paper with 25 characters on it that you copied by ear. Crude, two letters only, and a complete instance of the actual skill.</div>
+  <p>The whole task, in its simplest form, on day one. You will not "learn the alphabet and then start copying." You start copying now with two letters and add letters to a thing you can already do.</p>
+  <div class="liminal"><b>Where you are expected to struggle</b>Block 2 is the odd one. Two sounds is not enough information to feel like progress, and your instinct will be to want the chart so you can "check." That instinct is the thing this course is built to defeat. Sit in it.</div>
+  <div class="block" data-block="w1-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Listen</span><span class="block-est">~10 min</span></div>
+    <div class="block-body">
+      <p>Get a sheet of paper and a pencil. Press play. <strong>You will not be told what letters these are, and you are not trying to identify them.</strong> Every time you hear one complete sound-shape begin and end, make a single dot on the paper. That is the entire exercise.</p>
+      <p class="small">This is Koch's own first exercise, from the 1935 dissertation, and almost no modern course includes it. His reasoning: marking rhythm on paper builds the link between the heard shape and the writing hand before any letter meaning is attached, and it forces you to listen for the shape rather than the parts. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      <div class="btnrow"><button class="brass" data-act="play" data-text="K M M K R A K M A N R K M K A R M N K A" data-label="rhythm">Send 20 shapes</button></div>
+      <p class="small" style="margin-top:14px">Count your dots afterward. If you got 20, your ear is already segmenting the stream, which is most of what this block is for.</p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w1-b" data-strand="r">
+    <div class="block-head"><span class="block-label">Meet two sounds</span><span class="block-est">~25 min</span></div>
+    <div class="block-body">
+      <p>Two letters: <span class="setchars">K M</span></p>
+      <p>Play each one. Say the letter out loud as you hear it. Do this until the letter arrives in your head <em>before</em> you have finished thinking about it &mdash; which will feel like nothing happening, and then suddenly like the sound simply is the letter.</p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="K">Hear K</button>
+        <button class="brass" data-act="play" data-text="M">Hear M</button>
+        <button class="ghost" data-act="play" data-text="K M K M M K K M">Alternate</button>
+      </div>
+      <p class="small" style="margin-top:16px">K and M are Koch's own suggested starting pair, chosen because their sound-shapes are maximally unlike each other. He noted that any well-differentiated pair works. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w1-c" data-strand="r">
+    <div class="block-head"><span class="block-label">Copy &mdash; worked</span><span class="block-est">~20 min</span></div>
+    <div class="block-body">
+      <p>Before you copy cold, watch it done. Press play and follow along with the answer visible. Your job is only to bind sound to letter while the pressure is off.</p>
+      <div class="drill-out" style="letter-spacing:.3em">K M M K &nbsp; M K K M &nbsp; K K M M &nbsp; M M K K</div>
+      <div class="btnrow"><button class="brass" data-act="play" data-text="KMMK MKKM KKMM MMKK">Send with answer showing</button></div>
+      <p class="small" style="margin-top:14px">This is a fully worked example. Week&nbsp;3 gives you partial ones. Week&nbsp;6 gives you none &mdash; the support is scheduled to disappear, and you should expect to notice it going.</p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w1-d" data-strand="r">
+    <div class="block-head"><span class="block-label">Copy &mdash; cold</span><span class="block-est">~45 min</span></div>
+    <div class="block-body">
+      <p><strong>The real thing.</strong> Paper and pencil, not the keyboard. Press send, write the letters as they arrive, then type what you wrote into the box. Do not replay before committing.</p>
+      <div class="drill" data-drill="w1" data-set="KM" data-count="25"></div>
+      <p class="small" style="margin-top:16px">If you drop a character, leave a gap and keep going. Chasing a missed letter costs you the next three &mdash; this is the single most common beginner failure and you should practise the recovery now rather than at speed later. <span class="chip infer">Inference</span></p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w1-e" data-strand="r">
+    <div class="block-head"><span class="block-label">Write</span><span class="block-est">~15 min</span></div>
+    <div class="block-body">
+      <p>Three sentences on paper, for you, not for anyone else:</p>
+      <ul class="tight">
+        <li>What did the moment of recognition actually feel like &mdash; did you decode it, or did it arrive?</li>
+        <li>At what point did you want to see the dots and dashes written down, and what were you hoping that would give you?</li>
+        <li>Which of the two letters is less solid, and how do you know?</li>
+      </ul>
+      <p class="small">Prompted self-explanation is where most of the gain in worked-example learning actually comes from, and learners left to themselves explain superficially or not at all. Writing it beats thinking it. <span class="chip src">Sourced fact <a href="#S7">S7</a></span></p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="2">
+  <div class="week-head"><span class="week-no">Week 2</span><span class="week-time">~3 hrs &middot; 4 blocks</span></div>
+  <h3>Speed is two numbers, not one</h3>
+  <div class="artifact"><b>This week produces</b>A timing diagram you derived by hand, and a copied transmission of five letters &mdash; plus a defensible answer to "what speed are you learning at," which is a trick question.</div>
+  <div class="liminal"><b>Where you are expected to struggle</b>The arithmetic here is easy. The idea is not. You are going to be asked to accept that slowing Morse down makes it <em>harder</em>, which contradicts how every other skill you have learned works.</div>
+  <div class="block" data-block="w2-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Derive</span><span class="block-est">~50 min</span></div>
+    <div class="block-body">
+      <p>Morse timing is built from one unit: the length of a dit. Everything else is a multiple.</p>
+      <table>
+        <tr><th>Element</th><th>Units</th></tr>
+        <tr><td>dit</td><td>1</td></tr>
+        <tr><td>dah</td><td>3</td></tr>
+        <tr><td>gap between elements inside a letter</td><td>1</td></tr>
+        <tr><td>gap between letters</td><td>3</td></tr>
+        <tr><td>gap between words</td><td>7</td></tr>
+      </table>
+      <p>Speed is defined against one reference word, <strong>PARIS</strong>, chosen because it comes to exactly 50 units including its trailing word gap. Count it yourself before reading on &mdash; the diagram below is drawn to scale, and every bar is one element.</p>
+      <svg class="tdiag" id="paris-diag" viewBox="0 0 50 8" preserveAspectRatio="none" role="img" aria-label="PARIS drawn to scale in Morse timing units"></svg>
+      <p class="small">Tap the diagram to hear it. <span class="chip src">Sourced fact <a href="#S4">S4</a></span></p>
+      <p>So one word per minute means fifty units per minute, and:</p>
+      <p class="formula">dit = 60 / (50 &times; WPM) seconds<br>&nbsp;&nbsp;&nbsp;&nbsp;= 1200 / WPM milliseconds</p>
+      <p>Work these out on paper before committing:</p>
+      <div class="check" data-check="w2-q1">
+        <p><strong>1.</strong> How long is a dit at 12 WPM? And at 5 WPM?</p>
+        <div class="reveal-body">At 12 WPM, 1200/12 = <strong>100 ms</strong>. At 5 WPM, 1200/5 = <strong>240 ms</strong> &mdash; nearly two and a half times longer. Hold onto how large that difference is.</div>
+      </div>
+      <div class="check" data-check="w2-q2">
+        <p><strong>2.</strong> Of PARIS's 50 units, how many are <em>inside</em> characters, and how many are the gaps between characters and words?</p>
+        <div class="reveal-body">The five characters take 31 units between them. The four inter-character gaps take 4&times;3 = 12, and the word gap takes 7, so <strong>31 inside, 19 in the spacing</strong>. That 31/19 split is the whole basis of the next block.</div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w2-b" data-strand="r">
+    <div class="block-head"><span class="block-label">The threshold</span><span class="block-est">~40 min</span></div>
+    <div class="block-body">
+      <p>Here is the idea the course turns on. <strong>You can stretch those 19 spacing units without touching the 31 character units.</strong> The letters keep their exact rhythm; the silence between them grows. That gives two independent speeds: a <em>character speed</em> and an <em>effective speed</em>.</p>
+      <p>This is Farnsworth timing, named for Donald R. "Russ" Farnsworth, W6TTB, and given a formal specification by the ARRL so that "18 WPM characters at 5 WPM overall" means one reproducible thing. <span class="chip src">Sourced fact <a href="#S4">S4</a></span></p>
+      <p>Hear the difference. Same six letters, three ways:</p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="MARK RAN" data-char="12" data-eff="12">12 char / 12 eff</button>
+        <button class="brass" data-act="play" data-text="MARK RAN" data-char="12" data-eff="5">12 char / 5 eff</button>
+        <button class="ghost" data-act="play" data-text="MARK RAN" data-char="5" data-eff="5">5 char / 5 eff</button>
+      </div>
+      <p style="margin-top:16px">The third button is the important one. Listen to it twice. A letter sent at 5 WPM is not the same sound played slowly &mdash; it is a <em>different sound</em>, one you would have to learn separately and then unlearn.</p>
+      <p>Koch measured exactly where this breaks. Below roughly 10 WPM, he found, the character stops being perceived as a single acoustic whole and starts being perceived as a sequence of separate beeps you have to count and reassemble. He called the intact version the <em>Gestalt</em>, and named the changeover the critical rate. His conclusion was blunt: training speed must be above that rate from the very beginning. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+
+      <div class="panel panel-tight callout-alert">
+        <p style="margin-bottom:10px"><strong>A correction you will need.</strong> Nearly every app and article says the Koch method means starting at <em>20 WPM</em>. <span class="chip vendor">Vendor framing</span></p>
+        <p style="margin-bottom:0" class="small">Koch's dissertation says something different. He identified ~10 WPM as the critical rate below which the shape decays, and found <strong>12 WPM optimal for initial learning</strong>, with speed increased toward 20 only after all characters were known. The 20 WPM figure is the destination in his report, not the starting line. This course uses 12 because that is what the primary source actually says. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      </div>
+
+      <div class="check" data-check="w2-q3">
+        <p><strong>3.</strong> A friend says: "I'm learning at 5 words per minute and I'll speed up later." Two separate things are wrong with the plan. Name both.</p>
+        <div class="reveal-body"><strong>One:</strong> 5 WPM is below the critical rate, so they are learning sounds that decay into countable beeps &mdash; they are training the counting habit, not the recognition reflex. <strong>Two:</strong> "speed up later" means the sounds they learned are not the sounds they will need, so the speed increase is not a scaling-up but a relearning. The fix is not to go faster overall; it is to split the speed into two numbers and leave the character number high.</div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w2-c" data-strand="r">
+    <div class="block-head"><span class="block-label">Add letters</span><span class="block-est">~50 min</span></div>
+    <div class="block-body">
+      <p>Three new: <span class="setchars">R A N</span> &nbsp;&mdash;&nbsp; working set <span class="setchars">K M R A N</span></p>
+      <p>Hear each alone first, then drill the set. Move on when you are at 90% on the drill below; that threshold is Koch's, and it is the rule for every week from here.</p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="R">R</button>
+        <button class="brass" data-act="play" data-text="A">A</button>
+        <button class="brass" data-act="play" data-text="N">N</button>
+      </div>
+      <p class="small" style="margin-top:14px">R and K are mirror images of each other written down, and so are A and N. Koch specifically noted that visual mirror-images cause almost no confusion by ear, because their sound-shapes are plainly different &mdash; which is a small proof that the written form and the heard form are not the same object. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      <div class="drill" data-drill="w2" data-set="KMRAN" data-count="25"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w2-d" data-strand="r">
+    <div class="block-head"><span class="block-label">Schedule</span><span class="block-est">~10 min</span></div>
+    <div class="block-body">
+      <p>Set up the practice pattern now, because it does more work than anything else in this course.</p>
+      <p><strong>Two sessions a day, half an hour each, morning and afternoon.</strong> Not one long session. Koch tested this directly and reported that distributing the practice hours produced faster learning and better retention than massing them &mdash; and that half an hour was the useful ceiling for one sitting. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      <p class="small">This is also the single most robust finding in the modern study-strategies literature, independently of Morse: distributed practice and retrieval practice are the two techniques that survive meta-analysis. You are getting both. <span class="chip src">Sourced fact <a href="#S6">S6</a></span></p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="3">
+  <div class="week-head"><span class="week-no">Week 3</span><span class="week-time">~3.5 hrs &middot; 4 blocks</span></div>
+  <h3>No translation step</h3>
+  <div class="artifact"><b>This week produces</b>A copied transmission of eight letters, and evidence about yourself: whether a letter is arriving as a reflex or being decoded. Those feel similar from the inside and are not the same.</div>
+  <div class="block" data-block="w3-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Retrieve</span><span class="block-est">~20 min</span></div>
+    <div class="block-body">
+      <p class="small">These reach back to Weeks 1 and 2 deliberately. A self-check sitting under the section that taught it measures whether you just read something. Spacing effects show up on delayed tests and not immediate ones, so the useful version of this is the annoying version. <span class="chip src">Sourced fact <a href="#S6">S6</a></span></p>
+      <div class="check" data-check="w3-q1">
+        <p><strong>1.</strong> Without scrolling up: how long is a dit at 12 WPM, and what fraction of PARIS's 50 units can Farnsworth timing stretch?</p>
+        <div class="reveal-body">100 ms. And 19 of the 50 units &mdash; the inter-character and inter-word gaps. The 31 units inside the characters never move.</div>
+      </div>
+      <div class="check" data-check="w3-q2">
+        <p><strong>2.</strong> Cold ear check, no warm-up. Four characters from Weeks 1&ndash;2. Write them down before revealing.</p>
+        <div class="drill" data-drill="w3r" data-set="KMRAN" data-count="4"></div>
+        <div class="reveal-body">Whatever you scored, note it. The number matters less than whether it surprised you.</div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w3-b" data-strand="r">
+    <div class="block-head"><span class="block-label">Diagnose</span><span class="block-est">~40 min</span></div>
+    <div class="block-body">
+      <p>There are two different things happening in your head when you copy, and you need to be able to tell them apart.</p>
+      <table>
+        <tr><th>Decoding</th><th>Recognition</th></tr>
+        <tr><td>You hear the parts, hold them, count them, and assemble a letter.</td><td>The letter arrives. There is no intermediate object.</td></tr>
+        <tr><td>Scales badly. Fails around 10&ndash;12 WPM and gets worse.</td><td>Scales. Speed becomes a matter of practice, not method.</td></tr>
+        <tr><td>You can feel yourself working.</td><td>Feels like you did nothing, which is why people distrust it.</td></tr>
+      </table>
+      <p>Koch's criticism of every method that came before him was aimed exactly here. Teaching from a printed chart, he argued, requires the operator to count the elements and reassemble them for comparison against a memorised optical symbol &mdash; workable at low tempo, impossible at speed. He recommended charts never be used at all. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+
+      <p><strong>The test.</strong> Play a single letter. Say it out loud immediately &mdash; within about half a second, before you have time to think. If you can do that reliably, it is recognition. If you need a beat, it is decoding, and that letter needs more drill rather than more speed. <span class="chip infer">Inference</span></p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-random="KMRAN" data-label="one">Send one letter</button>
+        <button class="brass" data-act="play" data-random="KMRAN" data-label="one">Again</button>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w3-c" data-strand="r">
+    <div class="block-head"><span class="block-label">Copy &mdash; completion</span><span class="block-est">~30 min</span></div>
+    <div class="block-body">
+      <p>Scaffolding step two. Part of the answer is given; you fill the gaps. Play, copy what you can, then type the full string.</p>
+      <div class="drill-out" style="letter-spacing:.3em">M A _ _ &nbsp; _ A N _ &nbsp; K _ _ M</div>
+      <div class="btnrow"><button class="brass" data-act="play" data-text="MARK RANK KARM">Send</button></div>
+      <p class="small" style="margin-top:12px">Answer: MARK RANK KARM. Compare against your paper, not your memory of how it went.</p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w3-d" data-strand="r">
+    <div class="block-head"><span class="block-label">Add letters</span><span class="block-est">~1.5 hrs</span></div>
+    <div class="block-body">
+      <p>Three new: <span class="setchars">U D W</span> &nbsp;&mdash;&nbsp; working set <span class="setchars">K M R A N U D W</span></p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="U">U</button>
+        <button class="brass" data-act="play" data-text="D">D</button>
+        <button class="brass" data-act="play" data-text="W">W</button>
+      </div>
+      <p class="small" style="margin-top:14px">A note on ordering. The character sequence used by nearly every Koch trainer &mdash; K M R S U A P T L O and so on &mdash; <strong>does not appear in Koch's dissertation.</strong> It comes from a much later software implementation and is attributed to him by convention. Koch's own sequence was different, and his stated principles argue against parts of the popular one: he explicitly warned that confusable pairs like S/H and U/V should be kept apart, and the standard sequence introduces S immediately. <span class="chip src">Sourced fact <a href="#S1">S1</a></span> <span class="chip contested">Contested</span></p>
+      <p class="small">This course therefore uses a sequence I built from Koch's stated principles rather than either his list or the popular one: well-differentiated shapes first, confusable families deferred, and the runs of pure dits and pure dahs held back until there is enough context to contrast them. That is my choice, not his, and you should treat it as such. <span class="chip infer">Inference</span></p>
+      <div class="drill" data-drill="w3" data-set="KMRANUDW" data-count="25"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="4">
+  <div class="week-head"><span class="week-no">Week 4</span><span class="week-time">~3.5 hrs &middot; 3 blocks</span></div>
+  <h3>The flat stretch</h3>
+  <div class="artifact"><b>This week produces</b>Eleven letters copied, and a written decision about what you will do when progress stops &mdash; made now, while you can still think clearly about it.</div>
+  <div class="liminal"><b>Where you are expected to struggle</b>This week is placed here on purpose. Around now the curve usually goes flat: you are not getting worse, you are simply not getting better. That experience is the subject of this week rather than an interruption to it.</div>
+  <div class="block" data-block="w4-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Read</span><span class="block-est">~45 min</span></div>
+    <div class="block-body">
+      <p>In 1897 and 1899, two psychologists at Indiana University followed telegraph students for months and published the first careful learning curves anyone had produced for a complex skill. They found that receiving improved, then stopped, then improved again &mdash; and their explanation was that the operator was building a <em>hierarchy of habits</em>: first letters, then words, then whole phrases, with each level having to become automatic before the next could form. The flat stretch was the lower level consolidating. <span class="chip src">Sourced fact <a href="#S2">S2</a></span></p>
+      <p>Their own words are worth having: mastery of the telegraphic language, they concluded, involves mastery of the habits of all orders. A student who jumps from 18 to 25 words a minute has not suddenly learned more English &mdash; something else has automated. <span class="chip src">Sourced fact <a href="#S2">S2</a></span></p>
+
+      <p><strong>Then, sixty years later, someone argued it was never there.</strong></p>
+      <p>Fred Keller &mdash; who had run code training research for the US Army &mdash; published a paper in 1958 titled "The Phantom Plateau," arguing that the plateau in code learning is an artifact of how the curve is drawn and how the students were taught, not a necessary feature of skill acquisition. Under good instruction, he said, it largely disappears. <span class="chip src">Sourced fact <a href="#S3">S3</a></span> <span class="chip contested">Contested</span></p>
+      <p>And the argument did not end there: later authors defended the plateau on different theoretical grounds, and a 2017 review in <em>Current Directions in Psychological Science</em> opens by observing that the field has been arguing about whether training plateaus are real for a hundred and twenty years. <span class="chip src">Sourced fact <a href="#S5">S5</a></span></p>
+
+      <div class="panel panel-tight" style="margin-top:18px">
+        <p style="margin-bottom:10px"><strong>What to actually do with a contested finding.</strong></p>
+        <p class="small" style="margin-bottom:0">Not "pick a side." Notice which part is disputed and which part is not. Nobody disputes that learners <em>experience</em> flat stretches. What is disputed is whether the flatness is intrinsic to the skill or produced by the teaching. Both sides agree on the practical consequence, which is the only part you need: <strong>a flat stretch is not evidence that you have hit your limit, and it is not evidence that the method is failing.</strong> Keller's version is arguably more encouraging than Bryan and Harter's, because it says the flat part is at least partly removable. <span class="chip infer">Inference</span></p>
+      </div>
+
+      <div class="check" data-check="w4-q1">
+        <p><strong>1.</strong> Bryan and Harter watched real students and saw a plateau. Keller looked at similar data and said it was not really there. Before revealing: what kind of thing could they disagree about, given they were not disputing each other's measurements?</p>
+        <div class="reveal-body">Mostly two things. <strong>What counts as a plateau</strong> &mdash; a genuinely flat interval, or just a slow stretch that looks flat at a particular scale and smooths out when averaged across learners or plotted differently. And <strong>what causes it</strong> &mdash; an intrinsic reorganisation of the skill, or the ordinary consequence of instruction that stopped pushing on the right thing. This is the standard shape of a lot of scientific disagreement: same numbers, different construct and different attribution. Noticing that is worth more here than knowing who won.</div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w4-b" data-strand="r">
+    <div class="block-head"><span class="block-label">Decide</span><span class="block-est">~15 min</span></div>
+    <div class="block-body">
+      <p>Write this down on paper now, before you need it. When the drill goes flat for a week or more, which of these will you do?</p>
+      <ul class="tight">
+        <li>Keep the set the same and keep the sessions short, on the theory that consolidation is happening and needs time.</li>
+        <li>Add a letter anyway, on the theory that the flatness is boredom and the level has stopped demanding anything.</li>
+        <li>Raise character speed by 1&ndash;2 WPM and let accuracy drop temporarily.</li>
+        <li>Drop effective speed to widen the gaps and rebuild accuracy first.</li>
+      </ul>
+      <p class="small">There is no consensus answer, and anyone who gives you one confidently is overselling. The value of choosing now is that you choose while you are not frustrated. <span class="chip infer">Inference</span></p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w4-c" data-strand="r">
+    <div class="block-head"><span class="block-label">Add letters</span><span class="block-est">~2.5 hrs</span></div>
+    <div class="block-body">
+      <p>Three new: <span class="setchars">G F Y</span> &nbsp;&mdash;&nbsp; working set <span class="setchars">K M R A N U D W G F Y</span></p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="G">G</button>
+        <button class="brass" data-act="play" data-text="F">F</button>
+        <button class="brass" data-act="play" data-text="Y">Y</button>
+      </div>
+      <div class="drill" data-drill="w4" data-set="KMRANUDWGFY" data-count="25"></div>
+      <p class="small" style="margin-top:14px">You now have enough letters for real words. Try this one as a word rather than as five separate letters &mdash; it is the first hint of what Week 5 is about.</p>
+      <div class="btnrow"><button class="ghost" data-act="play" data-text="FARM">Send FARM</button><button class="ghost" data-act="play" data-text="WARD GUN MAY">Send three words</button></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="5">
+  <div class="week-head"><span class="week-no">Week 5</span><span class="week-time">~3.5 hrs &middot; 3 blocks</span></div>
+  <h3>Words, not letters</h3>
+  <div class="artifact"><b>This week produces</b>Fourteen letters copied as continuous text, and at least one word you caught whole without hearing its letters.</div>
+  <div class="block" data-block="w5-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Choose the fix</span><span class="block-est">~30 min</span></div>
+    <div class="block-body">
+      <p class="small">These are deliberately mixed. Each describes a symptom; your job is to pick <em>which</em> intervention applies and say why. Executing a named technique is not the skill &mdash; choosing among them is. <span class="chip src">Sourced fact <a href="#S6">S6</a></span></p>
+      <div class="check" data-check="w5-q1">
+        <p><strong>1.</strong> You copy individual letters at 90%, but as soon as the text is real words you fall behind and lose whole chunks. Character speed, spacing, or something else?</p>
+        <div class="reveal-body"><strong>Something else</strong> &mdash; and neither speed control is the fix. You are trying to hold letters in working memory long enough to assemble words while more letters keep arriving. Bryan and Harter's answer was that word-level habits have to form on top of letter-level ones, and they form from exposure to real words, not from more letter drill. Send words. Also start writing one letter <em>behind</em> what you hear rather than trying to stay level with it.</div>
+      </div>
+      <div class="check" data-check="w5-q2">
+        <p><strong>2.</strong> You confuse two specific letters constantly, and only those two. Everything else is solid.</p>
+        <div class="reveal-body">Neither a speed nor a spacing problem &mdash; a discrimination problem, and it needs targeted contrast drill: those two letters alternating, nothing else, until the difference is obvious. Raising speed will make it worse; slowing character speed below the critical rate will destroy the shapes you have. Note that this is exactly the failure Koch predicted from putting confusable pairs close together in the sequence.</div>
+      </div>
+      <div class="check" data-check="w5-q3">
+        <p><strong>3.</strong> Everything was fine, and now you are missing the character immediately after a long one. Consistently.</p>
+        <div class="reveal-body">A spacing problem: your recovery time is too short. Drop <em>effective</em> speed &mdash; widen the gaps &mdash; and leave character speed exactly where it is. This is the case Farnsworth timing exists for, and it is the one situation in this course where "slow down" is the right advice, because it slows the silence rather than the sound.</div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w5-b" data-strand="r">
+    <div class="block-head"><span class="block-label">Add letters</span><span class="block-est">~1.5 hrs</span></div>
+    <div class="block-body">
+      <p>Three new: <span class="setchars">T E O</span> &nbsp;&mdash;&nbsp; working set <span class="setchars">K M R A N U D W G F Y T E O</span></p>
+      <p class="small">These are the short ones, held back until now on purpose. E is a single dit and T a single dah, and learned early they tend to become a default guess for anything unclear. With eleven solid letters around them they land as themselves. <span class="chip infer">Inference</span></p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="T">T</button>
+        <button class="brass" data-act="play" data-text="E">E</button>
+        <button class="brass" data-act="play" data-text="O">O</button>
+      </div>
+      <div class="drill" data-drill="w5" data-set="KMRANUDWGFYTEO" data-count="25"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w5-c" data-strand="r">
+    <div class="block-head"><span class="block-label">Copy words</span><span class="block-est">~1.5 hrs</span></div>
+    <div class="block-body">
+      <p>Real words now. Copy onto paper. Deliberately try to let a word land whole rather than assembling it &mdash; and expect that to work perhaps once, briefly, and then not again for a while.</p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="WATER GARDEN MONDAY">Three words</button>
+        <button class="brass" data-act="play" data-text="OUR MOTOR RAN OUT OF WATER ON MONDAY">One sentence</button>
+        <button class="ghost" data-act="play" data-text="FREEDOM MARKET TOWER WONDER MODERN">Five words</button>
+      </div>
+      <p style="margin-top:16px">When a word does arrive whole, that is the hierarchy Bryan and Harter described, forming in real time. It is worth noticing precisely because it feels like less effort rather than more, and effortlessness reads as "not learning" when it is the opposite. <span class="chip src">Sourced fact <a href="#S2">S2</a></span></p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="6">
+  <div class="week-head"><span class="week-no">Week 6</span><span class="week-time">~2 hrs &middot; 2 blocks</span></div>
+  <h3>Sixteen letters</h3>
+  <div class="artifact"><b>This week produces</b>Sixteen letters copied cold, and a delayed check on everything from Weeks 1 and 2.</div>
+  <p class="small"><strong>This is a natural stopping point.</strong> All three thresholds are crossed and you have a working skill. It is also the prerequisite for <a href="sending-morse.html">Sending Morse</a>, which can be started from here in parallel with Weeks 7&ndash;10.</p>
+  <div class="block" data-block="w6-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Add letters</span><span class="block-est">~1 hr</span></div>
+    <div class="block-body">
+      <p>Two new: <span class="setchars">I S</span> &nbsp;&mdash;&nbsp; final set <span class="setchars">K M R A N U D W G F Y T E O I S</span></p>
+      <p class="small">S is the one Koch warned about &mdash; three dits, easily confused with H's four. H is not in this course, which is part of why S can safely come in now. When you add H later, drill S and H against each other directly from the start. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="I">I</button>
+        <button class="brass" data-act="play" data-text="S">S</button>
+        <button class="ghost" data-act="play" data-text="I S I S S I E I S E">I / S / E contrast</button>
+      </div>
+      <div class="drill" data-drill="w6" data-set="KMRANUDWGFYTEOIS" data-count="25"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w7-c" data-strand="r">
+    <div class="block-head"><span class="block-label">Retrieve</span><span class="block-est">~20 min</span></div>
+    <div class="block-body">
+      <div class="check" data-check="w7-q1">
+        <p><strong>1.</strong> Back to Week 2, no scrolling. Why is a character sent at 5&nbsp;WPM not simply "the same character, slower"?</p>
+        <div class="reveal-body">Because below roughly 10&nbsp;WPM the acoustic shape decays &mdash; Koch's critical rate. The character stops being one perceptual object and becomes a sequence of separate beeps you count and reassemble. It is a different stimulus that you would learn separately and then have to unlearn.</div>
+      </div>
+      <div class="check" data-check="w7-q2">
+        <p><strong>2.</strong> Your sending is being copied badly. Your dah/dit ratio measures 2.6 instead of 3.0, and your inter-character gaps measure 1.9 units instead of 3.0. Which do you fix first, and why?</p>
+        <div class="reveal-body">The gaps, and it is not close. A 2.6 ratio is well within what the ear tolerates &mdash; dahs are still plainly longer than dits, which is all the ear asks. Gaps at 1.9 units are close to the 1-unit intra-character spacing, so your letters are running together and the receiver cannot tell where one ends. Fixing the ratio would change almost nothing; fixing the gaps fixes the copy.</div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="7">
+  <div class="week-head"><span class="week-no">Week 7</span><span class="week-time">~4 hrs &middot; 2 blocks</span></div>
+  <h3>The confusable families</h3>
+  <div class="artifact"><b>This week produces</b>Twenty-two letters, including every one that is commonly mistaken for a letter you already own &mdash; drilled against its partner rather than alone.</div>
+  <div class="liminal"><b>Where you are expected to struggle</b>These will feel like they break letters you had solid. That is the point of introducing them in pairs: the confusion is the thing being trained away, and it cannot be trained away in isolation.</div>
+  <div class="block" data-block="w7-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Contrast drill</span><span class="block-est">~2 hrs</span></div>
+    <div class="block-body">
+      <p>Three new: <span class="setchars">H V B</span> &nbsp;&mdash;&nbsp; working set <span class="setchars">K M R A N U D W G F Y T E O I S H V B</span></p>
+      <p>Each is introduced against the letter it will be confused with. Koch warned specifically that sound-alike pairs cause trouble; his answer was to keep them apart in the sequence. Mine is to keep them apart until now and then deliberately jam them together, because the discrimination has to be built at some point and doing it under supervision beats discovering it later. <span class="chip src">Sourced fact <a href="#S1">S1</a></span> <span class="chip infer">Inference</span></p>
+      <table>
+        <tr><th>New</th><th>Confused with</th><th>Drill</th></tr>
+        <tr><td>H</td><td>S &mdash; one extra dit</td><td><button class="ghost" data-act="play" data-text="H S H S S H H S S H">H / S</button></td></tr>
+        <tr><td>V</td><td>U &mdash; one extra dit before the dah</td><td><button class="ghost" data-act="play" data-text="V U V U U V V U U V">V / U</button></td></tr>
+        <tr><td>B</td><td>D &mdash; one extra dit at the end</td><td><button class="ghost" data-act="play" data-text="B D B D D B B D D B">B / D</button></td></tr>
+      </table>
+      <p class="small">All three are the same mistake in different clothes: a trailing dit you did or did not hear. If you are missing them, the fix is not more speed and not wider gaps &mdash; it is counting nothing and instead learning the two <em>shapes</em> as different words. <span class="chip infer">Inference</span></p>
+      <div class="drill" data-drill="w7" data-set="KMRANUDWGFYTEOISHVB" data-count="25"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w8-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Contrast drill</span><span class="block-est">~2 hrs</span></div>
+    <div class="block-body">
+      <p>Three new: <span class="setchars">C L P</span> &nbsp;&mdash;&nbsp; working set now 22 letters.</p>
+      <table>
+        <tr><th>New</th><th>Confused with</th><th>Drill</th></tr>
+        <tr><td>C</td><td>K &mdash; a trailing dit</td><td><button class="ghost" data-act="play" data-text="C K C K K C C K K C">C / K</button></td></tr>
+        <tr><td>L</td><td>F, and R &mdash; same length, different middle</td><td><button class="ghost" data-act="play" data-text="L F L R F L R F L R">L / F / R</button></td></tr>
+        <tr><td>P</td><td>W, and F &mdash; the dahs sit in different places</td><td><button class="ghost" data-act="play" data-text="P W P F W P F W P F">P / W / F</button></td></tr>
+      </table>
+      <div class="drill" data-drill="w8" data-set="KMRANUDWGFYTEOISHVBCLP" data-count="25"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="8">
+  <div class="week-head"><span class="week-no">Week 8</span><span class="week-time">~4 hrs &middot; 2 blocks</span></div>
+  <h3>Closing the alphabet</h3>
+  <div class="artifact"><b>This week produces</b>All 26 letters copied as continuous English text, with no character excluded.</div>
+  <div class="block" data-block="w9-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Contrast drill</span><span class="block-est">~2 hrs</span></div>
+    <div class="block-body">
+      <p>Three new: <span class="setchars">J Q X</span> &nbsp;&mdash;&nbsp; twenty-five letters.</p>
+      <p class="small">These are the four-element characters with heavy dahs. They are long enough that impatience is the main enemy: the shape is not finished when you think it is. <span class="chip infer">Inference</span></p>
+      <table>
+        <tr><th>New</th><th>Confused with</th><th>Drill</th></tr>
+        <tr><td>J</td><td>W &mdash; one more dah</td><td><button class="ghost" data-act="play" data-text="J W J W W J J W W J">J / W</button></td></tr>
+        <tr><td>Q</td><td>G, Z &mdash; the family that starts with two dahs</td><td><button class="ghost" data-act="play" data-text="Q G Q G G Q Q G Q G">Q / G</button></td></tr>
+        <tr><td>X</td><td>B, D &mdash; dah at both ends</td><td><button class="ghost" data-act="play" data-text="X B X D B X D X B X">X / B / D</button></td></tr>
+      </table>
+      <div class="drill" data-drill="w9" data-set="KMRANUDWGFYTEOISHVBCLPJQX" data-count="25"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w10-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Close the alphabet</span><span class="block-est">~2 hrs</span></div>
+    <div class="block-body">
+      <p>One new: <span class="setchars">Z</span> &nbsp;&mdash;&nbsp; and the set is closed. <span class="setchars">A&ndash;Z</span></p>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="Z">Z</button>
+        <button class="ghost" data-act="play" data-text="Z G Q Z G Q Z Q G Z">Z / G / Q</button>
+      </div>
+      <p style="margin-top:16px">Now full English. This is the first time the drill has not been drawn from a restricted set, which means it is also the first time letter frequency works <em>for</em> you: E, T, A, O, I and N carry most of the text, and you have owned those for weeks.</p>
+      <div class="drill" data-drill="w10" data-set="ABCDEFGHIJKLMNOPQRSTUVWXYZ" data-count="30" data-words="2"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="9">
+  <div class="week-head"><span class="week-no">Week 9</span><span class="week-time">~1.5 hrs &middot; 2 blocks</span></div>
+  <h3>By light</h3>
+  <div class="artifact"><b>This week produces</b>A message read off a flashing lamp. Same code, different channel, and a safety limit that turns out to collide with Week 2.</div>
+  <div class="liminal"><b>Read this before switching the light on</b>Morse by light is flashing content, and at the speeds you have been using it flashes fast enough to matter. The first block explains exactly how fast and what this course does about it. If you have any photosensitivity, read that block and then decide &mdash; every visual exercise has an audio equivalent, and skipping the week costs you nothing.</div>
+  <div class="block" data-block="w11-a" data-strand="r">
+    <div class="block-head"><span class="block-label">The rate problem</span><span class="block-est">~30 min</span></div>
+    <div class="block-body">
+      <p>The code is channel-independent. The timing structure is the message, and it survives translation to anything that can be switched on and off &mdash; a tone, a lamp, a torch, a shutter. That is genuinely the same skill.</p>
+      <p><strong>But the constraints are not the same,</strong> and one of them is a safety limit rather than a preference.</p>
+      <p>WCAG 2.3.1 sets the general flash threshold at <strong>three flashes per second</strong>; above that, flashing content can trigger seizures in people with photosensitive seizure disorders, which affect roughly one person in four thousand. <span class="chip src">Sourced fact <a href="#S8">S8</a></span> A run of dits is a square wave, so the worst-case flash rate is one flash per two dit-lengths:</p>
+      <table>
+        <tr><th>Character speed</th><th>Dit</th><th>Worst-case flashes/sec</th><th></th></tr>
+        <tr><td>6 WPM</td><td>200 ms</td><td>2.50</td><td>within the limit</td></tr>
+        <tr><td>8 WPM</td><td>150 ms</td><td>3.33</td><td>over</td></tr>
+        <tr><td>12 WPM</td><td>100 ms</td><td>5.00</td><td>over</td></tr>
+        <tr><td>20 WPM</td><td>60 ms</td><td>8.33</td><td>over</td></tr>
+      </table>
+      <p>So visual practice is capped at <strong>6 WPM character speed</strong> in this course, and the lamp reports its own flash rate so you can check the arithmetic rather than trust me. <span class="chip infer">Inference</span></p>
+      <div class="panel panel-tight callout-alert">
+        <p style="margin-bottom:8px"><strong>Which collides with the whole first half of this course.</strong></p>
+        <p class="small" style="margin-bottom:0">Koch's critical rate is 10&nbsp;WPM: below it, the acoustic shape decays. The safe visual rate is 6&nbsp;WPM. <strong>Both constraints cannot be satisfied at once.</strong> I am not going to paper over that. My reading is that Koch's finding is about <em>auditory</em> pattern perception specifically, and the eye integrates a flashing light differently from how the ear integrates a tone &mdash; which is consistent with signal-lamp work historically running far slower than radio telegraphy. But I have no source that tests the visual case directly, so treat this as my reasoning and not an established result. <span class="chip infer">Inference</span> <span class="chip contested">Contested</span></p>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w11-b" data-strand="r">
+    <div class="block-head"><span class="block-label">Read the lamp</span><span class="block-est">~1 hr</span></div>
+    <div class="block-body">
+      <p>Copy from light instead of sound. The lamp below is deliberately small &mdash; a small flashing area sits under the threshold's size exemption, which a full screen does not. <span class="chip src">Sourced fact <a href="#S8">S8</a></span></p>
+      <div class="lamp-wrap">
+        <div class="lamp" id="lamp-demo" role="img" aria-label="Morse lamp"></div>
+        <div class="lamp-meta"><span id="lamp-rate">&mdash;</span></div>
+      </div>
+      <div class="btnrow">
+        <button class="brass" data-act="play" data-text="SEND MORE LIGHT" data-char="6" data-eff="4" data-lamp="1">Flash a message</button>
+        <button class="ghost" data-act="play" data-text="SEND MORE LIGHT" data-char="6" data-eff="4">Same message, sound only</button>
+      </div>
+      <p class="small" style="margin-top:14px">Expect this to be much harder than the ear at first, and expect it to come back faster than it did the first time. You are not learning the code again; you are attaching a channel to something you already know.</p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="10">
+  <div class="week-head"><span class="week-no">Week 10</span><span class="week-time">~1.5 hrs &middot; 1 blocks</span></div>
+  <h3>On your own</h3>
+  <div class="artifact"><b>This week produces</b>A cold assessment score, and a written regimen you can run for six months without opening this page again. That second one is the actual deliverable.</div>
+  <div class="block" data-block="w12-a" data-strand="r">
+    <div class="block-head"><span class="block-label">Assess &mdash; copying</span><span class="block-est">~45 min</span></div>
+    <div class="block-body">
+      <p>No worked example, no completion, no partial answer. Paper, pencil, one pass, no replay. Full alphabet.</p>
+      <p class="small">Notice this looks nothing like Week&nbsp;1, which handed you the answer before you started. That was scheduled: support that helps a beginner actively obstructs an improver, so it was designed to withdraw. <span class="chip src">Sourced fact <a href="#S7">S7</a></span></p>
+      <div class="drill" data-drill="w12final" data-set="ABCDEFGHIJKLMNOPQRSTUVWXYZ" data-count="30" data-words="2"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="a10-b">
+    <div class="block-head"><span class="block-label">Write the regimen</span><span class="block-est">~45 min</span></div>
+    <div class="block-body">
+      <p>One page, your own words, your own numbers:</p>
+      <ul class="tight">
+        <li>When are your two half-hour sessions, on which days?</li>
+        <li>What are your two speed numbers today, and what has to be true before either changes?</li>
+        <li>How will you tell recognition from decoding on a character that has gone stale?</li>
+        <li>What is your rule for a flat stretch &mdash; the one you decided in Week&nbsp;4?</li>
+        <li>What is still missing: numerals, punctuation, prosigns, Q-codes. In what order, and why that order?</li>
+      </ul>
+      <p>If you can write that page without consulting this one, the course is finished. Everything left is more of the same, and you know how to add it.</p>
+      <div class="check" data-check="a10-q1">
+        <p><strong>Last one.</strong> An app advertises "the Koch method &mdash; scientifically proven, start at 20&nbsp;WPM, learn the code in two weeks." Three things should bother you. What are they?</p>
+        <div class="reveal-body"><strong>The speed:</strong> Koch's dissertation gives ~10&nbsp;WPM as the critical rate and 12 as optimal for initial learning, with 20 as a destination. <strong>"Scientifically proven":</strong> the evidence is one 1935 dissertation with small subject numbers and no modern control design. It is the best available and it is thin. <strong>"Two weeks":</strong> Koch's reported result was a class reaching about 12&nbsp;WPM in roughly fourteen hours &mdash; instructor-led, twice daily, reported by the method's own author. <span class="chip single">Single study</span> And the fourth thing: it was written by someone selling a subscription. <span class="chip vendor">Vendor framing</span></div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+<!-- ================= CHART GATE ================= -->
+<section class="week">
+  <div class="week-head"><span class="week-no">Appendix</span></div>
+  <h3>The chart</h3>
+  <div class="gate">
+    <p>There is no dot-dash chart in this course. That is the one design decision everything else rests on, and it is Koch's recommendation rather than mine: he argued charts should never be used, because reading one trains you to count elements and reassemble them, which is the habit that caps your speed. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+    <p>Locking it away entirely would be dishonest, though &mdash; you can find it in four seconds and a course that pretends otherwise is just posturing. So here is the honest version of the trade: looking at the chart will feel like it helps and will cost you weeks of unlearning later. If you are stuck on one letter, the cheaper fix is almost always contrast drill against a letter you already own. <span class="chip infer">Inference</span></p>
+    <button class="ghost" id="chart-btn">Show it anyway</button>
+    <div id="chart-body" hidden style="margin-top:14px">
+      <p class="small" style="margin-bottom:8px">Recorded, not recommended. Close it when you are done.</p>
+      <p style="font-family:var(--mono);font-size:14px;line-height:2;letter-spacing:.04em" id="chart-text"></p>
+    </div>
+  </div>
+</section>
+
+<section class="week" id="sources">
+  <div class="week-head"><span class="week-no">Sources</span></div>
+  <h3>What this rests on</h3>
+  <p class="small">Every load-bearing claim is keyed to one of these. Each was opened and read rather than cited from a summary &mdash; with one exception, flagged below, where the primary source is in German and I worked from a translation.</p>
+<ol class="srclist"><li data-id="S1"><strong>Koch, L. (1936).</strong> <em>Arbeitspsychologische Untersuchung der T&auml;tigkeit bei Aufnahme von Morsezeichen</em> &mdash; dissertation submitted 1935, Braunschweig Technical University; published in <em>Zeitschrift f&uuml;r angewandte Psychologie und Charakterkunde</em>, vol. 50 (1&ndash;2), pp. 1&ndash;70.
+      <span class="tier">Tier 1 &mdash; primary. Scan, transcription and full English translation are on the Internet Archive. <strong>Caveat:</strong> the original is German and I worked from the translation plus a clause-by-clause English summary, not the German text. Source of the Gestalt argument, the ~10 WPM critical rate, 12 WPM as optimal, the no-charts recommendation, the 90% advancement rule, the K/M starting pair, the two-sessions-a-day finding, and the confusable-pair warnings. Note also that the author is Dr.-Ing. Ludwig Koch, an engineer born 1901 in Kassel &mdash; commonly described as a psychologist, and frequently confused with the well-known wildlife sound recordist of the same name, who was a different person.</span></li><li data-id="S2"><strong>Bryan, W. L. &amp; Harter, N. (1897, 1899).</strong> "Studies in the physiology and psychology of the telegraphic language," <em>Psychological Review</em> 4(1), 27&ndash;53; and "Studies on the telegraphic language: the acquisition of a hierarchy of habits," <em>Psychological Review</em> 6(4), 345&ndash;375.
+      <span class="tier">Tier 1 &mdash; primary, read in facsimile. Source of the plateau observation and the hierarchy-of-habits account.</span></li><li data-id="S3"><strong>Keller, F. S. (1958).</strong> "The Phantom Plateau," <em>Journal of the Experimental Analysis of Behavior</em> 1(1), 1&ndash;13.
+      <span class="tier">Tier 1 &mdash; primary, open access. The refutation. Included because searching for the counter-argument is the step that gets skipped.</span></li><li data-id="S4"><strong>ARRL / Bloom, J. (KE3Z).</strong> "A Standard for Morse Timing Using the Farnsworth Technique," <em>QEX</em>; with ITU-R Recommendation M.1677 for the element ratios.
+      <span class="tier">Tier 2 &mdash; canonical standard. Source of the PARIS 50-unit definition, the 1200/WPM dit, and the Farnsworth split. The arithmetic in Week 2 was verified by working the 31/19 decomposition out independently rather than taking it on authority.</span></li><li data-id="S5"><strong>Gray, W. D. (2017).</strong> "Plateaus and Asymptotes," <em>Current Directions in Psychological Science</em> 26(1).
+      <span class="tier">Tier 3 &mdash; review. Used only to establish that the plateau question is still genuinely open, which is a claim a review can properly support.</span></li><li data-id="S6"><strong>Hattie, J. &amp; Donoghue, G. (2021); Dunlosky, J. et al. (2013).</strong> Meta-analyses of learning techniques.
+      <span class="tier">Tier 3 &mdash; meta-analysis, appropriate here. Distributed practice and retrieval practice as the two techniques that survive aggregation; spacing effects appearing on delayed rather than immediate tests; interleaving forcing method selection.</span></li><li data-id="S7"><strong>Renkl, A.; Kalyuga, S. &amp; Sweller, J.</strong> Worked-example fading, the expertise reversal effect, and prompted self-explanation.
+      <span class="tier">Tier 2/3 &mdash; established programme of work. Basis for the worked &rarr; completion &rarr; independent sequence across Weeks 1, 3 and 6, and for the writing prompts.</span></li><li data-id="S8"><strong>W3C.</strong> WCAG 2.1/2.2 Success Criterion 2.3.1, <em>Three Flashes or Below Threshold</em>, and the associated general flash threshold definition.
+      <span class="tier">Tier 2 &mdash; published standard, read directly. Source of the three-flashes-per-second limit and the small-area exemption (no more than 25% of any 10-degree visual field). The per-speed flash rates in Week&nbsp;11 were calculated from the dit lengths, not taken from a source.</span></li><li data-id="S9"><strong>Pashler, H., McDaniel, M., Rohrer, D. &amp; Bjork, R. (2008).</strong> "Learning Styles: Concepts and Evidence," <em>Psychological Science in the Public Interest</em> 9(3), 105&ndash;119.
+      <span class="tier">Tier 3 &mdash; commissioned review, plus later direct tests using its prescribed design. Basis for the claim that modality preferences exist but that matching instruction to them is not shown to improve learning. Note the limit of its reach: the review concerns presenting the same content in different formats, which is not the same situation as a skill whose target is defined in a modality.</span></li></ol>  <p class="small" style="margin-top:20px"><strong>What I could not verify.</strong> Koch's reported "class to 12&nbsp;WPM in fourteen hours" is widely repeated but I have seen no subject counts, control condition, or independent replication &mdash; and a 1943 review found his two-tone variant produced a difference that probably was not significant. Treat the headline result as a favourable single case. <span class="chip single">Single study</span></p>
+  <p class="small" style="margin-top:14px"><strong>The weakest link.</strong> Week&nbsp;9 assumes that learning by ear transfers to reading light. The timing structure is identical, but I found no study testing the transfer, and the safe visual flash rate sits below Koch's critical rate &mdash; a genuine unresolved tension. If one claim here is wrong, it is that one. <span class="chip infer">Inference</span> <span class="chip contested">Contested</span></p>
+</section>
+<footer class="foot">
+  <p>Part one of two. <a href="sending-morse.html">Sending Morse</a> covers the key, spacing, and signalling by torch, and assumes Week&nbsp;6 here. Progress is stored locally in this browser.</p>
+  <div class="btnrow"><button class="ghost" id="reset-btn">Reset all progress</button></div>
+</footer>
+</div>
+<script type="text/course-deferred">
+
+/* ---------- state ---------- */
+var CS = (function(){
+  var KEY='morse-copying';
+  function fresh(){return{v:1,blocks:{},checks:{},drills:[],settings:{char:12,eff:5,tone:600,vol:50,theme:null,channel:'sound'}};}
+  function migrate(s){
+    if(!s||typeof s!=='object') return fresh();
+    if(!s.v) s.v=1;
+    var f=fresh();
+    s.blocks=s.blocks||{}; s.checks=s.checks||{}; s.drills=s.drills||[];
+    s.settings=Object.assign({},f.settings,s.settings||{});
+    return s;
+  }
+  var st;
+  try{ st=migrate(JSON.parse(localStorage.getItem(KEY))); }catch(e){ st=fresh(); }
+  var t=null;
+  function save(){ if(t)clearTimeout(t); t=setTimeout(function(){
+    try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){}
+  },160); }
+  return {get:function(){return st;}, save:save, reset:function(){st=fresh();try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}}};
+})();
+</script>
+<script type="text/course-deferred">
+
+/* ---------- morse + audio ---------- */
+var MORSE={A:".-",B:"-...",C:"-.-.",D:"-..",E:".",F:"..-.",G:"--.",H:"....",I:"..",J:".---",
+K:"-.-",L:".-..",M:"--",N:"-.",O:"---",P:".--.",Q:"--.-",R:".-.",S:"...",T:"-",U:"..-",
+V:"...-",W:".--",X:"-..-",Y:"-.--",Z:"--..","0":"-----","1":".----","2":"..---","3":"...--",
+"4":"....-","5":".....","6":"-....","7":"--...","8":"---..","9":"----."};
+
+var AC=null, cur=null;
+function ctx(){ if(!AC){ AC = new (window.AudioContext||window.webkitAudioContext)(); } 
+  if(AC.state==='suspended') AC.resume(); return AC; }
+
+function timing(charWpm, effWpm){
+  var dit = 1.2/charWpm;
+  var fdit = dit;
+  if(effWpm && effWpm < charWpm){
+    var c = ((60/effWpm) - 31*dit)/19;
+    if(c > dit) fdit = c;
+  }
+  return {dit:dit, fdit:fdit};
+}
+
+function beep(c, out, freq, start, dur){
+  var o=c.createOscillator(), g=c.createGain(), r=0.004;
+  o.type='sine'; o.frequency.value=freq;
+  g.gain.setValueAtTime(0.0001,start);
+  g.gain.exponentialRampToValueAtTime(1,start+r);
+  g.gain.setValueAtTime(1,start+Math.max(dur-r,r));
+  g.gain.exponentialRampToValueAtTime(0.0001,start+dur);
+  o.connect(g); g.connect(out); o.start(start); o.stop(start+dur+0.02);
+  return o;
+}
+
+function stopAll(){
+  if(cur){ try{ cur.gain.gain.cancelScheduledValues(0); cur.gain.disconnect(); }catch(e){}
+    (cur.nodes||[]).forEach(function(n){try{n.stop();}catch(e){}}); cur=null; }
+}
+
+function segments(text, charWpm, effWpm){
+  var t=timing(charWpm,effWpm), tm=0, segs=[], up=String(text).toUpperCase();
+  for(var i=0;i<up.length;i++){
+    var ch=up[i];
+    if(ch===' '){ tm += 4*t.fdit; continue; }
+    var pat=MORSE[ch]; if(!pat) continue;
+    for(var j=0;j<pat.length;j++){
+      var dur = pat[j]==='.' ? t.dit : 3*t.dit;
+      segs.push([tm,tm+dur]); tm += dur;
+      if(j<pat.length-1) tm += t.dit;
+    }
+    tm += 3*t.fdit;
+  }
+  return {segs:segs,total:tm,dit:t.dit};
+}
+function flashRateAt(wpm){ return 1000/(2*(1200/wpm)); }
+var LIGHT_MAX_WPM=6;
+
+function runLight(sp){
+  var el=document.getElementById('lamp-float'); if(!el) return;
+  el.hidden=false;
+  var t0=performance.now();
+  (function step(){
+    var now=(performance.now()-t0)/1000, on=false;
+    for(var i=0;i<sp.segs.length;i++){ if(now>=sp.segs[i][0]&&now<sp.segs[i][1]){on=true;break;} }
+    el.classList.toggle('on',on);
+    if(now < sp.total+0.25) requestAnimationFrame(step); else el.classList.remove('on');
+  })();
+}
+function runHaptic(sp){
+  if(!navigator.vibrate) return false;
+  var pat=[], prev=0;
+  sp.segs.forEach(function(s){ pat.push(Math.round((s[0]-prev)*1000)); pat.push(Math.round((s[1]-s[0])*1000)); prev=s[1]; });
+  pat.unshift(0);
+  try{ navigator.vibrate(pat); return true; }catch(e){ return false; }
+}
+
+function play(text, opts){
+  opts=opts||{};
+  var s=CS.get().settings;
+  var chan = opts.channel || s.channel || 'sound';
+  var charWpm = opts.char || s.char, effWpm = opts.eff || s.eff;
+  if(effWpm > charWpm) effWpm = charWpm;
+  var wantsLight = chan==='light' || chan==='both';
+  if(wantsLight && charWpm > LIGHT_MAX_WPM){ charWpm = LIGHT_MAX_WPM; effWpm = Math.min(effWpm,charWpm); }
+
+  var sp = segments(text, charWpm, effWpm);
+
+  if(chan==='sound' || chan==='both'){
+    var c=ctx(); stopAll();
+    var master=c.createGain(); master.gain.value=(s.vol/100)*0.28; master.connect(c.destination);
+    var base=c.currentTime+0.12, nodes=[];
+    sp.segs.forEach(function(g){ nodes.push(beep(c,master,s.tone,base+g[0],g[1]-g[0])); });
+    cur={gain:master,nodes:nodes};
+  }
+  if(wantsLight) runLight(sp);
+  if(chan==='haptic') runHaptic(sp);
+  return sp.total*1000;
+}
+</script>
+<script type="text/course-deferred">
+window.__METER={word:'LISTEN',letters:[["L", ".-.."], ["I", ".."], ["S", "..."], ["T", "-"], ["E", "."], ["N", "-."]],svg:'#meter-svg',pct:'#meter-pct',done:"LISTEN, complete. Ten weeks of timing you can now hear rather than read."};
+
+(function(){
+var S=CS.get();
+var $=function(s,r){return (r||document).querySelector(s);};
+
+/* ---------- theme ----------
+   CSS handles the system preference on its own, so an untouched page is
+   already correct before any script runs. This only records an override. */
+(function(){
+  var btn=document.getElementById('theme-btn'); if(!btn)return;
+  var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme:dark)'):null;
+  function isDark(){ return S.settings.theme ? S.settings.theme==='dark' : !!(mq&&mq.matches); }
+  function paint(){
+    var d=isDark();
+    if(S.settings.theme) document.documentElement.setAttribute('data-theme',S.settings.theme);
+    else document.documentElement.removeAttribute('data-theme');
+    btn.textContent = d ? 'Day' : 'Night';
+    btn.setAttribute('aria-pressed', d ? 'true' : 'false');
+    btn.setAttribute('aria-label', d ? 'Switch to the day theme' : 'Switch to the night theme');
+  }
+  btn.addEventListener('click',function(){
+    S.settings.theme = isDark() ? 'light' : 'dark';
+    CS.save(); paint();
+  });
+  if(mq&&mq.addEventListener) mq.addEventListener('change',function(){ if(!S.settings.theme) paint(); });
+  paint();
+})();
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+
+/* ---------- settings ---------- */
+function bind(id,vid,key,suffix){
+  var el=$(id), out=$(vid); if(!el)return;
+  el.value=S.settings[key]; out.textContent=S.settings[key];
+  el.addEventListener('input',function(){
+    var v=parseInt(el.value,10);
+    if(key==='eff' && v>S.settings.char){ v=S.settings.char; el.value=v; }
+    if(key==='char' && S.settings.eff>v){ S.settings.eff=v; var e=$('#s-eff'); if(e){e.value=v;$('#v-eff').textContent=v;} }
+    S.settings[key]=v; out.textContent=v; CS.save();
+  });
+}
+bind('#s-char','#v-char','char');
+bind('#s-eff','#v-eff','eff');
+bind('#s-tone','#v-tone','tone');
+bind('#s-vol','#v-vol','vol');
+var tt=$('#test-tone'); if(tt) tt.addEventListener('click',function(){ play('E T',{}); });
+
+/* ---------- channel ---------- */
+(function(){
+  var row=$('#chanrow'), note=$('#chan-note'); if(!row)return;
+  var canBuzz = typeof navigator!=='undefined' && !!navigator.vibrate;
+  var NOTES={
+    sound:'Sound only. Character speed 12 WPM \u2014 above the critical rate, which is where the pattern holds together.',
+    haptic: canBuzz
+      ? 'Vibration only, and completely silent. Runs at the full 12 WPM because the flash-rate limit applies to light, not to touch. Haptic motors have a slight ramp-up, so the dit/dah contrast is less crisp than a tone \u2014 expect it to be usable rather than precise.'
+      : 'Your browser does not expose the Vibration API \u2014 it is unsupported on iOS Safari, so this option is unavailable here. On iOS the silent options are light, and sending with the sound off.',
+    light:'Light only, via the lamp in the top corner. Capped at 6 WPM so the flash rate stays under the three-per-second threshold \u2014 which also puts it below Koch\u2019s critical rate. Silent, and the tradeoff is real.',
+    both:'Sound and light together, capped at 6 WPM by the light. Useful for attaching the visual channel to characters you already know by ear.'
+  };
+  function paint(){
+    var cur=S.settings.channel||'sound';
+    $$('button',row).forEach(function(b){
+      b.classList.toggle('sel', b.dataset.chan===cur);
+      if(b.dataset.chan==='haptic' && !canBuzz){ b.disabled=true; b.title='Not supported in this browser'; }
+    });
+    if(note) note.textContent=NOTES[cur]||'';
+    var lf=$('#lamp-float'); if(lf && cur!=='light' && cur!=='both'){ lf.hidden=true; lf.classList.remove('on'); }
+  }
+  $$('button',row).forEach(function(b){
+    b.addEventListener('click',function(){
+      if(b.disabled) return;
+      S.settings.channel=b.dataset.chan; CS.save(); paint();
+      play('E T',{});
+    });
+  });
+  paint();
+})();
+
+/* ---------- play buttons ---------- */
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act="play"]'); if(!b)return;
+  var txt=b.dataset.text;
+  if(b.dataset.random){ var p=b.dataset.random; txt=p[Math.floor(Math.random()*p.length)]; }
+  var o={};
+  if(b.dataset.char) o.char=parseInt(b.dataset.char,10);
+  if(b.dataset.eff) o.eff=parseInt(b.dataset.eff,10);
+  if(b.dataset.lamp==='1') o.channel='light';
+  var ms=play(txt,o);
+  b.classList.add('playing'); setTimeout(function(){b.classList.remove('playing');}, Math.min(ms,600));
+});
+
+/* ---------- blocks ---------- */
+function paintBlock(el){
+  var id=el.dataset.block, done=!!(S.blocks[id]&&S.blocks[id].done);
+  el.classList.toggle('done',done);
+  var btn=$('[data-act="done"]',el);
+  if(btn) btn.textContent = done ? 'Done \u2713 \u2014 undo' : 'Mark block done';
+}
+$$('.block').forEach(function(el){
+  paintBlock(el);
+  var btn=$('[data-act="done"]',el); if(!btn)return;
+  btn.addEventListener('click',function(){
+    var id=el.dataset.block, done=!!(S.blocks[id]&&S.blocks[id].done);
+    S.blocks[id]= done ? {done:false} : {done:true,ts:Date.now()};
+    CS.save(); paintBlock(el); paintMeter();
+  });
+});
+
+/* ---------- meter ---------- */
+var M=window.__METER;
+(function buildMeter(){
+  var svg=$(M.svg); if(!svg)return;
+  var ns='http://www.w3.org/2000/svg', x=0; M.rects=[];
+  M.letters.forEach(function(L,li){
+    var pat=L[1];
+    for(var j=0;j<pat.length;j++){
+      var w=pat[j]==='.'?1:3;
+      var r=document.createElementNS(ns,'rect');
+      r.setAttribute('x',x); r.setAttribute('y',1); r.setAttribute('width',w);
+      r.setAttribute('height',4); r.setAttribute('rx',.25); r.setAttribute('class','el-off');
+      svg.appendChild(r); M.rects.push(r);
+      x+=w; x+=(j<pat.length-1)?1:(li<M.letters.length-1?3:0);
+    }
+  });
+  svg.addEventListener('click',function(){ play(M.word,{}); });
+})();
+function paintMeter(){
+  if(!M.rects) return;
+  var bs=$$('.block'), done=bs.filter(function(b){var s=S.blocks[b.dataset.block];return s&&s.done;});
+  var frac=bs.length?done.length/bs.length:0, lit=Math.round(frac*M.rects.length);
+  M.rects.forEach(function(r,i){ r.setAttribute('class', i<lit?(frac>=1?'el-on':'el-live'):'el-off'); });
+  var p=$(M.pct); if(p) p.textContent=Math.round(frac*100)+'%  ('+done.length+'/'+bs.length+' blocks)';
+  var cap=$('#meter-cap');
+  if(cap && frac>=1) cap.textContent=M.done;
+}
+
+/* ---------- confidence helper ---------- */
+function confRow(label,opts,onPick){
+  var d=document.createElement('div'); d.className='conf';
+  d.innerHTML='<div class="conf-q">'+label+'</div><div class="conf-btns"></div>';
+  var row=$('.conf-btns',d);
+  opts.forEach(function(o){
+    var b=document.createElement('button'); b.type='button'; b.textContent=o.t;
+    b.addEventListener('click',function(){
+      $$('button',row).forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel'); onPick(o.v);
+    });
+    row.appendChild(b);
+  });
+  return d;
+}
+function gapNote(pred,act){
+  var g=Math.round(act-pred), d=document.createElement('div');
+  if(Math.abs(g)<=10){ d.className='gap-note gap-good'; d.textContent='Well calibrated \u2014 you predicted '+pred+'%, scored '+Math.round(act)+'%.'; }
+  else if(g<0){ d.className='gap-note gap-over'; d.textContent='Overconfident by '+Math.abs(g)+' points \u2014 predicted '+pred+'%, scored '+Math.round(act)+'%. This is the usual direction, and it is why you check.'; }
+  else { d.className='gap-note gap-under'; d.textContent='Underconfident by '+g+' points \u2014 predicted '+pred+'%, scored '+Math.round(act)+'%. You know more than it feels like.'; }
+  return d;
+}
+var CONF_ACC=[{t:'under 50%',v:40},{t:'50\u201370%',v:60},{t:'70\u201385%',v:78},{t:'85\u2013100%',v:92}];
+var CONF_YN=[{t:'Guessing',v:25},{t:'Unsure',v:50},{t:'Fairly sure',v:75},{t:'Certain',v:95}];
+
+/* ---------- drills ---------- */
+var WORDS=['MOUNTAIN','WISDOM','KINGDOM','SUNDAY','MORNING','DIAMOND','STONE','WINTER','SUMMER',
+'RADIO','NOISE','FADING','STATION','GARDEN','WATER','FRIDAY','MARKET','MONDAY','TOWER','FOREST',
+'DINNER','ANSWER','MASTER','GRANITE','ROUTINE','TUESDAY'];
+
+function makeGroups(set,n){
+  var out=[],g='';
+  for(var i=0;i<n;i++){ g+=set[Math.floor(Math.random()*set.length)]; if(g.length===5){out.push(g);g='';} }
+  if(g) out.push(g);
+  return out.join(' ');
+}
+function makeWords(n){
+  var out=[],c=0;
+  while(c<n){ var w=WORDS[Math.floor(Math.random()*WORDS.length)]; if(out.indexOf(w)>-1)continue; out.push(w); c+=w.length; }
+  return out.join(' ');
+}
+
+$$('.drill').forEach(function(d){
+  var set=d.dataset.set, n=parseInt(d.dataset.count,10)||10, useWords=d.dataset.words==='1';
+  var target=null, pred=null;
+  d.innerHTML=
+    '<div class="btnrow"><button class="brass" data-r="send">Send '+n+' characters</button>'+
+    '<button class="ghost" data-r="again" disabled>Send a new one</button></div>'+
+    '<div data-r="entry" hidden><label>Type what you wrote on paper</label>'+
+    '<input type="text" data-r="ans" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>'+
+    '<div data-r="confslot"></div>'+
+    '<div class="btnrow"><button data-r="check" disabled>Commit and score</button></div>'+
+    '<div data-r="result"></div>';
+  var send=$('[data-r=send]',d), again=$('[data-r=again]',d), entry=$('[data-r=entry]',d),
+      ans=$('[data-r=ans]',d), slot=$('[data-r=confslot]',d), chk=$('[data-r=check]',d), res=$('[data-r=result]',d);
+
+  function refresh(){ chk.disabled = !(pred!==null && ans.value.replace(/\s/g,'').length>0); }
+  ans.addEventListener('input',refresh);
+
+  function newSend(){
+    target = useWords ? makeWords(n) : makeGroups(set,n);
+    pred=null; ans.value=''; res.innerHTML=''; slot.innerHTML='';
+    slot.appendChild(confRow('Before you look \u2014 what percentage do you think you got?',CONF_ACC,function(v){pred=v;refresh();}));
+    entry.hidden=false; again.disabled=false; chk.disabled=true;
+    play(target,{});
+    send.textContent='Replay this one';
+  }
+  send.addEventListener('click',function(){ if(!target) newSend(); else play(target,{}); });
+  again.addEventListener('click',newSend);
+
+  chk.addEventListener('click',function(){
+    var t=target.replace(/\s/g,''), a=ans.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+    var hits=0, html='';
+    for(var i=0;i<t.length;i++){
+      var got=a[i]||'\u00b7', ok=got===t[i];
+      if(ok)hits++;
+      html+='<span class="'+(ok?'hit':'miss')+'">'+(ok?t[i]:t[i])+'</span>';
+      if((i+1)%5===0) html+=' ';
+    }
+    var pct=(hits/t.length)*100;
+    res.innerHTML='<div class="reveal"><p class="small" style="margin-bottom:6px">Sent:</p>'+
+      '<div class="drill-out">'+html+'</div>'+
+      '<p class="small" style="margin-bottom:6px">You wrote:</p>'+
+      '<div class="drill-out">'+(a.replace(/(.{5})/g,'$1 ')||'\u2014')+'</div>'+
+      '<div class="score">'+hits+' of '+t.length+' correct \u2014 <strong>'+Math.round(pct)+'%</strong>'+
+      (pct>=90?' \u2014 at or above the 90% advancement rule.':' \u2014 below 90%; stay on this set.')+'</div></div>';
+    $('.reveal',res).appendChild(gapNote(pred,pct));
+    S.drills.push({id:d.dataset.drill,pred:pred,actual:Math.round(pct),n:t.length,ts:Date.now()});
+    CS.save();
+    chk.disabled=true;
+  });
+});
+
+/* ---------- checks ---------- */
+$$('.check').forEach(function(c){
+  var body=$('.reveal-body',c); if(!body)return;
+  var id=c.dataset.check, hasDrill=!!$('.drill',c), pred=null;
+  body.hidden=true; body.classList.add('reveal');
+  var row=document.createElement('div'); row.className='btnrow';
+  var btn=document.createElement('button'); btn.type='button'; btn.textContent='Commit and reveal';
+  btn.disabled=!hasDrill;
+  row.appendChild(btn);
+  if(!hasDrill){
+    var cr=confRow('Commit first \u2014 how sure are you?',CONF_YN,function(v){pred=v;btn.disabled=false;});
+    c.insertBefore(cr,body);
+  }
+  c.insertBefore(row,body);
+  btn.addEventListener('click',function(){
+    body.hidden=false; btn.disabled=true; btn.textContent='Revealed';
+    if(hasDrill) return;
+    var g=document.createElement('div'); g.className='btnrow';
+    g.innerHTML='<span class="small" style="margin-right:6px">Did you have it?</span>';
+    [['Yes',true],['No',false]].forEach(function(o){
+      var b=document.createElement('button'); b.className='ghost'; b.type='button'; b.textContent=o[0];
+      b.addEventListener('click',function(){
+        S.checks[id]={pred:pred,correct:o[1],ts:Date.now()}; CS.save();
+        g.innerHTML='';
+        g.appendChild(gapNote(pred, o[1]?100:0));
+      });
+      g.appendChild(b);
+    });
+    body.appendChild(g);
+  });
+});
+
+/* ---------- PARIS diagram ---------- */
+(function(){
+  var svg=$('#paris-diag'); if(!svg)return;
+  var ns='http://www.w3.org/2000/svg', x=0, word='PARIS';
+  for(var i=0;i<word.length;i++){
+    var pat=MORSE[word[i]];
+    for(var j=0;j<pat.length;j++){
+      var w=pat[j]==='.'?1:3;
+      var r=document.createElementNS(ns,'rect');
+      r.setAttribute('x',x); r.setAttribute('y',2); r.setAttribute('width',w); r.setAttribute('height',4); r.setAttribute('rx',.25);
+      svg.appendChild(r); x+=w; x+= (j<pat.length-1)?1:3;
+    }
+  }
+  svg.addEventListener('click',function(){ play('PARIS',{}); });
+})();
+
+/* ---------- chart gate ---------- */
+(function(){
+  var b=$('#chart-btn'), body=$('#chart-body'), txt=$('#chart-text'); if(!b)return;
+  b.addEventListener('click',function(){
+    if(body.hidden){
+      if(!txt.textContent){
+        txt.innerHTML=Object.keys(MORSE).filter(function(k){return /[A-Z]/.test(k);})
+          .map(function(k){return k+'&nbsp;&nbsp;'+MORSE[k].replace(/\./g,'&middot;').replace(/-/g,'\u2013');}).join('<br>');
+      }
+      body.hidden=false; b.textContent='Put it away';
+    } else { body.hidden=true; b.textContent='Show it anyway'; }
+  });
+})();
+
+/* ---------- reset ---------- */
+(function(){
+  var b=$('#reset-btn'); if(!b)return;
+  b.addEventListener('click',function(){
+    if(!confirm('Erase all block completions, scores and settings?'))return;
+    CS.reset(); location.reload();
+  });
+})();
+
+paintMeter();
+})();
+</script>
+</body>
+</html>

@@ -37,3 +37,9 @@
     Six weeks to take a passage in Teeline and transcribe it accurately twenty-
     four hours later.
   tracked: true
+
+- slug: copying-morse
+  title: Copying Morse
+  description: >-
+    Learn to copy an unfamiliar plain-text transmission in Morse code onto paper.
+  tracked: true
