@@ -43,3 +43,9 @@
   description: >-
     Learn to copy an unfamiliar plain-text transmission in Morse code onto paper.
   tracked: true
+
+- slug: sending-morse
+  title: Sending Morse
+  description: >-
+    Advance to sending messages with Morse code via sound or light.
+  tracked: true

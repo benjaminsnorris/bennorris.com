@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="sending-morse"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sending Morse</title>
+<style>
+:root{
+  color-scheme:light;
+  /* --- light values --- */
+  --l-paper:#E2E7DD; --l-paper2:#EDF0E9; --l-field:#FBFCFA;
+  --l-rule:#B2BCA9; --l-rule-soft:#CFD6C7; --l-rule-strong:#17211C;
+  --l-ink:#17211C; --l-ink-soft:#414E47; --l-ink-faint:#5E685F;
+  --l-brass:#816010; --l-brass-lt:#A67C1A; --l-brass-deep:#6E520C; --l-brass-on:#FFF9EC;
+  --l-teal:#175450; --l-oxide:#8C3421;
+  --l-btn-bg:#17211C; --l-btn-fg:#E2E7DD; --l-btn-bd:#17211C; --l-btn-hover:#25352C;
+  --l-ghost-hover:#D4D9CE;
+  --l-tint-good:#D6E4DF; --l-tint-warn:#F3E7CE; --l-tint-alert:#F4DED6;
+  --l-src-fg:#175450; --l-src-bd:#8FB2AB; --l-src-bg:#D6E4DF;
+  --l-infer-fg:#4C3D78; --l-infer-bd:#AA9EC4; --l-infer-bg:#E1DCEE;
+  --l-vendor-fg:#8C3421; --l-vendor-bd:#C4937F; --l-vendor-bg:#F4DED6;
+  --l-cont-fg:#754C0D; --l-cont-bd:#CBA766; --l-cont-bg:#F3E7CE;
+  --l-single-fg:#414E47; --l-single-bd:#AEB9AC; --l-single-bg:#DFE4DC;
+
+  /* --- dark values: the night operating position --- */
+  --d-paper:#171A15; --d-paper2:#1E221C; --d-field:#0F120D;
+  --d-rule:#3E463B; --d-rule-soft:#22261F; --d-rule-strong:#4E5849;
+  --d-ink:#DFE5D8; --d-ink-soft:#AAB4A2; --d-ink-faint:#8A9482;
+  --d-brass:#D9A441; --d-brass-lt:#F0C56B; --d-brass-deep:#B8862C; --d-brass-on:#15130C;
+  --d-teal:#6FC2B4; --d-oxide:#E08A6B;
+  --d-btn-bg:#333A2F; --d-btn-fg:#E4EADD; --d-btn-bd:#57614F; --d-btn-hover:#424B3C;
+  --d-ghost-hover:#262C22;
+  --d-tint-good:#14302B; --d-tint-warn:#2B2110; --d-tint-alert:#31170F;
+  --d-src-fg:#7FCFC0; --d-src-bd:#2E5B54; --d-src-bg:#14302B;
+  --d-infer-fg:#B7AADF; --d-infer-bd:#4A3F69; --d-infer-bg:#241E38;
+  --d-vendor-fg:#E8A183; --d-vendor-bd:#6B3A2A; --d-vendor-bg:#31170F;
+  --d-cont-fg:#E3B75E; --d-cont-bd:#634A22; --d-cont-bg:#2B2110;
+  --d-single-fg:#AEB8A7; --d-single-bd:#3F473C; --d-single-bg:#22261F;
+
+  /* --- active mapping (light by default) --- */
+  --paper:var(--l-paper); --paper-2:var(--l-paper2); --field:var(--l-field);
+  --rule:var(--l-rule); --rule-soft:var(--l-rule-soft); --rule-strong:var(--l-rule-strong);
+  --ink:var(--l-ink); --ink-soft:var(--l-ink-soft); --ink-faint:var(--l-ink-faint);
+  --brass:var(--l-brass); --brass-lt:var(--l-brass-lt); --brass-deep:var(--l-brass-deep); --brass-on:var(--l-brass-on);
+  --teal:var(--l-teal); --oxide:var(--l-oxide);
+  --btn-bg:var(--l-btn-bg); --btn-fg:var(--l-btn-fg); --btn-bd:var(--l-btn-bd); --btn-hover:var(--l-btn-hover);
+  --ghost-hover:var(--l-ghost-hover);
+  --tint-good:var(--l-tint-good); --tint-warn:var(--l-tint-warn); --tint-alert:var(--l-tint-alert);
+  --src-fg:var(--l-src-fg); --src-bd:var(--l-src-bd); --src-bg:var(--l-src-bg);
+  --infer-fg:var(--l-infer-fg); --infer-bd:var(--l-infer-bd); --infer-bg:var(--l-infer-bg);
+  --vendor-fg:var(--l-vendor-fg); --vendor-bd:var(--l-vendor-bd); --vendor-bg:var(--l-vendor-bg);
+  --cont-fg:var(--l-cont-fg); --cont-bd:var(--l-cont-bd); --cont-bg:var(--l-cont-bg);
+  --single-fg:var(--l-single-fg); --single-bd:var(--l-single-bd); --single-bg:var(--l-single-bg);
+
+  --mono:ui-monospace,"SFMono-Regular","Cascadia Mono",Menlo,Consolas,monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
+/* Dark mapping. Values live once above; only the mapping repeats. */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:var(--d-paper); --paper-2:var(--d-paper2); --field:var(--d-field);
+  --rule:var(--d-rule); --rule-soft:var(--d-rule-soft); --rule-strong:var(--d-rule-strong);
+  --ink:var(--d-ink); --ink-soft:var(--d-ink-soft); --ink-faint:var(--d-ink-faint);
+  --brass:var(--d-brass); --brass-lt:var(--d-brass-lt); --brass-deep:var(--d-brass-deep); --brass-on:var(--d-brass-on);
+  --teal:var(--d-teal); --oxide:var(--d-oxide);
+  --btn-bg:var(--d-btn-bg); --btn-fg:var(--d-btn-fg); --btn-bd:var(--d-btn-bd); --btn-hover:var(--d-btn-hover);
+  --ghost-hover:var(--d-ghost-hover);
+  --tint-good:var(--d-tint-good); --tint-warn:var(--d-tint-warn); --tint-alert:var(--d-tint-alert);
+  --src-fg:var(--d-src-fg); --src-bd:var(--d-src-bd); --src-bg:var(--d-src-bg);
+  --infer-fg:var(--d-infer-fg); --infer-bd:var(--d-infer-bd); --infer-bg:var(--d-infer-bg);
+  --vendor-fg:var(--d-vendor-fg); --vendor-bd:var(--d-vendor-bd); --vendor-bg:var(--d-vendor-bg);
+  --cont-fg:var(--d-cont-fg); --cont-bd:var(--d-cont-bd); --cont-bg:var(--d-cont-bg);
+  --single-fg:var(--d-single-fg); --single-bd:var(--d-single-bd); --single-bg:var(--d-single-bg);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:var(--d-paper); --paper-2:var(--d-paper2); --field:var(--d-field);
+    --rule:var(--d-rule); --rule-soft:var(--d-rule-soft); --rule-strong:var(--d-rule-strong);
+    --ink:var(--d-ink); --ink-soft:var(--d-ink-soft); --ink-faint:var(--d-ink-faint);
+    --brass:var(--d-brass); --brass-lt:var(--d-brass-lt); --brass-deep:var(--d-brass-deep); --brass-on:var(--d-brass-on);
+    --teal:var(--d-teal); --oxide:var(--d-oxide);
+    --btn-bg:var(--d-btn-bg); --btn-fg:var(--d-btn-fg); --btn-bd:var(--d-btn-bd); --btn-hover:var(--d-btn-hover);
+    --ghost-hover:var(--d-ghost-hover);
+    --tint-good:var(--d-tint-good); --tint-warn:var(--d-tint-warn); --tint-alert:var(--d-tint-alert);
+    --src-fg:var(--d-src-fg); --src-bd:var(--d-src-bd); --src-bg:var(--d-src-bg);
+    --infer-fg:var(--d-infer-fg); --infer-bd:var(--d-infer-bd); --infer-bg:var(--d-infer-bg);
+    --vendor-fg:var(--d-vendor-fg); --vendor-bd:var(--d-vendor-bd); --vendor-bg:var(--d-vendor-bg);
+    --cont-fg:var(--d-cont-fg); --cont-bd:var(--d-cont-bd); --cont-bg:var(--d-cont-bg);
+    --single-fg:var(--d-single-fg); --single-bd:var(--d-single-bd); --single-bg:var(--d-single-bg);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:17px;line-height:1.62;
+  background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 30px,var(--rule-soft) 30px,var(--rule-soft) 31px);
+}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 140px}
+
+/* ---- telegram header ---- */
+.masthead{padding:34px 0 26px;border-bottom:2px solid var(--rule-strong)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 18px}
+h1{
+  font-family:var(--mono);font-weight:600;font-size:clamp(26px,6.4vw,42px);
+  letter-spacing:.06em;text-transform:uppercase;line-height:1.12;margin:0 0 14px;
+}
+.deck{font-size:19px;line-height:1.5;margin:0;color:var(--ink-soft);max-width:34em}
+
+/* ---- meter ---- */
+.meter{margin:26px 0 0;padding:18px 0 6px;border-top:1px solid var(--rule)}
+.meter-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.meter svg{width:100%;height:auto;display:block;cursor:pointer}
+.meter svg rect{transition:fill .45s ease,opacity .45s ease}
+.el-off{fill:none;stroke:var(--ink-faint);stroke-width:.16;opacity:.7}
+.el-on{fill:var(--brass)}
+.el-live{fill:var(--oxide)}
+.meter-cap{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:8px;letter-spacing:.04em}
+
+/* ---- generic ---- */
+h2{font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin:0 0 6px}
+h3{font-family:var(--serif);font-size:22px;line-height:1.25;margin:0 0 10px;font-weight:600}
+p{margin:0 0 15px}
+a{color:var(--teal)}
+.small{font-size:15px;color:var(--ink-soft)}
+strong{font-weight:600}
+em{font-style:italic}
+
+/* ---- panels ---- */
+.panel{background:var(--paper-2);border:1px solid var(--rule);border-radius:2px;padding:20px;margin:0 0 22px}
+.panel-tight{padding:16px}
+
+/* ---- provenance chips ---- */
+.chip{
+  display:inline;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+  text-transform:uppercase;padding:2px 6px;border-radius:2px;white-space:nowrap;
+  vertical-align:.09em;margin:0 1px;border:1px solid;
+}
+.chip a{text-decoration:none;font-weight:700;color:inherit}
+.chip.src{color:var(--src-fg);border-color:var(--src-bd);background:var(--src-bg)}
+.chip.infer{color:var(--infer-fg);border-color:var(--infer-bd);background:var(--infer-bg)}
+.chip.vendor{color:var(--vendor-fg);border-color:var(--vendor-bd);background:var(--vendor-bg)}
+.chip.contested{color:var(--cont-fg);border-color:var(--cont-bd);background:var(--cont-bg)}
+.chip.single{color:var(--single-fg);border-color:var(--single-bd);background:var(--single-bg)}
+.legend{display:flex;flex-wrap:wrap;gap:7px 10px;margin:14px 0 0}
+.legend span{font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+
+/* ---- week sections ---- */
+.week{border-top:2px solid var(--rule-strong);margin-top:44px;padding-top:20px}
+.week-head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px}
+.week-no{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);font-weight:700}
+.week-time{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-left:auto;letter-spacing:.08em}
+.artifact{border-left:3px solid var(--brass);padding:10px 0 10px 14px;margin:0 0 22px;font-size:16px}
+.artifact b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);display:block;margin-bottom:4px;font-weight:700}
+
+/* ---- blocks ---- */
+.block{border:1px solid var(--rule);border-radius:2px;margin:0 0 16px;background:var(--paper-2)}
+.block-head{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.block-label{font-family:var(--mono);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700}
+.block-est{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-left:auto}
+.block-body{padding:16px}
+.block.done .block-head{background:var(--tint-good)}
+.block.done .block-label{color:var(--teal)}
+
+/* ---- controls ---- */
+button{font-family:var(--mono);font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;
+  background:var(--btn-bg);color:var(--btn-fg);border:1px solid var(--btn-bd);border-radius:2px;
+  padding:9px 15px;cursor:pointer;font-weight:600}
+button:hover{background:var(--btn-hover)}
+button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--ink-faint)}
+button.ghost:hover{background:var(--ghost-hover)}
+button.brass{background:var(--brass);border-color:var(--brass);color:var(--brass-on)}
+button.brass:hover{background:var(--brass-deep)}
+button:disabled{opacity:.4;cursor:not-allowed}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 0}
+input[type=text]{font-family:var(--mono);font-size:16px;letter-spacing:.18em;text-transform:uppercase;
+  padding:11px 12px;border:1px solid var(--ink-faint);border-radius:2px;background:var(--field);color:var(--ink);width:100%}
+input[type=text]:focus{outline:2px solid var(--brass);outline-offset:1px}
+input[type=range]{width:100%;accent-color:var(--brass)}
+label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:5px}
+
+/* ---- settings ---- */
+.settings{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+.settings .val{font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:600}
+@media(max-width:520px){.settings{grid-template-columns:1fr}}
+
+/* ---- confidence ---- */
+.conf{margin:14px 0 0;padding:14px;background:var(--tint-warn);border:1px dashed var(--brass);border-radius:2px}
+.conf-q{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cont-fg);margin-bottom:9px}
+.conf-btns{display:flex;gap:6px;flex-wrap:wrap}
+.conf-btns button{background:transparent;color:var(--cont-fg);border-color:var(--cont-bd);font-size:12px;padding:7px 11px}
+.conf-btns button.sel{background:var(--brass);color:var(--brass-on);border-color:var(--brass)}
+.reveal{margin-top:14px;padding-top:14px;border-top:1px solid var(--rule)}
+.gap-note{font-family:var(--mono);font-size:12px;padding:9px 12px;border-radius:2px;margin-top:12px}
+.gap-good{background:var(--tint-good);color:var(--src-fg)}
+.gap-over{background:var(--tint-alert);color:var(--vendor-fg)}
+.gap-under{background:var(--tint-warn);color:var(--cont-fg)}
+
+/* ---- drill ---- */
+.drill-out{font-family:var(--mono);font-size:clamp(17px,4.6vw,23px);letter-spacing:.3em;
+  background:var(--field);border:1px solid var(--rule);border-radius:2px;padding:16px;
+  min-height:58px;word-break:break-all;margin:12px 0}
+.hit{color:var(--teal);font-weight:700}
+.miss{color:var(--oxide);font-weight:700;border-bottom:2px solid var(--oxide)}
+.score{font-family:var(--mono);font-size:13px;margin-top:10px;color:var(--ink-soft)}
+.setchars{font-family:var(--mono);font-size:13px;letter-spacing:.28em;color:var(--brass);font-weight:700}
+
+/* ---- liminal warning ---- */
+.liminal{border:1px solid var(--cont-bd);border-left:5px solid var(--brass);background:var(--tint-warn);padding:16px;margin:0 0 20px;border-radius:2px}
+.liminal b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cont-fg);display:block;margin-bottom:6px}
+
+/* ---- chart gate ---- */
+.gate{border:1px dashed var(--vendor-bd);padding:14px;border-radius:2px;background:var(--tint-alert);margin:16px 0}
+.gate p{margin:0 0 10px;font-size:15px}
+
+/* ---- sources ---- */
+.srclist{list-style:none;padding:0;margin:0;counter-reset:s}
+.srclist li{font-size:14.5px;line-height:1.5;padding:11px 0 11px 44px;border-bottom:1px solid var(--rule);position:relative}
+.srclist li::before{content:attr(data-id);position:absolute;left:0;top:11px;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--brass);letter-spacing:.05em}
+.tier{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-top:3px}
+
+/* ---- misc ---- */
+.tdiag{width:100%;height:auto;display:block;margin:14px 0;cursor:pointer}
+.tdiag rect{fill:var(--brass)}
+.tdiag .lbl{font-family:var(--mono);font-size:2.1px;fill:var(--ink-soft);letter-spacing:.02em}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:14px 0}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+ul.tight{margin:0 0 15px;padding-left:20px}
+ul.tight li{margin-bottom:6px}
+.formula{font-family:var(--mono);font-size:15px;background:var(--field);border:1px solid var(--rule);padding:14px;border-radius:2px}
+.callout-alert{background:var(--tint-alert);border-color:var(--vendor-bd);margin-top:18px}
+.mast-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.mast-top .eyebrow{margin-bottom:0}
+.theme-btn{flex:none;font-size:11px;padding:6px 11px;letter-spacing:.12em}
+/* --- straight key --- */
+.key-pad{user-select:none;-webkit-user-select:none;touch-action:none;cursor:pointer;
+  background:var(--field);border:2px solid var(--ink-faint);border-radius:3px;
+  padding:30px 16px;text-align:center;transition:background .04s,border-color .04s}
+.key-pad:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.key-pad.down{background:var(--brass);border-color:var(--brass)}
+.key-pad.down .key-hint,.key-pad.down .key-sub{color:var(--brass-on)}
+.key-hint{display:block;font-family:var(--mono);font-size:14px;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:700;color:var(--ink)}
+.key-sub{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-faint);margin-top:6px}
+.key-target{font-family:var(--mono);font-size:13px;letter-spacing:.1em;margin:12px 0 0;color:var(--ink-soft)}
+.key-target b{color:var(--brass);letter-spacing:.2em}
+.key-live{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:8px;letter-spacing:.06em}
+.chanrow{display:flex;gap:8px;flex-wrap:wrap}
+.chanrow button.sel{background:var(--brass);color:var(--brass-on);border-color:var(--brass)}
+.chanrow button:disabled{opacity:.35}
+.lamp-float{position:fixed;top:12px;right:12px;z-index:900;width:54px;height:54px;border-radius:50%;
+  background:var(--field);border:2px solid var(--ink-faint);transition:background .03s,box-shadow .03s}
+.lamp-float.on{background:var(--brass-lt);box-shadow:0 0 20px var(--brass)}
+/* --- lamp --- */
+.lamp-wrap{display:flex;align-items:center;gap:14px;margin:14px 0}
+.lamp{width:76px;height:76px;flex:none;border-radius:50%;background:var(--field);
+  border:2px solid var(--ink-faint);transition:background .03s,box-shadow .03s}
+.lamp.on{background:var(--brass-lt);box-shadow:0 0 22px var(--brass)}
+.lamp-meta{font-family:var(--mono);font-size:11px;color:var(--ink-faint);line-height:1.5}
+/* The lamp is a physical light source, not chrome: it stays true black/white in
+   both themes because a theme-dimmed "white" is useless as an actual torch. */
+.lamp-overlay{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column}
+.lamp-close{position:absolute;top:14px;left:14px;z-index:2}
+.lamp-face{flex:1;background:#000;touch-action:none;user-select:none;-webkit-user-select:none}
+.lamp-face.on{background:#fff}
+.playing{animation:pulse .5s ease}
+@keyframes pulse{50%{opacity:.45}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.foot{margin-top:56px;padding-top:22px;border-top:2px solid var(--rule-strong);font-size:14px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="lamp-float" id="lamp-float" hidden aria-hidden="true"></div>
+<header class="masthead">
+  <div class="mast-top">
+    <p class="eyebrow">Self-study course &middot; single skill &middot; 5 weeks &middot; part 2 of 2</p>
+    <button class="ghost theme-btn" id="theme-btn" type="button" aria-pressed="false">Night</button>
+  </div>
+  <h1>Sending Morse</h1>
+  <p class="deck">Timing is the heart of the code, and control of it rests entirely with the sending operator. This course is about the silences.</p>
+</header>
+<div class="meter" id="meter">
+  <div class="meter-top"><span>Progress</span><span id="meter-pct">0%</span></div>
+  <svg id="meter-svg" viewBox="0 0 27 6" preserveAspectRatio="none" role="img" aria-label="Progress shown as the word SEND in Morse timing"></svg>
+  <p class="meter-cap" id="meter-cap">This bar is the word SEND, drawn to scale in real Morse timing. Tap it to hear where you are.</p>
+</div>
+
+<section class="panel" style="margin-top:30px">
+  <h2>What you will be able to do</h2>
+  <p style="margin-bottom:18px"><strong>Send the alphabet on a straight key so a machine decoder reads it back cleanly</strong>, with your dah/dit ratio and all three gap classes inside tolerance &mdash; a stricter test than a human ear applies. And signal by torch at a flash rate inside the published safety threshold.</p>
+
+  <div class="panel panel-tight callout-alert" style="margin-bottom:18px">
+    <p style="margin-bottom:8px"><strong>This course has a prerequisite, and it is not optional.</strong></p>
+    <p class="small" style="margin-bottom:0">You need to recognise characters by ear without hesitation before you touch a key. That is Pierpont's position and his reasoning is explicit: most modern teachers hold back timing work until the student knows the characters by hearing, so that timing never becomes a way of analysing a character into parts. <span class="chip src">Sourced fact <a href="#S1">S1</a></span> In practice that means <a href="copying-morse.html">Copying Morse</a> through Week&nbsp;6 &mdash; sixteen letters, solid. Everything here works with sixteen; the last ten slot in as you acquire them.</p>
+  </div>
+
+  <h2>Where this starts you</h2>
+  <p class="small" style="margin-bottom:18px">You can copy at least sixteen letters by ear at 12&nbsp;WPM character speed. You have never sent anything. You do not own a key &mdash; the on-screen one measures your timing more precisely than a real key plus your own ears could, which is the point.</p>
+
+  <h2>What this is not</h2>
+  <ul class="tight small">
+    <li><strong>Straight key only.</strong> No paddles, bugs, keyers, or iambic technique. Those are separate motor skills with their own habits.</li>
+    <li><strong>Not receiving.</strong> That is <a href="copying-morse.html">the other course</a>, and it comes first.</li>
+    <li><strong>Not on-air operating.</strong> No radio, licensing, procedure, prosigns or Q-codes.</li>
+    <li><strong>Not speed.</strong> Sending fast is easy and useless. This course optimises for being readable.</li>
+  </ul>
+
+  <h2 style="margin-top:20px">Time budget</h2>
+  <p class="small" style="margin-bottom:0">Roughly <strong>11&ndash;12 hours</strong> across five weeks, published per block. Shorter than its companion because it carries two threshold ideas rather than three, and because you arrive already knowing what the characters sound like. <span class="chip src">Sourced fact <a href="#S5">S5</a></span></p>
+</section>
+
+<section class="panel">
+  <h2>The two ideas this course turns on</h2>
+  <ul class="tight small" style="margin-bottom:0">
+    <li><strong>Spacing is the message.</strong> Our judgment of brief <em>sounds</em> is poor and our judgment of brief <em>silences</em> is accurate, so gap errors destroy copy while element errors mostly do not. Everything else here follows from that. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></li>
+    <li><strong>You are not a reliable judge of your own fist.</strong> Sending feels fine from the inside while it is unreadable from the outside &mdash; Pierpont describes operators whose habitual distortions crossed into unintelligibility without their noticing. Sending has to be measured, not felt, which is why this course is built around an analyser rather than around practice text. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></li>
+  </ul>
+</section>
+<section class="panel">
+  <h2>How claims are marked</h2>
+  <p class="small">Morse instruction has an unusual evidence problem: the primary research is a 1935 German engineering dissertation and a handful of pre-1960 psychology papers, while nearly all modern writing about it is published by people selling an app. Every load-bearing claim below carries a marker so you can tell which is which.</p>
+  <div class="legend">
+    <span><span class="chip src">Sourced fact <a href="#sources">S#</a></span> traceable to a numbered source</span>
+    <span><span class="chip infer">Inference</span> my reasoning, in no source</span>
+    <span><span class="chip vendor">Vendor framing</span> authored by someone selling the thing</span>
+    <span><span class="chip contested">Contested</span> the field genuinely disagrees</span>
+    <span><span class="chip single">Single study</span> real but unreplicated</span>
+  </div>
+</section><section class="panel">
+  <h2>Sound settings</h2>
+  <p class="small">These persist. Leave character speed at 12 unless a block tells you otherwise &mdash; that number is the whole argument of Week&nbsp;2.</p>
+  <div class="settings">
+    <div>
+      <label for="s-char">Character speed &mdash; <span class="val" id="v-char">12</span> WPM</label>
+      <input type="range" id="s-char" min="8" max="25" step="1" value="12">
+    </div>
+    <div>
+      <label for="s-eff">Effective speed &mdash; <span class="val" id="v-eff">5</span> WPM</label>
+      <input type="range" id="s-eff" min="3" max="25" step="1" value="5">
+    </div>
+    <div>
+      <label for="s-tone">Tone &mdash; <span class="val" id="v-tone">600</span> Hz</label>
+      <input type="range" id="s-tone" min="400" max="900" step="10" value="600">
+    </div>
+    <div>
+      <label for="s-vol">Volume &mdash; <span class="val" id="v-vol">50</span>%</label>
+      <input type="range" id="s-vol" min="0" max="100" step="5" value="50">
+    </div>
+  </div>
+  <div class="btnrow"><button class="ghost" id="test-tone">Test output</button></div>
+</section>
+<section class="week" data-week="1">
+  <div class="week-head"><span class="week-no">Week 1</span><span class="week-time">~2.5 hrs &middot; 2 blocks</span></div>
+  <h3>Take care of the spaces</h3>
+  <div class="artifact"><b>This week produces</b>The first characters you have ever produced rather than received &mdash; and a measured reason to care about silence more than sound.</div>
+  <p>You already know what these characters sound like. That is most of the work. What you do not yet have is a hand that can reproduce the rhythm, and an accurate picture of what your hand is actually doing.</p>
+  <div class="liminal"><b>Where you are expected to struggle</b>Your first attempts will sound fine to you and decode as nonsense. That gap between how it feels and how it measures is the second threshold of this course, arriving early and uninvited.</div>
+  <div class="block" data-block="w6-b" data-strand="s">
+    <div class="block-head"><span class="block-label">Your first fist</span><span class="block-est">~1.5 hrs</span></div>
+    <div class="block-body">
+      <p>Sending starts here and not earlier, on Pierpont's advice: most modern teachers hold back explicit timing work until the student knows the characters by ear well enough to recognise them without hesitation, so that timing never becomes a way of analysing a character into parts. You have sixteen letters at that standard. Now you can make them. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      <p class="small">Not everyone agrees. Some teaching clubs pair every new character with "hear it, say it, send it" from the first lesson. The disagreement is real and I have followed Pierpont because his reasoning about <em>why</em> is explicit where the alternative is mostly practice. <span class="chip contested">Contested</span> <span class="chip infer">Inference</span></p>
+      <p>Hold the pad. A short press is a dit, a long one a dah. Do not think about milliseconds &mdash; imitate the rhythm you already know.</p>
+      <div class="keyer" data-keyer="w6" data-target="KM"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w7-b" data-strand="s">
+    <div class="block-head"><span class="block-label">Send &mdash; the spacing law</span><span class="block-est">~1 hr</span></div>
+    <div class="block-body">
+      <p>Here is the finding that should govern everything you do with a key.</p>
+      <p>Pierpont, summarising the perceptual research: our judgment of the duration of <em>brief sounds</em> is poor, but we judge the relative length of <em>brief silences</em> much more accurately. If the dahs are substantially longer than the dits, the ear is satisfied and stops caring about the exact ratio. The silences, it does not forgive. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      <p>Which gives the oldest maxim in telegraphy, quoted by Pierpont as already traditional in his sources: take care of the spaces and the marks take care of themselves. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      <div class="panel panel-tight" style="margin-top:16px">
+        <p style="margin-bottom:8px"><strong>What this means at the key.</strong></p>
+        <ul class="tight small" style="margin-bottom:0">
+          <li>A dah that is 2.5 units instead of 3 is fine. Nobody will notice.</li>
+          <li>An inter-character gap of 1.5 units instead of 3 is <em>catastrophic</em>. Your letters merge and the receiving operator gets nonsense.</li>
+          <li>So: slow down the <strong>gaps</strong>, not the elements. Exactly the same principle as Farnsworth timing in Week 2, now on the sending side.</li>
+        </ul>
+      </div>
+      <p style="margin-top:16px">Send the word below and let the analyser show you where your spaces actually landed.</p>
+      <div class="keyer" data-keyer="w7" data-target="HAD"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="2">
+  <div class="week-head"><span class="week-no">Week 2</span><span class="week-time">~2.5 hrs &middot; 1 blocks</span></div>
+  <h3>Your fist, measured</h3>
+  <div class="artifact"><b>This week produces</b>A numeric profile of your own sending &mdash; weight, three gap classes, consistency &mdash; and a diagnosis of your single worst fault.</div>
+  <div class="block" data-block="w8-b" data-strand="s">
+    <div class="block-head"><span class="block-label">Send &mdash; measured</span><span class="block-est">~1.5 hrs</span></div>
+    <div class="block-body">
+      <p>Every operator develops a <em>fist</em> &mdash; small habitual deviations in timing that identify them the way a voice does. Pierpont documents this at length, and is clear that it cuts both ways: mild individuality is harmless and universal, but deliberately cultivated peculiarity crosses into unintelligibility, and some operators never notice they have crossed. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      <p>Send free text below. The analyser reports your weight, your three gap classes, and your consistency. Send at least a dozen characters or the numbers mean nothing.</p>
+      <div class="keyer" data-keyer="w8free"></div>
+      <div class="panel panel-tight callout-alert" style="margin-top:18px">
+        <p style="margin-bottom:8px"><strong>The analyser is harsher than a human.</strong></p>
+        <p class="small" style="margin-bottom:0">Pierpont's warning applies directly to this tool: machine decoders break down on poor sending, while the human ear and mind copy rotten code far better than any machine, compensating automatically for defects that would look glaring on paper tape. So a failed decode here does <em>not</em> mean nobody could read you. Treat the numbers as a stricter-than-life instrument &mdash; useful precisely because it will not do you the courtesy of guessing. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="b2-b">
+    <div class="block-head"><span class="block-label">Diagnose</span><span class="block-est">~40 min</span></div>
+    <div class="block-body">
+      <p class="small">Each of these describes a symptom. Pick <em>which</em> fix applies and say why. Executing a named technique is not the skill; choosing among them is. <span class="chip src">Sourced fact <a href="#S5">S5</a></span></p>
+      <div class="check" data-check="b2-q1">
+        <p><strong>1.</strong> The analyser decodes your sending as one long nonsense character, and reports no inter-character gaps at all.</p>
+        <div class="reveal-body">Your letter gaps have fallen below roughly two dit-lengths, so they are being read as the one-unit gaps that sit <em>inside</em> a character &mdash; everything has merged. This is the fault that ruins copy, and it is invisible from the inside because you know where your letters end. Fix: deliberately count three beats of silence after each letter. It will feel absurdly slow and it will not sound slow to anyone else.</div>
+      </div>
+      <div class="check" data-check="b2-q2">
+        <p><strong>2.</strong> Weight measures 2.4 and inter-character gaps measure 3.1. You want to be more readable.</p>
+        <div class="reveal-body">Change nothing. A 2.4 ratio is inside what the ear tolerates &mdash; dahs are still plainly longer than dits, which is all the ear asks &mdash; and your gaps are correct. Chasing the ratio to exactly 3.0 buys you nothing a receiving operator would notice. This is the case where the numbers look imperfect and the sending is fine.</div>
+      </div>
+      <div class="check" data-check="b2-q3">
+        <p><strong>3.</strong> Your dit consistency is 0.40 and everything else is in tolerance.</p>
+        <div class="reveal-body">Your dits vary wildly in length, which means the analyser's estimate of your dit &mdash; and therefore every ratio it reports &mdash; is built on a shaky base. Consistency is upstream of all the other numbers. Fix by slowing down until the elements are even; speed built on inconsistent elements is speed you will have to unlearn.</div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="3">
+  <div class="week-head"><span class="week-no">Week 3</span><span class="week-time">~2.5 hrs &middot; 1 blocks</span></div>
+  <h3>The gap that collapses</h3>
+  <div class="artifact"><b>This week produces</b>Words sent at the key rather than isolated characters, with the inter-character gap holding under pace.</div>
+  <div class="block" data-block="w9-b" data-strand="s">
+    <div class="block-head"><span class="block-label">Send &mdash; words</span><span class="block-est">~1.5 hrs</span></div>
+    <div class="block-body">
+      <p>Single characters are the easy case. Words are where inter-character spacing fails, because the hand wants to keep moving.</p>
+      <p>Send each target. Watch the inter-character gap number specifically &mdash; it is the one that collapses under pace.</p>
+      <div class="keyer" data-keyer="w9" data-target="WATER"></div>
+      <div class="liminal" style="margin-top:18px"><b>A physical caution</b>The rapid pumping motion a straight key needs to send a run of dits carries a real repetitive-strain risk &mdash; historically common enough among telegraphers to earn its own name, "glass arm." <span class="chip src">Sourced fact <a href="#S4">S4</a></span> Keep sessions to the half hour this course already recommends, keep the wrist loose and the motion from the forearm rather than the fingers, and stop if anything aches. Speed is not worth an injury, and this course has no way to watch you for one.</div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="b3-b">
+    <div class="block-head"><span class="block-label">Retrieve</span><span class="block-est">~20 min</span></div>
+    <div class="block-body">
+      <p class="small">Delayed, not adjacent. Spacing effects appear on delayed tests and not immediate ones, so the useful version of this is the annoying version. <span class="chip src">Sourced fact <a href="#S5">S5</a></span></p>
+      <div class="check" data-check="b3-q1">
+        <p><strong>1.</strong> Without scrolling: how many dit-lengths are a gap inside a letter, between letters, and between words?</p>
+        <div class="reveal-body">One, three and seven. A dah is three, a dit is one. Those five numbers are the entire timing system. <span class="chip src">Sourced fact <a href="#S2">S2</a></span></div>
+      </div>
+      <div class="check" data-check="b3-q2">
+        <p><strong>2.</strong> Why does the perceptual research mean that a sloppy dah matters less than a sloppy gap?</p>
+        <div class="reveal-body">Because human judgment of the duration of brief sounds is poor, while judgment of the relative length of brief silences is comparatively accurate. So the ear absorbs a mistimed dah and cannot absorb a mistimed gap. Every piece of sending advice in this course is a consequence of that asymmetry.</div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="4">
+  <div class="week-head"><span class="week-no">Week 4</span><span class="week-time">~2.5 hrs &middot; 2 blocks</span></div>
+  <h3>Sentences, and sending by light</h3>
+  <div class="artifact"><b>This week produces</b>A full pangram sent cleanly, and the same hand motion moved to a torch.</div>
+  <div class="liminal"><b>Where you are expected to struggle</b>Word spacing is the last gap class and the one nearly everyone drops. Seven units is much longer than it feels &mdash; roughly a beat and a half of doing nothing, which your hand will refuse to do.</div>
+  <div class="block" data-block="w10-b" data-strand="s">
+    <div class="block-head"><span class="block-label">Send &mdash; a sentence</span><span class="block-est">~1 hr</span></div>
+    <div class="block-body">
+      <p>Word spacing is the last gap class and the one beginners drop entirely. Seven units is much longer than it feels &mdash; roughly a beat and a half of doing nothing.</p>
+      <div class="keyer" data-keyer="w10" data-target="THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"></div>
+      <p class="small" style="margin-top:14px">That sentence is the standard pangram and contains every letter, which makes it a complete sending self-test. If the analyser decodes it cleanly, your fist is readable.</p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="w11-c" data-strand="s">
+    <div class="block-head"><span class="block-label">Send with a torch</span><span class="block-est">~1 hr</span></div>
+    <div class="block-body">
+      <p>A phone screen at full brightness is a serviceable signal lamp at night. Lamp mode below fills the screen with white on key-down &mdash; hold it toward whoever is receiving and send with the same hand motion you have been practising.</p>
+      <p class="small">Full-screen is above the size exemption, so it is opt-in and speed-limited, and it stops the moment you release. <span class="chip src">Sourced fact <a href="#S3">S3</a></span></p>
+      <div class="keyer" data-keyer="w11" data-target="OK" data-lamp="1"></div>
+      <p class="small" style="margin-top:14px">A real torch has no analyser attached, which is the point of doing it here first. Get the spacing measured indoors, then take the habit outside.</p>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="week" data-week="5">
+  <div class="week-head"><span class="week-no">Week 5</span><span class="week-time">~2 hrs &middot; 1 blocks</span></div>
+  <h3>On your own</h3>
+  <div class="artifact"><b>This week produces</b>A cold sending assessment, and a written regimen you can run without opening this page again.</div>
+  <div class="block" data-block="w12-b" data-strand="s">
+    <div class="block-head"><span class="block-label">Assess &mdash; sending</span><span class="block-est">~45 min</span></div>
+    <div class="block-body">
+      <p>Send the pangram cold, once, without practising it first. Clean decode plus gap ratios inside tolerance is the sending capability stated at the top of this page.</p>
+      <div class="keyer" data-keyer="w12" data-target="PACK MY BOX WITH FIVE DOZEN LIQUOR JUGS"></div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+  <div class="block" data-block="b5-b">
+    <div class="block-head"><span class="block-label">Write the regimen</span><span class="block-est">~45 min</span></div>
+    <div class="block-body">
+      <p>One page, your own words, your own numbers:</p>
+      <ul class="tight">
+        <li>How long is a sending session, and how often? Keep it short &mdash; the strain risk is real and the returns fall off. <span class="chip src">Sourced fact <a href="#S4">S4</a></span></li>
+        <li>What is your target sending speed, and which of the three gap classes is your weakest?</li>
+        <li>What are your current numbers for weight, each gap class, and consistency &mdash; and which single one are you working on?</li>
+        <li>How will you check your fist when there is no analyser? (Recording yourself and copying it back a day later is the standard answer.)</li>
+        <li>When do you stop optimising numbers and start sending to a human?</li>
+      </ul>
+      <p>If you can write that page without consulting this one, the course is finished.</p>
+      <div class="check" data-check="b5-q1">
+        <p><strong>Last one.</strong> Your analyser numbers are all in tolerance, but an experienced operator tells you your sending is hard to copy. Who is right?</p>
+        <div class="reveal-body">Probably the operator, and the reason is instructive. The analyser measures averages; it does not catch a distortion that appears only on particular characters &mdash; the dragged first dah in C, the stretched second dah in Q, the jerk in H or P. Pierpont catalogues exactly these as "swings," habitual peculiarities that pass unnoticed by the sender and make life hard for everyone else. <span class="chip src">Sourced fact <a href="#S1">S1</a></span> An average can sit perfectly in tolerance while one letter is consistently wrong. This is the limit of the tool you have been using, and the point at which a human ear becomes the better instrument.</div>
+      </div>
+      <div class="btnrow"><button class="ghost" data-act="done">Mark block done</button></div>
+    </div>
+  </div>
+</section>
+<section class="week" id="sources">
+  <div class="week-head"><span class="week-no">Sources</span></div>
+  <h3>What this rests on</h3>
+  <p class="small">Every load-bearing claim is keyed to one of these, and each was opened and read rather than cited from a summary.</p>
+<ol class="srclist"><li data-id="S1"><strong>Pierpont, W. G. (N0HFF).</strong> <em>The Art and Skill of Radio Telegraphy</em>, 2nd revised ed. &mdash; particularly Ch.&nbsp;9 (Sending and the Straight Key) and Ch.&nbsp;15 (Timing).
+      <span class="tier">Tier 2 &mdash; canonical text, read directly. Freely distributed at the author's request. Source of the spacing-over-duration finding, the "take care of the spaces" maxim, the account of individual fists and "swings," the warning that machine decoders are harsher than the human ear, and the advice to defer explicit timing work until characters are known by ear. Note this is a practitioner synthesis rather than primary research: Pierpont collates decades of operator experience and earlier literature, and where he reports perceptual findings he does not always cite the underlying studies.</span></li><li data-id="S2"><strong>ARRL / Bloom, J. (KE3Z).</strong> "A Standard for Morse Timing Using the Farnsworth Technique," <em>QEX</em>; with ITU-R Recommendation M.1677 for the element ratios.
+      <span class="tier">Tier 2 &mdash; canonical standard. Source of the PARIS 50-unit definition, the 1200/WPM dit, and the Farnsworth split. The arithmetic in Week 2 was verified by working the 31/19 decomposition out independently rather than taking it on authority.</span></li><li data-id="S3"><strong>W3C.</strong> WCAG 2.1/2.2 Success Criterion 2.3.1, <em>Three Flashes or Below Threshold</em>, and the associated general flash threshold definition.
+      <span class="tier">Tier 2 &mdash; published standard, read directly. Source of the three-flashes-per-second limit and the small-area exemption (no more than 25% of any 10-degree visual field). The per-speed flash rates in Week&nbsp;11 were calculated from the dit lengths, not taken from a source.</span></li><li data-id="S4"><strong>Repetitive strain in straight-key sending</strong> &mdash; the historical condition known as telegrapher's paralysis or "glass arm."
+      <span class="tier">Tier 4 &mdash; general reference only. Included as a safety caution rather than a load-bearing claim. The condition is well attested historically; I have not gone to the clinical literature, so treat the mechanism as folk knowledge and the advice as ordinary ergonomic caution.</span></li><li data-id="S5"><strong>Hattie, J. &amp; Donoghue, G. (2021); Dunlosky, J. et al. (2013).</strong> Meta-analyses of learning techniques.
+      <span class="tier">Tier 3 &mdash; meta-analysis, appropriate here. Distributed practice and retrieval practice as the two techniques that survive aggregation; spacing effects appearing on delayed rather than immediate tests; interleaving forcing method selection.</span></li></ol>  <p class="small" style="margin-top:20px"><strong>The weak spot in this course.</strong> Its central source is a practitioner synthesis, not primary research. Pierpont collates decades of operator experience and where he reports perceptual findings he does not always cite the underlying studies &mdash; so the spacing-over-duration asymmetry, which everything here rests on, is reported rather than demonstrated in a paper I can hand you. It is consistent with what is known about auditory duration judgment, and it matches every operator account I found, and that is not the same as a citation. <span class="chip infer">Inference</span></p>
+  <p class="small" style="margin-top:14px"><strong>And the analyser is an instrument, not a judge.</strong> It is deliberately stricter than a human ear, which makes it useful for finding faults and unreliable as a verdict on whether you are readable. Pierpont's own warning applies to it directly. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+</section>
+<footer class="foot">
+  <p>Part two of two. <a href="copying-morse.html">Copying Morse</a> covers receiving and comes first. Progress is stored locally in this browser, separately from the other course.</p>
+  <div class="btnrow"><button class="ghost" id="reset-btn">Reset all progress</button></div>
+</footer>
+</div>
+<script type="text/course-deferred">
+
+/* ---------- state ---------- */
+var CS = (function(){
+  var KEY='morse-sending';
+  function fresh(){return{v:1,blocks:{},checks:{},drills:[],settings:{char:12,eff:5,tone:600,vol:50,theme:null,channel:'sound'}};}
+  function migrate(s){
+    if(!s||typeof s!=='object') return fresh();
+    if(!s.v) s.v=1;
+    var f=fresh();
+    s.blocks=s.blocks||{}; s.checks=s.checks||{}; s.drills=s.drills||[];
+    s.settings=Object.assign({},f.settings,s.settings||{});
+    return s;
+  }
+  var st;
+  try{ st=migrate(JSON.parse(localStorage.getItem(KEY))); }catch(e){ st=fresh(); }
+  var t=null;
+  function save(){ if(t)clearTimeout(t); t=setTimeout(function(){
+    try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){}
+  },160); }
+  return {get:function(){return st;}, save:save, reset:function(){st=fresh();try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}}};
+})();
+</script>
+<script type="text/course-deferred">
+
+/* ---------- morse + audio ---------- */
+var MORSE={A:".-",B:"-...",C:"-.-.",D:"-..",E:".",F:"..-.",G:"--.",H:"....",I:"..",J:".---",
+K:"-.-",L:".-..",M:"--",N:"-.",O:"---",P:".--.",Q:"--.-",R:".-.",S:"...",T:"-",U:"..-",
+V:"...-",W:".--",X:"-..-",Y:"-.--",Z:"--..","0":"-----","1":".----","2":"..---","3":"...--",
+"4":"....-","5":".....","6":"-....","7":"--...","8":"---..","9":"----."};
+
+var AC=null, cur=null;
+function ctx(){ if(!AC){ AC = new (window.AudioContext||window.webkitAudioContext)(); } 
+  if(AC.state==='suspended') AC.resume(); return AC; }
+
+function timing(charWpm, effWpm){
+  var dit = 1.2/charWpm;
+  var fdit = dit;
+  if(effWpm && effWpm < charWpm){
+    var c = ((60/effWpm) - 31*dit)/19;
+    if(c > dit) fdit = c;
+  }
+  return {dit:dit, fdit:fdit};
+}
+
+function beep(c, out, freq, start, dur){
+  var o=c.createOscillator(), g=c.createGain(), r=0.004;
+  o.type='sine'; o.frequency.value=freq;
+  g.gain.setValueAtTime(0.0001,start);
+  g.gain.exponentialRampToValueAtTime(1,start+r);
+  g.gain.setValueAtTime(1,start+Math.max(dur-r,r));
+  g.gain.exponentialRampToValueAtTime(0.0001,start+dur);
+  o.connect(g); g.connect(out); o.start(start); o.stop(start+dur+0.02);
+  return o;
+}
+
+function stopAll(){
+  if(cur){ try{ cur.gain.gain.cancelScheduledValues(0); cur.gain.disconnect(); }catch(e){}
+    (cur.nodes||[]).forEach(function(n){try{n.stop();}catch(e){}}); cur=null; }
+}
+
+function segments(text, charWpm, effWpm){
+  var t=timing(charWpm,effWpm), tm=0, segs=[], up=String(text).toUpperCase();
+  for(var i=0;i<up.length;i++){
+    var ch=up[i];
+    if(ch===' '){ tm += 4*t.fdit; continue; }
+    var pat=MORSE[ch]; if(!pat) continue;
+    for(var j=0;j<pat.length;j++){
+      var dur = pat[j]==='.' ? t.dit : 3*t.dit;
+      segs.push([tm,tm+dur]); tm += dur;
+      if(j<pat.length-1) tm += t.dit;
+    }
+    tm += 3*t.fdit;
+  }
+  return {segs:segs,total:tm,dit:t.dit};
+}
+function flashRateAt(wpm){ return 1000/(2*(1200/wpm)); }
+var LIGHT_MAX_WPM=6;
+
+function runLight(sp){
+  var el=document.getElementById('lamp-float'); if(!el) return;
+  el.hidden=false;
+  var t0=performance.now();
+  (function step(){
+    var now=(performance.now()-t0)/1000, on=false;
+    for(var i=0;i<sp.segs.length;i++){ if(now>=sp.segs[i][0]&&now<sp.segs[i][1]){on=true;break;} }
+    el.classList.toggle('on',on);
+    if(now < sp.total+0.25) requestAnimationFrame(step); else el.classList.remove('on');
+  })();
+}
+function runHaptic(sp){
+  if(!navigator.vibrate) return false;
+  var pat=[], prev=0;
+  sp.segs.forEach(function(s){ pat.push(Math.round((s[0]-prev)*1000)); pat.push(Math.round((s[1]-s[0])*1000)); prev=s[1]; });
+  pat.unshift(0);
+  try{ navigator.vibrate(pat); return true; }catch(e){ return false; }
+}
+
+function play(text, opts){
+  opts=opts||{};
+  var s=CS.get().settings;
+  var chan = opts.channel || s.channel || 'sound';
+  var charWpm = opts.char || s.char, effWpm = opts.eff || s.eff;
+  if(effWpm > charWpm) effWpm = charWpm;
+  var wantsLight = chan==='light' || chan==='both';
+  if(wantsLight && charWpm > LIGHT_MAX_WPM){ charWpm = LIGHT_MAX_WPM; effWpm = Math.min(effWpm,charWpm); }
+
+  var sp = segments(text, charWpm, effWpm);
+
+  if(chan==='sound' || chan==='both'){
+    var c=ctx(); stopAll();
+    var master=c.createGain(); master.gain.value=(s.vol/100)*0.28; master.connect(c.destination);
+    var base=c.currentTime+0.12, nodes=[];
+    sp.segs.forEach(function(g){ nodes.push(beep(c,master,s.tone,base+g[0],g[1]-g[0])); });
+    cur={gain:master,nodes:nodes};
+  }
+  if(wantsLight) runLight(sp);
+  if(chan==='haptic') runHaptic(sp);
+  return sp.total*1000;
+}
+</script>
+<script type="text/course-deferred">
+window.__METER={word:'SEND',letters:[["S", "..."], ["E", "."], ["N", "-."], ["D", "-.."]],svg:'#meter-svg',pct:'#meter-pct',done:"SEND, complete. A fist you have measured rather than guessed at."};
+
+(function(){
+var S=CS.get();
+var $=function(s,r){return (r||document).querySelector(s);};
+
+/* ---------- theme ----------
+   CSS handles the system preference on its own, so an untouched page is
+   already correct before any script runs. This only records an override. */
+(function(){
+  var btn=document.getElementById('theme-btn'); if(!btn)return;
+  var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme:dark)'):null;
+  function isDark(){ return S.settings.theme ? S.settings.theme==='dark' : !!(mq&&mq.matches); }
+  function paint(){
+    var d=isDark();
+    if(S.settings.theme) document.documentElement.setAttribute('data-theme',S.settings.theme);
+    else document.documentElement.removeAttribute('data-theme');
+    btn.textContent = d ? 'Day' : 'Night';
+    btn.setAttribute('aria-pressed', d ? 'true' : 'false');
+    btn.setAttribute('aria-label', d ? 'Switch to the day theme' : 'Switch to the night theme');
+  }
+  btn.addEventListener('click',function(){
+    S.settings.theme = isDark() ? 'light' : 'dark';
+    CS.save(); paint();
+  });
+  if(mq&&mq.addEventListener) mq.addEventListener('change',function(){ if(!S.settings.theme) paint(); });
+  paint();
+})();
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+
+/* ---------- settings ---------- */
+function bind(id,vid,key,suffix){
+  var el=$(id), out=$(vid); if(!el)return;
+  el.value=S.settings[key]; out.textContent=S.settings[key];
+  el.addEventListener('input',function(){
+    var v=parseInt(el.value,10);
+    if(key==='eff' && v>S.settings.char){ v=S.settings.char; el.value=v; }
+    if(key==='char' && S.settings.eff>v){ S.settings.eff=v; var e=$('#s-eff'); if(e){e.value=v;$('#v-eff').textContent=v;} }
+    S.settings[key]=v; out.textContent=v; CS.save();
+  });
+}
+bind('#s-char','#v-char','char');
+bind('#s-eff','#v-eff','eff');
+bind('#s-tone','#v-tone','tone');
+bind('#s-vol','#v-vol','vol');
+var tt=$('#test-tone'); if(tt) tt.addEventListener('click',function(){ play('E T',{}); });
+
+/* ---------- channel ---------- */
+(function(){
+  var row=$('#chanrow'), note=$('#chan-note'); if(!row)return;
+  var canBuzz = typeof navigator!=='undefined' && !!navigator.vibrate;
+  var NOTES={
+    sound:'Sound only. Character speed 12 WPM \u2014 above the critical rate, which is where the pattern holds together.',
+    haptic: canBuzz
+      ? 'Vibration only, and completely silent. Runs at the full 12 WPM because the flash-rate limit applies to light, not to touch. Haptic motors have a slight ramp-up, so the dit/dah contrast is less crisp than a tone \u2014 expect it to be usable rather than precise.'
+      : 'Your browser does not expose the Vibration API \u2014 it is unsupported on iOS Safari, so this option is unavailable here. On iOS the silent options are light, and sending with the sound off.',
+    light:'Light only, via the lamp in the top corner. Capped at 6 WPM so the flash rate stays under the three-per-second threshold \u2014 which also puts it below Koch\u2019s critical rate. Silent, and the tradeoff is real.',
+    both:'Sound and light together, capped at 6 WPM by the light. Useful for attaching the visual channel to characters you already know by ear.'
+  };
+  function paint(){
+    var cur=S.settings.channel||'sound';
+    $$('button',row).forEach(function(b){
+      b.classList.toggle('sel', b.dataset.chan===cur);
+      if(b.dataset.chan==='haptic' && !canBuzz){ b.disabled=true; b.title='Not supported in this browser'; }
+    });
+    if(note) note.textContent=NOTES[cur]||'';
+    var lf=$('#lamp-float'); if(lf && cur!=='light' && cur!=='both'){ lf.hidden=true; lf.classList.remove('on'); }
+  }
+  $$('button',row).forEach(function(b){
+    b.addEventListener('click',function(){
+      if(b.disabled) return;
+      S.settings.channel=b.dataset.chan; CS.save(); paint();
+      play('E T',{});
+    });
+  });
+  paint();
+})();
+
+/* ---------- play buttons ---------- */
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act="play"]'); if(!b)return;
+  var txt=b.dataset.text;
+  if(b.dataset.random){ var p=b.dataset.random; txt=p[Math.floor(Math.random()*p.length)]; }
+  var o={};
+  if(b.dataset.char) o.char=parseInt(b.dataset.char,10);
+  if(b.dataset.eff) o.eff=parseInt(b.dataset.eff,10);
+  if(b.dataset.lamp==='1') o.channel='light';
+  var ms=play(txt,o);
+  b.classList.add('playing'); setTimeout(function(){b.classList.remove('playing');}, Math.min(ms,600));
+});
+
+/* ---------- blocks ---------- */
+function paintBlock(el){
+  var id=el.dataset.block, done=!!(S.blocks[id]&&S.blocks[id].done);
+  el.classList.toggle('done',done);
+  var btn=$('[data-act="done"]',el);
+  if(btn) btn.textContent = done ? 'Done \u2713 \u2014 undo' : 'Mark block done';
+}
+$$('.block').forEach(function(el){
+  paintBlock(el);
+  var btn=$('[data-act="done"]',el); if(!btn)return;
+  btn.addEventListener('click',function(){
+    var id=el.dataset.block, done=!!(S.blocks[id]&&S.blocks[id].done);
+    S.blocks[id]= done ? {done:false} : {done:true,ts:Date.now()};
+    CS.save(); paintBlock(el); paintMeter();
+  });
+});
+
+/* ---------- meter ---------- */
+var M=window.__METER;
+(function buildMeter(){
+  var svg=$(M.svg); if(!svg)return;
+  var ns='http://www.w3.org/2000/svg', x=0; M.rects=[];
+  M.letters.forEach(function(L,li){
+    var pat=L[1];
+    for(var j=0;j<pat.length;j++){
+      var w=pat[j]==='.'?1:3;
+      var r=document.createElementNS(ns,'rect');
+      r.setAttribute('x',x); r.setAttribute('y',1); r.setAttribute('width',w);
+      r.setAttribute('height',4); r.setAttribute('rx',.25); r.setAttribute('class','el-off');
+      svg.appendChild(r); M.rects.push(r);
+      x+=w; x+=(j<pat.length-1)?1:(li<M.letters.length-1?3:0);
+    }
+  });
+  svg.addEventListener('click',function(){ play(M.word,{}); });
+})();
+function paintMeter(){
+  if(!M.rects) return;
+  var bs=$$('.block'), done=bs.filter(function(b){var s=S.blocks[b.dataset.block];return s&&s.done;});
+  var frac=bs.length?done.length/bs.length:0, lit=Math.round(frac*M.rects.length);
+  M.rects.forEach(function(r,i){ r.setAttribute('class', i<lit?(frac>=1?'el-on':'el-live'):'el-off'); });
+  var p=$(M.pct); if(p) p.textContent=Math.round(frac*100)+'%  ('+done.length+'/'+bs.length+' blocks)';
+  var cap=$('#meter-cap');
+  if(cap && frac>=1) cap.textContent=M.done;
+}
+
+/* ---------- confidence helper ---------- */
+function confRow(label,opts,onPick){
+  var d=document.createElement('div'); d.className='conf';
+  d.innerHTML='<div class="conf-q">'+label+'</div><div class="conf-btns"></div>';
+  var row=$('.conf-btns',d);
+  opts.forEach(function(o){
+    var b=document.createElement('button'); b.type='button'; b.textContent=o.t;
+    b.addEventListener('click',function(){
+      $$('button',row).forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel'); onPick(o.v);
+    });
+    row.appendChild(b);
+  });
+  return d;
+}
+function gapNote(pred,act){
+  var g=Math.round(act-pred), d=document.createElement('div');
+  if(Math.abs(g)<=10){ d.className='gap-note gap-good'; d.textContent='Well calibrated \u2014 you predicted '+pred+'%, scored '+Math.round(act)+'%.'; }
+  else if(g<0){ d.className='gap-note gap-over'; d.textContent='Overconfident by '+Math.abs(g)+' points \u2014 predicted '+pred+'%, scored '+Math.round(act)+'%. This is the usual direction, and it is why you check.'; }
+  else { d.className='gap-note gap-under'; d.textContent='Underconfident by '+g+' points \u2014 predicted '+pred+'%, scored '+Math.round(act)+'%. You know more than it feels like.'; }
+  return d;
+}
+var CONF_ACC=[{t:'under 50%',v:40},{t:'50\u201370%',v:60},{t:'70\u201385%',v:78},{t:'85\u2013100%',v:92}];
+var CONF_YN=[{t:'Guessing',v:25},{t:'Unsure',v:50},{t:'Fairly sure',v:75},{t:'Certain',v:95}];
+
+/* ---------- drills ---------- */
+var WORDS=['MOUNTAIN','WISDOM','KINGDOM','SUNDAY','MORNING','DIAMOND','STONE','WINTER','SUMMER',
+'RADIO','NOISE','FADING','STATION','GARDEN','WATER','FRIDAY','MARKET','MONDAY','TOWER','FOREST',
+'DINNER','ANSWER','MASTER','GRANITE','ROUTINE','TUESDAY'];
+
+function makeGroups(set,n){
+  var out=[],g='';
+  for(var i=0;i<n;i++){ g+=set[Math.floor(Math.random()*set.length)]; if(g.length===5){out.push(g);g='';} }
+  if(g) out.push(g);
+  return out.join(' ');
+}
+function makeWords(n){
+  var out=[],c=0;
+  while(c<n){ var w=WORDS[Math.floor(Math.random()*WORDS.length)]; if(out.indexOf(w)>-1)continue; out.push(w); c+=w.length; }
+  return out.join(' ');
+}
+
+$$('.drill').forEach(function(d){
+  var set=d.dataset.set, n=parseInt(d.dataset.count,10)||10, useWords=d.dataset.words==='1';
+  var target=null, pred=null;
+  d.innerHTML=
+    '<div class="btnrow"><button class="brass" data-r="send">Send '+n+' characters</button>'+
+    '<button class="ghost" data-r="again" disabled>Send a new one</button></div>'+
+    '<div data-r="entry" hidden><label>Type what you wrote on paper</label>'+
+    '<input type="text" data-r="ans" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>'+
+    '<div data-r="confslot"></div>'+
+    '<div class="btnrow"><button data-r="check" disabled>Commit and score</button></div>'+
+    '<div data-r="result"></div>';
+  var send=$('[data-r=send]',d), again=$('[data-r=again]',d), entry=$('[data-r=entry]',d),
+      ans=$('[data-r=ans]',d), slot=$('[data-r=confslot]',d), chk=$('[data-r=check]',d), res=$('[data-r=result]',d);
+
+  function refresh(){ chk.disabled = !(pred!==null && ans.value.replace(/\s/g,'').length>0); }
+  ans.addEventListener('input',refresh);
+
+  function newSend(){
+    target = useWords ? makeWords(n) : makeGroups(set,n);
+    pred=null; ans.value=''; res.innerHTML=''; slot.innerHTML='';
+    slot.appendChild(confRow('Before you look \u2014 what percentage do you think you got?',CONF_ACC,function(v){pred=v;refresh();}));
+    entry.hidden=false; again.disabled=false; chk.disabled=true;
+    play(target,{});
+    send.textContent='Replay this one';
+  }
+  send.addEventListener('click',function(){ if(!target) newSend(); else play(target,{}); });
+  again.addEventListener('click',newSend);
+
+  chk.addEventListener('click',function(){
+    var t=target.replace(/\s/g,''), a=ans.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+    var hits=0, html='';
+    for(var i=0;i<t.length;i++){
+      var got=a[i]||'\u00b7', ok=got===t[i];
+      if(ok)hits++;
+      html+='<span class="'+(ok?'hit':'miss')+'">'+(ok?t[i]:t[i])+'</span>';
+      if((i+1)%5===0) html+=' ';
+    }
+    var pct=(hits/t.length)*100;
+    res.innerHTML='<div class="reveal"><p class="small" style="margin-bottom:6px">Sent:</p>'+
+      '<div class="drill-out">'+html+'</div>'+
+      '<p class="small" style="margin-bottom:6px">You wrote:</p>'+
+      '<div class="drill-out">'+(a.replace(/(.{5})/g,'$1 ')||'\u2014')+'</div>'+
+      '<div class="score">'+hits+' of '+t.length+' correct \u2014 <strong>'+Math.round(pct)+'%</strong>'+
+      (pct>=90?' \u2014 at or above the 90% advancement rule.':' \u2014 below 90%; stay on this set.')+'</div></div>';
+    $('.reveal',res).appendChild(gapNote(pred,pct));
+    S.drills.push({id:d.dataset.drill,pred:pred,actual:Math.round(pct),n:t.length,ts:Date.now()});
+    CS.save();
+    chk.disabled=true;
+  });
+});
+
+/* ---------- checks ---------- */
+$$('.check').forEach(function(c){
+  var body=$('.reveal-body',c); if(!body)return;
+  var id=c.dataset.check, hasDrill=!!$('.drill',c), pred=null;
+  body.hidden=true; body.classList.add('reveal');
+  var row=document.createElement('div'); row.className='btnrow';
+  var btn=document.createElement('button'); btn.type='button'; btn.textContent='Commit and reveal';
+  btn.disabled=!hasDrill;
+  row.appendChild(btn);
+  if(!hasDrill){
+    var cr=confRow('Commit first \u2014 how sure are you?',CONF_YN,function(v){pred=v;btn.disabled=false;});
+    c.insertBefore(cr,body);
+  }
+  c.insertBefore(row,body);
+  btn.addEventListener('click',function(){
+    body.hidden=false; btn.disabled=true; btn.textContent='Revealed';
+    if(hasDrill) return;
+    var g=document.createElement('div'); g.className='btnrow';
+    g.innerHTML='<span class="small" style="margin-right:6px">Did you have it?</span>';
+    [['Yes',true],['No',false]].forEach(function(o){
+      var b=document.createElement('button'); b.className='ghost'; b.type='button'; b.textContent=o[0];
+      b.addEventListener('click',function(){
+        S.checks[id]={pred:pred,correct:o[1],ts:Date.now()}; CS.save();
+        g.innerHTML='';
+        g.appendChild(gapNote(pred, o[1]?100:0));
+      });
+      g.appendChild(b);
+    });
+    body.appendChild(g);
+  });
+});
+
+/* ---------- PARIS diagram ---------- */
+(function(){
+  var svg=$('#paris-diag'); if(!svg)return;
+  var ns='http://www.w3.org/2000/svg', x=0, word='PARIS';
+  for(var i=0;i<word.length;i++){
+    var pat=MORSE[word[i]];
+    for(var j=0;j<pat.length;j++){
+      var w=pat[j]==='.'?1:3;
+      var r=document.createElementNS(ns,'rect');
+      r.setAttribute('x',x); r.setAttribute('y',2); r.setAttribute('width',w); r.setAttribute('height',4); r.setAttribute('rx',.25);
+      svg.appendChild(r); x+=w; x+= (j<pat.length-1)?1:3;
+    }
+  }
+  svg.addEventListener('click',function(){ play('PARIS',{}); });
+})();
+
+/* ---------- chart gate ---------- */
+(function(){
+  var b=$('#chart-btn'), body=$('#chart-body'), txt=$('#chart-text'); if(!b)return;
+  b.addEventListener('click',function(){
+    if(body.hidden){
+      if(!txt.textContent){
+        txt.innerHTML=Object.keys(MORSE).filter(function(k){return /[A-Z]/.test(k);})
+          .map(function(k){return k+'&nbsp;&nbsp;'+MORSE[k].replace(/\./g,'&middot;').replace(/-/g,'\u2013');}).join('<br>');
+      }
+      body.hidden=false; b.textContent='Put it away';
+    } else { body.hidden=true; b.textContent='Show it anyway'; }
+  });
+})();
+
+/* ---------- reset ---------- */
+(function(){
+  var b=$('#reset-btn'); if(!b)return;
+  b.addEventListener('click',function(){
+    if(!confirm('Erase all block completions, scores and settings?'))return;
+    CS.reset(); location.reload();
+  });
+})();
+
+paintMeter();
+})();
+</script>
+<script type="text/course-deferred">
+
+(function(){
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+var S=CS.get();
+var REV={}; for(var k in MORSE) REV[MORSE[k]]=k;
+
+/* ---------- 2-means split on durations ---------- */
+function split(vals){
+  if(vals.length<2) return null;
+  var s=vals.slice().sort(function(a,b){return a-b;});
+  if(s[s.length-1]/s[0] < 1.8) return null;           // one cluster only
+  var best=null;
+  for(var i=1;i<s.length;i++){
+    var lo=s.slice(0,i), hi=s.slice(i);
+    var v=varsum(lo)+varsum(hi);
+    if(!best||v<best.v) best={v:v,lo:lo,hi:hi};
+  }
+  return best;
+}
+function mean(a){return a.reduce(function(x,y){return x+y;},0)/a.length;}
+function varsum(a){var m=mean(a);return a.reduce(function(x,y){return x+(y-m)*(y-m);},0);}
+function sd(a){return a.length<2?0:Math.sqrt(varsum(a)/(a.length-1));}
+
+/* ---------- decode a keying record ---------- */
+function analyse(els,gaps){
+  if(els.length<3) return {err:'Send at least a few characters \u2014 there is nothing to measure yet.'};
+  var sp=split(els), dits, dahs, dit;
+  if(sp){ dits=sp.lo; dahs=sp.hi; dit=mean(dits); }
+  else { dits=els.slice(); dahs=[]; dit=mean(els); }
+  if(!sp) return {err:'Every element came out the same length. Send a mix of dits and dahs so the analyser can tell them apart.'};
+
+  var pat='', text='', intra=[], chG=[], wdG=[];
+  for(var i=0;i<els.length;i++){
+    pat += (els[i] > (dit+mean(dahs))/2) ? '-' : '.';
+    if(i<gaps.length){
+      var g=gaps[i], u=g/dit;
+      if(u<2){ intra.push(g); }
+      else if(u<5){ chG.push(g); text += (REV[pat]||'\u00bf'); pat=''; }
+      else { wdG.push(g); text += (REV[pat]||'\u00bf')+' '; pat=''; }
+    }
+  }
+  if(pat) text += (REV[pat]||'\u00bf');
+
+  return {
+    dit:dit, wpm:1200/dit,
+    weight: dahs.length?mean(dahs)/dit:null,
+    intra: intra.length?mean(intra)/dit:null,
+    charGap: chG.length?mean(chG)/dit:null,
+    wordGap: wdG.length?mean(wdG)/dit:null,
+    jitter: dits.length>1 ? sd(dits)/mean(dits) : 0,
+    text:text.trim(), nEl:els.length,
+    noCharGap: chG.length===0 && els.length>3,
+    noWordGap: wdG.length===0
+  };
+}
+
+function verdict(a){
+  var out=[], notes=[];
+  if(a.noCharGap) notes.push('No gap between letters was long enough to detect \u2014 your characters merged into one continuous pattern. This is the single fault that ruins copy, and it is why the decode above is nonsense. Leave three dit-lengths of silence between letters.');
+  if(a.noWordGap) notes.push('No word gaps detected. If you meant to send more than one word, they have run together \u2014 a word break is seven dit-lengths, which is much longer than it feels.');
+  out.notes=notes;
+  function row(label,val,target,tol,advice){
+    if(val===null||val===undefined) return;
+    var off=Math.abs(val-target), ok=off<=tol;
+    out.push({ok:ok,label:label,val:val.toFixed(2),target:target.toFixed(1),advice:ok?'':advice});
+  }
+  row('Dah / dit ratio',a.weight,3,0.7,a.weight<3?'Dahs too short \u2014 hold them longer.':'Dahs too long \u2014 they are eating your gaps.');
+  row('Gap inside a letter',a.intra,1,0.5,a.intra<1?'Elements crowded together.':'Too much air inside letters \u2014 they will read as separate characters.');
+  row('Gap between letters',a.charGap,3,1.0,a.charGap<3?'Letters running together. This is the fault that ruins copy.':'Wider than needed \u2014 harmless, but you are sending slower than you think.');
+  row('Gap between words',a.wordGap,7,2.0,a.wordGap<7?'Word breaks too short \u2014 words will merge.':'Generous word breaks. Harmless.');
+  out.push({ok:a.jitter<=0.25,label:'Dit consistency (lower better)',val:a.jitter.toFixed(2),target:'0.25',
+    advice:a.jitter<=0.25?'':'Your dits vary a lot in length. Slow down until they are even.'});
+  return out;
+}
+
+/* ---------- lamp ---------- */
+var LAMP_MAX=6;
+function flashRate(wpm){ return 1000/(2*(1200/wpm)); }
+function setLamp(el,on){ if(el) el.classList.toggle('on',!!on); }
+
+/* ---------- full-screen lamp overlay ---------- */
+var overlay=null;
+function openOverlay(){
+  if(overlay) return overlay;
+  overlay=document.createElement('div');
+  overlay.className='lamp-overlay';
+  overlay.innerHTML='<button class="lamp-close" type="button">Close lamp</button><div class="lamp-face"></div>';
+  document.body.appendChild(overlay);
+  overlay.querySelector('.lamp-close').addEventListener('click',closeOverlay);
+  return overlay;
+}
+function closeOverlay(){ if(overlay){ overlay.remove(); overlay=null; } }
+
+/* ---------- keyer widget ---------- */
+$$('.keyer').forEach(function(w){
+  var target=w.dataset.target||null, wantsLamp=w.dataset.lamp==='1';
+  var els=[], gaps=[], downAt=0, lastUp=0, keyed=false, ctxA=null, osc=null, gain=null;
+
+  w.innerHTML=
+    '<div class="key-pad" tabindex="0" role="button" aria-label="Morse key: press and hold">'+
+      '<span class="key-hint">Hold to key</span><span class="key-sub">mouse, touch, or the space bar</span>'+
+    '</div>'+
+    (target?'<p class="key-target">Send: <b>'+target+'</b></p>':'<p class="key-target">Send anything &mdash; at least a dozen characters.</p>')+
+    '<div class="key-live" data-r="live">&nbsp;</div>'+
+    '<div class="btnrow"><button data-r="an">Analyse what I sent</button>'+
+    '<button class="ghost" data-r="clr">Clear</button>'+
+    (wantsLamp?'<button class="ghost" data-r="lamp">Full-screen lamp</button>':'')+'</div>'+
+    '<div data-r="out"></div>';
+
+  var pad=$('.key-pad',w), live=$('[data-r=live]',w), out=$('[data-r=out]',w),
+      an=$('[data-r=an]',w), clr=$('[data-r=clr]',w), lampBtn=$('[data-r=lamp]',w);
+
+  function tone(on){
+    try{
+      if(on){
+        ctxA=ctx();
+        osc=ctxA.createOscillator(); gain=ctxA.createGain();
+        osc.type='sine'; osc.frequency.value=S.settings.tone;
+        gain.gain.setValueAtTime(0.0001,ctxA.currentTime);
+        gain.gain.exponentialRampToValueAtTime((S.settings.vol/100)*0.28,ctxA.currentTime+0.004);
+        osc.connect(gain); gain.connect(ctxA.destination); osc.start();
+      } else if(osc){
+        gain.gain.exponentialRampToValueAtTime(0.0001,ctxA.currentTime+0.004);
+        osc.stop(ctxA.currentTime+0.02); osc=null;
+      }
+    }catch(e){}
+  }
+  function face(){ return overlay?overlay.querySelector('.lamp-face'):null; }
+  function down(){
+    if(keyed) return; keyed=true;
+    var t=performance.now();
+    if(downAt) gaps.push(t-lastUp);
+    downAt=t; pad.classList.add('down'); tone(true);
+    setLamp(face(),true);
+  }
+  function up(){
+    if(!keyed) return; keyed=false;
+    var t=performance.now();
+    els.push(t-downAt); lastUp=t;
+    pad.classList.remove('down'); tone(false);
+    setLamp(face(),false);
+    live.textContent = els.length+' elements sent';
+  }
+  pad.addEventListener('pointerdown',function(e){e.preventDefault();down();});
+  window.addEventListener('pointerup',up);
+  pad.addEventListener('keydown',function(e){ if(e.code==='Space'||e.key===' '){e.preventDefault();down();} });
+  pad.addEventListener('keyup',function(e){ if(e.code==='Space'||e.key===' '){e.preventDefault();up();} });
+
+  clr.addEventListener('click',function(){ els=[];gaps=[];downAt=0;live.innerHTML='&nbsp;';out.innerHTML=''; });
+
+  if(lampBtn) lampBtn.addEventListener('click',function(){
+    var o=openOverlay();
+    if(o.dataset.wired) return;
+    o.dataset.wired='1';
+    o.querySelector('.lamp-face').addEventListener('pointerdown',function(e){e.preventDefault();down();});
+  });
+
+  an.addEventListener('click',function(){
+    var a=analyse(els,gaps);
+    if(a.err){ out.innerHTML='<div class="gap-note gap-under">'+a.err+'</div>'; return; }
+    var rows=verdict(a), html='';
+    html+='<div class="reveal"><p class="small" style="margin-bottom:6px">Decoded from your keying:</p>'+
+          '<div class="drill-out">'+(a.text||'\u2014')+'</div>';
+    if(target){
+      var t=target.toUpperCase().replace(/\s+/g,' '), got=a.text.replace(/\s+/g,' ');
+      html+='<p class="small" style="margin-bottom:6px">Target:</p><div class="drill-out">'+t+'</div>'+
+            '<div class="score">'+(got===t?'Clean decode.':'Does not match \u2014 see the timing below before assuming it is the characters.')+'</div>';
+    }
+    html+='<table><tr><th>Measure</th><th>Yours</th><th>Target</th></tr>';
+    rows.forEach(function(r){
+      html+='<tr><td>'+r.label+(r.advice?'<br><span class="small" style="color:var(--oxide)">'+r.advice+'</span>':'')+
+            '</td><td class="'+(r.ok?'hit':'miss')+'">'+r.val+'</td><td>'+r.target+'</td></tr>';
+    });
+    html+='</table>';
+    (rows.notes||[]).forEach(function(msg){ html+='<div class="gap-note gap-over">'+msg+'</div>'; });
+    html+='<div class="score">Sending at about <strong>'+a.wpm.toFixed(1)+' WPM</strong> ('+
+          Math.round(a.dit)+' ms dit) across '+a.nEl+' elements.</div></div>';
+    out.innerHTML=html;
+    S.drills.push({id:'key:'+(w.dataset.keyer||'?'),wpm:+a.wpm.toFixed(1),
+      weight:a.weight?+a.weight.toFixed(2):null, charGap:a.charGap?+a.charGap.toFixed(2):null,
+      jitter:+a.jitter.toFixed(2), ts:Date.now()});
+    CS.save();
+  });
+});
+
+/* ---------- lamp playback wired into play buttons ---------- */
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-lamp="1"][data-act="play"]'); if(!b)return;
+  var el=$('#lamp-demo'); if(!el)return;
+  var cw=parseInt(b.dataset.char||'6',10);
+  if(cw>LAMP_MAX){ cw=LAMP_MAX; }
+  var ew=Math.min(parseInt(b.dataset.eff||'4',10),cw);
+  var rate=flashRate(cw), rl=$('#lamp-rate');
+  if(rl) rl.textContent=rate.toFixed(2)+' flashes/sec at '+cw+' WPM \u2014 limit is 3.00';
+  var t=timing(cw,ew), sched=[], tm=0, up=(b.dataset.text||'').toUpperCase();
+  for(var i=0;i<up.length;i++){
+    var ch=up[i];
+    if(ch===' '){ tm+=4*t.fdit; continue; }
+    var p=MORSE[ch]; if(!p) continue;
+    for(var j=0;j<p.length;j++){
+      var d=(p[j]==='.'?t.dit:3*t.dit);
+      sched.push([tm*1000,(tm+d)*1000]); tm+=d;
+      if(j<p.length-1) tm+=t.dit;
+    }
+    tm+=3*t.fdit;
+  }
+  var t0=performance.now(), k=0;
+  (function step(){
+    var now=performance.now()-t0, on=false;
+    for(var m=0;m<sched.length;m++){ if(now>=sched[m][0]&&now<sched[m][1]){on=true;break;} }
+    setLamp(el,on);
+    if(now < tm*1000+200) requestAnimationFrame(step); else setLamp(el,false);
+  })();
+});
+})();
+</script>
+</body>
+</html>
