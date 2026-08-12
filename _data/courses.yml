@@ -57,3 +57,11 @@
     & McGill (JASA, 1984) to a chart you can defend with measurements you took
     yourself.
   tracked: true
+
+- slug: color-science
+  title: Color Science
+  description: >-
+    OKLCH, display gamut, and why the 4.5:1 your linter enforces is a model
+    rather than a measurement. Ends in a token palette and a contrast policy
+    you can defend.
+  tracked: true

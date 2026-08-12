@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="color-science"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Color Science for Design Systems: OKLCH, Gamut, and the Contrast Ratio Problem</title>
+<style>
+:root{
+  color-scheme: light dark;
+  --ground:#F6F8FA; --surface:#FFFFFF; --panel:#EEF2F6; --panel-2:#E4EAF1;
+  --ink:#14181F; --ink-soft:#414A57; --ink-mute:#616A76;
+  --rule:#C6CDD5; --rule-strong:#7A8189; --btn-fg:#FFFFFF;
+  --signal:#0E6E84; --signal-soft:#DCEEF2;
+  --fact:#1F7A4D;   --fact-bg:#E2F1E9;
+  --infer:#8A560C;  --infer-bg:#F6EBD8;
+  --vendor:#6B47A6; --vendor-bg:#EDE6F7;
+  --contest:#A63A4A;--contest-bg:#F8E4E7;
+  --single:#2C5AA6; --single-bg:#E3EBF8;
+  --ok:#1F7A4D; --bad:#A63A4A;
+  --meter-line:#8B96A3;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ground:#0E1116; --surface:#161B22; --panel:#1C2230; --panel-2:#242C3B;
+    --ink:#E9EDF2; --ink-soft:#B6BFCB; --ink-mute:#8A94A2;
+    --rule:#3C4959; --rule-strong:#657685; --btn-fg:#0E1116;
+    --signal:#5AC8DC; --signal-soft:#14323A;
+    --fact:#6FD79E;   --fact-bg:#123425;
+    --infer:#E0B15C;  --infer-bg:#3A2C11;
+    --vendor:#BFA0EE; --vendor-bg:#2B2140;
+    --contest:#F09AA6;--contest-bg:#3D1B21;
+    --single:#8FB6F0; --single-bg:#182740;
+    --ok:#6FD79E; --bad:#F09AA6;
+    --meter-line:#6E7A88;
+  }
+}
+[data-theme="light"]{
+  --ground:#F6F8FA; --surface:#FFFFFF; --panel:#EEF2F6; --panel-2:#E4EAF1;
+  --ink:#14181F; --ink-soft:#414A57; --ink-mute:#616A76;
+  --rule:#C6CDD5; --rule-strong:#7A8189; --btn-fg:#FFFFFF;
+  --signal:#0E6E84; --signal-soft:#DCEEF2;
+  --fact:#1F7A4D; --fact-bg:#E2F1E9;
+  --infer:#8A560C; --infer-bg:#F6EBD8;
+  --vendor:#6B47A6; --vendor-bg:#EDE6F7;
+  --contest:#A63A4A;--contest-bg:#F8E4E7;
+  --single:#2C5AA6; --single-bg:#E3EBF8;
+  --ok:#1F7A4D; --bad:#A63A4A; --meter-line:#8B96A3;
+}
+[data-theme="dark"]{
+  --ground:#0E1116; --surface:#161B22; --panel:#1C2230; --panel-2:#242C3B;
+  --ink:#E9EDF2; --ink-soft:#B6BFCB; --ink-mute:#8A94A2;
+  --rule:#3C4959; --rule-strong:#657685; --btn-fg:#0E1116;
+  --signal:#5AC8DC; --signal-soft:#14323A;
+  --fact:#6FD79E; --fact-bg:#123425;
+  --infer:#E0B15C; --infer-bg:#3A2C11;
+  --vendor:#BFA0EE; --vendor-bg:#2B2140;
+  --contest:#F09AA6;--contest-bg:#3D1B21;
+  --single:#8FB6F0; --single-bg:#182740;
+  --ok:#6FD79E; --bad:#F09AA6; --meter-line:#6E7A88;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font:17px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  padding:0 0 6rem;
+}
+.wrap{max-width:44rem;margin:0 auto;padding:0 1rem}
+h1{font-size:1.55rem;line-height:1.25;margin:0 0 .4rem;letter-spacing:-.02em}
+h2{font-size:1.22rem;line-height:1.3;margin:2.4rem 0 .5rem;letter-spacing:-.01em}
+h3{font-size:1.04rem;margin:1.5rem 0 .4rem}
+h4{font-size:.95rem;margin:1.1rem 0 .3rem;color:var(--ink-soft)}
+p{margin:.7rem 0}
+a{color:var(--signal)}
+ul,ol{padding-left:1.25rem;margin:.6rem 0}
+li{margin:.35rem 0}
+small{font-size:.83rem}
+hr{border:0;border-top:1px solid var(--rule);margin:2rem 0}
+
+header.top{
+  background:var(--surface);border-bottom:1px solid var(--rule);
+  padding:1.1rem 0 .9rem;margin-bottom:1rem;
+}
+.eyebrow{font:600 .7rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--signal);margin:0 0 .55rem}
+.sub{color:var(--ink-mute);font-size:.9rem;margin:.35rem 0 0}
+.themebtn{
+  position:absolute;top:.7rem;right:.7rem;
+  min-width:44px;min-height:44px;border-radius:10px;
+  border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink);
+  font-size:1.05rem;cursor:pointer;line-height:1;
+}
+.topwrap{position:relative}
+
+/* ---------- meter ---------- */
+.meter{
+  background:var(--surface);border:1px solid var(--rule);border-radius:14px;
+  padding:.9rem;margin:0 0 1.4rem;
+}
+.meter-grid{display:grid;grid-template-columns:1fr;gap:.9rem;align-items:center}
+@media (min-width:640px){ .meter-grid{grid-template-columns:auto 1fr;gap:1.2rem} }
+#cie{width:100%;max-width:260px;height:auto;display:block;margin:0 auto;border-radius:8px}
+.meter-read .big{font:700 1.5rem/1 var(--mono);letter-spacing:-.02em}
+.meter-read .lbl{font-size:.78rem;color:var(--ink-mute);margin-top:.15rem}
+.meter-note{font-size:.79rem;color:var(--ink-mute);margin:.7rem 0 0;line-height:1.45}
+.sect-key{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.55rem}
+.sect-key i{width:11px;height:11px;border-radius:2px;background:var(--panel-2);border:1px solid var(--rule-strong);display:block}
+.sect-key i.on{background:var(--signal);border-color:var(--signal)}
+
+/* ---------- provenance chips ---------- */
+.chip{
+  display:inline-block;font:600 .68rem/1.35 var(--mono);
+  padding:.14rem .4rem;border-radius:5px;vertical-align:.06em;
+  white-space:nowrap;letter-spacing:.01em;
+}
+.chip a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.chip.src{color:var(--fact);background:var(--fact-bg)}
+.chip.infer{color:var(--infer);background:var(--infer-bg)}
+.chip.vendor{color:var(--vendor);background:var(--vendor-bg)}
+.chip.contested{color:var(--contest);background:var(--contest-bg)}
+.chip.single{color:var(--single);background:var(--single-bg)}
+
+.legend{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:.85rem 1rem;margin:1rem 0}
+.legend dl{margin:0;display:grid;grid-template-columns:1fr;gap:.4rem}
+@media (min-width:560px){ .legend dl{grid-template-columns:auto 1fr;column-gap:.7rem;row-gap:.45rem;align-items:baseline} }
+.legend dt{margin:0}
+.legend dd{margin:0;font-size:.87rem;color:var(--ink-soft)}
+
+/* ---------- callouts ---------- */
+.box{border:1px solid var(--rule);border-radius:12px;padding:.9rem 1rem;margin:1.1rem 0;background:var(--surface)}
+.box h4{margin-top:0}
+.box.liminal{border-color:var(--infer);background:var(--infer-bg)}
+.box.liminal h4{color:var(--infer)}
+.box.evidence{background:var(--panel);border-style:dashed}
+.box.evidence h4{color:var(--signal);font:600 .7rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.box.warn{border-color:var(--contest);background:var(--contest-bg)}
+.box.warn h4{color:var(--contest)}
+
+/* ---------- units ---------- */
+.week{margin:2.6rem 0 0}
+.week-head{border-top:2px solid var(--signal);padding-top:.7rem}
+.week-head .wk{font:600 .7rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
+.week-head h2{margin:.35rem 0 .2rem}
+.week-head .wtime{font-size:.83rem;color:var(--ink-mute)}
+.unit{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:1rem;margin:1.1rem 0}
+.unit.done{border-color:var(--signal)}
+.unit-head{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.5rem}
+.mode{font:600 .67rem/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;padding:.28rem .45rem;border-radius:5px;background:var(--signal-soft);color:var(--signal)}
+.est{font:600 .72rem/1 var(--mono);color:var(--ink-mute)}
+.unit h3{margin:.1rem 0 .3rem;font-size:1.08rem}
+
+/* ---------- interactive items ---------- */
+.item{border:1px solid var(--rule-strong);border-radius:12px;padding:.85rem;margin:1.1rem 0;background:var(--panel)}
+.item .q{font-weight:600;margin:0 0 .5rem}
+.item .qtag{font:600 .66rem/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-mute);display:block;margin-bottom:.35rem}
+.opts{display:grid;gap:.4rem;margin:.5rem 0}
+.opt{display:flex;gap:.55rem;align-items:flex-start;min-height:44px;padding:.55rem .6rem;border:1px solid var(--rule-strong);border-radius:9px;background:var(--surface);cursor:pointer}
+.opt input{margin:.32rem 0 0;flex:0 0 auto;width:18px;height:18px;accent-color:var(--signal)}
+.opt.sel{border-color:var(--signal);box-shadow:inset 0 0 0 1px var(--signal)}
+.opt span{font-size:.93rem}
+textarea,input[type=text],input[type=number]{
+  width:100%;min-height:44px;padding:.55rem .6rem;border-radius:9px;
+  border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);
+  font:inherit;font-size:.94rem;
+}
+textarea{min-height:5.5rem;resize:vertical;font-family:var(--mono);font-size:.85rem;line-height:1.5}
+.conf{margin:.7rem 0 .3rem}
+.conf .clbl{font-size:.83rem;color:var(--ink-soft);display:block;margin-bottom:.35rem}
+.confbtns{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem}
+.confbtns button{
+  min-height:44px;border-radius:9px;border:1px solid var(--rule-strong);
+  background:var(--surface);color:var(--ink-soft);font:600 .78rem/1.2 var(--mono);cursor:pointer;padding:.3rem .1rem;
+}
+.confbtns button.sel{background:var(--signal);border-color:var(--signal);color:var(--btn-fg)}
+@media (max-width:420px){ .confbtns button{font-size:.7rem;letter-spacing:-.01em;padding:.3rem .05rem} }
+@media (max-width:340px){ .confbtns{grid-template-columns:repeat(2,1fr)} }
+.commit{
+  min-height:44px;width:100%;margin-top:.6rem;border-radius:9px;border:1px solid var(--signal);
+  background:var(--signal);color:var(--btn-fg);font:600 .92rem/1 inherit;cursor:pointer;
+}
+.commit[disabled]{opacity:.45;cursor:not-allowed}
+.reveal{display:none;margin-top:.8rem;padding-top:.8rem;border-top:1px dashed var(--rule-strong)}
+.reveal.open{display:block}
+.verdict{font:700 .82rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem}
+.verdict.ok{color:var(--ok)} .verdict.bad{color:var(--bad)} .verdict.neutral{color:var(--ink-mute)}
+.gap{font-size:.83rem;color:var(--ink-mute);margin-top:.5rem}
+
+.donebar{display:flex;align-items:center;gap:.6rem;margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--rule)}
+.donebar label{display:flex;align-items:center;gap:.55rem;min-height:44px;cursor:pointer;font-size:.92rem;font-weight:600}
+.donebar input{width:22px;height:22px;accent-color:var(--signal)}
+
+/* ---------- code / tables / math ---------- */
+pre{
+  background:var(--panel-2);border:1px solid var(--rule);border-radius:10px;
+  padding:.8rem;overflow-x:auto;font:.8rem/1.55 var(--mono);margin:.8rem 0;
+}
+code{font:.87em/1.4 var(--mono);background:var(--panel-2);padding:.1rem .28rem;border-radius:4px}
+pre code{background:none;padding:0;font-size:1em}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.9rem 0;border:1px solid var(--rule);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:26rem}
+th,td{padding:.45rem .6rem;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{background:var(--panel);font:600 .74rem/1.3 var(--mono);letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft)}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:.82rem}
+tr:last-child td{border-bottom:0}
+.mathblock{overflow-x:auto;background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:.75rem .85rem;margin:.9rem 0;font:.9rem/1.7 var(--mono);white-space:nowrap}
+
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:.4rem;margin:.8rem 0}
+.sw{border-radius:8px;border:1px solid var(--rule-strong);padding:.55rem .35rem;text-align:center;font:600 .66rem/1.3 var(--mono)}
+
+.srcs{font-size:.87rem}
+.srcs li{margin:.6rem 0}
+.srcs .tier{font:600 .66rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute)}
+.calib{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:1rem;margin:1.2rem 0}
+.calib table{min-width:0}
+.calib td,.calib th{white-space:normal}
+footer.end{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--rule);color:var(--ink-mute);font-size:.85rem}
+.resetbtn{min-height:44px;padding:0 1rem;border-radius:9px;border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink-soft);font:600 .85rem/1 inherit;cursor:pointer}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap topwrap">
+  <button class="themebtn" id="themebtn" aria-label="Switch color theme" title="Switch theme">◐</button>
+  <p class="eyebrow">Working competence · 12 units · 4 weeks</p>
+  <h1>Color Science for Design Systems</h1>
+  <p class="sub">OKLCH, gamut mapping, and why the contrast ratio in your linter is a model — not a measurement.</p>
+</div></header>
+
+<div class="wrap">
+
+<div class="meter" id="meter">
+  <div class="meter-grid">
+    <canvas id="cie" width="520" height="520" role="img"
+      aria-label="CIE 1931 chromaticity diagram. The outline is all visible color; the filled triangle is what an sRGB display can show. Sectors fill in as units are completed."></canvas>
+    <div class="meter-read">
+      <div class="big" id="mCount">0 / 12</div>
+      <div class="lbl">units complete · each unlocks a 30° sector of your display's gamut</div>
+      <div class="sect-key" id="mKey"></div>
+      <p class="meter-note" id="mNote"></p>
+    </div>
+  </div>
+</div>
+
+<h2 id="start">Start here</h2>
+
+<p><strong>The capability.</strong> At the end of this course you can <em>author a design-token
+palette in OKLCH, prove which of its colors your display cannot actually show, and write a
+one-page contrast policy that says what your numbers mean and where they stop being true</em> —
+and defend all three to an engineer who disagrees with you.</p>
+
+<p>Not "understand color." Three artifacts, checkable by someone else.</p>
+
+<h3>Who this assumes you are</h3>
+<p>Comfortable in CSS and JavaScript; has shipped design tokens and at least one dark mode;
+can read a matrix multiply without flinching but has never derived a color transform.
+Has seen <code>oklch()</code> in a stylesheet and possibly pasted one. Knows 4.5:1 as a rule
+that a linter enforces, and has had the experience of a dark-mode pair that passed the linter
+and still looked wrong. No prior exposure to CIE colorimetry, tristimulus values, or chromaticity.</p>
+<p>If that is not you — if you have never shipped tokens — the payoff in Week 1 will still land,
+but Week 4 will have nothing to attach to.</p>
+
+<h3>What this course does not do</h3>
+<ul>
+  <li><strong>No color appearance modeling.</strong> CIECAM16, viewing conditions, chromatic
+    adaptation, surround effects — named once, never used. They are the actual state of the art
+    and they are out of scope.</li>
+  <li><strong>No HDR.</strong> Everything here assumes SDR, D65, a normally-lit room.</li>
+  <li><strong>No color vision deficiency simulation.</strong> Genuinely important, genuinely
+    a different course.</li>
+  <li><strong>No print, no CMYK, no ICC profiles.</strong> Screens only.</li>
+  <li><strong>No claim that OKLCH is correct.</strong> It is a fit, with known limits, and
+    Week 2 makes you find one of them.</li>
+  <li><strong>No accessibility-compliance advice.</strong> This course will show you that
+    WCAG 2's contrast math is a model with documented failure modes. It will not tell you to
+    stop conforming to it. Those are different questions and Unit 9 separates them explicitly.</li>
+</ul>
+
+<h3>Time</h3>
+<p>The twelve units sum to about <strong>9 hours 10 minutes</strong> of stated work.
+Plan for <strong>~23 hours</strong>. That is the stated time multiplied by 2.5, which is roughly
+how much longer self-paced learners actually take than a course estimates
+<span class="chip infer">Inference</span>. The multiplier is not padding for slow reading —
+it is where the stuck parts go, and this course has three of them, marked.</p>
+<p>Per-unit estimates are printed on every unit. A unit is meant to be openable and closeable
+in one sitting. Close one and stop; that is the design, not a failure of stamina.</p>
+
+<h3>How claims are marked</h3>
+<div class="legend">
+  <dl>
+    <dt><span class="chip src">Sourced fact <a href="#S1">S1</a></span></dt>
+    <dd>Traceable to a numbered source at the bottom that I opened and read.</dd>
+    <dt><span class="chip infer">Inference</span></dt>
+    <dd>My reasoning, my computation, or my application. Appears in no source. Check it.</dd>
+    <dt><span class="chip vendor">Vendor framing</span></dt>
+    <dd>Accurate, but authored by someone with a stake in the thing being described.</dd>
+    <dt><span class="chip contested">Contested</span></dt>
+    <dd>Practitioners and standards bodies genuinely disagree, right now.</dd>
+    <dt><span class="chip single">Single study</span></dt>
+    <dd>Real, unreplicated, or a preprint. Directionally useful, not settled.</dd>
+  </dl>
+</div>
+<p>Pay attention to <span class="chip vendor">Vendor framing</span> in particular. In color on the
+web, the clearest writing on almost every topic is produced by someone shipping a tool, a color
+picker, a contrast checker, or a standard. That does not make it wrong. It makes it shaped.
+Learning to read this field means learning to see the shape — which is why the markers are here
+rather than in a methodology appendix.</p>
+
+<div class="box liminal">
+  <h4>Three places you are supposed to get stuck</h4>
+  <p>Unit 3, when Oklab lightness and HSL lightness disagree and you cannot yet say which one is
+  "right." Unit 6, when you realize maximum chroma is not a number you can look up. Unit 9, when
+  a standard you have complied with for years turns out to rest on a citation that may not say
+  what it is cited for.</p>
+  <p>Each of those is the crossing, not an obstacle before it. If a unit feels like it is
+  taking too long and you cannot summarize what you just read, that is the expected condition
+  and it resolves in the <em>next</em> unit, not this one.</p>
+</div>
+
+
+<section class="week">
+<div class="week-head">
+  <div class="wk">Week 1</div>
+  <h2>Ship it, then find out why it's wrong</h2>
+  <div class="wtime">4 units · ~2 hr 30 min stated</div>
+</div>
+
+<!-- ============ U1 ============ -->
+<article class="unit" data-unit="u1">
+<div class="unit-head"><span class="mode">Build</span><span class="est">~45 min</span></div>
+<h3>Unit 1 · A whole palette, badly</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>Three files, all crude, all complete: <code>tokens.css</code> with nine OKLCH colors in light
+and dark, a two-line <code>gamut.md</code> guessing which ones your display can't show, and a
+one-sentence <code>contrast-policy.md</code>. You will be wrong about most of it. That is the point —
+these are the three artifacts the whole course refines, and you need something to be wrong
+<em>about</em> before the theory has anywhere to land.</p></div>
+
+<p>No theory first. Build the thing, then we take it apart.</p>
+
+<h4>Step 1 — write the ramp</h4>
+<p>Pick one brand hue. Something you actually use. Find its hue angle by pasting the hex into any
+OKLCH converter, or start from these: red ≈ 25°, orange ≈ 60°, yellow ≈ 95°, green ≈ 145°,
+teal ≈ 195°, blue ≈ 255°, purple ≈ 300°, magenta ≈ 340°
+<span class="chip infer">Inference</span> — these are rounded from my own conversions, good enough
+to start and wrong enough to fix later.</p>
+
+<p>Now write nine steps at even lightness intervals, holding chroma and hue fixed:</p>
+<pre><code>:root {
+  --brand-50:  oklch(0.97 0.16 255);
+  --brand-100: oklch(0.92 0.16 255);
+  --brand-200: oklch(0.85 0.16 255);
+  --brand-300: oklch(0.77 0.16 255);
+  --brand-400: oklch(0.68 0.16 255);
+  --brand-500: oklch(0.58 0.16 255);
+  --brand-600: oklch(0.48 0.16 255);
+  --brand-700: oklch(0.38 0.16 255);
+  --brand-800: oklch(0.28 0.16 255);
+}</code></pre>
+
+<p>Put it in a real page — a scratch file, a Storybook story, whatever is fastest. Render the nine
+swatches as blocks. Look at them on the device you are reading this on.</p>
+
+<h4>Step 2 — the dark half</h4>
+<p>Make a dark variant by the most obvious method: reverse the ramp. <code>--surface</code> gets
+the darkest step in dark mode and the lightest in light mode, and so on. Do not think hard about
+it. Write it down.</p>
+
+<h4>Step 3 — guess, in writing</h4>
+<p>Create <code>gamut.md</code>. Two lines:</p>
+<pre><code>Steps I think my display cannot actually show: ___
+Why I think that: ___</code></pre>
+
+<h4>Step 4 — the policy</h4>
+<p>Create <code>contrast-policy.md</code>. One sentence, whatever you currently believe. Most
+people write something close to "all text pairs must hit 4.5:1 per WCAG AA." Write yours honestly,
+including if it is "whatever the linter says."</p>
+
+<div class="item" data-item="u1a" data-type="open">
+  <span class="qtag">Self-explanation · gated</span>
+  <p class="q">Look at your nine swatches. Does the ramp look evenly spaced in lightness to you —
+  same-size step between every adjacent pair? Describe what you actually see, in your own words,
+  before reading anyone's explanation. If it looks uneven, say <em>where</em>.</p>
+  <textarea rows="4" placeholder="What I actually see, looking at my own ramp..."></textarea>
+  <div class="conf"><span class="clbl">Before you commit: how confident are you that your description would match what a colorimeter says?</span>
+  <div class="confbtns">
+    <button data-c="1">1 · guessing</button><button data-c="2">2 · hunch</button>
+    <button data-c="3">3 · fairly sure</button><button data-c="4">4 · confident</button>
+  </div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <div class="verdict neutral">Recorded — no right answer yet</div>
+    <p>Most people report one of two things: the ramp looks close to even, or the light end looks
+    compressed and washed out while the dark end looks fine. Both reports are common and both are
+    informative.</p>
+    <p>Here is what you can't yet tell, and won't until Unit 4: whether the unevenness you see
+    is <em>in the ramp</em> or <em>in your display's inability to render the ramp you wrote</em>.
+    Those have different fixes. Hold your description; you will come back and score it.</p>
+  </div>
+</div>
+
+<div class="box liminal"><h4>Do not fix it yet</h4>
+<p>You will want to nudge the numbers until it looks right. Don't. A ramp you tuned by eye
+teaches nothing, because you cannot later tell which of your nudges corrected a real defect and
+which one corrected a defect that was never there. Ship it ugly and keep the receipts.</p></div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 1 complete</label></div>
+</article>
+
+<!-- ============ U2 ============ -->
+<article class="unit" data-unit="u2">
+<div class="unit-head"><span class="mode">Read</span><span class="est">~35 min</span></div>
+<h3>Unit 2 · "Lightness" is four different numbers</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>A written distinction, in your own words, between four quantities that all get called
+lightness or brightness — and a statement of which one <code>oklch()</code>'s first argument is.
+Three sentences in a notes file. It is the supportive information Unit 3 computes.</p></div>
+
+<p>The word "lightness" is doing four jobs.</p>
+
+<h4>1. HSL's L — a geometric artifact</h4>
+<p>HSL's lightness is <code>(max(R,G,B) + min(R,G,B)) / 2</code> on the gamma-encoded values.
+That is a definition of convenience: it makes the color space a tidy double cone that is easy to
+draw a picker for. It is not a claim about perception, and it was never intended as one.
+Every fully saturated hue — pure blue, pure yellow, pure red — has HSL lightness of exactly 50%.
+<span class="chip infer">Inference</span> (this follows directly from the formula; verify it in
+Unit 3 rather than taking it from me).</p>
+
+<h4>2. Relative luminance, Y — physics, weighted by the eye</h4>
+<p>Linearize each sRGB channel to undo the transfer function, then take
+<code>0.2126R + 0.7152G + 0.0722B</code> <span class="chip src">Sourced fact <a href="#S5">S5</a></span>.
+The weights reflect that the eye is far more sensitive to green light than to blue at equal power.
+Y is a real physical quantity — how much light is coming off the pixel, weighted by human spectral
+sensitivity. It is <em>linear</em>: double Y and you have doubled the light.</p>
+<p>Crucially: doubling the light does not double the apparent lightness. Y is what a light meter
+measures, not what you see.</p>
+
+<h4>3. CIE L* — the 1976 model of perceived lightness</h4>
+<p>CIELAB's L* applies a cube-root-ish compression to Y and scales to 0–100. The compression is
+the whole point: perceived lightness grows roughly as the cube root of luminance, so a color at
+half the luminance of white looks much more than half as light. L* = 50 is the mid-grey your eye
+picks, and it sits at about <em>18%</em> of white's luminance, not 50%.</p>
+
+<h4>4. Oklab's L — a 2020 refit of the same idea</h4>
+<p>Oklab keeps CIELAB's structure — cone-response matrix, cube root, opponent-axis matrix — and
+re-fits the numbers. Ottosson designed it because CIELAB predicts hue badly, most visibly in blues,
+where holding L* and hue constant and varying chroma visibly shifts the color toward purple
+<span class="chip src">Sourced fact <a href="#S1">S1</a></span>. Oklab's L runs 0–1 rather than
+0–100. <code>oklch(0.58 0.16 255)</code> — the first number is this one.</p>
+
+<div class="box warn"><h4>Where Oklab's lightness actually comes from</h4>
+<p>This is the part most write-ups omit, and it changes how much weight the number can carry.
+Ottosson fit Oklab against three datasets: a lightness set and a chroma set that he
+<em>generated using CAM16</em>, plus the Ebner–Fairchild experimental hue data that was used to
+derive IPT <span class="chip src">Sourced fact <a href="#S1">S1</a></span>. He states the
+consequence himself: because the lightness and chroma data were generated by a model rather than
+measured from people, that data cannot establish which model best matches human perception
+<span class="chip src">Sourced fact <a href="#S1">S1</a></span>.</p>
+<p>So Oklab's <em>hue</em> uniformity rests on human data. Its <em>lightness</em> and
+<em>chroma</em> rest on agreement with CAM16, a different model. A 2026 preprint puts a number on
+the consequence: measured against the COMBVD color-difference dataset, Oklab scores substantially
+worse than CIEDE2000 at predicting how different two colors look
+<span class="chip single">Single study <a href="#S12">S12</a></span> — which is unsurprising, since
+that was never the objective it was fit for, but is worth knowing before you use ΔE<sub>OK</sub> as
+if it were a perceptual difference metric. That is a defensible engineering
+choice and Ottosson is unusually direct about it. It is also not what "perceptually uniform"
+sounds like it means.</p>
+</div>
+
+<p>One more thing worth knowing before you meet it in the wild: the γ exponent in Ottosson's fit
+came out at 0.323 and he forced it to exactly 1/3, additionally constraining the fit so that blue
+colors would not fold inward and make the sRGB gamut non-convex. He reports the error was not
+noticeably affected <span class="chip src">Sourced fact <a href="#S1">S1</a></span>. A
+convenient-looking constant that turns out to be a fitted parameter, rounded for a geometric
+reason, is a good example of what these spaces are made of.</p>
+
+<div class="item" data-item="u2a" data-type="choice">
+  <span class="qtag">Check · gated</span>
+  <p class="q">A designer says: "I set both swatches to 50% lightness, so they're equally light."
+  They used HSL. Which statement is the most precise correction?</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u2a"><span>They should have used 50% in Oklab instead, which would have made the swatches equally light.</span></label>
+    <label class="opt" data-correct><input type="radio" name="u2a"><span>HSL's L is a midpoint of gamma-encoded channel extremes; it is a coordinate in a convenient geometry, and it makes no prediction about perceived lightness at all.</span></label>
+    <label class="opt"><input type="radio" name="u2a"><span>HSL is less accurate than Oklab, so the error is small but present.</span></label>
+    <label class="opt"><input type="radio" name="u2a"><span>Perceived lightness cannot be modeled, so any such claim is unfounded.</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence before reveal:</span>
+  <div class="confbtns"><button data-c="1">1 · guessing</button><button data-c="2">2 · hunch</button><button data-c="3">3 · fairly sure</button><button data-c="4">4 · confident</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p><strong>The distinction that matters:</strong> the difference between HSL's L and Oklab's L
+    is not one of <em>accuracy</em>. It is a difference of <em>kind</em>. HSL's L is not a bad
+    estimate of perceived lightness; it is not an estimate of perceived lightness. Oklab's L is a
+    fitted model of it, with the documented caveats above.</p>
+    <p>Option 1 is the tempting wrong answer, and it is wrong for a second reason too: Oklab L = 0.5
+    swatches at different hues are also not guaranteed to look equally light to <em>you</em>, only
+    to the average of the fit. Option 3 treats a category error as a precision error, which is the
+    specific mistake this unit exists to prevent.</p>
+  </div>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 2 complete</label></div>
+</article>
+
+
+<!-- ============ U3 ============ -->
+<article class="unit" data-unit="u3">
+<div class="unit-head"><span class="mode">Derive</span><span class="est">~40 min</span></div>
+<h3>Unit 3 · Five colors with the same lightness and nothing in common</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>A completed table, computed by you, of four lightness measures across five colors that HSL
+calls identical. Pen and paper or a REPL — either is fine, but the numbers have to come out of
+your hands, not out of a converter website. The table is the evidence that the Unit 2 distinction
+is real and not a semantic quibble.</p></div>
+
+<p>Here are five sRGB colors. Every one of them has HSL lightness of essentially 50%.</p>
+<div class="swatches">
+  <div class="sw" style="background:#0000FF;color:#fff">#0000FF</div>
+  <div class="sw" style="background:#808080;color:#fff">#808080</div>
+  <div class="sw" style="background:#FFFF00;color:#000">#FFFF00</div>
+  <div class="sw" style="background:#FF0000;color:#fff">#FF0000</div>
+  <div class="sw" style="background:#00FF00;color:#000">#00FF00</div>
+</div>
+<p>Look at them. Then compute.</p>
+
+<h4>The two formulas you need</h4>
+<p>Linearize a channel (undo the sRGB transfer function), for channel value <code>c</code> in 0–1
+<span class="chip src">Sourced fact <a href="#S5">S5</a></span>:</p>
+<div class="mathblock">lin(c) = c/12.92                    if c ≤ 0.04045
+lin(c) = ((c + 0.055)/1.055)^2.4    otherwise</div>
+<p>Relative luminance <span class="chip src">Sourced fact <a href="#S5">S5</a></span>:</p>
+<div class="mathblock">Y = 0.2126·lin(R) + 0.7152·lin(G) + 0.0722·lin(B)</div>
+<p>CIE L* from Y <span class="chip src">Sourced fact <a href="#S2">S2</a></span>:</p>
+<div class="mathblock">L* = 116·Y^(1/3) − 16        for Y &gt; 216/24389
+L* = (24389/27)·Y            otherwise</div>
+
+<h4>Worked example — #0000FF, all the way through</h4>
+<p>R = 0, G = 0, B = 255 → 1.0.</p>
+<div class="mathblock">lin(0)   = 0/12.92 = 0
+lin(1.0) = ((1.0 + 0.055)/1.055)^2.4 = 1^2.4 = 1
+
+Y = 0.2126·0 + 0.7152·0 + 0.0722·1 = 0.0722
+
+Y &gt; 0.008856, so:
+L* = 116·(0.0722)^(1/3) − 16
+   = 116·0.41637 − 16
+   = 48.30 − 16 = 32.3</div>
+<p>So pure blue carries <strong>7.2%</strong> of white's luminance, and sits at
+<strong>L* = 32</strong> on a 0–100 perceptual scale. HSL called it 50.</p>
+<p>Oklab L for the same color is <strong>0.452</strong>
+<span class="chip infer">Inference</span> — computed by me with Ottosson's published linear-sRGB
+matrices, which I verified against his published XYZ→Oklab test table before using them
+<span class="chip src">Sourced fact <a href="#S1">S1</a></span>. The Oklab arithmetic is a matrix
+multiply and three cube roots; it is not illuminating to do by hand, so I am handing you those
+values and asking you to compute the other three columns yourself.</p>
+
+<h4>Completion problem — #FFFF00, fill the gaps</h4>
+<div class="mathblock">R = 1.0, G = 1.0, B = 0
+
+lin(1.0) = ____        lin(0) = ____
+
+Y = 0.2126·____ + 0.7152·____ + 0.0722·____ = ____
+
+L* = 116·(____)^(1/3) − 16 = ____</div>
+
+<div class="item" data-item="u3a" data-type="numeric" data-answer="0.9278" data-tol="0.005">
+  <span class="qtag">Numeric · gated</span>
+  <p class="q">What is Y for #FFFF00? Give four decimal places.</p>
+  <input type="number" step="0.0001" placeholder="0.____">
+  <div class="conf"><span class="clbl">Confidence before reveal:</span>
+  <div class="confbtns"><button data-c="1">1 · guessing</button><button data-c="2">2 · hunch</button><button data-c="3">3 · fairly sure</button><button data-c="4">4 · confident</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p><strong>Y = 0.9278.</strong> Both linearized channels are 1.0, so Y = 0.2126 + 0.7152 = 0.9278.
+    L* = 116·(0.9278)^(1/3) − 16 = 116·0.97534 − 16 = <strong>97.1</strong>.</p>
+    <p>Pure yellow carries <strong>92.8%</strong> of white's luminance. Pure blue carries 7.2%.
+    HSL assigns both a lightness of 50%. The ratio between them is <strong>12.9×</strong> in
+    luminance and about 3× in L*.</p>
+  </div>
+</div>
+
+<h4>Independent — the rest of the table</h4>
+<p>Compute Y and L* for <code>#808080</code>, <code>#FF0000</code>, and <code>#00FF00</code>
+yourself, with no scaffold. Then check against this. The Oklab column is mine
+<span class="chip infer">Inference</span>; the Y and L* columns you should be able to reproduce
+to the digit.</p>
+
+<div class="scroll"><table>
+<thead><tr><th>Color</th><th class="num">HSL L</th><th class="num">Y</th><th class="num">CIE L*</th><th class="num">Oklab L</th></tr></thead>
+<tbody>
+<tr><td><code>#0000FF</code> blue</td><td class="num">50.0%</td><td class="num">0.0722</td><td class="num">32.3</td><td class="num">0.452</td></tr>
+<tr><td><code>#808080</code> grey</td><td class="num">50.2%</td><td class="num">0.2159</td><td class="num">53.6</td><td class="num">0.600</td></tr>
+<tr><td><code>#FF0000</code> red</td><td class="num">50.0%</td><td class="num">0.2126</td><td class="num">53.2</td><td class="num">0.628</td></tr>
+<tr><td><code>#00FF00</code> green</td><td class="num">50.0%</td><td class="num">0.7152</td><td class="num">87.7</td><td class="num">0.866</td></tr>
+<tr><td><code>#FFFF00</code> yellow</td><td class="num">50.0%</td><td class="num">0.9278</td><td class="num">97.1</td><td class="num">0.968</td></tr>
+</tbody></table></div>
+
+<div class="box liminal"><h4>The stuck part</h4>
+<p>Here is where people stall, and it is worth naming: you now have four numbers per color and no
+principle for choosing between them. It feels like the course owes you a ranking — which column
+is <em>right</em>?</p>
+<p>There isn't one, and reaching for one is the thing to resist. Y is right if you are asking how
+much light leaves the pixel. L* and Oklab L are models of a perceptual question, and they
+disagree with each other by a few points, and both of them disagree with <em>your</em> eye by more
+than that. HSL's L is right for nothing except drawing a picker.</p>
+<p>The crossing isn't picking a winner. It's the moment "how light is this color" stops feeling
+like a question with an answer and starts feeling like a question that needs a "for what?"
+attached. If you are still waiting for the ranking, keep going — Unit 4 forces the "for what."</p>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 3 complete</label></div>
+</article>
+
+<!-- ============ U4 ============ -->
+<article class="unit" data-unit="u4">
+<div class="unit-head"><span class="mode">Diagnose</span><span class="est">~30 min</span></div>
+<h3>Unit 4 · Measure the ramp you shipped</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>A measured verdict on your Unit 1 ramp: for each of the nine steps, the Oklab L you asked for
+and the Oklab L your browser actually produced. Plus a scored comparison against the description
+you wrote in Unit 1.</p></div>
+
+<p>Open your Unit 1 page. Paste this in the console. It reads back what the browser resolved
+each token to, converts to Oklab, and prints requested vs. actual.</p>
+
+<pre><code>function lin(c){return c&lt;=0.04045 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4)}
+function oklabL(r,g,b){
+  const l=0.4122214708*r+0.5363325363*g+0.0514459929*b;
+  const m=0.2119034982*r+0.6806995451*g+0.1073969566*b;
+  const s=0.0883024619*r+0.2817188376*g+0.6299787005*b;
+  return 0.2104542553*Math.cbrt(l)+0.7936177850*Math.cbrt(m)-0.0040720468*Math.cbrt(s);
+}
+const cs=getComputedStyle(document.documentElement);
+for(let i of ['50','100','200','300','400','500','600','700','800']){
+  const v=cs.getPropertyValue('--brand-'+i).trim();
+  const p=document.createElement('span');
+  p.style.color=v; document.body.appendChild(p);
+  const m=getComputedStyle(p).color.match(/[\d.]+/g).slice(0,3).map(Number);
+  p.remove();
+  console.log(i, v, '→ actual Oklab L =',
+    oklabL(...m.map(x=&gt;lin(x/255))).toFixed(3));
+}</code></pre>
+
+<p>Note what this script is doing and what it is not. <code>getComputedStyle().color</code> gives
+you the value the browser resolved — which, for an <code>oklch()</code> that falls outside the
+output gamut, is <em>already gamut-mapped</em>. You are not reading your request back. You are
+reading what survived.</p>
+
+<div class="item" data-item="u4a" data-type="choice">
+  <span class="qtag">Diagnose · gated</span>
+  <p class="q">Suppose your ramp's steps 50 through 300 all came back with actual Oklab L within
+  0.005 of what you asked for, but steps 400–600 came back <em>lighter</em> than requested by
+  0.02–0.04. What is the single most likely explanation?</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u4a"><span>Your display is miscalibrated and needs profiling.</span></label>
+    <label class="opt"><input type="radio" name="u4a"><span>Oklab's lightness model is inaccurate in the mid-range.</span></label>
+    <label class="opt" data-correct><input type="radio" name="u4a"><span>Those mid-lightness steps requested more chroma than sRGB can provide at that hue, and something reconciled the request with the gamut in a way that moved lightness.</span></label>
+    <label class="opt"><input type="radio" name="u4a"><span>Rounding to 8-bit channels accumulated across the ramp.</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence before reveal:</span>
+  <div class="confbtns"><button data-c="1">1 · guessing</button><button data-c="2">2 · hunch</button><button data-c="3">3 · fairly sure</button><button data-c="4">4 · confident</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p>Maximum available chroma is highest in the middle of the lightness range and falls toward
+    both ends. A fixed chroma of 0.16 that is comfortably inside the gamut at L = 0.92 can be well
+    outside it at L = 0.58, depending on the hue. When it is, the browser must do something, and
+    what it does is the subject of Week 2.</p>
+    <p>Option 4 is plausible-sounding and wrong at this magnitude: 8-bit rounding moves Oklab L by
+    well under 0.005, not 0.04. Option 2 is the reflex to blame the model — worth noticing in
+    yourself, because it is the reflex that stops investigation.</p>
+    <p><strong>You have just crossed the first threshold.</strong> "Lightness" is now a question
+    that needs a qualifier, and you have a measurement showing that the number you write is not
+    necessarily the number you get.</p>
+  </div>
+</div>
+
+<div class="item" data-item="u4b" data-type="open">
+  <span class="qtag">Self-explanation · scores Unit 1</span>
+  <p class="q">Go back and read what you wrote in Unit 1 about whether the ramp looked evenly
+  spaced. Compare it to the measurements you just took. Where were you right, where were you
+  wrong, and — the part that matters — <em>what would have made you notice sooner?</em></p>
+  <textarea rows="4" placeholder="What I said in Unit 1 vs. what the numbers say..."></textarea>
+  <div class="conf"><span class="clbl">How well do you think your Unit 1 description held up?</span>
+  <div class="confbtns"><button data-c="1">1 · badly</button><button data-c="2">2 · partly</button><button data-c="3">3 · mostly</button><button data-c="4">4 · fully</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <div class="verdict neutral">Recorded</div>
+    <p>The most common honest answer to "what would have made me notice sooner" is <em>rendering
+    the ramp next to a neutral grey ramp at the same requested lightnesses.</em> Chroma hides
+    lightness error; a grey reference removes the hiding place. If you wrote something else that
+    is concrete and testable, yours is probably better than mine — it is fitted to how you
+    actually work.</p>
+  </div>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 4 complete</label></div>
+</article>
+</section>
+
+
+<section class="week">
+<div class="week-head">
+  <div class="wk">Week 2</div>
+  <h2>Your display is a triangle</h2>
+  <div class="wtime">4 units · ~2 hr 55 min stated</div>
+</div>
+
+<!-- ============ U5 ============ -->
+<article class="unit" data-unit="u5">
+<div class="unit-head"><span class="mode">Read</span><span class="est">~40 min</span></div>
+<h3>Unit 5 · The horseshoe and the triangle</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>An annotated version of the diagram at the top of this page — sketch it, screenshot it, or
+redraw it — with four things labelled in your own words: the curved boundary, the straight
+boundary, the triangle vertices, and one region you can name that your display cannot reach.
+This is the supportive information for Units 6 and 7.</p></div>
+
+<p>Scroll up. That shape has been watching you since Unit 1.</p>
+
+<h4>Where it comes from</h4>
+<p>In the 1920s, researchers measured how much of three reference lights people needed to mix to
+match each pure wavelength. The CIE standardised the averaged results in 1931 as three
+<em>color matching functions</em>, x̄, ȳ, z̄. Integrate a light's spectrum against them and you get
+three numbers — X, Y, Z — that fully determine what color a standard observer sees
+<span class="chip src">Sourced fact <a href="#S9">S9</a></span>. Y is the same relative luminance
+you computed in Unit 3; that is not a coincidence, ȳ <em>is</em> the luminous efficiency curve.</p>
+
+<p>Now throw the brightness away:</p>
+<div class="mathblock">x = X / (X + Y + Z)        y = Y / (X + Y + Z)</div>
+<p>What is left is <strong>chromaticity</strong> — hue and colorfulness, with lightness divided
+out. Two dimensions, which is why it fits on a page. Plot every pure wavelength from about 410 nm
+to 645 nm and you get the curve: the <strong>spectral locus</strong>. Close it with a straight line
+and you get the <strong>line of purples</strong>, which are the colors with no single wavelength —
+mixtures of red and violet only. Inside that outline is every chromaticity a human can see.</p>
+
+<div class="box"><h4>What the diagram at the top is made of</h4>
+<p>Full disclosure, because the meter is teaching you something and you should be able to audit it.
+The locus is not tabulated CIE data. It is computed live from Wyman, Sloan and Shirley's multi-lobe
+Gaussian fit to the 1931 2° observer <span class="chip src">Sourced fact <a href="#S9">S9</a></span>,
+which the authors report has mean squared error below the within-subject variance of the original
+measurements. I checked it against known locus points before using it: accurate to about ±0.005 in
+xy through the middle of the range, degrading to roughly ±0.02 at the extreme tips, where all three
+color matching functions approach zero and the ratio amplifies small errors
+<span class="chip infer">Inference</span>. That is why the meter draws 410–645 nm rather than
+380–700 nm. At the size it renders, the difference is invisible; I am telling you because a
+progress bar that quietly fabricates its own data would be a poor advertisement for the discipline
+this course is trying to teach.</p></div>
+
+<h4>Why a display is a triangle</h4>
+<p>A display has three primaries. Additive mixing is linear in XYZ, so any color it can produce is
+a non-negative combination of those three — which, once you divide out luminance, means the
+convex hull of the three primary chromaticities. Three points, convex hull, triangle. There is no
+clever engineering that escapes this; it is geometry.</p>
+
+<p>sRGB's primaries, from BT.709 <span class="chip src">Sourced fact <a href="#S10">S10</a></span>:</p>
+<div class="scroll"><table>
+<thead><tr><th>Gamut</th><th class="num">R (x, y)</th><th class="num">G (x, y)</th><th class="num">B (x, y)</th><th class="num">xy area</th></tr></thead>
+<tbody>
+<tr><td>sRGB</td><td class="num">0.640, 0.330</td><td class="num">0.300, 0.600</td><td class="num">0.150, 0.060</td><td class="num">~34%</td></tr>
+<tr><td>Display P3</td><td class="num">0.680, 0.320</td><td class="num">0.265, 0.690</td><td class="num">0.150, 0.060</td><td class="num">~46%</td></tr>
+<tr><td>Rec. 2020</td><td class="num">0.708, 0.292</td><td class="num">0.170, 0.797</td><td class="num">0.131, 0.046</td><td class="num">~65%</td></tr>
+</tbody></table></div>
+<p>The area figures are mine, computed by shoelace against the same fitted locus
+<span class="chip infer">Inference</span>.</p>
+
+<div class="box warn"><h4>Do not repeat the area percentages</h4>
+<p>I just gave you three numbers that you will see quoted everywhere, and you should treat all of
+them — including mine — as close to meaningless. The xy diagram is <em>not</em> perceptually
+uniform. It devotes an enormous share of its area to greens, where the eye discriminates poorly,
+and squeezes blues and violets into a corner. "sRGB covers 34% of visible color" is therefore a
+statement about the area of a particular 1931 projection, not about how much color you are missing.
+<span class="chip infer">Inference</span></p>
+<p>This is a live example of the thing to watch for: a number that is arithmetically correct,
+easy to compute, widely repeated, and does not support the claim it is used for. The meter on this
+page displays it anyway, with this warning attached, because the honest version of a teaching
+visual includes what it is bad at.</p></div>
+
+<div class="item" data-item="u5a" data-type="choice">
+  <span class="qtag">Check · gated</span>
+  <p class="q">A vendor claims a new display technology reaches "120% of sRGB." What is the most
+  useful first question?</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u5a"><span>Is the panel's peak brightness high enough to sustain that?</span></label>
+    <label class="opt" data-correct><input type="radio" name="u5a"><span>120% measured how — area in which diagram, and does the extra coverage overlap sRGB or extend past it in directions anyone needs?</span></label>
+    <label class="opt"><input type="radio" name="u5a"><span>Does it support 10-bit color depth?</span></label>
+    <label class="opt"><input type="radio" name="u5a"><span>Has it been certified against Display P3?</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence before reveal:</span>
+  <div class="confbtns"><button data-c="1">1 · guessing</button><button data-c="2">2 · hunch</button><button data-c="3">3 · fairly sure</button><button data-c="4">4 · confident</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p>"120% of sRGB" is a ratio of two areas, and both the choice of diagram (xy vs. u'v' vs. a
+    perceptual space) and the direction of the excess are doing the work. A panel can score above
+    100% while covering <em>less</em> of sRGB than sRGB does, if its triangle is rotated — it gains
+    area somewhere nobody's content lives and loses it where the content is.
+    <span class="chip vendor">Vendor framing</span> is the marker for this whole genre of claim,
+    and the correct response is always "measured how."</p>
+    <p>Bit depth (option 3) is a real and separate concern — it governs banding within a gamut,
+    not the gamut's extent.</p>
+  </div>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 5 complete</label></div>
+</article>
+
+<!-- ============ U6 ============ -->
+<article class="unit" data-unit="u6">
+<div class="unit-head"><span class="mode">Derive</span><span class="est">~45 min</span></div>
+<h3>Unit 6 · Maximum chroma is not a number you can look up</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>A working <code>maxChroma(L, H)</code> function, written by you from a skeleton, and a printed
+table of its output across six hues at three lightnesses. You will use this function in Unit 7 and
+again in Unit 12.</p></div>
+
+<p>In Unit 1 you wrote nine colors that all shared <code>0.16</code> chroma. That was a guess, and
+it had to be — nothing in the <code>oklch()</code> syntax tells you what chroma is available.</p>
+
+<p>Here is why it can't. The sRGB gamut is a cube in linear RGB. Oklch is a polar coordinate system
+in a nonlinearly-warped space. When you push that cube through the warp, you get a lumpy solid, and
+the maximum chroma at a given lightness and hue is the distance from the neutral axis to that
+solid's surface in that direction. There is no closed form. You find it numerically.</p>
+
+<h4>The test: is this color in gamut?</h4>
+<p>Convert Oklch → Oklab → linear sRGB and check whether all three components sit in [0, 1].
+Ottosson's inverse matrices <span class="chip src">Sourced fact <a href="#S1">S1</a></span>:</p>
+
+<pre><code>function oklchToLinearSRGB(L, C, H){
+  const a = C * Math.cos(H * Math.PI/180);
+  const b = C * Math.sin(H * Math.PI/180);
+  const l_ = L + 0.3963377774*a + 0.2158037573*b;
+  const m_ = L - 0.1055613458*a - 0.0638541728*b;
+  const s_ = L - 0.0894841775*a - 1.2914855480*b;
+  const l = l_**3, m = m_**3, s = s_**3;
+  return [
+     4.0767416621*l - 3.3077115913*m + 0.2309699292*s,
+    -1.2684380046*l + 2.6097574011*m - 0.3413193965*s,
+    -0.0041960863*l - 0.7034186147*m + 1.7076147010*s
+  ];
+}
+const inGamut = rgb =&gt; rgb.every(c =&gt; c &gt;= -1e-6 &amp;&amp; c &lt;= 1 + 1e-6);</code></pre>
+
+<h4>Completion problem — finish the bisection</h4>
+<p>The gamut is star-shaped from the neutral axis at fixed L and H: if chroma <em>c</em> is in
+gamut, everything below it is too. That monotonicity is what licenses a binary search. Fill in the
+four blanks.</p>
+
+<pre><code>function maxChroma(L, H){
+  let lo = 0, hi = 0.5;            // 0.5 exceeds any real sRGB chroma
+  for (let i = 0; i &lt; 40; i++){
+    const mid = ________;
+    if (inGamut(oklchToLinearSRGB(L, ____, H)))  ____ = mid;
+    else                                          ____ = mid;
+  }
+  return lo;                        // lo is always in gamut
+}</code></pre>
+
+<div class="item" data-item="u6a" data-type="numeric" data-answer="0.314" data-tol="0.008">
+  <span class="qtag">Numeric · gated · run your own code</span>
+  <p class="q">Run your function. What is the maximum sRGB chroma at <strong>L = 0.7, H = 330°</strong>?
+  Three decimal places.</p>
+  <input type="number" step="0.001" placeholder="0.___">
+  <div class="conf"><span class="clbl">Confidence before reveal:</span>
+  <div class="confbtns"><button data-c="1">1 · guessing</button><button data-c="2">2 · hunch</button><button data-c="3">3 · fairly sure</button><button data-c="4">4 · confident</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p><strong>0.314.</strong> If you got something within ±0.002 your implementation is right;
+    the remaining difference is iteration count. If you got roughly half that, check that you are
+    passing <code>mid</code> as chroma rather than <code>hi</code>.</p>
+    <p>Here is the whole table <span class="chip infer">Inference</span> — computed by me with the
+    same method, which you can now verify rather than trust:</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Oklab L</th><th class="num">H 30°</th><th class="num">H 90°</th><th class="num">H 150°</th><th class="num">H 210°</th><th class="num">H 270°</th><th class="num">H 330°</th></tr></thead>
+      <tbody>
+      <tr><td>0.50</td><td class="num">0.201</td><td class="num">0.102</td><td class="num">0.138</td><td class="num">0.086</td><td class="num"><strong>0.281</strong></td><td class="num">0.228</td></tr>
+      <tr><td>0.70</td><td class="num">0.192</td><td class="num">0.143</td><td class="num">0.193</td><td class="num">0.121</td><td class="num">0.156</td><td class="num"><strong>0.314</strong></td></tr>
+      <tr><td>0.85</td><td class="num">0.082</td><td class="num">0.174</td><td class="num"><strong>0.234</strong></td><td class="num">0.137</td><td class="num">0.074</td><td class="num">0.133</td></tr>
+      </tbody></table></div>
+    <p>Read that table slowly, because it contains the second threshold:</p>
+    <ul>
+      <li>At a single lightness, available chroma varies by <strong>more than 3×</strong> across
+        hue. At L = 0.50 it runs from 0.086 to 0.281.</li>
+      <li>The <em>most</em> chromatic hue changes with lightness. At L = 0.50 it is 270° (blue);
+        at L = 0.85 it is 150° (green). Blue collapses from 0.281 to 0.074 over that range;
+        green nearly doubles.</li>
+      <li>Therefore <strong>a fixed-chroma ramp is impossible in principle</strong>, not merely
+        difficult. Any constant you pick is either clipped somewhere or leaving chroma unused
+        everywhere else.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box liminal"><h4>The stuck part</h4>
+<p>The natural next thought is: fine, so make chroma a function of lightness. Do that — write
+<code>C = k · maxChroma(L, H)</code> for some k and generate a ramp. It will be better, and it will
+also be visibly wrong in a new way, because holding a constant <em>fraction</em> of maximum makes
+the ramp's colorfulness track the gamut boundary's lumps rather than any intention of yours.</p>
+<p>There is no formula that resolves this. Every real design system has picked a compromise and
+written it down. Unit 12 is where you pick yours; sitting in the discomfort until then is
+deliberate.</p></div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 6 complete</label></div>
+</article>
+
+
+<!-- ============ U7 ============ -->
+<article class="unit" data-unit="u7">
+<div class="unit-head"><span class="mode">Build</span><span class="est">~60 min</span></div>
+<h3>Unit 7 · Three ways to fit a color that doesn't fit</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>A script that takes an out-of-gamut Oklch color and returns three answers — clipped,
+chroma-reduced, and CSS-spec-mapped — plus your written verdict on which your design system
+should use and what it costs. That verdict becomes a paragraph in the Unit 12 rationale.</p></div>
+
+<p>You ask for <code>oklch(0.55 0.32 264)</code>. sRGB cannot produce it. Something has to give.
+There are exactly three things that can give: <strong>chroma</strong>, <strong>lightness</strong>,
+or <strong>hue</strong>. Every gamut mapping strategy is a policy about which ones you are willing
+to spend.</p>
+
+<h4>Strategy 1 — clip</h4>
+<p>Convert to linear sRGB, clamp each channel into [0, 1], done. Fast, and it is what naïve code
+does by accident. It preserves nothing in particular: clamping channels independently moves you to
+a point on the gamut surface chosen by the arithmetic, not by any perceptual criterion. Lightness
+drifts. Hue can drift.</p>
+<pre><code>const clip = rgb =&gt; rgb.map(c =&gt; Math.min(1, Math.max(0, c)));</code></pre>
+
+<h4>Strategy 2 — reduce chroma, hold L and H exactly</h4>
+<p>Binary search chroma down until you are inside — you wrote this in Unit 6. Lightness and hue are
+preserved to the digit. The cost is that it can be aggressive: it walks all the way in to the last
+strictly-in-gamut point, which for colors just barely outside can look noticeably duller than
+necessary.</p>
+<pre><code>const reduced = maxChroma(L, H);   // then rebuild at that chroma</code></pre>
+
+<h4>Strategy 3 — what CSS actually does</h4>
+<p>The CSS Color 4 gamut mapping algorithm splits the difference. It binary-searches chroma in
+Oklch, but at each step it also clips the current candidate and measures the ΔE<sub>OK</sub>
+between the candidate and its clipped version. If that difference is under one just-noticeable
+difference — the spec uses <strong>0.02</strong> — it returns the <em>clipped</em> color instead of
+continuing to reduce. Abridged from the specification's pseudocode
+<span class="chip src">Sourced fact <a href="#S3">S3</a></span>:</p>
+
+<pre><code>const JND = 0.02, EPS = 0.0001;
+
+function gamutMap(L, C, H){
+  if (L &gt;= 1) return [1,1,1];
+  if (L &lt;= 0) return [0,0,0];
+  let cur = oklchToLinearSRGB(L, C, H);
+  if (inGamut(cur)) return cur;
+
+  let lo = 0, hi = C, loInGamut = true;
+  if (deltaEOK(clip(cur), cur) &lt; JND) return clip(cur);
+
+  while (hi - lo &gt; EPS){
+    const c = (lo + hi) / 2;
+    cur = oklchToLinearSRGB(L, c, H);
+    if (loInGamut &amp;&amp; inGamut(cur)) { lo = c; continue; }
+    const cl = clip(cur), E = deltaEOK(cl, cur);
+    if (E &lt; JND){
+      if (JND - E &lt; EPS) return cl;
+      loInGamut = false; lo = c;
+    } else hi = c;
+  }
+  return oklchToLinearSRGB(L, lo, H);
+}
+// deltaEOK is plain Euclidean distance in Oklab — that is the point of Oklab
+const deltaEOK = (p, q) =&gt; { const a = toOklab(p), b = toOklab(q);
+  return Math.hypot(a[0]-b[0], a[1]-b[1], a[2]-b[2]); };</code></pre>
+
+<h4>Run all three</h4>
+<p>Implement the three and produce this table for yourself. Mine
+<span class="chip infer">Inference</span>, for checking — and the results are more interesting
+than the descriptions above suggest:</p>
+
+<div class="scroll"><table>
+<thead><tr><th>Requested</th><th>Clip</th><th>Chroma-reduce</th><th>CSS GMA</th></tr></thead>
+<tbody>
+<tr><td><code>oklch(0.55 0.32 264)</code></td><td class="num">#0044ff</td><td class="num">#205cff</td><td class="num">#1656ff</td></tr>
+<tr><td>→ resulting Oklab L</td><td class="num">0.506</td><td class="num">0.550</td><td class="num">0.537</td></tr>
+<tr><td>→ ΔE<sub>OK</sub> from request</td><td class="num">0.0614</td><td class="num">0.0716</td><td class="num">0.0646</td></tr>
+<tr><td><code>oklch(0.70 0.28 150)</code></td><td class="num">#00c91a</td><td class="num">#00be58</td><td class="num">#00c248</td></tr>
+<tr><td>→ resulting Oklab L</td><td class="num">0.724</td><td class="num">0.700</td><td class="num">0.709</td></tr>
+<tr><td>→ ΔE<sub>OK</sub> from request</td><td class="num">0.0553</td><td class="num">0.0872</td><td class="num">0.0713</td></tr>
+<tr><td><code>oklch(0.80 0.22 90)</code></td><td class="num">#f4b300</td><td class="num">#e6b700</td><td class="num">#ebb600</td></tr>
+<tr><td>→ resulting Oklab L</td><td class="num">0.805</td><td class="num">0.800</td><td class="num">0.802</td></tr>
+<tr><td>→ ΔE<sub>OK</sub> from request</td><td class="num">0.0607</td><td class="num">0.0565</td><td class="num">0.0568</td></tr>
+</tbody></table></div>
+
+<div class="item" data-item="u7a" data-type="choice">
+  <span class="qtag">Read the data · gated</span>
+  <p class="q">In two of the three rows, <strong>clipping has a lower ΔE<sub>OK</sub> than
+  chroma-reduction</strong> — the "naïve" method is closer to the requested color than the
+  "principled" one. What does that tell you about why the CSS algorithm is built the way it is?</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u7a"><span>ΔE<sub>OK</sub> is an unreliable metric and shouldn't be used to compare mapping strategies.</span></label>
+    <label class="opt" data-correct><input type="radio" name="u7a"><span>Chroma-reduction buys exact lightness preservation by paying in total color difference; clipping does the reverse. Neither dominates, so the spec uses distance-to-clipped as a switch to take clipping's smaller error wherever the lightness cost is imperceptible.</span></label>
+    <label class="opt"><input type="radio" name="u7a"><span>The CSS algorithm is a performance optimization; the binary search is just a faster way to reach the chroma-reduced answer.</span></label>
+    <label class="opt"><input type="radio" name="u7a"><span>Clipping is generally better and chroma-reduction is a legacy approach.</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence before reveal:</span>
+  <div class="confbtns"><button data-c="1">1 · guessing</button><button data-c="2">2 · hunch</button><button data-c="3">3 · fairly sure</button><button data-c="4">4 · confident</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p>Look at row 1 vs row 3. For the blue, clipping is closer overall but drops lightness by
+    0.044 — a visible shift in a ramp where lightness is the ordering principle. For the yellow,
+    clipping and reducing are nearly identical in both respects, so there is nothing to trade.</p>
+    <p>The JND test is exactly a switch between regimes: <em>if clipping's error is small enough to
+    be invisible, take it; otherwise pay for lightness.</em> Option 3 is a common misreading — the
+    binary search does not converge to the chroma-reduced answer, it exits early with the clipped
+    one, which is a different color.</p>
+    <p><strong>This is the second threshold.</strong> Gamut mapping is not a correctness procedure
+    with a right answer. It is a choice about what to spend, and the spec made one so that browsers
+    agree — not because it is optimal.</p>
+  </div>
+</div>
+
+<div class="item" data-item="u7b" data-type="open">
+  <span class="qtag">Decision · gated · feeds Unit 12</span>
+  <p class="q">For <em>your</em> design system: which strategy, and what does it cost you? The
+  answer that will serve you best is not the "best" one — it's the one whose failure mode you can
+  live with and explain to a colleague. Write two or three sentences.</p>
+  <textarea rows="4" placeholder="We should use ___ because the failure I can tolerate is ___ and the one I can't is ___"></textarea>
+  <div class="conf"><span class="clbl">Confidence that you'd defend this in a design review:</span>
+  <div class="confbtns"><button data-c="1">1 · low</button><button data-c="2">2 · shaky</button><button data-c="3">3 · solid</button><button data-c="4">4 · high</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <div class="verdict neutral">Recorded — bring this to Unit 12</div>
+    <p>One position worth considering, offered as a position and not a recommendation
+    <span class="chip infer">Inference</span>: for <em>token ramps specifically</em>, exact
+    lightness preservation is worth more than minimal ΔE, because the ramp's whole contract with
+    downstream consumers is "step 600 is darker than step 500." A mapping that silently reorders
+    two adjacent steps breaks that contract in a way no single-color error metric can see. That
+    argues for chroma-reduction on ramps even where CSS's default would clip — which means doing
+    the mapping at build time and shipping hex, not shipping <code>oklch()</code> and letting the
+    browser decide.</p>
+    <p>The counter-argument is equally real: shipping <code>oklch()</code> means P3 displays get
+    the wider color for free, and build-time mapping throws that away. If you wrote something
+    closer to that, you are not wrong; you have a different priority.</p>
+  </div>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 7 complete</label></div>
+</article>
+
+<!-- ============ U8 ============ -->
+<article class="unit" data-unit="u8">
+<div class="unit-head"><span class="mode">Retrieve</span><span class="est">~30 min</span></div>
+<h3>Unit 8 · Which mechanism is this?</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>Five diagnoses. No new material — this unit exists because you have now been handed two
+mechanisms that produce similar-looking symptoms, and the skill that matters is telling them
+apart under time pressure. Answering these correctly is worth more than re-reading Units 2–7.</p></div>
+
+<p>Everything below can be explained by one of these, and you have to pick which:</p>
+<ul>
+  <li><strong>A · Lightness model mismatch</strong> — something is using a lightness measure that
+    doesn't predict perception (Units 2–4).</li>
+  <li><strong>B · Gamut boundary</strong> — the requested color doesn't exist on this display and
+    got reconciled (Units 5–7).</li>
+  <li><strong>C · Both, interacting</strong> — the reconciliation in B moved a quantity that A
+    depends on.</li>
+  <li><strong>D · Neither</strong> — the cause is somewhere else entirely.</li>
+</ul>
+
+<div class="item" data-item="u8a" data-type="choice">
+  <span class="qtag">Interleaved · gated</span>
+  <p class="q">A designer's HSL-based ramp looks fine in blue but the yellow ramp's mid-steps look
+  blown out and the dark steps look muddy. All ramps use the same HSL lightness values.</p>
+  <div class="opts">
+    <label class="opt" data-correct><input type="radio" name="u8a"><span>A — lightness model mismatch</span></label>
+    <label class="opt"><input type="radio" name="u8a"><span>B — gamut boundary</span></label>
+    <label class="opt"><input type="radio" name="u8a"><span>C — both, interacting</span></label>
+    <label class="opt"><input type="radio" name="u8a"><span>D — neither</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence:</span><div class="confbtns"><button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p><strong>A.</strong> The tell is that the symptom is hue-dependent while the input is
+    hue-independent. Yellow at HSL L = 50% carries Y = 0.9278; blue at HSL L = 50% carries
+    Y = 0.0722. Same input, 12.9× different luminance. Nothing here requires the gamut — these
+    colors are all inside sRGB by construction, since HSL is defined <em>on</em> sRGB.</p>
+    <p>That last sentence is the shortcut: <strong>an HSL color is never out of gamut.</strong>
+    If the symptom is fully explained by HSL inputs, B is ruled out for free.</p>
+  </div>
+</div>
+
+<div class="item" data-item="u8b" data-type="choice">
+  <span class="qtag">Interleaved · gated</span>
+  <p class="q">A ramp authored in OKLCH at constant chroma renders correctly on a colleague's
+  MacBook but the two mid-steps look nearly identical on your older external monitor.</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u8b"><span>A — lightness model mismatch</span></label>
+    <label class="opt" data-correct><input type="radio" name="u8b"><span>B — gamut boundary</span></label>
+    <label class="opt"><input type="radio" name="u8b"><span>C — both, interacting</span></label>
+    <label class="opt"><input type="radio" name="u8b"><span>D — neither</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence:</span><div class="confbtns"><button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p><strong>B.</strong> The tell is that it is device-dependent. The MacBook is P3; the external
+    monitor is sRGB. Both steps requested chroma beyond the sRGB boundary at their lightnesses,
+    got mapped to nearby in-gamut colors, and the mapping compressed them toward each other.</p>
+    <p>Distinguishing B from C here: the question says the steps look <em>identical</em>, not
+    <em>reordered</em>. Chroma collapsed; the lightness ordering survived. If step 500 had appeared
+    <em>lighter</em> than step 400, that would be C.</p>
+  </div>
+</div>
+
+<div class="item" data-item="u8c" data-type="choice">
+  <span class="qtag">Interleaved · gated</span>
+  <p class="q">You author <code>oklch(0.62 0.30 264)</code> and <code>oklch(0.58 0.30 264)</code> as
+  adjacent ramp steps. On an sRGB display the second one renders <em>lighter</em> than the first.</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u8c"><span>A — lightness model mismatch</span></label>
+    <label class="opt"><input type="radio" name="u8c"><span>B — gamut boundary</span></label>
+    <label class="opt" data-correct><input type="radio" name="u8c"><span>C — both, interacting</span></label>
+    <label class="opt"><input type="radio" name="u8c"><span>D — neither</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence:</span><div class="confbtns"><button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p><strong>C</strong>, and this is the one that bites design systems. Both colors are outside
+    sRGB. If the mapper clips rather than reduces chroma, lightness is not preserved — Unit 7's
+    table shows clipping moving Oklab L by up to 0.044. Two steps only 0.04 apart in requested
+    lightness can therefore <em>swap order</em> after mapping.</p>
+    <p>The ordering guarantee your ramp promises is a property of the requested colors, not the
+    rendered ones. This is the concrete reason the Unit 7 verdict matters.</p>
+  </div>
+</div>
+
+<div class="item" data-item="u8d" data-type="choice">
+  <span class="qtag">Interleaved · delayed from Week 1 · gated</span>
+  <p class="q">Someone reports that <code>#767676</code> text on white "passes contrast" but the
+  same grey on a <code>#121212</code> background "fails," and concludes their dark theme needs
+  lighter text than their light theme needs darker text.</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u8d"><span>A — lightness model mismatch</span></label>
+    <label class="opt"><input type="radio" name="u8d"><span>B — gamut boundary</span></label>
+    <label class="opt"><input type="radio" name="u8d"><span>C — both, interacting</span></label>
+    <label class="opt" data-correct><input type="radio" name="u8d"><span>D — neither of these; a third mechanism</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence:</span><div class="confbtns"><button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p><strong>D.</strong> Both colors are neutral greys — no chroma, so no gamut issue — and both
+    are being evaluated with the same measure, so no model mismatch between them. The asymmetry is
+    coming from the contrast formula itself, and specifically from a constant in it that you have
+    not met yet. That is Week 3.</p>
+    <p>The reason this item is here, in the middle of a gamut week: the habit worth building is
+    checking whether a symptom is explained by the mechanisms you just learned <em>before</em>
+    assuming it is. Recently-taught mechanisms are the ones you over-apply.</p>
+  </div>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 8 complete</label></div>
+</article>
+</section>
+
+
+<section class="week">
+<div class="week-head">
+  <div class="wk">Week 3</div>
+  <h2>The contrast ratio is a model too</h2>
+  <div class="wtime">3 units · ~2 hr 15 min stated</div>
+</div>
+
+<!-- ============ U9 ============ -->
+<article class="unit" data-unit="u9">
+<div class="unit-head"><span class="mode">Read</span><span class="est">~45 min</span></div>
+<h3>Unit 9 · Where 4.5:1 came from</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>A written provenance chain for the number your linter enforces — every step from
+"4.5:1" back to whatever evidence is underneath it — with the steps you personally verified
+marked separately from the ones you took on report. Half a page. It is the hardest artifact in this
+course and the only one that transfers to every other technical field you work in.</p></div>
+
+<h4>The formula</h4>
+<p>WCAG 2 defines contrast ratio as <span class="chip src">Sourced fact <a href="#S5">S5</a></span>:</p>
+<div class="mathblock">(L1 + 0.05) / (L2 + 0.05)</div>
+<p>where L1 is the relative luminance of the lighter color and L2 the darker — the same Y you
+computed in Unit 3. Range: 1:1 to 21:1. The 0.05 is a constant standing in for ambient light
+reflecting off the screen; it is what stops black-on-black from dividing by zero and what caps the
+maximum at 21 rather than infinity.</p>
+
+<p>Three structural properties follow immediately, and they are all consequences of the algebra
+rather than accidents of implementation <span class="chip infer">Inference</span>:</p>
+<ul>
+  <li><strong>It is symmetric.</strong> Swap foreground and background and the number is identical.
+    Dark-on-light and light-on-dark score the same. Human vision does not work this way; the same
+    luminance difference reads differently depending on polarity.</li>
+  <li><strong>Chroma is invisible to it.</strong> Y throws away everything except weighted
+    luminance. Two colors of wildly different hue and identical Y score 1:1.</li>
+  <li><strong>The 0.05 compresses the dark end.</strong> At the top of the range, 0.05 is
+    negligible next to Y ≈ 1. At the bottom, where Y ≈ 0.005, it dominates the numerator and
+    denominator both — and ratios between dark colors get squashed toward 1. Unit 10 measures this.</li>
+</ul>
+
+<h4>The threshold</h4>
+<p>WCAG's own Understanding document gives the derivation of 4.5:1 explicitly. It is two numbers
+multiplied <span class="chip src">Sourced fact <a href="#S4">S4</a></span>:</p>
+<ol>
+  <li>A 3:1 minimum for observers with typical vision, adopted from an ANSI standard.</li>
+  <li>A factor of 1.5, described as the contrast sensitivity loss associated with visual acuity of
+    20/40, cited to Arditi &amp; Faye.</li>
+</ol>
+<div class="mathblock">3 × 1.5 = 4.5</div>
+<p>The same logic yields 7:1 for AAA, aimed at roughly 20/80 acuity
+<span class="chip src">Sourced fact <a href="#S4">S4</a></span>.</p>
+
+<p>Before going further, note something in the historical record. A 2007 working draft of the same
+document set the AA threshold at <strong>5:1</strong>, explaining that 20/40 "calculates to
+approximately 4.5:1 which is rounded up to 5 providing a slight additional increase in contrast"
+<span class="chip src">Sourced fact <a href="#S11">S11</a></span>. The threshold moved. That is
+normal standards work, and it is also evidence about what kind of number this is: a committee
+judgment informed by evidence, not a measurement.</p>
+
+<div class="box warn"><h4>Going down one level — and what is there</h4>
+<p>The discipline that catches the most errors in technical writing is simple: when a source
+<em>cites</em> evidence rather than <em>containing</em> it, follow the citation. Here, WCAG cites
+Arditi &amp; Faye (2004) for the 1.5 factor. The full reference in WCAG's own bibliography is a
+one-page conference abstract: <em>Monocular and binocular letter contrast sensitivity and letter
+acuity in a diverse ophthalmologic practice</em>, Supplement to Optometry and Vision Science,
+81(12S), 287 <span class="chip src">Sourced fact <a href="#S6">S6</a></span>.</p>
+<p>In 2021 someone filed an issue against the WCAG repository doing exactly this. They report that
+the only "1.5" in the abstract appears in the sentence "the regression of log CS on log MAR
+resulted in an intercept of 1.50 and a slope of −0.63," and that this quantity does not obviously
+correspond to a 1.5× contrast-sensitivity multiplier for 20/40 vision
+<span class="chip src">Sourced fact <a href="#S6">S6</a></span>.</p>
+<p><strong>Here is exactly how far I got, and where I stopped.</strong> I opened the WCAG
+Understanding document and its bibliography and confirmed both the derivation and the reference.
+I opened the issue and confirmed its contents. I did <em>not</em> read the Arditi &amp; Faye
+abstract myself — it sits in a paywalled journal supplement — so I am relying on the issue-filer's
+report of what it says. And I was unable to retrieve the Working Group's response to that issue.
+So the honest state of my knowledge is: <em>the derivation as published does not visibly trace to
+the cited source, according to a reader who checked, whose report I have not independently
+confirmed, and whose challenge may or may not have been answered.</em></p>
+<p>That sentence is deliberately awkward. It is what a verified claim actually looks like when the
+verification is incomplete, and writing it out is more useful to you than a clean statement would be.</p>
+</div>
+
+<p>What this does <em>not</em> establish: that 4.5:1 is a bad threshold. Thresholds can be
+well-chosen and badly documented. Decades of practice have found 4.5:1 to be a workable floor, and
+that operational track record is real evidence independent of the derivation. What it establishes
+is narrower and still important: <strong>the number is not a measurement, and treating it as one
+will lead you to defend it in the wrong places.</strong></p>
+
+<h4>Why dark mode is where it hurts</h4>
+<p>The formula's symmetry and its flare constant were specified when the overwhelming majority of
+interfaces were dark text on light backgrounds. Dark mode inverts the regime, and puts most of the
+important color pairs down at the compressed end of the scale.</p>
+<p>This is not a fringe complaint. In a W3C mailing-list archive from June 2022, Chris Lilley —
+an editor of the CSS Color specifications — responded to the claim that WCAG 2 contrast only works
+against light backgrounds by writing that he found this particular failing of the WCAG 2.1
+algorithm especially troubling <span class="chip src">Sourced fact <a href="#S7">S7</a></span>.
+That is a spec editor at the same standards body, on the record, not a vendor with an alternative
+to sell.</p>
+
+<h4>The alternative, and its actual status</h4>
+<p>You will encounter APCA — the Advanced Perceptual Contrast Algorithm. It is polarity-aware,
+accounts for font size and weight, and returns a signed Lc value rather than a ratio. It is the
+most developed candidate for a replacement.</p>
+<p>Its status is widely misreported, so here it is carefully
+<span class="chip contested">Contested</span>: APCA was included in WCAG 3 working drafts as
+<em>exploratory</em> content, and was removed in July 2023 under the WCAG 3 process rule that
+exploratory material which does not gain Working Group support within six months is removed
+automatically. The current WCAG 3 draft states that the contrast algorithm is yet to be determined.
+WCAG 3 is not expected to reach Recommendation before roughly 2030
+<span class="chip src">Sourced fact <a href="#S8">S8</a></span>.</p>
+<p>Meanwhile, a great deal of otherwise-good writing describes APCA as "the WCAG 3 contrast
+algorithm" or says it "is replacing" the WCAG 2 formula. I found several such articles dated 2026
+while researching this unit. They are not lying; they are amplifying — a claim that was true of a
+2021 draft propagated forward through secondary sources that never rechecked the primary.
+<span class="chip vendor">Vendor framing</span> applies to some of it and plain staleness to the
+rest, and the two are hard to tell apart from the outside. Which is the argument for going to the
+spec text.</p>
+
+<div class="item" data-item="u9a" data-type="open">
+  <span class="qtag">Do the thing · gated</span>
+  <p class="q">Go read <a href="https://github.com/w3c/wcag/issues/1705" target="_blank"
+  rel="noopener">w3c/wcag issue #1705</a> yourself — including any responses, which I could not
+  retrieve. Then write the honest one-sentence status: <em>is</em> the 1.5 factor traceable to
+  Arditi &amp; Faye, was the challenge answered, and what does that change about how you'd cite
+  4.5:1 in a design review?</p>
+  <textarea rows="4" placeholder="What the thread actually says, and what I'd now say in a review..."></textarea>
+  <div class="conf"><span class="clbl">Before you look — how confident are you that the challenge was satisfactorily answered?</span>
+  <div class="confbtns"><button data-c="1">1 · doubt it</button><button data-c="2">2 · maybe</button><button data-c="3">3 · probably</button><button data-c="4">4 · surely</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <div class="verdict neutral">Recorded — you now know something I don't</div>
+    <p>Whatever you found, notice what just happened: a course told you a claim, told you the exact
+    boundary of its own verification, and handed you the last step. That is the shape of a claim
+    you can actually use. Compare it to the shape of "studies show 4.5:1 is the accessible
+    threshold," which is what most of the internet offers and which cannot be checked at all.</p>
+    <p><strong>This is the third threshold.</strong> Not "WCAG is wrong" — that would be a fact to
+    memorize, and it would be an overstatement. The crossing is that a number in a standard has a
+    provenance chain, that the chain is walkable, and that you are now someone who walks it.</p>
+  </div>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 9 complete</label></div>
+</article>
+
+<!-- ============ U10 ============ -->
+<article class="unit" data-unit="u10">
+<div class="unit-head"><span class="mode">Derive</span><span class="est">~40 min</span></div>
+<h3>Unit 10 · Equal perceptual steps, unequal ratios</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>A table you compute showing WCAG contrast ratios for five grey pairs that are
+<em>identically spaced in perceived lightness</em>. If the ratio were a perceptual measure, the
+five numbers would be equal. Producing the actual spread is the demonstration.</p></div>
+
+<p>Everything in this unit is built from two formulas you already have — Unit 3's relative
+luminance and Unit 9's ratio. No new inputs. The claim comes out of the arithmetic.</p>
+
+<h4>Build it</h4>
+<ol>
+  <li>Write <code>greyAtOklabL(target)</code> — binary search an sRGB grey value whose Oklab L
+    equals the target. (You wrote a bisection in Unit 6; this is the same shape.)</li>
+  <li>For each pair below, generate both greys, compute Y for each, and compute the WCAG ratio.</li>
+  <li>Every pair is separated by exactly ΔL = 0.20 in Oklab.</li>
+</ol>
+
+<div class="item" data-item="u10a" data-type="numeric" data-answer="1.31" data-tol="0.06">
+  <span class="qtag">Numeric · gated · run your own code</span>
+  <p class="q">What WCAG contrast ratio do you get for the pair <strong>Oklab L = 0.25 vs
+  L = 0.05</strong>? Two decimal places.</p>
+  <input type="number" step="0.01" placeholder="_.__">
+  <div class="conf"><span class="clbl">Confidence before reveal:</span>
+  <div class="confbtns"><button data-c="1">1 · guessing</button><button data-c="2">2 · hunch</button><button data-c="3">3 · fairly sure</button><button data-c="4">4 · confident</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p><strong>1.31.</strong> Here is the full table <span class="chip infer">Inference</span> —
+    my computation, reproducible from the two sourced formulas:</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Pair (Oklab L)</th><th class="num">ΔL</th><th class="num">approx. hex</th><th class="num">WCAG ratio</th></tr></thead>
+      <tbody>
+      <tr><td>0.95 → 0.75</td><td class="num">0.20</td><td class="num">#eeeeee / #adadad</td><td class="num">1.92</td></tr>
+      <tr><td>0.75 → 0.55</td><td class="num">0.20</td><td class="num">#adadad / #717171</td><td class="num">2.18</td></tr>
+      <tr><td>0.55 → 0.35</td><td class="num">0.20</td><td class="num">#717171 / #3a3a3a</td><td class="num"><strong>2.33</strong></td></tr>
+      <tr><td>0.35 → 0.15</td><td class="num">0.20</td><td class="num">#3a3a3a / #0b0b0b</td><td class="num">1.74</td></tr>
+      <tr><td>0.25 → 0.05</td><td class="num">0.20</td><td class="num">#212121 / #000000</td><td class="num"><strong>1.31</strong></td></tr>
+      </tbody></table></div>
+    <p>Identical perceptual separation, ratios from <strong>1.31 to 2.33</strong> — a spread of
+    1.8×. And the shape matters more than the spread: the ratio peaks in the middle of the range
+    and <strong>falls off sharply at the dark end</strong>. The 0.05 flare constant is doing exactly
+    what the algebra predicted in Unit 9.</p>
+    <p>Read the practical consequence off the last row. Two greys separated by a fifth of the
+    entire perceptual lightness scale — a very visible difference — score <strong>1.31:1</strong>.
+    Every threshold in WCAG 2 would reject that pair for any purpose. In a dark theme, that is not
+    an edge case; that is your surface, your elevated surface, and your border.</p>
+  </div>
+</div>
+
+<div class="item" data-item="u10b" data-type="choice">
+  <span class="qtag">Delayed retrieval · Week 1 · gated</span>
+  <p class="q">Without scrolling back: in Unit 3 you computed relative luminance for pure blue
+  <code>#0000FF</code> and pure yellow <code>#FFFF00</code>. Roughly what is the ratio between
+  those two luminances?</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u10b"><span>About 2×</span></label>
+    <label class="opt"><input type="radio" name="u10b"><span>About 5×</span></label>
+    <label class="opt" data-correct><input type="radio" name="u10b"><span>About 13×</span></label>
+    <label class="opt"><input type="radio" name="u10b"><span>About 40×</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence:</span><div class="confbtns"><button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p>0.9278 / 0.0722 ≈ <strong>12.9×</strong>. If you had to reconstruct it rather than recall
+    it — blue contributes only the 0.0722 coefficient, yellow contributes 0.2126 + 0.7152 — that
+    reconstruction is worth more than the recall would have been.</p>
+    <p>Now connect it forward: because the ratio formula sees only Y, blue text on yellow scores
+    about 8:1 and passes everything, while blue text on a mid-grey of identical luminance scores
+    1:1 and is genuinely illegible. The formula gets the first case right by accident and the
+    second right on purpose, and it has no way to tell you which is which.</p>
+  </div>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 10 complete</label></div>
+</article>
+
+
+<!-- ============ U11 ============ -->
+<article class="unit" data-unit="u11">
+<div class="unit-head"><span class="mode">Build</span><span class="est">~50 min</span></div>
+<h3>Unit 11 · Audit your own tokens</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>Two things: an audit script that reports every text pair in your token set with its WCAG ratio
+<em>and</em> its Oklab ΔL, side by side — and a rewritten <code>contrast-policy.md</code> that
+replaces the one sentence you wrote in Unit 1.</p></div>
+
+<p>No worked example this time, and no skeleton. You have every formula you need. This is a
+specification; build to it.</p>
+
+<h4>Specification</h4>
+<ol>
+  <li>Input: your token set, as pairs that will actually appear together as foreground and
+    background — not the cross product. In each theme separately.</li>
+  <li>For each pair, output: WCAG 2 contrast ratio to two decimals; Oklab ΔL to three decimals;
+    and the AA verdict at 4.5 (normal text) and 3.0 (large text and UI components).</li>
+  <li>Sort by WCAG ratio ascending.</li>
+  <li>Flag any pair where the two measures <em>disagree in direction</em> — that is, pair X has a
+    higher WCAG ratio than pair Y but a lower ΔL. Those are the interesting rows.</li>
+</ol>
+<p>Everything you need: <code>lin()</code> and Y from Unit 3, the Oklab forward transform from
+Unit 4, the ratio from Unit 9.</p>
+
+<h4>Then write the policy</h4>
+<p>Replace <code>contrast-policy.md</code>. It has to answer four questions, and it has to be
+something a colleague could apply without asking you:</p>
+<ol>
+  <li><strong>What we conform to, and why.</strong> If the answer is "WCAG 2 AA because it is what
+    procurement, the EAA, and every automated checker reference" — say that. It is a good reason
+    and it is a different reason than "because 4.5:1 is the legibility threshold."</li>
+  <li><strong>Where we hold a higher bar than the standard, and where.</strong> Unit 10 gives you
+    the argument: the ratio compresses at the dark end, so a dark theme that clears 4.5 by a hair
+    is in worse shape than a light theme that clears it by a hair.</li>
+  <li><strong>What we do about the pairs the ratio can't see.</strong> Chroma differences, borders
+    between two dark surfaces, disabled states.</li>
+  <li><strong>What would change our mind.</strong> Name the event. "If WCAG 3 adopts a contrast
+    algorithm, we re-audit." Naming it converts a standing argument into a scheduled task.</li>
+</ol>
+
+<div class="item" data-item="u11a" data-type="open">
+  <span class="qtag">Artifact · gated</span>
+  <p class="q">Paste the two or three most surprising rows from your audit — the disagreements, or
+  anything that passed when you expected it to fail. Then say what you changed as a result, if
+  anything.</p>
+  <textarea rows="5" placeholder="Rows that surprised me, and what I did..."></textarea>
+  <div class="conf"><span class="clbl">Confidence that your token set is in good shape:</span>
+  <div class="confbtns"><button data-c="1">1 · low</button><button data-c="2">2 · shaky</button><button data-c="3">3 · solid</button><button data-c="4">4 · high</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <div class="verdict neutral">Recorded</div>
+    <p>Two patterns show up in almost every audit of a real token set
+    <span class="chip infer">Inference</span>, offered after the fact so they didn't bias your run:</p>
+    <ul>
+      <li><strong>The dark theme's secondary text is the weakest link</strong>, and it usually
+        passes. It clears 4.5 with a margin that would be comfortable in the light theme and is
+        not comfortable at Y ≈ 0.02, for the reason Unit 10 measured.</li>
+      <li><strong>Borders and dividers are unaudited</strong>, because most linters only check
+        text. A 1px rule between two dark surfaces frequently sits below 1.5:1 and is doing real
+        structural work in the layout.</li>
+    </ul>
+    <p>If neither showed up in yours, either your tokens are unusually well-built or your pair list
+    was too narrow. Check the second possibility first.</p>
+  </div>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 11 complete</label></div>
+</article>
+</section>
+
+<section class="week">
+<div class="week-head">
+  <div class="wk">Week 4</div>
+  <h2>Defend it</h2>
+  <div class="wtime">1 unit · ~1 hr 30 min stated</div>
+</div>
+
+<!-- ============ U12 ============ -->
+<article class="unit" data-unit="u12">
+<div class="unit-head"><span class="mode">Capstone</span><span class="est">~90 min</span></div>
+<h3>Unit 12 · The rebuild and the rationale</h3>
+
+<div class="box evidence"><h4>This unit produces</h4>
+<p>The finished versions of all three Unit 1 artifacts, plus a fourth: <code>rationale.md</code>,
+the document that makes the other three defensible. No scaffold, no worked example, no reveal that
+hands you an answer. A rubric, and three retrieval items that are not adjacent to anything.</p></div>
+
+<p>Go back to Unit 1. Rebuild all of it.</p>
+
+<h4>The rubric</h4>
+<div class="scroll"><table>
+<thead><tr><th>Artifact</th><th>Has to</th></tr></thead>
+<tbody>
+<tr><td><code>tokens.css</code></td><td>Chroma varies with lightness and hue, by a stated rule. Every value verified in-gamut for your declared target, or deliberately out with the mapping strategy named.</td></tr>
+<tr><td><code>gamut.md</code></td><td>States the target gamut. States the mapping strategy and where it runs — build time or browser. Shows the ordering check: no two adjacent steps swap after mapping.</td></tr>
+<tr><td><code>contrast-policy.md</code></td><td>The four questions from Unit 11, answered so someone else can apply it without you.</td></tr>
+<tr><td><code>rationale.md</code></td><td>Below.</td></tr>
+</tbody></table></div>
+
+<h4>rationale.md — the actual test</h4>
+<p>One page. Five headings:</p>
+<ol>
+  <li><strong>What we optimized for.</strong> Lightness fidelity, chroma richness, wide-gamut
+    reach, ordering stability — you cannot have all four. Name the ranking.</li>
+  <li><strong>What we gave up to get it.</strong> Specifically, with a color or a step named.</li>
+  <li><strong>What we're taking on authority, and from whom.</strong> Every load-bearing claim
+    under your palette, with its source and its type. Oklab's fit — including the part that comes
+    from CAM16 rather than from people. The CSS mapping algorithm's JND constant. The 4.5:1
+    derivation. Mark each one the way this course marked its claims.</li>
+  <li><strong>What would falsify this.</strong> The observation that would tell you the palette is
+    wrong, not just unfashionable.</li>
+  <li><strong>What we didn't do.</strong> Your own non-goals. If writing them feels awkward, the
+    scope isn't bounded yet.</li>
+</ol>
+
+<div class="box liminal"><h4>Section 3 is the one</h4>
+<p>Sections 1, 2, 4 and 5 are design-doc craft you probably already have. Section 3 is what this
+course was for, and it is uncomfortable to write, because writing it means discovering how much of
+your palette rests on things you have not checked. That discomfort is the correct output. A
+rationale with a short section 3 and no marked uncertainty is not a confident document; it is an
+unaudited one.</p></div>
+
+<div class="item" data-item="u12a" data-type="choice">
+  <span class="qtag">Delayed retrieval · Week 2 · gated</span>
+  <p class="q">Without scrolling: at Oklab L = 0.50, which hue has the <em>most</em> available
+  chroma in sRGB, and roughly how much more than the least?</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u12a"><span>Green (150°), about 2× the least</span></label>
+    <label class="opt" data-correct><input type="radio" name="u12a"><span>Blue (270°), more than 3× the least</span></label>
+    <label class="opt"><input type="radio" name="u12a"><span>Red (30°), about 3× the least</span></label>
+    <label class="opt"><input type="radio" name="u12a"><span>They're within about 20% of each other</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence:</span><div class="confbtns"><button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p>Blue at 0.281 against cyan (210°) at 0.086 — a factor of <strong>3.3</strong>. And blue is
+    the hue that <em>collapses</em> hardest as lightness rises: 0.074 at L = 0.85. If your brand
+    is blue, your light steps have almost no chroma available and no amount of authoring will
+    change that.</p>
+  </div>
+</div>
+
+<div class="item" data-item="u12b" data-type="choice">
+  <span class="qtag">Delayed retrieval · method choice · gated</span>
+  <p class="q">A colleague proposes: "Let's just define every token by its WCAG ratio against the
+  background instead of by lightness. Then contrast is guaranteed and we skip the color space
+  stuff." What is the strongest single objection?</p>
+  <div class="opts">
+    <label class="opt"><input type="radio" name="u12b"><span>WCAG ratios are harder to compute than Oklab lightness.</span></label>
+    <label class="opt"><input type="radio" name="u12b"><span>It would break in P3 because ratios are defined only for sRGB.</span></label>
+    <label class="opt" data-correct><input type="radio" name="u12b"><span>A single ratio doesn't determine a color — infinitely many colors share it — and the ratio scale isn't perceptually even, so a ramp defined by equal ratio steps has visibly uneven lightness steps, worse at the dark end.</span></label>
+    <label class="opt"><input type="radio" name="u12b"><span>WCAG ratios can't be expressed in CSS.</span></label>
+  </div>
+  <div class="conf"><span class="clbl">Confidence:</span><div class="confbtns"><button data-c="1">1</button><button data-c="2">2</button><button data-c="3">3</button><button data-c="4">4</button></div></div>
+  <button class="commit">Commit and reveal</button>
+  <div class="reveal">
+    <p>The proposal inverts the dependency: it makes the palette a function of an accessibility
+    floor rather than checking the palette against one. Unit 10 is the direct refutation — equal
+    steps in ΔL give unequal ratios, so equal steps in ratio give unequal ΔL, and the distortion is
+    worst exactly where dark themes live.</p>
+    <p>Option 2 is worth naming as wrong: relative luminance is defined from any RGB space's
+    linearization, and the WCAG formula applies fine to P3 arithmetic. The problem is not the
+    gamut; it is the scale.</p>
+  </div>
+</div>
+
+<div class="item" data-item="u12c" data-type="open">
+  <span class="qtag">Final · gated</span>
+  <p class="q">Paste your <code>rationale.md</code> section 3 — "what we're taking on authority."
+  Then answer one question honestly: which claim in it are you least comfortable leaving unchecked?</p>
+  <textarea rows="6" placeholder="Section 3, and the claim I'm least comfortable with..."></textarea>
+  <div class="conf"><span class="clbl">Confidence you could defend this palette to a skeptical engineer:</span>
+  <div class="confbtns"><button data-c="1">1 · low</button><button data-c="2">2 · shaky</button><button data-c="3">3 · solid</button><button data-c="4">4 · high</button></div></div>
+  <button class="commit">Commit and finish</button>
+  <div class="reveal">
+    <div class="verdict ok">Course complete</div>
+    <p>Whatever claim you named, that is your next piece of work, and you now have the method for
+    it: open the source, confirm it says what it is cited for, ask whether it contains evidence or
+    cites it, and search specifically for the refutation.</p>
+    <p>The three thresholds, restated so you can check yourself against them:</p>
+    <ol>
+      <li>"How light is this color" is not a question until you say <em>for what</em>. Lightness is
+        a model, and models have provenance.</li>
+      <li>Gamut mapping is a spending decision, not a correctness procedure. Every strategy pays in
+        chroma, lightness, or hue, and the CSS default is a compromise chosen for interoperability.</li>
+      <li>A number in a standard has a citation chain, the chain is walkable, and walking it
+        changes what you can honestly claim.</li>
+    </ol>
+    <p>Scroll up. The diagram should be full. Note what is still outside the triangle.</p>
+  </div>
+</div>
+
+<div class="donebar"><label><input type="checkbox" class="unitdone"> Unit 12 complete</label></div>
+</article>
+</section>
+
+<div class="calib" id="calib">
+  <h3 style="margin-top:0">Your calibration</h3>
+  <p style="font-size:.9rem;color:var(--ink-soft);margin-top:.2rem">Confidence you predicted before
+  each reveal, against how you actually did on the items that have a right answer. The gap is the
+  only feedback a solo learner gets that isn't self-report.</p>
+  <div id="calibBody"></div>
+</div>
+
+<h2 id="sources">Sources</h2>
+<p style="font-size:.9rem;color:var(--ink-soft)">Every claim marked
+<span class="chip src">Sourced fact</span> in this course keys to one of these. Tier 1 means primary
+— the source contains the data, proof, or original formulation. Tier 2 means canonical with a track
+record. Where I did not personally open something, it says so.</p>
+<ol class="srcs">
+<li id="S1"><span class="tier">Tier 1 · opened and read</span><br>
+  Björn Ottosson, <em>A perceptual color space for image processing</em> (Oklab), 2020, with a 2025
+  introduction. <a href="https://bottosson.github.io/posts/oklab/" target="_blank" rel="noopener">bottosson.github.io/posts/oklab</a>.
+  Source of the M1/M2 matrices, the linear-sRGB coefficients, the three fitting datasets, the γ = 1/3
+  decision, and the author's own caveat that the lightness and chroma data were CAM16-generated. I
+  verified my implementation against his published XYZ→Oklab test table before using any of it.
+  <em>Note: self-published, not peer reviewed. It is Tier 1 because it is the original formulation
+  and is verifiable by derivation, which is the strongest thing a source can be in a formal field.</em></li>
+<li id="S2"><span class="tier">Tier 1 · opened</span><br>
+  W3C, <em>CSS Color Module Level 4</em>. <a href="https://www.w3.org/TR/css-color-4/" target="_blank" rel="noopener">w3.org/TR/css-color-4</a>.
+  CIELAB/OkLCh definitions, ΔE<sub>OK</sub> as plain Euclidean distance, the CIELAB blue-hue-curvature
+  discussion, chroma ranges.</li>
+<li id="S3"><span class="tier">Tier 1 · opened</span><br>
+  CSS gamut mapping algorithm pseudocode, W3C public-css-archive, July 2022.
+  <a href="https://lists.w3.org/Archives/Public/public-css-archive/2022Jul/0083.html" target="_blank" rel="noopener">lists.w3.org</a>.
+  JND = 0.02, ε = 0.0001, OKLCh working space, the clipped-comparison early exit.</li>
+<li id="S4"><span class="tier">Tier 1 · opened</span><br>
+  W3C WAI, <em>Understanding Success Criterion 1.4.3: Contrast (Minimum)</em>.
+  <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" target="_blank" rel="noopener">w3.org/WAI/WCAG22</a>.
+  The 3 × 1.5 = 4.5 derivation and the 20/40 and 20/80 rationale.</li>
+<li id="S5"><span class="tier">Tier 1 · opened</span><br>
+  WCAG 2 normative definitions of <em>relative luminance</em> and <em>contrast ratio</em>: the
+  sRGB linearization, the 0.2126/0.7152/0.0722 coefficients, and (L1+0.05)/(L2+0.05).</li>
+<li id="S6"><span class="tier">Tier 1 for the issue · <strong>Tier 3, not opened</strong> for the abstract</span><br>
+  <a href="https://github.com/w3c/wcag/issues/1705" target="_blank" rel="noopener">w3c/wcag issue #1705</a>,
+  "1.4.3 Minimum Contrast, 1.5 multiplication factor — from which research paper?", 2021, reporting
+  that the only 1.5 in Arditi &amp; Faye (2004) is a log-CS-on-log-MAR regression intercept.
+  The underlying reference — Arditi, A. and Faye, E. (2004), <em>Monocular and binocular letter
+  contrast sensitivity and letter acuity in a diverse ophthalmologic practice</em>, Supplement to
+  Optometry and Vision Science, 81(12S), 287 — appears in WCAG's own bibliography, which I confirmed.
+  <strong>I did not read the abstract itself.</strong> I also could not retrieve the Working Group's
+  response to the issue. Unit 9 asks you to close both gaps.</li>
+<li id="S7"><span class="tier">Tier 1 · opened</span><br>
+  Chris Lilley (CSS Color spec editor), comment on csswg-drafts, W3C public-css-archive, 5 June 2022.
+  <a href="https://lists.w3.org/Archives/Public/public-css-archive/2022Jun/0118.html" target="_blank" rel="noopener">lists.w3.org</a>.
+  On the dark-mode failing of the WCAG 2.1 contrast algorithm.</li>
+<li id="S8"><span class="tier">Tier 3 · opened · status tracker</span><br>
+  Adrian Roselli, <em>WCAG3 Contrast as of April 2026</em>.
+  <a href="https://adrianroselli.com/2026/04/wcag3-contrast-as-of-april-2026.html" target="_blank" rel="noopener">adrianroselli.com</a>.
+  Quotes the current WCAG 3 draft text ("the contrast algorithm used in WCAG 3 is yet to be
+  determined") and the July 2023 removal of exploratory content. Not a primary spec, but it quotes
+  and links the primary text, and it is the most reliable status summary I found. Corroborated
+  against several independent 2026 sources reporting the same removal date and draft status.</li>
+<li id="S9"><span class="tier">Tier 1 · opened and read</span><br>
+  Chris Wyman, Peter-Pike Sloan &amp; Peter Shirley, <em>Simple Analytic Approximations to the CIE
+  XYZ Color Matching Functions</em>, JCGT 2(2), 1–11, 2013.
+  <a href="https://jcgt.org/published/0002/02/01/" target="_blank" rel="noopener">jcgt.org</a>.
+  The multi-lobe piecewise-Gaussian fit and its error table. Used to draw the spectral locus in the
+  progress meter; I validated it against known locus chromaticities before use.</li>
+<li id="S10"><span class="tier">Tier 2 · <strong>standard not opened</strong>, values verified numerically</span><br>
+  sRGB primary and white-point chromaticities per IEC 61966-2-1 / ITU-R BT.709. The standards are
+  paywalled and I did not read them. I verified the values by confirming that the standard linear
+  sRGB → XYZ matrix reproduces R (0.640, 0.330), G (0.300, 0.600), B (0.150, 0.060) and D65
+  (0.3127, 0.3290) exactly. Display P3 and Rec. 2020 primaries are quoted from the same lineage and
+  were <em>not</em> independently verified.</li>
+<li id="S11"><span class="tier">Tier 1 · opened</span><br>
+  W3C, <em>Understanding WCAG 2.0</em>, working draft of 10 September 2007,
+  <a href="https://www.w3.org/WAI/GL/WCAG20/WD-UNDERSTANDING-WCAG20-20070910/visual-audio-contrast-contrast.html" target="_blank" rel="noopener">SC 1.4.3</a>.
+  The historical record of the AA threshold at 5:1 before it settled at 4.5:1.</li>
+<li id="S12"><span class="tier">Single study · preprint · not load-bearing</span><br>
+  An arXiv preprint proposing "Oklch+" reports Oklab scoring STRESS = 47.35 on the COMBVD
+  color-difference dataset against CIEDE2000's 29.13 — i.e. Oklab is substantially worse at
+  <em>predicting color differences</em>, which is a different objective from the one it was fit for.
+  I read the abstract and introduction only. Listed because a refutation search turned it up and
+  suppressing it would be exactly the citation bias this course warns about. It is consistent with
+  Ottosson's own framing in S1 and adds a number to it; it is not the basis for any claim above.</li>
+</ol>
+
+<h3>What I searched for and didn't find</h3>
+<p style="font-size:.9rem;color:var(--ink-soft)">Refutation searches run while building this:
+criticism of Oklab (found S12 and the CIELAB-blue-curvature discussion in S2); criticism of the
+WCAG 2 contrast formula (found S6 and S7); the status of APCA as of 2026 (found S8, and found
+multiple 2026 articles asserting the opposite of the spec text, which is why Unit 9 discusses
+amplification). I did <em>not</em> find a peer-reviewed evaluation of Oklab against human data for
+lightness and chroma — which, given Ottosson's own caveat in S1, may be because one does not exist.
+If you find one, that is a correction worth making to this course.</p>
+
+<footer class="end">
+  <p><strong>Color Science for Design Systems.</strong> Working-competence course, three thresholds,
+  twelve units. Progress saves automatically and syncs across devices.</p>
+  <p style="margin-top:1rem"><button class="resetbtn" id="resetbtn">Reset all progress</button></p>
+  <p style="margin-top:1.4rem;font-size:.8rem"><strong>This page's own contrast policy.</strong>
+  Every text pair and every interactive-control border in both themes was checked numerically
+  against WCAG 2 and clears 4.5:1 and 3:1 respectively. Two pairs deliberately do not:
+  <code>--rule</code>, the decorative hairline used for card edges and section dividers, sits at
+  about 1.6:1 in light and 1.9:1 in dark. It bounds no control and carries no state, so 1.4.11 does
+  not reach it, and lifting it to 3:1 would put a hard grey line around every paragraph of a
+  long-form document. That is a judgment, not a measurement, and it is written here rather than
+  omitted because Unit 11 asks you to do the same.</p>
+  <p style="margin-top:1rem;font-size:.8rem">Field type: mixed. The colorimetry is a mature formal
+  field and is sourced to primary formulations verifiable by derivation. The web-platform layer is
+  fast-moving and predominantly vendor- and standards-body-authored, and is marked accordingly.
+  Sourcing was matched to each.</p>
+</footer>
+
+</div>
+
+
+<script type="text/course-deferred">
+/* ---------- 1. state ---------- */
+var CS = (function(){
+  var KEY = 'state', V = 1;
+  function fresh(){ return { v:V, theme:'auto', units:{}, items:{} }; }
+  function migrate(s){
+    if(!s || typeof s!=='object') return fresh();
+    if(typeof s.v!=='number'){ s = fresh(); }        /* pre-version blobs discarded */
+    if(s.v < V){ s.v = V; }                          /* future migrations chain here */
+    s.units = s.units || {}; s.items = s.items || {};
+    if(!s.theme) s.theme = 'auto';
+    return s;
+  }
+  var st;
+  try { st = migrate(JSON.parse(localStorage.getItem(KEY))); }
+  catch(e){ st = fresh(); }
+  var t = null;
+  function flush(){ try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
+  return {
+    get: function(){ return st; },
+    save: function(){ if(t) clearTimeout(t); t = setTimeout(flush, 180); },
+    saveNow: flush,
+    reset: function(){ st = fresh(); flush(); }
+  };
+})();
+
+/* ---------- 2. color math (verified against Ottosson's published test table) ---------- */
+var CM = (function(){
+  function unlin(c){ return c<=0.0031308 ? 12.92*c : 1.055*Math.pow(c,1/2.4)-0.055; }
+  /* xy chromaticity (Y=1) -> linear sRGB */
+  function xyToLinearRGB(x,y){
+    if(y<=0) return [0,0,0];
+    var X=x/y, Y=1, Z=(1-x-y)/y;
+    return [
+       3.2409699419*X -1.5373831776*Y -0.4986107603*Z,
+      -0.9692436363*X +1.8759675015*Y +0.0415550574*Z,
+       0.0556300797*X -0.2039769589*Y +1.0569715142*Z
+    ];
+  }
+  /* Wyman, Sloan & Shirley 2013 multi-lobe fit, CIE 1931 2-deg  (S9) */
+  function xb(w){var t1=(w-442.0)*(w<442.0?0.0624:0.0374),t2=(w-599.8)*(w<599.8?0.0264:0.0323),t3=(w-501.1)*(w<501.1?0.0490:0.0382);
+    return 0.362*Math.exp(-.5*t1*t1)+1.056*Math.exp(-.5*t2*t2)-0.065*Math.exp(-.5*t3*t3);}
+  function yb(w){var t1=(w-568.8)*(w<568.8?0.0213:0.0247),t2=(w-530.9)*(w<530.9?0.0613:0.0322);
+    return 0.821*Math.exp(-.5*t1*t1)+0.286*Math.exp(-.5*t2*t2);}
+  function zb(w){var t1=(w-437.0)*(w<437.0?0.0845:0.0278),t2=(w-459.0)*(w<459.0?0.0385:0.0725);
+    return 1.217*Math.exp(-.5*t1*t1)+0.681*Math.exp(-.5*t2*t2);}
+  var locus=[];
+  for(var w=410; w<=645; w+=1.5){
+    var X=xb(w),Y=yb(w),Z=zb(w),s=X+Y+Z;
+    locus.push([X/s, Y/s]);
+  }
+  return { locus:locus, xyToLinearRGB:xyToLinearRGB, unlin:unlin,
+           SRGB:[[0.640,0.330],[0.300,0.600],[0.150,0.060]], D65:[0.3127,0.3290] };
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---------- 3. the meter: CIE 1931 diagram, one 30 deg sector per unit ---------- */
+var METER = (function(){
+  var UNITS = ['u1','u2','u3','u4','u5','u6','u7','u8','u9','u10','u11','u12'];
+  var PAD = 34, XMAX = 0.80, YMAX = 0.88;
+  var cv, ctx, W;
+
+  function toPx(x,y){
+    return [ PAD + (x/XMAX)*(W-2*PAD), (W-PAD) - (y/YMAX)*(W-2*PAD) ];
+  }
+  function inTri(px,py,t){
+    function sign(a,b,c){ return (px-c[0])*(b[1]-c[1]) - (b[0]-c[0])*(py-c[1]); }
+    var d1=sign(t[0],t[1],t[2]), d2=sign(t[1],t[2],t[0]), d3=sign(t[2],t[0],t[1]);
+    var neg=(d1<0)||(d2<0)||(d3<0), pos=(d1>0)||(d2>0)||(d3>0);
+    return !(neg&&pos);
+  }
+  function sectorOf(x,y){
+    var a = Math.atan2(y-CM.D65[1], x-CM.D65[0]) * 180/Math.PI;
+    if(a<0) a+=360;
+    return Math.floor(a/30) % 12;
+  }
+  function unlocked(){
+    var st = CS.get().units, on = {};
+    var n = 0;
+    for(var i=0;i<UNITS.length;i++){ if(st[UNITS[i]] && st[UNITS[i]].done){ on[i]=true; n++; } }
+    return { on:on, n:n };
+  }
+
+  function readout(u){
+    var c = document.getElementById('mCount'); if(c) c.textContent = u.n + ' / 12';
+    var key = document.getElementById('mKey');
+    if(key){
+      key.innerHTML = '';
+      for(var s=0;s<12;s++){
+        var b = document.createElement('i');
+        if(u.on[s]) b.className = 'on';
+        key.appendChild(b);
+      }
+    }
+    var note = document.getElementById('mNote'); if(!note) return;
+    if(u.n === 0){
+      note.innerHTML = 'The outline is every chromaticity a human can see. The dashed triangle is everything an sRGB display can produce — about <strong>34%</strong> of the diagram\'s area. Complete a unit to light up a sector.';
+    } else if(u.n < 12){
+      note.innerHTML = '<strong>' + u.n + '</strong> of 12 sectors lit. Everything outside the dashed triangle exists and your screen cannot show it. And the 34% area figure is a bad statistic — Unit 5 explains why the diagram\'s area is not a measure of anything perceptual.';
+    } else {
+      note.innerHTML = 'Triangle full. Look at how much is still outside it — most of the greens, all the spectral cyans, the deepest violets. That was always true; you just could not see the boundary before.';
+    }
+  }
+
+  function draw(){
+    var u = unlocked();
+    readout(u);
+    try { raster(u); } catch(e){ if(cv) cv.style.display = 'none'; }
+  }
+
+  function raster(u){
+    if(!ctx) return;
+    var img = ctx.createImageData(W,W), d = img.data;
+    var tri = CM.SRGB;
+    var dark = document.documentElement.getAttribute('data-theme')==='dark' ||
+      (document.documentElement.getAttribute('data-theme')!=='light' &&
+       window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var outR = dark?32:226, outG = dark?38:232, outB = dark?48:238;   /* visible-but-unreachable */
+    var lockR = dark?58:176, lockG = dark?66:184, lockB = dark?78:194; /* in gamut, not yet earned */
+
+    for(var py=0; py<W; py++){
+      for(var px=0; px<W; px++){
+        var x = ((px - PAD)/(W-2*PAD))*XMAX;
+        var y = (((W-PAD) - py)/(W-2*PAD))*YMAX;
+        var i = (py*W+px)*4;
+        if(x<0||y<0||x>XMAX||y>YMAX){ d[i+3]=0; continue; }
+        if(inTri(x,y,tri)){
+          if(u.on[sectorOf(x,y)]){
+            var rgb = CM.xyToLinearRGB(x,y);
+            var mx = Math.max(rgb[0],rgb[1],rgb[2]);
+            if(mx<=0){ d[i+3]=0; continue; }
+            var k = 1/mx;
+            d[i]   = Math.round(255*CM.unlin(Math.max(0,Math.min(1,rgb[0]*k))));
+            d[i+1] = Math.round(255*CM.unlin(Math.max(0,Math.min(1,rgb[1]*k))));
+            d[i+2] = Math.round(255*CM.unlin(Math.max(0,Math.min(1,rgb[2]*k))));
+            d[i+3] = 255;
+          } else { d[i]=lockR; d[i+1]=lockG; d[i+2]=lockB; d[i+3]=255; }
+        } else { d[i]=outR; d[i+1]=outG; d[i+2]=outB; d[i+3]=255; }
+      }
+    }
+    /* putImageData ignores clip paths, so mask via destination-in on an offscreen canvas */
+    var tmp = document.createElement('canvas'); tmp.width=W; tmp.height=W;
+    var tc = tmp.getContext('2d');
+    tc.putImageData(img,0,0);
+    tc.globalCompositeOperation='destination-in';
+    tc.beginPath();
+    for(var j2=0;j2<CM.locus.length;j2++){
+      var p2 = toPx(CM.locus[j2][0], CM.locus[j2][1]);
+      if(j2===0) tc.moveTo(p2[0],p2[1]); else tc.lineTo(p2[0],p2[1]);
+    }
+    tc.closePath(); tc.fill();
+    ctx.clearRect(0,0,W,W);
+    ctx.drawImage(tmp,0,0);
+
+    var line = getComputedStyle(document.documentElement).getPropertyValue('--meter-line').trim() || '#888';
+    var ink  = getComputedStyle(document.documentElement).getPropertyValue('--ink-mute').trim() || '#888';
+    /* horseshoe outline */
+    ctx.lineWidth = 3; ctx.strokeStyle = line; ctx.beginPath();
+    for(var j3=0;j3<CM.locus.length;j3++){
+      var p3 = toPx(CM.locus[j3][0], CM.locus[j3][1]);
+      if(j3===0) ctx.moveTo(p3[0],p3[1]); else ctx.lineTo(p3[0],p3[1]);
+    }
+    ctx.closePath(); ctx.stroke();
+    /* sRGB triangle */
+    ctx.lineWidth = 2.5; ctx.strokeStyle = ink; ctx.setLineDash([7,5]); ctx.beginPath();
+    for(var t=0;t<3;t++){
+      var pt = toPx(CM.SRGB[t][0], CM.SRGB[t][1]);
+      if(t===0) ctx.moveTo(pt[0],pt[1]); else ctx.lineTo(pt[0],pt[1]);
+    }
+    ctx.closePath(); ctx.stroke(); ctx.setLineDash([]);
+    /* D65 */
+    var wp = toPx(CM.D65[0], CM.D65[1]);
+    ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(wp[0],wp[1],5,0,7); ctx.fill();
+
+  }
+
+  function init(){
+    cv = document.getElementById('cie');
+    if(!cv) return;
+    W = cv.width;
+    try { ctx = cv.getContext('2d'); }
+    catch(e){ ctx = null; cv.style.display = 'none'; }
+    draw();
+    if(window.matchMedia){
+      var mq = window.matchMedia('(prefers-color-scheme: dark)');
+      if(mq.addEventListener) mq.addEventListener('change', draw);
+    }
+  }
+  return { init:init, draw:draw, UNITS:UNITS };
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---------- 4. gated items with pre-reveal confidence capture ---------- */
+(function(){
+  function itemNodes(){ return document.querySelectorAll('.item'); }
+
+  function wire(el){
+    var id   = el.getAttribute('data-item');
+    var type = el.getAttribute('data-type');
+    var st   = CS.get();
+    var rec  = st.items[id] || null;
+
+    var confBtns = el.querySelectorAll('.confbtns button');
+    var commit   = el.querySelector('.commit');
+    var reveal   = el.querySelector('.reveal');
+    var opts     = el.querySelectorAll('.opt');
+    var ta       = el.querySelector('textarea');
+    var num      = el.querySelector('input[type=number]');
+    var chosenConf = rec ? rec.conf : null;
+    var chosenOpt  = null;
+
+    function hasResponse(){
+      if(type === 'choice')  return chosenOpt !== null;
+      if(type === 'numeric') return num && num.value !== '' && !isNaN(parseFloat(num.value));
+      return ta && ta.value.trim().length >= 12;
+    }
+    function refresh(){ commit.disabled = !(chosenConf && hasResponse()); }
+
+    for(var i=0;i<confBtns.length;i++){
+      (function(b){
+        b.addEventListener('click', function(){
+          for(var k=0;k<confBtns.length;k++) confBtns[k].classList.remove('sel');
+          b.classList.add('sel');
+          chosenConf = parseInt(b.getAttribute('data-c'),10);
+          refresh();
+        });
+      })(confBtns[i]);
+    }
+    for(var j=0;j<opts.length;j++){
+      (function(o,idx){
+        o.addEventListener('click', function(){
+          for(var k=0;k<opts.length;k++) opts[k].classList.remove('sel');
+          o.classList.add('sel');
+          var r = o.querySelector('input'); if(r) r.checked = true;
+          chosenOpt = idx;
+          refresh();
+        });
+      })(opts[j], j);
+    }
+    if(ta)  ta.addEventListener('input', refresh);
+    if(num) num.addEventListener('input', refresh);
+
+    function grade(){
+      if(type === 'choice'){
+        var o = opts[chosenOpt];
+        return o ? o.hasAttribute('data-correct') : false;
+      }
+      if(type === 'numeric'){
+        var a = parseFloat(el.getAttribute('data-answer'));
+        var t = parseFloat(el.getAttribute('data-tol'));
+        return Math.abs(parseFloat(num.value) - a) <= t;
+      }
+      return null;   /* open items are recorded, not graded */
+    }
+
+    function show(correct, conf, replay){
+      reveal.classList.add('open');
+      if(correct !== null){
+        var v = document.createElement('div');
+        v.className = 'verdict ' + (correct ? 'ok' : 'bad');
+        v.textContent = correct ? 'Correct' : 'Not right';
+        reveal.insertBefore(v, reveal.firstChild);
+      }
+      if(conf && correct !== null){
+        var g = document.createElement('div');
+        g.className = 'gap';
+        var high = conf >= 3;
+        g.textContent = high && !correct
+          ? 'You predicted ' + conf + '/4 and missed. That gap is the most useful signal on this page — it means the material felt more familiar than it was.'
+          : (!high && correct
+            ? 'You predicted ' + conf + '/4 and got it. Under-confidence costs you too: it is what makes people re-read things they already know.'
+            : 'Predicted ' + conf + '/4 — well calibrated.');
+        reveal.appendChild(g);
+      }
+      if(!replay){
+        for(var k=0;k<confBtns.length;k++) confBtns[k].disabled = true;
+        commit.disabled = true;
+        commit.textContent = correct === null ? 'Committed — notes still editable' : 'Committed';
+        for(var q=0;q<opts.length;q++){
+          opts[q].style.pointerEvents = 'none';
+          var ri = opts[q].querySelector('input'); if(ri) ri.disabled = true;
+        }
+        if(num) num.disabled = true;
+        if(ta && type === 'open'){
+          ta.addEventListener('input', function(){
+            var r2 = CS.get().items[id];
+            if(r2){ r2.val = ta.value; r2.ts = Date.now(); CS.save(); }
+          });
+        }
+      }
+    }
+
+    commit.addEventListener('click', function(){
+      if(commit.disabled) return;
+      var correct = grade();
+      var val = type === 'choice' ? chosenOpt
+              : (type === 'numeric' ? num.value : (ta ? ta.value : ''));
+      CS.get().items[id] = { conf: chosenConf, correct: correct, val: val, ts: Date.now() };
+      CS.save();
+      show(correct, chosenConf, false);
+      CALIB.render();
+    });
+
+    /* restore */
+    if(rec){
+      for(var m=0;m<confBtns.length;m++){
+        if(parseInt(confBtns[m].getAttribute('data-c'),10) === rec.conf) confBtns[m].classList.add('sel');
+        confBtns[m].disabled = true;
+      }
+      if(type === 'choice' && typeof rec.val === 'number' && opts[rec.val]){
+        opts[rec.val].classList.add('sel');
+        var rr = opts[rec.val].querySelector('input'); if(rr) rr.checked = true;
+        chosenOpt = rec.val;
+      }
+      if(type === 'numeric' && num) num.value = rec.val;
+      if(type === 'open' && ta) ta.value = rec.val;
+      show(rec.correct, rec.conf, false);
+    } else {
+      commit.disabled = true;
+    }
+  }
+
+  window.ITEMS = { init: function(){ var n = itemNodes(); for(var i=0;i<n.length;i++) wire(n[i]); } };
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---------- 5. calibration report ---------- */
+var CALIB = (function(){
+  function render(){
+    var host = document.getElementById('calibBody');
+    if(!host) return;
+    var items = CS.get().items, buckets = {1:[0,0],2:[0,0],3:[0,0],4:[0,0]}, graded = 0;
+    for(var k in items){
+      var r = items[k];
+      if(!r || r.correct === null || typeof r.correct === 'undefined') continue;
+      if(!r.conf) continue;
+      buckets[r.conf][0] += r.correct ? 1 : 0;
+      buckets[r.conf][1] += 1;
+      graded++;
+    }
+    if(graded === 0){
+      host.innerHTML = '<p style="font-size:.9rem;color:var(--ink-mute);margin:.6rem 0 0">' +
+        'Nothing to report yet. Commit a few of the checkable items and this fills in.</p>';
+      return;
+    }
+    var rows = '';
+    var lbl = {1:'1 · guessing', 2:'2 · hunch', 3:'3 · fairly sure', 4:'4 · confident'};
+    for(var c=1;c<=4;c++){
+      var b = buckets[c];
+      if(b[1] === 0){ rows += '<tr><td>'+lbl[c]+'</td><td class="num">—</td><td class="num">0</td><td></td></tr>'; continue; }
+      var pct = Math.round(100*b[0]/b[1]);
+      var expect = {1:25,2:50,3:75,4:95}[c];
+      var verdict = pct >= expect - 12 && pct <= expect + 20 ? 'calibrated'
+                  : (pct < expect ? 'overconfident here' : 'underconfident here');
+      rows += '<tr><td>'+lbl[c]+'</td><td class="num">'+pct+'%</td><td class="num">'+b[1]+'</td><td>'+verdict+'</td></tr>';
+    }
+    host.innerHTML =
+      '<div class="scroll"><table><thead><tr><th>You predicted</th><th class="num">Actually right</th>' +
+      '<th class="num">n</th><th>Read</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '<p style="font-size:.85rem;color:var(--ink-mute);margin:.7rem 0 0">Rough targets: about 25% right ' +
+      'when guessing, 50% on a hunch, 75% when fairly sure, near-certain when confident. The row that ' +
+      'matters is the one where you said 3 or 4 and were wrong — that is the material to revisit, not ' +
+      'the material that felt hard.</p>';
+  }
+  return { render: render };
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ---------- 6. unit completion, theme, boot ---------- */
+(function(){
+  function wireUnits(){
+    var units = document.querySelectorAll('.unit');
+    for(var i=0;i<units.length;i++){
+      (function(u){
+        var id = u.getAttribute('data-unit');
+        var cb = u.querySelector('.unitdone');
+        if(!cb) return;
+        var rec = CS.get().units[id];
+        if(rec && rec.done){ cb.checked = true; u.classList.add('done'); }
+        cb.addEventListener('change', function(){
+          if(cb.checked) CS.get().units[id] = { done:true, ts: Date.now() };
+          else delete CS.get().units[id];
+          u.classList.toggle('done', cb.checked);
+          CS.save();
+          METER.draw();
+        });
+      })(units[i]);
+    }
+  }
+  function wireTheme(){
+    var btn = document.getElementById('themebtn');
+    var order = ['auto','light','dark'];
+    function apply(t){
+      if(t === 'auto') document.documentElement.removeAttribute('data-theme');
+      else document.documentElement.setAttribute('data-theme', t);
+      if(btn) btn.title = 'Theme: ' + t + ' (tap to change)';
+      if(btn) btn.textContent = t === 'auto' ? '◐' : (t === 'light' ? '☀' : '☾');
+    }
+    apply(CS.get().theme || 'auto');
+    if(btn) btn.addEventListener('click', function(){
+      var cur = CS.get().theme || 'auto';
+      var next = order[(order.indexOf(cur)+1) % 3];
+      CS.get().theme = next; CS.save(); apply(next);
+      setTimeout(function(){ METER.draw(); }, 20);
+    });
+  }
+  function wireReset(){
+    var b = document.getElementById('resetbtn');
+    if(!b) return;
+    b.addEventListener('click', function(){
+      if(!confirm('Erase all progress, answers, and confidence ratings for this course?')) return;
+      CS.reset(); location.reload();
+    });
+  }
+  wireUnits();
+  wireTheme();
+  ITEMS.init();
+  CALIB.render();
+  METER.init();
+  window.addEventListener('pagehide', CS.saveNow);
+})();
+</script>
+
+</body>
+</html>
