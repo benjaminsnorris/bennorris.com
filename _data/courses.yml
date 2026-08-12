@@ -11,21 +11,21 @@
 # tracked: false -> static reading material, published with --no-store
 
 - slug: instrument-log
-  title: Instrument Log — Classical Psychometrics for Eval Rubrics
+  title: Instrument Log
   description: >-
-    Classical test theory, the kappa family, ICC and generalizability theory —
+    Classical Psychometrics for Eval Rubrics: test theory, the kappa family, ICC and generalizability theory —
     measurement thinking applied to eval rubrics.
   tracked: true
 
 - slug: record-linkage
-  title: Probabilistic Record Linkage — A Six-Week Course
+  title: Probabilistic Record Linkage
   description: >-
     Deciding when two records describe the same thing, built on Fellegi &
     Sunter (JASA, 1969).
   tracked: true
 
 - slug: context-graphs
-  title: Context Graphs — A Cadence Crash Course
+  title: Context Graphs
   description: >-
     How context graphs connect people to the priorities that matter. A crash
     course in systems and data modeling.
