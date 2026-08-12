@@ -73,3 +73,12 @@
     every map is a choice about which invariant to break. Tissot's indicatrix
     makes the cost computable; the deliverable is a projection decision memo.
   tracked: true
+
+- slug: task-abstraction
+  title: Task Abstraction
+  description: >-
+    Not whether a mark can be read but whether it should have been drawn at all,
+    one level upstream of graphical perception. Brehmer & Munzner's why/what/how
+    typology (2013) and the argument around it; the artifact is a task
+    abstraction memo.
+  tracked: true

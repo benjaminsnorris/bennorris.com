@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="task-abstraction"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Task Abstraction: Why / What / How</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   TOKENS
+   Two visual registers, deliberately separate:
+   1. The three bands (why / how / what) — saturated, filled.
+   2. Provenance chips — hairline, low chroma, small caps.
+   The bands are the subject. The chips are the apparatus.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: light dark;
+
+  --ground:   #EDF0F4;
+  --surface:  #FFFFFF;
+  --panel:    #E1E7ED;
+  --panel-2:  #F4F6F9;
+
+  --ink:      #151A21;
+  --ink-soft: #414B58;
+  --ink-mute: #5A6470;
+
+  --rule:     #CFD7E0;            /* decorative hairline only, never a control edge */
+  --rule-strong: #7E8A99;         /* every control border; >=3:1 on surface and panel-2 */
+
+  --why:      #4B3F9E;  --why-bg:  #E8E5F7;
+  --how:      #A8480F;  --how-bg:  #F8E7DA;
+  --what:     #0B6E7A;  --what-bg: #DCEEF0;
+
+  --signal:   #4B3F9E;
+  --btn-fg:   #FFFFFF;
+
+  --ok:       #1E6B45;  --ok-bg:   #E0F0E7;
+  --warn:     #8A5A0B;  --warn-bg: #F6ECD9;
+  --bad:      #96331F;  --bad-bg:  #F7E4DF;
+
+  --chip-fg:  #4B5563;
+  --chip-br:  #7E8A99;
+  --chip-bg:  #F2F4F7;
+
+  --shadow: 0 1px 0 rgba(21,26,33,.05), 0 2px 10px rgba(21,26,33,.06);
+
+  --serif: "Newsreader", Charter, Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --measure: 36rem;
+  --pad: 1.15rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground:  #10141A;
+    --surface: #181D25;
+    --panel:   #212932;
+    --panel-2: #1C222B;
+
+    --ink:      #E9EDF2;
+    --ink-soft: #B7C0CB;
+    --ink-mute: #8C97A4;
+
+    --rule:        #2E3844;
+    --rule-strong: #657585;
+
+    --why:  #A79CF5;  --why-bg:  #262149;
+    --how:  #F0A06A;  --how-bg:  #3E2312;
+    --what: #58C6D2;  --what-bg: #0E3238;
+
+    --signal: #A79CF5;
+    --btn-fg: #10141A;
+
+    --ok:   #6FD3A0;  --ok-bg:   #10301F;
+    --warn: #E8BC6C;  --warn-bg: #33260C;
+    --bad:  #F09A85;  --bad-bg:  #3A1A12;
+
+    --chip-fg: #A6B0BC;
+    --chip-br: #657585;
+    --chip-bg: #1E242D;
+
+    --shadow: 0 1px 0 rgba(0,0,0,.3), 0 2px 12px rgba(0,0,0,.35);
+  }
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --ground:#EDF0F4; --surface:#FFFFFF; --panel:#E1E7ED; --panel-2:#F4F6F9;
+  --ink:#151A21; --ink-soft:#414B58; --ink-mute:#5A6470;
+  --rule:#CFD7E0; --rule-strong:#7E8A99;
+  --why:#4B3F9E; --why-bg:#E8E5F7; --how:#A8480F; --how-bg:#F8E7DA; --what:#0B6E7A; --what-bg:#DCEEF0;
+  --signal:#4B3F9E; --btn-fg:#FFFFFF;
+  --ok:#1E6B45; --ok-bg:#E0F0E7; --warn:#8A5A0B; --warn-bg:#F6ECD9; --bad:#96331F; --bad-bg:#F7E4DF;
+  --chip-fg:#4B5563; --chip-br:#7E8A99; --chip-bg:#F2F4F7;
+  --shadow: 0 1px 0 rgba(21,26,33,.05), 0 2px 10px rgba(21,26,33,.06);
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+  --ground:#10141A; --surface:#181D25; --panel:#212932; --panel-2:#1C222B;
+  --ink:#E9EDF2; --ink-soft:#B7C0CB; --ink-mute:#8C97A4;
+  --rule:#2E3844; --rule-strong:#657585;
+  --why:#A79CF5; --why-bg:#262149; --how:#F0A06A; --how-bg:#3E2312; --what:#58C6D2; --what-bg:#0E3238;
+  --signal:#A79CF5; --btn-fg:#10141A;
+  --ok:#6FD3A0; --ok-bg:#10301F; --warn:#E8BC6C; --warn-bg:#33260C; --bad:#F09A85; --bad-bg:#3A1A12;
+  --chip-fg:#A6B0BC; --chip-br:#657585; --chip-bg:#1E242D;
+  --shadow: 0 1px 0 rgba(0,0,0,.3), 0 2px 12px rgba(0,0,0,.35);
+}
+
+/* ── base ───────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17.5px;
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  overflow-wrap: break-word;
+  padding-bottom: 6rem; /* keeps the last element clear of the sync badge */
+}
+.wrap { max-width: var(--measure); margin: 0 auto; padding: 0 var(--pad); }
+p { margin: 0 0 1em; }
+a { color: var(--signal); text-underline-offset: 2px; }
+strong { font-weight: 600; }
+em { font-style: italic; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2.4rem 0; }
+::selection { background: var(--why-bg); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; border-radius: 3px; }
+
+h1,h2,h3,h4 { font-family: var(--serif); line-height: 1.2; margin: 0 0 .5em; font-weight: 500; }
+h1 { font-size: 2.2rem; letter-spacing: -.02em; font-weight: 400; }
+h2 { font-size: 1.55rem; letter-spacing: -.015em; margin-top: 2.2rem; }
+h3 { font-size: 1.16rem; margin-top: 1.9rem; }
+h4 { font-size: 1rem; margin-top: 1.4rem; }
+
+.eyebrow {
+  font-family: var(--mono); font-size: .68rem; font-weight: 600;
+  letter-spacing: .13em; text-transform: uppercase; color: var(--ink-mute);
+  margin: 0 0 .5rem;
+}
+.lede { font-size: 1.12rem; color: var(--ink-soft); }
+.small { font-size: .9rem; color: var(--ink-soft); }
+.mute { color: var(--ink-mute); }
+code, .m { font-family: var(--mono); font-size: .86em; }
+
+/* ── header ─────────────────────────────────────────────── */
+header.top {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  padding: 2.6rem 0 1.9rem;
+}
+.titleblock h1 { margin-bottom: .35rem; }
+.titleblock .sub {
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .04em;
+  color: var(--ink-mute); margin: 0;
+}
+.themebar { display: flex; justify-content: flex-end; margin-bottom: 1rem; }
+.themetoggle {
+  display: inline-flex; border: 1px solid var(--rule-strong); border-radius: 999px;
+  overflow: hidden; background: var(--panel-2);
+}
+.themetoggle button {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+  background: transparent; border: 0; color: var(--ink-mute);
+  min-height: 44px; padding: 0 .85rem; cursor: pointer;
+}
+.themetoggle button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+
+/* ── the task card: the signature object ────────────────── */
+.card {
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin: 1.3rem 0;
+}
+.card .band { display: grid; grid-template-columns: 4.6rem 1fr; align-items: stretch; }
+.card .band + .band { border-top: 1px solid var(--rule); }
+.card .band .k {
+  font-family: var(--mono); font-size: .64rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: .6rem .5rem; display: flex; align-items: flex-start; justify-content: flex-end;
+  text-align: right;
+}
+.card .band .v { padding: .55rem .8rem; font-family: var(--mono); font-size: .82rem; line-height: 1.55; }
+.band-why  .k { background: var(--why-bg);  color: var(--why); }
+.band-how  .k { background: var(--how-bg);  color: var(--how); }
+.band-what .k { background: var(--what-bg); color: var(--what); }
+.card .caption {
+  border-top: 1px solid var(--rule); background: var(--panel-2);
+  padding: .5rem .8rem; font-size: .84rem; color: var(--ink-soft);
+}
+.card .caption strong { color: var(--ink); }
+
+/* chained cards */
+.chain { margin: 1.4rem 0; }
+.chain .link {
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--what); text-align: center; padding: .1rem 0 .3rem; position: relative;
+}
+.chain .link::before {
+  content: "↓"; display: block; font-size: 1rem; line-height: 1; color: var(--rule-strong); margin-bottom: .1rem;
+}
+.chain .card { margin: 0; }
+
+/* ── the meter: one task card that fills as you go ──────── */
+.meterwrap { background: var(--panel-2); border-bottom: 1px solid var(--rule); padding: 1.4rem 0 1.5rem; }
+.meter { border: 1px solid var(--rule-strong); border-radius: 5px; background: var(--surface); overflow: hidden; }
+.meter .row { display: grid; grid-template-columns: 4.6rem 1fr 3.1rem; align-items: center; }
+.meter .row + .row { border-top: 1px solid var(--rule); }
+.meter .k {
+  font-family: var(--mono); font-size: .64rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; padding: .7rem .5rem; text-align: right;
+}
+.meter .track { height: 1.6rem; background: var(--panel); position: relative; border-radius: 2px; }
+.meter .fill {
+  position: absolute; inset: 0 auto 0 0; width: 0%;
+  transition: width .5s cubic-bezier(.3,.8,.4,1);
+}
+.meter .n {
+  font-family: var(--mono); font-size: .72rem; text-align: center; color: var(--ink-mute);
+  padding: .5rem .2rem;
+}
+.row-why  .k { background: var(--why-bg);  color: var(--why); }
+.row-why  .fill { background: var(--why); }
+.row-how  .k { background: var(--how-bg);  color: var(--how); }
+.row-how  .fill { background: var(--how); }
+.row-what .k { background: var(--what-bg); color: var(--what); }
+.row-what .fill { background: var(--what); }
+.verdict {
+  border-top: 1px solid var(--rule); background: var(--panel-2);
+  padding: .65rem .85rem; font-size: .88rem; color: var(--ink-soft);
+}
+.verdict .lbl {
+  font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-mute); display: block; margin-bottom: .1rem;
+}
+.verdict .txt { font-style: italic; }
+.meter-note { font-family: var(--mono); font-size: .68rem; color: var(--ink-mute); margin: .6rem 0 0; letter-spacing: .02em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .meter .fill { transition: none; }
+}
+
+/* ── provenance chips: the other register ───────────────── */
+.chip {
+  display: inline-block; font-family: var(--mono); font-size: .6rem; font-weight: 500;
+  letter-spacing: .09em; text-transform: uppercase;
+  border: 1px solid var(--chip-br); background: var(--chip-bg); color: var(--chip-fg);
+  border-radius: 3px; padding: .08rem .34rem; margin: 0 .12rem; white-space: nowrap;
+  vertical-align: .08em;
+}
+.chip a { color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor;
+  padding: .3rem .12rem; margin: -.3rem 0; }
+.chip.src      { border-color: var(--ok);   color: var(--ok);   background: var(--ok-bg); }
+.chip.infer    { border-color: var(--warn); color: var(--warn); background: var(--warn-bg); }
+.chip.contested{ border-color: var(--bad);  color: var(--bad);  background: var(--bad-bg); }
+.chip.single   { border-color: var(--chip-br); }
+.chip.vendor   { border-color: var(--why);  color: var(--why);  background: var(--why-bg); }
+
+.legend { margin: 0; padding: 0; list-style: none; }
+.legend li { margin: .38rem 0; font-size: .89rem; color: var(--ink-soft); }
+
+/* ── panels ─────────────────────────────────────────────── */
+.panel {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 5px;
+  padding: 1.05rem 1.1rem; margin: 1.4rem 0;
+}
+.panel h3, .panel h4 { margin-top: 0; }
+.panel.tint { background: var(--panel-2); }
+.panel.flag { border-left: 3px solid var(--warn); }
+.panel.liminal { border-left: 3px solid var(--how); background: var(--how-bg); }
+.panel.liminal .eyebrow { color: var(--how); }
+
+.deck { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin: 1.2rem 0; }
+@media (max-width: 640px) { .deck { grid-template-columns: 1fr; } }
+
+.scroller { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.2rem 0; border: 1px solid var(--rule); border-radius: 5px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 30rem; font-size: .88rem; }
+th, td { text-align: left; padding: .5rem .65rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--mono); font-size: .66rem; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-mute); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+
+ul.tight, ol.tight { padding-left: 1.15rem; margin: 0 0 1em; }
+ul.tight li, ol.tight li { margin: .3rem 0; }
+
+/* ── week structure ─────────────────────────────────────── */
+.week { border-top: 1px solid var(--rule-strong); padding-top: 2rem; margin-top: 2.6rem; }
+.weekhead { margin-bottom: 1.2rem; }
+.weekhead .no {
+  font-family: var(--mono); font-size: .68rem; font-weight: 600; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--ink-mute);
+}
+.weekhead .feeds { font-family: var(--mono); font-size: .66rem; letter-spacing: .06em; color: var(--ink-mute); margin-top: .35rem; }
+.feeds .b { padding: .05rem .3rem; border-radius: 3px; margin-right: .2rem; }
+.feeds .b-why  { background: var(--why-bg);  color: var(--why); }
+.feeds .b-how  { background: var(--how-bg);  color: var(--how); }
+.feeds .b-what { background: var(--what-bg); color: var(--what); }
+
+.artifact {
+  border: 1px dashed var(--rule-strong); border-radius: 5px; padding: .85rem 1rem;
+  background: var(--panel-2); margin: 1.1rem 0 1.6rem;
+}
+.artifact .eyebrow { margin-bottom: .3rem; }
+.artifact p { margin: 0; font-size: .95rem; }
+
+/* ── blocks ─────────────────────────────────────────────── */
+.block {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 5px;
+  margin: 1.1rem 0; overflow: hidden;
+}
+.block > .bhead {
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  padding: .55rem .7rem .55rem .55rem; background: var(--panel-2);
+  border-bottom: 1px solid var(--rule);
+}
+.block .mode {
+  font-family: var(--mono); font-size: .66rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink);
+}
+.block .est { font-family: var(--mono); font-size: .68rem; color: var(--ink-mute); margin-left: auto; }
+.block .body { padding: .9rem 1rem 1.1rem; }
+.block .body > :first-child { margin-top: 0; }
+.block .body > :last-child { margin-bottom: 0; }
+.block.done > .bhead { background: var(--ok-bg); }
+.block.done .mode { color: var(--ok); }
+
+.donebox {
+  display: inline-flex; align-items: center; gap: .45rem; cursor: pointer;
+  min-height: 44px; min-width: 44px; padding: 0 .1rem; user-select: none;
+}
+.donebox input { position: absolute; opacity: 0; width: 0; height: 0; }
+.donebox .box {
+  width: 22px; height: 22px; border: 1.5px solid var(--rule-strong); border-radius: 4px;
+  background: var(--surface); display: grid; place-items: center; flex: none;
+  font-family: var(--mono); font-size: .8rem; color: transparent; line-height: 1;
+}
+.donebox input:checked + .box { background: var(--ok); border-color: var(--ok); color: var(--btn-fg); }
+.donebox input:focus-visible + .box { outline: 2px solid var(--signal); outline-offset: 2px; }
+
+/* ── disclosure (worked examples, supportive info) ──────── */
+details.disc { border: 1px solid var(--rule); border-radius: 5px; margin: 1rem 0; background: var(--panel-2); }
+details.disc > summary {
+  cursor: pointer; list-style: none; padding: .7rem .85rem; min-height: 44px;
+  display: flex; align-items: center; gap: .5rem;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+details.disc > summary::-webkit-details-marker { display: none; }
+details.disc > summary::before { content: "▸"; color: var(--rule-strong); }
+details.disc[open] > summary::before { content: "▾"; }
+details.disc > summary:hover { color: var(--ink); }
+details.disc .dbody { padding: 0 .95rem .95rem; border-top: 1px solid var(--rule); padding-top: .85rem; background: var(--surface); }
+details.disc .dbody > :first-child { margin-top: 0; }
+details.disc .dbody > :last-child { margin-bottom: 0; }
+
+/* ── probes ─────────────────────────────────────────────── */
+.probe {
+  border: 1px solid var(--rule-strong); border-radius: 5px; background: var(--surface);
+  margin: 1.3rem 0; overflow: hidden;
+}
+.probe .phead {
+  padding: .5rem .8rem; background: var(--panel); border-bottom: 1px solid var(--rule);
+  display: flex; gap: .5rem; align-items: baseline; flex-wrap: wrap;
+}
+.probe .ptag {
+  font-family: var(--mono); font-size: .63rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink);
+}
+.probe .pmeta { font-family: var(--mono); font-size: .63rem; letter-spacing: .06em; color: var(--ink-mute); margin-left: auto; }
+.probe .pbody { padding: .9rem 1rem 1rem; }
+.probe .q { margin: 0 0 .85rem; }
+.probe .q:last-of-type { margin-bottom: .85rem; }
+
+.conf { margin: .9rem 0 .7rem; }
+.conf .clabel {
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-mute); display: block; margin-bottom: .35rem;
+}
+.confrow { display: flex; gap: .35rem; flex-wrap: wrap; }
+.confrow button {
+  font-family: var(--mono); font-size: .8rem; min-height: 44px; min-width: 44px;
+  border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--surface);
+  color: var(--ink-soft); cursor: pointer; flex: 1 1 44px;
+}
+.confrow button[aria-pressed="true"] { background: var(--signal); border-color: var(--signal); color: var(--btn-fg); }
+.confscale { font-family: var(--mono); font-size: .62rem; color: var(--ink-mute); display: flex; justify-content: space-between; margin-top: .25rem; }
+
+textarea.ans {
+  width: 100%; min-height: 6.5rem; resize: vertical;
+  font-family: var(--serif); font-size: 1rem; line-height: 1.5; color: var(--ink);
+  background: var(--panel-2); border: 1px solid var(--rule-strong); border-radius: 4px;
+  padding: .6rem .7rem;
+}
+textarea.ans::placeholder { color: var(--ink-mute); }
+
+.choices { display: grid; gap: .4rem; margin: .2rem 0 .3rem; }
+.choices button {
+  text-align: left; font-family: var(--serif); font-size: .97rem; line-height: 1.4;
+  min-height: 44px; padding: .55rem .7rem; cursor: pointer;
+  border: 1px solid var(--rule-strong); border-radius: 4px;
+  background: var(--panel-2); color: var(--ink);
+}
+.choices button[aria-pressed="true"] { border-color: var(--signal); background: var(--why-bg); box-shadow: inset 0 0 0 1px var(--signal); }
+
+.btn {
+  font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+  min-height: 44px; padding: 0 1rem; border-radius: 4px; cursor: pointer;
+  border: 1px solid var(--ink); background: var(--ink); color: var(--surface);
+}
+.btn[disabled] { opacity: .42; cursor: not-allowed; }
+.btn.ghost { background: transparent; color: var(--ink-soft); border-color: var(--rule-strong); }
+.gatehint { font-family: var(--mono); font-size: .66rem; color: var(--ink-mute); margin: .5rem 0 0; }
+
+.answer { display: none; margin-top: 1rem; border-top: 1px solid var(--rule); padding-top: .9rem; }
+.probe.revealed .answer { display: block; }
+.answer .alabel {
+  font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-mute); display: block; margin-bottom: .4rem;
+}
+.outcome { margin-top: .9rem; }
+.outcome .olabel {
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-mute); display: block; margin-bottom: .35rem;
+}
+.outrow { display: flex; gap: .35rem; flex-wrap: wrap; }
+.outrow button {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase;
+  min-height: 44px; padding: 0 .7rem; flex: 1 1 auto; cursor: pointer;
+  border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--surface); color: var(--ink-soft);
+}
+.outrow button[data-o="hit"][aria-pressed="true"]  { background: var(--ok-bg);  border-color: var(--ok);  color: var(--ok); }
+.outrow button[data-o="part"][aria-pressed="true"] { background: var(--warn-bg); border-color: var(--warn); color: var(--warn); }
+.outrow button[data-o="miss"][aria-pressed="true"] { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+
+.calib { margin-top: .7rem; font-family: var(--mono); font-size: .74rem; padding: .5rem .65rem; border-radius: 4px; display: none; }
+.calib.show { display: block; }
+.calib.over  { background: var(--bad-bg);  color: var(--bad); }
+.calib.under { background: var(--warn-bg); color: var(--warn); }
+.calib.good  { background: var(--ok-bg);   color: var(--ok); }
+
+/* ── workspace (the memo, persisted) ────────────────────── */
+.workspace { border: 1px solid var(--rule-strong); border-radius: 5px; background: var(--surface); margin: 1.3rem 0; overflow: hidden; }
+.workspace .whead {
+  padding: .55rem .8rem; background: var(--panel); border-bottom: 1px solid var(--rule);
+  display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap;
+}
+.workspace .wtag { font-family: var(--mono); font-size: .63rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.workspace .wsave { font-family: var(--mono); font-size: .63rem; color: var(--ink-mute); margin-left: auto; }
+.workspace .wbody { padding: .8rem .9rem .9rem; }
+.workspace textarea { width: 100%; min-height: 11rem; resize: vertical;
+  font-family: var(--mono); font-size: .85rem; line-height: 1.6; color: var(--ink);
+  background: var(--panel-2); border: 1px solid var(--rule); border-radius: 4px; padding: .65rem .7rem; }
+
+/* ── calibration summary ────────────────────────────────── */
+.calsum { margin: 1.2rem 0; }
+.calsum .bar { display: grid; grid-template-columns: 1fr; gap: .3rem; }
+.calsum .cline { display: grid; grid-template-columns: 5.5rem 1fr; gap: .5rem; align-items: center; font-family: var(--mono); font-size: .72rem; }
+.calsum .cline .lab { color: var(--ink-mute); text-align: right; }
+.calsum .cline .g { height: 14px; background: var(--panel); border-radius: 3px; overflow: hidden; }
+.calsum .cline .g i { display: block; height: 100%; }
+
+footer.foot { border-top: 1px solid var(--rule); margin-top: 3rem; padding: 2rem 0 1rem; color: var(--ink-mute); font-size: .85rem; }
+.srclist { list-style: none; padding: 0; margin: 0; counter-reset: none; }
+.srclist li { border-bottom: 1px solid var(--rule); padding: .7rem 0; font-size: .9rem; color: var(--ink-soft); overflow-wrap: anywhere; }
+.srclist li:last-child { border-bottom: 0; }
+.srclist .sid {
+  font-family: var(--mono); font-size: .68rem; font-weight: 600; color: var(--ink);
+  background: var(--panel); border-radius: 3px; padding: .05rem .3rem; margin-right: .35rem;
+}
+.srclist .tier { font-family: var(--mono); font-size: .64rem; color: var(--ink-mute); display: block; margin-top: .2rem; }
+
+.reset { margin-top: 1.4rem; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="themebar">
+      <div class="themetoggle" role="group" aria-label="Colour theme">
+        <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme-set="auto"  aria-pressed="true">Auto</button>
+        <button type="button" data-theme-set="dark"  aria-pressed="false">Dark</button>
+      </div>
+    </div>
+    <div class="titleblock">
+      <p class="eyebrow">Self-study course · four weeks</p>
+      <h1>Task Abstraction</h1>
+      <p class="sub">why / what / how — Brehmer &amp; Munzner, and the argument around it</p>
+    </div>
+  </div>
+</header>
+
+<div class="meterwrap">
+  <div class="wrap">
+    <div class="meter" id="meter" aria-label="Progress, shown as a task description">
+      <div class="row row-why">
+        <div class="k">Why</div>
+        <div class="track"><i class="fill" data-fill="why"></i></div>
+        <div class="n" data-n="why">0/8</div>
+      </div>
+      <div class="row row-how">
+        <div class="k">How</div>
+        <div class="track"><i class="fill" data-fill="how"></i></div>
+        <div class="n" data-n="how">0/6</div>
+      </div>
+      <div class="row row-what">
+        <div class="k">What</div>
+        <div class="track"><i class="fill" data-fill="what"></i></div>
+        <div class="n" data-n="what">0/6</div>
+      </div>
+      <div class="verdict">
+        <span class="lbl">Completeness of this description</span>
+        <span class="txt" id="verdict">Empty. No why, no how, no what — nothing here yet describes a task at all.</span>
+      </div>
+    </div>
+    <p class="meter-note">Your progress is a task description. It is only complete when all three questions are answered — which is the argument of the whole course.</p>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section id="scope">
+  <h2 style="margin-top:1.8rem">Before you start</h2>
+
+  <p class="lede">This course is the sequel to graphical perception. That one was about whether a
+  mark can be read. This one is about whether it should have been drawn at all — and it starts one
+  level upstream, where somebody decides what the user is actually trying to do.</p>
+
+  <div class="panel">
+    <p class="eyebrow">What you will be able to do</p>
+    <p style="margin-bottom:.6rem"><strong>Take a real record of somebody's analysis work — an
+    interview transcript, a feature request, a support thread, a meeting note — and produce a
+    <em>task abstraction memo</em>:</strong></p>
+    <ul class="tight" style="margin-bottom:0">
+      <li>a chained sequence of tasks, each stated as a why, a how, and an input/output;</li>
+      <li>the design implications that follow from that chain;</li>
+      <li>and an explicit list of what the abstraction is still guessing at.</li>
+    </ul>
+  </div>
+
+  <p>That memo is the artifact. You will produce a crude one in week one — not at the end — and
+  then rebuild it three times as the vocabulary sharpens. Every week declares what evidence it
+  wants from you before it gives you any content.</p>
+
+  <h3>Who this assumes you are</h3>
+  <p class="small">Written for a specific entering state. If this doesn't match yours, the pitch
+  will be wrong in a predictable direction, so adjust: comfortable with visual encoding — marks,
+  channels, effectiveness rankings, the Cleveland &amp; McGill line of work. Has run user
+  interviews and written product requirements. Has seen dashboards get built and get ignored. Has
+  <em>not</em> read Munzner's nested model or any formal task taxonomy, and has no working
+  vocabulary for the layer between "what the user said" and "what we built."</p>
+
+  <h3>What this deliberately is not</h3>
+  <ul class="tight">
+    <li><strong>Not a course on visual encoding.</strong> Encoding is one level downstream of
+    everything here and is assumed as prior work.</li>
+    <li><strong>Not a survey.</strong> Brehmer &amp; Munzner compare their typology to more than
+    two dozen prior classification systems <span class="chip src">Sourced <a href="#S1">S1</a></span>.
+    You will meet four of them. The rest are named in the sources list and left there.</li>
+    <li><strong>Not data abstraction.</strong> Choosing between a table, a network, and a field is
+    a real and separate problem. It shows up here only as the <em>what</em> of a task.</li>
+    <li><strong>Not design study methodology.</strong> The nine-stage process for running a real
+    design study is adjacent and out of scope.</li>
+    <li><strong>Not a claim that the typology works.</strong> Its authors validated its descriptive
+    power and explicitly left its generative and evaluative power as future work
+    <span class="chip src">Sourced <a href="#S1">S1</a></span>. Week four is spent on what happened
+    when people tried to use it.</li>
+  </ul>
+
+  <h3>Time</h3>
+  <p>Roughly <strong>14 to 16 hours across four weeks</strong>. Every block below carries its own
+  estimate, and those estimates are the honest ones: they already have the standard 2.5× correction
+  applied, because self-paced learners consistently take about that much longer than the plan says.
+  If a block takes you the stated time, the estimate was right, not generous.</p>
+  <p class="small mute">The blocks are sized to be opened and closed in one sitting. None is longer
+  than about two hours, most are under an hour, and your place is saved as you go.</p>
+
+  <h3>How claims are marked</h3>
+  <p class="small">Every load-bearing claim carries a chip saying where it came from. Numbered
+  chips link to the <a href="#sources">sources list</a>, which also says — per source — whether it
+  was read in full or verified some other way. A field that teaches you to demand provenance from
+  designers should show its own.</p>
+  <ul class="legend">
+    <li><span class="chip src">Sourced <a href="#S1">S1</a></span> Traceable to a numbered source that says this.</li>
+    <li><span class="chip infer">Inference</span> My reasoning or application. In no source. Argue with it.</li>
+    <li><span class="chip contested">Contested</span> The field genuinely disagrees.</li>
+    <li><span class="chip single">Single study</span> Real, but one study, unreplicated.</li>
+    <li><span class="chip vendor">Vendor framing</span> True, but authored by a party with a product in the fight.</li>
+  </ul>
+
+  <div class="panel flag">
+    <p class="eyebrow">One honest warning about the evidence here</p>
+    <p style="margin-bottom:0">This is not an empirical field in the way graphical perception is.
+    There are no effect sizes to replicate. The primary sources are <em>proposed vocabularies</em>,
+    argued for by their authors and adopted because practitioners found them useful. The best
+    evidence about whether the central framework actually works in practice is negative and comes
+    from one of its own authors <span class="chip src">Sourced <a href="#S3">S3</a></span>. You will
+    read it in week four. Treat everything here as a well-made tool with a documented failure mode,
+    not as a finding.</p>
+  </div>
+</section>
+<section class="week" id="w1">
+  <div class="weekhead">
+    <p class="no">Week one</p>
+    <h2>Abstract one real thing, badly</h2>
+    <p class="feeds">Feeds
+      <span class="b b-why">why</span><span class="b b-how">how</span><span class="b b-what">what</span>
+      · about 3 hours</p>
+  </div>
+
+  <div class="artifact">
+    <p class="eyebrow">Evidence this week wants from you</p>
+    <p>A one-page memo describing a real piece of somebody's work as <strong>at least two chained
+    tasks</strong>, where each task has a why, a how, and a stated input and output. It will be
+    wrong. That is the point: you cannot fix an abstraction you have not written down.</p>
+  </div>
+
+  <div class="block" data-block="w1-read" data-band="why">
+    <div class="bhead"><span class="mode">Read</span><span class="est">~35 min</span></div>
+    <div class="body">
+
+      <h3>The word "task" is doing four jobs at once</h3>
+      <p>Munzner lists the levels the word gets used at, all in the same literature, often in the
+      same paragraph <span class="chip src">Sourced <a href="#S2">S2</a></span>:</p>
+      <ul class="tight">
+        <li><strong>High-level domain</strong> — cure disease; make web search feel good.</li>
+        <li><strong>Lower-level domain</strong> — investigate microarray data showing gene
+        expression levels and the network of gene interactions.</li>
+        <li><strong>High-level abstract</strong> — expose uncertainty; confirm hypotheses.</li>
+        <li><strong>Low-level abstract</strong> — compare; sort; find anomalies; correlate.</li>
+      </ul>
+      <p>Those are four different kinds of statement, and mixing them is not sloppiness you can
+      write around. It is what makes requirements arguments unresolvable. Two people can agree the
+      user's "task" is X and be describing objects at different levels of the design.</p>
+
+      <h3>The two literatures that don't meet</h3>
+      <p>By 2013 there were two well-populated bodies of work and a hole between them
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+
+      <p><strong>Low-level classifications</strong> enumerate what people do. The most-cited is
+      Amar, Eagan &amp; Stasko's ten: retrieve value, filter, compute derived value, find extremum,
+      sort, determine range, characterize distribution, find anomalies, cluster, correlate
+      <span class="chip src">Sourced <a href="#S5">S5</a></span>. Precise, checkable, and mute on
+      motive. Applied to a reader comparing two states on an election map, this yields a series of
+      value retrievals — which is true and tells you nothing about why they were looking, what
+      they already knew, or whether the map worked.</p>
+
+      <p><strong>High-level models</strong> — sensemaking, information foraging, the
+      exploratory/confirmatory split — describe motive. They cannot reach down to the interface.
+      Told that a user is "making sense," you cannot decide whether to add brushing.</p>
+
+      <p>Brehmer &amp; Munzner's claim is that this gap has a specific consequence: without
+      something spanning it, <strong>you cannot distinguish the ends of a task from the means</strong>,
+      and that failure limits how rigorously anything can be analysed
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>. Their typology exists to close it.</p>
+
+      <h3>Three questions</h3>
+      <p>A complete task description answers all three, and it is not complete until it does
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>:</p>
+
+      <div class="card">
+        <div class="band band-why"><div class="k">Why</div><div class="v">is the task performed —
+        from high-level intent, through the kind of search, down to the query</div></div>
+        <div class="band band-how"><div class="k">How</div><div class="v">is it performed — which
+        families of encoding and interaction technique carry it</div></div>
+        <div class="band band-what"><div class="k">What</div><div class="v">does it take in, and
+        what does it leave behind</div></div>
+        <div class="caption">The order matters. <strong>Why before how</strong> mirrors the
+        direction real design work runs: identify the intent, then decide what supports it
+        <span class="chip src">Sourced <a href="#S1">S1</a></span>.</div>
+      </div>
+
+      <p>Two details that are easy to skim past and shouldn't be.</p>
+      <p><strong>It is a typology, not a taxonomy.</strong> The authors are precise about this: a
+      taxonomy classifies things you can observe happening; a typology classifies abstract concepts
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>. Nobody discovered these categories
+      in the wild. They were constructed to be useful. Week four is about what follows from that.</p>
+      <p><strong>The notation is deliberately informal.</strong> They chose a loose visual notation
+      over a formal grammar so that descriptions could be made and revised in ordinary design
+      sessions — coloured sticky notes on a whiteboard
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>. If you find yourself wanting a
+      schema, you have misread the intent.</p>
+    </div>
+  </div>
+
+  <div class="block" data-block="w1-study" data-band="how">
+    <div class="bhead"><span class="mode">Study</span><span class="est">~40 min</span></div>
+    <div class="body">
+      <p>Two worked examples, both from the paper. Read them slowly; you are about to imitate them.</p>
+
+      <h3>One: a stranger reads an election map</h3>
+      <p>Someone reading a blog post after a US presidential election meets a static choropleth map
+      encoding two attributes per state — the winning candidate and the margin. They compare Texas
+      to California. Not to test a hypothesis. Not to present anything. Because they are idly
+      interested in politics <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+
+      <div class="card">
+        <div class="band band-why"><div class="k">Why</div><div class="v">enjoy → lookup → compare</div></div>
+        <div class="band band-how"><div class="k">How</div><div class="v">encode</div></div>
+        <div class="band band-what"><div class="k">What</div><div class="v">in: values for two known regions<br>out: a comparison</div></div>
+        <div class="caption">A whole task in six words, and every word is load-bearing.</div>
+      </div>
+
+      <p>Watch what each slot is doing.</p>
+      <ul class="tight">
+        <li><strong>enjoy</strong> is a first-class intent, not a failure to have a real one. Casual
+        encounters with visualization were largely absent from prior classification systems, and
+        Brehmer &amp; Munzner put them in on purpose
+        <span class="chip src">Sourced <a href="#S1">S1</a></span>.</li>
+        <li><strong>lookup</strong> rather than locate, because this reader knows American geography.
+        Change that one fact about the person and the same physical act becomes a different task:
+        an unfamiliar reader must <em>locate</em> the two states first
+        <span class="chip src">Sourced <a href="#S1">S1</a></span>. Nothing on the screen changed.</li>
+        <li><strong>encode</strong> is the entire how, because the map is static. There is nothing
+        to manipulate.</li>
+      </ul>
+
+      <div class="panel tint">
+        <p class="eyebrow">The move to notice</p>
+        <p style="margin-bottom:0">The task classification depends on what the user already knew.
+        That is not a quirk of this example — it is the organising principle of the search level,
+        and it is the single most-mimicked and least-understood part of the typology. Week three is
+        spent on it.</p>
+      </div>
+
+      <h3>Two: the same task, two tools</h3>
+      <p>A user of a tree visualization cares about two nodes in a large tree and wants to show her
+      colleagues the path between them. SpaceTree and TreeJuxtaposer both support this, with
+      different focus-plus-context strategies: TreeJuxtaposer lets her rearrange regions of the tree
+      to keep areas of interest visible, while SpaceTree ties selection to aggregating and filtering
+      what wasn't selected <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+
+      <div class="deck">
+        <div class="card" style="margin:0">
+          <div class="band band-why"><div class="k">Why</div><div class="v">present → locate → identify</div></div>
+          <div class="band band-how"><div class="k">How</div><div class="v">encode + navigate + select<br>+ arrange</div></div>
+          <div class="band band-what"><div class="k">What</div><div class="v">a path between two nodes</div></div>
+          <div class="caption"><strong>TreeJuxtaposer</strong></div>
+        </div>
+        <div class="card" style="margin:0">
+          <div class="band band-why"><div class="k">Why</div><div class="v">present → locate → identify</div></div>
+          <div class="band band-how"><div class="k">How</div><div class="v">encode + navigate + select<br>+ filter + aggregate</div></div>
+          <div class="band band-what"><div class="k">What</div><div class="v">a path between two nodes</div></div>
+          <div class="caption"><strong>SpaceTree</strong></div>
+        </div>
+      </div>
+
+      <p>Same why. Same what. Different how — and the difference is now sitting in a specific slot
+      where you can argue about it. That is the whole return on the machinery: the comparison
+      between two tools becomes a sentence rather than a vibe
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+
+      <details class="disc">
+        <summary>What the alternatives produced for the same case</summary>
+        <div class="dbody">
+          <p>Brehmer &amp; Munzner run the same example through two respected taxonomies
+          <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+          <p>Heer &amp; Shneiderman's taxonomy of interactive dynamics gives data and view
+          specification plus view manipulation — a clean account of <em>how</em>, silent on why.</p>
+          <p>Lee et al.'s graph-visualization taxonomy gives a topology task, finding a shortest
+          path — a clean account of <em>what</em>, with only a fragment of why.</p>
+          <p>Neither connects the user's actions to her actual goal of showing something to
+          colleagues. More damningly, neither description distinguishes SpaceTree from
+          TreeJuxtaposer at all. Two tools, one description. If your vocabulary cannot tell two
+          designs apart, it cannot be used to choose between them.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="block" data-block="w1-build" data-band="what">
+    <div class="bhead"><span class="mode">Build</span><span class="est">~65 min</span></div>
+    <div class="body">
+      <p>Now produce version zero of your memo. Complete, crude, and about something real.</p>
+
+      <h4>Pick a source</h4>
+      <ol class="tight">
+        <li><strong>Preferred: your own material.</strong> A discovery interview transcript, a
+        feature request with a rationale attached, a support thread where someone describes what
+        they were trying to find out. It needs to contain a person doing something with information,
+        described in their own words.</li>
+        <li><strong>Fallback:</strong> an analyst investigating an abnormal spike in failed airline
+        transactions. She looks at distributions across attributes — airline, flight time, travel
+        agent — and eventually pins one travel agent as the likely culprit
+        <span class="chip src">Sourced <a href="#S3">S3</a></span>. Short, real, and it chains
+        naturally.</li>
+      </ol>
+
+      <h4>Write it in this shape</h4>
+      <p class="small mute">Two tasks minimum. If you only find one, you have described a step, not
+      a piece of work.</p>
+
+      <div class="workspace" data-ws="memo-v0">
+        <div class="whead"><span class="wtag">Memo · version 0</span><span class="wsave" data-save>Not saved yet</span></div>
+        <div class="wbody">
+          <textarea spellcheck="true" placeholder="SOURCE: (what you are abstracting, one line)
+
+TASK 1
+  why:   
+  how:   
+  what:  in →
+         out →
+
+TASK 2
+  why:   
+  how:   
+  what:  in →
+         out →
+
+DESIGN IMPLICATIONS
+  -
+
+STILL GUESSING AT
+  -"></textarea>
+        </div>
+      </div>
+
+      <div class="panel liminal">
+        <p class="eyebrow">Expect this to feel bad</p>
+        <p style="margin-bottom:0">Most people stall here, and stall in the same place: the
+        <em>why</em> slot fills up with interface language. You will write something like "filter to
+        the failing airline" and only later notice that filtering is a thing she <em>did</em>, not a
+        thing she <em>wanted</em>. Leave it in. That specific error is the material for week three,
+        and it is much easier to see in your own handwriting than in a worked example.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w1-write" data-band="why">
+    <div class="bhead"><span class="mode">Write</span><span class="est">~20 min</span></div>
+    <div class="body">
+      <p>Self-explanation, in the workspace below. Most people are shallow self-explainers unless
+      asked directly, so this is the asking.</p>
+      <ul class="tight">
+        <li>Which slot was hardest to fill, and what made it hard?</li>
+        <li>Where did you write down something the source never actually said? Name it.</li>
+        <li>If a designer built exactly what your memo describes, what would they get wrong?</li>
+      </ul>
+      <div class="workspace" data-ws="w1-reflect">
+        <div class="whead"><span class="wtag">Reflection · week 1</span><span class="wsave" data-save>Not saved yet</span></div>
+        <div class="wbody"><textarea spellcheck="true" placeholder="Hardest slot, and why:
+
+Things I invented that the source didn't say:
+
+What a designer would get wrong if they built my memo:"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w1-check" data-band="how">
+    <div class="bhead"><span class="mode">Check</span><span class="est">~20 min</span></div>
+    <div class="body">
+
+      <div class="probe" data-probe="p1-1">
+        <div class="phead"><span class="ptag">Probe</span><span class="pmeta">Generate before revealing</span></div>
+        <div class="pbody">
+          <p class="q">A request arrives, verbatim: <em>"The principals need a heatmap of attendance
+          by grade so they can spot problem grades."</em></p>
+          <p class="q">Sort that sentence into why, how, and what. Then say which of the three is
+          weakest as written, and what you would have to ask to fix it.</p>
+          <textarea class="ans" placeholder="why:&#10;how:&#10;what:&#10;&#10;Weakest, and the question I'd ask:"></textarea>
+          <div class="answer">
+            <span class="alabel">Answer</span>
+            <p><strong>how:</strong> "a heatmap." <strong>what:</strong> attendance by grade — the
+            input. <strong>why:</strong> "spot problem grades," which is the only part gesturing at
+            intent.</p>
+            <p><strong>The why is the weakest,</strong> and it is weak in a way that is easy to
+            miss because it looks like a purpose. "Spot problem grades" does not say whether the
+            principal already knows which grades are trouble. If she does, this is lookup and the
+            heatmap is doing almost no work — a sorted list would serve. If she does not, it is
+            explore, and the whole design question changes.</p>
+            <p>The question to ask is not "what do you want to see." It is <em>"when you find a
+            problem grade, what have you already suspected?"</em> — because the answer decides the
+            search type, and the search type constrains the encoding
+            <span class="chip infer">Inference</span> built on the search structure in
+            <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+            <p class="small mute">Note the shape of the request: it arrived as a how with a why
+            bolted on. That is the normal shape of feature requests, and learning to see it is most
+            of the practical value of this course.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="probe" data-probe="p1-2">
+        <div class="phead"><span class="ptag">Probe</span><span class="pmeta">Generate before revealing</span></div>
+        <div class="pbody">
+          <p class="q">In the tree-tool example, a low-level interaction taxonomy produced <em>the
+          same description</em> for SpaceTree and TreeJuxtaposer. Which slot of the typology
+          separates them, and why can't a why-only account do the job either?</p>
+          <textarea class="ans" placeholder="Your answer…"></textarea>
+          <div class="answer">
+            <span class="alabel">Answer</span>
+            <p><strong>How</strong> separates them: arrange versus filter-plus-aggregate. But a
+            how-only account is exactly what the low-level taxonomies already gave, and it failed —
+            because without the why, you cannot say whether the difference <em>matters</em>. Two
+            tools differing in how are only meaningfully different relative to a shared why and a
+            shared what. That is the argument for holding all three at once
+            <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+            <p>The general form: <strong>how tells you what is different; why tells you whether the
+            difference is a problem.</strong> <span class="chip infer">Inference</span></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="week" id="w2">
+  <div class="weekhead">
+    <p class="no">Week two</p>
+    <h2>The level you are solving on</h2>
+    <p class="feeds">Feeds <span class="b b-why">why</span> · about 3 hours 25 min</p>
+  </div>
+
+  <div class="artifact">
+    <p class="eyebrow">Evidence this week wants from you</p>
+    <p>Your memo's problem statement, rewritten at the right level of the nested model — plus an
+    explicit list of the assumptions you are making at levels <em>above</em> the one you are
+    working on. If you cannot write that list, you are making the assumptions anyway.</p>
+  </div>
+
+  <div class="block" data-block="w2-read" data-band="why">
+    <div class="bhead"><span class="mode">Read</span><span class="est">~45 min</span></div>
+    <div class="body">
+
+      <h3>Four levels, nested</h3>
+      <p>Four years before the typology, Munzner published a model that splits visualization design
+      into four levels, each with its own threats and its own valid ways of checking
+      <span class="chip src">Sourced <a href="#S2">S2</a></span>:</p>
+
+      <div class="scroller">
+        <table>
+          <thead><tr><th>Level</th><th>The design problem</th><th>The threat, plainly</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1 · Domain</strong></td><td>Characterise the problems and data in the target domain's own vocabulary</td><td>Wrong problem — they don't do that</td></tr>
+            <tr><td><strong>2 · Abstraction</strong></td><td>Map those into generic operations and data types</td><td>Wrong abstraction — you're showing them the wrong thing</td></tr>
+            <tr><td><strong>3 · Encoding &amp; interaction</strong></td><td>Design how it looks and how it responds</td><td>Wrong encoding — the way you show it doesn't work</td></tr>
+            <tr><td><strong>4 · Algorithm</strong></td><td>Compute it automatically and fast enough</td><td>Wrong algorithm — your code is too slow</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The four threat statements are Munzner's own phrasing, borrowed from software engineering
+      and deliberately blunt <span class="chip src">Sourced <a href="#S2">S2</a></span>. They are
+      worth memorising in that form, because in a real meeting they are usable and "abstraction
+      validity" is not.</p>
+
+      <h3>The nesting is the whole idea</h3>
+      <p>Output from each level is input to the one inside it. So an error upstream cascades to
+      everything downstream, and — this is the part that stings — <strong>flawless work at the
+      lower levels cannot rescue it.</strong> A bad abstraction, perfectly encoded and perfectly
+      optimised, still fails to solve the problem it was aimed at
+      <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+
+      <details class="disc">
+        <summary>The case that makes this concrete: lost in hyperspace</summary>
+        <div class="dbody">
+          <p>Early web visualization work took the problem of users getting lost on the web and
+          abstracted it, mostly without saying so, into: show the searcher the topological structure
+          of the hyperlink graph <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+          <p>People do not need an internal representation of that structure to find a page. So the
+          abstraction was wrong at level two. The consequence was not that these systems were
+          mediocre. It was that <em>no encoding could have saved them</em> — each one added
+          cognitive load rather than reducing it, which is the exact opposite of the job. Years of
+          level-three and level-four craft, spent downstream of a level-two mistake
+          <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+          <p class="small mute">Munzner's own diagnosis of why this keeps happening: designers skip
+          the domain level, accept the first abstraction that occurs to them, and jump to encoding
+          because encoding looks like the only interesting design problem
+          <span class="chip src">Sourced <a href="#S2">S2</a></span>. If you have ever watched a
+          team open Figma before they could state the user's question, you have seen it.</p>
+        </div>
+      </details>
+
+      <h3>Two words worth fixing</h3>
+      <p>Munzner reserves <strong>problem</strong> for a task described in the domain's own terms
+      and <strong>operation</strong> for the abstract version, using "task" only when talking across
+      the levels <span class="chip src">Sourced <a href="#S2">S2</a></span>. Adopting this costs
+      nothing and makes level confusion audible: if someone says "the task is a heatmap," you can
+      hear immediately that no word in that sentence is at the right level.</p>
+
+      <h3>Validation has to match the level</h3>
+      <p>Each threat admits different evidence, and pairing them wrongly is the most common defect
+      in weak work <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+      <ul class="tight">
+        <li><strong>Domain threat</strong> → observe and interview target users; downstream, watch
+        adoption. Adoption is a weak signal with plenty of false negatives — well-designed tools
+        fail all the time — but it has the virtue of recording what users do unprompted.</li>
+        <li><strong>Abstraction threat</strong> → target users doing <em>their own work</em> with
+        the deployed system. Not tasks the designers specified. A lab study with dictated tasks
+        cannot test this threat, because dictating the task assumes away the thing in question.</li>
+        <li><strong>Encoding threat</strong> → justify against perceptual principles; downstream,
+        controlled lab studies of time and error.</li>
+        <li><strong>Algorithm threat</strong> → complexity analysis; benchmark timings.</li>
+      </ul>
+
+      <div class="panel flag">
+        <p class="eyebrow">The confound that makes this hard</p>
+        <p style="margin-bottom:0">Most validation for outer levels is <em>downstream</em>: it needs
+        the inner levels built first. So a disappointing result at an outer level may actually be
+        caused by a poor choice at an inner one — a clumsy encoding casting doubt on a perfectly
+        good abstraction <span class="chip src">Sourced <a href="#S2">S2</a></span>. This is why
+        "we shipped it and usage was low" is a nearly uninterpretable signal on its own, and why
+        the discipline of naming which level you are claiming is worth the trouble.</p>
+      </div>
+
+      <h3>Where the typology sits</h3>
+      <p>Level two of this model is precisely where the why/what/how typology lives. Brehmer &amp;
+      Munzner build it as the missing vocabulary for the abstraction level, and the ordering — why
+      first, then how — is chosen to mirror the level-two-then-level-three direction of the nested
+      model <span class="chip src">Sourced <a href="#S1">S1</a></span>. Week one gave you the
+      instrument; this week tells you which bolt it fits.</p>
+    </div>
+  </div>
+
+  <div class="block" data-block="w2-diagnose" data-band="why">
+    <div class="bhead"><span class="mode">Diagnose</span><span class="est">~50 min</span></div>
+    <div class="body">
+      <p>Completion problems. The first is worked; the rest are yours.</p>
+
+      <div class="panel tint">
+        <p class="eyebrow">Worked</p>
+        <p style="margin-bottom:.4rem"><em>"Teachers say they waste the first ten minutes of every
+        intervention meeting arguing about which students are actually behind."</em></p>
+        <p style="margin-bottom:0"><strong>Level 1, domain.</strong> It is in their vocabulary,
+        about their workflow, and it names an observed cost. It is also — importantly — not yet
+        detailed enough to be input to level two. "Which students are behind" needs unpacking into
+        operations and data types before anyone can design anything. Munzner makes exactly this
+        point: a domain statement has to be detailed enough to feed the abstraction, and
+        high-level goals like "cure disease" are not
+        <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+      </div>
+
+      <p>Now assign a level to each of these, and — this is the part that does the work — say what
+      the <em>immediate</em> validation for it would be.</p>
+
+      <div class="workspace" data-ws="w2-diagnose">
+        <div class="whead"><span class="wtag">Level assignment</span><span class="wsave" data-save>Not saved yet</span></div>
+        <div class="wbody">
+          <textarea spellcheck="true" placeholder="a) &quot;Show each student as a point, position by attendance, colour by risk band.&quot;
+   level:            validation:
+
+b) &quot;The counsellors need to compare this cohort against last year's.&quot;
+   level:            validation:
+
+c) &quot;Render 40,000 points at 60fps on a Chromebook.&quot;
+   level:            validation:
+
+d) &quot;The operation is: find outliers in one quantitative attribute across a set of items.&quot;
+   level:            validation:
+
+e) &quot;Principals want a single screen they can open in the morning.&quot;
+   level:            validation:"></textarea>
+        </div>
+      </div>
+
+      <details class="disc">
+        <summary>Compare after you have written all five</summary>
+        <div class="dbody">
+          <p><strong>a — level 3, encoding and interaction.</strong> Immediate validation: justify
+          the choices against known perceptual and cognitive principles. Downstream: a lab study of
+          time and error.</p>
+          <p><strong>b — level 1, domain.</strong> In their words, about their workflow. Immediate
+          validation: observe and interview counsellors. Note that it is <em>almost</em> a level-two
+          statement — "compare two cohorts" is nearly an operation — which is exactly why levels one
+          and two blur in practice. Munzner raises this herself as an open question about whether
+          the two should be separate levels at all
+          <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+          <p><strong>c — level 4, algorithm.</strong> Immediate validation: complexity analysis.
+          Downstream: benchmark timings.</p>
+          <p><strong>d — level 2, abstraction.</strong> Domain-free, stated as operation plus data
+          type. There is no immediate validation for the abstraction threat — that is the
+          uncomfortable finding. It has to be tested downstream, by target users doing their own
+          work with a built system <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+          <p><strong>e — a trap.</strong> "A single screen they can open in the morning" is a
+          solution wearing domain clothing. It is a level-3 answer stated as if it were a level-1
+          observation, which is why it feels so agreeable and yields so little. The level-1 version
+          is whatever they are doing at 7:40 a.m. that this would replace — and nobody has asked
+          <span class="chip infer">Inference</span>.</p>
+          <p class="small mute">If you got (e) as "domain," that is the expected miss and worth
+          sitting with. It is the same error as the heatmap request in week one, in a costume that
+          fits better.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="block" data-block="w2-rebuild" data-band="why">
+    <div class="bhead"><span class="mode">Rebuild</span><span class="est">~60 min</span></div>
+    <div class="body">
+      <p>Return to your memo. Two operations on it.</p>
+      <ol class="tight">
+        <li><strong>Separate levels one and two.</strong> Write the domain problem in the source
+        person's own vocabulary — their words, their workflow, their cost. Then write the abstract
+        operations underneath it. Keep both. The gap between them is where you will find your
+        invented assumptions.</li>
+        <li><strong>State your upstream assumptions.</strong> Everything you are taking on faith at
+        levels above where you are working. Munzner's second recommendation to authors is exactly
+        this, and it applies harder to product work than to papers, because product work rarely has
+        reviewers <span class="chip src">Sourced <a href="#S2">S2</a></span>.</li>
+      </ol>
+
+      <div class="workspace" data-ws="memo-v1">
+        <div class="whead"><span class="wtag">Memo · version 1</span><span class="wsave" data-save>Not saved yet</span></div>
+        <div class="wbody">
+          <textarea spellcheck="true" placeholder="LEVEL 1 — DOMAIN PROBLEM (their words)
+
+
+LEVEL 2 — ABSTRACTION (operations and data types)
+
+  TASK 1
+    why:   
+    how:   
+    what:  in →   out →
+
+  TASK 2
+    why:   
+    how:   
+    what:  in →   out →
+
+
+UPSTREAM ASSUMPTIONS I AM MAKING
+  - about who the users actually are:
+  - about what they already know:
+  - about whether this problem is real:
+
+
+IF I'M WRONG AT LEVEL 1, WHAT ELSE FALLS OVER"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w2-recall" data-band="why">
+    <div class="bhead"><span class="mode">Recall</span><span class="est">~20 min</span></div>
+    <div class="body">
+      <p class="small mute">These reach back to week one on purpose. A check sitting under the
+      section that taught it measures reading, not retention.</p>
+
+      <div class="probe" data-probe="p2-1">
+        <div class="phead"><span class="ptag">Probe · delayed</span><span class="pmeta">Week 1 · no scrolling up</span></div>
+        <div class="pbody">
+          <p class="q">Name the three questions a complete task description must answer. Then say
+          which one low-level classifications typically omit, which one high-level models typically
+          omit, and what the consequence of the omission is.</p>
+          <textarea class="ans" placeholder="Your answer…"></textarea>
+          <div class="answer">
+            <span class="alabel">Answer</span>
+            <p>Why, how, what. Low-level classifications give how and drop why; high-level models
+            give why and cannot reach how <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+            <p>The consequence is the point: with the gap unbridged you cannot distinguish the ends
+            of a task from its means, and without that distinction you cannot compare two designs,
+            cannot tell a requirement from an implementation, and cannot say which level a failure
+            occurred at <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="probe" data-probe="p2-2">
+        <div class="phead"><span class="ptag">Probe · choose the tool</span><span class="pmeta">Week 1 + week 2</span></div>
+        <div class="pbody">
+          <p class="q">A team ships a dashboard. Six months later, almost nobody opens it. Which
+          single piece of evidence would tell you the <em>most</em> about where the failure
+          occurred?</p>
+          <div class="choices" data-correct="c">
+            <button type="button" data-c="a">A lab study comparing task completion times against the old spreadsheet</button>
+            <button type="button" data-c="b">Benchmark timings showing the dashboard renders in under 200 ms</button>
+            <button type="button" data-c="c">Sitting with three users during their actual weekly routine and watching what they reach for instead</button>
+            <button type="button" data-c="d">A survey asking users to rate the visual design</button>
+          </div>
+          <div class="answer">
+            <span class="alabel">Answer</span>
+            <p><strong>(c).</strong> Low adoption is the downstream signal for a domain-level or
+            abstraction-level threat, and both of those are validated by observing target users
+            doing their own work — not work you assigned
+            <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+            <p><strong>(a)</strong> is a level-3 method: a dictated task cannot test whether you
+            characterised the problem or abstracted it correctly, because the dictation assumes both.
+            <strong>(b)</strong> answers a level-4 question nobody asked. <strong>(d)</strong>
+            gathers preference, which is not validation at any level.</p>
+            <p>The general form worth keeping: <strong>match the evidence to the level of the claim,
+            and be suspicious when a downstream measurement is offered as a verdict on an upstream
+            choice</strong> <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w2-write" data-band="what">
+    <div class="bhead"><span class="mode">Write</span><span class="est">~30 min</span></div>
+    <div class="body">
+      <p>One paragraph, in the workspace. Written to a colleague, not to yourself.</p>
+      <p class="small">Pick a real project you have worked on that underdelivered. Name the level
+      the failure was probably at, name the evidence you would have needed to catch it at that
+      level, and say honestly whether that evidence was available at the time. The last part is
+      what stops this being a blame exercise.</p>
+      <div class="workspace" data-ws="w2-reflect">
+        <div class="whead"><span class="wtag">Reflection · week 2</span><span class="wsave" data-save>Not saved yet</span></div>
+        <div class="wbody"><textarea spellcheck="true" placeholder="The project:
+
+The level the failure was probably at:
+
+The evidence that would have caught it:
+
+Was that evidence obtainable at the time?"></textarea></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="week" id="w3">
+  <div class="weekhead">
+    <p class="no">Week three</p>
+    <h2>Ends and means</h2>
+    <p class="feeds">Feeds <span class="b b-how">how</span> · about 3 hours 40 min</p>
+  </div>
+
+  <div class="artifact">
+    <p class="eyebrow">Evidence this week wants from you</p>
+    <p>Your memo with every <em>how</em> evicted from every <em>why</em> slot — and for each search
+    in it, the specific fact about the user's prior knowledge that decides which of the four search
+    types it is. If you cannot name that fact, you have guessed, and the memo should say so.</p>
+  </div>
+
+  <div class="block" data-block="w3-read" data-band="how">
+    <div class="bhead"><span class="mode">Read</span><span class="est">~40 min</span></div>
+    <div class="body">
+
+      <h3>The same word, on both sides</h3>
+      <p>Here is the observation the whole typology is built to handle. The word <em>derive</em>
+      appears in at least six prior classification systems. Is it a task, or the means by which some
+      other task gets done? <span class="chip src">Sourced <a href="#S1">S1</a></span></p>
+      <p>Both, depending on the sentence. A user may derive data as an end in itself — reducing the
+      dimensionality of a dataset because that is the job. Or as a means toward something else —
+      deriving a low-dimensional space in order to check whether clusters exist in it
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+      <p>And it is not just <em>derive</em>. The same ambiguity sits on <em>filter</em>,
+      <em>navigate</em>, <em>record</em>, and <em>sort</em>
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>. These are the most common words in
+      the requirements you write. Every one of them can be an end or a means, and the sentence
+      almost never says which.</p>
+
+      <div class="panel">
+        <p class="eyebrow">Why this is the crossing</p>
+        <p style="margin-bottom:0">Splitting why from how does not resolve it by itself. Take
+        <em>sort</em>: it has an input and an output, and what gets sorted might be data items
+        inside one view, or the views themselves — and either way the sorted result can feed the
+        next task <span class="chip src">Sourced <a href="#S1">S1</a></span>. So the second move,
+        after separating ends from means, is to say what a task consumes and produces. That is why
+        the third question exists, and it is what week four is about.</p>
+      </div>
+
+      <h3>Why, in full</h3>
+      <p>Three levels of specificity, narrowing <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+
+      <h4>Top: consume or produce</h4>
+      <ul class="tight">
+        <li><strong>Consume</strong> splits into <strong>present</strong> (communicating,
+        storytelling, guiding an audience — in planning, forecasting, teaching, decision-making),
+        <strong>discover</strong> (generating or verifying hypotheses, whether theory-driven or
+        prompted by something unexpected), and <strong>enjoy</strong> (casual encounters, curiosity
+        without a stake — from a map glanced at in a blog post to an hour in a museum).</li>
+        <li><strong>Produce</strong> is for making new artifacts: derived or transformed data,
+        annotations, recorded interactions, screenshots. Crucially, what gets produced may be
+        consumed by some later task that <em>has nothing to do with visualization</em> — new
+        categorical attributes tagged onto clusters and then fed to a predictive model
+        <span class="chip src">Sourced <a href="#S1">S1</a></span>.</li>
+      </ul>
+
+      <h4>Middle: search, keyed on what the user already knows</h4>
+      <p>Whatever the intent, the user has to find the thing. The four types are distinguished not
+      by what the user does but by two facts about what they knew before they started
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+
+      <div class="scroller">
+        <table>
+          <thead><tr><th></th><th>Target known</th><th>Target unknown</th></tr></thead>
+          <tbody>
+            <tr><th>Location known</th><td><strong>Lookup</strong><br>California on a map, by someone who knows US geography</td><td><strong>Browse</strong><br>within this subtree, leaf nodes with few siblings</td></tr>
+            <tr><th>Location unknown</th><td><strong>Locate</strong><br>California, by someone who doesn't</td><td><strong>Explore</strong><br>anywhere in this scatterplot, outliers — usually starting from an overview</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Two things follow that are worth slowing down for.</p>
+      <p><strong>You cannot classify a search by watching it.</strong> Two users performing
+      identical clicks are performing different tasks if one knew where to look. The distinguishing
+      fact lives in the person, not the interaction log
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>. This makes the search level
+      genuinely hard to code from telemetry, and easy to fake by guessing.</p>
+      <p><strong>Search and explore are not synonyms.</strong> The terms get conflated constantly in
+      practice; the typology deliberately refuses the conflation
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>. "Exploratory" as a product word
+      usually means "we didn't ask."</p>
+
+      <h4>Bottom: query, by how many targets are in play</h4>
+      <p><strong>Identify</strong> one, <strong>compare</strong> several, <strong>summarize</strong>
+      the whole set — an increase in how much of the data is under consideration, with summarize
+      often tied to overviews <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+
+      <details class="disc">
+        <summary>The subtle bit about identify, which almost everyone misses</summary>
+        <div class="dbody">
+          <p><em>Identify</em> returns different kinds of thing depending on which search preceded
+          it <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+          <p>If the search returned a <strong>known target</strong> — lookup or locate — then
+          identify returns its <strong>characteristics</strong>. You knew you wanted California;
+          identify tells you the winner and the margin.</p>
+          <p>If the search returned <strong>targets matching characteristics</strong> — browse or
+          explore — then identify returns the <strong>reference</strong>. You wanted the largest
+          margin; identify tells you it was California.</p>
+          <p>The arrow reverses. Same word, opposite direction of information flow, decided entirely
+          by the search that came before it. This is the clearest evidence in the whole framework
+          that these levels are coupled and that you cannot code one without the others.</p>
+        </div>
+      </details>
+
+      <h3>How, in full — as published in 2013</h3>
+      <p>Three classes of <em>method</em>, meaning families of related encoding and interaction
+      techniques <span class="chip src">Sourced <a href="#S1">S1</a></span>. Encoding and
+      interaction are treated together, not separately, because many methods are both at once —
+      focus-plus-context being the obvious case.</p>
+
+      <div class="scroller">
+        <table>
+          <thead><tr><th>Class</th><th>Methods</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Encode</strong></td><td>—</td><td>How the data becomes a representation in the first place. Most tasks rest on it.</td></tr>
+            <tr><td><strong>Manipulate</strong></td><td>select · navigate · arrange · change · filter · aggregate</td><td>Alters elements that are already there.</td></tr>
+            <tr><td><strong>Introduce</strong></td><td>annotate · import · derive · record</td><td>Adds elements that weren't.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="tight">
+        <li><strong>Select</strong> — marking some elements off from the rest, from a click to
+        brushing across linked views.</li>
+        <li><strong>Navigate</strong> — anything altering viewpoint: zoom, pan, rotate. Details-on-demand
+        is navigate combined with select.</li>
+        <li><strong>Arrange</strong> — spatial organisation, of data (reordering parallel-coordinate
+        axes, rows and columns of a matrix) or of views themselves.</li>
+        <li><strong>Change</strong> — alterations to the encoding: colour scale, point size, axis
+        scale, or wholesale chart-type changes, which is where animated transitions earn their
+        keep.</li>
+        <li><strong>Filter</strong> — adjusting inclusion criteria. Sometimes reversible hiding,
+        sometimes outright deletion.</li>
+        <li><strong>Aggregate</strong> — changing granularity, and its converse, segregating.
+        Monthly to daily; a clique to a glyph and back.</li>
+        <li><strong>Annotate · import · derive · record</strong> — adding notes or labels; bringing
+        in new elements; computing new data from existing data; capturing state as a persistent
+        artifact. Note the boundary Brehmer &amp; Munzner draw between derive and aggregate:
+        <strong>derived data must persist; aggregated data need not</strong>
+        <span class="chip src">Sourced <a href="#S1">S1</a></span>.</li>
+      </ul>
+
+      <div class="panel tint">
+        <p class="eyebrow">Where the why/how split comes from</p>
+        <p style="margin-bottom:0">Distributed cognition distinguishes <em>pragmatic</em> actions —
+        consciously goal-directed — from <em>epistemic</em> actions, which coordinate your internal
+        model with the external representation. The typology maps why onto pragmatic and how onto
+        epistemic, and the manipulate methods in particular are where epistemic action lives
+        <span class="chip src">Sourced <a href="#S1">S1</a></span>. It is a real theoretical
+        grounding rather than a tidy diagram, and it is why the split is not arbitrary.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w3-sort" data-band="how">
+    <div class="bhead"><span class="mode">Sort</span><span class="est">~35 min</span></div>
+    <div class="body">
+      <p>For each ambiguous verb, write one sentence where it is an <strong>end</strong> and one
+      where it is a <strong>means</strong>. Same verb, both times. The first is done.</p>
+
+      <div class="panel tint">
+        <p class="eyebrow">Worked · derive</p>
+        <p style="margin-bottom:.3rem"><strong>As an end:</strong> she needs a per-school
+        chronic-absence rate, because that number goes in the state report. Producing it <em>is</em>
+        the work.</p>
+        <p style="margin-bottom:0"><strong>As a means:</strong> she computes the same rate so she can
+        see whether schools with high mobility also have high absence. The rate is scaffolding; the
+        end is discover → explore → compare.</p>
+      </div>
+
+      <div class="workspace" data-ws="w3-sort">
+        <div class="whead"><span class="wtag">Ends and means</span><span class="wsave" data-save>Not saved yet</span></div>
+        <div class="wbody">
+          <textarea spellcheck="true" placeholder="FILTER
+  as an end:
+  as a means:
+
+NAVIGATE
+  as an end:
+  as a means:
+
+RECORD
+  as an end:
+  as a means:
+
+SORT
+  as an end:
+  as a means:
+
+Now: which of the four was hardest to write as an END, and what does that tell you?"></textarea>
+        </div>
+      </div>
+
+      <details class="disc">
+        <summary>One reading of the hard case</summary>
+        <div class="dbody">
+          <p><em>Navigate</em> is usually the hardest to write as an end, and that is informative:
+          zooming is almost always epistemic — you do it to see, not because seeing the zoomed view
+          is the goal <span class="chip infer">Inference</span>.</p>
+          <p><em>Record</em> is the opposite and often the easiest, because recording is frequently
+          the entire point: assembling a graphical history is a produce task whose output is the
+          artifact <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+          <p>The practical use: verbs that resist being written as ends are ones you should be
+          suspicious of when you find them in a <em>why</em> slot. If a requirement's stated purpose
+          is "navigate the hierarchy," a purpose has gone missing
+          <span class="chip infer">Inference</span>.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="block" data-block="w3-drill" data-band="how">
+    <div class="bhead"><span class="mode">Drill</span><span class="est">~45 min</span></div>
+    <div class="body">
+
+      <div class="probe" data-probe="p3-1">
+        <div class="phead"><span class="ptag">Probe · delayed</span><span class="pmeta">Week 2</span></div>
+        <div class="pbody">
+          <p class="q">You claimed, on the basis of interviews, that counsellors spend meeting time
+          arguing about which students are behind. A colleague runs a lab study where participants
+          complete assigned tasks with your tool, and they are slower than with the spreadsheet. He
+          says this refutes your claim. Why is he wrong — and what <em>would</em> the study
+          legitimately refute?</p>
+          <textarea class="ans" placeholder="Your answer…"></textarea>
+          <div class="answer">
+            <span class="alabel">Answer</span>
+            <p>He has matched a level-3 method to a level-1 claim. A lab study with tasks specified
+            by the study designers cannot test whether the problem was mischaracterised, because
+            specifying the task presupposes the characterisation
+            <span class="chip src">Sourced <a href="#S2">S2</a></span>.</p>
+            <p>What the study legitimately bears on is the <strong>encoding and interaction</strong>
+            level: measured time and error for a given operation is exactly the downstream
+            validation for that threat <span class="chip src">Sourced <a href="#S2">S2</a></span>.
+            So the result is real information — about a different level than the one he named.</p>
+            <p>The remaining trap runs the other way: a poor encoding can make a good abstraction
+            look bad, because outer-level validation is confounded by inner-level choices
+            <span class="chip src">Sourced <a href="#S2">S2</a></span>. So neither of you can
+            conclude much until the encoding is defensible on its own terms.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="probe" data-probe="p3-2">
+        <div class="phead"><span class="ptag">Probe · choose the type</span><span class="pmeta">Interleaved</span></div>
+        <div class="pbody">
+          <p class="q">A district data lead opens the enrolment dashboard every Monday. She has
+          learned over two years that Riverton Elementary is where enrolment surprises show up
+          first, so she goes straight to it, and reads off whatever this week's number is.</p>
+          <p class="q">Which search type — and name the specific fact that decided it. Then say what
+          would have to change about <em>her</em>, not the tool, to make it a different type.</p>
+          <div class="choices" data-correct="a">
+            <button type="button" data-c="a">Lookup</button>
+            <button type="button" data-c="b">Locate</button>
+            <button type="button" data-c="c">Browse</button>
+            <button type="button" data-c="d">Explore</button>
+          </div>
+          <textarea class="ans" placeholder="The deciding fact:&#10;&#10;What would have to change about her:"></textarea>
+          <div class="answer">
+            <span class="alabel">Answer</span>
+            <p><strong>Lookup.</strong> She knows the target (Riverton) and she knows where it sits
+            in the display. Both known <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+            <p>The deciding fact is <em>two years of experience</em> — not anything in the interface.
+            A new hire performing identical clicks is doing <strong>locate</strong>: same target,
+            unknown position. And a lead who does <em>not</em> know which school will surprise her,
+            scanning the whole district for anything odd, is doing <strong>explore</strong>: neither
+            target nor location known.</p>
+            <p>The design consequence is concrete. If most of your users are doing lookup, effort
+            spent on overview-first layouts is misplaced; if they are exploring, a layout optimised
+            for going straight to a known school actively hides the thing they need
+            <span class="chip infer">Inference</span>. Same data, same screen, opposite verdicts —
+            decided by a fact you can only get by asking.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="probe" data-probe="p3-3">
+        <div class="phead"><span class="ptag">Probe · find the break</span><span class="pmeta">Erroneous example</span></div>
+        <div class="pbody">
+          <p class="q">Here is a task description written by someone who has read the paper once.
+          Three things are wrong with it. Find as many as you can.</p>
+          <div class="card">
+            <div class="band band-why"><div class="k">Why</div><div class="v">explore → filter → drill down</div></div>
+            <div class="band band-how"><div class="k">How</div><div class="v">discover</div></div>
+            <div class="band band-what"><div class="k">What</div><div class="v">the attendance dashboard</div></div>
+          </div>
+          <textarea class="ans" placeholder="Break 1:&#10;Break 2:&#10;Break 3:"></textarea>
+          <div class="answer">
+            <span class="alabel">Answer</span>
+            <ol class="tight">
+              <li><strong>Why and how are swapped.</strong> <em>Discover</em> is a why — a top-level
+              intent. <em>Filter</em> is a how — a manipulate method
+              <span class="chip src">Sourced <a href="#S1">S1</a></span>. Written this way, the
+              description says the purpose of the work is to filter, which is the exact ends-means
+              confusion the typology was built to prevent.</li>
+              <li><strong>"Drill down" is not a query.</strong> The query level takes identify,
+              compare, or summarize, and it answers <em>how many targets are in play</em>
+              <span class="chip src">Sourced <a href="#S1">S1</a></span>. "Drill down" is
+              interface vocabulary — closer to navigate, on the how side.</li>
+              <li><strong>The what is a tool, not a task input.</strong> "The attendance dashboard"
+              is where the work happens, not what the task consumes and produces. The requirement
+              is to state input and output — here, something like <em>in: attendance rates for all
+              schools; out: the schools with anomalous rates</em>
+              <span class="chip src">Sourced <a href="#S1">S1</a></span>.</li>
+            </ol>
+            <p>A fourth, if you want it: nothing in this description could be used to compare two
+            tools, which is the test of whether an abstraction is doing any work
+            <span class="chip infer">Inference</span>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w3-rework" data-band="how">
+    <div class="bhead"><span class="mode">Rework</span><span class="est">~75 min</span></div>
+    <div class="body">
+      <p>Third pass on the memo. Less scaffolding this time — you get the constraints, not a form.</p>
+      <ol class="tight">
+        <li>Every <em>why</em> slot reads: one of consume/produce, then a search type, then a
+        query. No interface verbs anywhere in it.</li>
+        <li>For each search, the deciding fact about the user's prior knowledge is written down —
+        or explicitly marked as a guess you have not verified.</li>
+        <li>Every <em>how</em> slot names methods, not features. "Brushing between the two panels"
+        becomes select; "the year dropdown" becomes filter.</li>
+        <li>Anything that turns out to be produce rather than consume gets its own task. Producing
+        a derived attribute is a task, not a footnote.</li>
+      </ol>
+
+      <div class="workspace" data-ws="memo-v2">
+        <div class="whead"><span class="wtag">Memo · version 2</span><span class="wsave" data-save>Not saved yet</span></div>
+        <div class="wbody">
+          <textarea spellcheck="true" placeholder="Rewrite the whole memo here. Then, at the bottom:
+
+WHAT I HAD TO INVENT
+  For each search type above, the fact that decided it — and whether I know it
+  or assumed it.
+
+WHAT I'D ASK IN THE NEXT INTERVIEW
+  The questions that would replace assumption with evidence."></textarea>
+        </div>
+      </div>
+
+      <div class="panel liminal">
+        <p class="eyebrow">This is the week people quit</p>
+        <p style="margin-bottom:0">The stuck feeling here is not a sign the material is badly
+        explained. It is the crossing itself. You are being asked to stop using a set of words the
+        way you have used them for years, and the discomfort is that your existing sentences keep
+        coming out wrong. That resolves — but only by writing enough wrong ones to hear the
+        difference. If you are irritated with the vocabulary right now, you are exactly where the
+        design expects you to be.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w3-recall" data-band="why">
+    <div class="bhead"><span class="mode">Recall</span><span class="est">~25 min</span></div>
+    <div class="body">
+      <div class="probe" data-probe="p3-4">
+        <div class="phead"><span class="ptag">Probe · delayed</span><span class="pmeta">Weeks 1–3</span></div>
+        <div class="pbody">
+          <p class="q">Without looking back: a colleague says "our users' task is exploratory
+          analysis." Write the three follow-up questions that would turn that into something a
+          designer could build against — and say which level of the nested model each answer
+          belongs to.</p>
+          <textarea class="ans" placeholder="Question 1 →  level:&#10;Question 2 →  level:&#10;Question 3 →  level:"></textarea>
+          <div class="answer">
+            <span class="alabel">One good set</span>
+            <ol class="tight">
+              <li><em>"What do they already know before they start looking?"</em> — decides between
+              the four search types, which is a level-2 abstraction question
+              <span class="chip src">Sourced <a href="#S1">S1</a></span>.</li>
+              <li><em>"When they find something, is it one thing, a few, or a picture of the
+              whole?"</em> — the query level: identify, compare, summarize
+              <span class="chip src">Sourced <a href="#S1">S1</a></span>. Still level 2.</li>
+              <li><em>"What do they do with the answer afterwards?"</em> — surfaces whether there is
+              a produce task hiding downstream, and often reveals that the real domain problem is
+              one step later than the one you were handed. Level 1
+              <span class="chip src">Sourced <a href="#S2">S2</a></span>.</li>
+            </ol>
+            <p>What none of these ask about is charts. That is the tell that they are the right
+            questions <span class="chip infer">Inference</span>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="week" id="w4">
+  <div class="weekhead">
+    <p class="no">Week four</p>
+    <h2>Chains, and the limits of the thing you just learned</h2>
+    <p class="feeds">Feeds <span class="b b-what">what</span> · about 4 hours</p>
+  </div>
+
+  <div class="artifact">
+    <p class="eyebrow">Evidence this week wants from you</p>
+    <p>A complete task abstraction memo on a <em>source you have not touched before</em>, written
+    without a template — plus a paragraph naming where this framework failed you and what you
+    reached for instead. The second half is not a formality. A practitioner who cannot say where
+    their tool breaks is using it on faith.</p>
+  </div>
+
+  <div class="block" data-block="w4-read" data-band="what">
+    <div class="bhead"><span class="mode">Read</span><span class="est">~40 min</span></div>
+    <div class="body">
+
+      <h3>What: bring your own</h3>
+      <p>The third question is the least prescriptive part of the typology, on purpose. Prior work
+      has never agreed on what a visualization is made of — values and attributes, nodes and links,
+      temporal intervals and spans, pixels and structures — so Brehmer &amp; Munzner decline to
+      pick <span class="chip src">Sourced <a href="#S1">S1</a></span>. Bring whatever vocabulary
+      your data has.</p>
+      <p>There is exactly one hard requirement: when you describe a sequence of interdependent
+      tasks, you must explicitly distinguish each task's <strong>input</strong> from its
+      <strong>output</strong> <span class="chip src">Sourced <a href="#S1">S1</a></span>. That
+      constraint is what makes chaining possible, and chaining is what makes the typology able to
+      describe real work rather than isolated moments.</p>
+
+      <h3>The case study, as a chain</h3>
+      <p>Overview is a tool for exploring large document collections. A user wants to tag
+      semantically related documents with a new categorical attribute, using clusters as scaffolding.
+      Here is what that actually is <span class="chip src">Sourced <a href="#S1">S1</a></span>.</p>
+
+      <div class="chain">
+        <div class="deck">
+          <div class="card" style="margin:0">
+            <div class="band band-why"><div class="k">Why</div><div class="v">produce → derive</div></div>
+            <div class="band band-how"><div class="k">How</div><div class="v">derive</div></div>
+            <div class="band band-what"><div class="k">What</div><div class="v">in: high-dim distance matrix<br>out: low-dimensional data</div></div>
+            <div class="caption"><strong>Task 1a</strong> — multidimensional scaling</div>
+          </div>
+          <div class="card" style="margin:0">
+            <div class="band band-why"><div class="k">Why</div><div class="v">produce → derive</div></div>
+            <div class="band band-how"><div class="k">How</div><div class="v">derive + aggregate</div></div>
+            <div class="band band-what"><div class="k">What</div><div class="v">in: high-dim distance matrix<br>out: cluster hierarchy</div></div>
+            <div class="caption"><strong>Task 1b</strong> — clustering</div>
+          </div>
+        </div>
+        <p class="link">outputs feed</p>
+        <div class="card">
+          <div class="band band-why"><div class="k">Why</div><div class="v">discover → explore → identify</div></div>
+          <div class="band band-how"><div class="k">How</div><div class="v">encode + navigate + select</div></div>
+          <div class="band band-what"><div class="k">What</div><div class="v">in: low-dimensional data, cluster hierarchy<br>out: clusters of interest</div></div>
+          <div class="caption"><strong>Task 2</strong> — a scatterplot and a tree, linked; selecting a cluster surfaces frequent terms and raw text</div>
+        </div>
+        <p class="link">output feeds</p>
+        <div class="card">
+          <div class="band band-why"><div class="k">Why</div><div class="v">produce → annotate</div></div>
+          <div class="band band-how"><div class="k">How</div><div class="v">annotate</div></div>
+          <div class="band band-what"><div class="k">What</div><div class="v">in: clusters of interest<br>out: tags for those clusters</div></div>
+          <div class="caption"><strong>Task 3</strong> — the thing the user actually came to do</div>
+        </div>
+      </div>
+
+      <p>Three structural facts about that diagram, each of which took the field a while to arrive
+      at <span class="chip src">Sourced <a href="#S1">S1</a></span>:</p>
+      <ul class="tight">
+        <li><strong>1a and 1b can happen in either order.</strong> Task 2 depends on both. It is a
+        dependency graph, not a pipeline.</li>
+        <li><strong>The user's actual goal is last.</strong> Everything before it is scaffolding.
+        A description that started at task 2 — the interesting-looking one, with the linked views —
+        would have missed both the derivation it rests on and the point of the whole exercise.</li>
+        <li><strong>Two of the four tasks are produce, not consume.</strong> Most task
+        vocabularies have no room for these at all. Descriptions built from other classification
+        systems could not express the annotation step
+        <span class="chip src">Sourced <a href="#S1">S1</a></span>.</li>
+      </ul>
+
+      <div class="panel tint">
+        <p class="eyebrow">Constraints, not sequences</p>
+        <p style="margin-bottom:0">Stage- and cycle-based models of analysis impose a global
+        ordering, and empirical observation of real visualization use has found actual behaviour
+        doesn't match those orderings
+        <span class="chip src">Sourced <a href="#S1">S1</a></span>. The typology deliberately
+        imposes no global sequence: it expresses <em>local</em> dependencies through constraints on
+        input and output <span class="chip src">Sourced <a href="#S1">S1</a></span>. If you have
+        ever drawn a user journey as a straight line and watched real users refuse to walk it, this
+        is the formal version of that complaint.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w4-chain" data-band="what">
+    <div class="bhead"><span class="mode">Chain</span><span class="est">~40 min</span></div>
+    <div class="body">
+      <div class="probe" data-probe="p4-1">
+        <div class="phead"><span class="ptag">Probe</span><span class="pmeta">Generate before revealing</span></div>
+        <div class="pbody">
+          <p class="q">In the Overview chain, suppose the clustering (task 1b) is wrong — the
+          hierarchy groups documents that have nothing to do with each other. Trace what happens
+          downstream, task by task, and say which level of the nested model the failure is at.</p>
+          <p class="q">Then: what would a user of the finished tool most likely conclude about
+          <em>why</em> it wasn't working?</p>
+          <textarea class="ans" placeholder="Downstream trace:&#10;&#10;Level:&#10;&#10;What the user would blame:"></textarea>
+          <div class="answer">
+            <span class="alabel">Answer</span>
+            <p>Task 2 takes the hierarchy as input, so exploring it identifies "clusters of interest"
+            that are not coherent. Task 3 then annotates those incoherent clusters with tags. The
+            output artifact — a tagged corpus — is corrupted, and the corruption is invisible in the
+            interface, because every step after 1b executed correctly on bad input.</p>
+            <p>The failure is at <strong>level 2, abstraction</strong>: deriving a cluster hierarchy
+            was chosen as the scaffolding for the discovery process, and if that derivation doesn't
+            reflect anything real, no encoding of it helps
+            <span class="chip src">Sourced <a href="#S2">S2</a></span>. Note that this is the same
+            structure as the lost-in-hyperspace case: a plausible derived structure, presented
+            beautifully, that the user did not need.</p>
+            <p>The user would almost certainly blame <strong>the scatterplot</strong> — the thing
+            they can see. Level-2 failures are routinely reported as level-3 complaints, which is
+            precisely why the nested model insists you name the level before you accept the diagnosis
+            <span class="chip infer">Inference</span>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w4-build" data-band="what">
+    <div class="bhead"><span class="mode">Build</span><span class="est">~105 min</span></div>
+    <div class="body">
+      <p>Independent. No template, no worked example, no form to fill in. A source you have not used
+      in this course, and a memo somebody else could act on.</p>
+
+      <p class="small mute">If you have your own material, use it. If not: find a recorded analysis
+      session, a bug report where a user explains what they were trying to establish, or a written
+      account of somebody investigating something in your own organisation.</p>
+
+      <h4>What has to be true of the finished memo</h4>
+      <ul class="tight">
+        <li>The domain problem is stated in the source person's vocabulary, separately from the
+        abstraction.</li>
+        <li>At least three tasks, with at least one dependency where one task's output is another's
+        input — and if two tasks are order-independent, that is said.</li>
+        <li>At least one <strong>produce</strong> task. If your source genuinely has none, say so
+        and say how you know.</li>
+        <li>Every search type has its deciding fact recorded, marked <em>known</em> or
+        <em>assumed</em>.</li>
+        <li>A design implications section where each implication points at a specific slot in a
+        specific task.</li>
+        <li>An open questions section: what you would need to observe to replace each assumption.</li>
+      </ul>
+
+      <div class="workspace" data-ws="memo-final">
+        <div class="whead"><span class="wtag">Memo · final</span><span class="wsave" data-save>Not saved yet</span></div>
+        <div class="wbody"><textarea spellcheck="true" style="min-height:20rem" placeholder="Start here."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w4-critique" data-band="what">
+    <div class="bhead"><span class="mode">Critique</span><span class="est">~30 min</span></div>
+    <div class="body">
+
+      <h3>What happened when people tried to use it</h3>
+      <p>Four years after the typology, Munzner co-authored a paper whose premise is that
+      abstracting real analysis with existing task classifications — including her own — is slow,
+      laborious, and hard <span class="chip src">Sourced <a href="#S3">S3</a></span>. The diagnosis
+      is precise, and it is structural rather than cosmetic:</p>
+      <p>Working bottom-up forces you to abstract each low-level step <em>without</em> the context of
+      what the analysis was for. In theory you should be able to code the steps and group them into
+      goals. In practice, the coder is stranded
+      <span class="chip src">Sourced <a href="#S3">S3</a></span>.</p>
+
+      <div class="panel flag">
+        <p class="eyebrow">The two admissions worth reading twice</p>
+        <p>The authors tried coding an interview transcript line by line using the typology and one
+        other framework. They floundered, lost the thread in long discussions, and abandoned the
+        attempt. It only worked once they had identified the higher-level analysis goals first
+        <span class="chip src">Sourced <a href="#S3">S3</a></span>.</p>
+        <p style="margin-bottom:0">And a former student, trying to improve a dashboard for HIV
+        researchers, attempted to abstract the domain tasks with Brehmer &amp; Munzner's typology
+        and did not succeed — reporting that he found the terminology confusing, specifically
+        <em>search</em> versus <em>query</em>, and did not understand the structure
+        <span class="chip src">Sourced <a href="#S3">S3</a></span>. If week three felt hard, you
+        are in documented company.</p>
+      </div>
+
+      <p>Their fix is not to discard the typology but to put something above it: nine
+      <strong>analysis goals</strong> on two axes — specificity (explore → describe → explain →
+      confirm) and number of populations (single or multiple), each goal scoped by an input and an
+      output <span class="chip src">Sourced <a href="#S3">S3</a></span>. You chunk the stream into
+      units with goals <em>first</em>, then code the steps inside each unit using a task
+      classification. Top-down, then bottom-up.</p>
+
+      <div class="scroller">
+        <table>
+          <thead><tr><th></th><th>Explore</th><th>Describe</th><th>Explain</th><th>Confirm</th></tr></thead>
+          <tbody>
+            <tr><th>Single population</th><td>Discover Observation</td><td>Describe Observation<br><span class="mute">(item / aggregate)</span></td><td>Identify Main Cause<br><span class="mute">(item / aggregate)</span></td><td>Collect Evidence</td></tr>
+            <tr><th>Multiple populations</th><td>—</td><td>Compare Entities</td><td>Explain Differences</td><td>Evaluate Hypothesis</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small mute">Derived by open-coding 20 design study papers from IEEE InfoVis
+      2009–2015 <span class="chip src">Sourced <a href="#S3">S3</a></span>. The authors are candid
+      about the limits: design study papers are curated write-ups, not faithful records, so
+      floundering and failure are almost entirely absent from the source material, and the framework
+      is explicitly described as incomplete <span class="chip src">Sourced <a href="#S3">S3</a></span>.</p>
+
+      <h3>The categories moved</h3>
+      <p>In the 2013 paper, <em>annotate</em>, <em>record</em>, and <em>derive</em> sit under
+      <strong>how</strong>, in the class called introduce
+      <span class="chip src">Sourced <a href="#S1">S1</a></span>. In Munzner's 2014 book, the same
+      three sit under <strong>why</strong>, as the content of produce; how is restructured entirely
+      into encode / manipulate / facet / reduce; and <em>what</em> stops meaning task input-output
+      and starts meaning the data abstraction, with a separate list of targets
+      <span class="chip src">Sourced <a href="#S4">S4</a></span>.</p>
+
+      <div class="panel">
+        <p class="eyebrow">What to make of that</p>
+        <p style="margin-bottom:0">One year, same author, and three concepts crossed from the
+        means side to the ends side. That is not a correction of an error. It is evidence about the
+        <em>status</em> of the categories: they are conventions chosen to be useful, exactly as the
+        word "typology" promised in week one <span class="chip src">Sourced <a href="#S1">S1</a></span>.
+        The permanent contribution is the <em>discipline of asking all three questions</em> and
+        keeping ends separate from means. The specific box a word lives in is negotiable, and
+        treating it as fixed is the mimicry failure this whole framework exists to prevent
+        <span class="chip infer">Inference</span>.</p>
+      </div>
+
+      <details class="disc">
+        <summary>Two more things the field says, briefly</summary>
+        <div class="dbody">
+          <p><strong>There are rival carvings.</strong> Schulz et al. published a competing design
+          space in the same year and the same venue, with five dimensions — goal, means,
+          characteristics, target, cardinality — composed as tuples
+          <span class="chip src">Sourced <a href="#S6">S6</a></span>. It overlaps the typology
+          substantially and divides the space differently. Neither has displaced the other, which is
+          itself informative <span class="chip contested">Contested</span>.</p>
+          <p><strong>Nobody has established that it is reliable.</strong> The 2013 paper validates
+          only descriptive power, by demonstration; generative and evaluative power are named as
+          future work <span class="chip src">Sourced <a href="#S1">S1</a></span>. There is a
+          published treatment of the threats to validity that arise at each stage of constructing a
+          task classification and how to mitigate them
+          <span class="chip src">Sourced <a href="#S9">S9</a></span> — which tells you the field
+          knows this is an open question. If you and a colleague independently abstract the same
+          transcript and disagree, no published agreement rate exists for you to compare against
+          <span class="chip infer">Inference</span>.</p>
+          <p><strong>And one about the illustrations.</strong> Several of the canonical produce
+          examples — graphical histories, provenance trails — come from tools built by the companies
+          whose researchers co-authored the surrounding literature
+          <span class="chip vendor">Vendor framing</span>. The work is peer-reviewed and the
+          examples are apt. But the reason <em>those</em> features are the textbook cases of produce
+          is partly that they existed and were well documented, which shapes which parts of the
+          design space look well-populated <span class="chip infer">Inference</span>.</p>
+        </div>
+      </details>
+
+      <div class="workspace" data-ws="w4-critique">
+        <div class="whead"><span class="wtag">Where it broke for you</span><span class="wsave" data-save>Not saved yet</span></div>
+        <div class="wbody"><textarea spellcheck="true" placeholder="Where the typology fitted your source badly:
+
+What you did instead:
+
+The distinction it forced you to make that you would not otherwise have made:
+
+Would you use it again, and on what kind of material?"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" data-block="w4-close" data-band="why">
+    <div class="bhead"><span class="mode">Close</span><span class="est">~25 min</span></div>
+    <div class="body">
+
+      <div class="probe" data-probe="p4-2">
+        <div class="phead"><span class="ptag">Probe · choose the tool</span><span class="pmeta">Interleaved · weeks 1–4</span></div>
+        <div class="pbody">
+          <p class="q">You have a one-hour recorded session of an analyst working, thinking aloud,
+          with no stated goal. You want a description you can design against. Which do you reach for
+          first, and why?</p>
+          <div class="choices" data-correct="c">
+            <button type="button" data-c="a">Amar, Eagan &amp; Stasko's ten low-level tasks — code each action as it happens</button>
+            <button type="button" data-c="b">Brehmer &amp; Munzner's typology — code each moment as a why/how/what triple</button>
+            <button type="button" data-c="c">Lam et al.'s nine analysis goals — chunk the session into goal-bearing units, then code within them</button>
+            <button type="button" data-c="d">The nested model — assign each utterance to one of four levels</button>
+          </div>
+          <textarea class="ans" placeholder="Why:"></textarea>
+          <div class="answer">
+            <span class="alabel">Answer</span>
+            <p><strong>(c),</strong> and this is exactly the case the Lam et al. paper was written
+            about. Interview and think-aloud data is noisy, participants follow a stream of
+            consciousness rather than announcing goals, and coding line by line with a task
+            classification pulls you down to the level of transcript actions — which the authors
+            found unworkable until they chunked by goal first
+            <span class="chip src">Sourced <a href="#S3">S3</a></span>.</p>
+            <p><strong>(b)</strong> is the trap, and choosing it is not a wasted answer — it is the
+            move a careful reader of weeks one to three would make. <strong>(a)</strong> is worse
+            for the same reason, one level further down. <strong>(d)</strong> is a category error:
+            the nested model describes levels of <em>design decisions</em>, not utterances, and it
+            has no coding scheme <span class="chip infer">Inference</span>.</p>
+            <p>What survives from weeks one to three is that once you have chunked by goal, the
+            typology is what you use <em>inside</em> the chunk. The frameworks stack; they do not
+            compete <span class="chip src">Sourced <a href="#S3">S3</a></span>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="probe" data-probe="p4-3">
+        <div class="phead"><span class="ptag">Probe · delayed</span><span class="pmeta">Week 1 · the whole argument, in your words</span></div>
+        <div class="pbody">
+          <p class="q">A colleague who has not read any of this asks why you keep making the team
+          rewrite requirements. Answer in five sentences or fewer, without using the words
+          typology, abstraction, or taxonomy.</p>
+          <textarea class="ans" placeholder="Your answer…"></textarea>
+          <div class="answer">
+            <span class="alabel">One version</span>
+            <p>Most requests arrive as a solution with a purpose bolted on, and the purpose is
+            usually too vague to build against. If we can say what the person is trying to find out,
+            what they already know before they start looking, and what they do with the answer, then
+            two designs can be compared on something other than taste. If we can't, we're arguing
+            about charts. And the expensive mistakes aren't in the charts — they're in having
+            correctly built a thing nobody needed.</p>
+            <p class="small mute">Score yourself on whether you needed the jargon. If your own
+            answer only works with the vocabulary in it, the vocabulary is carrying the belief
+            rather than the understanding — which is the specific failure mode of half-crossing a
+            threshold like this one.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Your calibration</h3>
+      <p class="small">Every probe asked you to predict confidence before revealing. Here is what
+      that predicted, against what happened. Solo study has almost no feedback loops; this is the
+      cheapest one available, and the gap is more informative than the score.</p>
+      <div class="calsum" id="calsum"><p class="small mute">Nothing recorded yet.</p></div>
+
+      <div class="panel">
+        <p class="eyebrow">What you should be able to do now</p>
+        <ul class="tight" style="margin-bottom:0">
+          <li>Hear a feature request and say, out loud, which part of it is a how wearing a why's
+          clothes.</li>
+          <li>Ask the one question — what did they already know? — that decides the search type, and
+          know why the answer changes the design.</li>
+          <li>Name which of four levels a proposed piece of evidence can and cannot speak to.</li>
+          <li>Write a chain rather than a task, and notice when the goal is the last link rather
+          than the first.</li>
+          <li>Say where this framework stops working, and reach for the goal-first alternative when
+          the material is noisy.</li>
+        </ul>
+      </div>
+
+      <p class="small mute">The honest limit: none of this tells you what to draw. It tells you what
+      you are drawing <em>for</em>, which is upstream of every encoding decision you already knew how
+      to make — and, on the evidence of the lost-in-hyperspace case, is where the expensive errors
+      actually live.</p>
+    </div>
+  </div>
+</section>
+<section id="sources" class="week">
+  <div class="weekhead">
+    <p class="no">Apparatus</p>
+    <h2>Sources</h2>
+  </div>
+
+  <p class="small">Numbered to match the chips in the text. Each entry says how it was actually
+  verified, because "there is a citation" and "somebody opened the citation" are different claims,
+  and only one of them is checkable.</p>
+
+  <ul class="srclist">
+    <li id="S1">
+      <span class="sid">S1</span> Brehmer, M. &amp; Munzner, T. (2013). <em>A Multi-Level Typology
+      of Abstract Visualization Tasks.</em> IEEE TVCG 19(12): 2376–2385 (Proc. InfoVis 2013).
+      <span class="tier">Tier 1 · primary source, read in full from the authors' manuscript. Every
+      S1 claim in this course was checked against the text rather than against a summary of it.</span>
+    </li>
+    <li id="S2">
+      <span class="sid">S2</span> Munzner, T. (2009). <em>A Nested Model for Visualization Design
+      and Validation.</em> IEEE TVCG 15(6): 921–928.
+      <span class="tier">Tier 1 · primary source, read in full. The four levels, the four threat
+      statements, the lost-in-hyperspace case, and the validation-matching argument all come
+      directly from it.</span>
+    </li>
+    <li id="S3">
+      <span class="sid">S3</span> Lam, H., Tory, M. &amp; Munzner, T. (2018). <em>Bridging From
+      Goals to Tasks with Design Study Analysis Reports.</em> IEEE TVCG 24(1): 435–445.
+      <span class="tier">Tier 1 · primary source, read in full. The account of abandoning
+      line-by-line coding, the student's difficulty with the terminology, the nine analysis goals,
+      and the authors' own statement of the framework's incompleteness are all from the paper
+      itself.</span>
+    </li>
+    <li id="S4">
+      <span class="sid">S4</span> Munzner, T. (2014). <em>Visualization Analysis and Design</em>,
+      ch. 3, "Why: Task Abstraction." CRC Press.
+      <span class="tier">Tier 2 · verified indirectly. The chapter's structure — produce containing
+      annotate, record, derive; how restructured into encode / manipulate / facet / reduce; targets
+      added alongside actions — was confirmed from the publisher's chapter contents and from
+      Munzner's own lecture slide decks. <strong>The chapter text was not read in full for this
+      course.</strong> Treat the claim about what moved between 2013 and 2014 as verified in
+      outline, not in argument.</span>
+    </li>
+    <li id="S5">
+      <span class="sid">S5</span> Amar, R., Eagan, J. &amp; Stasko, J. (2005). <em>Low-Level
+      Components of Analytic Activity in Information Visualization.</em> Proc. IEEE InfoVis: 111–117.
+      <span class="tier">Tier 1 paper, verified indirectly. Abstract read; the ten-task list
+      confirmed independently in two places, including Munzner's own enumeration of it in S2.
+      <strong>Not read in full.</strong> Used here only for the list and for the fact that it is the
+      canonical low-level taxonomy.</span>
+    </li>
+    <li id="S6">
+      <span class="sid">S6</span> Schulz, H.-J., Nocke, T., Heitzler, M. &amp; Schumann, H. (2013).
+      <em>A Design Space of Visualization Tasks.</em> IEEE TVCG 19(12): 2366–2375.
+      <span class="tier">Tier 1 paper, verified indirectly. Abstract read; the five dimensions —
+      goal, means, characteristics, target, cardinality — confirmed from two independent secondary
+      descriptions. <strong>Not read in full.</strong> Cited only to establish that a rival carving
+      exists, published in the same issue as S1.</span>
+    </li>
+    <li id="S9">
+      <span class="sid">S9</span> Kerracher, N. &amp; Kennedy, J. (2017). <em>Constructing and
+      Evaluating Visualisation Task Classifications: Process and Considerations.</em> Computer
+      Graphics Forum 36(3): 47–59.
+      <span class="tier">Tier 3 as used here · reached through S3 and a published abstract.
+      <strong>Not read.</strong> Supports one claim only: that the field has explicitly examined the
+      threats to validity in building task classifications. Do not lean on it further without
+      opening it.</span>
+    </li>
+  </ul>
+
+  <p class="small mute" style="margin-top:1.2rem">Also named in passing and deliberately not
+  load-bearing: Shneiderman's task-by-data-type taxonomy (1996); Heer &amp; Shneiderman's
+  interactive dynamics (2012); Lee et al.'s graph task taxonomy (2006); Rind et al.'s task cube
+  (2015); Vicente on constraint-based versus sequence-based task analysis. Each is discussed inside
+  S1 or S3, and this course reports what those papers say about them rather than what they say
+  about themselves. If any becomes important to your work, open it directly — that one step is the
+  highest-value move available when you are working from someone else's summary.</p>
+</section>
+
+<footer class="foot">
+  <p>A self-study course. Threshold-scoped, evidence-marked, and revisable — the file is
+  hand-written HTML and meant to be edited.</p>
+  <p class="small">Progress is stored in your browser and syncs if you are signed in. Nothing here
+  is sent anywhere else.</p>
+  <p class="reset"><button type="button" class="btn ghost" id="resetall">Erase my progress</button></p>
+</footer>
+
+</main>
+
+<script type="text/course-deferred">
+/* ── state ─────────────────────────────────────────────────────────
+   One key, one JSON blob, versioned. Read at init: the publish
+   pipeline defers this script until remote progress has landed, so a
+   synchronous read here sees the freshest copy.
+   ──────────────────────────────────────────────────────────────── */
+(function () {
+  var KEY = 'state';
+  var FRESH = { v: 1, theme: 'auto', blocks: {}, probes: {}, ws: {} };
+
+  function migrate(s) {
+    if (!s || typeof s !== 'object') return JSON.parse(JSON.stringify(FRESH));
+    if (!s.v) s.v = 1;                       // pre-version blobs adopt v1
+    if (!s.blocks) s.blocks = {};
+    if (!s.probes) s.probes = {};
+    if (!s.ws) s.ws = {};
+    if (!s.theme) s.theme = 'auto';
+    return s;
+  }
+
+  var state;
+  try { state = migrate(JSON.parse(localStorage.getItem(KEY))); }
+  catch (e) { state = JSON.parse(JSON.stringify(FRESH)); }
+
+  var pending = null;
+  function flush() {
+    pending = null;
+    try { localStorage.setItem(KEY, JSON.stringify(state)); }
+    catch (e) { /* quota or private mode: degrade to in-memory */ }
+  }
+
+  window.CS = {
+    get: function () { return state; },
+    save: function (immediate) {
+      if (immediate) { if (pending) clearTimeout(pending); flush(); return; }
+      if (pending) clearTimeout(pending);
+      pending = setTimeout(flush, 500);
+    },
+    reset: function () {
+      state = JSON.parse(JSON.stringify(FRESH));
+      flush();
+    }
+  };
+
+  // Theme has to land before first paint of the controls.
+  var t = state.theme;
+  if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ── theme toggle ─────────────────────────────────────────────── */
+(function () {
+  var S = window.CS.get();
+  var btns = document.querySelectorAll('[data-theme-set]');
+  function paint() {
+    btns.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.themeSet === S.theme));
+    });
+  }
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      S.theme = b.dataset.themeSet;
+      if (S.theme === 'auto') document.documentElement.removeAttribute('data-theme');
+      else document.documentElement.setAttribute('data-theme', S.theme);
+      window.CS.save(true);
+      paint();
+    });
+  });
+  paint();
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ── blocks, meter, verdict ───────────────────────────────────── */
+(function () {
+  var S = window.CS.get();
+  var blocks = Array.prototype.slice.call(document.querySelectorAll('[data-block]'));
+  var TOTALS = { why: 0, how: 0, what: 0 };
+  blocks.forEach(function (b) { TOTALS[b.dataset.band]++; });
+
+  var VERDICTS = [
+    'Empty. No why, no how, no what — nothing here yet describes a task at all.',
+    'Tells us how, but not why. This is precisely the diagnosis Brehmer and Munzner make of low-level task classifications.',
+    'Tells us why, but not how. The converse failure, and the one high-level models of analysis make.',
+    'A why and a how, but no inputs or outputs — so nothing here can be chained to anything else.',
+    'All three questions have been answered. None of them completely.',
+    'Complete: a why, a how, and a what. This description can be compared across tools and chained to the next task.'
+  ];
+
+  function pickVerdict(c) {
+    var w = c.why / TOTALS.why, h = c.how / TOTALS.how, t = c.what / TOTALS.what;
+    if (c.why + c.how + c.what === 0) return VERDICTS[0];
+    if (w >= 1 && h >= 1 && t >= 1) return VERDICTS[5];
+    if (h >= 0.5 && w < 0.4) return VERDICTS[1];
+    if (w >= 0.5 && h < 0.34) return VERDICTS[2];
+    if (w >= 0.5 && h >= 0.5 && t < 0.4) return VERDICTS[3];
+    return VERDICTS[4];
+  }
+
+  function paintMeter() {
+    var c = { why: 0, how: 0, what: 0 };
+    blocks.forEach(function (b) { if (S.blocks[b.dataset.block]) c[b.dataset.band]++; });
+    ['why', 'how', 'what'].forEach(function (k) {
+      var pct = TOTALS[k] ? (c[k] / TOTALS[k]) * 100 : 0;
+      var fill = document.querySelector('[data-fill="' + k + '"]');
+      var n = document.querySelector('[data-n="' + k + '"]');
+      if (fill) fill.style.width = pct.toFixed(1) + '%';
+      if (n) n.textContent = c[k] + '/' + TOTALS[k];
+    });
+    var v = document.getElementById('verdict');
+    if (v) v.textContent = pickVerdict(c);
+  }
+
+  blocks.forEach(function (b) {
+    var id = b.dataset.block;
+    var head = b.querySelector('.bhead');
+    var lab = document.createElement('label');
+    lab.className = 'donebox';
+    lab.innerHTML = '<input type="checkbox"><span class="box">✓</span>';
+    var input = lab.querySelector('input');
+    input.setAttribute('aria-label', 'Mark this block done');
+    head.insertBefore(lab, head.firstChild);
+
+    function paint() {
+      var done = !!S.blocks[id];
+      input.checked = done;
+      b.classList.toggle('done', done);
+    }
+    input.addEventListener('change', function () {
+      if (input.checked) S.blocks[id] = Date.now();
+      else delete S.blocks[id];
+      window.CS.save();
+      paint(); paintMeter();
+    });
+    paint();
+  });
+
+  paintMeter();
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ── workspaces ───────────────────────────────────────────────── */
+(function () {
+  var S = window.CS.get();
+  function stamp() {
+    var d = new Date();
+    return 'Saved ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  }
+  document.querySelectorAll('[data-ws]').forEach(function (ws) {
+    var id = ws.dataset.ws;
+    var ta = ws.querySelector('textarea');
+    var badge = ws.querySelector('[data-save]');
+    if (S.ws[id]) { ta.value = S.ws[id]; badge.textContent = 'Saved'; }
+    var t = null;
+    ta.addEventListener('input', function () {
+      badge.textContent = 'Saving…';
+      if (t) clearTimeout(t);
+      t = setTimeout(function () {
+        S.ws[id] = ta.value;
+        window.CS.save(true);
+        badge.textContent = stamp();
+      }, 600);
+    });
+  });
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ── probes: confidence before reveal, reveal gated on an attempt ─ */
+(function () {
+  var S = window.CS.get();
+  var SCORE = { hit: 5, part: 3, miss: 1 };
+  var OUTLABEL = { hit: 'got it', part: 'partly', miss: 'missed it' };
+
+  document.querySelectorAll('[data-probe]').forEach(function (probe) {
+    var id = probe.dataset.probe;
+    var rec = S.probes[id] || (S.probes[id] = { pred: null, out: null, ts: null });
+    var body = probe.querySelector('.pbody');
+    var answer = probe.querySelector('.answer');
+    var choices = probe.querySelector('.choices');
+    var ans = probe.querySelector('textarea.ans');
+    var qs = probe.querySelectorAll('.q');
+    var lastQ = qs[qs.length - 1];
+
+    // confidence, inserted after the question and before the attempt
+    var conf = document.createElement('div');
+    conf.className = 'conf';
+    conf.innerHTML =
+      '<span class="clabel">Before you look — how confident are you?</span>' +
+      '<div class="confrow" role="group" aria-label="Predicted confidence">' +
+      [1, 2, 3, 4, 5].map(function (n) {
+        return '<button type="button" data-p="' + n + '" aria-pressed="false">' + n + '</button>';
+      }).join('') +
+      '</div>' +
+      '<div class="confscale"><span>no idea</span><span>certain</span></div>';
+    lastQ.parentNode.insertBefore(conf, lastQ.nextSibling);
+
+    // gate + reveal, inserted just before the answer
+    var gate = document.createElement('div');
+    gate.innerHTML =
+      '<p class="gatehint"></p>' +
+      '<button type="button" class="btn" disabled>Show the answer</button>';
+    body.insertBefore(gate, answer);
+    var hint = gate.querySelector('.gatehint');
+    var reveal = gate.querySelector('button');
+
+    // outcome + calibration, appended inside the answer
+    var out = document.createElement('div');
+    out.className = 'outcome';
+    out.innerHTML =
+      '<span class="olabel">Now score yourself, honestly</span>' +
+      '<div class="outrow" role="group" aria-label="Outcome">' +
+      '<button type="button" data-o="hit" aria-pressed="false">Got it</button>' +
+      '<button type="button" data-o="part" aria-pressed="false">Partly</button>' +
+      '<button type="button" data-o="miss" aria-pressed="false">Missed it</button>' +
+      '</div><div class="calib"></div>';
+    answer.appendChild(out);
+    var calib = out.querySelector('.calib');
+
+    function attempted() {
+      var okChoice = choices ? !!choices.querySelector('[aria-pressed="true"]') : true;
+      var okText = ans ? ans.value.trim().length >= 30 : true;
+      return okChoice && okText;
+    }
+
+    function paintGate() {
+      var ready = rec.pred !== null && attempted();
+      reveal.disabled = !ready;
+      if (probe.classList.contains('revealed')) { hint.textContent = ''; return; }
+      if (rec.pred === null) hint.textContent = 'Pick a confidence number first.';
+      else if (!attempted()) {
+        hint.textContent = choices && !choices.querySelector('[aria-pressed="true"]')
+          ? 'Choose an option, then write at least a sentence.'
+          : 'Write at least a sentence. A wrong answer you produced beats a right one you were handed.';
+      } else hint.textContent = 'Committed. Go ahead.';
+    }
+
+    function paintCalib() {
+      if (rec.pred === null || !rec.out) { calib.className = 'calib'; calib.textContent = ''; return; }
+      var gap = rec.pred - SCORE[rec.out];
+      var cls = gap >= 2 ? 'over' : (gap <= -2 ? 'under' : 'good');
+      calib.className = 'calib show ' + cls;
+      var head = 'Predicted ' + rec.pred + '/5 · ' + OUTLABEL[rec.out] + '. ';
+      calib.textContent = head + (
+        cls === 'over'
+          ? 'Overconfident here. This is the quadrant that ends study early — it feels like knowing.'
+          : cls === 'under'
+            ? 'Underconfident here. You knew more than you thought.'
+            : 'Well calibrated.'
+      );
+    }
+
+    conf.querySelectorAll('[data-p]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        rec.pred = Number(b.dataset.p);
+        rec.ts = Date.now();
+        conf.querySelectorAll('[data-p]').forEach(function (o) {
+          o.setAttribute('aria-pressed', String(o === b));
+        });
+        window.CS.save(); paintGate(); paintCalib(); renderSummary();
+      });
+    });
+
+    if (choices) {
+      choices.querySelectorAll('[data-c]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          rec.choice = b.dataset.c;
+          choices.querySelectorAll('[data-c]').forEach(function (o) {
+            o.setAttribute('aria-pressed', String(o === b));
+          });
+          window.CS.save(); paintGate();
+        });
+      });
+    }
+    if (ans) {
+      var t = null;
+      ans.addEventListener('input', function () {
+        paintGate();
+        if (t) clearTimeout(t);
+        t = setTimeout(function () { rec.text = ans.value; window.CS.save(); }, 700);
+      });
+    }
+
+    reveal.addEventListener('click', function () {
+      probe.classList.add('revealed');
+      rec.revealed = true;
+      window.CS.save();
+      reveal.style.display = 'none';
+      hint.textContent = '';
+      if (choices && rec.choice) {
+        var correct = choices.dataset.correct;
+        choices.querySelectorAll('[data-c]').forEach(function (b) {
+          if (b.dataset.c === correct) b.style.boxShadow = 'inset 0 0 0 2px var(--ok)';
+        });
+      }
+    });
+
+    out.querySelectorAll('[data-o]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        rec.out = b.dataset.o;
+        out.querySelectorAll('[data-o]').forEach(function (o) {
+          o.setAttribute('aria-pressed', String(o === b));
+        });
+        window.CS.save(); paintCalib(); renderSummary();
+      });
+    });
+
+    // restore
+    if (rec.pred !== null) {
+      var pb = conf.querySelector('[data-p="' + rec.pred + '"]');
+      if (pb) pb.setAttribute('aria-pressed', 'true');
+    }
+    if (rec.choice && choices) {
+      var cb = choices.querySelector('[data-c="' + rec.choice + '"]');
+      if (cb) cb.setAttribute('aria-pressed', 'true');
+    }
+    if (rec.text && ans) ans.value = rec.text;
+    if (rec.revealed) {
+      probe.classList.add('revealed');
+      reveal.style.display = 'none';
+      if (choices) {
+        var cr = choices.dataset.correct;
+        choices.querySelectorAll('[data-c]').forEach(function (b) {
+          if (b.dataset.c === cr) b.style.boxShadow = 'inset 0 0 0 2px var(--ok)';
+        });
+      }
+    }
+    if (rec.out) {
+      var ob = out.querySelector('[data-o="' + rec.out + '"]');
+      if (ob) ob.setAttribute('aria-pressed', 'true');
+    }
+    paintGate(); paintCalib();
+  });
+
+  /* ── calibration summary ─────────────────────────────────────── */
+  function renderSummary() {
+    var host = document.getElementById('calsum');
+    if (!host) return;
+    var ids = Object.keys(S.probes).filter(function (k) {
+      return S.probes[k] && S.probes[k].pred !== null && S.probes[k].out;
+    }).sort();
+    if (!ids.length) {
+      host.innerHTML = '<p class="small mute">Nothing recorded yet. Answer a probe, predict your confidence, then score the outcome.</p>';
+      return;
+    }
+    var sp = 0, so = 0;
+    var rows = ids.map(function (k) {
+      var r = S.probes[k];
+      var score = SCORE[r.out];
+      sp += r.pred; so += score;
+      var col = r.out === 'hit' ? 'var(--ok)' : (r.out === 'part' ? 'var(--warn)' : 'var(--bad)');
+      return '<div class="cline"><span class="lab">' + k + '</span>' +
+        '<span class="g" style="position:relative">' +
+        '<i style="width:' + (score / 5 * 100) + '%;background:' + col + '"></i>' +
+        '<i style="position:absolute;top:0;bottom:0;left:calc(' + (r.pred / 5 * 100) + '% - 1px);width:2px;background:var(--signal)"></i>' +
+        '</span></div>';
+    }).join('');
+    var mp = sp / ids.length, mo = so / ids.length, d = mp - mo;
+    var read = Math.abs(d) < 0.75 ? 'roughly calibrated'
+      : (d > 0 ? 'systematically overconfident by about ' + d.toFixed(1) + ' points'
+               : 'systematically underconfident by about ' + Math.abs(d).toFixed(1) + ' points');
+    host.innerHTML =
+      '<p class="small">' + ids.length + ' probe' + (ids.length === 1 ? '' : 's') +
+      ' recorded. Mean prediction ' + mp.toFixed(1) + '/5, mean outcome ' + mo.toFixed(1) +
+      '/5 — you are ' + read + '.</p>' +
+      '<div class="bar">' + rows + '</div>' +
+      '<p class="small mute" style="margin-top:.6rem">Bar is the outcome; the vertical line is what you predicted. ' +
+      'A line consistently to the right of the bar is the pattern that makes people stop studying too early.</p>';
+  }
+  window.__renderSummary = renderSummary;
+  renderSummary();
+})();
+</script>
+
+<script type="text/course-deferred">
+/* ── reset ────────────────────────────────────────────────────── */
+(function () {
+  var b = document.getElementById('resetall');
+  if (!b) return;
+  b.addEventListener('click', function () {
+    if (!confirm('Erase all saved progress, including everything you typed into the memo workspaces? This cannot be undone.')) return;
+    window.CS.reset();
+    location.reload();
+  });
+})();
+</script>
+
+</body>
+</html>
