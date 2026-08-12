@@ -29,7 +29,7 @@ import sys
 
 try:
     import yaml
-except ImportError:  # index maintenance degrades to a warning, not a failure
+except ImportError:  # optional: see parse_entry for the stand-in reader
     yaml = None
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
@@ -190,62 +190,154 @@ def extract_title(html):
     return html_mod.unescape(' '.join(match.group(1).split()))
 
 
+def split_index(raw):
+    """Split _data/courses.yml into (header, [entry block, ...]).
+
+    The file is handled as text rather than loaded and re-emitted, because a
+    YAML dumper would reflow the hand-written folded descriptions and drop the
+    header comment. Cutting the document at each top-level `- ` leaves every
+    byte we are not deliberately changing exactly as it was.
+    """
+    header = []
+    blocks = []
+    for line in raw.splitlines(keepends=True):
+        if line.startswith('- ') or line.rstrip('\n') == '-':
+            blocks.append([line])
+        elif blocks:
+            blocks[-1].append(line)
+        else:
+            # Everything ahead of the first entry -- comments, blank lines --
+            # is header, and rides along untouched.
+            header.append(line)
+    return ''.join(header), [''.join(block) for block in blocks]
+
+
+def entry_field(block, key):
+    """Locate an inline `key:` line in one entry block.
+
+    Returns (value, start, end) spanning the whole line including its `- ` or
+    two-space indent, or None when the key is absent. Only inline scalars are
+    handled, which covers every field this tool reads or writes; `description`
+    may be a folded block and is never touched.
+    """
+    pattern = re.compile(
+        r'^(?:- |  )%s:[^\S\n]*(.*)$' % re.escape(key), re.MULTILINE
+    )
+    match = pattern.search(block)
+    if not match:
+        return None
+    return match.group(1).strip(), match.start(), match.end()
+
+
+def unquote_scalar(text):
+    if len(text) >= 2 and text[0] == text[-1] and text[0] in '\'"':
+        inner = text[1:-1]
+        return inner.replace("''", "'") if text[0] == "'" else inner
+    return text
+
+
+def as_bool(value):
+    if isinstance(value, bool):
+        return value
+    return str(value).strip().lower() in ('true', 'yes', 'on', '1')
+
+
+def emit_scalar(value):
+    """Render a scalar, quoting only when plain style would change its meaning."""
+    if isinstance(value, bool):
+        return 'true' if value else 'false'
+    text = str(value)
+    unsafe = re.search(r'^[\s>|&*!%@`#?-]|[:#]\s|[:\'"\[\]{},]|\s$', text)
+    reserved = text.lower() in (
+        '', 'true', 'false', 'yes', 'no', 'on', 'off', 'null', '~',
+    )
+    if unsafe or reserved:
+        return "'%s'" % text.replace("'", "''")
+    return text
+
+
+def parse_entry(block):
+    """Read slug/title/tracked out of one entry block.
+
+    PyYAML does it when installed; the fallback covers the same three inline
+    scalars with a regex, so a missing module no longer costs us the index
+    update it used to skip.
+    """
+    if yaml is not None:
+        try:
+            loaded = yaml.safe_load(block)
+        except yaml.YAMLError:
+            loaded = None
+        if isinstance(loaded, list) and loaded and isinstance(loaded[0], dict):
+            return loaded[0]
+
+    entry = {}
+    for key in ('slug', 'title', 'tracked'):
+        field = entry_field(block, key)
+        if field:
+            entry[key] = unquote_scalar(field[0])
+    return entry
+
+
+def set_field(block, key, value):
+    """Rewrite one inline field in an entry block, appending the line if absent."""
+    rendered = '%s: %s' % (key, emit_scalar(value))
+    field = entry_field(block, key)
+    if field:
+        _, start, end = field
+        indent = '- ' if block[start : start + 2] == '- ' else '  '
+        return block[:start] + indent + rendered + block[end:]
+
+    at = block.index('\n') + 1 if '\n' in block else len(block)
+    return block[:at] + '  ' + rendered + '\n' + block[at:]
+
+
 def upsert_course_index(slug, title, tracked):
     """Add or refresh this course's entry in _data/courses.yml.
 
-    Returns 'added', 'updated', None, or 'skipped' when PyYAML is missing.
-
-    Only rewrites the file when something actually changed, so hand-written
-    descriptions and header comments survive untouched in the common case.
+    Returns 'added', 'updated' or None. A new course appends a block; a known
+    one has only its `title` and `tracked` lines rewritten. Hand-written
+    descriptions, the header comment and the other entries stay byte-for-byte,
+    and the file is only written when something actually changed.
     """
-    if yaml is None:
-        return 'skipped'
-
     path = REPO / '_data' / 'courses.yml'
     raw = path.read_text(encoding='utf-8') if path.exists() else ''
-    entries = yaml.safe_load(raw) if raw.strip() else []
-    if not isinstance(entries, list):
-        entries = []
+    header, blocks = split_index(raw)
 
     outcome = None
-    for entry in entries:
-        if isinstance(entry, dict) and entry.get('slug') == slug:
-            if title and entry.get('title') != title:
-                entry['title'] = title
-                outcome = 'updated'
-            if entry.get('tracked') != tracked:
-                entry['tracked'] = tracked
-                outcome = 'updated'
-            break
+    for index, block in enumerate(blocks):
+        entry = parse_entry(block)
+        if entry.get('slug') != slug:
+            continue
+        if title and entry.get('title') != title:
+            block = set_field(block, 'title', title)
+            outcome = 'updated'
+        if as_bool(entry.get('tracked')) != tracked:
+            block = set_field(block, 'tracked', tracked)
+            outcome = 'updated'
+        blocks[index] = block
+        break
     else:
-        entries.append(
-            {
-                'slug': slug,
-                'title': title or slug,
-                'description': '',
-                'tracked': tracked,
-            }
+        blocks.append(
+            '- slug: %s\n  title: %s\n  description: %s\n  tracked: %s\n'
+            % (
+                emit_scalar(slug),
+                emit_scalar(title or slug),
+                emit_scalar(''),
+                emit_scalar(tracked),
+            )
         )
         outcome = 'added'
 
     if not outcome:
         return None
 
-    # Preserve the leading comment block; PyYAML would otherwise drop it.
-    header_lines = []
-    for line in raw.splitlines():
-        if line.startswith('#') or not line.strip():
-            header_lines.append(line)
-        else:
-            break
-    header = '\n'.join(header_lines).rstrip('\n')
-    body = yaml.safe_dump(
-        entries, sort_keys=False, allow_unicode=True, default_flow_style=False, width=78
-    )
-
+    # One blank line between entries, whatever the spacing was going in.
+    body = '\n\n'.join(block.strip('\n') for block in blocks)
+    text = header.strip('\n')
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
-        (header + '\n\n' if header else '') + body, encoding='utf-8'
+        (text + '\n\n' if text else '') + body + '\n', encoding='utf-8'
     )
     return outcome
 
@@ -334,8 +426,6 @@ def main():
         print('- added to _data/courses.yml (write a description there)')
     elif index_result == 'updated':
         print('- refreshed entry in _data/courses.yml')
-    elif index_result == 'skipped':
-        print('! PyYAML missing: could not update _data/courses.yml')
 
     rel = target.relative_to(REPO)
     print('published %s' % rel)
