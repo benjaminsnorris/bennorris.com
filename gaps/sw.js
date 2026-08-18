@@ -4,7 +4,7 @@
    Add new module and data files to ASSETS when you add a module.
 */
 
-const VERSION = "gaps-v1";
+const VERSION = "gaps-v3";
 
 const ASSETS = [
   "./",
@@ -18,8 +18,12 @@ const ASSETS = [
   "./shell/store.js",
   "./modules/ask.js",
   "./modules/memorize.js",
+  "./modules/chess.js",
+  "./vendor/chess.js",
   "./data/ask-decks.json",
-  "./data/memorize-seeds.json"
+  "./data/memorize-seeds.json",
+  "./data/chess-motifs.json",
+  "./data/chess-puzzles.json"
 ];
 
 self.addEventListener("install", e => {

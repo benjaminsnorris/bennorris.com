@@ -3,9 +3,11 @@
 import { register, start, exportAll } from "./shell/shell.js";
 import { Ask } from "./modules/ask.js";
 import { Memorize } from "./modules/memorize.js";
+import { Chess } from "./modules/chess.js";
 
 register(Ask);
 register(Memorize);
+register(Chess);
 
 start();
 

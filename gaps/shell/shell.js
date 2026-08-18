@@ -4,6 +4,10 @@
    Two rules enforced here so a module can't quietly break the spec:
    1. Never ask a question whose answer can't change the outcome.
    2. A session ends when the module says it's done. One quiet continuation.
+
+   Choosing is available after the fact, never before: the shell picks for you,
+   and the active module's name in the rail is a button that switches. It only
+   appears when more than one module fits the moment.
 */
 
 import { Store } from "./store.js";
@@ -16,6 +20,8 @@ export const SHAPES = {
 };
 
 const SHELL_KEY = "shell-state";
+
+const CARET = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:8px;height:8px;margin-left:5px"><path d="M2 4.5 6 8.5l4-4"/></svg>`;
 
 const Modules = [];
 export const register = m => Modules.push(m);
@@ -46,20 +52,31 @@ function choose(s){
   return cold[Math.floor(Math.random() * cold.length)];
 }
 
+function railButton(label, onClick){
+  const b = document.createElement("button");
+  b.textContent = label;
+  b.addEventListener("click", onClick);
+  railEl.appendChild(b);
+  return b;
+}
+
 function setRail(views){
   railEl.innerHTML = "";
-  (views || []).forEach(v => {
-    const b = document.createElement("button");
-    b.textContent = v.label;
-    b.addEventListener("click", () => v.open());
-    railEl.appendChild(b);
-  });
+  (views || []).forEach(v => railButton(v.label, () => v.open()));
 }
 
 async function setCount(){
   const s = active && active.summary ? await active.summary() : null;
   const tag = Store.ok ? "" : " &middot; session only";
-  countEl.innerHTML = s && s.count ? `<b>${s.count}</b> ${s.label}${tag}` : "&nbsp;";
+  const text = s && s.count ? `<b>${s.count}</b> ${s.label}${tag}` : (Store.ok ? "" : "session only");
+  const canSwitch = active && eligible(shape).length > 1;
+
+  countEl.innerHTML = canSwitch
+    ? `<button id="modBtn" aria-label="Switch activity">${active.name}${CARET}</button>${text ? ` &middot; ${text}` : ""}`
+    : (text || "&nbsp;");
+
+  const b = countEl.querySelector("#modBtn");
+  if(b) b.addEventListener("click", renderModulePicker);
 }
 
 async function run(mod){
@@ -87,6 +104,7 @@ function go(s){
 
 function renderShapePicker(){
   setRail([]);
+  countEl.innerHTML = "&nbsp;";
   card.className = "card fade";
   card.innerHTML = `<div class="picktitle">Where are you?</div>
     <div class="scroll">` +
@@ -98,6 +116,29 @@ function renderShapePicker(){
     <div class="foot"><button class="skip" id="skipShape">Just ask me</button><span></span></div>`;
   card.querySelectorAll(".pick").forEach(b => b.addEventListener("click", () => go(b.dataset.shape)));
   card.querySelector("#skipShape").addEventListener("click", () => go(lastShape));
+}
+
+function renderModulePicker(){
+  setRail([]);
+  const here = SHAPES[shape];
+  const options = eligible(shape);
+  card.className = "card fade";
+  card.innerHTML = `<div class="picktitle">Instead of this${here ? ` &middot; ${here.label.toLowerCase()}` : ""}</div>
+    <div class="scroll">` +
+    options.map(m => `
+      <button class="pick" data-id="${m.id}" data-live="${active && active.id === m.id ? 1 : 0}">
+        ${m.name}${m.unit ? `<em>${m.unit}</em>` : ""}
+      </button>`).join("") +
+    `</div>
+    <div class="foot"><button class="skip" id="backShape">Somewhere else</button><span></span></div>`;
+
+  card.querySelectorAll(".pick").forEach(b => {
+    b.addEventListener("click", () => {
+      const mod = options.find(m => m.id === b.dataset.id);
+      if(mod) run(mod);
+    });
+  });
+  card.querySelector("#backShape").addEventListener("click", renderShapePicker);
 }
 
 export async function start(){

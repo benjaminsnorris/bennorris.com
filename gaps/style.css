@@ -14,6 +14,11 @@
   --off:#C2CAC4;
   --on-off:#F0F2EF;
   --wash:#EDF1EE;
+  --board-l:#EEF2EC;
+  --board-d:#9CA89E;
+  --piece-w:#FCFCFA;
+  --piece-b:#1E2427;
+  --warn:#9A5A4A;
   --card-shadow:none;
   --serif:'Newsreader', Georgia, serif;
   --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
@@ -33,6 +38,11 @@
     --off:#2E3639;
     --on-off:#6E7873;
     --wash:#222B2C;
+    --board-l:#5F6965;
+    --board-d:#29332E;
+    --piece-w:#F0F2EE;
+    --piece-b:#0E1315;
+    --warn:#D69C8E;
     --card-shadow:0 1px 0 rgba(255,255,255,.03) inset;
   }
 }
@@ -315,5 +325,193 @@ textarea::placeholder{color:var(--ghost)}
 .bars i[data-l="3"]{background:var(--muted)}
 .bars i[data-l="4"]{background:var(--moss)}
 .maptext{font-size:16px;line-height:1.5;font-weight:300;color:var(--muted);padding-top:12px}
+
+
+
+/* ---- chess: the position ----
+   Quiet board in the green-greys so moss stays reserved for progress and
+   correctness. Coordinates and gapless squares are what tell this apart from
+   the progress map, which has neither. */
+.cwrap{
+  display:grid;
+  grid-template-columns:13px 1fr;
+  grid-template-rows:1fr 15px;
+  column-gap:5px;
+  width:100%;
+}
+.cboard{
+  grid-column:2;grid-row:1;
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  aspect-ratio:1/1;
+  width:100%;
+  border:1px solid var(--line);
+  touch-action:manipulation;
+}
+/* Coordinates sit outside the squares: on the card they clear AA, and the
+   labelled gutters are half of what tells this apart from the progress map. */
+.cranks,.cfiles{
+  display:flex;
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.06em;
+  color:var(--muted);
+  user-select:none;
+}
+.cranks{grid-column:1;grid-row:1;flex-direction:column}
+.cfiles{grid-column:2;grid-row:2;align-items:center}
+.cranks span,.cfiles span{flex:1;display:flex;align-items:center;justify-content:center}
+.sq{
+  position:relative;
+  border:0;
+  padding:0;
+  background:var(--board-l);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:clamp(20px,6.4vw,34px);
+  line-height:1;
+}
+.sq[data-d="1"]{background:var(--board-d)}
+.pc{
+  pointer-events:none;
+  font-family:"Segoe UI Symbol","Apple Symbols","DejaVu Sans",sans-serif;
+  color:var(--piece-b);
+}
+.pc[data-c="w"]{
+  color:var(--piece-w);
+  text-shadow:0 1px 0 var(--piece-b),0 -1px 0 var(--piece-b),1px 0 0 var(--piece-b),-1px 0 0 var(--piece-b);
+}
+.pc[data-c="b"]{
+  color:var(--piece-b);
+  text-shadow:0 1px 0 var(--piece-w),0 -1px 0 var(--piece-w),1px 0 0 var(--piece-w),-1px 0 0 var(--piece-w);
+}
+.sq::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.sq[data-m~="last"]::after{background:var(--moss);opacity:.14}
+.sq[data-m~="sel"]::after{box-shadow:inset 0 0 0 3px var(--moss)}
+.sq[data-m~="go"]::after{
+  background:radial-gradient(circle at 50% 50%,var(--moss) 0 17%,transparent 18%);
+  opacity:.5;
+}
+.sq[data-m~="take"]::after{box-shadow:inset 0 0 0 3px var(--moss);opacity:.55}
+
+.turn{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding:14px 0 0;
+  line-height:1.6;
+}
+.turn b{color:var(--moss);font-weight:500}
+.dots{display:flex;gap:5px;flex:0 0 auto}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.dots i[data-s="now"]{box-shadow:inset 0 0 0 1.5px var(--muted);background:none}
+.dots i[data-s="hit"]{background:var(--moss)}
+.dots i[data-s="miss"]{background:none;box-shadow:inset 0 0 0 1.5px var(--warn)}
+
+.promo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding-top:16px;
+}
+.promolab{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding-right:4px;
+}
+.promo button{
+  flex:1;
+  font-size:26px;
+  line-height:1;
+  font-family:"Segoe UI Symbol","Apple Symbols","DejaVu Sans",sans-serif;
+  color:var(--ink);
+  background:none;
+  border:1px solid var(--line);
+  border-radius:2px;
+  padding:10px 0;
+  cursor:pointer;
+}
+.promo button:hover{border-color:var(--moss);color:var(--moss)}
+
+/* ---- chess: the teaching text ---- */
+.teach{
+  font-size:19px;
+  line-height:1.55;
+  font-weight:300;
+  margin:0 0 16px;
+  text-wrap:pretty;
+}
+.teach.faint{font-size:16px;color:var(--muted);font-style:italic}
+
+/* ---- chess: the progress map ----
+   Not a position. Gaps between cells, motifs in visible pairs, rank titles,
+   no coordinates, no pieces. */
+.maprank{padding:0 0 18px}
+.mapcells{display:flex;gap:9px;padding-top:9px}
+.mappair{display:flex;gap:3px;flex:1}
+.mapsq{
+  flex:1;
+  aspect-ratio:1/1;
+  border:1px solid var(--line);
+  border-radius:1px;
+  background:linear-gradient(to top,var(--moss) 0 var(--fill,0%),var(--wash) var(--fill,0%) 100%);
+  cursor:pointer;
+  padding:0;
+}
+.mapsq[data-t="2"]{background:linear-gradient(to top,var(--moss) 0 var(--fill,0%),var(--line) var(--fill,0%) 100%)}
+.mapsq[data-f="1"]{background:var(--moss);border-color:var(--moss)}
+.mapsq:hover{border-color:var(--moss)}
+.maplegend{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.08em;
+  color:var(--muted);
+  line-height:1.7;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+
+/* ---- chess: the motif picker ---- */
+.tierrow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border-bottom:1px solid var(--line);
+  padding:13px 2px;
+  font-size:19px;
+  font-weight:300;
+}
+.tiers{display:flex;gap:6px;flex:0 0 auto}
+.tiers button{
+  width:34px;
+  height:34px;
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--muted);
+  background:none;
+  border:1px solid var(--line);
+  border-radius:2px;
+  cursor:pointer;
+}
+.tiers button[data-f="1"]{background:var(--moss);color:var(--on-moss);border-color:var(--moss)}
+.tiers button:hover{border-color:var(--moss);color:var(--moss)}
+.tiers button[data-f="1"]:hover{color:var(--on-moss)}
 
 :focus-visible{outline:2px solid var(--moss);outline-offset:3px}
