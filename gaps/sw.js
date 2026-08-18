@@ -1,10 +1,11 @@
 /* Service worker.
    Cache-first, because the bathroom and the dog walk are exactly where signal
    is worst. Bump VERSION on every deploy - old caches are dropped on activate.
-   Add new module and data files to ASSETS when you add a module.
+   Add new module and data files to ASSETS when you add a module. A file listed
+   here that does not exist is skipped, not fatal - but it is still a bug.
 */
 
-const VERSION = "gaps-v3";
+const VERSION = "gaps-v5";
 
 const ASSETS = [
   "./",
@@ -26,10 +27,16 @@ const ASSETS = [
   "./data/chess-puzzles.json"
 ];
 
+/* Cache each asset on its own. addAll() is all-or-nothing: one 404 rejects the
+   whole install, the worker never activates, and nothing is available offline -
+   with no error anywhere the browser will show you. A missing file should cost
+   that one file. Skips are logged. */
 self.addEventListener("install", e => {
   e.waitUntil(
     caches.open(VERSION)
-      .then(c => c.addAll(ASSETS))
+      .then(c => Promise.all(ASSETS.map(a =>
+        c.add(a).catch(err => console.warn("[sw] not cached:", a, err))
+      )))
       .then(() => self.skipWaiting())
   );
 });
