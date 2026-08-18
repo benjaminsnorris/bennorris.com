@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "note": "32 motifs, each occupying two squares: light = tier 1, dark = tier 2 (~300 Elo harder). Ranks progress 1 (foundations) to 8 (endgame technique). 'theme' values are literal Lichess puzzle theme tags and must match exactly for extraction to work.",
+  "ranks": [
+    {
+      "rank": 1,
+      "title": "Seeing the board",
+      "idea": "Before any tactic, you have to notice what is undefended and what is lined up. These four are the ones that decide most games under 2000.",
+      "motifs": [
+        {"theme": "hangingPiece", "name": "Hanging piece", "teach": "A piece is undefended or defended too few times. Most tactical wins at club level are simply this, missed. Before calculating anything clever, list every enemy piece that nothing is guarding — and every one of yours."},
+        {"theme": "fork", "name": "Fork", "teach": "One piece attacks two targets at once. The opponent can only save one. Knights fork most famously because their attack pattern can't be blocked, but every piece forks, including pawns and the king."},
+        {"theme": "pin", "name": "Pin", "teach": "A piece can't move without exposing something more valuable behind it. Absolute if the king is behind, relative otherwise. The follow-up is what matters: pile more attackers onto the pinned piece, since it can't run."},
+        {"theme": "skewer", "name": "Skewer", "teach": "The inverse of a pin — the valuable piece is in front. Attack it, it must move, and you take what was hiding behind it. Look for enemy king and queen on the same line."}
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Lines and discovery",
+      "idea": "Tactics that work by moving one piece to unleash another. Hardest to see, because the piece that delivers the blow isn't the piece you moved.",
+      "motifs": [
+        {"theme": "discoveredAttack", "name": "Discovered attack", "teach": "Move a piece out of the way and the piece behind it delivers the threat. The moving piece is free to make a second threat of its own, which is what makes this so strong — two threats, one move."},
+        {"theme": "doubleCheck", "name": "Double check", "teach": "A discovered attack where both pieces give check. The king must move — blocking and capturing can't answer two checks at once. This is why double check breaks positions that look defended."},
+        {"theme": "xRayAttack", "name": "X-ray", "teach": "Your piece attacks through an enemy piece to something beyond it. The attack is latent: it becomes real the moment the intervening piece leaves. Also works defensively, defending through a piece."},
+        {"theme": "interference", "name": "Interference", "teach": "Plant a piece on the line between a defender and what it defends, cutting the connection. Often a sacrifice, since the interfering piece can be captured — but by then the defense has already been severed."}
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Removing the guard",
+      "idea": "The target is defended, so you go after the defender instead. Four ways to do that.",
+      "motifs": [
+        {"theme": "capturingDefender", "name": "Capturing the defender", "teach": "The bluntest version: take the piece that was holding everything together. Ask what each enemy piece is defending before you evaluate whether a capture is worth it."},
+        {"theme": "deflection", "name": "Deflection", "teach": "Force a defender to leave its post by threatening something it values more. It's not removed, it's pulled away. Watch for pieces doing two jobs at once — those are the ones to deflect."},
+        {"theme": "attraction", "name": "Attraction", "teach": "The opposite of deflection: lure a piece *to* a square where it can be hit, usually the king to a square where a fork or check lands. Often costs material up front, which is why it's easy to miss."},
+        {"theme": "clearance", "name": "Clearance", "teach": "Your own piece is in the way of your own attack. Move it with tempo — a check or a threat — so you get the line open for free. Look for your pieces blocking your own rooks and bishops."}
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Tempo and restraint",
+      "idea": "Tactics that don't look like tactics. These are where most improvers plateau, because the winning move isn't a capture or a check.",
+      "motifs": [
+        {"theme": "intermezzo", "name": "In-between move", "teach": "Also called zwischenzug. Instead of making the recapture everyone expects, insert a more forcing move first — a check or a bigger threat — then take. The tempo changes the whole evaluation."},
+        {"theme": "quietMove", "name": "Quiet move", "teach": "The winning move is not a check, not a capture, not a threat to a piece. It's a move that creates an unstoppable threat for next move. These are the hardest puzzles to solve because your eye skips them."},
+        {"theme": "defensiveMove", "name": "Defensive move", "teach": "Sometimes the puzzle is survival, not conquest. Find the one move that holds. Trains the habit of asking what your opponent is threatening before you ask what you can win."},
+        {"theme": "trappedPiece", "name": "Trapped piece", "teach": "A piece has no safe squares. You don't have to win it now — you have to notice it's cornered and then attack it with something it can't answer. Queens and knights on the rim trap most often."}
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "Investing material",
+      "idea": "Giving something up on purpose. The line has to be forced, which means calculation, not hope.",
+      "motifs": [
+        {"theme": "sacrifice", "name": "Sacrifice", "teach": "Give material now for a forced sequence that returns more. The test is whether every opponent reply is covered. If you can't see the end of the line, it isn't a sacrifice, it's a donation."},
+        {"theme": "advancedPawn", "name": "Advanced pawn", "teach": "A pawn deep in enemy territory becomes worth far more than a pawn. Whole tactics exist to escort it or to clear its path. Evaluate the pawn by how close it is to promoting, not by its nominal value."},
+        {"theme": "promotion", "name": "Promotion", "teach": "The threat of a new queen is a tactical weapon before the pawn ever arrives. Pieces get deflected, lines get cleared, defenders get overloaded — all to make one pawn's last step legal."},
+        {"theme": "underPromotion", "name": "Underpromotion", "teach": "Rare and beautiful: promoting to knight, rook, or bishop because a queen would stalemate or because a knight forks. Worth knowing precisely because you'll never find it if you don't know it exists."}
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "Attacking the king",
+      "idea": "Moving from single tactics to sustained attack. These tags mark positions where the king is the target, not a piece.",
+      "motifs": [
+        {"theme": "exposedKing", "name": "Exposed king", "teach": "A king without a pawn shield or with open lines nearby is a standing target. Recognizing exposure tells you when to spend material for tempo — attacks against exposed kings justify sacrifices that would otherwise be reckless."},
+        {"theme": "kingsideAttack", "name": "Kingside attack", "teach": "The most common attacking pattern, since most kings castle short. Typical machinery: a knight to f5 or g5, a bishop on the b1-h7 diagonal, a rook lift, and h- or g-pawn advances."},
+        {"theme": "queensideAttack", "name": "Queenside attack", "teach": "Slower and more structural than kingside play, usually built on a pawn majority or an open c-file. Learn it and you stop being helpless when the opponent castles long."},
+        {"theme": "attackingF2F7", "name": "The f2/f7 square", "teach": "Defended only by the king at the start, which makes f7 and f2 the weakest squares on the board in the opening. A huge share of early tactics aim there. Check it every time you consider a sacrifice before move 15."}
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "Mating nets",
+      "idea": "Named patterns. Memorizing the shape is the whole point — you either see the net instantly or you don't see it at all.",
+      "motifs": [
+        {"theme": "backRankMate", "name": "Back rank mate", "teach": "The king is trapped behind its own unmoved pawns and a rook or queen delivers mate along the rank. Half the value here is defensive: knowing when to make luft before it's forced."},
+        {"theme": "smotheredMate", "name": "Smothered mate", "teach": "A knight mates a king boxed in entirely by its own pieces. The classic mechanism uses a queen sacrifice to force a rook onto the escape square. Only a knight can do this, since only a knight jumps."},
+        {"theme": "anastasiaMate", "name": "Anastasia's mate", "teach": "A knight on e7 or e2 takes the escape squares while a rook mates along the h-file. Frequently preceded by a queen sacrifice to drag the king to the edge. Learn the shape and it appears constantly."},
+        {"theme": "arabianMate", "name": "Arabian mate", "teach": "Rook and knight against a cornered king: the knight covers the flight squares and protects the rook, the rook gives mate. One of the oldest patterns in chess and still one of the most useful."}
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Endgame technique",
+      "idea": "Not motifs but families. Endgames are where tactical vocabulary turns into results, and where a small edge actually converts.",
+      "motifs": [
+        {"theme": "pawnEndgame", "name": "Pawn endgame", "teach": "Opposition, key squares, and the square of the pawn. Pure calculation with no forgiveness — a single tempo decides the result. The most valuable endgame study per hour spent."},
+        {"theme": "rookEndgame", "name": "Rook endgame", "teach": "The most common endgame in practice. Rooks belong behind passed pawns, yours and theirs. Learn the Lucena and Philidor positions and you'll save and win games that are otherwise coin flips."},
+        {"theme": "knightEndgame", "name": "Knight endgame", "teach": "Knights are slow, so passed pawns on opposite wings are decisive. Behaves more like a pawn endgame than a piece endgame — count tempi rather than trusting the knight to get back in time."},
+        {"theme": "bishopEndgame", "name": "Bishop endgame", "teach": "Same-color bishops are sharp; opposite-color bishops are drawish even a piece down, because each bishop can only guard half the board. Knowing which one you're heading into changes what you trade."}
+      ]
+    }
+  ]
+}
