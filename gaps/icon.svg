@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Gaps">
+  <rect width="512" height="512" rx="96" fill="#3F5F4E"/>
+  <rect x="96" y="150" width="320" height="26" rx="13" fill="#F4F6F3"/>
+  <rect x="96" y="230" width="320" height="26" rx="13" fill="#F4F6F3" opacity=".45"/>
+  <rect x="96" y="310" width="180" height="26" rx="13" fill="#F4F6F3" opacity=".45"/>
+  <circle cx="352" cy="323" r="30" fill="#9CC0A8"/>
+</svg>
