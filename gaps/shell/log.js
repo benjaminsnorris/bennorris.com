@@ -22,11 +22,18 @@
 import { Store } from "./store.js";
 
 const KEY = "log";
-const CAP = 2000;          // ~50 days at ten gaps a day; oldest fall off first
+const DEVICE_KEY = "device-id";
+const CAP = 10000;         // ~250 days at ten gaps a day; oldest fall off first.
+                           // Matches LOG_CAP in merge.js - if the live cap were
+                           // lower, the next add() would trim a merged log
+                           // right back down.
 const FLUSH_EVERY = 20;
 
 let events = [];
 let pending = 0;
+let device = "?";          // stamped on every event, so a merged log still
+                           // shows which device did what - the question the
+                           // whole cross-device effort hangs on
 
 function stamp(d = new Date()){
   const p = n => String(Math.floor(Math.abs(n))).padStart(2, "0");
@@ -40,12 +47,19 @@ export const Log = {
   async init(){
     const saved = await Store.load(KEY);
     events = Array.isArray(saved) ? saved : [];
+    // Four base36 chars, minted once per device and never merged (merge.js
+    // holds the line). Events written before this existed simply lack `d`.
+    device = await Store.load(DEVICE_KEY);
+    if(!device){
+      device = Math.random().toString(36).slice(2, 6);
+      await Store.save(DEVICE_KEY, device);
+    }
   },
 
   // Buffered in memory rather than written per event: an installed web app is
   // frozen without warning, so the shell flushes on hide and on completion.
   add(name, detail){
-    events.push(Object.assign({ t: stamp(), e: name }, detail || {}));
+    events.push(Object.assign({ t: stamp(), d: device, e: name }, detail || {}));
     if(events.length > CAP) events = events.slice(-CAP);
     if(++pending >= FLUSH_EVERY) this.flush();
     return true;
@@ -53,6 +67,15 @@ export const Log = {
 
   flush(){
     if(!pending) return Promise.resolve(true);
+    pending = 0;
+    return Store.save(KEY, events);
+  },
+
+  // For import: install a merged log as the log. Without this, the in-memory
+  // buffer - loaded before the merge - would overwrite the merged copy on the
+  // next flush.
+  replace(list){
+    events = Array.isArray(list) ? list.slice(-CAP) : [];
     pending = 0;
     return Store.save(KEY, events);
   },

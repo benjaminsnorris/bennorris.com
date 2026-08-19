@@ -117,6 +117,7 @@ Rules that matter in practice:
 
 - Persist through `ctx.store` only. Never `localStorage` directly — the adapter covers three backends, and `ctx.store.ok` tells you whether the write landed. A failed save must never lose the person's input.
 - One storage key, one read on mount, one write per completion.
+- **A new storage key needs a merge.** Import (`shell/merge.js`) combines two devices' state additively; a key it doesn't know is adopted-if-absent, otherwise skipped. That's safe but lossy, so a new module ships with a merger for its key and fixtures in `tests/test-merge.mjs` — decided when the schema is designed, not discovered at the first two-device merge.
 - Content belongs in `data/*.json`, not in code.
 - Colors come from tokens (`var(--moss)`), never literal hex. Both light and dark are defined; check WCAG AA on the small mono labels, which fail first.
 - Third-party libraries get **vendored into `vendor/`**, not loaded from a CDN — the service worker only caches same-origin, and offline is the point.
@@ -158,6 +159,7 @@ Also worth doing before shipping:
 - Every moment in `SHAPES` routes to at least one module
 - Simulate the progression loop over weeks of use — that's how the spaced-repetition bugs surfaced
 - Confirm every file in `sw.js`'s `ASSETS` exists and every relative import resolves
+- **Run `node tests/test-merge.mjs` after any change to `shell/merge.js` or to a module's state schema.** The merge rules are agreed, not obvious — additive only, higher level + earlier due for spaced rep, Chess's last-5 window from the fresher device, `filled` never unfills, `device-id` never merged — and the tests are their spec. A module that changes its stored shape must extend the fixtures there, or import will silently mishandle the new shape on the next two-device merge. Test files live in `tests/`, import via `../shell/…`, and stay out of `sw.js`'s `ASSETS`.
 
 ---
 

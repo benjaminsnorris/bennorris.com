@@ -19,6 +19,7 @@
 
 import { Store } from "./store.js";
 import { Log } from "./log.js";
+import { mergeAll } from "./merge.js";
 
 export const SHAPES = {
   screen:  { label: "At a screen",  hint: "Bathroom, before a call" },
@@ -185,7 +186,48 @@ async function exportData(btn){
   }catch(e){ say("Couldn't export"); }
 }
 
-function renderShapePicker(){
+/* ---- getting it back onto a phone ----
+
+   The other half of Export: pick a gaps-*.json exported from another device
+   and merge it in. Additive only - adds and advances, never removes, never
+   regresses - so importing the wrong file or the same file twice costs
+   nothing. The rules live in merge.js, where the harness can prove them.
+
+   The log goes through Log.replace rather than Store.save directly, because
+   the in-memory buffer was loaded before the merge and would otherwise
+   overwrite the merged copy on the next flush.
+*/
+function importData(btn){
+  const say = t => { if(btn) btn.textContent = t; };
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json,application/json";
+  input.addEventListener("change", async () => {
+    const file = input.files && input.files[0];
+    if(!file) return;
+    say("Working");
+    let payload;
+    try{ payload = JSON.parse(await file.text()); }
+    catch(e){ return say("Not readable as JSON"); }
+    if(!payload || payload.app !== "gaps" || !payload.data || typeof payload.data !== "object"){
+      return say("Not a Gaps export");
+    }
+    try{
+      await Log.flush();
+      const { writes, report } = mergeAll(await Store.dump(), payload.data);
+      for(const [key, value] of Object.entries(writes)){
+        if(key === "log") await Log.replace(value);
+        else await Store.save(key, value);
+      }
+      Log.add("import", { changes: report.length });
+      say("Merged");
+      renderShapePicker(report.length ? report.join(" · ") : "Nothing new — already in sync.");
+    }catch(e){ say("Couldn't merge"); }
+  });
+  input.click();
+}
+
+function renderShapePicker(note){
   setRail([]);
   countEl.innerHTML = "&nbsp;";
   picking = true;
@@ -204,17 +246,22 @@ function renderShapePicker(){
         ${v.label}<em>${v.hint}</em>
       </button>`).join("") +
     `</div>
+    ${typeof note === "string" && note ? `<div class="empty">${note}</div>` : ""}
     <div class="foot"><button class="skip" id="skipShape">Just ask me</button>${
       canSwitch ? `<button class="skip" id="otherMod">Something else</button>` : ``
-    }<button class="skip" id="dumpAll">Export</button></div>`;
+    }<button class="skip" id="dumpAll">Export</button><button class="skip" id="loadAll">Import</button></div>`;
 
   card.querySelectorAll(".pick").forEach(b => b.addEventListener("click", () => go(b.dataset.shape, "picked")));
   card.querySelector("#skipShape").addEventListener("click", () => go(lastShape, "kept"));
   const other = card.querySelector("#otherMod");
   if(other) other.addEventListener("click", renderModulePicker);
-  // Lives on the picker because it is the one screen that isn't a session, so
-  // reaching for it can't interrupt one.
+  // Export and Import live on the picker because it is the one screen that
+  // isn't a session, so reaching for either can't interrupt one. Import is
+  // safe here for a second reason: every route out of the picker remounts a
+  // module, and mount() reloads from the store, so merged state is what the
+  // next session sees.
   card.querySelector("#dumpAll").addEventListener("click", ev => exportData(ev.currentTarget));
+  card.querySelector("#loadAll").addEventListener("click", ev => importData(ev.currentTarget));
 }
 
 function renderModulePicker(){
