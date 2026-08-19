@@ -18,6 +18,7 @@
 */
 
 import { Store } from "./store.js";
+import { Log } from "./log.js";
 
 export const SHAPES = {
   screen:  { label: "At a screen",  hint: "Bathroom, before a call" },
@@ -94,29 +95,94 @@ async function setCount(){
   if(b) b.addEventListener("click", renderShapePicker);
 }
 
-async function run(mod){
+async function run(mod, by){
   if(active && active.unmount) active.unmount();
   active = mod;
   completed = false;
   picking = false;
   lastUsed[mod.id] = Date.now();
+  Log.add("shown", { module: mod.id, shape, by: by || "router" });
   await mod.mount({
     el: card,
     store: Store,
     shape,
     setRail,
     refresh: setCount,
-    done: () => { completed = true; return setCount(); },
-    again: () => run(mod)
+    done: () => {
+      completed = true;
+      Log.add("completed", { module: mod.id, shape });
+      Log.flush();
+      return setCount();
+    },
+    again: () => run(mod, "again"),
+    log: (name, detail) => Log.add(name, Object.assign({ module: mod.id, shape }, detail || {}))
   });
   await setCount();
 }
 
-function go(s){
+function go(s, via){
+  const changed = (s || null) !== shape;
   shape = s || null;
   if(shape){ lastShape = shape; Store.save(SHELL_KEY, { lastShape }); }
+  Log.add("moment", { shape, via: via || "picked", changed });
   const mod = choose(shape);
   if(mod) run(mod);
+}
+
+/* ---- getting it off the phone ----
+
+   The console is unreachable in an installed web app, which made gaps.export()
+   theoretical on the one device that holds the real data. This is the way out.
+
+   JSON, not markdown: the readable record is a separate thing to build if it
+   turns out to be wanted. The file is the whole store - answers, squares held,
+   lines held, the log - so it doubles as a backup, and so log events can be
+   joined to the answers they belong to.
+
+   Three routes, because a[download] is unreliable in an iOS standalone app:
+   the share sheet first (Save to Files, Mail, AirDrop), then a download, then
+   the clipboard. The button reports which one happened rather than claiming
+   success it can't verify.
+*/
+async function exportData(btn){
+  const say = t => { if(btn) btn.textContent = t; };
+  say("Working");
+  await Log.flush();
+  const payload = {
+    app: "gaps",
+    exportedAt: Log.stamp(),
+    storage: Store.backend,
+    data: await Store.dump()
+  };
+  const text = JSON.stringify(payload, null, 2);
+  const name = `gaps-${Log.stamp().slice(0, 10)}.json`;
+
+  try{
+    const file = new File([text], name, { type: "application/json" });
+    if(navigator.canShare && navigator.canShare({ files: [file] })){
+      await navigator.share({ files: [file], title: name });
+      return say("Shared");
+    }
+  }catch(e){
+    if(e && e.name === "AbortError") return say("Export");   // you cancelled
+  }
+
+  try{
+    const url = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    return say("Downloaded");
+  }catch(e){ /* fall through */ }
+
+  try{
+    await navigator.clipboard.writeText(text);
+    return say("Copied");
+  }catch(e){ say("Couldn't export"); }
 }
 
 function renderShapePicker(){
@@ -139,13 +205,16 @@ function renderShapePicker(){
       </button>`).join("") +
     `</div>
     <div class="foot"><button class="skip" id="skipShape">Just ask me</button>${
-      canSwitch ? `<button class="skip" id="otherMod">Something else</button>` : `<span></span>`
-    }</div>`;
+      canSwitch ? `<button class="skip" id="otherMod">Something else</button>` : ``
+    }<button class="skip" id="dumpAll">Export</button></div>`;
 
-  card.querySelectorAll(".pick").forEach(b => b.addEventListener("click", () => go(b.dataset.shape)));
-  card.querySelector("#skipShape").addEventListener("click", () => go(lastShape));
+  card.querySelectorAll(".pick").forEach(b => b.addEventListener("click", () => go(b.dataset.shape, "picked")));
+  card.querySelector("#skipShape").addEventListener("click", () => go(lastShape, "kept"));
   const other = card.querySelector("#otherMod");
   if(other) other.addEventListener("click", renderModulePicker);
+  // Lives on the picker because it is the one screen that isn't a session, so
+  // reaching for it can't interrupt one.
+  card.querySelector("#dumpAll").addEventListener("click", ev => exportData(ev.currentTarget));
 }
 
 function renderModulePicker(){
@@ -166,7 +235,11 @@ function renderModulePicker(){
   card.querySelectorAll(".pick").forEach(b => {
     b.addEventListener("click", () => {
       const mod = options.find(m => m.id === b.dataset.id);
-      if(mod) run(mod);
+      if(!mod) return;
+      // The pair is the point: the router offered one thing and you took
+      // another. A rejection is worth more than either id on its own.
+      if(active && mod.id !== active.id) Log.add("switched", { from: active.id, to: mod.id, shape });
+      run(mod, "you");
     });
   });
   card.querySelector("#backShape").addEventListener("click", renderShapePicker);
@@ -192,8 +265,12 @@ function draftPending(){
     .some(el => typeof el.value === "string" && el.value.trim() !== "");
 }
 
+function onHidden(){
+  Log.flush();
+}
+
 function resumeFresh(){
-  if(typeof document.visibilityState === "string" && document.visibilityState !== "visible") return;
+  if(typeof document.visibilityState === "string" && document.visibilityState !== "visible") return onHidden();
   if(picking || !completed || draftPending()) return;
   if(shapeMatters()) return renderShapePicker();
   go(lastShape);
@@ -211,8 +288,10 @@ export async function start(){
   }
 
   document.addEventListener("visibilitychange", resumeFresh);
+  window.addEventListener("pagehide", onHidden);
   window.addEventListener("pageshow", e => { if(e && e.persisted) resumeFresh(); });
 
+  await Log.init();
   const shell = await Store.load(SHELL_KEY);
   if(shell && shell.lastShape) lastShape = shell.lastShape;
   if(shapeMatters()) return renderShapePicker();

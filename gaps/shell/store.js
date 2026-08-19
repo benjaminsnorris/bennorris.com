@@ -66,6 +66,30 @@ export const Store = {
     }
   },
 
+  /* Everything this app has stored, for export. The console is unreachable in
+     an installed web app, so this is the only way data leaves the phone. */
+  async dump(){
+    const out = {};
+    try{
+      if(backend === "artifact"){
+        const r = await window.storage.list();
+        for(const k of (r && r.keys) || []){
+          const v = await window.storage.get(k);
+          if(v && v.value) out[k] = JSON.parse(v.value);
+        }
+      }else if(backend === "local"){
+        for(let i = 0; i < localStorage.length; i++){
+          const k = localStorage.key(i);
+          if(!k || k.indexOf(PREFIX) !== 0) continue;
+          try{ out[k.slice(PREFIX.length)] = JSON.parse(localStorage.getItem(k)); }
+          catch(e){ out[k.slice(PREFIX.length)] = localStorage.getItem(k); }
+        }
+      }
+      memory.forEach((v, k) => { if(!(k in out)) out[k] = v; });
+    }catch(e){ /* partial is better than nothing */ }
+    return out;
+  },
+
   async remove(key){
     try{
       if(backend === "artifact") await window.storage.delete(key);

@@ -82,6 +82,7 @@ export const Ask = (() => {
     go.addEventListener("click", () => commit(ta.value.trim()));
     if(skips < 2){
       ctx.el.querySelector("#skip").addEventListener("click", () => {
+        ctx.log("skip", { deck: current && current[0], n: skips + 1 });
         skips++; current = pick(); renderAsk();
       });
     }
@@ -100,6 +101,8 @@ export const Ask = (() => {
     ctx.el.innerHTML = `<div class="picktitle">Ask me about</div><div class="scroll">${rows}</div>`;
     ctx.el.querySelectorAll(".pick").forEach(b => {
       b.addEventListener("click", () => {
+        // What the weights served vs. what was actually wanted in this moment.
+        ctx.log("deck", { from: current && current[0], to: b.dataset.key || "auto" });
         chosen = b.dataset.key || null;
         skips = 0; current = pick(); renderAsk();
       });
