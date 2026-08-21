@@ -82,3 +82,12 @@
     typology (2013) and the argument around it; the artifact is a task
     abstraction memo.
   tracked: true
+
+- slug: chess-attackers
+  title: 'Chess: Counting Attackers'
+  description: >-
+    How many pieces hit a square, fast enough that the answer arrives before
+    you have finished asking. Three rules, the third one being batteries and
+    x-ray attackers; the gate is eighteen of twenty held-out positions, each
+    inside its clock. Unit 3 of four on board vision.
+  tracked: true
