@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="board-vision-counting"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Counting attackers — board vision</title>
+<style>
+:root{
+  color-scheme: light dark;
+  --ground:#F4F2ED; --surface:#FFFFFF; --panel:#EAE7DF;
+  --ink:#191C21; --ink-soft:#414751; --ink-mute:#616873;
+  --rule:#C6C0B2; --rule-strong:#857E6C; --btn-fg:#FFFFFF;
+  --signal:#125E5A; --good:#155D3B; --good-bg:#E0EFE7;
+  --miss:#8E3122; --miss-bg:#F7E3DE;
+  --sq-l:#E4D7BE; --sq-d:#AC8A67;
+  --got:#0E3A36; --missed:#4A3200; --bad:#6B1206; --sel:#14375F;
+  --pip-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
+  --serif: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root{ 
+  --ground:#12151A; --surface:#1A1F26; --panel:#232932;
+  --ink:#E9EBE7; --ink-soft:#B8C0C8; --ink-mute:#8D969F;
+  --rule:#3F4954; --rule-strong:#717B88; --btn-fg:#0E1216;
+  --signal:#79CFC6; --good:#86D6A8; --good-bg:#152B21;
+  --miss:#EC9784; --miss-bg:#33201B;
+  --sq-l:#A89778; --sq-d:#634D37;
+  --got:#0E3A36; --missed:#4A3200; --bad:#6B1206; --sel:#14375F;
+  --pip-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
+ } }
+[data-theme="light"]{ color-scheme: light; 
+  --ground:#F4F2ED; --surface:#FFFFFF; --panel:#EAE7DF;
+  --ink:#191C21; --ink-soft:#414751; --ink-mute:#616873;
+  --rule:#C6C0B2; --rule-strong:#857E6C; --btn-fg:#FFFFFF;
+  --signal:#125E5A; --good:#155D3B; --good-bg:#E0EFE7;
+  --miss:#8E3122; --miss-bg:#F7E3DE;
+  --sq-l:#E4D7BE; --sq-d:#AC8A67;
+  --got:#0E3A36; --missed:#4A3200; --bad:#6B1206; --sel:#14375F;
+  --pip-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
+ }
+[data-theme="dark"]{ color-scheme: dark; 
+  --ground:#12151A; --surface:#1A1F26; --panel:#232932;
+  --ink:#E9EBE7; --ink-soft:#B8C0C8; --ink-mute:#8D969F;
+  --rule:#3F4954; --rule-strong:#717B88; --btn-fg:#0E1216;
+  --signal:#79CFC6; --good:#86D6A8; --good-bg:#152B21;
+  --miss:#EC9784; --miss-bg:#33201B;
+  --sq-l:#A89778; --sq-d:#634D37;
+  --got:#0E3A36; --missed:#4A3200; --bad:#6B1206; --sel:#14375F;
+  --pip-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
+ }
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:17px;line-height:1.62;-webkit-text-size-adjust:100%}
+.wrap{max-width:44rem;margin:0 auto;padding:0 18px 8rem}
+@media (min-width:760px){ body{font-size:18px} .wrap{padding:0 32px 8rem} }
+h1,h2,h3{font-family:var(--sans);line-height:1.22;letter-spacing:-.012em}
+h1{font-size:1.8rem;margin:.2em 0 .3em;font-weight:650}
+h2{font-size:1.26rem;margin:2.2em 0 .5em;font-weight:640}
+h3{font-size:1rem;margin:1.8em 0 .4em;font-weight:640;color:var(--ink-soft)}
+p{margin:0 0 1.05em}
+ul,ol{padding-left:1.25em;margin:0 0 1.1em} li{margin:.34em 0}
+a{color:var(--signal)}
+code,.fen{font-family:var(--mono);font-size:.84em;background:var(--panel);
+  padding:.1em .35em;border-radius:3px;word-break:break-all}
+.kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-mute);margin:0}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 0 6px;margin-bottom:.6rem}
+#themeBtn{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;color:var(--ink-mute);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:0 14px;min-height:44px;cursor:pointer;flex:0 0 auto}
+
+/* the four units are separate published courses, so this is plain links -
+   a page cannot know whether another one has been finished */
+nav.units{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:14px;
+  border-bottom:1px solid var(--rule);margin-bottom:1.5rem}
+nav.units a,nav.units span{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;padding:9px 11px;border-radius:999px;
+  border:1px solid var(--rule);color:var(--ink-mute);min-height:38px;
+  display:inline-flex;align-items:center}
+nav.units a:hover{color:var(--ink);border-color:var(--ink-mute)}
+nav.units [aria-current]{background:var(--signal);color:var(--btn-fg);border-color:var(--signal);font-weight:600}
+
+.meter{background:var(--panel);border-radius:10px;padding:12px 14px;margin:1.2rem 0}
+.meter .big{font-family:var(--sans);font-size:1rem;font-weight:640}
+.meter .sub{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-mute);margin-top:.3em}
+
+.unit{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+  padding:18px 16px;margin:1.4rem 0}
+@media (min-width:760px){ .unit{padding:26px 28px} }
+.unithead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px}
+.unithead .n{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--signal)}
+.est{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-mute)}
+
+.callout{background:var(--panel);border-left:3px solid var(--signal);
+  border-radius:0 8px 8px 0;padding:14px 16px;margin:1.3em 0}
+.callout p:last-child{margin-bottom:0}
+.callout .lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--signal);display:block;margin-bottom:.45em}
+
+.rules{list-style:none;padding:0;margin:1.1em 0}
+.rules li{display:flex;gap:12px;padding:.65em 0;border-bottom:1px solid var(--rule)}
+.rules li:last-child{border-bottom:0}
+.rules .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--signal);flex:0 0 auto;min-width:4.6em;padding-top:.3em}
+
+.board{width:100%;max-width:336px;margin:0 auto;display:grid;
+  grid-template-columns:repeat(8,1fr);border:1px solid var(--rule-strong);
+  border-radius:6px;overflow:hidden;touch-action:manipulation}
+.sq{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  font-size:min(8.4vw,30px);line-height:1;user-select:none;position:relative;
+  padding:0;border:0;font-family:inherit}
+.board.tappable .sq{cursor:pointer}
+.sq.l{background:var(--sq-l)} .sq.d{background:var(--sq-d)}
+.sq.ring::after,.sq.sel::after{content:"";position:absolute;inset:6%;border-radius:4px;
+  border:3px solid var(--bad);box-shadow:0 0 0 1.5px var(--pip-edge),inset 0 0 0 1.5px var(--pip-edge)}
+.sq.sel::after{border-color:var(--sel)}
+/* three states, three shapes. Colour alone would be unreadable to anyone who
+   cannot separate a deep teal from a deep red, and all three have to stay dark
+   enough to hold against a mid-tone square. */
+.sq.pip::before{content:"";position:absolute;left:6%;top:6%;width:26%;height:26%;
+  border-radius:50%;background:var(--got);box-shadow:0 0 0 1.5px var(--pip-edge);z-index:2}
+.sq.pip-missed::before{background:transparent;border:3px solid var(--missed);
+  box-shadow:0 0 0 1.5px var(--pip-edge),inset 0 0 0 1.5px var(--pip-edge)}
+.sq.pip-bad::before{background:var(--bad);border-radius:2px}
+.pc{position:relative;z-index:1;font-variant-emoji:text;pointer-events:none}
+.pc[data-t="p"]{font-size:.80em}
+.pc[data-t="r"]{font-size:.92em}
+.pc[data-t="n"]{font-size:1em}
+.pc[data-t="b"]{font-size:1.06em}
+.pc[data-t="q"]{font-size:1.02em}
+.pc[data-t="k"]{font-size:1.04em}
+.boardcap{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-mute);text-align:center;margin-top:.7em}
+.key{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:.6em;
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute)}
+.key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.key .a{background:var(--got)}
+.key .b{background:transparent;border:2.5px solid var(--missed)}
+.key .c{background:var(--bad);border-radius:2px}
+
+.ask{font-family:var(--sans);font-size:1.04rem;font-weight:640;text-align:center;margin:.9em 0 .2em}
+.clock{height:5px;border-radius:3px;background:var(--rule);overflow:hidden;margin:.7em 0 .2em}
+.clock i{display:block;height:100%;width:0;background:var(--signal)}
+.clock.over i{background:var(--miss)}
+.clocklbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-mute);text-align:center}
+
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:1em 0}
+@media (min-width:520px){ .nums{grid-template-columns:repeat(6,1fr)} }
+.nums button{font-family:var(--sans);font-size:1.05rem;font-weight:640;min-height:52px;
+  background:var(--surface);color:var(--ink);border:1px solid var(--rule-strong);
+  border-radius:8px;cursor:pointer}
+.nums button:disabled{opacity:.45;cursor:default}
+.picked{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-mute);text-align:center;margin:.7em 0 0;min-height:1.2em}
+
+.verdict{border-radius:8px;padding:12px 14px;margin:1em 0;font-family:var(--sans);font-size:.94rem}
+.verdict.ok{background:var(--good-bg);color:var(--good)}
+.verdict.no{background:var(--miss-bg);color:var(--miss)}
+.verdict b{font-weight:700}
+
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:.9em 0}
+.btn{font-family:var(--sans);font-size:.9rem;font-weight:600;background:var(--signal);
+  color:var(--btn-fg);border:0;border-radius:8px;min-height:44px;padding:0 18px;cursor:pointer}
+.btn:disabled{background:var(--panel);color:var(--ink-mute);cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--signal);border:1px solid var(--rule-strong)}
+.btn.flag[aria-pressed="true"]{background:var(--good-bg);color:var(--good);border-color:var(--good)}
+.nxtop{justify-content:center;margin:.6em 0 0}
+.miss{border-top:1px solid var(--rule);padding-top:1.1em;margin-top:1.4em}
+.miss .board{margin-top:.8em}
+.misshead{font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:.5em}
+
+.packet{width:100%;font-family:var(--mono);font-size:.76rem;line-height:1.5;
+  background:var(--ground);color:var(--ink);border:1px solid var(--rule-strong);
+  border-radius:8px;padding:11px 12px;min-height:180px;resize:vertical;white-space:pre}
+.hidden{display:none}
+footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--rule);
+  color:var(--ink-mute);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span class="kicker">Board vision &middot; unit 3</span>
+  <button id="themeBtn" type="button">Theme</button>
+</header>
+<nav class="units"><a href="/courses/board-vision-squares/">1 Squares</a><a href="/courses/board-vision-attacks/">2 Attacks</a><span aria-current="page">3 Counting</span><a href="/courses/board-vision-loose/">4 Loose</a><a href="/courses/board-vision-check/">✓ Final check</a></nav>
+
+<h1>Counting attackers</h1>
+<p style="font-size:1.03rem;color:var(--ink-soft)">How many pieces hit a square — fast enough that the answer arrives before you have finished asking.</p>
+
+<div class="meter">
+  <div class="big" id="meterBig">Not started</div>
+  <div class="sub" id="meterSub">clean = right, and inside the cap</div>
+</div>
+
+<div class="callout"><span class="lbl">What this unit is for</span><p>Every question in the seeds course reduces to this one. <em>Is that piece loose?</em>
+    is "zero defenders." <em>Is it underguarded?</em> is "more attackers than defenders." If counting
+    is slow or wrong, everything built on top inherits the error and you never find out where it
+    came from.</p>
+    <p style="margin-bottom:0">So the target is not accuracy. It is accuracy <strong>under a clock</strong>.
+    Counting correctly in forty seconds is not board vision — in a real game that budget is already
+    spent on something else.</p></div>
+
+<div class="callout"><span class="lbl">Not in this unit</span><ul style="margin-bottom:0"><li>Whether a capture is <em>good</em>. Counting comes first.</li><li>Tactics, motifs, or seeds. Those need this unit finished.</li><li>Legality. A pinned piece still attacks what it attacks.</li></ul></div>
+
+<section class="unit">
+  <div class="unithead"><span class="n">Block 1</span><span class="est">Read &middot; ~8 min</span></div>
+  <h2>The rules</h2>
+  <ul class="rules"><li><span class="k">Rule 1</span><span>A piece <strong>attacks</strong> a square if that square is one it could <em>capture on</em>. Two things never change the answer: what is standing on the square, and whether moving there would be legal right now — a pinned piece still attacks everything it attacked before it was pinned.</span></li><li><span class="k">Rule 1a</span><span>What <em>does</em> change the answer is <strong>how the piece captures</strong>. Every piece except the pawn captures exactly the way it moves. A pawn does not: it moves straight ahead and captures diagonally, so it attacks only the one or two diagonal squares and <strong>never</strong> the square directly in front of it. A king attacks all eight neighbours, never the square it stands on.</span></li><li><span class="k">Rule 2</span><span>A queen, rook or bishop stops at the first piece in the way. If anything at all sits between it and the square, it does not attack that square.</span></li><li><span class="k">Rule 3</span><span>Unless that piece is one of yours that attacks the same square. Then both count: a rook behind a rook on an open file, a queen behind a bishop on a diagonal. This is a <em>battery</em>, and the piece behind is an <em>x-ray</em> attacker.</span></li></ul>
+  <div class="callout"><span class="lbl">Rule 1 versus rule 1a</span><p style="margin-bottom:0">These pull in opposite directions and the difference is worth holding onto. <em>Legality</em> is about this position: a pin, a check, a king that would step into danger. Ignore all of it. <em>Capture geometry</em> is about the piece itself and never bends — a pawn cannot capture forwards in any position, so the square ahead of it is not attacked, not even a little.</p></div>
+</section>
+
+<section class="unit">
+  <div class="unithead"><span class="n">Block 2</span><span class="est">Do &middot; ~20 min</span></div>
+  <h2>Practice — ten positions, with the answer shown</h2>
+  <p>The clock runs but nothing is at stake. Feedback is full at first and thins out, so by the last three you get the answer and nothing else.</p>
+  <div id="pWrap"><div class="row"><button class="btn" type="button">Start practice</button></div></div>
+</section>
+
+<section class="unit">
+  <div class="unithead"><span class="n">Block 3</span><span class="est">Do &middot; ~12 min</span></div>
+  <h2>The check — twenty positions you have not seen</h2>
+  <p>Drawn fresh from a held-out pool, so a retake is a new set rather than a memory test. No feedback until the end.</p>
+  <p><strong>The gate is 18 of 20, each inside its cap.</strong> Two misses is not generosity — it is the width of a bad day. A third means the rule has not automated yet, which is a reason to keep drilling and not a verdict about you.</p>
+  <div id="hWrap"><div class="row"><button class="btn" type="button">Start the check</button></div></div>
+</section>
+
+<section class="unit">
+  <div class="unithead"><span class="n">Block 4</span><span class="est">Ask &middot; open-ended</span></div>
+  <h2>The misses are the useful part</h2>
+  <p>Add anything you got wrong, or got right and did not trust. The button below assembles every added position into one block of text and copies it. Paste it into the tutor project and argue about it.</p>
+  <div class="callout"><span class="lbl">Ask for the rule, not the answer</span>
+    <p style="margin-bottom:0">You already have the answer; it is in the packet. The question worth asking is which rule you applied wrongly, and whether the mistake was the rule or the reading. Those need opposite fixes — a misremembered rule gets restated, a misread board gets drilled.</p></div>
+  <div class="row">
+    <button class="btn" id="mkPacket" type="button">Build the packet</button>
+    <button class="btn ghost" id="cpPacket" type="button">Copy</button>
+    <button class="btn ghost" id="clrPacket" type="button" style="visibility:hidden">Empty it</button>
+    <span class="est" id="packetMsg"></span>
+  </div>
+  <textarea class="packet hidden" id="packetOut" readonly></textarea>
+</section>
+
+<footer>
+  <p>Unit 3 of four, plus a final mixed check. Each unit is a separate page and keeps its own progress and its own packet.</p>
+  <p style="margin-bottom:0">Every answer on this page was computed from the position, not written by hand.</p>
+</footer>
+
+</div>
+
+<script type="text/course-deferred">
+var KEY = 'state', SCHEMA = 1;
+function fresh(){ return { v:SCHEMA, theme:null, practice:[], holdout:null, flags:{}, seen:{} }; }
+var S = fresh();
+try { var raw = localStorage.getItem(KEY); if(raw){ var p = JSON.parse(raw);
+  if(p && typeof p === 'object'){ S = p; S.v = SCHEMA;
+    S.practice = S.practice || []; S.flags = S.flags || {};
+    S.seen = S.seen || {}; } } } catch(e){}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+function refreshPacket(){
+  var n = Object.keys(S.flags).length, el = document.getElementById('packetMsg');
+  var clr = document.getElementById('clrPacket');
+  if(el) el.textContent = n ? n + (n === 1 ? ' position waiting' : ' positions waiting') : 'Nothing added yet.';
+  if(clr) clr.style.visibility = n ? 'visible' : 'hidden';
+}
+var BANK = {"practice":[{"unit":3,"level":"A","cap":10,"fen":"r2qkbnr/pp1npppb/2p4p/7P/3P4/5NN1/PPP2PP1/R1BQKB1R w KQkq - 1 9","flip":false,"ask":"How many White pieces attack f2?","target":"f2","count":1,"marks":"e1","battery":"e1","direct":"e1","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/pp1nbppp/2p1pn2/3p2B1/2PP4/2N1PN2/PP3PPP/2RQKB1R w K - 0 8","flip":false,"ask":"How many White pieces attack b3?","target":"b3","count":2,"marks":"a2 d1","battery":"a2 d1","direct":"a2 d1","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"rnbq1rk1/pp2nppp/4p3/2ppP3/3P2Q1/P1P5/2P2PPP/R1B1KBNR w KQ - 3 8","flip":false,"ask":"How many White pieces attack g3?","target":"g3","count":3,"marks":"f2 g4 h2","battery":"f2 g4 h2","direct":"f2 g4 h2","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"rnbq1rk1/1p2bppp/p2p1n2/4p3/4P3/1NN5/PPP1BPPP/R1BQ1RK1 w - - 4 9","flip":false,"ask":"How many Black pieces attack f7?","target":"f7","count":2,"marks":"f8 g8","battery":"f8 g8","direct":"f8 g8","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack f4?","target":"f4","count":1,"marks":"e5","battery":"e5","direct":"e5","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/pp3ppp/2n1pn2/2pp4/2PP4/P1bBPN2/1P3PPP/R1BQ1RK1 w - - 0 9","flip":false,"ask":"How many Black pieces attack b8?","target":"b8","count":2,"marks":"a8 c6","battery":"a8 c6","direct":"a8 c6","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1 w - - 2 7","flip":false,"ask":"How many Black pieces attack d4?","target":"d4","count":3,"marks":"c5 c6 e5","battery":"c5 c6 e5","direct":"c5 c6 e5","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1 w - - 2 7","flip":false,"ask":"How many White pieces attack c1?","target":"c1","count":2,"marks":"d1 f1","battery":"d1 f1","direct":"d1","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1b2rk1/ppq2ppp/2nbpn2/2pp4/3P4/2PBPNB1/PP1N1PPP/R2QK2R w KQ - 3 9","flip":false,"ask":"How many Black pieces attack e5?","target":"e5","count":3,"marks":"c6 c7 d6","battery":"c6 c7 d6","direct":"c6 d6","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1b2rk1/ppq2ppp/2nbpn2/2pp4/3P4/2PBPNB1/PP1N1PPP/R2QK2R w KQ - 3 9","flip":false,"ask":"How many White pieces attack e1?","target":"e1","count":4,"marks":"a1 d1 f3 h1","battery":"a1 d1 f3 h1","direct":"d1 f3 h1","single":false,"mode":"count"}],"holdout":[{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack g7?","target":"g7","count":1,"marks":"g8","battery":"g8","direct":"g8","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp1bppp/1nn5/4p3/8/2NP1NP1/PP2PPBP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack e6?","target":"e6","count":2,"marks":"c8 f7","battery":"c8 f7","direct":"c8 f7","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"rnbq1rk1/pp2nppp/4p3/2ppP3/3P2Q1/P1P5/2P2PPP/R1B1KBNR w KQ - 3 8","flip":false,"ask":"How many Black pieces attack d5?","target":"d5","count":3,"marks":"d8 e6 e7","battery":"d8 e6 e7","direct":"d8 e6 e7","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many White pieces attack e4?","target":"e4","count":1,"marks":"c3","battery":"c3","direct":"c3","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many White pieces attack g5?","target":"g5","count":2,"marks":"c1 f3","battery":"c1 f3","direct":"c1 f3","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"rnbq1rk1/pp2nppp/4p3/2ppP3/3P2Q1/P1P5/2P2PPP/R1B1KBNR w KQ - 3 8","flip":false,"ask":"How many White pieces attack f3?","target":"f3","count":3,"marks":"g1 g2 g4","battery":"g1 g2 g4","direct":"g1 g2 g4","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1 w - - 2 7","flip":false,"ask":"How many Black pieces attack c5?","target":"c5","count":1,"marks":"d6","battery":"d6","direct":"d6","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1b2rk1/ppq2ppp/2nbpn2/2pp4/3P4/2PBPNB1/PP1N1PPP/R2QK2R w KQ - 3 9","flip":false,"ask":"How many White pieces attack g3?","target":"g3","count":2,"marks":"f2 h2","battery":"f2 h2","direct":"f2 h2","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp1bppp/1nn5/4p3/8/2NP1NP1/PP2PPBP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack d4?","target":"d4","count":3,"marks":"c6 d8 e5","battery":"c6 d8 e5","direct":"c6 d8 e5","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many White pieces attack c4?","target":"c4","count":1,"marks":"e2","battery":"e2","direct":"e2","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/pp3ppp/2n1pn2/2pp4/2PP4/P1bBPN2/1P3PPP/R1BQ1RK1 w - - 0 9","flip":false,"ask":"How many White pieces attack e2?","target":"e2","count":2,"marks":"d1 d3","battery":"d1 d3","direct":"d1 d3","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r2qk2r/pp1n1ppp/2p1pn2/5b2/PbBP4/2N1PN2/1P3PPP/R1BQ1RK1 w kq - 3 9","flip":false,"ask":"How many White pieces attack b5?","target":"b5","count":3,"marks":"a4 c3 c4","battery":"a4 c3 c4","direct":"a4 c3 c4","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"How many Black pieces attack c7?","target":"c7","count":1,"marks":"d8","battery":"d8","direct":"d8","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many White pieces attack b3?","target":"b3","count":2,"marks":"a2 d1","battery":"a2 d1","direct":"a2 d1","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1 w - - 2 7","flip":false,"ask":"How many Black pieces attack d6?","target":"d6","count":3,"marks":"c5 c7 d8","battery":"c5 c7 d8","direct":"c5 c7 d8","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r2qkbnr/pp1npppb/2p4p/7P/3P4/5NN1/PPP2PP1/R1BQKB1R w KQkq - 1 9","flip":false,"ask":"How many White pieces attack a2?","target":"a2","count":1,"marks":"a1","battery":"a1","direct":"a1","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/ppp1bppp/1nn5/4p3/8/2NP1NP1/PP2PPBP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many White pieces attack g3?","target":"g3","count":2,"marks":"f2 h2","battery":"f2 h2","direct":"f2 h2","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"rnbq1rk1/pp2nppp/4p3/2ppP3/3P2Q1/P1P5/2P2PPP/R1B1KBNR w KQ - 3 8","flip":false,"ask":"How many Black pieces attack c6?","target":"c6","count":3,"marks":"b7 b8 e7","battery":"b7 b8 e7","direct":"b7 b8 e7","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"rnbq1rk1/1p2bppp/p2p1n2/4p3/4P3/1NN5/PPP1BPPP/R1BQ1RK1 w - - 4 9","flip":false,"ask":"How many Black pieces attack h3?","target":"h3","count":1,"marks":"c8","battery":"c8","direct":"c8","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"rnbq1rk1/1p2bppp/p2p1n2/4p3/4P3/1NN5/PPP1BPPP/R1BQ1RK1 w - - 4 9","flip":false,"ask":"How many Black pieces attack g6?","target":"g6","count":2,"marks":"f7 h7","battery":"f7 h7","direct":"f7 h7","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"How many Black pieces attack d7?","target":"d7","count":3,"marks":"c8 d8 f6","battery":"c8 d8 f6","direct":"c8 d8 f6","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"rnbq1rk1/pp2nppp/4p3/2ppP3/3P2Q1/P1P5/2P2PPP/R1B1KBNR w KQ - 3 8","flip":false,"ask":"How many White pieces attack e2?","target":"e2","count":4,"marks":"e1 f1 g1 g4","battery":"e1 f1 g1 g4","direct":"e1 f1 g1 g4","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"How many White pieces attack d2?","target":"d2","count":4,"marks":"b1 c1 d1 f3","battery":"b1 c1 d1 f3","direct":"b1 c1 d1 f3","single":false,"mode":"count"},{"unit":3,"level":"A","cap":10,"fen":"r2qkbnr/pp1npppb/2p4p/7P/3P4/5NN1/PPP2PP1/R1BQKB1R w KQkq - 1 9","flip":false,"ask":"How many Black pieces attack e7?","target":"e7","count":4,"marks":"d8 e8 f8 g8","battery":"d8 e8 f8 g8","direct":"d8 e8 f8 g8","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1b2rk1/ppq2ppp/2nbpn2/2pp4/3P4/2PBPNB1/PP1N1PPP/R2QK2R w KQ - 3 9","flip":false,"ask":"How many White pieces attack h3?","target":"h3","count":1,"marks":"g2","battery":"g2","direct":"g2","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1b1k2r/ppppnppp/6q1/2b1n3/3NP3/2P1B3/PP2BPPP/RN1QK2R w KQkq - 5 9","flip":false,"ask":"How many Black pieces attack g4?","target":"g4","count":2,"marks":"e5 g6","battery":"e5 g6","direct":"e5 g6","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"rnbq1rk1/1p2bppp/p2p1n2/4p3/4P3/1NN5/PPP1BPPP/R1BQ1RK1 w - - 4 9","flip":false,"ask":"How many White pieces attack f1?","target":"f1","count":3,"marks":"d1 e2 g1","battery":"d1 e2 g1","direct":"d1 e2 g1","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many White pieces attack f5?","target":"f5","count":1,"marks":"e4","battery":"e4","direct":"e4","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1b1k2r/ppppnppp/6q1/2b1n3/3NP3/2P1B3/PP2BPPP/RN1QK2R w KQkq - 5 9","flip":false,"ask":"How many White pieces attack b1?","target":"b1","count":2,"marks":"a1 d1","battery":"a1 d1","direct":"a1 d1","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/pp1nbppp/2p1pn2/3p2B1/2PP4/2N1PN2/PP3PPP/2RQKB1R w K - 0 8","flip":false,"ask":"How many Black pieces attack d5?","target":"d5","count":3,"marks":"c6 e6 f6","battery":"c6 e6 f6","direct":"c6 e6 f6","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1b2rk1/ppq2ppp/2nbpn2/2pp4/3P4/2PBPNB1/PP1N1PPP/R2QK2R w KQ - 3 9","flip":false,"ask":"How many Black pieces attack f6?","target":"f6","count":1,"marks":"g7","battery":"g7","direct":"g7","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/pp3ppp/2n1pn2/2pp4/2PP4/P1bBPN2/1P3PPP/R1BQ1RK1 w - - 0 9","flip":false,"ask":"How many Black pieces attack d8?","target":"d8","count":2,"marks":"c6 f8","battery":"c6 f8","direct":"c6 f8","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1 w - - 2 7","flip":false,"ask":"How many White pieces attack e1?","target":"e1","count":3,"marks":"d1 f1 f3","battery":"d1 f1 f3","direct":"d1 f1 f3","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r2qkbnr/pp1npppb/2p4p/7P/3P4/5NN1/PPP2PP1/R1BQKB1R w KQkq - 1 9","flip":false,"ask":"How many White pieces attack b1?","target":"b1","count":1,"marks":"a1","battery":"a1","direct":"a1","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/ppp1bppp/1nn5/4p3/8/2NP1NP1/PP2PPBP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack e8?","target":"e8","count":2,"marks":"d8 f8","battery":"d8 f8","direct":"d8 f8","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r2qk2r/pp1n1ppp/2p1pn2/5b2/PbBP4/2N1PN2/1P3PPP/R1BQ1RK1 w kq - 3 9","flip":false,"ask":"How many White pieces attack f1?","target":"f1","count":3,"marks":"c4 d1 g1","battery":"c4 d1 g1","direct":"c4 d1 g1","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack f6?","target":"f6","count":1,"marks":"g7","battery":"g7","direct":"g7","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1b1k2r/ppppnppp/6q1/2b1n3/3NP3/2P1B3/PP2BPPP/RN1QK2R w KQkq - 5 9","flip":false,"ask":"How many White pieces attack a3?","target":"a3","count":2,"marks":"b1 b2","battery":"b1 b2","direct":"b1 b2","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"rnbq1rk1/1p2bppp/p2p1n2/4p3/4P3/1NN5/PPP1BPPP/R1BQ1RK1 w - - 4 9","flip":false,"ask":"How many White pieces attack d1?","target":"d1","count":3,"marks":"c3 e2 f1","battery":"c3 e2 f1","direct":"c3 e2 f1","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1 w - - 2 7","flip":false,"ask":"How many White pieces attack a4?","target":"a4","count":1,"marks":"d1","battery":"d1","direct":"d1","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/ppp1bppp/1nn5/4p3/8/2NP1NP1/PP2PPBP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many White pieces attack f4?","target":"f4","count":2,"marks":"c1 g3","battery":"c1 g3","direct":"c1 g3","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/pp3ppp/2n1pn2/2pp4/2PP4/P1bBPN2/1P3PPP/R1BQ1RK1 w - - 0 9","flip":false,"ask":"How many White pieces attack e1?","target":"e1","count":3,"marks":"d1 f1 f3","battery":"d1 f1 f3","direct":"d1 f1 f3","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/pp1nbppp/2p1pn2/3p2B1/2PP4/2N1PN2/PP3PPP/2RQKB1R w K - 0 8","flip":false,"ask":"How many Black pieces attack e6?","target":"e6","count":1,"marks":"f7","battery":"f7","direct":"f7","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r2qkbnr/pp1npppb/2p4p/7P/3P4/5NN1/PPP2PP1/R1BQKB1R w KQkq - 1 9","flip":false,"ask":"How many Black pieces attack g8?","target":"g8","count":2,"marks":"h7 h8","battery":"h7 h8","direct":"h7 h8","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"How many Black pieces attack f8?","target":"f8","count":3,"marks":"d8 e7 g8","battery":"d8 e7 g8","direct":"d8 e7 g8","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1b2rk1/ppq2ppp/2nbpn2/2pp4/3P4/2PBPNB1/PP1N1PPP/R2QK2R w KQ - 3 9","flip":false,"ask":"How many White pieces attack a6?","target":"a6","count":1,"marks":"d3","battery":"d3","direct":"d3","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r2qk2r/pp1n1ppp/2p1pn2/5b2/PbBP4/2N1PN2/1P3PPP/R1BQ1RK1 w kq - 3 9","flip":false,"ask":"How many White pieces attack d1?","target":"d1","count":2,"marks":"c3 f1","battery":"c3 f1","direct":"c3 f1","single":false,"mode":"count"},{"unit":3,"level":"B","cap":15,"fen":"r1bq1rk1/pp3ppp/2n1pn2/2pp4/2PP4/P1bBPN2/1P3PPP/R1BQ1RK1 w - - 0 9","flip":false,"ask":"How many Black pieces attack d4?","target":"d4","count":3,"marks":"c3 c5 c6","battery":"c3 c5 c6","direct":"c3 c5 c6","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"How many Black pieces attack b6?","target":"b6","count":2,"marks":"c7 d8","battery":"c7 d8","direct":"c7","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"How many White pieces attack f1?","target":"f1","count":3,"marks":"d1 e1 g1","battery":"d1 e1 g1","direct":"e1 g1","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack c8?","target":"c8","count":4,"marks":"a8 d8 e7 f8","battery":"a8 d8 e7 f8","direct":"a8 d8 e7","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r2qk2r/pp1n1ppp/2p1pn2/5b2/PbBP4/2N1PN2/1P3PPP/R1BQ1RK1 w kq - 3 9","flip":false,"ask":"How many White pieces attack f4?","target":"f4","count":2,"marks":"c1 e3","battery":"c1 e3","direct":"e3","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/pp1nbppp/2p1pn2/3p2B1/2PP4/2N1PN2/PP3PPP/2RQKB1R w K - 0 8","flip":false,"ask":"How many White pieces attack b1?","target":"b1","count":3,"marks":"c1 c3 d1","battery":"c1 c3 d1","direct":"c1 c3","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack g8?","target":"g8","count":4,"marks":"d8 e7 f6 f8","battery":"d8 e7 f6 f8","direct":"e7 f6 f8","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/ppp1bppp/1nn5/4p3/8/2NP1NP1/PP2PPBP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack g5?","target":"g5","count":2,"marks":"d8 e7","battery":"d8 e7","direct":"e7","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r2qk2r/pp1n1ppp/2p1pn2/5b2/PbBP4/2N1PN2/1P3PPP/R1BQ1RK1 w kq - 3 9","flip":false,"ask":"How many White pieces attack g1?","target":"g1","count":3,"marks":"d1 f1 f3","battery":"d1 f1 f3","direct":"f1 f3","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/ppp1bppp/1nn5/4p3/8/2NP1NP1/PP2PPBP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack c8?","target":"c8","count":4,"marks":"a8 b6 d8 f8","battery":"a8 b6 d8 f8","direct":"a8 b6 d8","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"rnbq1rk1/1p2bppp/p2p1n2/4p3/4P3/1NN5/PPP1BPPP/R1BQ1RK1 w - - 4 9","flip":false,"ask":"How many White pieces attack a3?","target":"a3","count":2,"marks":"b2 c1","battery":"b2 c1","direct":"b2","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"rnbq1rk1/1p2bppp/p2p1n2/4p3/4P3/1NN5/PPP1BPPP/R1BQ1RK1 w - - 4 9","flip":false,"ask":"How many Black pieces attack g8?","target":"g8","count":3,"marks":"d8 f6 f8","battery":"d8 f6 f8","direct":"f6 f8","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r2qkbnr/pp1npppb/2p4p/7P/3P4/5NN1/PPP2PP1/R1BQKB1R w KQkq - 1 9","flip":false,"ask":"How many White pieces attack f1?","target":"f1","count":4,"marks":"d1 e1 g3 h1","battery":"d1 e1 g3 h1","direct":"e1 g3 h1","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1b2rk1/ppq2ppp/2nbpn2/2pp4/3P4/2PBPNB1/PP1N1PPP/R2QK2R w KQ - 3 9","flip":false,"ask":"How many Black pieces attack h8?","target":"h8","count":2,"marks":"f8 g8","battery":"f8 g8","direct":"g8","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many White pieces attack b5?","target":"b5","count":3,"marks":"c3 c4 e2","battery":"c3 c4 e2","direct":"c3 c4","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"rnbq1rk1/pp2nppp/4p3/2ppP3/3P2Q1/P1P5/2P2PPP/R1B1KBNR w KQ - 3 8","flip":false,"ask":"How many White pieces attack h3?","target":"h3","count":4,"marks":"f1 g1 g2 g4","battery":"f1 g1 g2 g4","direct":"g1 g2 g4","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/pp1nbppp/2p1pn2/3p2B1/2PP4/2N1PN2/PP3PPP/2RQKB1R w K - 0 8","flip":false,"ask":"How many White pieces attack a1?","target":"a1","count":2,"marks":"c1 d1","battery":"c1 d1","direct":"c1","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"How many Black pieces attack f6?","target":"f6","count":3,"marks":"d8 e7 g7","battery":"d8 e7 g7","direct":"e7 g7","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/pp1nbppp/2p1pn2/3p2B1/2PP4/2N1PN2/PP3PPP/2RQKB1R w K - 0 8","flip":false,"ask":"How many Black pieces attack f6?","target":"f6","count":4,"marks":"d7 d8 e7 g7","battery":"d7 d8 e7 g7","direct":"d7 e7 g7","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/pp1nbppp/2p1pn2/3p2B1/2PP4/2N1PN2/PP3PPP/2RQKB1R w K - 0 8","flip":false,"ask":"How many Black pieces attack a6?","target":"a6","count":2,"marks":"b7 c8","battery":"b7 c8","direct":"b7","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1 w - - 2 7","flip":false,"ask":"How many Black pieces attack h8?","target":"h8","count":3,"marks":"d8 f8 g8","battery":"d8 f8 g8","direct":"g8","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1b1k2r/ppppnppp/6q1/2b1n3/3NP3/2P1B3/PP2BPPP/RN1QK2R w KQkq - 5 9","flip":false,"ask":"How many Black pieces attack e6?","target":"e6","count":4,"marks":"c8 d7 f7 g6","battery":"c8 d7 f7 g6","direct":"d7 f7 g6","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/ppp1bppp/1nn5/4p3/8/2NP1NP1/PP2PPBP/R1BQ1RK1 w - - 1 9","flip":false,"ask":"How many Black pieces attack g8?","target":"g8","count":2,"marks":"d8 f8","battery":"d8 f8","direct":"f8","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"How many Black pieces attack c8?","target":"c8","count":3,"marks":"a8 d8 f8","battery":"a8 d8 f8","direct":"a8 d8","single":false,"mode":"count"},{"unit":3,"level":"C","cap":20,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"How many White pieces attack e3?","target":"e3","count":4,"marks":"c1 d2 e1 f2","battery":"c1 d2 e1 f2","direct":"d2 e1 f2","single":false,"mode":"count"}]}, UNITLINE = "3 \u00b7 counting attackers and defenders", UNITNO = 3, DRAW = {"A": 7, "B": 7, "C": 6};
+</script>
+
+<script type="text/course-deferred">
+(function(){
+  var btn = document.getElementById('themeBtn');
+  function apply(){
+    if(S.theme) document.documentElement.setAttribute('data-theme', S.theme);
+    else document.documentElement.removeAttribute('data-theme');
+    btn.textContent = S.theme === 'dark' ? 'Dark' : (S.theme === 'light' ? 'Light' : 'Auto');
+  }
+  btn.addEventListener('click', function(){
+    S.theme = S.theme === null ? 'light' : (S.theme === 'light' ? 'dark' : null);
+    save(); apply();
+  });
+  apply();
+})();
+</script>
+
+<script type="text/course-deferred">
+/* the board. `flip` turns the view without moving the coordinates - a1 is
+   still a1, which is exactly the thing unit 1 level C is testing. */
+var GLYPH = { k:'\u265A', q:'\u265B', r:'\u265C', b:'\u265D', n:'\u265E', p:'\u265F' };
+function boardHTML(fen, o){
+  o = o || {};
+  var pips = o.pips || {}, sel = o.sel || [], flip = !!o.flip, ring = o.ring;
+  var ranks = fen.split(' ')[0].split('/'), grid = [], r, i, ch, n, f;
+  for(r = 0; r < 8; r++){
+    var row = [];
+    for(i = 0; i < ranks[r].length; i++){
+      ch = ranks[r].charAt(i); n = parseInt(ch, 10);
+      if(!isNaN(n)){ while(n-- > 0) row.push(''); } else row.push(ch);
+    }
+    grid.push(row);
+  }
+  var html = '';
+  for(var vr = 0; vr < 8; vr++){
+    for(var vf = 0; vf < 8; vf++){
+      r = flip ? 7 - vr : vr;
+      f = flip ? 7 - vf : vf;
+      var nm = 'abcdefgh'.charAt(f) + (8 - r);
+      var cls = 'sq ' + (((r + f) % 2) ? 'd' : 'l');
+      if(pips[nm]) cls += ' pip' + (pips[nm] === 'got' ? '' : ' pip-' + pips[nm]);
+      if(sel.indexOf(nm) >= 0) cls += ' sel';
+      if(ring === nm) cls += ' ring';
+      var pc = grid[r][f], inner = '';
+      if(pc){
+        var w = pc === pc.toUpperCase();
+        inner = '<span class="pc ' + (w ? 'w' : 'b') + '" data-t="' + pc.toLowerCase() + '">' +
+                (GLYPH[pc.toLowerCase()] || '') + '\uFE0E</span>';
+      }
+      html += (o.tappable ? '<button type="button" class="' + cls + '" data-sq="' + nm + '">' + inner + '</button>'
+                          : '<div class="' + cls + '" data-sq="' + nm + '">' + inner + '</div>');
+    }
+  }
+  return html;
+}
+function setEq(a, b){
+  if(a.length !== b.length) return false;
+  var x = a.slice().sort().join(' '), y = b.slice().sort().join(' ');
+  return x === y;
+}
+</script>
+
+<script type="text/course-deferred">
+/* One drill engine, two input modes. `count` taps a number; `tap` selects
+   squares on the board and submits with Done. Set answers are all-or-nothing:
+   six of a knight's eight squares is a missed piece, not 75% of a skill. */
+function Drill(host, list, opts){
+  var i = 0, t0 = 0, tick = null, results = [], sel = [];
+  var box = document.createElement('div');
+  host.innerHTML = ''; host.appendChild(box);
+  render();
+
+  function cur(){ return list[i]; }
+
+  function render(){
+    var it = cur();
+    if(!it) return opts.onEnd(results);
+    sel = [];
+    var tap = it.mode === 'tap';
+    box.innerHTML =
+      '<div class="board' + (tap ? ' tappable' : '') + '">' +
+        boardHTML(it.fen, { flip: it.flip, tappable: tap,
+                            ring: (!tap && it.target) ? it.target : null }) + '</div>' +
+      '<div class="boardcap">' + (i + 1) + ' of ' + list.length +
+        (opts.showLevel ? ' &middot; level ' + it.level : '') +
+        (opts.mixed ? ' &middot; unit ' + it.unit : '') + '</div>' +
+      '<div class="row nxtop hidden" id="nxTop"><button class="btn" type="button">Next position</button></div>' +
+      '<div class="ask">' + it.ask + '</div>' +
+      '<div class="clock"><i></i></div>' +
+      '<div class="clocklbl">cap ' + it.cap + 's</div>' +
+      (tap ? '<div class="picked" id="picked"></div>' +
+             (it.single ? '' :
+               '<div class="row" style="justify-content:center"><button class="btn" id="done" type="button">Done</button>' +
+               '<button class="btn ghost" id="clearSel" type="button">Clear</button></div>')
+           : '<div class="nums">' + [0,1,2,3,4,5].map(function(n){
+               return '<button type="button" data-n="' + n + '">' + n + '</button>'; }).join('') + '</div>') +
+      '<div id="fb"></div>';
+
+    var bar = box.querySelector('.clock i'), clock = box.querySelector('.clock');
+    t0 = Date.now();
+    clearInterval(tick);
+    tick = setInterval(function(){
+      var el = (Date.now() - t0) / 1000;
+      bar.style.width = Math.min(100, el / it.cap * 100) + '%';
+      if(el > it.cap) clock.className = 'clock over';
+    }, 100);
+
+    if(tap){
+      var brd = box.querySelector('.board');
+      brd.addEventListener('click', function(ev){
+        var b = ev.target.closest ? ev.target.closest('.sq') : null;
+        if(!b || !b.dataset || !b.dataset.sq) return;
+        var nm = b.dataset.sq;
+        if(it.single) return answer([nm]);
+        var at = sel.indexOf(nm);
+        if(at >= 0){ sel.splice(at, 1); b.classList.remove('sel'); }
+        else { sel.push(nm); b.classList.add('sel'); }
+        paintPicked();
+      });
+      var dn = box.querySelector('#done');
+      if(dn) dn.addEventListener('click', function(){ answer(sel.slice()); });
+      var cl = box.querySelector('#clearSel');
+      if(cl) cl.addEventListener('click', function(){
+        sel = [];
+        var on = box.querySelectorAll('.sq.sel');
+        for(var k = 0; k < on.length; k++) on[k].classList.remove('sel');
+        paintPicked();
+      });
+      paintPicked();
+    } else {
+      var nums = box.querySelectorAll('.nums button');
+      for(var k = 0; k < nums.length; k++){
+        nums[k].addEventListener('click', function(ev){
+          answer(parseInt(ev.currentTarget.getAttribute('data-n'), 10));
+        });
+      }
+    }
+  }
+
+  function paintPicked(){
+    var el = box.querySelector('#picked');
+    if(!el) return;
+    el.textContent = sel.length ? sel.slice().sort().join('  ') : 'nothing selected';
+  }
+
+  function answer(given){
+    clearInterval(tick);
+    var it = cur(), secs = Math.round((Date.now() - t0) / 100) / 10;
+    var right, mine, ok;
+    if(it.mode === 'tap'){
+      var want = it.answer ? it.answer.split(' ').filter(Boolean) : [];
+      right = want.join(' ') || '(nothing)';
+      mine = given.slice().sort().join(' ') || '(nothing)';
+      ok = setEq(given, want);
+    } else {
+      right = String(it.count); mine = String(given); ok = given === it.count;
+    }
+    var rec = { id: it.fen + '|' + it.ask, n: i + 1, unit: it.unit, level: it.level,
+                mode: it.mode, fen: it.fen, flip: !!it.flip, ask: it.ask, target: it.target || '',
+                right: right, mine: mine, correct: ok, secs: secs, cap: it.cap,
+                clean: ok && secs <= it.cap, marks: it.marks || it.answer || '',
+                battery: it.battery || '', direct: it.direct || '' };
+    results.push(rec);
+    var off = box.querySelectorAll('.nums button, #done, #clearSel');
+    for(var k = 0; k < off.length; k++) off[k].disabled = true;
+    var brd = box.querySelector('.board');
+    if(brd) brd.classList.remove('tappable');
+    var fb = box.querySelector('#fb');
+    var next = function(){ i++; render(); };
+    opts.onAnswer(rec, fb, next, it, i, list.length);
+    if(fb && fb.isConnected && fb.firstChild){
+      var top = box.querySelector('#nxTop');
+      if(top){ top.classList.remove('hidden'); top.querySelector('button').addEventListener('click', next); }
+    }
+  }
+}
+
+/* the solution board: what you found, what you missed, what you invented */
+function solutionBoard(rec){
+  var pips = {}, k;
+  if(rec.mode === 'tap'){
+    var want = rec.right === '(nothing)' ? [] : rec.right.split(' ');
+    var got = rec.mine === '(nothing)' ? [] : rec.mine.split(' ');
+    for(k = 0; k < want.length; k++) pips[want[k]] = got.indexOf(want[k]) >= 0 ? 'got' : 'missed';
+    for(k = 0; k < got.length; k++) if(want.indexOf(got[k]) < 0) pips[got[k]] = 'bad';
+  } else {
+    var m = rec.marks ? rec.marks.split(' ') : [];
+    for(k = 0; k < m.length; k++) pips[m[k]] = 'got';
+  }
+  return '<div class="board">' + boardHTML(rec.fen, { pips: pips, flip: rec.flip,
+           ring: rec.mode === 'count' ? rec.target : null }) + '</div>';
+}
+function solutionKey(rec){
+  if(rec.mode !== 'tap') return '';
+  return '<div class="key"><span><i class="a"></i>you found it</span>' +
+         '<span><i class="b"></i>you missed it</span>' +
+         '<span><i class="c"></i>you added it</span></div>';
+}
+</script>
+
+
+<script type="text/course-deferred">
+(function(){
+  var pWrap = document.getElementById('pWrap'), hWrap = document.getElementById('hWrap');
+
+  function meter(){
+    var clean = 0;
+    for(var i = 0; i < S.practice.length; i++) if(S.practice[i].clean) clean++;
+    var big = document.getElementById('meterBig'), sub = document.getElementById('meterSub');
+    var parts = [];
+    if(S.practice.length) parts.push(clean + ' counted clean at speed');
+    if(S.holdout) parts.push('check: ' + S.holdout.clean + ' of ' + S.holdout.total +
+      (S.holdout.passed ? ' \u2014 held' : ''));
+    big.textContent = parts.length ? parts.join(' \u00b7 ') : 'Not started';
+    sub.textContent = S.holdout && S.holdout.passed ? 'ready for the next unit' : 'clean = right, and inside the cap';
+  }
+  meter();
+
+  function wireFlag(b, rec, phase){
+    var key = phase + ':' + rec.id;
+    b.setAttribute('aria-pressed', S.flags[key] ? 'true' : 'false');
+    if(S.flags[key]) b.textContent = 'In the packet';
+    b.addEventListener('click', function(){
+      if(S.flags[key]){ delete S.flags[key]; b.setAttribute('aria-pressed','false'); b.textContent = 'Add to packet'; }
+      else { S.flags[key] = Object.assign({ phase: phase }, rec); b.setAttribute('aria-pressed','true'); b.textContent = 'In the packet'; }
+      save(); refreshPacket();
+    });
+  }
+
+  function fbPractice(rec, el, next, it, idx, total){
+    var fade = idx < 4 ? 'full' : (idx < 7 ? 'some' : 'thin');
+    var head = rec.correct
+      ? '<div class="verdict ok"><b>' + rec.right + '</b> \u00b7 ' + rec.secs + 's' +
+        (rec.secs > rec.cap ? ' \u2014 right, but over the cap' : '') + '</div>'
+      : '<div class="verdict no">It is <b>' + rec.right + '</b> \u00b7 you gave ' + rec.mine +
+        ' \u00b7 ' + rec.secs + 's</div>';
+    var body = '';
+    if(fade !== 'thin' || !rec.correct){
+      body += solutionBoard(rec) + solutionKey(rec);
+    }
+    if(fade === 'full' && it.note) body += '<p style="margin-top:1em">' + it.note + '</p>';
+    if(fade === 'full' && rec.battery && rec.battery !== rec.direct){
+      body += '<p>Two of these act through one another \u2014 rule 3. Direct only: ' + rec.direct + '.</p>';
+    }
+    el.innerHTML = head + body +
+      '<div class="row"><button class="btn" id="nx" type="button">Next</button>' +
+      '<button class="btn ghost flag" id="fl" type="button" aria-pressed="false">Add to packet</button></div>';
+    el.querySelector('#nx').addEventListener('click', next);
+    wireFlag(el.querySelector('#fl'), rec, 'practice');
+    S.practice.push(rec); save(); meter(); refreshPacket();
+  }
+
+  function startPractice(){
+    Drill(pWrap, BANK.practice, { showLevel: true, mixed: false, onAnswer: fbPractice, onEnd: function(res){
+      var clean = res.filter(function(r){ return r.clean; }).length;
+      pWrap.innerHTML = '<div class="verdict ' + (clean >= 8 ? 'ok' : 'no') + '">' +
+        clean + ' of ' + res.length + ' clean.' + (clean >= 8
+          ? ' Go to the check.' : ' Worth running practice again before the check.') + '</div>' +
+        '<div class="row"><button class="btn ghost" type="button">Practice again</button></div>';
+      pWrap.querySelector('button').addEventListener('click', startPractice);
+      meter();
+    }});
+  }
+  pWrap.querySelector('button').addEventListener('click', startPractice);
+
+  function draw(){
+    var byLvl = {}, i;
+    for(i = 0; i < BANK.holdout.length; i++){
+      var it = BANK.holdout[i], k = it.level;
+      (byLvl[k] = byLvl[k] || []).push(it);
+    }
+    function shuffle(c){ var j, t;
+      for(var x = c.length - 1; x > 0; x--){ j = Math.floor(Math.random() * (x + 1)); t = c[x]; c[x] = c[j]; c[j] = t; }
+      return c; }
+    // Showing a miss teaches, but it also spends that item: served again it is
+    // a memory test. Draw never-revealed items first, fall back only if dry.
+    function pick(a, n){
+      a = a || [];
+      var f = shuffle(a.filter(function(x){ return !S.seen[x.fen + '|' + x.ask]; }));
+      var u = shuffle(a.filter(function(x){ return S.seen[x.fen + '|' + x.ask]; }));
+      return f.concat(u).slice(0, n);
+    }
+    var out = [];
+    for(var g in DRAW) out = out.concat(pick(byLvl[g], DRAW[g]));
+    return out;
+  }
+
+  function startCheck(){
+    Drill(hWrap, draw(), {
+      mixed: false,
+      onAnswer: function(rec, el, next){ next(); },
+      onEnd: function(res){
+        var clean = res.filter(function(r){ return r.clean; }).length;
+        var passed = clean >= 18;
+        S.holdout = { clean: clean, total: res.length, passed: passed, at: new Date().toISOString() };
+        var misses = res.filter(function(r){ return !r.clean; });
+        var reused = 0;
+        res.forEach(function(r){ if(S.seen[r.id]) reused++; });
+        var rows = misses.map(function(r, k){
+          S.seen[r.id] = true;
+          var why = r.correct
+            ? 'right, but ' + r.secs + 's against a ' + r.cap + 's cap'
+            : 'you gave ' + r.mine + ', it is ' + r.right + ' \u00b7 ' + r.secs + 's';
+          return '<div class="miss">' +
+            '<div class="misshead">Question ' + r.n + ' of ' + res.length +
+              (false ? ' \u00b7 unit ' + r.unit : '') + '</div>' +
+            '<div class="verdict no">' + r.ask + ' \u2014 ' + why + '</div>' +
+            solutionBoard(r) + solutionKey(r) +
+            '<div class="row"><button class="btn ghost flag" data-k="' + k + '" aria-pressed="false">Add to packet</button></div></div>';
+        }).join('');
+        hWrap.innerHTML = '<div class="verdict ' + (passed ? 'ok' : 'no') + '"><b>' + clean +
+          ' of ' + res.length + ' clean.</b> ' + (passed ? 'Unit 3 holds. Unit 4 is next.'
+            : 'Not yet \u2014 back to practice, then draw a fresh set.') + '</div>' +
+          (misses.length ? '<h3>What missed</h3>' +
+            '<p class="est">Answers below are now spent \u2014 later draws avoid them while fresh items last.' +
+            (reused ? ' ' + reused + ' of this set had been revealed before.' : '') + '</p>' + rows : '') +
+          '<div class="row"><button class="btn ghost" id="hAgain" type="button">Draw a fresh set</button></div>';
+        var fbtns = hWrap.querySelectorAll('.flag');
+        for(var k = 0; k < fbtns.length; k++){
+          wireFlag(fbtns[k], misses[parseInt(fbtns[k].getAttribute('data-k'), 10)], 'check');
+        }
+        hWrap.querySelector('#hAgain').addEventListener('click', startCheck);
+        save(); meter(); refreshPacket();
+      }
+    });
+  }
+  hWrap.querySelector('button').addEventListener('click', startCheck);
+})();
+</script>
+
+<script type="text/course-deferred">
+(function(){
+  var out = document.getElementById('packetOut'), msg = document.getElementById('packetMsg');
+  function build(){
+    var keys = Object.keys(S.flags);
+    if(!keys.length) return null;
+    var lines = ['=== BOARD VISION ===', 'course: board-vision v1',
+      'unit: ' + UNITLINE, 'reached: unit ' + UNITNO + ' of 4', ''];
+    keys.forEach(function(k, n){
+      var f = S.flags[k];
+      lines.push('--- item ' + (n + 1) + ' ---');
+      lines.push('position: ' + f.fen + (f.flip ? '  (shown from Black\u2019s side)' : ''));
+      lines.push('asked: ' + f.ask);
+      lines.push('right: ' + f.right);
+      lines.push('mine: ' + f.mine);
+      lines.push('time: ' + f.secs + 's (cap ' + f.cap + 's)');
+      lines.push('note: ');
+      lines.push('');
+    });
+    return lines.join('\n');
+  }
+  document.getElementById('mkPacket').addEventListener('click', function(){
+    var t = build();
+    if(!t){ msg.textContent = 'Nothing added yet.'; return; }
+    out.value = t; out.classList.remove('hidden'); out.readOnly = false;
+    msg.textContent = 'Type into any note: line below, then Copy.';
+  });
+  var clr = document.getElementById('clrPacket'), armed = false;
+  clr.addEventListener('click', function(){
+    if(!armed){ armed = true; clr.textContent = 'Sure?';
+      setTimeout(function(){ armed = false; clr.textContent = 'Empty it'; }, 4000); return; }
+    S.flags = {}; save(); armed = false; clr.textContent = 'Empty it';
+    out.value = ''; out.classList.add('hidden'); refreshPacket();
+    var live = document.querySelectorAll('.flag[aria-pressed="true"]');
+    for(var i = 0; i < live.length; i++){
+      live[i].setAttribute('aria-pressed', 'false'); live[i].textContent = 'Add to packet';
+    }
+  });
+  refreshPacket();
+  document.getElementById('cpPacket').addEventListener('click', function(){
+    var t = out.value || build();
+    if(!t){ msg.textContent = 'Nothing added yet.'; return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){ msg.textContent = 'Copied.'; },
+        function(){ msg.textContent = "Couldn't copy \u2014 select the text above."; });
+    } else { msg.textContent = "Couldn't copy \u2014 select the text above."; }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -83,11 +83,12 @@
     abstraction memo.
   tracked: true
 
-- slug: chess-attackers
-  title: 'Chess: Counting Attackers'
+- slug: board-vision-squares
+  title: 'Chess: Board Vision'
   description: >-
-    How many pieces hit a square, fast enough that the answer arrives before
-    you have finished asking. Three rules, the third one being batteries and
-    x-ray attackers; the gate is eighteen of twenty held-out positions, each
-    inside its clock. Unit 3 of four on board vision.
+    The four questions a position asks before tactics do — what square is that,
+    what does that piece attack, how many pieces hit it, and what is undefended
+    — each drilled alone until it is automatic, then shuffled, because a game
+    never tells you which one it wants. Five units, every one gated at eighteen
+    of twenty held-out positions inside their cap.
   tracked: true
