@@ -136,7 +136,6 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
   text-shadow:0 1px 0 var(--pc-b-edge),0 -1px 0 var(--pc-b-edge),1px 0 0 var(--pc-b-edge),
     -1px 0 0 var(--pc-b-edge),1px 1px 0 var(--pc-b-edge),-1px -1px 0 var(--pc-b-edge),
     1px -1px 0 var(--pc-b-edge),-1px 1px 0 var(--pc-b-edge)}
-.board,#fb{scroll-margin-top:10px}
 .boardcap{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;
   color:var(--ink-mute);text-align:center;margin-top:.7em}
 
@@ -364,14 +363,6 @@ function Drill(host, list, opts){
         return '<button type="button" data-n="' + n + '">' + n + '</button>'; }).join('') + '</div>' +
       '<div id="fb"></div>';
     var bar = box.querySelector('.clock i'), clock = box.querySelector('.clock');
-    // Put the board under the eye before the clock starts. Scrolling up to find
-    // it was being recorded as thinking time, which made every cap stricter
-    // than it reads. Instant, never smooth - a smooth scroll costs the same
-    // second it is meant to save.
-    var bd = box.querySelector('.board');
-    if(bd && typeof bd.scrollIntoView === 'function'){
-      try{ bd.scrollIntoView({ block: 'start', behavior: 'auto' }); }catch(e){ bd.scrollIntoView(true); }
-    }
     t0 = Date.now();
     clearInterval(tick);
     tick = setInterval(function(){
@@ -397,20 +388,15 @@ function Drill(host, list, opts){
     var fb = box.querySelector('#fb');
     var next = function(){ i++; render(); };
     opts.onAnswer(rec, fb, next, it, i, list.length);
-    // A second Next under the problem board. The artifact viewer runs the page
-    // in an iframe with no scrollbar of its own, so scrollIntoView does nothing
-    // there - a button that is already near the eye works whatever is scrolling.
+    // A second Next under the problem board. Nothing here moves the viewport:
+    // the page may be inside an iframe that does not scroll, so the fix is a
+    // button that is already near the eye rather than a scroll that may no-op.
     if(fb && fb.isConnected && fb.firstChild){
       var top = box.querySelector('#nxTop');
       if(top){
         top.classList.remove('hidden');
         top.querySelector('button').addEventListener('click', next);
       }
-    }
-    // Only when feedback actually rendered. In the check, onAnswer advances
-    // straight away, so fb is already detached and must not steal the scroll.
-    if(fb && fb.isConnected && fb.firstChild && typeof fb.scrollIntoView === 'function'){
-      try{ fb.scrollIntoView({ block: 'start', behavior: 'auto' }); }catch(e){ fb.scrollIntoView(true); }
     }
   }
 }
