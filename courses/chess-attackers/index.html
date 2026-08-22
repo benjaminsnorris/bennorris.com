@@ -16,8 +16,9 @@
   --miss:#8E3122; --miss-bg:#F7E3DE;
   --sq-l:#E4D7BE; --sq-d:#AC8A67;
   --mark:#0E3A36; --target:#6B1206;
-  --pc-w:#FCFBF7; --pc-b:#191614;
-  --pc-w-edge:#5A4A38; --pc-b-edge:#E8DFD0;
+  --mark-edge:#F2EFE6; --target-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
   --serif: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
   --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -29,10 +30,11 @@
   --rule:#3F4954; --rule-strong:#717B88; --btn-fg:#0E1216;
   --signal:#79CFC6; --good:#86D6A8; --good-bg:#152B21;
   --miss:#EC9784; --miss-bg:#33201B;
-  --sq-l:#6D6252; --sq-d:#493F33;
-  --mark:#B6EDE4; --target:#FFC7B6;
-  --pc-w:#F2EEE5; --pc-b:#14161A;
-  --pc-w-edge:#2A241C; --pc-b-edge:#C9C2B4;
+  --sq-l:#A89778; --sq-d:#634D37;
+  --mark:#0E3A36; --target:#6B1206;
+  --mark-edge:#F2EFE6; --target-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
  } }
 [data-theme="light"]{ color-scheme: light;
   --ground:#F4F2ED; --surface:#FFFFFF; --panel:#EAE7DF;
@@ -42,8 +44,9 @@
   --miss:#8E3122; --miss-bg:#F7E3DE;
   --sq-l:#E4D7BE; --sq-d:#AC8A67;
   --mark:#0E3A36; --target:#6B1206;
-  --pc-w:#FCFBF7; --pc-b:#191614;
-  --pc-w-edge:#5A4A38; --pc-b-edge:#E8DFD0;
+  --mark-edge:#F2EFE6; --target-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
 }
 [data-theme="dark"]{ color-scheme: dark; 
   --ground:#12151A; --surface:#1A1F26; --panel:#232932;
@@ -51,10 +54,11 @@
   --rule:#3F4954; --rule-strong:#717B88; --btn-fg:#0E1216;
   --signal:#79CFC6; --good:#86D6A8; --good-bg:#152B21;
   --miss:#EC9784; --miss-bg:#33201B;
-  --sq-l:#6D6252; --sq-d:#493F33;
-  --mark:#B6EDE4; --target:#FFC7B6;
-  --pc-w:#F2EEE5; --pc-b:#14161A;
-  --pc-w-edge:#2A241C; --pc-b-edge:#C9C2B4;
+  --sq-l:#A89778; --sq-d:#634D37;
+  --mark:#0E3A36; --target:#6B1206;
+  --mark-edge:#F2EFE6; --target-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
  }
 
 *{box-sizing:border-box}
@@ -109,15 +113,30 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
   grid-template-columns:repeat(8,1fr);border:1px solid var(--rule-strong);
   border-radius:6px;overflow:hidden}
 .sq{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
-  font-size:min(7.2vw,25px);line-height:1;user-select:none;position:relative}
+  font-size:min(8.4vw,30px);line-height:1;user-select:none;position:relative}
 .sq.l{background:var(--sq-l)} .sq.d{background:var(--sq-d)}
-.sq.target::after{content:"";position:absolute;inset:6%;border:3px solid var(--target);border-radius:4px}
-.sq.mark::before{content:"";position:absolute;inset:32%;border-radius:50%;background:var(--mark);opacity:.9}
-.pc{-webkit-text-stroke:1.1px var(--pc-w-edge);position:relative;z-index:1}
-.pc.w{color:var(--pc-w);-webkit-text-stroke-color:var(--pc-w-edge);
-  text-shadow:0 1px 0 var(--pc-w-edge),0 -1px 0 var(--pc-w-edge),1px 0 0 var(--pc-w-edge),-1px 0 0 var(--pc-w-edge)}
-.pc.b{color:var(--pc-b);-webkit-text-stroke-color:var(--pc-b-edge);
-  text-shadow:0 1px 0 var(--pc-b-edge),0 -1px 0 var(--pc-b-edge),1px 0 0 var(--pc-b-edge),-1px 0 0 var(--pc-b-edge)}
+.sq.target::after{content:"";position:absolute;inset:6%;border:3px solid var(--target);border-radius:4px;
+  box-shadow:0 0 0 1.5px var(--target-edge),inset 0 0 0 1.5px var(--target-edge)}
+.sq.mark::before{content:"";position:absolute;left:6%;top:6%;width:26%;height:26%;
+  border-radius:50%;background:var(--mark);box-shadow:0 0 0 1.5px var(--mark-edge);z-index:2}
+.pc{position:relative;z-index:1;font-variant-emoji:text}
+/* the six chess glyphs are not cut to a common optical size - the pawn runs
+   large and the bishop small in most faces. Nudged per piece by eye. */
+.pc[data-t="p"]{font-size:.80em}
+.pc[data-t="r"]{font-size:.92em}
+.pc[data-t="n"]{font-size:1em}
+.pc[data-t="b"]{font-size:1.06em}
+.pc[data-t="q"]{font-size:1.02em}
+.pc[data-t="k"]{font-size:1.04em}
+.pc.w{color:var(--pc-w);
+  text-shadow:0 1px 0 var(--pc-w-edge),0 -1px 0 var(--pc-w-edge),1px 0 0 var(--pc-w-edge),
+    -1px 0 0 var(--pc-w-edge),1px 1px 0 var(--pc-w-edge),-1px -1px 0 var(--pc-w-edge),
+    1px -1px 0 var(--pc-w-edge),-1px 1px 0 var(--pc-w-edge)}
+.pc.b{color:var(--pc-b);
+  text-shadow:0 1px 0 var(--pc-b-edge),0 -1px 0 var(--pc-b-edge),1px 0 0 var(--pc-b-edge),
+    -1px 0 0 var(--pc-b-edge),1px 1px 0 var(--pc-b-edge),-1px -1px 0 var(--pc-b-edge),
+    1px -1px 0 var(--pc-b-edge),-1px 1px 0 var(--pc-b-edge)}
+.board,#fb{scroll-margin-top:10px}
 .boardcap{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;
   color:var(--ink-mute);text-align:center;margin-top:.7em}
 
@@ -150,6 +169,7 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .packet{width:100%;font-family:var(--mono);font-size:.76rem;line-height:1.5;
   background:var(--ground);color:var(--ink);border:1px solid var(--rule-strong);
   border-radius:8px;padding:11px 12px;min-height:180px;resize:vertical;white-space:pre}
+.nxtop{justify-content:center;margin:.6em 0 0}
 .hidden{display:none}
 footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--rule);
   color:var(--ink-mute);font-size:.85rem}
@@ -192,10 +212,16 @@ footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--rule);
   <h2>Three rules, and the third is the one that costs people</h2>
 
   <ul class="rules">
-    <li><span class="k">Rule 1</span><span>A piece <strong>attacks</strong> a square if it could capture there — regardless of what is standing on it, and regardless of whether the move would be legal. Pawns attack diagonally forward only, never the square straight ahead. A king attacks all eight neighbours but never the square it stands on.</span></li>
+    <li><span class="k">Rule 1</span><span>A piece <strong>attacks</strong> a square if that square is one it could <em>capture on</em>. Two things never change the answer: what is standing on the square, and whether moving there would be legal right now — a pinned piece still attacks everything it attacked before it was pinned.</span></li>
+    <li><span class="k">Rule 1a</span><span>What <em>does</em> change the answer is <strong>how the piece captures</strong>. Every piece except the pawn captures exactly the way it moves. A pawn does not: it moves straight ahead and captures diagonally, so it attacks only the one or two diagonal squares and <strong>never</strong> the square directly in front of it. A king attacks all eight neighbours, never the square it stands on.</span></li>
     <li><span class="k">Rule 2</span><span>A queen, rook or bishop stops at the <strong>first piece in the way</strong>. If anything at all sits between it and the square, it does not attack that square.</span></li>
     <li><span class="k">Rule 3</span><span><strong>Unless that piece is one of yours that attacks the same square.</strong> Then both count: a rook behind a rook on an open file, a queen behind a bishop on a diagonal. This is a <em>battery</em>, and the piece behind is an <em>x-ray</em> attacker.</span></li>
   </ul>
+
+  <div class="callout">
+    <span class="lbl">Rule 1 versus rule 1a</span>
+    <p style="margin-bottom:0">These pull in opposite directions and the difference is worth holding onto. <em>Legality</em> is about this position: a pin, a check, a king that would step into danger. Ignore all of it. <em>Capture geometry</em> is about the piece itself and never bends — a pawn cannot capture forwards in any position, so the square ahead of it is not attacked, not even a little. The pawn is the only piece where the two geometries differ, which is why it is the only one that needs saying.</p>
+  </div>
 
   <div class="callout">
     <span class="lbl">Why rule 3 is not a technicality</span>
@@ -297,7 +323,8 @@ function boardHTML(fen, target, marks){
       } else {
         var w = ch === ch.toUpperCase();
         html += cell(r, f, sqName(f, r),
-          '<span class="pc ' + (w ? 'w' : 'b') + '">' + (GLYPH[ch.toLowerCase()] || '') + '</span>');
+          '<span class="pc ' + (w ? 'w' : 'b') + '" data-t="' + ch.toLowerCase() + '">' +
+          (GLYPH[ch.toLowerCase()] || '') + '\uFE0E</span>');
         f++;
       }
     }
@@ -327,7 +354,9 @@ function Drill(host, list, opts){
     if(!it) return opts.onEnd(results);
     box.innerHTML =
       '<div class="board">' + boardHTML(it.fen, it.sq, []) + '</div>' +
-      '<div class="boardcap">' + (i + 1) + ' of ' + list.length + ' &middot; level ' + it.level + '</div>' +
+      '<div class="boardcap">' + (i + 1) + ' of ' + list.length +
+        (opts.showLevel ? ' &middot; level ' + it.level : '') + '</div>' +
+      '<div class="row nxtop hidden" id="nxTop"><button class="btn" type="button">Next position</button></div>' +
       '<div class="ask">How many <b>' + it.color + '</b> pieces attack <b>' + it.sq + '</b>?</div>' +
       '<div class="clock"><i></i></div>' +
       '<div class="clocklbl">cap ' + it.cap + 's</div>' +
@@ -335,6 +364,14 @@ function Drill(host, list, opts){
         return '<button type="button" data-n="' + n + '">' + n + '</button>'; }).join('') + '</div>' +
       '<div id="fb"></div>';
     var bar = box.querySelector('.clock i'), clock = box.querySelector('.clock');
+    // Put the board under the eye before the clock starts. Scrolling up to find
+    // it was being recorded as thinking time, which made every cap stricter
+    // than it reads. Instant, never smooth - a smooth scroll costs the same
+    // second it is meant to save.
+    var bd = box.querySelector('.board');
+    if(bd && typeof bd.scrollIntoView === 'function'){
+      try{ bd.scrollIntoView({ block: 'start', behavior: 'auto' }); }catch(e){ bd.scrollIntoView(true); }
+    }
     t0 = Date.now();
     clearInterval(tick);
     tick = setInterval(function(){
@@ -357,7 +394,24 @@ function Drill(host, list, opts){
     results.push(rec);
     var nums = box.querySelectorAll('.nums button');
     for(var k = 0; k < nums.length; k++) nums[k].disabled = true;
-    opts.onAnswer(rec, box.querySelector('#fb'), function(){ i++; render(); }, it, i, list.length);
+    var fb = box.querySelector('#fb');
+    var next = function(){ i++; render(); };
+    opts.onAnswer(rec, fb, next, it, i, list.length);
+    // A second Next under the problem board. The artifact viewer runs the page
+    // in an iframe with no scrollbar of its own, so scrollIntoView does nothing
+    // there - a button that is already near the eye works whatever is scrolling.
+    if(fb && fb.isConnected && fb.firstChild){
+      var top = box.querySelector('#nxTop');
+      if(top){
+        top.classList.remove('hidden');
+        top.querySelector('button').addEventListener('click', next);
+      }
+    }
+    // Only when feedback actually rendered. In the check, onAnswer advances
+    // straight away, so fb is already detached and must not steal the scroll.
+    if(fb && fb.isConnected && fb.firstChild && typeof fb.scrollIntoView === 'function'){
+      try{ fb.scrollIntoView({ block: 'start', behavior: 'auto' }); }catch(e){ fb.scrollIntoView(true); }
+    }
   }
 }
 </script>
@@ -423,7 +477,7 @@ function Drill(host, list, opts){
   }
 
   function startPractice(){
-    Drill(pWrap, BANK.practice, { onAnswer: fbPractice, onEnd: function(res){
+    Drill(pWrap, BANK.practice, { showLevel: true, onAnswer: fbPractice, onEnd: function(res){
       var clean = res.filter(function(r){ return r.clean; }).length;
       pWrap.innerHTML = '<div class="verdict ' + (clean >= 8 ? 'ok' : 'no') + '">' +
         clean + ' of ' + res.length + ' clean.' + (clean >= 8
