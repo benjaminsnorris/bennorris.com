@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-    <script src="/assets/js/course-store.js" defer data-course-slug="board-vision-squares"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naming squares — board vision</title>
 <style>
@@ -124,7 +123,8 @@ nav.units [aria-current]{background:var(--signal);color:var(--btn-fg);border-col
   border-radius:6px;overflow:hidden;touch-action:manipulation}
 .sq{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
   font-size:min(8.4vw,30px);line-height:1;user-select:none;position:relative;
-  padding:0;border:0;font-family:inherit}
+  padding:0;border:0;font-family:inherit;color:inherit;
+  -webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent}
 .board.tappable .sq{cursor:pointer}
 .sq.l{background:var(--sq-l)} .sq.d{background:var(--sq-d)}
 .sq.ring::after,.sq.sel::after{content:"";position:absolute;inset:6%;border-radius:4px;
@@ -139,12 +139,27 @@ nav.units [aria-current]{background:var(--signal);color:var(--btn-fg);border-col
   box-shadow:0 0 0 1.5px var(--pip-edge),inset 0 0 0 1.5px var(--pip-edge)}
 .sq.pip-bad::before{background:var(--bad);border-radius:2px}
 .pc{position:relative;z-index:1;font-variant-emoji:text;pointer-events:none}
+/* -webkit-text-fill-color as well as color: a tappable square is a <button>,
+   and Safari fills control text with its own colour, which overrides `color`
+   and turns every piece iOS blue. The ring sits outside the glyph - a centred
+   -webkit-text-stroke eats the fill and inverts the piece at this size. */
+.pc.w{color:var(--pc-w);-webkit-text-fill-color:var(--pc-w);
+  text-shadow:0 1px 0 var(--pc-w-edge),0 -1px 0 var(--pc-w-edge),1px 0 0 var(--pc-w-edge),
+    -1px 0 0 var(--pc-w-edge),1px 1px 0 var(--pc-w-edge),-1px -1px 0 var(--pc-w-edge),
+    1px -1px 0 var(--pc-w-edge),-1px 1px 0 var(--pc-w-edge)}
+.pc.b{color:var(--pc-b);-webkit-text-fill-color:var(--pc-b);
+  text-shadow:0 1px 0 var(--pc-b-edge),0 -1px 0 var(--pc-b-edge),1px 0 0 var(--pc-b-edge),
+    -1px 0 0 var(--pc-b-edge),1px 1px 0 var(--pc-b-edge),-1px -1px 0 var(--pc-b-edge),
+    1px -1px 0 var(--pc-b-edge),-1px 1px 0 var(--pc-b-edge)}
 .pc[data-t="p"]{font-size:.80em}
 .pc[data-t="r"]{font-size:.92em}
 .pc[data-t="n"]{font-size:1em}
 .pc[data-t="b"]{font-size:1.06em}
 .pc[data-t="q"]{font-size:1.02em}
 .pc[data-t="k"]{font-size:1.04em}
+.viewlbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-mute);text-align:center;margin-bottom:.5em}
+.viewlbl.flip{color:var(--miss);font-weight:600}
 .boardcap{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;
   color:var(--ink-mute);text-align:center;margin-top:.7em}
 .key{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:.6em;
@@ -264,7 +279,7 @@ footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--rule);
 
 </div>
 
-<script type="text/course-deferred">
+<script>
 var KEY = 'state', SCHEMA = 1;
 function fresh(){ return { v:SCHEMA, theme:null, practice:[], holdout:null, flags:{}, seen:{} }; }
 var S = fresh();
@@ -282,7 +297,7 @@ function refreshPacket(){
 var BANK = {"practice":[{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap c1.","answer":"c1","single":true,"mode":"tap","note":"c1 is a dark square.","target":"c1"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap c7.","answer":"c7","single":true,"mode":"tap","note":"c7 is a dark square.","target":"c7"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap f3.","answer":"f3","single":true,"mode":"tap","note":"f3 is a light square.","target":"f3"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap a5.","answer":"a5","single":true,"mode":"tap","note":"a5 is a dark square.","target":"a5"},{"unit":1,"level":"B","cap":6,"fen":"rn1qr1k1/1b3pp1/1pp2b1p/p2p4/1P1P4/1QN1PN2/P3BPPP/R4RK1 w - - 0 14","flip":false,"ask":"Tap c8.","answer":"c8","single":true,"mode":"tap","note":"c8 is a light square.","target":"c8"},{"unit":1,"level":"B","cap":6,"fen":"rnb2rk1/ppp1b1pp/3ppnq1/5p2/2PP4/2N2NP1/PP2PPBP/R1BQR1K1 w - - 4 9","flip":false,"ask":"Tap e3.","answer":"e3","single":true,"mode":"tap","note":"e3 is a dark square.","target":"e3"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2PP1N2/PP3PPP/RNBQ1RK1 w - - 2 7","flip":false,"ask":"Tap b8.","answer":"b8","single":true,"mode":"tap","note":"b8 is a dark square.","target":"b8"},{"unit":1,"level":"C","cap":7,"fen":"r1bq1rk1/ppp1n1bp/3p1np1/3Pp3/2P1Pp2/2NN1P2/PP1BB1PP/R2Q1RK1 w - - 0 13","flip":true,"ask":"Tap c3.","answer":"c3","single":true,"mode":"tap","note":"c3 is a dark square.","target":"c3"},{"unit":1,"level":"C","cap":7,"fen":"rn1qk2r/1p2bppp/p2pbn2/4p3/4P3/1NN1BP2/PPPQ2PP/R3KB1R b KQkq - 2 9","flip":true,"ask":"Tap a4.","answer":"a4","single":true,"mode":"tap","note":"a4 is a light square.","target":"a4"},{"unit":1,"level":"C","cap":7,"fen":"r1b2rk1/ppq2ppp/2nbpn2/2pp4/3P4/2PBPNB1/PP1N1PPP/R2QK2R w KQ - 3 9","flip":true,"ask":"Tap c1.","answer":"c1","single":true,"mode":"tap","note":"c1 is a dark square.","target":"c1"}],"holdout":[{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap a4.","answer":"a4","single":true,"mode":"tap","note":"a4 is a light square.","target":"a4"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap a7.","answer":"a7","single":true,"mode":"tap","note":"a7 is a dark square.","target":"a7"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap h2.","answer":"h2","single":true,"mode":"tap","note":"h2 is a dark square.","target":"h2"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap g2.","answer":"g2","single":true,"mode":"tap","note":"g2 is a light square.","target":"g2"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap g6.","answer":"g6","single":true,"mode":"tap","note":"g6 is a light square.","target":"g6"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap e8.","answer":"e8","single":true,"mode":"tap","note":"e8 is a light square.","target":"e8"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap d8.","answer":"d8","single":true,"mode":"tap","note":"d8 is a dark square.","target":"d8"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap b7.","answer":"b7","single":true,"mode":"tap","note":"b7 is a light square.","target":"b7"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap f6.","answer":"f6","single":true,"mode":"tap","note":"f6 is a dark square.","target":"f6"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap e7.","answer":"e7","single":true,"mode":"tap","note":"e7 is a dark square.","target":"e7"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap e1.","answer":"e1","single":true,"mode":"tap","note":"e1 is a dark square.","target":"e1"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap c2.","answer":"c2","single":true,"mode":"tap","note":"c2 is a light square.","target":"c2"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap e2.","answer":"e2","single":true,"mode":"tap","note":"e2 is a light square.","target":"e2"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap g4.","answer":"g4","single":true,"mode":"tap","note":"g4 is a light square.","target":"g4"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap f8.","answer":"f8","single":true,"mode":"tap","note":"f8 is a dark square.","target":"f8"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap f1.","answer":"f1","single":true,"mode":"tap","note":"f1 is a light square.","target":"f1"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap f2.","answer":"f2","single":true,"mode":"tap","note":"f2 is a dark square.","target":"f2"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap d5.","answer":"d5","single":true,"mode":"tap","note":"d5 is a light square.","target":"d5"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap e4.","answer":"e4","single":true,"mode":"tap","note":"e4 is a light square.","target":"e4"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap g7.","answer":"g7","single":true,"mode":"tap","note":"g7 is a dark square.","target":"g7"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap b3.","answer":"b3","single":true,"mode":"tap","note":"b3 is a light square.","target":"b3"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap d7.","answer":"d7","single":true,"mode":"tap","note":"d7 is a light square.","target":"d7"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap f4.","answer":"f4","single":true,"mode":"tap","note":"f4 is a dark square.","target":"f4"},{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w - - 0 1","flip":false,"ask":"Tap h7.","answer":"h7","single":true,"mode":"tap","note":"h7 is a light square.","target":"h7"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/2p1bppp/p2p1n2/np2p3/4P3/1BP2N1P/PP1P1PP1/RNBQR1K1 w - - 1 10","flip":false,"ask":"Tap h2.","answer":"h2","single":true,"mode":"tap","note":"h2 is a dark square.","target":"h2"},{"unit":1,"level":"B","cap":6,"fen":"r1bqk2r/ppp1bppp/1nn5/4p3/8/2N2NP1/PP1PPPBP/R1BQ1RK1 w kq - 4 8","flip":false,"ask":"Tap f8.","answer":"f8","single":true,"mode":"tap","note":"f8 is a dark square.","target":"f8"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/bpp2ppp/p1np1n2/4p3/4P3/1BPP1N1P/PP3PP1/RNBQR1K1 b - - 0 9","flip":false,"ask":"Tap a4.","answer":"a4","single":true,"mode":"tap","note":"a4 is a light square.","target":"a4"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/2p1bppp/p2p1n2/np2p3/4P3/2P2N1P/PPBP1PP1/RNBQR1K1 b - - 2 10","flip":false,"ask":"Tap d3.","answer":"d3","single":true,"mode":"tap","note":"d3 is a light square.","target":"d3"},{"unit":1,"level":"B","cap":6,"fen":"r2q1rk1/3nbppp/p2pbn2/4p1P1/1p2P3/1N2BP2/PPPQN2P/2KR1B1R b - - 1 13","flip":false,"ask":"Tap d8.","answer":"d8","single":true,"mode":"tap","note":"d8 is a dark square.","target":"d8"},{"unit":1,"level":"B","cap":6,"fen":"r2qkbnr/pp1nppp1/2p3bp/8/3P3P/5NN1/PPP2PP1/R1BQKB1R w KQkq - 2 8","flip":false,"ask":"Tap g4.","answer":"g4","single":true,"mode":"tap","note":"g4 is a light square.","target":"g4"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/1pp2ppp/p1np1n2/2b1p3/4P3/1BPP1N2/PP3PPP/RNBQR1K1 b - - 1 8","flip":false,"ask":"Tap c2.","answer":"c2","single":true,"mode":"tap","note":"c2 is a light square.","target":"c2"},{"unit":1,"level":"B","cap":6,"fen":"rnbqk2r/p3ppbp/2pp1np1/1p6/3PP3/2N1BP2/PPPQN1PP/R3KB1R b KQkq - 1 7","flip":false,"ask":"Tap f1.","answer":"f1","single":true,"mode":"tap","note":"f1 is a light square.","target":"f1"},{"unit":1,"level":"B","cap":6,"fen":"r2q1rk1/ppp1b1pp/1nn1bp2/4p3/1P6/P1NP1NP1/4PPBP/1RBQ1RK1 b - - 0 11","flip":false,"ask":"Tap h1.","answer":"h1","single":true,"mode":"tap","note":"h1 is a light square.","target":"h1"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/bpp2ppp/p1np1n2/4p3/4P3/1BPP1N2/PP3PPP/RNBQR1K1 w - - 2 9","flip":false,"ask":"Tap a1.","answer":"a1","single":true,"mode":"tap","note":"a1 is a dark square.","target":"a1"},{"unit":1,"level":"B","cap":6,"fen":"r2q1rk1/3nbppp/p2pbn2/4p1P1/1p2P3/1NN1BP2/PPPQ3P/2KR1B1R w - - 0 13","flip":false,"ask":"Tap d1.","answer":"d1","single":true,"mode":"tap","note":"d1 is a light square.","target":"d1"},{"unit":1,"level":"B","cap":6,"fen":"rnbqkb1r/ppp2ppp/1n6/4p3/8/2N3P1/PP1PPPBP/R1BQK1NR w KQkq - 2 6","flip":false,"ask":"Tap b6.","answer":"b6","single":true,"mode":"tap","note":"b6 is a dark square.","target":"b6"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/ppp2pbp/2np1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 b - - 0 8","flip":false,"ask":"Tap c5.","answer":"c5","single":true,"mode":"tap","note":"c5 is a dark square.","target":"c5"},{"unit":1,"level":"B","cap":6,"fen":"r2q1rk1/1p1nbppp/p2pbn2/4p3/4P1P1/1NN1BP2/PPPQ3P/2KR1B1R b - - 0 11","flip":false,"ask":"Tap d2.","answer":"d2","single":true,"mode":"tap","note":"d2 is a dark square.","target":"d2"},{"unit":1,"level":"B","cap":6,"fen":"rn1q1rk1/1p2bppp/p2pbn2/4p3/4P3/1NN1BP2/PPPQ2PP/R3KB1R w KQ - 3 10","flip":false,"ask":"Tap a6.","answer":"a6","single":true,"mode":"tap","note":"a6 is a light square.","target":"a6"},{"unit":1,"level":"B","cap":6,"fen":"r2q1rk1/3nbppp/p2pbn2/4p1P1/1p2P3/1NN1BP2/PPPQ3P/2KR1B1R w - - 0 13","flip":false,"ask":"Tap e5.","answer":"e5","single":true,"mode":"tap","note":"e5 is a dark square.","target":"e5"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/bpp2pp1/p1np1n1p/4p3/4P3/1BPP1N1P/PP3PP1/RNBQR1K1 w - - 0 10","flip":false,"ask":"Tap b2.","answer":"b2","single":true,"mode":"tap","note":"b2 is a dark square.","target":"b2"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 1 9","flip":false,"ask":"Tap h8.","answer":"h8","single":true,"mode":"tap","note":"h8 is a dark square.","target":"h8"},{"unit":1,"level":"B","cap":6,"fen":"r2qnrk1/3nbppp/p2pb3/4p1P1/1p2P3/1N2BP2/PPPQN2P/2KR1B1R w - - 2 14","flip":false,"ask":"Tap g7.","answer":"g7","single":true,"mode":"tap","note":"g7 is a dark square.","target":"g7"},{"unit":1,"level":"B","cap":6,"fen":"rnbqkb1r/pp2pppp/2p2n2/8/P1pP4/2N2N2/1P2PPPP/R1BQKB1R b KQkq - 0 5","flip":false,"ask":"Tap h3.","answer":"h3","single":true,"mode":"tap","note":"h3 is a light square.","target":"h3"},{"unit":1,"level":"B","cap":6,"fen":"r1bq1rk1/bpp2ppp/p1np1n2/4p3/4P3/1BPP1N2/PP3PPP/RNBQR1K1 w - - 2 9","flip":false,"ask":"Tap a5.","answer":"a5","single":true,"mode":"tap","note":"a5 is a dark square.","target":"a5"},{"unit":1,"level":"B","cap":6,"fen":"rnbq1rk1/pp2nppp/4p3/2ppP3/3P2Q1/P1P5/2P2PPP/R1B1KBNR w KQ - 3 8","flip":false,"ask":"Tap e6.","answer":"e6","single":true,"mode":"tap","note":"e6 is a light square.","target":"e6"},{"unit":1,"level":"B","cap":6,"fen":"r2q1rk1/1pp1b1pp/1n2bp2/pP2p3/3n4/P1NP2P1/3NPPBP/1RBQ1RK1 b - - 2 13","flip":false,"ask":"Tap e2.","answer":"e2","single":true,"mode":"tap","note":"e2 is a light square.","target":"e2"},{"unit":1,"level":"B","cap":6,"fen":"r2q1rk1/1pp1b1pp/1nn1bp2/pP2p3/8/P1NP1NP1/4PPBP/1RBQ1RK1 b - - 0 12","flip":false,"ask":"Tap d7.","answer":"d7","single":true,"mode":"tap","note":"d7 is a light square.","target":"d7"},{"unit":1,"level":"C","cap":7,"fen":"rnbq1rk1/1p2bppp/p2p1n2/4p3/4P3/1NN5/PPP1BPPP/R1BQ1RK1 w - - 4 9","flip":true,"ask":"Tap h7.","answer":"h7","single":true,"mode":"tap","note":"h7 is a light square.","target":"h7"},{"unit":1,"level":"C","cap":7,"fen":"rnbqk2r/ppp2ppp/3bpn2/3p4/3P4/4PNB1/PPP2PPP/RN1QKB1R b KQkq - 3 5","flip":true,"ask":"Tap e4.","answer":"e4","single":true,"mode":"tap","note":"e4 is a light square.","target":"e4"},{"unit":1,"level":"C","cap":7,"fen":"r1b2rk1/2q1bppp/p1np1n2/1ppPp3/4P3/2P2N1P/PPBN1PP1/R1BQR1K1 b - - 0 13","flip":true,"ask":"Tap d2.","answer":"d2","single":true,"mode":"tap","note":"d2 is a dark square.","target":"d2"},{"unit":1,"level":"C","cap":7,"fen":"r1bq1rk1/pp1nbppp/2p1p3/3n2B1/2BP4/2N1PN2/PP3PPP/2RQK2R w K - 1 10","flip":true,"ask":"Tap g4.","answer":"g4","single":true,"mode":"tap","note":"g4 is a light square.","target":"g4"},{"unit":1,"level":"C","cap":7,"fen":"r1bq1rk1/ppp1bppp/1nn5/4p3/1P6/P1N2NP1/3PPPBP/R1BQ1RK1 b - - 0 9","flip":true,"ask":"Tap f4.","answer":"f4","single":true,"mode":"tap","note":"f4 is a dark square.","target":"f4"},{"unit":1,"level":"C","cap":7,"fen":"rnbqk2r/pp2ppbp/2pp1np1/8/3PP3/2N1B3/PPPQ1PPP/R3KBNR w KQkq - 0 6","flip":true,"ask":"Tap d5.","answer":"d5","single":true,"mode":"tap","note":"d5 is a light square.","target":"d5"},{"unit":1,"level":"C","cap":7,"fen":"rnbqkb1r/ppp1pp1p/5np1/3P4/3P4/2N5/PP2PPPP/R1BQKBNR b KQkq - 0 4","flip":true,"ask":"Tap g3.","answer":"g3","single":true,"mode":"tap","note":"g3 is a dark square.","target":"g3"},{"unit":1,"level":"C","cap":7,"fen":"rnbqk2r/ppp1ppbp/3p1np1/8/2PPP3/2N5/PP3PPP/R1BQKBNR w KQkq - 0 5","flip":true,"ask":"Tap d1.","answer":"d1","single":true,"mode":"tap","note":"d1 is a light square.","target":"d1"},{"unit":1,"level":"C","cap":7,"fen":"r1bqkbnr/pppp1ppp/2n5/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4","flip":true,"ask":"Tap g7.","answer":"g7","single":true,"mode":"tap","note":"g7 is a dark square.","target":"g7"},{"unit":1,"level":"C","cap":7,"fen":"rnbqkb1r/pp3ppp/3p1n2/2pP4/4P3/2N5/PP3PPP/R1BQKBNR b KQkq - 0 6","flip":true,"ask":"Tap e2.","answer":"e2","single":true,"mode":"tap","note":"e2 is a light square.","target":"e2"},{"unit":1,"level":"C","cap":7,"fen":"r1b2rk1/p2nqppp/2n1p3/1p1pPPN1/2pP4/2N5/PPPQ2PP/2KR1B1R b - - 1 12","flip":true,"ask":"Tap d7.","answer":"d7","single":true,"mode":"tap","note":"d7 is a light square.","target":"d7"},{"unit":1,"level":"C","cap":7,"fen":"rnbq1rk1/ppp2ppp/3bpn2/3p4/3P4/3BPNB1/PPP2PPP/RN1QK2R b KQ - 5 6","flip":true,"ask":"Tap b1.","answer":"b1","single":true,"mode":"tap","note":"b1 is a light square.","target":"b1"},{"unit":1,"level":"C","cap":7,"fen":"rn1q1rk1/pbp2pp1/1p2pb1p/3P4/3P4/2N1PN2/PP2BPPP/R2QK2R b KQ - 0 10","flip":true,"ask":"Tap d8.","answer":"d8","single":true,"mode":"tap","note":"d8 is a dark square.","target":"d8"},{"unit":1,"level":"C","cap":7,"fen":"rnbqk1nr/pp3ppp/4p3/2ppP3/1b1P4/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 5","flip":true,"ask":"Tap a7.","answer":"a7","single":true,"mode":"tap","note":"a7 is a dark square.","target":"a7"},{"unit":1,"level":"C","cap":7,"fen":"r2q1rk1/1p1nbppp/p2pbn2/4p3/4P1P1/1NN1BP2/PPPQ3P/2KR1B1R b - - 0 11","flip":true,"ask":"Tap c5.","answer":"c5","single":true,"mode":"tap","note":"c5 is a dark square.","target":"c5"},{"unit":1,"level":"C","cap":7,"fen":"r1bqkb1r/1ppp1ppp/p1n2n2/4p3/B3P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5","flip":true,"ask":"Tap e6.","answer":"e6","single":true,"mode":"tap","note":"e6 is a light square.","target":"e6"},{"unit":1,"level":"C","cap":7,"fen":"rnbqkb1r/pp3ppp/3p1n2/2pP4/8/2N5/PP2PPPP/R1BQKBNR w KQkq - 0 6","flip":true,"ask":"Tap b7.","answer":"b7","single":true,"mode":"tap","note":"b7 is a light square.","target":"b7"},{"unit":1,"level":"C","cap":7,"fen":"rnbqk2r/pp2ppbp/2pp1np1/8/3PP3/2N1BP2/PPPQ2PP/R3KBNR b KQkq - 0 6","flip":true,"ask":"Tap a1.","answer":"a1","single":true,"mode":"tap","note":"a1 is a dark square.","target":"a1"},{"unit":1,"level":"C","cap":7,"fen":"rnbqkbnr/pp2pppp/2p5/8/3Pp3/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 4","flip":true,"ask":"Tap g8.","answer":"g8","single":true,"mode":"tap","note":"g8 is a light square.","target":"g8"},{"unit":1,"level":"C","cap":7,"fen":"r1bq1rk1/pp1nbppp/2p1pn2/6B1/2BP4/2N1PN2/PP3PPP/2RQK2R b K - 0 9","flip":true,"ask":"Tap e5.","answer":"e5","single":true,"mode":"tap","note":"e5 is a dark square.","target":"e5"},{"unit":1,"level":"C","cap":7,"fen":"r1b2rk1/p2nqpp1/2n1p2p/1p1pPPN1/2pP4/2N5/PPPQ2PP/2KR1B1R w - - 0 13","flip":true,"ask":"Tap a3.","answer":"a3","single":true,"mode":"tap","note":"a3 is a dark square.","target":"a3"},{"unit":1,"level":"C","cap":7,"fen":"rnbq1rk1/ppp2ppp/3bpn2/3p4/3P4/3BPNB1/PPP2PPP/RN1QK2R b KQ - 5 6","flip":true,"ask":"Tap g5.","answer":"g5","single":true,"mode":"tap","note":"g5 is a dark square.","target":"g5"},{"unit":1,"level":"C","cap":7,"fen":"r1bq1rk1/ppp1n1bp/3p1np1/3Pp3/2P1Pp2/2NN1P2/PP1BB1PP/R2Q1RK1 w - - 0 13","flip":true,"ask":"Tap f2.","answer":"f2","single":true,"mode":"tap","note":"f2 is a dark square.","target":"f2"},{"unit":1,"level":"C","cap":7,"fen":"rnbq1rk1/p1p1bpp1/1p2pn1p/3p4/2PP3B/2N1PN2/PP3PPP/R2QKB1R w KQ - 0 8","flip":true,"ask":"Tap b8.","answer":"b8","single":true,"mode":"tap","note":"b8 is a dark square.","target":"b8"}]}, UNITLINE = "1 \u00b7 naming squares", UNITNO = 1, DRAW = {"A": 7, "B": 7, "C": 6};
 </script>
 
-<script type="text/course-deferred">
+<script>
 (function(){
   var btn = document.getElementById('themeBtn');
   function apply(){
@@ -298,10 +313,17 @@ var BANK = {"practice":[{"unit":1,"level":"A","cap":5,"fen":"8/8/8/8/8/8/8/8 w -
 })();
 </script>
 
-<script type="text/course-deferred">
+<script>
 /* the board. `flip` turns the view without moving the coordinates - a1 is
    still a1, which is exactly the thing unit 1 level C is testing. */
 var GLYPH = { k:'\u265A', q:'\u265B', r:'\u265C', b:'\u265D', n:'\u265E', p:'\u265F' };
+// In a real game you know which side you are playing; deducing it from the
+// position is not a chess skill. Stated on every board, so its presence is
+// never itself the tell that this one has been turned.
+function viewLabel(flip){
+  return '<div class="viewlbl' + (flip ? ' flip' : '') + '">' +
+         (flip ? 'Black\u2019s view' : 'White\u2019s view') + '</div>';
+}
 function boardHTML(fen, o){
   o = o || {};
   var pips = o.pips || {}, sel = o.sel || [], flip = !!o.flip, ring = o.ring;
@@ -343,7 +365,7 @@ function setEq(a, b){
 }
 </script>
 
-<script type="text/course-deferred">
+<script>
 /* One drill engine, two input modes. `count` taps a number; `tap` selects
    squares on the board and submits with Done. Set answers are all-or-nothing:
    six of a knight's eight squares is a missed piece, not 75% of a skill. */
@@ -361,6 +383,7 @@ function Drill(host, list, opts){
     sel = [];
     var tap = it.mode === 'tap';
     box.innerHTML =
+      viewLabel(it.flip) +
       '<div class="board' + (tap ? ' tappable' : '') + '">' +
         boardHTML(it.fen, { flip: it.flip, tappable: tap,
                             ring: (!tap && it.target) ? it.target : null }) + '</div>' +
@@ -371,7 +394,7 @@ function Drill(host, list, opts){
       '<div class="ask">' + it.ask + '</div>' +
       '<div class="clock"><i></i></div>' +
       '<div class="clocklbl">cap ' + it.cap + 's</div>' +
-      (tap ? '<div class="picked" id="picked"></div>' +
+      (tap ? (it.single ? '' : '<div class="picked" id="picked"></div>') +
              (it.single ? '' :
                '<div class="row" style="justify-content:center"><button class="btn" id="done" type="button">Done</button>' +
                '<button class="btn ghost" id="clearSel" type="button">Clear</button></div>')
@@ -470,7 +493,7 @@ function solutionBoard(rec){
     var m = rec.marks ? rec.marks.split(' ') : [];
     for(k = 0; k < m.length; k++) pips[m[k]] = 'got';
   }
-  return '<div class="board">' + boardHTML(rec.fen, { pips: pips, flip: rec.flip,
+  return viewLabel(rec.flip) + '<div class="board">' + boardHTML(rec.fen, { pips: pips, flip: rec.flip,
            ring: rec.mode === 'count' ? rec.target : null }) + '</div>';
 }
 function solutionKey(rec){
@@ -482,7 +505,7 @@ function solutionKey(rec){
 </script>
 
 
-<script type="text/course-deferred">
+<script>
 (function(){
   var pWrap = document.getElementById('pWrap'), hWrap = document.getElementById('hWrap');
 
@@ -611,7 +634,7 @@ function solutionKey(rec){
 })();
 </script>
 
-<script type="text/course-deferred">
+<script>
 (function(){
   var out = document.getElementById('packetOut'), msg = document.getElementById('packetMsg');
   function build(){
