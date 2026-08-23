@@ -92,3 +92,14 @@
     never tells you which one it wants. Five units, every one gated at eighteen
     of twenty held-out positions inside their cap.
   tracked: true
+
+- slug: chess-seeds
+  title: Seeds of Tactical Destruction
+  description: >-
+    Board vision's sequel. Heisman's twelve seeds of tactical destruction —
+    loose pieces, overworked defenders, an exposed king — named from memory
+    under a cap, then read as evidence rather than an answer: four or more
+    present is 85% tactical, two or three is the same as not looking. Gated at
+    eighteen of twenty, except the calibration block, which cannot be: the
+    features top out at 78%, against 29% for guessing quiet.
+  tracked: true
