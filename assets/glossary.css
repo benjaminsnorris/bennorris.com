@@ -405,3 +405,21 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
 .seealso .lbl{display:inline-block;min-width:6.2em;font-family:var(--mono);font-size:.6rem;
   letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute)}
 .seealso a{color:var(--signal)}
+
+/* notation breakdown */
+.anatomy{margin:1.4em 0}
+.anatomy .sample{font-family:var(--mono);font-size:.8rem;line-height:1.5;word-break:break-all;
+  background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;margin:0 0 .8em}
+.anatomy .scroll{overflow-x:auto}
+.anatomy table{border-collapse:collapse;width:100%;font-size:.88rem}
+.anatomy th,.anatomy td{text-align:left;vertical-align:top;padding:7px 10px 7px 0;
+  border-bottom:1px solid var(--rule)}
+.anatomy th{font-family:var(--sans);font-weight:640;white-space:nowrap;color:var(--ink)}
+.anatomy td.v{font-family:var(--mono);font-size:.78rem;color:var(--signal);white-space:nowrap;
+  max-width:11rem;overflow:hidden;text-overflow:ellipsis}
+.anatomy td{color:var(--ink-soft)}
+
+.pagefoot{border-top:1px solid var(--rule-strong);margin-top:3.5rem;padding-top:1.1em}
+.pagefoot p{margin:.3em 0;font-size:.86rem}
+.pagefoot a{color:var(--signal)}
+.pagefoot .small{font-size:.76rem;color:var(--ink-mute)}

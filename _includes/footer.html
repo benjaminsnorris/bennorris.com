@@ -1,5 +1,14 @@
 <footer id="footer" class="site-footer">
   <div class="inner">
+    <nav class="footer-links">
+      {%- comment -%}
+        The chess glossary lives at /glossary/ and is not a Jekyll page, so it
+        cannot be enumerated from a collection. Linked here rather than in the
+        nav so every page carries a route to it. /courses/ stays out of the nav
+        on purpose -- see the comment in courses.html.
+      {%- endcomment -%}
+      <a href="{{ '/glossary/' | relative_url }}">Chess glossary</a>
+    </nav>
     <div class="copyright">
       {% if site.copyright %}
         {{ site.copyright | markdownify }}

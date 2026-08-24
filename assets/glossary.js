@@ -141,7 +141,7 @@ function boardCell(b){
 function renderEntry(e, opts){
   opts = opts || {};
   var h = '<article class="entry" id="' + esc(e.slug) + '">';
-  h += '<h2>' + esc(e.term) + '</h2>';
+  if(!opts.single) h += '<h2>' + esc(e.term) + '</h2>';
   var bits = ['tier ' + e.tier, e.kind];
   if((e.taught || []).length) bits.push('taught');
   else bits.push('untaught');
@@ -151,6 +151,7 @@ function renderEntry(e, opts){
   h += seeitBanner(e, !!opts.compact);
   if(opts.readthrough && e.thread) h += '<p class="thread">' + esc(e.thread) + '</p>';
   h += '<p class="def">' + esc(e.definition) + '</p>';
+  h += renderAnatomy(e);
   (e.precision || []).forEach(function(p){
     h += '<div class="precision"><h3>Against ' + esc(p.against) + '</h3><p>' +
       esc(p.text) + '</p></div>';
@@ -171,6 +172,21 @@ function renderEntry(e, opts){
   h += renderDrill(e);
   h += renderReading(e);
   return h + '</article>';
+}
+
+/* A notation breakdown: the string, then one row per field. The values are
+   validated at build time to reassemble the sample exactly, so the table cannot
+   disagree with the FEN above it. */
+function renderAnatomy(e){
+  if(!e.anatomy) return '';
+  var rows = e.anatomy.parts.map(function(p){
+    return '<tr><th>' + esc(p.field) + '</th>' +
+      '<td class="v">' + esc(p.value) + '</td>' +
+      '<td>' + esc(p.meaning) + '</td></tr>';
+  }).join('');
+  return '<div class="anatomy">' +
+    '<p class="sample">' + esc(e.anatomy.sample) + '</p>' +
+    '<div class="scroll"><table><tbody>' + rows + '</tbody></table></div></div>';
 }
 
 function renderReading(e){
@@ -203,7 +219,9 @@ function renderDrill(e){
 /* Page boot. Each page carries only the data it needs and renders it here. */
 function payload(){ return JSON.parse(document.getElementById('data').textContent); }
 function renderOne(){
-  document.getElementById('out').innerHTML = renderEntry(payload(), {compact: true});
+  /* single: the page <h1> is already the term, so the article does not repeat it */
+  document.getElementById('out').innerHTML =
+    renderEntry(payload(), {compact: true, single: true});
 }
 function renderReadthrough(){
   document.getElementById('out').innerHTML =
