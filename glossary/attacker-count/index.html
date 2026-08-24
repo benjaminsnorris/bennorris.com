@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Attacker count - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a></p>
+<h1>Attacker count</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Attacker count","slug":"attacker-count","tier":2,"order":304,"kind":"see-it","taught":["board-vision:unit-3"],"defined_also_in":["board-vision:unit-3"],"thread":"Where the two relations above turn into arithmetic, and where beginners undercount.","definition":"How many pieces attack a square - counting pieces standing behind other pieces on the same line, not only the ones with a clear path. The count on each side is what decides whether taking on a square works.","precision":[{"against":"counting only what you can see","text":"The whole difficulty is the pieces behind pieces. A rook behind a rook, or a queen behind a bishop, attacks the square through its own colleague and joins the count. Miss those and the arithmetic comes out wrong in the direction that loses material."},{"against":"the number of legal captures","text":"Not the same number. A pinned piece still counts toward the attacker count even though it cannot legally move, because the count is about geometry. Legality is a separate question, asked afterwards."}],"chips":["sourced"],"boards":[{"fen":"3r4/pp3k2/2p1bbp1/4Bp1p/3P3P/2P5/PP3PP1/1B2R1K1 w - - 4 30","corpus":"positions","ref":"xw4ccyaw","caption":"Black attacks g4 three times, and only two of those are visible as direct attacks - the pawns on f5 and h5. The third is the bishop on e6, attacking through its own pawn on f5 along the same diagonal.","render_fen":"3r4/pp3k2/2p1bbp1/4Bp1p/3P3P/2P5/PP3PP1/1B2R1K1 w - - 4 30"},{"fen":"r3k3/pb1p3p/1p2p1q1/2pn4/7B/P2P3P/1PPQB1r1/2KR3R w q - 0 21","corpus":"positions","ref":"nkpfh1r3","awkward":true,"caption":"The awkward one. White attacks d3 four times, but only three attackers have a clear path; the fourth is stacked behind one of them. Counting the visible attacks gives the wrong answer here.","render_fen":"r3k3/pb1p3p/1p2p1q1/2pn4/7B/P2P3P/1PPQB1r1/2KR3R w q - 0 21"}],"drill":{"mode":"none","why":"taught-elsewhere","note":"The courses already drill this, and better than a second drill here would. Board vision is where the seeing gets built; this entry exists so the word can be looked up, not so the skill can be practised twice."},"reading":[{"title":"Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess"}],"links":["battery","x-ray","underguarded","/courses/board-vision-counting/"],"links_resolved":[{"label":"Battery","href":"/glossary/battery/"},{"label":"X-ray","href":"/glossary/x-ray/"},{"label":"Underguarded","href":"/glossary/underguarded/"},{"label":"Board vision: counting attackers","href":"/courses/board-vision-counting/"}]}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

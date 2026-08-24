@@ -76,17 +76,21 @@ function esc(s){
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 var TAUGHT_LABEL = {
+  'board-vision:unit-1': 'board vision unit 1 (naming squares)',
   'board-vision:unit-2': 'board vision unit 2 (attack maps)',
-  'board-vision:unit-3': 'board vision unit 3 (counting)',
+  'board-vision:unit-3': 'board vision unit 3 (counting attackers)',
   'board-vision:unit-4': 'board vision unit 4 (loose pieces)',
+  'board-vision:unit-5': 'board vision unit 5 (the final check)',
   'seeds:block-2': 'seeds block 2 (six seeds)',
   'seeds:block-3': 'seeds block 3 (all twelve)',
   'seeds:block-5': 'seeds block 5 (convergence)'
 };
 var TAUGHT_HREF = {
+  'board-vision:unit-1': '/courses/board-vision-squares/',
   'board-vision:unit-2': '/courses/board-vision-attacks/',
   'board-vision:unit-3': '/courses/board-vision-counting/',
   'board-vision:unit-4': '/courses/board-vision-loose/',
+  'board-vision:unit-5': '/courses/board-vision-check/',
   'seeds:block-2': '/courses/chess-seeds/',
   'seeds:block-3': '/courses/chess-seeds/',
   'seeds:block-5': '/courses/chess-seeds/'

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Relative pin - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a></p>
+<h1>Relative pin</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Relative pin","slug":"relative-pin","tier":2,"order":309,"kind":"see-it","taught":[],"thread":"The other half, twice as common as the first, and the one that costs material because it looks optional.","definition":"A piece that can legally move but should not, because something more valuable than itself is directly behind it on the same line. Moving it hands over the piece behind; leaving it there accepts being tied down. Which is worse is arithmetic, not a rule.","precision":[{"against":"absolute pin","text":"The absolute case is enforced by the rules and the moves are illegal. Here the moves are legal, so nothing stops you making the mistake. That is exactly why this is the case that costs material."},{"against":"skewer","text":"Same line, opposite order of value. A pin has the valuable unit behind, so the front one is stuck. A skewer has the valuable unit in front, so it steps aside and abandons what was behind it."}],"chips":["inference"],"boards":[{"fen":"r4rk1/p4pp1/1pq1p2p/2p3bP/2P3P1/3PPN2/PP1QR3/2K1R3 b - - 4 23","corpus":"positions","ref":"68syzh2l","caption":"The black bishop on g5 looks down the diagonal at the white queen on d2, with the white pawn on e3 in between. The pawn may legally move. If it does, the queen is the next thing on the line.","render_fen":"r4rk1/p4pp1/1pq1p2p/2p3bP/2P3P1/3PPN2/PP1QR3/2K1R3 b - - 4 23"},{"fen":"r3k3/pb1p3p/1p2p1q1/2pn4/7B/P2P3P/1PPQB1r1/2KR3R w q - 0 21","corpus":"positions","ref":"nkpfh1r3","awkward":true,"caption":"The awkward case: the pinned unit is worth something. The black rook on g2 attacks along the second rank through the white bishop on e2 to the queen on d2 behind it. Whether the bishop should move is a sum, not a rule.","render_fen":"r3k3/pb1p3p/1p2p1q1/2pn4/7B/P2P3P/1PPQB1r1/2KR3R w q - 0 21"}],"drill":{"mode":"computed","predicate":"relative_pin_present","note":"Is there a relative pin on the board - a piece with something more valuable than itself directly behind it, and not the king? Ten items, answer revealed after each, no gate. The base rate is shown after the set.","base_rate_pct":44.7,"base_rate_n":2100},"reading":[{"title":"Pin (chess)","url":"https://en.wikipedia.org/wiki/Pin_(chess)"}],"links":["absolute-pin","skewer","pin","x-ray"],"links_resolved":[{"label":"Absolute pin","href":"/glossary/absolute-pin/"},{"label":"Skewer","href":"/glossary/skewer/"},{"label":"X-ray","href":"/glossary/x-ray/"}]}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

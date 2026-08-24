@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Attacks - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a></p>
+<h1>Attacks</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Attacks","slug":"attacks","tier":2,"order":300,"kind":"see-it","taught":["board-vision:unit-2"],"defined_also_in":["board-vision:unit-2"],"thread":"The first of ten relations the courses fix precisely. Every one of them is narrower than the same word in ordinary chess talk, and the narrowing is the point.","definition":"One piece attacks a square if it could capture there, supposing an enemy piece stood on it. That is all: it is a statement about geometry, not about whether a capture would be legal right now, and not about what is actually standing on the square.","precision":[{"against":"the ordinary sense","text":"In normal chess talk, attacking a piece means threatening to win it. The courses' sense is narrower and more useful early on, because it is stable: a pinned piece still attacks everything it attacked before it was pinned, and a piece attacks empty squares too. Keeping the geometry separate from the legality is what stops a beginner's attack map collapsing every time something moves."},{"against":"defends","text":"The same relation pointed the other way. A piece defends a square if it would recapture there. Attack and defence are one geometric fact counted twice, once per colour, which is why the attacker count works at all."}],"chips":["sourced"],"boards":[{"fen":"3r4/pp3k2/2p1bbp1/4Bp1p/3P3P/2P5/PP3PP1/1B2R1K1 w - - 4 30","corpus":"positions","ref":"xw4ccyaw","caption":"The white bishop on e5 attacks f6, where a black bishop stands. It also attacks d4, f4, d6 and the empty squares beyond - attacking a square says nothing about what is on it.","render_fen":"3r4/pp3k2/2p1bbp1/4Bp1p/3P3P/2P5/PP3PP1/1B2R1K1 w - - 4 30"}],"drill":{"mode":"none","why":"taught-elsewhere","note":"The courses already drill this, and better than a second drill here would. Board vision is where the seeing gets built; this entry exists so the word can be looked up, not so the skill can be practised twice."},"reading":[{"title":"Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess"}],"links":["defends","attacker-count","battery","/courses/board-vision-attacks/"],"links_resolved":[{"label":"Defends","href":"/glossary/defends/"},{"label":"Attacker count","href":"/glossary/attacker-count/"},{"label":"Battery","href":"/glossary/battery/"},{"label":"Board vision: attack maps","href":"/courses/board-vision-attacks/"}]}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
