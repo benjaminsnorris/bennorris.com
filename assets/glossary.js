@@ -181,8 +181,12 @@ function renderEntry(e, opts){
       '<p class="prov">' + esc(e.origin.source) + '</p></div>';
   }
   var n = (e.boards || []).length;
-  h += '<div class="boardrow ' + (n === 1 ? 'one' : n === 2 ? 'two' : 'three') + '">' +
-    (e.boards || []).map(boardCell).join('') + '</div>';
+  if(n){
+    h += '<div class="boardrow ' + (n === 1 ? 'one' : n === 2 ? 'two' : 'three') + '">' +
+      (e.boards || []).map(boardCell).join('') + '</div>';
+  } else if(e.no_board){
+    h += '<p class="noboard"><span class="lbl">No diagram</span>' + esc(e.no_board) + '</p>';
+  }
   h += renderDrill(e);
   h += renderReading(e);
   return h + '</article>';

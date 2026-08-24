@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Check - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a></p>
+<h1>Check</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Check","slug":"check","tier":2,"order":222,"group":"moves","kind":"see-it","taught":["board-vision:unit-5"],"thread":"The first of three words about the king that beginners routinely mix up.","definition":"The king is attacked. You must answer it immediately, and only three answers exist: move the king, capture the attacker, or block the line. If none is available it is not check any more, it is checkmate.","precision":[{"against":"checkmate","text":"Check is a situation you get out of; checkmate is a check you cannot get out of. Every checkmate is a check - which is what separates it from stalemate."},{"against":"a threat","text":"Check must be answered this move. A threat to win a queen, however severe, may be ignored if you have something better. That difference is the whole reason forcing sequences work: a check removes the opponent's choice."},{"against":"double check","text":"Two pieces checking at once, which removes two of the three answers - you cannot capture both attackers or block both lines, so the king must move."}],"chips":["sourced"],"boards":[{"fen":"1kr3nr/1pp1q2p/p1N1p1pb/4P3/2N1Q3/1P1P4/PBP2PPP/R4RK1 b - - 0 19","corpus":"drill","ref":"o5fwkkxb","caption":"Black is in check from the knight on c6. A knight's check can never be blocked, so the only answers are to capture it or move the king.","render_fen":"1kr3nr/1pp1q2p/p1N1p1pb/4P3/2N1Q3/1P1P4/PBP2PPP/R4RK1 b - - 0 19"}],"drill":{"mode":"computed","predicate":"check_available","corpus":"drill","question":"Can the side to move give check?","note":"Ten positions from the drill corpus. Not whether the check is any good - only whether one exists.","base_rate_pct":43.4,"base_rate_n":10000,"items":[{"fen":"3r2k1/Q4pp1/3qp3/3p2p1/8/6P1/P4P1P/2R3K1 w - - 1 25","ref":"plsee4nh","answer":true,"flip":false},{"fen":"2b2b1r/p2kp1pp/1pRr4/3P4/2P5/8/PP3PPP/RNBQ2K1 b - - 0 18","ref":"iip4zf1i","answer":false,"flip":true},{"fen":"2kr2nr/p1p1q1bp/1p6/1P1ppp2/2n5/N1P1P1P1/P2PNP1P/R3K3 w Q - 3 19","ref":"s4a8gkhx","answer":false,"flip":false},{"fen":"8/3R4/5k2/p1pP1Pp1/2P1p3/4K2P/P7/8 w - - 0 42","ref":"2v851ry8","answer":true,"flip":false},{"fen":"r4rk1/4qppp/1pPnpn2/p2p4/P2P4/1Q1BP1N1/3N1PPP/5RK1 b - - 0 22","ref":"n7gkm2y6","answer":false,"flip":true},{"fen":"8/8/p4K2/1p6/1P3pq1/1P6/3k4/8 w - - 0 56","ref":"j7cm7o9g","answer":false,"flip":false},{"fen":"r2q1rk1/1b1nbpp1/3p3p/2pPp3/2BnN3/4BN1P/PP4P1/R2Q1RK1 b - - 1 19","ref":"2yku6gku","answer":true,"flip":true},{"fen":"4Rbnr/r4ppp/k1Q5/1p6/8/4B3/PP3PPP/R5K1 b - - 0 24","ref":"m45sueue","answer":false,"flip":true},{"fen":"8/5ppp/1p2p3/pP6/k4P2/4P2P/2K3P1/8 w - - 0 36","ref":"tanph9ov","answer":false,"flip":false},{"fen":"4R3/5pkp/6p1/1p1p4/8/7P/2r3P1/7K w - - 2 35","ref":"0dnmkw30","answer":true,"flip":false}]},"reading":[{"title":"Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess"}],"links":["checkmate","stalemate","double-check","exposed-king"],"links_resolved":[{"label":"Checkmate","href":"/glossary/checkmate/"},{"label":"Stalemate","href":"/glossary/stalemate/"},{"label":"Double check","href":"/glossary/double-check/"},{"label":"Exposed king","href":"/glossary/exposed-king/"}],"home":{"slug":"core","title":"The core vocabulary","framing":"Why this is in the core vocabulary"},"paths":{"core":{"title":"The core vocabulary","n":17,"of":73,"prev":{"slug":"en-passant","term":"En passant"},"next":{"slug":"checkmate","term":"Checkmate"}}}}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

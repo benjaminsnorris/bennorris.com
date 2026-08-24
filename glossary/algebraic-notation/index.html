@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Algebraic notation - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a></p>
+<h1>Algebraic notation</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Algebraic notation","slug":"algebraic-notation","tier":2,"order":124,"group":"board-and-notation","kind":"look-up","taught":[],"thread":"How moves are written down, which you need before you can read anything else about chess.","definition":"The standard way of recording moves: a letter for the piece, then the square it goes to. Nf3 is a knight to f3; e4 is a pawn to e4, because pawns get no letter. An x marks a capture, + a check, # checkmate, and O-O castling.","precision":[{"against":"descriptive notation","text":"The older English system, where the same square had two names depending on whose side you were on - P-K4 rather than e4. It was abandoned in the 1970s and you will only meet it in old books, where it is the single biggest obstacle to reading them."},{"against":"FEN","text":"Algebraic notation records moves; FEN records one position. A game is a list of the first; a puzzle is usually one of the second plus a short list of the first."},{"against":"long algebraic","text":"Writes the starting square as well - Ng1f3 rather than Nf3. Unambiguous and clumsy, so it survives mainly inside software, which is why the move lists in this glossary's source data look like g1f3."}],"chips":["sourced"],"boards":[{"fen":"r3kb1r/p4ppp/b3p3/2pq4/3Q4/4BN2/PPP2PPP/R3K2R w KQkq - 0 12","corpus":"puzzles","ref":"003jb","moves":["d4a4"],"caption":"The move just played is written Qa4+: queen to a4, giving check. In the long form used by software it is d4a4, which says where it came from as well.","render_fen":"r3kb1r/p4ppp/b3p3/2pq4/Q7/4BN2/PPP2PPP/R3K2R b KQkq - 1 12"}],"drill":{"mode":"none","why":"unwritten","note":"A real item exists here - read a move and say which piece moved, or write a shown move in algebraic - but the drill machinery asks yes/no questions and neither of those is one. Recorded as debt."},"reading":[{"title":"Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess"}],"links":["fen","file","rank","check"],"links_resolved":[{"label":"FEN","href":"/glossary/fen/"},{"label":"File","href":"/glossary/file/"},{"label":"Rank","href":"/glossary/rank/"},{"label":"Check","href":"/glossary/check/"}],"home":{"slug":"core","title":"The core vocabulary","framing":"Why this is in the core vocabulary"},"paths":{"core":{"title":"The core vocabulary","n":7,"of":73,"prev":{"slug":"centre","term":"Centre"},"next":{"slug":"opening","term":"Opening"}}}}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

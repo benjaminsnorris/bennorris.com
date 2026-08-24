@@ -511,3 +511,8 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
 .dverdict p{margin:0 0 .7em;font-family:var(--sans);font-size:.94rem}
 .dverdict .good{color:var(--good)} .dverdict .bad{color:var(--miss)}
 .dsum{font-family:var(--sans);font-size:1.05rem;margin:0 0 .5em}
+
+.noboard{border-left:3px solid var(--rule-strong);padding-left:14px;margin:1.4em 0;
+  color:var(--ink-soft);font-size:.92rem}
+.noboard .lbl{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-mute);margin-bottom:.2em}
