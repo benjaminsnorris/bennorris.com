@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zugzwang - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a></p>
+<h1>Zugzwang</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Zugzwang","slug":"zugzwang","tier":2,"order":707,"group":"judgement","kind":"look-up","taught":[],"thread":"The last of the judgement terms, and the only one in the group a machine can actually confirm.","definition":"A position where you would be better off if you could pass, but you cannot: every legal move makes your position worse. It is a peculiarity of chess that having the move - normally an advantage - can be the thing that loses.","precision":[{"against":"having no good moves","text":"A position can be lost with no good moves available and not be zugzwang at all. Zugzwang means the obligation itself is what does the damage: if you could stand still, you would be fine."},{"against":"mutual zugzwang","text":"Also called reciprocal zugzwang or trebuchet: whichever side has to move loses. The same square, two different results, decided entirely by whose turn it is."},{"against":"the endgame","text":"Not exclusively an endgame idea, but overwhelmingly one. With more pieces on there is nearly always some harmless move available; with three pieces there may be none."}],"chips":["sourced"],"extra":[{"heading":"Rare enough to be worth a number","body":"Of 561 balanced endgame positions from the drill corpus tested with an engine - each evaluated twice, once with each side to move - exactly 2 were genuine zugzwang. That is why there is no drill: not because the test is hard to write, but because the thing almost never happens, and a corpus of ten thousand ordinary positions holds a handful."},{"heading":"How the two boards below were confirmed","body":"Not by a label and not by eye. Each position was evaluated by Stockfish at depth 16, then evaluated again with the side to move reversed. If a player is better off when it is the opponent's turn, the obligation to move is costing them something, and that is what zugzwang means. Both boards clear that test by a wide margin; the numbers are in the captions."}],"boards":[{"fen":"8/8/1p6/p1p2Kpk/P1P5/1P4P1/8/8 w - - 1 43","corpus":"drill","ref":"zmj0a8mb","caption":"White to move, with six legal moves and no good one. Stockfish at depth 16 scores this at -510 for White; the same position with Black to move scores +468. The obligation to move is worth nearly ten pawns, and it turns a won position into a lost one.","render_fen":"8/8/1p6/p1p2Kpk/P1P5/1P4P1/8/8 w - - 1 43"},{"fen":"8/8/2p5/2k5/8/2K5/8/8 w - - 3 55","corpus":"drill","ref":"dapggzsq","awkward":true,"caption":"Three pieces, and the same idea at its minimum. White to move scores -510; if White could pass it is a draw at -2. Every king move gives ground, which is the whole content of the position.","render_fen":"8/8/2p5/2k5/8/2K5/8/8 w - - 3 55"}],"drill":{"mode":"none","why":"impossible","note":"Confirming zugzwang needs an engine and two evaluations of the same position - one with each side to move - which is not a predicate over a FEN. It is also far too rare: of 561 balanced endgame positions tested this way, exactly 2 were genuine zugzwang."},"reading":[{"title":"Zugzwang","url":"https://en.wikipedia.org/wiki/Zugzwang"}],"links":["endgame","tempo","material"],"also":["mutual zugzwang","reciprocal zugzwang"],"origin":{"chip":"sourced","text":"German, literally compulsion to move - Zug is a move, Zwang is compulsion. It is one of a small group of German chess terms English simply adopted rather than translating, alongside luft and zwischenzug, and it survives untranslated because no English phrase says it as compactly.","source":"Wikipedia, Zugzwang - a secondary source; not verified against the German chess literature"},"links_resolved":[{"label":"Endgame","href":"/glossary/endgame/"},{"label":"Tempo","href":"/glossary/tempo/"},{"label":"Material","href":"/glossary/material/"}],"home":{"slug":"core","title":"The core vocabulary","framing":"Why this is in the core vocabulary"},"paths":{"core":{"title":"The core vocabulary","n":54,"of":54,"prev":{"slug":"prophylaxis","term":"Prophylaxis"},"next":null}}}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
