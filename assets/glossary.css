@@ -1,0 +1,407 @@
+/* Tokens and shared components are board vision's, unchanged. The two
+   courses are one sequence and must not look like two projects. */
+:root{
+  color-scheme: light dark;
+  --ground:#F4F2ED; --surface:#FFFFFF; --panel:#EAE7DF;
+  --ink:#191C21; --ink-soft:#414751; --ink-mute:#616873;
+  --rule:#C6C0B2; --rule-strong:#857E6C; --btn-fg:#FFFFFF;
+  --signal:#125E5A; --good:#155D3B; --good-bg:#E0EFE7;
+  --miss:#8E3122; --miss-bg:#F7E3DE;
+  --sq-l:#E4D7BE; --sq-d:#AC8A67;
+  --got:#0E3A36; --missed:#4A3200; --bad:#6B1206; --sel:#14375F;
+  --pip-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
+  --fact:#155D3B; --fact-bg:#E0EFE7;
+  --infer:#6F4A0C; --infer-bg:#F4EBD8;
+  --contest:#8E3122; --contest-bg:#F7E3DE;
+  --single:#1A5561; --single-bg:#DEEDF0;
+  --vendor:#553A80; --vendor-bg:#EDE6F6;
+  --serif: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root{ 
+  --ground:#12151A; --surface:#1A1F26; --panel:#232932;
+  --ink:#E9EBE7; --ink-soft:#B8C0C8; --ink-mute:#8D969F;
+  --rule:#3F4954; --rule-strong:#717B88; --btn-fg:#0E1216;
+  --signal:#79CFC6; --good:#86D6A8; --good-bg:#152B21;
+  --miss:#EC9784; --miss-bg:#33201B;
+  --sq-l:#A89778; --sq-d:#634D37;
+  --got:#0E3A36; --missed:#4A3200; --bad:#6B1206; --sel:#14375F;
+  --pip-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
+  --fact:#86D6A8; --fact-bg:#152B21;
+  --infer:#DDB067; --infer-bg:#2E2617;
+  --contest:#EC9784; --contest-bg:#33201B;
+  --single:#7CC6D4; --single-bg:#122B31;
+  --vendor:#BCA2EC; --vendor-bg:#271F35;
+ } }
+[data-theme="light"]{ color-scheme: light; 
+  --ground:#F4F2ED; --surface:#FFFFFF; --panel:#EAE7DF;
+  --ink:#191C21; --ink-soft:#414751; --ink-mute:#616873;
+  --rule:#C6C0B2; --rule-strong:#857E6C; --btn-fg:#FFFFFF;
+  --signal:#125E5A; --good:#155D3B; --good-bg:#E0EFE7;
+  --miss:#8E3122; --miss-bg:#F7E3DE;
+  --sq-l:#E4D7BE; --sq-d:#AC8A67;
+  --got:#0E3A36; --missed:#4A3200; --bad:#6B1206; --sel:#14375F;
+  --pip-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
+  --fact:#155D3B; --fact-bg:#E0EFE7;
+  --infer:#6F4A0C; --infer-bg:#F4EBD8;
+  --contest:#8E3122; --contest-bg:#F7E3DE;
+  --single:#1A5561; --single-bg:#DEEDF0;
+  --vendor:#553A80; --vendor-bg:#EDE6F6;
+ }
+[data-theme="dark"]{ color-scheme: dark; 
+  --ground:#12151A; --surface:#1A1F26; --panel:#232932;
+  --ink:#E9EBE7; --ink-soft:#B8C0C8; --ink-mute:#8D969F;
+  --rule:#3F4954; --rule-strong:#717B88; --btn-fg:#0E1216;
+  --signal:#79CFC6; --good:#86D6A8; --good-bg:#152B21;
+  --miss:#EC9784; --miss-bg:#33201B;
+  --sq-l:#A89778; --sq-d:#634D37;
+  --got:#0E3A36; --missed:#4A3200; --bad:#6B1206; --sel:#14375F;
+  --pip-edge:#F2EFE6;
+  --pc-w:#FFFFFF; --pc-b:#141210;
+  --pc-w-edge:#3B3025; --pc-b-edge:#EFE7DA;
+  --fact:#86D6A8; --fact-bg:#152B21;
+  --infer:#DDB067; --infer-bg:#2E2617;
+  --contest:#EC9784; --contest-bg:#33201B;
+  --single:#7CC6D4; --single-bg:#122B31;
+  --vendor:#BCA2EC; --vendor-bg:#271F35;
+ }
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:17px;line-height:1.62;-webkit-text-size-adjust:100%}
+.wrap{max-width:44rem;margin:0 auto;padding:0 18px 8rem}
+@media (min-width:760px){ body{font-size:18px} .wrap{padding:0 32px 8rem} }
+h1,h2,h3{font-family:var(--sans);line-height:1.22;letter-spacing:-.012em}
+h1{font-size:1.8rem;margin:.2em 0 .3em;font-weight:650}
+h2{font-size:1.26rem;margin:2.2em 0 .5em;font-weight:640}
+h3{font-size:1rem;margin:1.8em 0 .4em;font-weight:640;color:var(--ink-soft)}
+p{margin:0 0 1.05em}
+ul,ol{padding-left:1.25em;margin:0 0 1.1em} li{margin:.34em 0}
+a{color:var(--signal)}
+code,.fen{font-family:var(--mono);font-size:.84em;background:var(--panel);
+  padding:.1em .35em;border-radius:3px;word-break:break-all}
+.kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-mute);margin:0}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 0 6px;margin-bottom:.6rem}
+#themeBtn{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;color:var(--ink-mute);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:0 14px;min-height:44px;cursor:pointer;flex:0 0 auto}
+
+/* the four units are separate published courses, so this is plain links -
+   a page cannot know whether another one has been finished */
+nav.units{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:14px;
+  border-bottom:1px solid var(--rule);margin-bottom:1.5rem}
+nav.units a,nav.units span{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;padding:9px 11px;border-radius:999px;
+  border:1px solid var(--rule);color:var(--ink-mute);min-height:38px;
+  display:inline-flex;align-items:center}
+nav.units a:hover{color:var(--ink);border-color:var(--ink-mute)}
+nav.units [aria-current]{background:var(--signal);color:var(--btn-fg);border-color:var(--signal);font-weight:600}
+
+.meter{background:var(--panel);border-radius:10px;padding:12px 14px;margin:1.2rem 0}
+.meter .big{font-family:var(--sans);font-size:1rem;font-weight:640}
+.meter .sub{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-mute);margin-top:.3em}
+
+.unit{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+  padding:18px 16px;margin:1.4rem 0}
+@media (min-width:760px){ .unit{padding:26px 28px} }
+.unithead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px}
+.unithead .n{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--signal)}
+.est{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-mute)}
+
+.callout{background:var(--panel);border-left:3px solid var(--signal);
+  border-radius:0 8px 8px 0;padding:14px 16px;margin:1.3em 0}
+.callout p:last-child{margin-bottom:0}
+.callout .lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--signal);display:block;margin-bottom:.45em}
+
+.rules{list-style:none;padding:0;margin:1.1em 0}
+.rules li{display:flex;gap:12px;padding:.65em 0;border-bottom:1px solid var(--rule)}
+.rules li:last-child{border-bottom:0}
+.rules .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--signal);flex:0 0 auto;min-width:4.6em;padding-top:.3em}
+
+.board{width:100%;max-width:336px;margin:0 auto;display:grid;
+  grid-template-columns:repeat(8,1fr);border:1px solid var(--rule-strong);
+  border-radius:6px;overflow:hidden;touch-action:manipulation}
+.sq{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  font-size:min(8.4vw,30px);line-height:1;user-select:none;position:relative;
+  padding:0;border:0;font-family:inherit;color:inherit;
+  -webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent}
+.board.tappable .sq{cursor:pointer}
+.sq.l{background:var(--sq-l)} .sq.d{background:var(--sq-d)}
+.sq.ring::after,.sq.sel::after{content:"";position:absolute;inset:6%;border-radius:4px;
+  border:3px solid var(--bad);box-shadow:0 0 0 1.5px var(--pip-edge),inset 0 0 0 1.5px var(--pip-edge)}
+.sq.sel::after{border-color:var(--sel)}
+/* three states, three shapes. Colour alone would be unreadable to anyone who
+   cannot separate a deep teal from a deep red, and all three have to stay dark
+   enough to hold against a mid-tone square. */
+.sq.pip::before{content:"";position:absolute;left:6%;top:6%;width:26%;height:26%;
+  border-radius:50%;background:var(--got);box-shadow:0 0 0 1.5px var(--pip-edge);z-index:2}
+.sq.pip-missed::before{background:transparent;border:3px solid var(--missed);
+  box-shadow:0 0 0 1.5px var(--pip-edge),inset 0 0 0 1.5px var(--pip-edge)}
+.sq.pip-bad::before{background:var(--bad);border-radius:2px}
+.pc{position:relative;z-index:1;font-variant-emoji:text;pointer-events:none}
+/* -webkit-text-fill-color as well as color: a tappable square is a <button>,
+   and Safari fills control text with its own colour, which overrides `color`
+   and turns every piece iOS blue. The ring sits outside the glyph - a centred
+   -webkit-text-stroke eats the fill and inverts the piece at this size. */
+.pc.w{color:var(--pc-w);-webkit-text-fill-color:var(--pc-w);
+  text-shadow:0 1px 0 var(--pc-w-edge),0 -1px 0 var(--pc-w-edge),1px 0 0 var(--pc-w-edge),
+    -1px 0 0 var(--pc-w-edge),1px 1px 0 var(--pc-w-edge),-1px -1px 0 var(--pc-w-edge),
+    1px -1px 0 var(--pc-w-edge),-1px 1px 0 var(--pc-w-edge)}
+.pc.b{color:var(--pc-b);-webkit-text-fill-color:var(--pc-b);
+  text-shadow:0 1px 0 var(--pc-b-edge),0 -1px 0 var(--pc-b-edge),1px 0 0 var(--pc-b-edge),
+    -1px 0 0 var(--pc-b-edge),1px 1px 0 var(--pc-b-edge),-1px -1px 0 var(--pc-b-edge),
+    1px -1px 0 var(--pc-b-edge),-1px 1px 0 var(--pc-b-edge)}
+.pc[data-t="p"]{font-size:.80em}
+.pc[data-t="r"]{font-size:.92em}
+.pc[data-t="n"]{font-size:1em}
+.pc[data-t="b"]{font-size:1.06em}
+.pc[data-t="q"]{font-size:1.02em}
+.pc[data-t="k"]{font-size:1.04em}
+.viewlbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-mute);text-align:center;margin-bottom:.5em}
+.viewlbl.flip{color:var(--miss);font-weight:600}
+.boardcap{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-mute);text-align:center;margin-top:.7em}
+.key{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:.6em;
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute)}
+.key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.key .a{background:var(--got)}
+.key .b{background:transparent;border:2.5px solid var(--missed)}
+.key .c{background:var(--bad);border-radius:2px}
+
+.ask{font-family:var(--sans);font-size:1.04rem;font-weight:640;text-align:center;margin:.9em 0 .2em}
+.clock{height:5px;border-radius:3px;background:var(--rule);overflow:hidden;margin:.7em 0 .2em}
+.clock i{display:block;height:100%;width:0;background:var(--signal)}
+.clock.over i{background:var(--miss)}
+.clocklbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-mute);text-align:center}
+
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:1em 0}
+.nums.two{grid-template-columns:repeat(2,1fr)}
+.nums button{font-family:var(--sans);font-size:1.05rem;font-weight:640;min-height:52px;
+  background:var(--surface);color:var(--ink);border:1px solid var(--rule-strong);
+  border-radius:8px;cursor:pointer}
+.nums button:disabled{opacity:.45;cursor:default}
+.picked{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-mute);text-align:center;margin:.7em 0 0;min-height:1.2em}
+
+.verdict{border-radius:8px;padding:12px 14px;margin:1em 0;font-family:var(--sans);font-size:.94rem}
+.verdict.ok{background:var(--good-bg);color:var(--good)}
+.verdict.no{background:var(--miss-bg);color:var(--miss)}
+.verdict b{font-weight:700}
+
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:.9em 0}
+.btn{font-family:var(--sans);font-size:.9rem;font-weight:600;background:var(--signal);
+  color:var(--btn-fg);border:0;border-radius:8px;min-height:44px;padding:0 18px;cursor:pointer}
+.btn:disabled{background:var(--panel);color:var(--ink-mute);cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--signal);border:1px solid var(--rule-strong)}
+.btn.flag[aria-pressed="true"]{background:var(--good-bg);color:var(--good);border-color:var(--good)}
+.nxtop{justify-content:center;margin:.6em 0 0}
+.miss{border-top:1px solid var(--rule);padding-top:1.1em;margin-top:1.4em}
+.miss .board{margin-top:.8em}
+.misshead{font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:.5em}
+
+.packet{width:100%;font-family:var(--mono);font-size:.76rem;line-height:1.5;
+  background:var(--ground);color:var(--ink);border:1px solid var(--rule-strong);
+  border-radius:8px;padding:11px 12px;min-height:180px;resize:vertical;white-space:pre}
+.hidden{display:none}
+footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--rule);
+  color:var(--ink-mute);font-size:.85rem}
+/* ---- additions for this course, in board vision's idiom ---- */
+
+/* One page, so these are buttons rather than links - but the same pills,
+   because they mean the same thing to the eye. */
+nav.units button{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:9px 11px;border-radius:999px;
+  border:1px solid var(--rule);color:var(--ink-mute);background:transparent;
+  min-height:38px;display:inline-flex;align-items:center;cursor:pointer}
+nav.units button:hover{color:var(--ink);border-color:var(--ink-mute)}
+nav.units button[aria-current]{background:var(--signal);color:var(--btn-fg);
+  border-color:var(--signal);font-weight:600}
+nav.units button.done{border-color:var(--good);color:var(--good)}
+
+.unit[hidden]{display:none}
+.callout.warn{border-left-color:var(--miss)}
+.callout.warn .lbl{color:var(--miss)}
+.rules .k{min-width:7.4em}
+
+/* The meter carries the course's own argument: where you sit between guessing
+   and the measured ceiling. Both ends are marked, because the ceiling is the
+   point of the last two blocks. */
+.gauge{position:relative;height:10px;border-radius:5px;background:var(--surface);
+  border:1px solid var(--rule-strong);margin:.6em 0 .3em}
+.gauge i{display:block;height:100%;width:0;background:var(--signal);border-radius:4px}
+.gauge b{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink-soft)}
+.gauge b.ceil{background:var(--miss)}
+.gaugelbl{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);
+  font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute)}
+
+/* The seed count on a converged square. A number, not a shade - it reads the
+   same to everyone, and at any size. */
+.sq .n{position:absolute;right:5%;bottom:2%;z-index:3;font-family:var(--mono);
+  font-size:.42em;font-weight:700;line-height:1.4;min-width:1.5em;text-align:center;
+  color:var(--pip-edge);-webkit-text-fill-color:var(--pip-edge);background:var(--got);
+  border-radius:3px;box-shadow:0 0 0 1.5px var(--pip-edge);padding:0 .15em}
+
+/* seed checkboxes: one column on a phone, two where there is room */
+.seeds{display:grid;grid-template-columns:1fr;gap:8px;margin:1em 0}
+@media (min-width:520px){ .seeds{grid-template-columns:1fr 1fr} }
+.seeds button{display:flex;align-items:flex-start;gap:10px;text-align:left;
+  font-family:var(--sans);font-size:.88rem;line-height:1.35;min-height:44px;
+  padding:9px 11px;border:1px solid var(--rule-strong);border-radius:8px;
+  background:var(--surface);color:var(--ink);cursor:pointer}
+.seeds button .tick{flex:0 0 20px;height:20px;margin-top:1px;border-radius:4px;
+  border:2px solid var(--rule-strong);display:flex;align-items:center;
+  justify-content:center;font-size:13px;font-weight:800}
+.seeds button[aria-pressed="true"]{border-color:var(--signal)}
+.seeds button[aria-pressed="true"] .tick{background:var(--signal);border-color:var(--signal);
+  color:var(--btn-fg);-webkit-text-fill-color:var(--btn-fg)}
+.seeds button .def{display:block;color:var(--ink-mute);font-size:.79rem;margin-top:2px;
+  font-family:var(--serif);text-transform:none;letter-spacing:0}
+.seeds button.was{border-color:var(--good);background:var(--good-bg)}
+.seeds button.wasnt{border-color:var(--miss);background:var(--miss-bg)}
+.seeds button:disabled{cursor:default}
+.nums button[aria-pressed="true"]{background:var(--signal);color:var(--btn-fg);
+  -webkit-text-fill-color:var(--btn-fg);border-color:var(--signal)}
+
+.verdict .ans{font-family:var(--mono);font-size:.76rem;display:block;margin-top:.5em;
+  line-height:1.6;word-break:break-word}
+
+/* Provenance markers. Board vision had none; this course makes claims that need
+   them. Shape as well as colour on every one. */
+.chip{display:inline-flex;align-items:center;gap:.3em;font-family:var(--mono);
+  font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;padding:.2em .5em;
+  border-radius:4px;vertical-align:.1em;white-space:nowrap;border:1px solid transparent}
+.chip a{text-decoration:none;font-weight:700}
+.chip.src{background:var(--fact-bg);color:var(--fact);border-color:var(--fact)}
+.chip.src a{color:var(--fact)}
+.chip.infer{background:var(--infer-bg);color:var(--infer);border-color:var(--infer);border-style:dashed}
+.chip.contested{background:var(--contest-bg);color:var(--contest);border-color:var(--contest);border-style:double;border-width:3px}
+.chip.single{background:var(--single-bg);color:var(--single);border-color:var(--single);border-style:dotted}
+.chip.vendor{background:var(--vendor-bg);color:var(--vendor);border-color:var(--vendor)}
+.legend{display:flex;gap:6px;flex-wrap:wrap;margin:.7em 0}
+
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.1em 0}
+table{border-collapse:collapse;font-size:.88rem;min-width:24rem}
+th,td{border-bottom:1px solid var(--rule);padding:7px 10px;text-align:left}
+th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-mute);font-weight:600}
+
+.notefield{width:100%;font-family:var(--serif);font-size:.92rem;padding:9px 11px;
+  border-radius:8px;border:1px solid var(--rule-strong);background:var(--surface);
+  color:var(--ink);min-height:64px;resize:vertical}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Worked examples. A seed has to be seen marked on a real board before it can
+   be asked for; these sit above the Start button and never while timed. */
+.worked{border-top:1px solid var(--rule);padding-top:1.1em;margin-top:1.4em}
+.worked h4{font-family:var(--sans);font-size:.95rem;font-weight:640;margin:0 0 .3em}
+.worked p{margin:0 0 .8em;color:var(--ink-soft);font-size:.95rem}
+.worked .board{max-width:264px}
+.worked .walk{margin:.7em 0 0;color:var(--ink);font-size:.95rem}
+.worked .key{margin-top:.55em}
+.worked .wsub{font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--signal);margin:1em 0 .2em}
+.worked .wsub:first-of-type{margin-top:.2em}
+
+/* Block 8's term list: a way in to the glossary, one line per word. */
+.termlist{display:grid;grid-template-columns:1fr;gap:6px;margin:1.2em 0}
+@media (min-width:560px){ .termlist{grid-template-columns:1fr 1fr} }
+.term{display:flex;flex-direction:column;gap:1px;min-height:44px;justify-content:center;
+  padding:8px 12px;border:1px solid var(--rule);border-radius:8px;
+  background:var(--surface);text-decoration:none}
+.term:hover{border-color:var(--signal)}
+.term .t{font-family:var(--sans);font-size:.94rem;font-weight:640;color:var(--signal)}
+.term .g{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-mute)}
+/* Line overlay. Built here, not in board vision: extract_bv.py lifts design
+   *tokens*, and an overlay is a new component, so building it locally creates no
+   palette drift and keeps the seeds byte-identical rebuild guarantee intact.
+
+   Every colour below is a token. Kinds are separated by dash pattern as well as
+   hue, for the same reason the pips are three shapes rather than three colours:
+   hue alone is unreadable to anyone who cannot separate a teal from a red. */
+.board{position:relative}
+.ovl{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
+.ovl .halo{stroke:var(--pip-edge);stroke-width:.15;stroke-linecap:round;opacity:.85}
+.ovl .ln{stroke-width:.085;stroke-linecap:round;fill:none}
+.ovl .ln-pin{stroke:var(--sel)}
+.ovl .ln-skewer{stroke:var(--bad)}
+.ovl .ln-xray{stroke:var(--missed);stroke-dasharray:.28 .2}
+.ovl .ln-battery{stroke:var(--got);stroke-dasharray:.05 .16}
+.ovl .dot{fill:var(--pip-edge);stroke-width:.05}
+.ovl .dot-pin{stroke:var(--sel)}
+.ovl .dot-skewer{stroke:var(--bad)}
+.ovl .dot-xray{stroke:var(--missed)}
+.ovl .dot-battery{stroke:var(--got)}
+
+/* Glossary-only components. Tokens come from board vision via extract_bv.py;
+   nothing here invents a colour. */
+.entry{margin:0 0 3.5rem}
+.entry h2{margin:0 0 .1em}
+.meta{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-mute);margin:0 0 1em}
+.meta .sep{opacity:.5;padding:0 .45em}
+.also{font-family:var(--serif);font-style:italic;color:var(--ink-soft);margin:-.4em 0 1em}
+
+/* The see-it banner. Intrusive on purpose, and above the definition rather than
+   below it: a warning you scroll past is not a warning. */
+.seeit{border:1px solid var(--rule-strong);border-left:5px solid var(--signal);
+  border-radius:6px;background:var(--panel);padding:12px 14px;margin:0 0 1.4em}
+.seeit .lbl{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--signal);margin-bottom:.35em}
+.seeit p{margin:0;font-size:.94rem}
+/* Tier 3 is consulted, not read, and ~400 full banners become wallpaper. One
+   line there, the full banner on the pages that are read front to back. */
+.seeit.compact{border-left-width:3px;padding:7px 12px}
+.seeit.compact p{font-size:.86rem}
+
+.precision{border-left:3px solid var(--rule);padding-left:14px;margin:1.2em 0}
+.precision h3{font-family:var(--sans);font-size:.9rem;margin:0 0 .3em}
+.origin{background:var(--panel);border-radius:6px;padding:12px 14px;margin:1.4em 0}
+.extra{margin:1.4em 0}
+.extra h3{font-family:var(--sans);font-size:.92rem;margin:0 0 .3em}
+.thread{font-family:var(--serif);font-size:1.02rem;color:var(--ink-soft);
+  border-left:3px solid var(--signal);padding-left:14px;margin:0 0 1.4em}
+.boardrow{display:grid;grid-template-columns:1fr;gap:1.4em;margin:1.4em 0}
+@media (min-width:720px){ .boardrow.two,.boardrow.three{grid-template-columns:1fr 1fr} }
+.boardcell .boardcap{margin-top:.5em;text-transform:none;letter-spacing:0;
+  font-family:var(--serif);font-size:.9rem;color:var(--ink-soft)}
+.awk{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--infer);border:1px solid var(--infer);border-radius:3px;padding:1px 5px;margin-left:.5em}
+.prov{font-family:var(--mono);font-size:.6rem;color:var(--ink-mute);margin-top:.3em}
+
+/* search index */
+.q{width:100%;font-family:var(--sans);font-size:1rem;padding:10px 12px;
+  border:1px solid var(--rule-strong);border-radius:8px;background:var(--surface);color:var(--ink)}
+.rows{list-style:none;padding:0;margin:1.2em 0}
+.rows li{border-bottom:1px solid var(--rule);padding:9px 0}
+.rows a{font-family:var(--sans);font-weight:640;color:var(--signal);text-decoration:none}
+.rows .d{display:block;color:var(--ink-soft);font-size:.9rem;margin-top:.15em}
+.rows .k{font-family:var(--mono);font-size:.58rem;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-mute);margin-left:.5em}
+.count{font-family:var(--mono);font-size:.65rem;color:var(--ink-mute)}
+
+.chips{margin:0 0 1em;display:flex;flex-wrap:wrap;gap:6px}
+.seealso{border-top:1px solid var(--rule);margin-top:1.6em;padding-top:.9em}
+.seealso p{margin:.25em 0;font-size:.9rem}
+.seealso .lbl{display:inline-block;min-width:6.2em;font-family:var(--mono);font-size:.6rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute)}
+.seealso a{color:var(--signal)}

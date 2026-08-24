@@ -1,0 +1,229 @@
+/* Lifted verbatim from the seeds course by src/extract_upstream.py.
+   Do not edit here - edit the course and rebuild. */
+var GLYPH = { k:'\u265A', q:'\u265B', r:'\u265C', b:'\u265D', n:'\u265E', p:'\u265F' };
+function boardHTML(fen, o){
+  o = o || {};
+  var pips = o.pips || {}, counts = o.counts || {}, sel = o.sel || [],
+      flip = !!o.flip, ring = o.ring;
+  var ranks = fen.split(' ')[0].split('/'), grid = [], r, i, ch, n, f;
+  for(r = 0; r < 8; r++){
+    var row = [];
+    for(i = 0; i < ranks[r].length; i++){
+      ch = ranks[r].charAt(i); n = parseInt(ch, 10);
+      if(!isNaN(n)){ while(n-- > 0) row.push(''); } else row.push(ch);
+    }
+    grid.push(row);
+  }
+  var html = '';
+  for(var vr = 0; vr < 8; vr++){
+    for(var vf = 0; vf < 8; vf++){
+      r = flip ? 7 - vr : vr;
+      f = flip ? 7 - vf : vf;
+      var nm = 'abcdefgh'.charAt(f) + (8 - r);
+      var cls = 'sq ' + (((r + f) % 2) ? 'd' : 'l');
+      if(pips[nm]) cls += ' pip' + (pips[nm] === 'got' ? '' : ' pip-' + pips[nm]);
+      if(sel.indexOf(nm) >= 0) cls += ' sel';
+      if(ring === nm) cls += ' ring';
+      var pc = grid[r][f], inner = '';
+      if(pc){
+        var w = pc === pc.toUpperCase();
+        inner = '<span class="pc ' + (w ? 'w' : 'b') + '" data-t="' + pc.toLowerCase() + '">' +
+                (GLYPH[pc.toLowerCase()] || '') + '\uFE0E</span>';
+      }
+      if(counts[nm]) inner += '<span class="n">' + counts[nm] + '</span>';
+      html += (o.tappable
+        ? '<button type="button" class="' + cls + '" data-sq="' + nm + '">' + inner + '</button>'
+        : '<div class="' + cls + '" data-sq="' + nm + '">' + inner + '</div>');
+    }
+  }
+  return html;
+}
+
+/* SVG line overlay for the board. Geometry mirrors boardHTML exactly: row 0 is
+   rank 8, and flip reverses both axes. src/geometry.py holds an independent
+   implementation of the same arithmetic and verify/test_overlay.mjs asserts the
+   two agree, so a flip bug cannot ship quietly. */
+function sqCentre(nm, flip){
+  var f = 'abcdefgh'.indexOf(nm.charAt(0)), r = 8 - parseInt(nm.charAt(1), 10);
+  var vr = flip ? 7 - r : r, vf = flip ? 7 - f : f;
+  return [vf + 0.5, vr + 0.5];
+}
+/* lines: [{from, to, kind, mark}]  kind: pin|skewer|xray|battery
+   `mark` names the square in the middle that the motif is about - the pinned
+   piece, the front of a skewer - and gets a ring so the line is not the only
+   thing saying which square matters. */
+function overlaySVG(lines, flip){
+  if(!lines || !lines.length) return '';
+  var body = '';
+  lines.forEach(function(L){
+    var a = sqCentre(L.from, flip), b = sqCentre(L.to, flip);
+    var co = ' x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '"';
+    body += '<line class="halo"' + co + '/>';
+    body += '<line class="ln ln-' + L.kind + '"' + co + '/>';
+    if(L.mark){
+      var m = sqCentre(L.mark, flip);
+      body += '<circle class="dot dot-' + L.kind + '" cx="' + m[0] + '" cy="' + m[1] + '" r="0.3"/>';
+    }
+  });
+  return '<svg class="ovl" viewBox="0 0 8 8" aria-hidden="true">' + body + '</svg>';
+}
+
+/* Entry rendering. One implementation, three surfaces: the per-term page, the
+   two read-through pages, and the search index. `opts.readthrough` turns on the
+   tier 2 extras (thread, extra blocks); `opts.compact` shortens the see-it
+   banner for the reference surface. */
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+var TAUGHT_LABEL = {
+  'board-vision:unit-2': 'board vision unit 2 (attack maps)',
+  'board-vision:unit-3': 'board vision unit 3 (counting)',
+  'board-vision:unit-4': 'board vision unit 4 (loose pieces)',
+  'seeds:block-2': 'seeds block 2 (six seeds)',
+  'seeds:block-3': 'seeds block 3 (all twelve)',
+  'seeds:block-5': 'seeds block 5 (convergence)'
+};
+var TAUGHT_HREF = {
+  'board-vision:unit-2': '/courses/board-vision-attacks/',
+  'board-vision:unit-3': '/courses/board-vision-counting/',
+  'board-vision:unit-4': '/courses/board-vision-loose/',
+  'seeds:block-2': '/courses/chess-seeds/',
+  'seeds:block-3': '/courses/chess-seeds/',
+  'seeds:block-5': '/courses/chess-seeds/'
+};
+
+/* Provenance chips, using the same classes and words the courses use, so a chip
+   means the same thing on both sides of the sequence. A glossary is curation
+   rather than measurement, and these are what stand in for the verification the
+   courses get. */
+var CHIP = {
+  'sourced':        ['src',       'Sourced'],
+  'inference':      ['infer',     'Inference'],
+  'contested':      ['contested', 'Contested'],
+  'single-study':   ['single',    'Single study'],
+  'vendor-framing': ['vendor',    'Vendor framing']
+};
+function chips(list){
+  if(!list || !list.length) return '';
+  return '<p class="chips">' + list.map(function(c){
+    var v = CHIP[c] || ['infer', c];
+    return '<span class="chip ' + v[0] + '">' + esc(v[1]) + '</span>';
+  }).join(' ') + '</p>';
+}
+
+function seeitBanner(e, compact){
+  if(e.kind !== 'see-it') return '';
+  var where = (e.taught || []).map(function(t){
+    return '<a href="' + (TAUGHT_HREF[t] || '/courses/') + '">' + esc(TAUGHT_LABEL[t] || t) + '</a>';
+  }).join(' and ');
+  /* No article in front of the term: "a open file" and "a x-ray" are both
+     waiting to happen, and an a/an rule would be a second thing to get wrong. */
+  return '<div class="seeit' + (compact ? ' compact' : '') + '">' +
+    '<span class="lbl">Knowing this word is not the skill</span>' +
+    '<p>You have to be able to <em>see</em> this, and knowing the phrase is not the ' +
+    'same thing' + (where ? '. The sequence teaches it in ' + where : '') + '. ' +
+    'Read the definition, then go and drill it - a library of shapes handed over early ' +
+    'produces pattern-matching, which is the habit the sequence exists to break.</p></div>';
+}
+
+function boardCell(b){
+  var fen = b.render_fen || b.fen;
+  return '<div class="boardcell">' +
+    '<div class="board">' + boardHTML(fen, {flip: !!b.flip, sel: b.highlight_squares || []}) +
+      overlaySVG(b.lines || [], !!b.flip) + '</div>' +
+    '<div class="boardcap">' + esc(b.caption) +
+      (b.awkward ? '<span class="awk">awkward case</span>' : '') +
+    '<div class="prov">' + esc(b.corpus) + ' &middot; ' + esc(b.ref) +
+      (b.moves && b.moves.length ? ' &middot; after ' + esc(b.moves.join(' ')) : '') +
+    '</div></div></div>';
+}
+
+function renderEntry(e, opts){
+  opts = opts || {};
+  var h = '<article class="entry" id="' + esc(e.slug) + '">';
+  h += '<h2>' + esc(e.term) + '</h2>';
+  var bits = ['tier ' + e.tier, e.kind];
+  if((e.taught || []).length) bits.push('taught');
+  else bits.push('untaught');
+  h += '<p class="meta">' + bits.map(esc).join('<span class="sep">&middot;</span>') + '</p>';
+  if(e.also && e.also.length) h += '<p class="also">also: ' + e.also.map(esc).join(', ') + '</p>';
+  h += chips(e.chips);
+  h += seeitBanner(e, !!opts.compact);
+  if(opts.readthrough && e.thread) h += '<p class="thread">' + esc(e.thread) + '</p>';
+  h += '<p class="def">' + esc(e.definition) + '</p>';
+  (e.precision || []).forEach(function(p){
+    h += '<div class="precision"><h3>Against ' + esc(p.against) + '</h3><p>' +
+      esc(p.text) + '</p></div>';
+  });
+  if(e.origin){
+    h += '<div class="origin"><h3>Origin</h3>' + chips([e.origin.chip]) +
+      '<p>' + esc(e.origin.text) + '</p>' +
+      '<p class="prov">' + esc(e.origin.source) + '</p></div>';
+  }
+  var n = (e.boards || []).length;
+  h += '<div class="boardrow ' + (n === 1 ? 'one' : n === 2 ? 'two' : 'three') + '">' +
+    (e.boards || []).map(boardCell).join('') + '</div>';
+  if(opts.readthrough){
+    (e.extra || []).forEach(function(x){
+      h += '<div class="extra"><h3>' + esc(x.heading) + '</h3><p>' + esc(x.body) + '</p></div>';
+    });
+  }
+  h += renderDrill(e);
+  h += renderReading(e);
+  return h + '</article>';
+}
+
+function renderReading(e){
+  var also = (e.links_resolved || []).map(function(l){
+    return '<a href="' + l.href + '">' + esc(l.label) + '</a>';
+  });
+  var out = (e.reading || []).map(function(r){
+    return '<a href="' + r.url + '" rel="noopener">' + esc(r.title) + '</a>';
+  });
+  if(!also.length && !out.length) return '';
+  var h = '<div class="seealso">';
+  if(also.length) h += '<p><span class="lbl">See also</span>' + also.join(' &middot; ') + '</p>';
+  if(out.length) h += '<p><span class="lbl">Elsewhere</span>' + out.join(' &middot; ') + '</p>';
+  return h + '</div>';
+}
+
+function renderDrill(e){
+  var d = e.drill || {};
+  if(d.mode === 'computed'){
+    return '<div class="origin"><h3>Practice</h3><p>' + esc(d.note) + '</p>' +
+      '<p class="prov">answer key generated by predicate ' + esc(d.predicate) +
+      ' &middot; base rate ' + (d.base_rate_pct || '?') + '% over ' +
+      (d.base_rate_n || '?') + ' certified positions</p></div>';
+  }
+  var label = d.mode === 'hand-picked' ? 'Examples, not a drill' : 'No practice';
+  return '<div class="origin"><h3>' + esc(label) + '</h3><p>' + esc(d.note) + '</p>' +
+    '<p class="prov">' + esc(d.mode) + ' &middot; ' + esc(d.why) + '</p></div>';
+}
+
+/* Page boot. Each page carries only the data it needs and renders it here. */
+function payload(){ return JSON.parse(document.getElementById('data').textContent); }
+function renderOne(){
+  document.getElementById('out').innerHTML = renderEntry(payload(), {compact: true});
+}
+function renderReadthrough(){
+  document.getElementById('out').innerHTML =
+    payload().map(function(e){ return renderEntry(e, {readthrough: true}); }).join('');
+}
+function renderIndex(){
+  var rows = payload(), out = document.getElementById('out'), q = document.getElementById('q');
+  function draw(){
+    var needle = (q.value || '').trim().toLowerCase();
+    var hits = rows.filter(function(r){
+      if(!needle) return true;
+      return r.h.indexOf(needle) >= 0;
+    });
+    out.innerHTML = '<p class="count">' + hits.length + ' of ' + rows.length + '</p><ul class="rows">' +
+      hits.map(function(r){
+        return '<li><a href="/glossary/' + r.slug + '/">' + esc(r.term) + '</a>' +
+          '<span class="k">' + esc(r.kind) + '</span>' +
+          '<span class="d">' + esc(r.definition) + '</span></li>';
+      }).join('') + '</ul>';
+  }
+  q.addEventListener('input', draw);
+  draw();
+}
