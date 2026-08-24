@@ -428,3 +428,53 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
   word-break:break-all;color:var(--ink-soft)}
 .fenline .lbl{display:block;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--ink-mute)}
+
+/* ---------- base page signposting ---------- */
+.paths{display:grid;grid-template-columns:1fr;gap:10px;margin:1.4em 0 2em}
+@media (min-width:620px){ .paths{grid-template-columns:1fr 1fr} }
+.path{display:block;padding:14px 16px;border:1px solid var(--rule-strong);border-radius:8px;
+  background:var(--surface);text-decoration:none}
+.path:hover{border-color:var(--signal)}
+.path .pt{display:block;font-family:var(--sans);font-weight:640;font-size:1.05rem;color:var(--signal)}
+.path .pn{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-mute);margin:.25em 0 .5em}
+.path .pd{display:block;color:var(--ink-soft);font-size:.9rem}
+.sech{font-size:1.05rem;margin:2em 0 .3em}
+
+/* ---------- tier index ---------- */
+.why p{max-width:34em}
+.progress{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-mute);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:.7em 0;margin:1.6em 0}
+.progress strong{color:var(--ink)}
+.linkish{background:none;border:0;padding:0;font:inherit;color:var(--signal);cursor:pointer;
+  text-transform:inherit;letter-spacing:inherit}
+.grp{margin:2em 0}
+.grp h2{font-size:1.05rem;margin:0 0 .2em}
+.grp .gi{margin:0 0 .8em;color:var(--ink-soft);font-size:.92rem;max-width:34em}
+.rows li.read a{color:var(--ink-mute)}
+.rows .tick{font-family:var(--mono);font-size:.7rem;color:var(--good);margin-left:.5em}
+
+/* ---------- term page: framing, path nav, read marker ---------- */
+.framing{border-top:1px solid var(--rule-strong);margin-top:2.4em;padding-top:1.1em}
+.framing h3{font-family:var(--sans);font-size:1rem;margin:0 0 .5em}
+.framing .thread{font-family:var(--serif);font-size:1.02rem;color:var(--ink-soft);
+  border-left:3px solid var(--signal);padding-left:14px;margin:0 0 1.2em}
+.framing .extra{margin:1.2em 0}
+.framing .extra h4{font-family:var(--sans);font-size:.92rem;margin:0 0 .3em}
+.pathnav{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch;
+  border-top:1px solid var(--rule);margin-top:2em;padding-top:1em}
+.pathnav .where{grid-column:1 / -1;margin:0 0 .2em;font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--ink-mute)}
+.pathnav a{display:block;padding:10px 12px;border:1px solid var(--rule-strong);border-radius:8px;
+  text-decoration:none;color:var(--signal);font-family:var(--sans);font-weight:640;font-size:.94rem}
+.pathnav a:hover{border-color:var(--signal)}
+.pathnav a.next{text-align:right}
+.pathnav .dir{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-mute);font-weight:400}
+.pathnav.offer{display:block}
+.pathnav.offer p{margin:0;font-size:.9rem;color:var(--ink-soft)}
+.readmark{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:1.6em 0 0}
+.readmark .btn{min-height:44px}
+.readmark .btn.done{background:var(--good-bg);color:var(--good);border-color:var(--good)}
+.readmark .note{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;color:var(--ink-mute)}

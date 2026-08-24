@@ -159,7 +159,6 @@ function renderEntry(e, opts){
   if(e.also && e.also.length) h += '<p class="also">also: ' + e.also.map(esc).join(', ') + '</p>';
   h += chips(e.chips);
   h += seeitBanner(e, !!opts.compact);
-  if(opts.readthrough && e.thread) h += '<p class="thread">' + esc(e.thread) + '</p>';
   h += '<p class="def">' + esc(e.definition) + '</p>';
   h += renderAnatomy(e);
   (e.precision || []).forEach(function(p){
@@ -174,11 +173,6 @@ function renderEntry(e, opts){
   var n = (e.boards || []).length;
   h += '<div class="boardrow ' + (n === 1 ? 'one' : n === 2 ? 'two' : 'three') + '">' +
     (e.boards || []).map(boardCell).join('') + '</div>';
-  if(opts.readthrough){
-    (e.extra || []).forEach(function(x){
-      h += '<div class="extra"><h3>' + esc(x.heading) + '</h3><p>' + esc(x.body) + '</p></div>';
-    });
-  }
   h += renderDrill(e);
   h += renderReading(e);
   return h + '</article>';
@@ -226,25 +220,156 @@ function renderDrill(e){
     '<p class="prov">' + esc(d.mode) + ' &middot; ' + esc(d.why) + '</p></div>';
 }
 
+/* ---------- tier framing, path navigation, and the read marker ----------
+
+   One page per term. The tier a reader is on comes from the URL (?in=core), so
+   the same document serves the reference visitor and both guided paths. Only the
+   neighbours travel with the page, not the tier list.
+
+   `thread` and `extra` are the course-specific framing. They render as a labelled
+   section rather than mixed into the reference content, so a direct visitor can
+   see where the definition ends and the course context begins. To hide them
+   entirely from direct visits instead, gate this on `path` being set - that is
+   the one-line switch. */
+function renderFraming(e, opts){
+  if(!e.thread && !(e.extra || []).length) return '';
+  var h = '<section class="framing"' + (opts.path ? ' data-path="' + esc(opts.path) + '"' : '') + '>';
+  h += '<h3>' + esc(e.home ? e.home.framing : 'In context') + '</h3>';
+  if(e.thread) h += '<p class="thread">' + esc(e.thread) + '</p>';
+  (e.extra || []).forEach(function(x){
+    h += '<div class="extra"><h4>' + esc(x.heading) + '</h4><p>' + esc(x.body) + '</p></div>';
+  });
+  return h + '</section>';
+}
+
+function renderPathNav(e, path){
+  var p = (e.paths || {})[path];
+  if(!p){
+    /* No path in the URL: not on a sequence, so offer the way in rather than
+       pretending there is a previous and next. */
+    var home = e.home;
+    if(!home) return '';
+    return '<nav class="pathnav offer"><p>This term is part of ' +
+      '<a href="/glossary/' + esc(home.slug) + '/">' + esc(home.title.toLowerCase()) +
+      '</a>, which is meant to be read in order.</p></nav>';
+  }
+  var link = function(side, item){
+    if(!item) return '<span class="edge"></span>';
+    return '<a class="' + side + '" href="/glossary/' + esc(item.slug) + '/?in=' + esc(path) + '">' +
+      '<span class="dir">' + (side === 'prev' ? 'Previous' : 'Next') + '</span>' +
+      esc(item.term) + '</a>';
+  };
+  return '<nav class="pathnav"><p class="where">' + esc(p.title) + ' &middot; ' +
+    p.n + ' of ' + p.of + '</p>' + link('prev', p.prev) + link('next', p.next) + '</nav>';
+}
+
+/* ---------- read tracker ----------
+   Per-viewer, in this browser only. The glossary is not a course, so this is a
+   convenience rather than progress worth syncing; every access is guarded because
+   storage throws outright in some contexts. */
+var STORE = 'bsn.glossary.v1';
+function readState(){
+  try { return JSON.parse(localStorage.getItem(STORE) || '{}').read || {}; }
+  catch(err){ return {}; }
+}
+function setRead(slug, on){
+  try {
+    var all = JSON.parse(localStorage.getItem(STORE) || '{}');
+    all.read = all.read || {};
+    if(on) all.read[slug] = 1; else delete all.read[slug];
+    localStorage.setItem(STORE, JSON.stringify(all));
+    return true;
+  } catch(err){ return false; }
+}
+function renderReadMark(e){
+  return '<div class="readmark"><button type="button" id="readbtn" class="btn"></button>' +
+    '<span class="note" id="readnote"></span></div>';
+}
+function wireReadMark(slug){
+  var btn = document.getElementById('readbtn'), note = document.getElementById('readnote');
+  if(!btn) return;
+  function draw(){
+    var done = !!readState()[slug];
+    btn.textContent = done ? 'Read ✓' : 'I have read this';
+    btn.className = 'btn' + (done ? ' done' : '');
+    note.textContent = done ? 'Marked as read. Click again to clear.'
+                            : 'Marks it on the tier index. This browser only.';
+  }
+  btn.addEventListener('click', function(){
+    if(!setRead(slug, !readState()[slug])){
+      note.textContent = 'This browser is not storing site data, so it cannot be marked.';
+      return;
+    }
+    draw();
+  });
+  draw();
+}
+
 /* Page boot. Each page carries only the data it needs and renders it here. */
 function payload(){ return JSON.parse(document.getElementById('data').textContent); }
+function param(name){
+  var m = new RegExp('[?&]' + name + '=([^&]+)').exec(window.location.search);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+
+/* A term page. One URL per term; the tier path comes from ?in=. */
 function renderOne(){
-  /* single: the page <h1> is already the term, so the article does not repeat it */
+  var e = payload(), path = param('in');
   document.getElementById('out').innerHTML =
-    renderEntry(payload(), {compact: true, single: true});
+    renderEntry(e, {compact: true, single: true}) +
+    renderFraming(e, {path: path}) +
+    renderPathNav(e, path) +
+    renderReadMark(e);
+  wireReadMark(e.slug);
 }
-function renderReadthrough(){
-  document.getElementById('out').innerHTML =
-    payload().map(function(e){ return renderEntry(e, {readthrough: true}); }).join('');
+
+/* A tier index: the reasoning, then the terms, with what has been read. */
+function renderTier(){
+  var data = payload(), read = readState();
+  var done = data.rows.filter(function(r){ return read[r.slug]; }).length;
+  var h = '<div class="why">' + data.tier.why.map(function(p){
+    return '<p>' + esc(p) + '</p>';
+  }).join('') + '</div>';
+  h += '<p class="progress"><strong>' + done + ' of ' + data.rows.length +
+    '</strong> marked as read' +
+    (done ? ' &middot; <button type="button" class="linkish" id="clear">clear</button>' : '') +
+    '</p>';
+
+  function row(r){
+    return '<li' + (read[r.slug] ? ' class="read"' : '') + '>' +
+      '<a href="/glossary/' + esc(r.slug) + '/?in=' + esc(data.tier.slug) + '">' +
+        esc(r.term) + '</a>' +
+      '<span class="k">' + esc(r.kind) + '</span>' +
+      (read[r.slug] ? '<span class="tick" aria-label="read">✓</span>' : '') +
+      '<span class="d">' + esc(r.blurb) + '</span></li>';
+  }
+
+  if(data.tier.grouped){
+    data.groups.forEach(function(key){
+      var g = data.groupmeta[key];
+      var rows = data.rows.filter(function(r){ return r.group === key; });
+      h += '<section class="grp"><h2>' + esc(g.title) + '</h2>' +
+        '<p class="gi">' + esc(g.intro) + '</p><ul class="rows">' +
+        rows.map(row).join('') + '</ul></section>';
+    });
+  } else {
+    h += '<ul class="rows">' + data.rows.map(row).join('') + '</ul>';
+  }
+  document.getElementById('out').innerHTML = h;
+
+  var clear = document.getElementById('clear');
+  if(clear) clear.addEventListener('click', function(){
+    data.rows.forEach(function(r){ setRead(r.slug, false); });
+    renderTier();
+  });
 }
+
+/* The base page: search across everything, including the precision notes. */
 function renderIndex(){
   var rows = payload(), out = document.getElementById('out'), q = document.getElementById('q');
   function draw(){
     var needle = (q.value || '').trim().toLowerCase();
-    var hits = rows.filter(function(r){
-      if(!needle) return true;
-      return r.h.indexOf(needle) >= 0;
-    });
+    var hits = rows.filter(function(r){ return !needle || r.h.indexOf(needle) >= 0; });
     out.innerHTML = '<p class="count">' + hits.length + ' of ' + rows.length + '</p><ul class="rows">' +
       hits.map(function(r){
         return '<li><a href="/glossary/' + r.slug + '/">' + esc(r.term) + '</a>' +
