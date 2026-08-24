@@ -415,8 +415,8 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
 .anatomy th,.anatomy td{text-align:left;vertical-align:top;padding:7px 10px 7px 0;
   border-bottom:1px solid var(--rule)}
 .anatomy th{font-family:var(--sans);font-weight:640;white-space:nowrap;color:var(--ink)}
-.anatomy td.v{font-family:var(--mono);font-size:.78rem;color:var(--signal);white-space:nowrap;
-  max-width:11rem;overflow:hidden;text-overflow:ellipsis}
+.anatomy td.v{font-family:var(--mono);font-size:.78rem;color:var(--signal);
+  word-break:break-all;max-width:14rem}
 .anatomy td{color:var(--ink-soft)}
 
 .pagefoot{border-top:1px solid var(--rule-strong);margin-top:3.5rem;padding-top:1.1em}
@@ -478,3 +478,36 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
 .readmark .btn{min-height:44px}
 .readmark .btn.done{background:var(--good-bg);color:var(--good);border-color:var(--good)}
 .readmark .note{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;color:var(--ink-mute)}
+
+/* The anatomy table on a narrow screen. A row of three cells where one is a long
+   FEN field cannot be squeezed into 360px, and a horizontal scroll on the first
+   table a reader meets is a bad first impression - so the rows stack instead. */
+@media (max-width:600px){
+  .anatomy table,.anatomy tbody,.anatomy tr,.anatomy th,.anatomy td{
+    display:block;width:auto;max-width:none;border:0;padding:0}
+  .anatomy tr{border-bottom:1px solid var(--rule);padding:11px 0}
+  .anatomy tr:first-child{padding-top:0}
+  .anatomy th{white-space:normal;font-size:.9rem;margin-bottom:.15em}
+  .anatomy td.v{margin-bottom:.35em}
+  .anatomy .sample{font-size:.72rem}
+}
+
+/* ---------- the drill ----------
+   Deliberately not styled like the Examples block below it: a real drill and a
+   set of verified examples must not look like the same thing. */
+.drill{border:1px solid var(--signal);border-radius:8px;padding:14px 16px;margin:1.8em 0;
+  background:var(--surface)}
+.drill h3{font-family:var(--sans);font-size:1rem;margin:0 0 .4em;color:var(--signal)}
+.drill > p{margin:0 0 1em}
+.nodrill{background:var(--panel);border-radius:8px;padding:12px 14px;margin:1.8em 0}
+.nodrill h3{font-family:var(--sans);font-size:.95rem;margin:0 0 .3em}
+.nodrill p{margin:0}
+.dq{font-family:var(--sans);font-weight:640;margin:0 0 .7em}
+.dn{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-mute);font-weight:400}
+.dbtns{display:flex;gap:10px;margin:.9em 0 0}
+.dbtns .btn{flex:1;min-height:44px}
+.dverdict{margin-top:.9em}
+.dverdict p{margin:0 0 .7em;font-family:var(--sans);font-size:.94rem}
+.dverdict .good{color:var(--good)} .dverdict .bad{color:var(--miss)}
+.dsum{font-family:var(--sans);font-size:1.05rem;margin:0 0 .5em}
