@@ -122,12 +122,22 @@ function seeitBanner(e, compact){
   }).join(' and ');
   /* No article in front of the term: "a open file" and "a x-ray" are both
      waiting to happen, and an a/an rule would be a second thing to get wrong. */
+  var body = where
+    ? 'You have to be able to <em>see</em> this, and knowing the phrase is not the same ' +
+      'thing. The sequence teaches it in ' + where + '. Read the definition, then go and ' +
+      'drill it - a library of shapes handed over early produces pattern-matching, which ' +
+      'is the habit the sequence exists to break.'
+    /* Motifs: nothing in the sequence drills these, and that is deliberate rather
+       than a gap. Saying so is more honest than pointing at a drill that does not
+       exist. */
+    : 'You have to be able to <em>see</em> this, and knowing the name is not the same ' +
+      'thing. Nothing in the sequence drills it, on purpose: the courses withhold the ' +
+      'names until after the final gate, because a library of shapes handed over early ' +
+      'produces pattern-matching - which is the habit the sequence exists to break. ' +
+      'Read it for the vocabulary, not as a shortcut.';
   return '<div class="seeit' + (compact ? ' compact' : '') + '">' +
     '<span class="lbl">Knowing this word is not the skill</span>' +
-    '<p>You have to be able to <em>see</em> this, and knowing the phrase is not the ' +
-    'same thing' + (where ? '. The sequence teaches it in ' + where : '') + '. ' +
-    'Read the definition, then go and drill it - a library of shapes handed over early ' +
-    'produces pattern-matching, which is the habit the sequence exists to break.</p></div>';
+    '<p>' + body + '</p></div>';
 }
 
 function boardCell(b){
