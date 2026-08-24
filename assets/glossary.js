@@ -128,9 +128,15 @@ function seeitBanner(e, compact){
 
 function boardCell(b){
   var fen = b.render_fen || b.fen;
+  /* show_fen prints the notation for the position actually drawn - render_fen,
+     not the stored fen, so a board with `moves` shows the string for the picture
+     rather than for the position two moves earlier. */
+  var notation = b.show_fen
+    ? '<p class="fenline"><span class="lbl">FEN</span>' + esc(fen) + '</p>' : '';
   return '<div class="boardcell">' +
     '<div class="board">' + boardHTML(fen, {flip: !!b.flip, sel: b.highlight_squares || []}) +
       overlaySVG(b.lines || [], !!b.flip) + '</div>' +
+    notation +
     '<div class="boardcap">' + esc(b.caption) +
       (b.awkward ? '<span class="awk">awkward case</span>' : '') +
     '<div class="prov">' + esc(b.corpus) + ' &middot; ' + esc(b.ref) +
