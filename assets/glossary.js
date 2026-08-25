@@ -372,6 +372,25 @@ function setRead(slug, on){
     return true;
   } catch(err){ return false; }
 }
+
+/* Which index categories are open, under the same one key. Worth keeping because
+   the index is now a set of closed disclosures: without it, opening a category,
+   reading a term and pressing Back puts you in front of thirteen closed rows
+   again. Same guards as the read marker - storage throws outright in some
+   contexts, and an index that cannot remember must still render. */
+function openState(){
+  try { return JSON.parse(localStorage.getItem(STORE) || '{}').open || {}; }
+  catch(err){ return {}; }
+}
+function setOpen(key, on){
+  try {
+    var all = JSON.parse(localStorage.getItem(STORE) || '{}');
+    all.open = all.open || {};
+    if(on) all.open[key] = 1; else delete all.open[key];
+    localStorage.setItem(STORE, JSON.stringify(all));
+    return true;
+  } catch(err){ return false; }
+}
 function renderReadMark(e){
   return '<div class="readmark"><button type="button" id="readbtn" class="btn"></button>' +
     '<span class="note" id="readnote"></span></div>';
@@ -458,30 +477,78 @@ function renderTier(){
 
 /* The base page: search across everything, including the precision notes.
 
-   Grouped by category rather than one flat list, because the reader who needs a
-   glossary most is the one who cannot name what they are looking for. A search
-   filters within the groups and drops the ones it empties, so the headings never
-   sit above nothing. */
+   Categories collapsed, rather than one flat list of every term. The reader who
+   needs a glossary most is the one who cannot name what they are looking for,
+   and a list of 250 definitions serves them badly however it is subdivided - the
+   first attempt at this put the headings above the full list, which made a long
+   page longer and left nothing to click.
+
+   So the default view is the categories themselves: thirteen controls, no
+   scrolling, counts included. `<details>` rather than a hand-rolled toggle
+   because the browser then handles the keyboard and the accessibility for free,
+   and because find-in-page still reaches inside a closed one in most browsers.
+
+   A search skips the disclosure entirely: matching categories render open with
+   their non-matching terms already filtered out, and categories with no hit are
+   dropped rather than shown empty. */
 function renderIndex(){
   var data = payload(), out = document.getElementById('out'), q = document.getElementById('q');
+  var byKey = {};
+  data.groups.forEach(function(g){ byKey[g.key] = g; });
+  /* ?cat= is a category's only URL, because the index renders them here rather
+     than as pages. Every term's breadcrumb uses it to point back at the category
+     it belongs to, so arriving from a term lands on its neighbours. */
+  var wanted = param('cat');
+
   function row(r){
     return '<li><a href="/glossary/' + r.slug + '/">' + esc(r.term) + '</a>' +
       '<span class="k">' + esc(r.kind) + '</span>' +
       '<span class="d">' + esc(r.definition) + '</span></li>';
   }
+
+  function category(g, mine, needle){
+    var open = needle || g.key === wanted ? ' open'
+      : (openState()[g.key] ? ' open' : '');
+    return '<details class="cat" data-cat="' + esc(g.key) + '"' + open + '>' +
+      '<summary><span class="ct">' + esc(g.title) + '</span>' +
+        '<span class="cn">' + mine.length + (needle ? ' of ' + g.n : '') + '</span></summary>' +
+      '<p class="gi">' + esc(g.intro) + '</p>' +
+      '<ul class="rows">' + mine.map(row).join('') + '</ul></details>';
+  }
+
   function draw(){
     var needle = (q.value || '').trim().toLowerCase();
     var hits = data.rows.filter(function(r){ return !needle || r.h.indexOf(needle) >= 0; });
-    var h = '<p class="count">' + hits.length + ' of ' + data.rows.length + '</p>';
-    data.groups.forEach(function(g){
-      var mine = hits.filter(function(r){ return r.group === g.key; });
-      if(!mine.length) return;
-      h += '<section class="grp"><h2>' + esc(g.title) + '</h2>' +
-        (needle ? '' : '<p class="gi">' + esc(g.intro) + '</p>') +
-        '<ul class="rows">' + mine.map(row).join('') + '</ul></section>';
+    if(!hits.length){
+      out.innerHTML = '<p class="count">Nothing matches &ldquo;' + esc(q.value) + '&rdquo;.</p>';
+      return;
+    }
+    var h = '';
+    if(needle) h += '<p class="count">' + hits.length + ' of ' + data.rows.length + '</p>';
+    data.sections.forEach(function(sec){
+      var cats = sec.groups.map(function(key){
+        return [byKey[key], hits.filter(function(r){ return r.group === key; })];
+      }).filter(function(pair){ return pair[1].length; });
+      if(!cats.length) return;
+      h += '<section class="cats"><h2 class="secl">' + esc(sec.title) + '</h2>' +
+        cats.map(function(pair){ return category(pair[0], pair[1], needle); }).join('') +
+        '</section>';
     });
     out.innerHTML = h;
+    /* Which categories are open survives clicking through to a term and coming
+       back, which is the whole reason it is worth remembering. Only when nothing
+       is being searched: a search decides what is open by itself. */
+    if(!needle) out.querySelectorAll('.cat').forEach(function(el){
+      el.addEventListener('toggle', function(){ setOpen(el.dataset.cat, el.open); });
+    });
   }
   q.addEventListener('input', draw);
   draw();
+  /* Arriving from a term's breadcrumb: put its category on screen, once. After
+     that the reader is browsing and the scroll is theirs. */
+  if(wanted){
+    var target = out.querySelector('.cat[data-cat="' + wanted + '"]');
+    if(target && target.scrollIntoView) target.scrollIntoView({block: 'start'});
+    wanted = null;
+  }
 }
