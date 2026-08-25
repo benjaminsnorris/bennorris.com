@@ -456,18 +456,31 @@ function renderTier(){
   });
 }
 
-/* The base page: search across everything, including the precision notes. */
+/* The base page: search across everything, including the precision notes.
+
+   Grouped by category rather than one flat list, because the reader who needs a
+   glossary most is the one who cannot name what they are looking for. A search
+   filters within the groups and drops the ones it empties, so the headings never
+   sit above nothing. */
 function renderIndex(){
-  var rows = payload(), out = document.getElementById('out'), q = document.getElementById('q');
+  var data = payload(), out = document.getElementById('out'), q = document.getElementById('q');
+  function row(r){
+    return '<li><a href="/glossary/' + r.slug + '/">' + esc(r.term) + '</a>' +
+      '<span class="k">' + esc(r.kind) + '</span>' +
+      '<span class="d">' + esc(r.definition) + '</span></li>';
+  }
   function draw(){
     var needle = (q.value || '').trim().toLowerCase();
-    var hits = rows.filter(function(r){ return !needle || r.h.indexOf(needle) >= 0; });
-    out.innerHTML = '<p class="count">' + hits.length + ' of ' + rows.length + '</p><ul class="rows">' +
-      hits.map(function(r){
-        return '<li><a href="/glossary/' + r.slug + '/">' + esc(r.term) + '</a>' +
-          '<span class="k">' + esc(r.kind) + '</span>' +
-          '<span class="d">' + esc(r.definition) + '</span></li>';
-      }).join('') + '</ul>';
+    var hits = data.rows.filter(function(r){ return !needle || r.h.indexOf(needle) >= 0; });
+    var h = '<p class="count">' + hits.length + ' of ' + data.rows.length + '</p>';
+    data.groups.forEach(function(g){
+      var mine = hits.filter(function(r){ return r.group === g.key; });
+      if(!mine.length) return;
+      h += '<section class="grp"><h2>' + esc(g.title) + '</h2>' +
+        (needle ? '' : '<p class="gi">' + esc(g.intro) + '</p>') +
+        '<ul class="rows">' + mine.map(row).join('') + '</ul></section>';
+    });
+    out.innerHTML = h;
   }
   q.addEventListener('input', draw);
   draw();

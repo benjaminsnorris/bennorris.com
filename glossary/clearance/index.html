@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clearance - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a></p>
+<h1>Clearance</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Clearance","slug":"clearance","tier":3,"group":"tactical-method","kind":"look-up","also":["clearance sacrifice","vacating sacrifice"],"definition":"Moving your own piece out of the way, because it is standing on the square or the line another of your pieces needs. The move usually has to come with a threat, since a move that only tidies up gives the opponent a free one.","precision":[{"against":"a retreat","text":"A retreat is about the danger the piece is in; a clearance is about the square it is leaving. The test is whether you would still play the move if the piece were perfectly safe where it stood."},{"against":"interference","text":"Exact opposites, and easy to confuse because both are about a line. Interference puts something in the way of an enemy line. Clearance takes something out of the way of your own."}],"chips":["sourced"],"boards":[{"fen":"8/2R5/7P/8/3K4/pr4P1/1k3P2/8 b - - 0 42","corpus":"puzzles","ref":"03YnY","caption":"The mechanism at its simplest, with eight pieces on the board. Black's pawn steps from a3 to a2 - not to advance, but because its own rook on b3 needs a3. Once the pawn has gone the rook takes the square, and after Rxa3 Kxa3 it is the king that escorts the pawn home.","moves":["a3a2","c7a7","b3a3"],"highlight":["a2","a3","b3"],"render_fen":"8/R7/7P/8/3K4/r5P1/pk3P2/8 w - - 2 44","highlight_squares":["a2","a3","b3"]},{"fen":"r2q1rk1/pp2bpp1/2p1b2p/4P3/3PNn2/1P1Q3P/P4BP1/1BR2RK1 w - - 5 26","corpus":"puzzles","ref":"00aCb","caption":"The same idea as a mate, and the stock version of it: 4 of the 24 puzzles in this theme have this identical solution. The knight on e4 is blocking its own bishop on b1. Nf6 clears the diagonal with check, gxf6 is forced, and Qh7 is mate - defended by the bishop, along the line the knight had been standing on.","moves":["e4f6","g7f6","d3h7"],"highlight":["b1","e4","h7"],"render_fen":"r2q1rk1/pp2bp1Q/2p1bp1p/4P3/3P1n2/1P5P/P4BP1/1BR2RK1 b - - 1 27","highlight_squares":["b1","e4","h7"]}],"drill":{"mode":"none","why":"unwritten","note":"A predicate could be written: a friendly piece standing on a line between two of your own pieces is computable. Whether moving it achieves anything is not, so the honest version of this drill would ask about the geometry rather than about the tactic, and no such predicate exists yet."},"links":["interference","sacrifice","battery","tempo","discovered-attack","line-piece"],"reading":[{"title":"Clearance sacrifice","url":"https://en.wikipedia.org/wiki/Clearance_sacrifice"}],"links_resolved":[{"label":"Interference","href":"/glossary/interference/"},{"label":"Sacrifice","href":"/glossary/sacrifice/"},{"label":"Battery","href":"/glossary/battery/"},{"label":"Tempo","href":"/glossary/tempo/"},{"label":"Discovered attack","href":"/glossary/discovered-attack/"},{"label":"Line piece","href":"/glossary/line-piece/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
