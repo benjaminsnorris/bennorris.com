@@ -36,7 +36,13 @@ MAX_MATERIAL = 1
 # project for why, and for what each one unlocks.
 LIMITS = dict(ply_lo=PLY_LO, ply_hi=PLY_HI, per_game=MAX_PER_GAME,
               separation=MIN_PLY_SEPARATION, min_pieces=MIN_PIECES,
-              max_material=MAX_MATERIAL, allow_check=False, include_final=False)
+              max_material=MAX_MATERIAL, allow_check=False, include_final=False,
+              max_pieces=0)
+# `max_pieces` is the mirror of `min_pieces` and exists for the same reason in
+# reverse: the glossary's endgame drills need positions the other corpora barely
+# contain. Sampling whole games gives ~5% of positions with eight men or fewer,
+# so harvesting a corpus of them means filtering at harvest time rather than
+# subsampling a file that has 500 of them. 0 means no upper bound.
 
 
 def tc_base(tc):
@@ -100,6 +106,8 @@ def eligible_positions(game, limits=None):
             continue
         if chess.popcount(board.occupied) < lim["min_pieces"]:
             continue
+        if lim["max_pieces"] and chess.popcount(board.occupied) > lim["max_pieces"]:
+            continue
         mat = material(board)
         if abs(mat) > lim["max_material"]:
             continue
@@ -112,7 +120,8 @@ def eligible_positions(game, limits=None):
                 "prev_capture_square": to_square if was_capture else -1,
             }
         )
-    if lim["include_final"] and (board.is_checkmate() or board.is_stalemate()):
+    within_bound = not lim["max_pieces"] or chess.popcount(board.occupied) <= lim["max_pieces"]
+    if lim["include_final"] and within_bound and (board.is_checkmate() or board.is_stalemate()):
         # The last position of the game, when it ends in mate or stalemate. Walking
         # the mainline never yields these as candidates in the ordinary way, so a
         # corpus built without this contains no mates at all.
@@ -155,6 +164,9 @@ def main():
     ap.add_argument("--ply-hi", type=int)
     ap.add_argument("--per-game", type=int)
     ap.add_argument("--min-pieces", type=int)
+    ap.add_argument("--max-pieces", type=int,
+                    help="keep only positions with at most this many men on the board "
+                         "(0 = no bound). For an endgame corpus.")
     ap.add_argument("--max-material", type=int)
     ap.add_argument("--allow-check", action="store_true")
     ap.add_argument("--include-final", action="store_true")
@@ -165,7 +177,8 @@ def main():
         limits.update(ply_hi=10000, min_pieces=3, max_material=99,
                       allow_check=True, include_final=True, per_game=4)
     for name, value in (("ply_hi", args.ply_hi), ("per_game", args.per_game),
-                        ("min_pieces", args.min_pieces), ("max_material", args.max_material)):
+                        ("min_pieces", args.min_pieces), ("max_material", args.max_material),
+                        ("max_pieces", args.max_pieces)):
         if value is not None:
             limits[name] = value
     if args.allow_check:

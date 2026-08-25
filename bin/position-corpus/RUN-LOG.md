@@ -115,3 +115,68 @@ minutes.
 
 Not preserved: the non-deterministic first certification run. It was deleted on
 purpose — its labels do not reproduce and it must not be drawn from.
+
+---
+
+## 2026-08-25 — endgame corpus for the glossary's square-of-the-pawn drill
+
+**Output:** `positions-endgame.json`, 1,592 positions, 0.26 MB, in the glossary
+repo at `~/Developer/chess-glossary/data/`. No engine, so nothing to preserve
+beyond the candidate file.
+
+**Command:**
+
+```sh
+curl -s https://database.lichess.org/standard/lichess_db_standard_rated_2013-01.pgn.zst \
+  | zstd -dc | harvest.py --month 2013-01 --relaxed --max-pieces 8 --seed 20260825 \
+  > cand_endgame_2013-01.jsonl
+python3 ~/Developer/chess-glossary/src/build_endgame_corpus.py cand_endgame_2013-01.jsonl
+```
+
+`--max-pieces` was added to `harvest.py` for this run. It is the mirror of
+`--min-pieces` and exists for the opposite reason: the seeds course needed a floor
+of 12 to stay out of the endgame, and the glossary's endgame drills need a ceiling
+to stay in it. `0` means no bound, so the default behaviour and both existing
+corpora are unchanged. The terminal-position branch respects the bound too, or a
+mate with twenty men on the board would slip past it.
+
+### Measured yields
+
+| Stage | Number |
+|---|---|
+| Month read | 2013-01 |
+| Games read | 60,666 |
+| Games passing the game filters | 3,766 (6.2%) |
+| Candidate positions (at most 8 men) | 8,480 |
+| dropped, not exactly one passed pawn | 5,877 |
+| dropped, the pawn's path blocked | 1,011 (265 of them by the pawn's own king) |
+| **Written** | **1,592**, from 1,253 games at 1.27 per game |
+
+Men on the board: 3 (112), 4 (261), 5 (258), 6 (196), 7 (321), 8 (444).
+
+Wall clock: **22 seconds**, download included. Which is the point — the
+realisation behind the drill corpus applies again here, more strongly: a drill
+needs a position and a predicate answer, so no certification is required and an
+endgame corpus costs seconds rather than the 81 minutes of Stockfish the certified
+corpus cost.
+
+### Why the two extra filters, and what they are worth
+
+The piece bound alone is not enough for the drill this feeds. The square rule
+counts one pawn's steps against one king's, so:
+
+- **exactly one passed pawn**, or "can the king catch the pawn" does not name a
+  pawn and the item cannot be answered;
+- **that pawn's path empty**, or "steps to promote" is not a count of anything. A
+  pawn with its own king in front of it needs more moves than the rule assumes,
+  and 1,011 positions were dropped for it.
+
+Base rate on the result: **43.2%**, the best-balanced of the glossary's thirteen
+drills. The full write-up, including the two errors that nearly shipped as an
+answer key, is in `docs/CORPUS.md` section D in the glossary repo.
+
+### Preserved artifacts
+
+`~/Developer/position-corpus-work/cand_endgame_2013-01.jsonl` (8,480 candidates)
+and `harvest-endgame-2013-01.log`. Regenerating them costs 22 seconds, so neither
+is precious.

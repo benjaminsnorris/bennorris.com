@@ -542,6 +542,8 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
   text-transform:uppercase;color:var(--ink-mute);font-weight:400}
 .dbtns{display:flex;gap:10px;margin:.9em 0 0}
 .dbtns .btn{flex:1;min-height:44px}
+.dturn{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-mute);margin:0 0 .6em}
 .dverdict{margin-top:.9em}
 .dverdict p{margin:0 0 .7em;font-family:var(--sans);font-size:.94rem}
 .dverdict .good{color:var(--good)} .dverdict .bad{color:var(--miss)}
