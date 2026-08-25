@@ -180,3 +180,100 @@ answer key, is in `docs/CORPUS.md` section D in the glossary repo.
 `~/Developer/position-corpus-work/cand_endgame_2013-01.jsonl` (8,480 candidates)
 and `harvest-endgame-2013-01.log`. Regenerating them costs 22 seconds, so neither
 is precious.
+
+---
+
+## 2026-08-25 — two bugs in `harvest.py`, and the opening corpus
+
+**Read this before trusting any corpus built by this directory before today.**
+
+### Bug 1: every harvested game was the one after the game whose headers were stored
+
+The loop was:
+
+```python
+headers = chess.pgn.read_headers(sys.stdin)   # game N's headers...
+if not game_passes(headers):
+    chess.pgn.skip_game(sys.stdin)
+else:
+    game = chess.pgn.read_game(sys.stdin)     # ...and game N+1's moves
+```
+
+`read_headers` **skips the rest of the game**. So the game filters were tested
+against game N and the positions came from game N+1, and the `game` id and `elo`
+stored on every position belonged to game N.
+
+Measured against the 2013-01 dump, on the shipped `positions.json`:
+
+| | |
+|---|---|
+| corpus positions found in the game they cite | **0 of 25** |
+| corpus positions found in the very next game in the dump | **25 of 25** |
+| stored Elo matching the cited game | 40 of 40 — id and ratings are wrong together |
+
+The loop also consumed two games per iteration, so it saw half the file: 60,666
+games "read" of the 121,332 in 2013-01.
+
+**Affects** `positions.json`, `positions-drill.json`, `positions-endgame.json`.
+Every FEN in them is a real position from a real game and every position-level
+filter was applied to the right board — those are computed from the position. What
+is wrong is the provenance id, the ratings, and therefore the claim that the
+population is games between 1200 and 1800, since the rating band was checked on a
+neighbour.
+
+Fixed by reading the game first and taking `game.headers` from it. `skip_game` is
+no longer needed.
+
+**Not repaired:** the three existing corpora. Relabelling them - streaming the
+months and finding which game actually contains each position - keeps every FEN,
+board, base rate and drill item, and is the cheap option. Re-harvesting is correct
+but changes which positions exist, which breaks 41 boards and 14 drills in the
+glossary and needs 81 minutes of Stockfish for the certified corpus. See
+`docs/CORPUS.md` in the glossary repo.
+
+### Bug 2: `--ply-hi` below 30 returned nothing
+
+`eligible_positions` broke out of the mainline walk at `ply_hi` and returned that
+ply as the game's length, which was then checked against `MIN_GAME_PLIES = 30`. So
+`--ply-hi 12` reported a twelve-ply game for every game and no game ever passed.
+Invisible at the default `ply_hi` of 60: any game long enough to pass also reached
+ply 30 before the break. Now the walk continues to the end of the game and only
+*collection* stops at `ply_hi`. Behaviour at `ply_hi = 60` is unchanged.
+
+### Output: `positions-opening.json`, 7,905 positions
+
+```sh
+curl -s https://database.lichess.org/standard/lichess_db_standard_rated_2013-01.pgn.zst \
+  | zstd -dc | harvest.py --month 2013-01 --ply-lo 2 --ply-hi 6 --per-game 5 \
+      --min-pieces 3 --max-material 99 --allow-check --seed 20260825 \
+  > cand_opening_2013-01.jsonl
+python3 ~/Developer/chess-glossary/src/build_opening_corpus.py cand_opening_2013-01.jsonl
+```
+
+New flags and fields, all added for this run:
+
+- `--ply-lo`, the last position filter that had no override. The default of 16 is
+  the seeds course's middlegame floor and it is why no corpus here ever contained
+  an opening.
+- `san` on every candidate: the moves that produced the position. A named opening
+  is a move order, so this is what makes the entries possible, and the assembler
+  asserts the moves reproduce the FEN.
+- `eco` and `opening` from the PGN headers — Lichess's own classification, carried
+  verbatim.
+
+| Stage | Number |
+|---|---|
+| Games read | 121,332 (the whole month, for the first time) |
+| Games passing the filters | 43,109 |
+| Candidates emitted, plies 2–6, deduplicated by position | **7,905** |
+| by ply | 2: 151, 3: 557, 4: 1,324, 5: 2,266, 6: 3,607 |
+
+Wall clock: 1m41s including the download.
+
+**Bug 1 was found by this corpus**, and only because it carries a checkable label.
+The `Opening` tag distribution came out identical whatever the moves were — `1.e4
+c5` was tagged Sicilian about a tenth of the time, the same tenth as everything
+else. A corpus of bare positions cannot be checked against itself like that.
+`verify/check_provenance.py` in the glossary repo now does the check directly
+against the dump: 120 of 120 positions in the new corpus are in the game they
+cite, ratings matching.
