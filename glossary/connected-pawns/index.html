@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Connected pawns - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=positional">Positional vocabulary</a></p>
+<h1>Connected pawns</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Connected pawns","slug":"connected-pawns","tier":3,"group":"positional","kind":"look-up","definition":"Pawns on adjacent files, so that they can defend each other. Either side by side, where each can advance and be protected by the other, or one diagonally behind the other in a chain.","precision":[{"against":"being worth remarking on","text":"Connected pawns exist in 100% of the certified corpus - all 2,100 positions. The term describes the normal state of a pawn structure, which is why the words that earn their keep are the ones for its failures: isolated, doubled, backward. Knowing this one is mostly knowing what those are the absence of."},{"against":"connected passed pawns","text":"That pair is the version worth its name. Two passed pawns side by side defend each other as they advance and cannot be stopped by a lone piece, which is why they are usually worth more than a rook. Connected pawns in general are just pawns doing what pawns do."}],"chips":["sourced"],"boards":[{"fen":"r1bq1bk1/p1p2r2/p1Pp1nn1/3Pp1pp/1N2Pp2/2N2P2/1P2BBPP/R2Q1RK1 b - - 2 19","corpus":"positions","ref":"e56n6u3x","caption":"A chain of five, each pawn defending the next: g2 protects f3, f3 protects e4, e4 protects d5, d5 protects c6. Only the pawn at the base can be attacked by another pawn, which is the whole point of the formation and the reason attacks are aimed at the base of a chain.","highlight":"auto:pawns:chain","render_fen":"r1bq1bk1/p1p2r2/p1Pp1nn1/3Pp1pp/1N2Pp2/2N2P2/1P2BBPP/R2Q1RK1 b - - 2 19","highlight_squares":["g2","f3","e4","d5","c6"]}],"drill":{"mode":"none","why":"unbalanced","note":"100% of the certified corpus and 96.3% of the relaxed one. A question whose answer is always yes is not a question, and the build refuses it. Measured over `positions.json`: 2,100 engine-checked positions from games between 1200 and 1800, materially level, plies 16 to 60. Which is to say middlegames - the part of the game these words are about."},"links":["pawn-chain","isolated-pawn","passed-pawn","doubled-pawns","backward-pawn","pawn-majority"],"reading":[{"title":"Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess"}],"links_resolved":[{"label":"Pawn chain","href":"/glossary/pawn-chain/"},{"label":"Isolated pawn","href":"/glossary/isolated-pawn/"},{"label":"Passed pawn","href":"/glossary/passed-pawn/"},{"label":"Doubled pawns","href":"/glossary/doubled-pawns/"},{"label":"Backward pawn","href":"/glossary/backward-pawn/"},{"label":"Pawn majority","href":"/glossary/pawn-majority/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

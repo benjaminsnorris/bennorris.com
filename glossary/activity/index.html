@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Activity - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=positional">Positional vocabulary</a></p>
+<h1>Activity</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Activity","slug":"activity","tier":3,"group":"positional","kind":"look-up","also":["active pieces","passive pieces"],"definition":"How much your pieces can actually do: squares they reach, lines they work on, things they threaten. An active piece is one whose next move matters; a passive one is defending something and going nowhere.","precision":[{"against":"material","text":"The commonest trade in real chess is material for activity - a pawn for the open file it opens, an exchange for two active pieces - and it is the hardest kind of compensation to judge, because material is countable and activity is not. When an engine says a position is equal and a beginner cannot see why, activity is usually the reason."},{"against":"space","text":"Related and not the same. Space is about squares available; activity is about whether your pieces are on the useful ones. A cramped side with three active pieces is often better off than a spacious side whose pieces are all defending."},{"against":"the count below","text":"Legal moves are the standard proxy for activity and they are only a proxy. A piece with twenty pointless moves is not active, and a rook with one move that wins the game is. The number is offered because it is checkable, not because it is the judgement."}],"chips":["sourced","inference"],"boards":[{"fen":"5rk1/p1p4p/1r4p1/3pbq2/8/4P2P/PP2QPP1/1RB2RK1 b - - 1 19","corpus":"positions","ref":"qlj1mefn","caption":"The widest mobility gap in the corpus, on the standard proxy: Black has 55 legal moves here and White would have 26. The bishop on e5 and the queen on f5 rake across the board; White's bishop on c1 and rook on b1 are on their starting squares with nowhere useful to go. Material is level.","highlight":["b6","c1","e5","f5"],"render_fen":"5rk1/p1p4p/1r4p1/3pbq2/8/4P2P/PP2QPP1/1RB2RK1 b - - 1 19","highlight_squares":["b6","c1","e5","f5"]}],"drill":{"mode":"none","why":"impossible","note":"Legal-move counts are computable and are not the term - a piece can have many moves and no purpose. Whether a piece is active is a judgement about what the position needs, and there is no predicate for that. The count is used above as a proxy, labelled as one."},"links":["space","initiative","development","compensation","material","open-file","outpost","seventh-rank"],"reading":[{"title":"Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess"}],"links_resolved":[{"label":"Space","href":"/glossary/space/"},{"label":"Initiative","href":"/glossary/initiative/"},{"label":"Development","href":"/glossary/development/"},{"label":"Compensation","href":"/glossary/compensation/"},{"label":"Material","href":"/glossary/material/"},{"label":"Open file","href":"/glossary/open-file/"},{"label":"Outpost","href":"/glossary/outpost/"},{"label":"Rook on the seventh","href":"/glossary/seventh-rank/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

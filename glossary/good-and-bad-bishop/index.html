@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Good and bad bishop - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=positional">Positional vocabulary</a></p>
+<h1>Good and bad bishop</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Good and bad bishop","slug":"good-and-bad-bishop","tier":3,"group":"positional","kind":"look-up","also":["bad bishop","good bishop"],"definition":"A bishop is bad when most of your own pawns sit on the colour it travels on, so its diagonals are already occupied by your own men, and good when they sit on the other colour and it has the board to itself. Nothing about the bishop changes; the pawns decide.","precision":[{"against":"the bishop being the problem","text":"The pawns are. That is the practical content of the term, because pawns are what you can change: trading the wrong ones, or advancing them off the bishop's colour, turns a bad bishop into a good one without the bishop moving. Trading the bishop itself is the other fix and usually the worse one."},{"against":"the wrong-coloured bishop","text":"Different problem, same word doing different work. A wrong-coloured bishop cannot control one specific square - the promotion square of a rook pawn - and no plan changes it. A bad bishop is blocked by pawns that can move, so it is a condition rather than a fact."},{"against":"a bad bishop being a bad piece","text":"It is often the better defender: a bishop on the colour of your own pawns is exactly the piece that guards them. Bad describes its attacking range, not its usefulness, which is why some strong players deliberately keep one."}],"chips":["sourced"],"boards":[{"fen":"r1b1r1k1/1p1n1pbp/pBp1p1p1/8/4P3/1BN5/PPP2PPP/3R1RK1 w - - 4 14","corpus":"positions","ref":"oxpgprd1","caption":"Both extremes at once, in one position, belonging to the same player. All seven of Black's pawns stand on light squares. The bishop on c8 travels on light squares - 7 of 7 own pawns in its way, the worst case there is - and the bishop on g7 travels on dark, with 0 of 7 in its way and the whole long diagonal to itself.","highlight":["c8","g7"],"render_fen":"r1b1r1k1/1p1n1pbp/pBp1p1p1/8/4P3/1BN5/PPP2PPP/3R1RK1 w - - 4 14","highlight_squares":["c8","g7"]}],"drill":{"mode":"computed","predicate":"bad_bishop_for_mover","corpus":"positions","question":"Does the side to move have a bishop with more of its own pawns on its colour than off it?","note":"Count the pawns, not the bishop. Take the side to move, pick one of its bishops, and count how many of that player's own pawns stand on squares of the bishop's colour against how many stand on the other colour. More on its colour and the answer is yes. One warning so it is not a surprise: in 22.6% of these positions the side to move has no bishop at all, which is 42% of the no answers and takes a glance rather than a count. Ten positions, answer revealed after each, no gate.","base_rate_pct":46.1,"base_rate_n":2100,"items":[{"fen":"r3r1k1/2nn1ppp/1p1qp3/p2pN3/3P1P2/P1BQP3/1P4PP/2R1R1K1 b - - 0 17","ref":"j907powv","answer":false,"flip":true},{"fen":"rn2kb1r/p2p1ppp/1pp1p3/3P4/2P5/5B2/PP3PPP/R1B1K2R b KQkq - 0 11","ref":"gwsdwa6c","answer":false,"flip":true},{"fen":"8/1p3pkp/1pp3p1/8/1Pb1B2P/P3P1P1/1r3P2/R5K1 w - - 3 31","ref":"miwm64hb","answer":false,"flip":false},{"fen":"r2q1rk1/p4ppp/2p1pn2/5b2/1b1P4/2N1PN2/PP3PPP/R1BQ1RK1 b - - 1 10","ref":"t7xfpnyg","answer":true,"flip":true},{"fen":"r4rk1/1b2ppbp/4q1p1/p2pP3/1n1P3N/2N1Q2P/1P2BPP1/R1R3K1 w - - 9 22","ref":"4i1t0yhn","answer":false,"flip":false},{"fen":"r1b1kb1r/pp1p1ppp/4p3/q2pP3/3n4/1BP3Q1/PP1P1PPP/R1B1K1NR b KQkq - 0 9","ref":"wk4rl40b","answer":true,"flip":true},{"fen":"r1bq1rk1/pp4pp/n1p1pn2/1N1p1p1P/3P1Q2/P7/1PP1PPP1/R3KBNR w KQ - 0 10","ref":"b4ou9zez","answer":false,"flip":false},{"fen":"4rrk1/pp1n1bpp/1bp5/5B2/5N2/1P2P1P1/PBP4P/4RRK1 b - - 6 18","ref":"kgy391dz","answer":true,"flip":true},{"fen":"8/1pk5/p1p2r2/5Bp1/5bP1/5P2/PPP2K2/3R4 w - - 1 29","ref":"g1kbq70n","answer":true,"flip":false},{"fen":"r2q1rk1/pp3pbp/2n3p1/3p4/3P1Bb1/6P1/PP2NPBP/R2Q1RK1 w - - 2 13","ref":"l49sun8a","answer":true,"flip":false}]},"links":["bishop-pair","wrong-coloured-bishop","closed-position","pawn-chain","diagonal","weak-square","bishop-endgame"],"reading":[{"title":"Bad bishop","url":"https://en.wikipedia.org/wiki/Bad_bishop"}],"links_resolved":[{"label":"The bishop pair","href":"/glossary/bishop-pair/"},{"label":"Wrong-coloured bishop","href":"/glossary/wrong-coloured-bishop/"},{"label":"Closed position","href":"/glossary/closed-position/"},{"label":"Pawn chain","href":"/glossary/pawn-chain/"},{"label":"Diagonal","href":"/glossary/diagonal/"},{"label":"Weak square","href":"/glossary/weak-square/"},{"label":"Bishop endgame","href":"/glossary/bishop-endgame/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

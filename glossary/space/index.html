@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Space - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=positional">Positional vocabulary</a></p>
+<h1>Space</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"term":"Space","slug":"space","tier":3,"group":"positional","kind":"look-up","definition":"How much of the board your pieces and pawns control, especially in the half in front of them. More space means more squares to put pieces on and fewer for the opponent, which usually means their pieces get in each other's way before yours do.","precision":[{"against":"space being an advantage on its own","text":"It is a resource with a bill attached. Space comes from advancing pawns, and an advanced pawn cannot come back: the squares behind it are weaker for ever. The classic way to lose with more space is to keep gaining it until the pawns are overextended and everything behind them is a hole."},{"against":"a number","text":"There is no agreed way to count it. Squares controlled in the enemy half is one measure and the one used below; squares behind your own pawns is another; total pawn advancement is a third. They disagree about real positions, which is why this entry has no drill."},{"against":"the cure","text":"The standing advice for the cramped side is to trade pieces, and it is sound arithmetic rather than a platitude: space is only a problem when you have more pieces than squares, so every trade improves the ratio. Which is also why the side with space avoids trades."}],"chips":["sourced"],"boards":[{"fen":"r1bq2k1/ppQ3pn/3bpr1p/3pNp2/1P1P4/P2BP3/1B3PPP/2R2RK1 w - - 2 17","corpus":"positions","ref":"vxuix6bf","caption":"One of the widest gaps in the corpus. White's pieces and pawns control 19 of the 32 squares in Black's half; Black's control 4 of the 32 in White's. Black's pieces are not badly placed so much as short of anywhere to go - the knight on h7 and the rook on f6 are on the only squares available to them.","highlight":["b4","d4","e3","e5"],"render_fen":"r1bq2k1/ppQ3pn/3bpr1p/3pNp2/1P1P4/P2BP3/1B3PPP/2R2RK1 w - - 2 17","highlight_squares":["b4","d4","e3","e5"]}],"drill":{"mode":"none","why":"contested","note":"The measure this entry uses - does the side to move control more squares in the opponent's half than the opponent controls in theirs - is computable and lands at 44.5% of the certified corpus, comfortably in band. It is still not a drill, for two reasons that matter more than the rate: there is no agreed definition of space, so a different reasonable measure gives a different answer key; and the reader would have to count attackers on 64 squares to answer it. A question nobody can answer by looking is not practice. Measured over `positions.json`: 2,100 engine-checked positions from games between 1200 and 1800, materially level, plies 16 to 60. Which is to say middlegames - the part of the game these words are about."},"links":["closed-position","activity","weak-square","pawn-storm","development","outpost","trade"],"reading":[{"title":"Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess"}],"links_resolved":[{"label":"Closed position","href":"/glossary/closed-position/"},{"label":"Activity","href":"/glossary/activity/"},{"label":"Weak square","href":"/glossary/weak-square/"},{"label":"Pawn storm","href":"/glossary/pawn-storm/"},{"label":"Development","href":"/glossary/development/"},{"label":"Outpost","href":"/glossary/outpost/"},{"label":"Trade","href":"/glossary/trade/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
