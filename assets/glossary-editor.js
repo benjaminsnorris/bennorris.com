@@ -342,8 +342,9 @@ function renderEditorShell(data){
 
     '<div class="edboard">' +
       '<p class="edhow">Tap a piece in a tray, then tap squares - it stays selected, ' +
-      'so eight pawns are eight taps. <em>Move</em> carries a piece from one square ' +
-      'to another and <em>Erase</em> takes it off. Nothing here has to be legal.</p>' +
+      'so eight pawns are eight taps, and tapping it again puts it down. <em>Move</em> ' +
+      'carries a piece from one square to another and <em>Erase</em> takes it off. ' +
+      'Nothing here has to be legal.</p>' +
       '<p class="viewlbl" id="edview"></p>' +
       edTray('b') +
       '<div class="board tappable" id="edb" role="group" aria-label="Editable board"></div>' +
@@ -546,20 +547,27 @@ function wireEditor(data){
     if(cell) onSquare(cell.getAttribute('data-sq'));
   });
 
+  /* Tapping the latched tool again releases it, and released means Move: the tool
+     that latches is the one that changes the board on a single tap, so there has
+     to be a way to put it down that is not "pick a different one". Move is the
+     resting state rather than a fourth thing to be in, which is why tapping Move
+     while it is already on does nothing. */
+  function latch(next){
+    tool = (tool === next) ? 'move' : next;
+    pick = null;
+    draw(false);
+  }
+
   var trayCells = document.querySelectorAll('[data-tool]');
   [].forEach.call(trayCells, function(cell){
-    cell.addEventListener('click', function(){
-      tool = cell.getAttribute('data-tool');
-      pick = null;
-      draw(false);
-    });
+    cell.addEventListener('click', function(){ latch(cell.getAttribute('data-tool')); });
   });
 
   document.getElementById('edmove').addEventListener('click', function(){
     tool = 'move'; pick = null; draw(false);
   });
   document.getElementById('ederase').addEventListener('click', function(){
-    tool = 'erase'; pick = null; draw(false);
+    latch('erase');
   });
   document.getElementById('edflip').addEventListener('click', function(){
     flip = !flip; draw(false);
