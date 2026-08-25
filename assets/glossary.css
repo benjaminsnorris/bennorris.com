@@ -429,6 +429,17 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
 .fenline .lbl{display:block;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--ink-mute)}
 
+/* The way into the editor from a board caption, on the boards that print their
+   notation. Boards that do not get no link: one pointing at a string the page has
+   decided not to show would be clutter for the same reason the string would be. */
+.tofen{display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.07em;
+  text-transform:uppercase;margin-top:.45em}
+
+/* The line that points at the editor. Not one of the two reading paths and not
+   the search box, so it reads as neither. */
+.tool{border-left:3px solid var(--rule-strong);padding-left:14px;font-size:.94rem;
+  color:var(--ink-soft);margin:0 0 2em}
+
 /* ---------- base page signposting ---------- */
 .paths{display:grid;grid-template-columns:1fr;gap:10px;margin:1.4em 0 2em}
 @media (min-width:620px){ .paths{grid-template-columns:1fr 1fr} }

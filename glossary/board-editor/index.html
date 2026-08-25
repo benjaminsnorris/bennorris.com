@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Board editor - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+<link rel="stylesheet" href="/assets/glossary-editor.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; Board editor</p>
+<h1>Board editor</h1>
+<p>Paste a FEN to see the position, or place the pieces by hand and read the FEN back.</p>
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"presets":[{"label":"Starting position","fen":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"},{"label":"Empty board","fen":"8/8/8/8/8/8/8/8 w - - 0 1"},{"label":"All four castling rights","fen":"r1bqk2r/pp2nppp/2nb4/2p1p3/3pP3/3P1NNP/PPP1BPP1/R1BQK2R w KQkq - 1 9","corpus":"positions","ref":"747wya3v"},{"label":"An en passant square","fen":"r3qr2/pp3pk1/3p1np1/2pPp2p/4P2P/P1Q2P1B/1PP2P2/2KR3R w - c6 0 19","corpus":"puzzles","ref":"06fMQ"}],"about":["<p>It is one field doing both jobs: type in it and the board redraws, move a piece and it rewrites itself. Nothing is loaded and nothing is saved - the address bar carries the position, so a board here is a link.</p>","<p>Only the first of the six fields says where the pieces are, so a bare placement string is enough to draw a board - which is usually what anyone has in hand. That is also the rule for what gets refused: a problem in field one leaves nothing to draw, and a problem in any of the other five is reported and read anyway. <a href=\"/glossary/fen/\">The FEN entry</a> breaks all six down.</p>","<p>Castling rights and the en passant square follow the pieces when you edit the board, because after an edit the string is this page's own and has to be true. A FEN you paste is left exactly as it came, and gets a note instead. The two counters have no control at all: they are the two fields that are not part of a position, which is why comparing two boards drops them.</p>"]}</script>
+<script src="/assets/glossary.js"></script>
+<script src="/assets/glossary-editor.js"></script>
+<script>renderEditor();</script>
+</body>
+</html>

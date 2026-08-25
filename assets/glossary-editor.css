@@ -1,0 +1,71 @@
+/* The board editor. Tokens only, and no component invented that the sequence
+   already has: the FEN box is the courses' `.packet` textarea, the buttons are
+   `.btn`, and a latched tool wears the same `[aria-pressed]` treatment as the
+   seeds checkboxes. Built here rather than upstream for the overlay's reason -
+   extract_upstream.py lifts tokens, and this is a new component. */
+.edhow{background:var(--panel);border-radius:8px;padding:10px 12px;font-size:.88rem;
+  color:var(--ink-soft);margin:0 0 1.1em}
+.edabout{border-top:1px solid var(--rule);margin-top:1.6em;padding-top:1.2em}
+.edabout p{font-size:.94rem;color:var(--ink-soft)}
+.editor{margin:1.4em 0}
+.fenio{margin:0 0 1.5em}
+.fenio .lbl{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-mute);margin-bottom:.4em}
+/* the same textarea the courses use for their data packet, at the height a FEN
+   needs rather than the height a packet needs */
+.packet.fen-in{min-height:0;white-space:pre-wrap;word-break:break-all;resize:vertical}
+.fenacts{margin:.55em 0 0}
+.fenacts .picked{margin:0;text-align:left}
+.fenwhy:empty{display:none}
+.fenwhy .verdict{margin:.9em 0 0}
+.fenwhy .verdict ul{margin:.45em 0 0;padding-left:1.1em}
+.fenwhy .verdict li{margin:.25em 0}
+.ednotes{background:var(--panel);border-radius:8px;padding:11px 13px;margin:.9em 0 0}
+.ednotes .lbl{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-mute);margin-bottom:.4em}
+.ednotes ul{margin:0;padding-left:1.1em}
+.ednotes li{margin:.32em 0;font-size:.89rem;color:var(--ink-soft)}
+
+/* The trays. Six cells at exactly the width of a board square: the board is
+   eight of eight and the tray is six of the same eight, so the pieces in the
+   tray are the size they will be on the board. */
+.edboard{margin:1.4em 0}
+.tray{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;width:75%;max-width:252px;
+  margin:0 auto}
+.tray[data-colour="b"]{margin-bottom:9px}
+.tray[data-colour="w"]{margin-top:9px}
+/* A tray cell is a square, painted like a light square, because a piece is drawn
+   to be legible on a square: the white army is white with a dark ring around it,
+   and on a --surface panel that ring is all there would be. */
+.tcell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  font-size:min(8.4vw,30px);line-height:1;padding:0;cursor:pointer;
+  background:var(--sq-l);color:inherit;font-family:inherit;
+  border:1px solid var(--rule);border-radius:5px;
+  -webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent}
+.tcell[aria-pressed="true"]{border-color:var(--signal);box-shadow:inset 0 0 0 3px var(--signal)}
+.edboard .picked{text-align:center;text-transform:none;letter-spacing:0;
+  font-family:var(--sans);font-size:.84rem;color:var(--ink-soft);margin-top:.8em;min-height:2.6em}
+.edtools,.edresets{justify-content:center;gap:8px}
+.edtools{margin-top:1.1em}
+
+/* The three fields that are position rather than bookkeeping. The two counters
+   have no control here on purpose - see the note in _editor.js. */
+.edfields{display:grid;grid-template-columns:1fr;gap:14px;margin:1.8em 0 1.2em;
+  border-top:1px solid var(--rule);padding-top:1.3em}
+@media (min-width:620px){ .edfields{grid-template-columns:1fr 1fr} }
+.edfield .lbl{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-mute);margin-bottom:.45em}
+.edfield .row{margin:0}
+.edturn .btn{flex:1}
+.edcastle{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px}
+.edcheck{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;
+  font-family:var(--sans);font-size:.83rem;color:var(--ink-soft)}
+.edcheck input{width:20px;height:20px;accent-color:var(--signal);flex:0 0 auto}
+.edcheck input:disabled{opacity:.4}
+.edcheck input:disabled + span{color:var(--ink-mute)}
+.edsel{font-family:var(--mono);font-size:.82rem;min-height:44px;padding:0 10px;
+  background:var(--surface);color:var(--ink);border:1px solid var(--rule-strong);
+  border-radius:8px;width:100%;max-width:12rem}
+.edhint{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.05em;
+  color:var(--ink-mute);margin-top:.4em}
+.ednot{margin-top:1.4em;border-top:1px solid var(--rule);padding-top:.9em;line-height:1.6}

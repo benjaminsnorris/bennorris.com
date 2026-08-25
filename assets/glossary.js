@@ -145,8 +145,14 @@ function boardCell(b){
   /* show_fen prints the notation for the position actually drawn - render_fen,
      not the stored fen, so a board with `moves` shows the string for the picture
      rather than for the position two moves earlier. */
+  /* `show_fen` is the flag that says this board's notation is part of the point,
+     so it is also the right gate for a link into the editor: a link to a string
+     the page has decided not to show would be clutter for the same reason the
+     string itself would be. */
   var notation = b.show_fen
-    ? '<p class="fenline"><span class="lbl">FEN</span>' + esc(fen) + '</p>' : '';
+    ? '<p class="fenline"><span class="lbl">FEN</span>' + esc(fen) + '</p>' +
+      '<a class="tofen" href="/glossary/board-editor/?fen=' + encodeURIComponent(fen) +
+      '">Open in the board editor</a>' : '';
   return '<div class="boardcell">' +
     '<div class="board">' + boardHTML(fen, {flip: !!b.flip, sel: b.highlight_squares || []}) +
       overlaySVG(b.lines || [], !!b.flip) + '</div>' +
