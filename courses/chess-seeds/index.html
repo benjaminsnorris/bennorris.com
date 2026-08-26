@@ -244,7 +244,9 @@ nav.units button[aria-current]{background:var(--signal);color:var(--btn-fg);
   border-color:var(--signal);font-weight:600}
 nav.units button.done{border-color:var(--good);color:var(--good)}
 
-.unit[hidden]{display:none}
+.unit[hidden],.unitwrap[hidden]{display:none}
+/* a tab now holds several stacked blocks rather than being one */
+.unitwrap>.unit:first-child{margin-top:1.1rem}
 .callout.warn{border-left-color:var(--miss)}
 .callout.warn .lbl{color:var(--miss)}
 .rules .k{min-width:7.4em}
@@ -490,7 +492,7 @@ Revisited,&rdquo; <em>IRRODL</em> 16(3), 2015. Completion 0.7&ndash;52.1%, media
 
 <script type="text/course-deferred">
 /* ---------- storage: one versioned blob, read once ---------- */
-var SCHEMA = 2;
+var SCHEMA = 3;
 function fresh(){
   return {v:SCHEMA, theme:null, items:{}, units:{}, packet:[], calib:[], started:Date.now()};
 }
@@ -499,6 +501,20 @@ function migrate(o){
   if(o.v === SCHEMA) return o;
   var n = fresh();
   if(o.theme && o.theme !== 'auto') n.theme = o.theme;   /* v1 wrote 'auto' */
+  /* v2 kept one run per unit behind a mode switch; v3 keeps two. Everything
+     that cost him something - answered items, spent tracking, the packet, the
+     calibration record - carries over. Only the in-progress run is dropped. */
+  if(o.items) n.items = o.items;
+  if(o.packet) n.packet = o.packet;
+  if(o.calib) n.calib = o.calib;
+  if(o.units){
+    Object.keys(o.units).forEach(function(k){
+      var u = o.units[k] || {};
+      n.units[k] = {practice: [], gate: [],
+                    gatePassed: !!u.gatePassed, completed: !!u.completed,
+                    seen: !!u.seen};
+    });
+  }
   return n;
 }
 var S;
@@ -653,9 +669,14 @@ var UNITS = [
 ];
 
 function ustate(key){
-  if(!S.units[key]) S.units[key] = {mode:'practice', run:[], gatePassed:false};
-  if(!BANK.units[key].practice.length) S.units[key].mode = 'gate';  /* the check IS the gate */
-  return S.units[key];
+  var st = S.units[key];
+  if(!st) st = S.units[key] = {practice: [], gate: [], gatePassed: false};
+  if(!st.practice) st.practice = [];
+  if(!st.gate) st.gate = [];
+  return st;
+}
+function hasPractice(key){
+  return !!(BANK.units[key] && BANK.units[key].practice.length);
 }
 function pickItems(key, mode, n){
   var pool = BANK.units[key][mode === 'gate' ? 'gate' : 'practice'];
@@ -880,8 +901,8 @@ function renderItem(host, it, unit, onDone){
 /* ---------- unit shell ---------- */
 var navEl = document.getElementById('nav'), unitsEl = document.getElementById('units');
 var current = null;
-/* Not persisted. Arriving at a block - including coming back to one mid-run -
-   always asks before starting a clock. */
+/* Not persisted, and keyed by block AND slot, since practice and the check now
+   run independently. Arriving anywhere always asks before starting a clock. */
 var RUNNING = {};
 
 UNITS.forEach(function(u){
@@ -889,8 +910,8 @@ UNITS.forEach(function(u){
   b.type = 'button'; b.textContent = u.short; b.dataset.key = u.key;
   b.addEventListener('click', function(){ show(u.key); });
   navEl.appendChild(b);
-  var sec = document.createElement('section');
-  sec.className = 'unit'; sec.id = 'u_' + u.key; sec.hidden = true;
+  var sec = document.createElement('div');
+  sec.className = 'unitwrap'; sec.id = 'u_' + u.key; sec.hidden = true;
   unitsEl.appendChild(sec);
 });
 
@@ -909,9 +930,9 @@ function paintNav(){
 }
 
 function show(key){
-  if(current && current !== key) RUNNING[current] = false;
+  /* leaving a block, or arriving at one, always stands its clocks down */
+  Object.keys(RUNNING).forEach(function(k){ RUNNING[k] = false; });
   current = key;
-  RUNNING[key] = false;
   UNITS.forEach(function(u){ document.getElementById('u_' + u.key).hidden = (u.key !== key); });
   paintNav();
   drawUnit(key);
@@ -919,163 +940,157 @@ function show(key){
 
 function drawUnit(key){
   var u = UNITS.filter(function(x){ return x.key === key; })[0];
-  var sec = document.getElementById('u_' + key);
-  var st = (u.kind === 'words') ? null : ustate(key);
-  sec.innerHTML = '';
-  var head = document.createElement('div');
-  head.className = 'unithead';
-  head.innerHTML = '<span class="n">Block ' + u.n + '</span><span class="est">' + u.est + '</span>';
-  sec.appendChild(head);
-  var h = document.createElement('h2'); h.textContent = u.title; sec.appendChild(h);
-  var p = document.createElement('p'); p.textContent = u.blurb; sec.appendChild(p);
-  if(key === 'converge') sec.appendChild(convergeNote());
-  if(key === 'decide') sec.appendChild(decideNote());
+  var host = document.getElementById('u_' + key);
+  host.innerHTML = '';
 
+  /* Practice and the check are separate blocks, as in board vision: two cards,
+     two start buttons, both on the page at once. Collapsing them behind a mode
+     switch hid the check until practice was finished and made it impossible to
+     see what was coming. */
+  var intro = block(u.n ? 'Block ' + u.n : '', u.est, u.title);
+  var p = document.createElement('p'); p.textContent = u.blurb;
+  intro.appendChild(p);
+  if(key === 'converge') intro.appendChild(convergeNote());
+  if(key === 'decide') intro.appendChild(decideNote());
+  if(u.kind === 'scan') intro.appendChild(teachBlock(u.level));
   if(u.kind === 'words'){
     if(!S.units[key]) S.units[key] = {};
     if(!S.units[key].seen){ S.units[key].seen = true; save(); }
-    sec.appendChild(wordsBlock()); paintNav(); return;
+    intro.appendChild(wordsBlock()); host.appendChild(intro); paintNav(); return;
+  }
+  host.appendChild(intro);
+
+  if(hasPractice(key)) host.appendChild(runBlock(key, u, 'practice'));
+  host.appendChild(runBlock(key, u, 'gate'));
+  paintMeter(); paintNav();
+}
+
+function block(kicker, est, title){
+  var sec = document.createElement('section');
+  sec.className = 'unit';
+  var head = document.createElement('div');
+  head.className = 'unithead';
+  head.innerHTML = '<span class="n">' + kicker + '</span>' +
+                   '<span class="est">' + (est || '') + '</span>';
+  sec.appendChild(head);
+  if(title){ var h = document.createElement('h2'); h.textContent = title; sec.appendChild(h); }
+  return sec;
+}
+
+function runBlock(key, u, mode){
+  var st = ustate(key);
+  var gated = u.gated !== false;
+  var wanted = mode === 'gate' ? GATE_N : DRAW;
+  var run = st[mode];
+
+  var title, kicker, est, lead;
+  if(mode === 'practice'){
+    kicker = 'Practice'; est = 'Do \u00b7 ~20 min';
+    title = 'Ten positions, with the answer shown';
+    lead = 'The clock runs but nothing is at stake. Every answer is shown as soon ' +
+           'as you check it, and anything you get wrong can go straight into the packet.';
+  } else if(!gated){
+    kicker = 'The set'; est = 'Do \u00b7 ~25 min';
+    title = 'Twenty positions, and a number to sit with';
+    lead = 'Not a gate, and it cannot be one \u2014 the features do not carry enough ' +
+           'information. What it measures is how well you know what you know.';
+  } else {
+    kicker = 'The check'; est = 'Do \u00b7 ~12 min';
+    title = 'Twenty positions you have not seen';
+    lead = 'Drawn fresh from a held-out pool, so a retake is a new set rather than a ' +
+           'memory test.';
   }
 
-  var mode = st.mode, wanted = mode === 'gate' ? GATE_N : DRAW;
-  if(st.run.length >= wanted){ renderResult(sec, key, u, mode); paintMeter(); paintNav(); return; }
+  var sec = block(kicker, est, title);
+  var p = document.createElement('p'); p.innerHTML = lead; sec.appendChild(p);
+  if(mode === 'gate' && gated){
+    var g = document.createElement('p');
+    g.innerHTML = '<strong>The gate is ' + GATE_PASS + ' of ' + GATE_N +
+      ', each inside its cap.</strong> Two misses is the width of a bad day. A third ' +
+      'means it has not automated yet, which is a reason to keep drilling and not a ' +
+      'verdict about you.';
+    sec.appendChild(g);
+  }
 
-  /* Nothing is timed until it is asked for. Rendering an item on arrival starts
-     its clock while the block is still off screen, which makes the first item of
-     every run a guaranteed miss. */
-  if(!RUNNING[key]){
-    var label = st.run.length
-      ? 'Resume \u2014 item ' + (st.run.length + 1) + ' of ' + wanted
-      : (mode === 'gate' ? 'Start the check (' + wanted + ' positions)'
-                         : 'Start practice (' + wanted + ' positions)');
-    var makeStart = function(){
-      var r = document.createElement('div'); r.className = 'row';
-      var b = document.createElement('button');
-      b.className = 'btn'; b.type = 'button'; b.textContent = label;
-      b.addEventListener('click', function(){ RUNNING[key] = true; drawUnit(key); });
-      r.appendChild(b);
-      var cap = document.createElement('p');
-      cap.className = 'clocklbl'; cap.style.textAlign = 'left';
-      cap.textContent = 'the clock starts when you press it';
-      r.appendChild(cap);
-      return r;
-    };
-    var teaching = (u.kind === 'scan') ? teachBlock(u.level) : null;
-    sec.appendChild(makeStart());
-    if(teaching){
-      sec.appendChild(teaching);
-      /* the same control twice, so six worked examples do not bury it */
-      sec.appendChild(makeStart());
-    }
-    return;
+  var slot = key + ':' + mode;
+  if(run.length >= wanted){ sec.appendChild(runResult(key, u, mode)); return sec; }
+
+  if(!RUNNING[slot]){
+    var label = run.length
+      ? 'Resume \u2014 item ' + (run.length + 1) + ' of ' + wanted
+      : (mode === 'gate'
+          ? (gated ? 'Start the check (' + wanted + ' positions)'
+                   : 'Start the set (' + wanted + ' positions)')
+          : 'Start practice (' + wanted + ' positions)');
+    var row = document.createElement('div'); row.className = 'row';
+    var b = document.createElement('button');
+    b.className = 'btn'; b.type = 'button'; b.textContent = label;
+    b.addEventListener('click', function(){ RUNNING[slot] = true; drawUnit(key); });
+    row.appendChild(b);
+    var cap = document.createElement('p');
+    cap.className = 'clocklbl'; cap.style.textAlign = 'left';
+    cap.textContent = 'the clock starts when you press it';
+    row.appendChild(cap);
+    sec.appendChild(row);
+    return sec;
   }
 
   var pick = pickItems(key, mode, wanted);
-  var it = pick.items[st.run.length];
-  if(!it){ sec.insertAdjacentHTML('beforeend', '<p class="picked">Pool exhausted.</p>'); return; }
+  var it = pick.items[run.length];
+  if(!it){ sec.insertAdjacentHTML('beforeend', '<p class="picked">Pool exhausted.</p>'); return sec; }
 
   var bar = document.createElement('p');
   bar.className = 'misshead';
-  bar.textContent = (mode === 'gate' ? 'Gate' : 'Practice') + ' \u00b7 item ' +
-    (st.run.length + 1) + ' of ' + wanted +
+  bar.textContent = 'Item ' + (run.length + 1) + ' of ' + wanted +
     (pick.thin ? ' \u00b7 pool thinning, items may repeat' : '');
   sec.appendChild(bar);
 
-  var host = document.createElement('div'); sec.appendChild(host);
-  renderItem(host, it, u, function(scored){
-    st.run.push(scored ? 1 : 0); save(); drawUnit(key); paintMeter();
+  var hostEl = document.createElement('div'); sec.appendChild(hostEl);
+  renderItem(hostEl, it, u, function(scored){
+    run.push(scored ? 1 : 0); save(); drawUnit(key);
   });
+  return sec;
 }
 
-function renderResult(sec, key, u, mode){
-  var st = ustate(key);
-  var got = st.run.reduce(function(a, b){ return a + b; }, 0), n = st.run.length;
+function runResult(key, u, mode){
+  var st = ustate(key), run = st[mode];
   var gated = u.gated !== false;
-  var isGate = mode === 'gate', passed = gated && isGate && got >= GATE_PASS;
+  var got = run.reduce(function(a, b){ return a + b; }, 0), n = run.length;
+  var isGate = mode === 'gate';
+  var passed = gated && isGate && got >= GATE_PASS;
   if(passed && !st.gatePassed){ st.gatePassed = true; save(); }
-  /* an ungated block is covered by finishing it, not by scoring on it */
   if(!gated && isGate && !st.completed){ st.completed = true; save(); }
-  RUNNING[key] = false;
+  RUNNING[key + ':' + mode] = false;
 
+  var wrap = document.createElement('div');
   var v = document.createElement('div');
-  if(!gated){
+  if(isGate && !gated){
     v.className = 'verdict ok';
-    v.innerHTML = '<b>' + got + ' of ' + n + '</b><br>Not gated, by design. Set that against ' +
-      'the two marks on the meter: 29% is what always saying &ldquo;move on&rdquo; gets you, and ' +
-      '78% is the best a machine with perfect access to all twelve seeds manages on the same corpus.';
-  } else {
-    v.className = 'verdict ' + (isGate ? (passed ? 'ok' : 'no') : 'ok');
+    v.innerHTML = '<b>' + got + ' of ' + n + '</b><br>Set that against the two marks on ' +
+      'the meter: 29% is what always saying &ldquo;move on&rdquo; gets you, and 78% is the ' +
+      'best a machine with perfect access to all twelve seeds manages on the same corpus.';
+  } else if(isGate){
+    v.className = 'verdict ' + (passed ? 'ok' : 'no');
     v.innerHTML = '<b>' + got + ' of ' + n +
-      (isGate ? (passed ? ' \u2014 passed' : ' \u2014 not yet, needs ' + GATE_PASS) : '') +
-      '</b>' + (isGate ? '' : '<br>Practice run finished.');
+      (passed ? ' \u2014 passed' : ' \u2014 not yet, needs ' + GATE_PASS) + '</b>';
+  } else {
+    v.className = 'verdict ok';
+    v.innerHTML = '<b>' + got + ' of ' + n + '</b><br>Practice run finished. ' +
+      (got < n ? 'The misses are the useful part \u2014 take them to the tutor.'
+               : 'The check is drawn from a pool you have not seen.');
   }
-  sec.appendChild(v);
+  wrap.appendChild(v);
 
   var row = document.createElement('div'); row.className = 'row nxtop';
-  if(!isGate){
-    var g = document.createElement('button');
-    g.className = 'btn'; g.type = 'button'; g.textContent = 'Start the gate (' + GATE_N + ')';
-    g.addEventListener('click', function(){ st.mode = 'gate'; st.run = []; save(); drawUnit(key); });
-    row.appendChild(g);
-  }
   var again = document.createElement('button');
   again.className = 'btn ghost'; again.type = 'button';
-  again.textContent = isGate ? 'Run it again' : 'Practise again';
-  again.addEventListener('click', function(){ st.run = []; save(); drawUnit(key); });
-  row.appendChild(again);
-  if(isGate && BANK.units[key].practice.length){
-    var back = document.createElement('button');
-    back.className = 'btn ghost'; back.type = 'button'; back.textContent = 'Back to practice';
-    back.addEventListener('click', function(){ st.mode = 'practice'; st.run = []; save(); drawUnit(key); });
-    row.appendChild(back);
-  }
-  sec.appendChild(row);
-}
-
-/* A checkbox label is a reminder, not an introduction. Every block that adds
-   seeds shows each one marked on a real position before anything is timed. */
-function teachBlock(level){
-  var rows = (BANK.teach && BANK.teach[level]) || [];
-  var d = document.createElement('div');
-  if(!rows.length){
-    d.className = 'callout';
-    d.innerHTML = '<span class="lbl">Nothing new</span><p style="margin-bottom:0">' +
-      'Same twelve seeds, same question. What changes is that the list comes off the ' +
-      'screen \u2014 it was doing the recall for you, and a real position does not come ' +
-      'with one.</p>';
-    return d;
-  }
-  var h = document.createElement('h3');
-  h.textContent = rows.length === 1 ? 'The seed this block adds' : 'The ' + rows.length + ' seeds this block adds';
-  d.appendChild(h);
-  var p0 = document.createElement('p');
-  p0.innerHTML = 'Each one below is worked through on a real position \u2014 which pieces, ' +
-    'which squares, and what the opponent could do about it. Read these before you start; ' +
-    'the drill assumes them.';
-  d.appendChild(p0);
-
-  rows.forEach(function(r){
-    var sec = document.createElement('div');
-    sec.className = 'worked';
-    var pips = {};
-    r.geometry.forEach(function(sq){ pips[sq] = 'missed'; });
-    r.focus.forEach(function(sq){ pips[sq] = 'got'; });
-    sec.innerHTML =
-      '<h4>' + SEEDS[r.seed].t + '</h4>' +
-      '<p class="wsub">What it is</p><p>' + SEEDS[r.seed].d + '</p>' +
-      '<p class="wsub">Why it matters</p><p>' + SEEDS[r.seed].w + '</p>' +
-      '<p class="wsub">In this position</p>' +
-      viewLabel(r.mover === 'black') +
-      '<div class="board">' + boardHTML(r.fen, {flip: r.mover === 'black', pips: pips}) + '</div>' +
-      '<div class="key">' +
-        (r.focus.length ? '<span><i class="a"></i>what the seed is about</span>' : '') +
-        (r.geometry.length ? '<span><i class="b"></i>what makes it true</span>' : '') +
-      '</div>' +
-      '<p class="walk">' + r.walk + '</p>';
-    /* the board sits between "in this position" and the walk-through */
-    d.appendChild(sec);
+  again.textContent = isGate ? (gated ? 'Run the check again' : 'Run it again') : 'Practise again';
+  again.addEventListener('click', function(){
+    st[mode] = []; save(); drawUnit(key);
   });
-  return d;
+  row.appendChild(again);
+  wrap.appendChild(row);
+  return wrap;
 }
 
 function pct(x){ return Math.round(x * 100) + '%'; }
@@ -1135,6 +1150,52 @@ function wordsBlock(){
     'the scan tells you where to look and when to stop, and for the most famous tactic in ' +
     'chess it tells you nothing at all. You find those by calculating.</p>';
   d.appendChild(end);
+  return d;
+}
+
+/* A checkbox label is a reminder, not an introduction. Every block that adds
+   seeds shows each one marked on a real position before anything is timed. */
+function teachBlock(level){
+  var rows = (BANK.teach && BANK.teach[level]) || [];
+  var d = document.createElement('div');
+  if(!rows.length){
+    d.className = 'callout';
+    d.innerHTML = '<span class="lbl">Nothing new</span><p style="margin-bottom:0">' +
+      'Same twelve seeds, same question. What changes is that the list comes off the ' +
+      'screen \u2014 it was doing the recall for you, and a real position does not come ' +
+      'with one.</p>';
+    return d;
+  }
+  var h = document.createElement('h3');
+  h.textContent = rows.length === 1 ? 'The seed this block adds' : 'The ' + rows.length + ' seeds this block adds';
+  d.appendChild(h);
+  var p0 = document.createElement('p');
+  p0.innerHTML = 'Each one below is worked through on a real position \u2014 which pieces, ' +
+    'which squares, and what the opponent could do about it. Read these before you start; ' +
+    'the drill assumes them.';
+  d.appendChild(p0);
+
+  rows.forEach(function(r){
+    var sec = document.createElement('div');
+    sec.className = 'worked';
+    var pips = {};
+    r.geometry.forEach(function(sq){ pips[sq] = 'missed'; });
+    r.focus.forEach(function(sq){ pips[sq] = 'got'; });
+    sec.innerHTML =
+      '<h4>' + SEEDS[r.seed].t + '</h4>' +
+      '<p class="wsub">What it is</p><p>' + SEEDS[r.seed].d + '</p>' +
+      '<p class="wsub">Why it matters</p><p>' + SEEDS[r.seed].w + '</p>' +
+      '<p class="wsub">In this position</p>' +
+      viewLabel(r.mover === 'black') +
+      '<div class="board">' + boardHTML(r.fen, {flip: r.mover === 'black', pips: pips}) + '</div>' +
+      '<div class="key">' +
+        (r.focus.length ? '<span><i class="a"></i>what the seed is about</span>' : '') +
+        (r.geometry.length ? '<span><i class="b"></i>what makes it true</span>' : '') +
+      '</div>' +
+      '<p class="walk">' + r.walk + '</p>';
+    /* the board sits between "in this position" and the walk-through */
+    d.appendChild(sec);
+  });
   return d;
 }
 
