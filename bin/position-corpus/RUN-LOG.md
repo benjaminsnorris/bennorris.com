@@ -277,3 +277,59 @@ else. A corpus of bare positions cannot be checked against itself like that.
 `verify/check_provenance.py` in the glossary repo now does the check directly
 against the dump: 120 of 120 positions in the new corpus are in the game they
 cite, ratings matching.
+
+---
+
+## 2026-08-25 (later) — the three corpora relabelled
+
+The provenance bug in the entry above is repaired, without re-harvesting.
+
+The offset was exactly one game, so the true source is recoverable rather than a
+guess: stream the month, keep the previous game, and where the previous game's id
+is one the corpus cites, the current game is where the position came from.
+`src/relabel_corpus.py` in the glossary repo does that and **refuses to write
+unless the position is actually present in that game.**
+
+```sh
+python3 src/relabel_corpus.py --month 2013-01 --apply \
+    data/positions.json data/positions-drill.json data/positions-endgame.json
+python3 src/relabel_corpus.py --month 2013-02 --apply data/positions.json
+python3 src/relabel_corpus.py --month 2013-03 --apply data/positions.json
+```
+
+| | |
+|---|---|
+| positions relabelled | **13,692** — 2,100 certified (613 + 646 + 841 across the three months), 10,000 drill, 1,592 endgame |
+| rejected because the successor did not contain the position | **0** |
+| board refs rewritten in the glossary's `entries.json` | 83 |
+| verified afterwards | `verify/check_provenance.py`: **100 of 100 for each corpus**, ratings matching |
+
+Nothing else changed. Every FEN, board, base rate, drill item and engine label
+survived, because the positions were never wrong — only the label on them.
+Re-harvesting would have produced different positions and broken 41 boards and 14
+drills, for an attribution fix.
+
+### What relabelling revealed: the population was never the one described
+
+The game filters had been applied to the wrong game, so the true headers show what
+the corpora actually are:
+
+| | median rating | both players 1200–1800 | range |
+|---|---|---|---|
+| `positions.json` | 1627 | 67.4% | 936–2369 |
+| `positions-drill.json` | 1610 | 69.5% | 903–2253 |
+| `positions-endgame.json` | 1611 | 71.1% | 931–2200 |
+| `positions-opening.json` (harvested after the fix) | 1519 | **100%** | 1200–1800 |
+
+About 30% of the source games also had a base time under three minutes, against an
+intended floor of 180 seconds.
+
+So the three older files are **club games with a median around 1620** rather than a
+1200–1800 sample, and the glossary now says so — seven entries quoted the old
+description and were corrected. The opening corpus at 100% is the control: that is
+what the intended filter does when it is applied to the game it is supposed to be
+applied to.
+
+**If the intended population is wanted exactly**, re-harvesting the two uncertified
+corpora with the fixed loop takes under a minute each. It changes which positions
+exist, so it means reworking whatever cites them.
