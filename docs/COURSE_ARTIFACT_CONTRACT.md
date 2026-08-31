@@ -105,6 +105,48 @@ dashboard (Authentication → Users → Add user) with a password and *Auto Conf
 User* on, then hand them the credentials. There is no "forgot password" flow on
 the page — reset it from the dashboard.
 
+### When two devices disagree
+
+Every course keeps its entire state under a single key (`state`, mostly), so the
+old "remote wins on conflict" rule was not a merge — it replaced one device's
+whole blob with another's. Sign in on your thin browser first and your good
+browser's work was gone.
+
+Divergence is now held rather than resolved. When a key exists on both sides with
+different values, the store:
+
+1. writes the local copy to `bn-course:presync:<slug>:<key>` before touching
+   anything,
+2. leaves the artifact booting on the **local** value — nothing is overwritten,
+3. holds the remote value aside and refuses to upload that key, so ongoing work
+   cannot settle the conflict as "local wins" behind your back,
+4. forces the panel open (the one case that overrides the collapse preference —
+   a dot cannot ask a question) and offers three answers.
+
+**Merge them** unions the two structurally. It works because every course uses
+the same idiom: a version scalar plus id-keyed maps of monotonic progress. Rules
+are: objects recurse; arrays keep the longer run (they are append-only logs, and
+concatenating would double-count a replay); booleans OR together, so done stays
+done; numbers take the max, which is right for timestamps, counts and best
+scores; `null` and `''` are treated as "unanswered" and yield; everything else,
+including free text and type mismatches, keeps this device's value.
+
+Two things it deliberately cannot do: represent an undo (a box you unchecked here
+loses to one still checked there), and reconcile free text typed two ways. That
+is why it is offered rather than imposed, and why the backup is written first.
+Merging is only offered when both sides parse as JSON objects.
+
+**Keep this device** uploads the local copy and needs no reload. **Use the saved
+copy** applies the remote value and reloads, since the artifact read its state at
+init.
+
+Recovery, from the console on the course page:
+
+```js
+CourseStore.backups()      // every pre-overwrite copy this browser holds
+CourseStore.restore('state')  // put one back, and queue it for upload
+```
+
 ### Two people, one browser
 
 `bn-course:owner` stamps the local mirror with the user_id it belongs to. Progress

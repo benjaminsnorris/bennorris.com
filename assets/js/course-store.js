@@ -51,6 +51,7 @@
   var AUTH_KEY = 'bn-course:auth'; // supabase-js session; shared by all courses
   var OWNER_KEY = 'bn-course:owner'; // user_id the local mirror belongs to
   var UI_KEY = 'bn-course:ui'; // 'open' | 'shut' — per-device panel preference
+  var PRESYNC_PREFIX = 'bn-course:presync:'; // pre-overwrite safety copies
 
   var script = document.currentScript;
   var SLUG = (script && script.getAttribute('data-course-slug')) || 'unknown';
@@ -68,6 +69,9 @@
   var client = null;
   var userId = null;
   var flushTimer = null;
+  // Keys whose local and remote copies disagree, held aside awaiting the
+  // learner's decision: logical key -> the remote value we have not applied.
+  var pending = Object.create(null);
 
   // ---------------------------------------------------------------------------
   // Local mirror
@@ -116,6 +120,142 @@
       nativeSet(OWNER_KEY, uid);
     } catch (e) {}
     return !foreign;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Divergence: backup, and merge
+  // ---------------------------------------------------------------------------
+
+  function backupLocal(key, value) {
+    // One slot per (course, key), overwritten each time. This is a safety net
+    // for the decision about to be taken, not a history. It lives in the real
+    // Storage under the bn-course: prefix, so it is never itself synced and
+    // never mistaken for artifact state.
+    try {
+      nativeSet(
+        PRESYNC_PREFIX + SLUG + ':' + key,
+        JSON.stringify({ at: new Date().toISOString(), value: value })
+      );
+    } catch (e) {}
+  }
+
+  function parseObject(str) {
+    try {
+      var o = JSON.parse(str);
+      return o && typeof o === 'object' && !Array.isArray(o) ? o : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Additive merge, biased toward "further along". Every course happens to keep
+  // its whole state as a version scalar plus id-keyed maps of monotonic
+  // progress -- a unit completed, a check answered, a timestamp advanced -- so
+  // union-the-keys-and-take-the-further-value is the right shape rather than a
+  // guess. `mine` breaks every tie, since it is the device in front of you.
+  //
+  // What it cannot do: represent a deliberate undo (an unchecked box loses to a
+  // checked one on the other device), or reconcile free text (an answer typed
+  // two ways keeps this device's). That is why merging is offered rather than
+  // imposed, and why the backup is written first.
+  function deepMerge(mine, theirs) {
+    if (theirs === undefined || theirs === null) return mine;
+    if (mine === undefined || mine === null) return theirs;
+    // The empty string is a sentinel, not an answer: map-projections seeds each
+    // item as {conf:null, attempt:'', revealed:null, outcome:null}. Without
+    // this, an item left untouched here would outrank the one answered on the
+    // other device, purely because strings otherwise resolve to `mine`.
+    if (mine === '') return theirs;
+    if (theirs === '') return mine;
+
+    var mineArr = Array.isArray(mine);
+    var theirsArr = Array.isArray(theirs);
+
+    if (mineArr && theirsArr) {
+      // Append-only logs (practice reps, gate attempts): the longer run is the
+      // fuller record. Concatenating would double-count a replayed session.
+      return theirs.length > mine.length ? theirs : mine;
+    }
+    if (
+      !mineArr &&
+      !theirsArr &&
+      typeof mine === 'object' &&
+      typeof theirs === 'object'
+    ) {
+      var out = {};
+      Object.keys(mine).forEach(function (k) {
+        out[k] = mine[k];
+      });
+      Object.keys(theirs).forEach(function (k) {
+        out[k] = k in mine ? deepMerge(mine[k], theirs[k]) : theirs[k];
+      });
+      return out;
+    }
+    if (typeof mine === 'boolean' && typeof theirs === 'boolean') {
+      return mine || theirs; // done stays done
+    }
+    if (typeof mine === 'number' && typeof theirs === 'number') {
+      return Math.max(mine, theirs); // timestamps, counts, best scores
+    }
+    return mine; // strings, and any type mismatch
+  }
+
+  function mergeSerialized(mine, theirs) {
+    var a = parseObject(mine);
+    var b = parseObject(theirs);
+    if (!a || !b) return mine;
+    try {
+      return JSON.stringify(deepMerge(a, b));
+    } catch (e) {
+      return mine;
+    }
+  }
+
+  function canMerge() {
+    var keys = Object.keys(pending);
+    return (
+      keys.length > 0 &&
+      keys.every(function (k) {
+        return !!parseObject(cache[k]) && !!parseObject(pending[k]);
+      })
+    );
+  }
+
+  function resolveConflict(choice) {
+    var keys = Object.keys(pending);
+    if (!keys.length) return;
+
+    var changed = false;
+    keys.forEach(function (k) {
+      var mine = k in cache ? cache[k] : null;
+      var next =
+        choice === 'local'
+          ? mine
+          : choice === 'remote'
+            ? pending[k]
+            : mergeSerialized(mine, pending[k]);
+
+      if (next !== mine) {
+        changed = true;
+        cache[k] = next;
+        try {
+          nativeSet(PREFIX + k, next);
+        } catch (e) {}
+      }
+      // "Use saved copy" needs no upload -- that value is already the record.
+      if (choice !== 'remote') dirty[k] = true;
+      delete pending[k];
+    });
+
+    ui.state = 'synced';
+    ui.error = '';
+    render();
+
+    // The artifact read its state at init. If the resolution changed it, the
+    // page has to re-run against the new value.
+    flush().then(function () {
+      if (changed) window.location.reload();
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -299,15 +439,30 @@
             if (r.error) return false;
             var localOnly = Object.keys(cache);
 
-            // Remote wins on conflict: it is the cross-device record, and we
-            // keep no local timestamps to arbitrate with.
             (r.data || []).forEach(function (row) {
-              cache[row.key] = row.value;
-              try {
-                nativeSet(PREFIX + row.key, row.value);
-              } catch (e) {}
               var idx = localOnly.indexOf(row.key);
               if (idx !== -1) localOnly.splice(idx, 1);
+
+              var mine = row.key in cache ? cache[row.key] : null;
+
+              // Absent here, or byte-identical: nothing can be lost by taking
+              // the remote copy.
+              if (mine === null || mine === row.value) {
+                cache[row.key] = row.value;
+                try {
+                  nativeSet(PREFIX + row.key, row.value);
+                } catch (e) {}
+                return;
+              }
+
+              // Genuinely divergent. The rule used to be "remote wins", which
+              // for these artifacts -- every one of them keeps its entire state
+              // under a single key -- silently discarded everything done on
+              // this device. Hold the remote copy aside instead: the artifact
+              // boots on local state, nothing is overwritten, and the learner
+              // chooses.
+              backupLocal(row.key, mine);
+              pending[row.key] = row.value;
             });
 
             // Progress made before signing in (or on another browser) is
@@ -340,7 +495,12 @@
     flushTimer = null;
     if (!client || !userId) return Promise.resolve();
 
-    var keys = Object.keys(dirty);
+    // A key awaiting a decision must not be uploaded: doing so would settle the
+    // conflict as "local wins" behind the learner's back, which is the very
+    // thing the prompt exists to prevent.
+    var keys = Object.keys(dirty).filter(function (k) {
+      return !(k in pending);
+    });
     if (!keys.length) return Promise.resolve();
 
     var upserts = [];
@@ -576,6 +736,7 @@
     '.led[data-s="synced"]{background:#37b24d}' +
     '.led[data-s="local"]{background:#868e96}' +
     '.led[data-s="offline"]{background:#f08c00}' +
+    '.led[data-s="conflict"]{background:#f08c00}' +
     '.panel{width:264px;background:#1f2430;color:#e6e8ee;border-radius:12px;' +
     'padding:12px;box-shadow:0 6px 24px rgba(0,0,0,.3)}' +
     '.head{display:flex;gap:8px;align-items:center}' +
@@ -597,6 +758,11 @@
     'color:#9aa4b8;text-decoration:underline;padding:0;margin-top:8px;' +
     'text-align:left}' +
     'button.link:hover{color:#e6e8ee}' +
+    '.acts{display:grid;gap:6px;margin-top:10px}' +
+    'button.alt{font:inherit;cursor:pointer;border:1px solid #39404f;' +
+    'border-radius:8px;padding:7px 10px;background:#151922;color:#e6e8ee}' +
+    'button.alt:hover{border-color:#5a6478}' +
+    '.tiny{font-size:12px;margin-top:8px}' +
     '.err{color:#ffa8a8;margin-top:8px}' +
     '.muted{opacity:.75}' +
     '@media (prefers-reduced-motion:reduce){.dot{transition:none}}';
@@ -604,6 +770,7 @@
   function labelFor() {
     if (ui.state === 'synced') return 'Synced &middot; ' + esc(ui.email);
     if (ui.state === 'offline') return 'Sync unavailable';
+    if (ui.state === 'conflict') return 'Two versions of your progress';
     return 'Saved on this device only';
   }
 
@@ -638,7 +805,20 @@
     }
 
     var body;
-    if (ui.state === 'synced') {
+    if (ui.state === 'conflict') {
+      body =
+        '<div class="muted" style="margin-top:8px">This device and your ' +
+        'saved copy have both moved on. Which should win?</div>' +
+        '<div class="acts">' +
+        (canMerge()
+          ? '<button class="go" id="cm">Merge them</button>'
+          : '') +
+        '<button class="alt" id="cl">Keep this device</button>' +
+        '<button class="alt" id="cr">Use the saved copy</button>' +
+        '</div>' +
+        '<div class="muted tiny">This device&rsquo;s progress is backed up ' +
+        'either way &mdash; nothing is thrown away yet.</div>';
+    } else if (ui.state === 'synced') {
       body = '<button class="link" id="out">Sign out</button>';
     } else if (ui.state === 'offline') {
       body =
@@ -688,6 +868,15 @@
 
     var out = root.getElementById('out');
     if (out) out.addEventListener('click', signOut);
+
+    [['cm', 'merge'], ['cl', 'local'], ['cr', 'remote']].forEach(function (p) {
+      var el = root.getElementById(p[0]);
+      if (el) {
+        el.addEventListener('click', function () {
+          resolveConflict(p[1]);
+        });
+      }
+    });
 
     var form = root.getElementById('f');
     if (form) {
@@ -749,7 +938,33 @@
     },
     flush: flush,
     signIn: signIn,
-    signOut: signOut
+    signOut: signOut,
+
+    // Recovery, for the console. backups() lists every pre-overwrite copy this
+    // browser holds, across courses; restore(key) puts one back and queues it
+    // for upload.
+    backups: function () {
+      var out = {};
+      for (var i = 0; i < real.length; i++) {
+        var full = real.key(i);
+        if (full && full.indexOf(PRESYNC_PREFIX) === 0) {
+          try {
+            out[full.slice(PRESYNC_PREFIX.length)] = JSON.parse(nativeGet(full));
+          } catch (e) {}
+        }
+      }
+      return out;
+    },
+    restore: function (key) {
+      var raw = nativeGet(PRESYNC_PREFIX + SLUG + ':' + key);
+      if (!raw) return false;
+      try {
+        shim.setItem(key, JSON.parse(raw).value);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
   };
 
   function boot() {
@@ -773,7 +988,16 @@
         // No client at all means supabase-js never arrived, so there is nothing
         // a sign-in form could do. Say so rather than offering a dead form --
         // which is exactly how the old magic-link panel failed.
-        ui.state = signedIn ? 'synced' : client ? 'local' : 'offline';
+        if (Object.keys(pending).length) {
+          // The one case that overrides the learner's collapse preference: a
+          // silent dot cannot ask a question, and until it is answered the
+          // conflicting keys are not syncing. The preference itself is left
+          // untouched, so collapsing stays collapsed once this is settled.
+          ui.state = 'conflict';
+          ui.open = true;
+        } else {
+          ui.state = signedIn ? 'synced' : client ? 'local' : 'offline';
+        }
         render();
       });
   }
