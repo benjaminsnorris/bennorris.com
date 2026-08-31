@@ -356,17 +356,23 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
 
 <nav class="units" id="nav"></nav>
 
-<h1>Seeds of tactical destruction</h1>
-<p style="font-size:1.03rem;color:var(--ink-soft)">A tactic is not remembered. It
-is found &mdash; by sweeping a position for the features that make one possible,
-and by knowing when those features are telling you nothing.</p>
-
 <div class="meter">
   <div class="big" id="meterBig">Not started</div>
   <div class="gauge"><i id="gaugeFill"></i><b id="gaugeBase"></b><b class="ceil" id="gaugeCeil"></b></div>
   <div class="gaugelbl"><span>guess &ldquo;quiet&rdquo; &mdash; 29%</span><span>ceiling &mdash; 78%</span></div>
   <div class="sub" id="meterSub">clean = right, and inside the cap</div>
 </div>
+
+<div id="units"></div>
+
+<!-- The preamble is a block like any other -- see drawUnit's "intro" kind.
+     It used to sit above #units, so switching blocks only redrew content
+     below the fold and read as though the click had done nothing. -->
+<template id="introTpl">
+<h1>Seeds of tactical destruction</h1>
+<p style="font-size:1.03rem;color:var(--ink-soft)">A tactic is not remembered. It
+is found &mdash; by sweeping a position for the features that make one possible,
+and by knowing when those features are telling you nothing.</p>
 
 <div class="callout warn"><span class="lbl">Finish board vision first</span>
 <p>This course assumes you can sweep a position for loose material and count
@@ -390,7 +396,6 @@ Why, and what to do about it, is the second half of this course.</p></div>
 <li>Not how deep to calculate once you decide to look.</li>
 <li>Not a rating.</li>
 </ul></div>
-
 <section class="unit">
   <div class="unithead"><span class="n">Before you start</span><span class="est">Read &middot; ~6 min</span></div>
   <h2>What the evidence is worth</h2>
@@ -440,8 +445,7 @@ Why, and what to do about it, is the second half of this course.</p></div>
   <p style="margin-bottom:0">Block 6 is uncomfortable differently: it is where the
   scan stops paying off and you have to accept a number lower than you want.</p></div>
 </section>
-
-<div id="units"></div>
+</template>
 
 <section class="unit">
   <div class="unithead"><span class="n">Packet</span><span class="est">For the tutor</span></div>
@@ -649,6 +653,7 @@ var BANK = JSON.parse(document.getElementById('bank').textContent);
 var GATE_N = 20, GATE_PASS = 18, DRAW = 10;
 
 var UNITS = [
+  {key:'start', short:'Start', kind:'intro'},
   {key:'scanA', n:1, short:'1 Three', title:'Three seeds', kind:'scan', level:'A', est:'Read, then drill \u00b7 ~1 hr',
    blurb:'The whole task in its smallest form. Three seeds, defined on screen. Name every one present \u2014 all of them, or the item is a miss. Six of eight is not 75% of a scan.'},
   {key:'scanB', n:2, short:'2 Six', title:'Six seeds', kind:'scan', level:'B', est:'Read, then drill \u00b7 ~1 hr',
@@ -908,7 +913,7 @@ var RUNNING = {};
 UNITS.forEach(function(u){
   var b = document.createElement('button');
   b.type = 'button'; b.textContent = u.short; b.dataset.key = u.key;
-  b.addEventListener('click', function(){ show(u.key); });
+  b.addEventListener('click', function(){ show(u.key, true); });
   navEl.appendChild(b);
   var sec = document.createElement('div');
   sec.className = 'unitwrap'; sec.id = 'u_' + u.key; sec.hidden = true;
@@ -929,19 +934,43 @@ function paintNav(){
   }
 }
 
-function show(key){
+function show(key, moveView){
   /* leaving a block, or arriving at one, always stands its clocks down */
   Object.keys(RUNNING).forEach(function(k){ RUNNING[k] = false; });
   current = key;
   UNITS.forEach(function(u){ document.getElementById('u_' + u.key).hidden = (u.key !== key); });
   paintNav();
   drawUnit(key);
+
+  /* Only on a click. The nav sits at the top of the document and is not sticky,
+     so switching blocks from halfway down a long one would otherwise leave you
+     looking at the middle of something you have never seen. */
+  if(moveView){
+    var top = document.querySelector('header.top');
+    if(top && typeof top.scrollIntoView === 'function'){
+      var calm = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      /* Older Safari rejects the options object; the bare call is the fallback,
+         and a host without scrollIntoView at all must not take the page down. */
+      try { top.scrollIntoView({behavior: calm ? 'auto' : 'smooth', block: 'start'}); }
+      catch(e){ try { top.scrollIntoView(); } catch(e2){} }
+    }
+  }
 }
 
 function drawUnit(key){
   var u = UNITS.filter(function(x){ return x.key === key; })[0];
   var host = document.getElementById('u_' + key);
   host.innerHTML = '';
+
+  /* The preamble, rendered as a block. Marked seen on arrival so the nav ticks
+     it off, the same way the words block does. */
+  if(u.kind === 'intro'){
+    if(!S.units[key]) S.units[key] = {};
+    if(!S.units[key].seen){ S.units[key].seen = true; save(); }
+    host.appendChild(document.getElementById('introTpl').content.cloneNode(true));
+    paintMeter(); paintNav(); return;
+  }
 
   /* Practice and the check are separate blocks, as in board vision: two cards,
      two start buttons, both on the page at once. Collapsing them behind a mode
@@ -1302,7 +1331,7 @@ document.getElementById('pclear').addEventListener('click', function(){
 <script type="text/course-deferred">
 refreshPacketCount();
 paintMeter();
-show('scanA');
+show('start');
 </script>
 
 </body>
