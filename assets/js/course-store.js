@@ -955,6 +955,36 @@
       }
       return out;
     },
+    // One-time migration for progress made when this course lived under a
+    // different slug -- or, as board vision did, under several. Those rows sit
+    // outside this course's namespace, so nothing but the store can see them.
+    // Idempotent: the old keys are removed as they are folded in.
+    adopt: function (oldSlug, rename) {
+      var from = 'cs:' + oldSlug + ':';
+      var found = [];
+      // Collected before removing: deleting during the scan shifts the indices.
+      for (var i = 0; i < real.length; i++) {
+        var full = real.key(i);
+        if (full && full.indexOf(from) === 0) found.push(full);
+      }
+      var moved = 0;
+      found.forEach(function (full) {
+        var value = nativeGet(full);
+        var k = full.slice(from.length);
+        if (rename) k = rename(k);
+        // Never overwrite what this course already holds. A cloud copy, or a
+        // later local run, both outrank a migration that should have happened
+        // once and did not.
+        if (value !== null && !(k in cache)) {
+          shim.setItem(k, value);
+          moved++;
+        }
+        try {
+          nativeRemove(full);
+        } catch (e) {}
+      });
+      return moved;
+    },
     restore: function (key) {
       var raw = nativeGet(PRESYNC_PREFIX + SLUG + ':' + key);
       if (!raw) return false;

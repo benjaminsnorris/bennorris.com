@@ -83,8 +83,8 @@
     abstraction memo.
   tracked: true
 
-- slug: board-vision-squares
-  title: 'Chess: Board Vision'
+- slug: board-vision
+  title: Board vision — four units and a final check
   description: >-
     The four questions a position asks before tactics do — what square is that,
     what does that piece attack, how many pieces hit it, and what is undefended
