@@ -333,3 +333,58 @@ applied to.
 **If the intended population is wanted exactly**, re-harvesting the two uncertified
 corpora with the fixed loop takes under a minute each. It changes which positions
 exist, so it means reworking whatever cites them.
+
+---
+
+## 2026-08-31 — the two uncertified corpora re-harvested
+
+Relabelling fixed the provenance of the three corpora in place; it could not fix
+the *population*, because the game filters had been applied to the wrong game.
+Re-harvesting with the fixed loop does. Done for the two files that cost nothing
+to rebuild; **`positions.json` was deliberately left relabelled**, since
+re-certifying 2,100 positions is 81 minutes of Stockfish and would take 58 boards
+and 5 drills with it.
+
+```sh
+curl -s .../lichess_db_standard_rated_2013-01.pgn.zst | zstd -dc \
+  | harvest.py --month 2013-01 --relaxed --seed 20260824 > cand_drill_v2.jsonl
+python3 ~/Developer/chess-glossary/src/build_drill_corpus.py cand_drill_v2.jsonl
+
+curl -s .../lichess_db_standard_rated_2013-01.pgn.zst | zstd -dc \
+  | harvest.py --month 2013-01 --relaxed --max-pieces 8 --seed 20260825 > cand_endgame_v2.jsonl
+python3 ~/Developer/chess-glossary/src/build_endgame_corpus.py cand_endgame_v2.jsonl
+```
+
+`src/build_drill_corpus.py` is new. The first drill corpus was subsampled by hand,
+which is why its seed had to be recorded in prose — a corpus nobody can rebuild is
+a corpus nobody can check.
+
+| | before | after |
+|---|---|---|
+| games read (the whole month, for the first time) | 60,666 | **121,332** |
+| `positions-drill.json` candidates | 77,110 | **153,432** → 10,000 kept, 9,120 games |
+| `positions-endgame.json` | 1,592 | **3,435**, from 18,643 candidates |
+| both players inside 1200–1800, drill | 69.5% | **100%** |
+| both players inside 1200–1800, endgame | 71.1% | **100%** |
+| harvest time | — | 2m49s and 1m53s, no engine |
+
+Verified with `verify/check_provenance.py`: 80 of 80 sampled positions in each
+file are present in the game they cite, ratings matching.
+
+### What it cost downstream
+
+**All 25 glossary boards citing the drill corpus had to be replaced** - not one of
+the old positions survives a build whose filters actually apply, which is the
+clearest possible statement of how different the two populations were. Each
+replacement was found with the predicate its board illustrates and re-captioned
+from computed facts.
+
+The nine drills drawing on these two files kept their predicates and **all nine
+stayed inside the 25–75% band**, so none had to be dropped. Rates moved a little:
+the square rule 43.2% → 46.4%, material 27.4% → 28.0%, passed pawn 37.8% → 39.1%.
+
+Two entry arguments changed rather than just their numbers. `opposition` had
+concluded the term could never be drilled, on a 24.4% figure that is now 29.3%;
+and the `zugzwang` scan was redone across 456 positions of four to nine men, each
+evaluated twice at depth 14 — the obligation to move costs a pawn or more in 19 of
+them and **reverses the result in none**.
