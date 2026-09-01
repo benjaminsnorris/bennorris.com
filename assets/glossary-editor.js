@@ -287,6 +287,115 @@ function edPosNotes(st){
   return notes.concat(edEpNotes(st));
 }
 
+/* ---------- what each side is hitting ----------
+
+   Attack here means control: a square a piece could capture on if an enemy
+   stood there. So a defended friendly piece counts - "who is hitting e5" and
+   "who could take on e5" are different questions, and the first is the one that
+   explains a position. A pawn's push squares are not attacks; its two diagonals
+   are, whether or not anything is on them. A slider stops on the first piece it
+   meets: that square is attacked, the ones behind it are not, and no x-ray is
+   claimed here because an x-ray is a different idea with its own entry.
+
+   Legality is not consulted, for the same reason the rest of the page does not
+   consult it: a pinned knight still attacks what it attacks, and this editor
+   draws what it is told to. */
+
+var ED_LEAP = {
+  n: [[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]],
+  k: [[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]]
+};
+var ED_ROOKDIR = [[1,0],[-1,0],[0,1],[0,-1]];
+var ED_BISHDIR = [[1,1],[1,-1],[-1,1],[-1,-1]];
+var ED_SLIDE = { r: ED_ROOKDIR, b: ED_BISHDIR, q: ED_ROOKDIR.concat(ED_BISHDIR) };
+
+/* {square: {w: n, b: n}} for every square either side hits. Squares nobody hits
+   are absent rather than zero, so a caller can ask `if(counts[sq])`. */
+function edAttackCounts(pos){
+  var out = {}, sq;
+
+  /* Counts one square for one side, and answers the only question a ray has:
+     stop here? Off the board and occupied both stop it; only the second counts. */
+  function hit(f, r, side){
+    if(f < 0 || f > 7 || r < 0 || r > 7) return true;
+    var nm = ED_FILES.charAt(f) + (r + 1);
+    var cell = out[nm] || (out[nm] = { w: 0, b: 0 });
+    cell[side] += 1;
+    return !!pos[nm];
+  }
+
+  for(sq in pos){
+    if(!Object.prototype.hasOwnProperty.call(pos, sq)) continue;
+    var pc = pos[sq], side = edWhite(pc) ? 'w' : 'b', t = pc.toLowerCase();
+    var f = ED_FILES.indexOf(sq.charAt(0)), r = +sq.charAt(1) - 1;
+    if(f < 0 || !(r >= 0 && r <= 7)) continue;
+    if(t === 'p'){
+      var dr = side === 'w' ? 1 : -1;
+      hit(f - 1, r + dr, side);
+      hit(f + 1, r + dr, side);
+    } else if(ED_LEAP[t]){
+      edEachStep(ED_LEAP[t], f, r, side, hit, false);
+    } else if(ED_SLIDE[t]){
+      edEachStep(ED_SLIDE[t], f, r, side, hit, true);
+    }
+  }
+  return out;
+}
+
+/* Pulled out of edAttackCounts so the loop body is not a closure built inside a
+   loop: one step for a leaper, and steps until something stops it for a slider. */
+function edEachStep(dirs, f, r, side, hit, slide){
+  var i, step, d;
+  for(i = 0; i < dirs.length; i++){
+    d = dirs[i];
+    step = 1;
+    while(!hit(f + d[0] * step, r + d[1] * step, side) && slide) step += 1;
+  }
+}
+
+/* The heat scale, and the one place in this project that names colours instead
+   of using tokens. The token palette is categorical - good, miss, fact, infer -
+   and an attacker count is quantitative: there is no token that means "three".
+   Red is Black's and blue is White's, and the two endpoints are picked so that
+   an even mix lands on a readable purple rather than on mud.
+   The scale does not change with the theme. It replaces the square rather than
+   tinting it, so tying it to --sq-l and --sq-d would make the same position read
+   as two different heat maps depending on the reader's system setting. The dark
+   squares keep a slightly deeper version of the same colour, which is enough to
+   leave the checker visible under the paint - and finding b7 by eye is how
+   anyone reads a board. */
+var ED_HEAT_B = [198, 40, 45];      /* Black's attacks: red */
+var ED_HEAT_W = [38, 78, 190];      /* White's attacks: blue */
+var ED_HEAT_TOP = 5;                /* the count at which the ramp bottoms out */
+
+function edHeat(w, b, dark){
+  var n = w + b;
+  if(!n) return '';
+  var share = b / n;                                  /* 1 all Black, 0 all White */
+  var deep = Math.min(1, (n - 1) / (ED_HEAT_TOP - 1));
+  var lift = 0.55 - 0.80 * deep;      /* one attacker pale, five and up deep */
+  var out = [], i, c;
+  for(i = 0; i < 3; i++){
+    c = ED_HEAT_B[i] * share + ED_HEAT_W[i] * (1 - share);
+    c = lift >= 0 ? c + (255 - c) * lift : c * (1 + lift);
+    if(dark) c *= 0.86;
+    out.push(Math.round(Math.max(0, Math.min(255, c))));
+  }
+  return 'rgb(' + out.join(', ') + ')';
+}
+
+/* What the badges say, in words, for the label a screen reader reads. The two
+   badges are the whole point of the badges - a heat map that is only a colour is
+   a heat map two readers in a hundred cannot use - and an aria-label is the same
+   promise kept for a reader who is not looking at it at all. */
+function edAttackWords(c){
+  var parts = [];
+  if(c && c.w) parts.push(c.w + ' white');
+  if(c && c.b) parts.push(c.b + ' black');
+  if(!parts.length) return 'attacked by nothing';
+  return 'attacked by ' + edList(parts);
+}
+
 /* ---------- the page ---------- */
 
 function edTray(colour){
@@ -319,9 +428,30 @@ function edFieldControls(){
     '</div>';
 }
 
+/* The attack view. A view, like Flip: it changes nothing about the position, so
+   it writes nothing into the FEN and nothing into the address bar.
+   Occupied squares only by default, because that is the question anyone actually
+   arrives with - what is hitting my pieces, and what am I hitting - and painting
+   all sixty-four at once turns the answer into wallpaper. The whole board is one
+   checkbox away for the times the question is about the empty squares: where a
+   king may not step, which squares a knight can never be dislodged from. */
+function edHeatControls(){
+  return '<div class="edheat">' +
+    '<span class="lbl">Attack view</span>' +
+    '<div class="row edheatrow">' +
+      '<button type="button" class="btn ghost flag" id="edatk" aria-pressed="false">' +
+        'Show attacks</button>' +
+      '<label class="edcheck" id="edscope" hidden>' +
+        '<input type="checkbox" id="edall">' +
+        '<span>Every square, not just the occupied ones</span></label>' +
+    '</div>' +
+    '<div class="edkey" id="edkey" hidden></div>' +
+    '</div>';
+}
+
 function renderEditorShell(data){
   var presets = (data.presets || []).map(function(p, i){
-    return '<button type="button" class="btn ghost" data-preset="' + i + '">' +
+    return '<button type="button" class="edload" data-preset="' + i + '">' +
       esc(p.label) + '</button>';
   }).join('');
   var cite = (data.presets || []).filter(function(p){ return p.ref; }).map(function(p){
@@ -357,11 +487,20 @@ function renderEditorShell(data){
       '<button type="button" class="btn ghost flag" id="ederase" aria-pressed="false">Erase</button>' +
       '<button type="button" class="btn ghost" id="edflip">Flip</button>' +
     '</div>' +
-    '<div class="row edresets">' + presets + '</div>' +
+
+    edHeatControls() +
+
+    /* Not the same kind of thing as Move, Erase and Flip, and until now it looked
+       like it: four more ghost buttons in a row directly under three. Those three
+       say what the editor is doing and stay lit while it does it; these four throw
+       the position away and load another. So they are labelled as what they are
+       and drawn as a different family - filled pills rather than outlined
+       controls - and they sit under a heading instead of floating loose. */
+    '<div class="edpresets"><span class="lbl">Load a position</span>' +
+      '<div class="row edresets">' + presets + '</div></div>' +
 
     edFieldControls() +
 
-    '<div class="edabout">' + (data.about || []).join('') + '</div>' +
     (cite ? '<p class="prov">' + cite + '</p>' : '') +
     '<p class="prov ednot">Not checked: legality. Nothing here asks whether a position could ' +
     'have arisen from the starting position, or whether the side not to move is standing in ' +
@@ -380,6 +519,7 @@ function wireEditor(data){
   var st = { pos: {}, turn: 'w', castle: { K:false, Q:false, k:false, q:false },
              ep: '-', half: '0', full: '1' };
   var tool = 'move', pick = null, flip = false, flash = '';
+  var heat = false, heatAll = false;
   var strNotes = [], errors = [];
 
   function say(text){
@@ -414,6 +554,58 @@ function wireEditor(data){
       cells[i].setAttribute('aria-label', sq + ', ' + (pc ? edWords(pc) : 'empty'));
       if(pick === sq) cells[i].setAttribute('aria-pressed', 'true');
     }
+  }
+
+  /* Painted on after boardHTML has drawn, for the reason the labels are: the
+     renderer is lifted verbatim from the course and cannot grow a new option.
+
+     Two badges rather than one, in opposite corners, and which corner is which
+     follows the board rather than the colours: the count for whoever is playing
+     from the top sits at the top. Flip the board and the badges swap with it,
+     because a reader who flipped the board did it to think from the other side.
+
+     The badges are not decoration on top of the colour - they are the reading.
+     Purple at two attackers and purple at five are the same hue at different
+     depths, which is a comparison and not a count, and a shade of red is nothing
+     at all to a reader who cannot separate it from a shade of blue. */
+  function paintHeat(){
+    if(!heat) return;
+    var counts = edAttackCounts(st.pos);
+    var corner = [[flip ? 'w' : 'b', 'top'], [flip ? 'b' : 'w', 'bot']];
+    var cells = host.querySelectorAll('[data-sq]'), i, j, sq, cell, c, wash, badge;
+    for(i = 0; i < cells.length; i++){
+      cell = cells[i];
+      sq = cell.getAttribute('data-sq');
+      if(!heatAll && !st.pos[sq]) continue;
+      c = counts[sq] || { w: 0, b: 0 };
+      cell.setAttribute('aria-label',
+        cell.getAttribute('aria-label') + ', ' + edAttackWords(c));
+      if(!(c.w + c.b)) continue;
+      wash = document.createElement('span');
+      wash.className = 'heat';
+      wash.style.background = edHeat(c.w, c.b, cell.classList.contains('d'));
+      cell.insertBefore(wash, cell.firstChild);
+      for(j = 0; j < corner.length; j++){
+        if(!c[corner[j][0]]) continue;
+        badge = document.createElement('span');
+        badge.className = 'atk ' + corner[j][1] + ' ' + corner[j][0];
+        badge.textContent = c[corner[j][0]];
+        cell.appendChild(badge);
+      }
+    }
+  }
+
+  /* The key is filled from edHeat rather than from a stylesheet, so the swatch a
+     reader matches against cannot drift from the square it is explaining. */
+  function fillKey(){
+    var key = document.getElementById('edkey');
+    var swatches = [[2, 0, 'White attacks'], [0, 2, 'Black attacks'], [1, 1, 'Both']];
+    key.innerHTML = swatches.map(function(s){
+      return '<span class="kk"><i style="background:' + edHeat(s[0], s[1], false) +
+        '"></i>' + s[2] + '</span>';
+    }).join('') +
+      '<span class="kk">Deeper is more attackers &mdash; and the badges are the count: ' +
+      '<b class="atk w">2</b> White, <b class="atk b">1</b> Black.</span>';
   }
 
   function showWhy(){
@@ -457,6 +649,12 @@ function wireEditor(data){
 
     document.getElementById('edmove').setAttribute('aria-pressed', tool === 'move' ? 'true' : 'false');
     document.getElementById('ederase').setAttribute('aria-pressed', tool === 'erase' ? 'true' : 'false');
+    document.getElementById('edatk').setAttribute('aria-pressed', heat ? 'true' : 'false');
+    /* The scope checkbox and the key are the overlay's own furniture: with the
+       overlay off they explain a board that is not there. */
+    document.getElementById('edscope').hidden = !heat;
+    document.getElementById('edkey').hidden = !heat;
+    document.getElementById('edall').checked = heatAll;
     var cells = document.querySelectorAll('[data-tool]');
     for(i = 0; i < cells.length; i++)
       cells[i].setAttribute('aria-pressed',
@@ -477,6 +675,7 @@ function wireEditor(data){
     if(!keepText) box.value = fen;
     host.innerHTML = boardHTML(fen, { flip: flip, tappable: true, sel: pick ? [pick] : [] });
     label();
+    paintHeat();
     var view = document.getElementById('edview');
     view.className = 'viewlbl' + (flip ? ' flip' : '');
     view.textContent = flip ? 'Black at the bottom' : 'White at the bottom';
@@ -572,6 +771,12 @@ function wireEditor(data){
   document.getElementById('edflip').addEventListener('click', function(){
     flip = !flip; draw(false);
   });
+  document.getElementById('edatk').addEventListener('click', function(){
+    heat = !heat; draw(false);
+  });
+  document.getElementById('edall').addEventListener('change', function(ev){
+    heatAll = !!ev.target.checked; draw(false);
+  });
 
   [].forEach.call(document.querySelectorAll('[data-preset]'), function(btn){
     btn.addEventListener('click', function(){
@@ -622,6 +827,7 @@ function wireEditor(data){
     fallback();
   });
 
+  fillKey();
   load(edStartingText(), false);
 }
 

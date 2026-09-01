@@ -5,8 +5,6 @@
    extract_upstream.py lifts tokens, and this is a new component. */
 .edhow{background:var(--panel);border-radius:8px;padding:10px 12px;font-size:.88rem;
   color:var(--ink-soft);margin:0 0 1.1em}
-.edabout{border-top:1px solid var(--rule);margin-top:1.6em;padding-top:1.2em}
-.edabout p{font-size:.94rem;color:var(--ink-soft)}
 .editor{margin:1.4em 0}
 .fenio{margin:0 0 1.5em}
 .fenio .lbl{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;
@@ -45,13 +43,54 @@
 .tcell[aria-pressed="true"]{border-color:var(--signal);box-shadow:inset 0 0 0 3px var(--signal)}
 .edboard .picked{text-align:center;text-transform:none;letter-spacing:0;
   font-family:var(--sans);font-size:.84rem;color:var(--ink-soft);margin-top:.8em;min-height:2.6em}
-.edtools,.edresets{justify-content:center;gap:8px}
-.edtools{margin-top:1.1em}
+.edtools{justify-content:center;gap:8px;margin-top:1.1em}
+
+/* The attack view. The wash sits under the piece and over the square: a heat map
+   that hides the pieces is answering a question nobody asked. */
+.heat{position:absolute;inset:0;z-index:0}
+/* The two counts, in the corner each colour is playing from. Each badge is
+   painted in its own army's colours, with its own army's ring - the same pairing
+   the pieces use, which is what makes it readable over any wash underneath. */
+.sq .atk{position:absolute;z-index:3;font-size:.38em;line-height:1.3;min-width:1.3em}
+.sq .atk.top{left:3%;top:2%}
+.sq .atk.bot{right:3%;bottom:2%}
+.atk{display:inline-block;font-family:var(--mono);font-weight:700;text-align:center;
+  border-radius:3px;padding:0 .16em}
+.atk.w{background:var(--pc-w);color:var(--pc-w-edge);-webkit-text-fill-color:var(--pc-w-edge);
+  box-shadow:0 0 0 1.5px var(--pc-w-edge)}
+.atk.b{background:var(--pc-b);color:var(--pc-b-edge);-webkit-text-fill-color:var(--pc-b-edge);
+  box-shadow:0 0 0 1.5px var(--pc-b-edge)}
+
+.edheat{margin-top:1.5em;border-top:1px solid var(--rule);padding-top:1.2em}
+.edheat > .lbl,.edpresets > .lbl{display:block;font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:.55em;
+  text-align:center}
+.edheat [hidden]{display:none}
+.edheatrow{margin:0;justify-content:center;gap:10px}
+.edheatrow .edcheck{min-height:44px}
+.edkey{display:flex;flex-wrap:wrap;gap:7px 16px;justify-content:center;margin-top:.95em;
+  font-family:var(--sans);font-size:.79rem;line-height:1.5;color:var(--ink-soft)}
+.edkey .kk{display:flex;align-items:center;gap:7px}
+.edkey i{width:16px;height:16px;flex:0 0 auto;border-radius:3px;
+  border:1px solid var(--rule-strong)}
+.edkey .atk{font-size:.72rem;min-width:1.5em;margin:0 .1em}
+
+/* Not controls: each of these throws the position away and loads another, which
+   is a different act from Move, Erase and Flip and now looks like one. Filled
+   pills under a heading, rather than a fifth, sixth and seventh outlined button
+   in the row directly below three outlined buttons. */
+.edpresets{margin-top:1.5em;border-top:1px solid var(--rule);padding-top:1.2em}
+.edresets{margin:0;justify-content:center;gap:8px}
+.edload{font-family:var(--sans);font-size:.84rem;font-weight:600;min-height:44px;
+  padding:0 16px;cursor:pointer;background:var(--panel);color:var(--ink-soft);
+  border:1px solid var(--rule);border-radius:999px;
+  -webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent}
+.edload:hover{background:var(--surface);color:var(--ink);border-color:var(--rule-strong)}
 
 /* The three fields that are position rather than bookkeeping. The two counters
    have no control here on purpose - see the note in _editor.js. */
-.edfields{display:grid;grid-template-columns:1fr;gap:14px;margin:1.8em 0 1.2em;
-  border-top:1px solid var(--rule);padding-top:1.3em}
+.edfields{display:grid;grid-template-columns:1fr;gap:14px;margin:1.5em 0 1.2em;
+  border-top:1px solid var(--rule);padding-top:1.2em}
 @media (min-width:620px){ .edfields{grid-template-columns:1fr 1fr} }
 .edfield .lbl{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;
   text-transform:uppercase;color:var(--ink-mute);margin-bottom:.45em}
