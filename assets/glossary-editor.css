@@ -65,6 +65,29 @@
 .atk.b{background:var(--pc-b);color:var(--pc-b-edge);-webkit-text-fill-color:var(--pc-b-edge);
   box-shadow:0 0 0 1.5px var(--pc-b-edge)}
 
+/* Inspect. A ring on every attacker in its own side's colour, and a line from
+   the ones that attack along a line. The halo is the pips' trick: a pale edge
+   either side of the mark, so it carries on a light square and a dark one
+   without either colour having to. */
+/* By class rather than by the board's id, which the raw-hex guard in
+   test_pages.mjs reads as a colour - and it is not wrong to, since every letter
+   in that id is also a hex digit. */
+.edboard .board{position:relative}
+/* The square you asked about: a pale ring with a navy edge, which is the one
+   pair that carries against both ends of the wash - a bare square at one end and
+   an eight-attacker purple at the other. */
+.sq .probe{position:absolute;inset:4%;z-index:2;border:3px solid var(--pip-edge);
+  border-radius:5px;box-shadow:0 0 0 2px var(--sel),inset 0 0 0 2px var(--sel);
+  pointer-events:none}
+.sq .from{position:absolute;inset:7%;z-index:2;border:3px solid;border-radius:5px;
+  box-shadow:0 0 0 1.5px var(--pip-edge),inset 0 0 0 1.5px var(--pip-edge);
+  pointer-events:none}
+/* Over the washes and under the pieces: the line is about the pieces, so it does
+   not cross their faces. */
+.rays{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:visible}
+.rays line{stroke-width:.075;stroke-linecap:round;fill:none}
+.rays line.halo{stroke:var(--pip-edge);stroke-width:.14;opacity:.85}
+
 .edheat{margin-top:1.5em;border-top:1px solid var(--rule);padding-top:1.2em}
 .edheat > .lbl,.edpresets > .lbl{display:block;font-family:var(--mono);font-size:.62rem;
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:.55em;

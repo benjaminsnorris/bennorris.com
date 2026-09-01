@@ -309,18 +309,26 @@ var ED_ROOKDIR = [[1,0],[-1,0],[0,1],[0,-1]];
 var ED_BISHDIR = [[1,1],[1,-1],[-1,1],[-1,-1]];
 var ED_SLIDE = { r: ED_ROOKDIR, b: ED_BISHDIR, q: ED_ROOKDIR.concat(ED_BISHDIR) };
 
-/* {square: {w: n, b: n}} for every square either side hits. Squares nobody hits
-   are absent rather than zero, so a caller can ask `if(counts[sq])`. */
+/* {square: {w: n, b: n, from: [...]}} for every square either side hits. Squares
+   nobody hits are absent rather than zero, so a caller can ask `if(counts[sq])`.
+
+   `from` names the pieces behind the number - {sq, piece, side, ray} - because
+   Inspect has to point at them, and a second function that worked out "which
+   pieces" separately from "how many" is two answers that can disagree. `ray` is
+   true for the sliders, whose attack is a line you can draw and something can
+   stand in; a knight's is not a line, and drawing one would be a lie about how
+   it moves. */
 function edAttackCounts(pos){
-  var out = {}, sq;
+  var out = {}, sq, source;
 
   /* Counts one square for one side, and answers the only question a ray has:
      stop here? Off the board and occupied both stop it; only the second counts. */
   function hit(f, r, side){
     if(f < 0 || f > 7 || r < 0 || r > 7) return true;
     var nm = ED_FILES.charAt(f) + (r + 1);
-    var cell = out[nm] || (out[nm] = { w: 0, b: 0 });
+    var cell = out[nm] || (out[nm] = { w: 0, b: 0, from: [] });
     cell[side] += 1;
+    cell.from.push(source);
     return !!pos[nm];
   }
 
@@ -329,6 +337,7 @@ function edAttackCounts(pos){
     var pc = pos[sq], side = edWhite(pc) ? 'w' : 'b', t = pc.toLowerCase();
     var f = ED_FILES.indexOf(sq.charAt(0)), r = +sq.charAt(1) - 1;
     if(f < 0 || !(r >= 0 && r <= 7)) continue;
+    source = { sq: sq, piece: pc, side: side, ray: !!ED_SLIDE[t] };
     if(t === 'p'){
       var dr = side === 'w' ? 1 : -1;
       hit(f - 1, r + dr, side);
@@ -340,6 +349,31 @@ function edAttackCounts(pos){
     }
   }
   return out;
+}
+
+/* The attackers of one square, in board order, with the hidden side dropped.
+   Board order rather than discovery order so the sentence Inspect speaks reads
+   the same way twice. */
+function edAttackersOf(counts, target, sides){
+  var cell = counts[target];
+  if(!cell) return [];
+  return cell.from.filter(function(a){ return sides[a.side]; })
+    .sort(function(a, b){ return a.sq < b.sq ? -1 : a.sq > b.sq ? 1 : 0; });
+}
+
+/* Where a square sits on the drawn board, in cells from the top-left corner.
+   The one place that knows about flip, so the rings, the rays and the SVG all
+   agree about where a square is. */
+function edCellXY(nm, flip){
+  var f = ED_FILES.indexOf(nm.charAt(0)), r = 8 - +nm.charAt(1);
+  return { x: flip ? 7 - f : f, y: flip ? 7 - r : r };
+}
+
+/* The saturated end of each side's ramp, for a ring or a line - the wash's pale
+   tints would vanish against the board at one pixel wide. */
+function edSideColour(side){
+  var c = side === 'w' ? ED_HEAT_W : ED_HEAT_B;
+  return 'rgb(' + c.join(', ') + ')';
 }
 
 /* Pulled out of edAttackCounts so the loop body is not a closure built inside a
@@ -424,7 +458,8 @@ var ED_GLYPH = ED_CELL * 0.714;   /* the ratio the stylesheet uses: 30px on a 42
 /* the per-piece sizes from _upstream.css, which exist because these glyphs are
    not drawn to one optical size */
 var ED_GSCALE = { p:0.80, r:0.92, n:1.00, b:1.06, q:1.02, k:1.04 };
-var ED_TOKENS = ['sq-l', 'sq-d', 'pc-w', 'pc-b', 'pc-w-edge', 'pc-b-edge', 'rule-strong'];
+var ED_TOKENS = ['sq-l', 'sq-d', 'pc-w', 'pc-b', 'pc-w-edge', 'pc-b-edge', 'rule-strong',
+                 'pip-edge', 'sel'];
 /* Named font stacks rather than the page's --mono and --sans: an exported file
    is opened somewhere else, where this document's variables do not exist. The
    pieces are Unicode, so the glyph stack is the one place this export depends on
@@ -472,9 +507,18 @@ function edSvgBadge(x, y, n, side, pal, anchorRight){
 function edBoardSVG(st, view, pal){
   view = view || {};
   var sides = view.sides || { w: true, b: true };
-  var counts = (view.heat && (sides.w || sides.b)) ? edAttackCounts(st.pos) : {};
+  var anySide = sides.w || sides.b;
+  var counts = ((view.heat || view.probe) && anySide) ? edAttackCounts(st.pos) : {};
   var top = view.flip ? 'w' : 'b', bottom = view.flip ? 'b' : 'w';
-  var out = [], vr, vf, r, f, nm, dark, pc, c, x, y;
+
+  /* Four layers, in the order the page stacks them: the board and its washes,
+     then the lines, then the pieces, then everything that annotates a piece. A
+     line of attack goes over the paint and under the men it is about, and doing
+     that in one pass per cell is not possible - which is exactly why the page
+     draws the rays into one overlay rather than into the squares. */
+  var ground = [], rays = [], men = [], marks = [];
+  var probeAt = (view.probe && anySide) ? edCellXY(view.probe, view.flip) : null;
+  var vr, vf, r, f, nm, dark, pc, c, x, y;
 
   for(vr = 0; vr < 8; vr++){
     for(vf = 0; vf < 8; vf++){
@@ -483,16 +527,16 @@ function edBoardSVG(st, view, pal){
       nm = ED_FILES.charAt(f) + (8 - r);
       dark = !!((r + f) % 2);
       x = vf * ED_CELL; y = vr * ED_CELL;
-      out.push('<rect x="' + x + '" y="' + y + '" width="' + ED_CELL + '" height="' +
-        ED_CELL + '" fill="' + edXml(pal[dark ? 'sq-d' : 'sq-l']) + '"/>');
+      ground.push(edSvgRect(x, y, ED_CELL, ED_CELL, pal[dark ? 'sq-d' : 'sq-l']));
 
+      /* A square is washed if the survey reaches it, and the probed square is
+         washed whether or not the survey is even on - the same rule paintProbe
+         follows, so the file and the screen agree. */
       c = null;
-      if(view.heat && (view.heatAll || st.pos[nm])){
+      if(anySide && (view.heat ? (view.heatAll || st.pos[nm]) : nm === view.probe)){
         var all = counts[nm] || { w: 0, b: 0 };
         c = { w: sides.w ? all.w : 0, b: sides.b ? all.b : 0 };
-        if(c.w + c.b)
-          out.push('<rect x="' + x + '" y="' + y + '" width="' + ED_CELL + '" height="' +
-            ED_CELL + '" fill="' + edHeat(c.w, c.b, dark) + '"/>');
+        if(c.w + c.b) ground.push(edSvgRect(x, y, ED_CELL, ED_CELL, edHeat(c.w, c.b, dark)));
         else c = null;
       }
 
@@ -500,7 +544,7 @@ function edBoardSVG(st, view, pal){
       if(pc){
         var t = pc.toLowerCase(), white = edWhite(pc);
         var fs = ED_GLYPH * (ED_GSCALE[t] || 1);
-        out.push('<text x="' + edRound(x + ED_CELL / 2) + '" y="' +
+        men.push('<text x="' + edRound(x + ED_CELL / 2) + '" y="' +
           edRound(y + ED_CELL / 2) + '" dy="0.34em" text-anchor="middle" ' +
           'font-family="' + edXml(ED_SVG_GLYPHFONT) + '" font-size="' + edRound(fs) +
           '" fill="' + edXml(pal[white ? 'pc-w' : 'pc-b']) + '" stroke="' +
@@ -511,23 +555,60 @@ function edBoardSVG(st, view, pal){
 
       if(c && view.badges){
         if(c[top])
-          out.push(edSvgBadge(x + ED_CELL * 0.03, y + ED_CELL * 0.02, c[top], top, pal, false));
+          marks.push(edSvgBadge(x + ED_CELL * 0.03, y + ED_CELL * 0.02, c[top], top, pal, false));
         if(c[bottom])
-          out.push(edSvgBadge(x + ED_CELL * 0.97,
+          marks.push(edSvgBadge(x + ED_CELL * 0.97,
             y + ED_CELL * 0.98 - ED_GLYPH * 0.38 * 1.35, c[bottom], bottom, pal, true));
       }
     }
   }
 
+  if(probeAt){
+    edAttackersOf(counts, view.probe, sides).forEach(function(a){
+      var at = edCellXY(a.sq, view.flip);
+      marks.push(edSvgRing(at.x * ED_CELL, at.y * ED_CELL, ED_CELL * 0.07,
+        edSideColour(a.side), 3, pal['pip-edge']));
+      if(!a.ray) return;
+      var d = 'x1="' + edRound((at.x + 0.5) * ED_CELL) + '" y1="' +
+        edRound((at.y + 0.5) * ED_CELL) + '" x2="' + edRound((probeAt.x + 0.5) * ED_CELL) +
+        '" y2="' + edRound((probeAt.y + 0.5) * ED_CELL) + '"';
+      rays.push('<line ' + d + ' stroke="' + edXml(pal['pip-edge']) +
+        '" stroke-width="' + edRound(ED_CELL * 0.14) + '" stroke-linecap="round" ' +
+        'opacity="0.85"/><line ' + d + ' stroke="' + edSideColour(a.side) +
+        '" stroke-width="' + edRound(ED_CELL * 0.075) + '" stroke-linecap="round"/>');
+    });
+    /* The square you asked about, last, so nothing sits on top of it. */
+    marks.push(edSvgRing(probeAt.x * ED_CELL, probeAt.y * ED_CELL, ED_CELL * 0.04,
+      pal['pip-edge'], 3, pal['sel']));
+  }
+
   /* The border the stylesheet draws, drawn inside the box so it is not clipped. */
-  out.push('<rect x="0.5" y="0.5" width="' + (ED_SVG - 1) + '" height="' + (ED_SVG - 1) +
+  marks.push('<rect x="0.5" y="0.5" width="' + (ED_SVG - 1) + '" height="' + (ED_SVG - 1) +
     '" rx="6" fill="none" stroke="' + edXml(pal['rule-strong']) + '" stroke-width="1"/>');
 
   return '<svg xmlns="http://www.w3.org/2000/svg" width="' + ED_SVG + '" height="' +
     ED_SVG + '" viewBox="0 0 ' + ED_SVG + ' ' + ED_SVG + '" role="img">' +
     '<title>' + edXml(edFen(st)) + '</title>' +
     '<clipPath id="b"><rect width="' + ED_SVG + '" height="' + ED_SVG + '" rx="6"/></clipPath>' +
-    '<g clip-path="url(#b)">' + out.join('') + '</g></svg>';
+    '<g clip-path="url(#b)">' + ground.join('') + rays.join('') + men.join('') +
+    marks.join('') + '</g></svg>';
+}
+
+function edSvgRect(x, y, w, h, fill){
+  return '<rect x="' + edRound(x) + '" y="' + edRound(y) + '" width="' + edRound(w) +
+    '" height="' + edRound(h) + '" fill="' + edXml(fill) + '"/>';
+}
+
+/* A ring inset into a cell, with a halo either side of it - the pips' trick,
+   which is what lets one colour carry on a light square and a dark one. */
+function edSvgRing(x, y, inset, colour, width, halo){
+  var side = ED_CELL - inset * 2;
+  return '<rect x="' + edRound(x + inset) + '" y="' + edRound(y + inset) + '" width="' +
+    edRound(side) + '" height="' + edRound(side) + '" rx="5" fill="none" stroke="' +
+    edXml(halo) + '" stroke-width="' + (width + 3) + '"/>' +
+    '<rect x="' + edRound(x + inset) + '" y="' + edRound(y + inset) + '" width="' +
+    edRound(side) + '" height="' + edRound(side) + '" rx="5" fill="none" stroke="' +
+    edXml(colour) + '" stroke-width="' + width + '"/>';
 }
 
 /* A filename someone can tell apart in a folder a week later. The placement is
@@ -633,7 +714,9 @@ function renderEditorShell(data){
     '</div>' +
 
     '<div class="row edtools">' +
-      '<button type="button" class="btn ghost flag" id="edmove" aria-pressed="true">Move</button>' +
+      '<button type="button" class="btn ghost flag" id="edinspect" aria-pressed="true">' +
+        'Inspect</button>' +
+      '<button type="button" class="btn ghost flag" id="edmove" aria-pressed="false">Move</button>' +
       '<button type="button" class="btn ghost flag" id="ederase" aria-pressed="false">Erase</button>' +
       '<button type="button" class="btn ghost" id="edflip">Flip</button>' +
       /* A disclosure, not a mode, so it says aria-expanded rather than
@@ -648,10 +731,12 @@ function renderEditorShell(data){
        board's link here came to look at a position; the instructions for a tool
        whose whole gesture is "tap a thing, then tap a square" do not need to be
        the first thing over it. */
-    '<p class="edhow" id="edhow" hidden>Tap a piece in a tray, then tap squares - it ' +
-    'stays selected, so eight pawns are eight taps, and tapping it again puts it down. ' +
-    '<em>Move</em> carries a piece from one square to another and <em>Erase</em> takes ' +
-    'it off. Nothing here has to be legal.</p>' +
+    '<p class="edhow" id="edhow" hidden><em>Inspect</em> is where the page starts: tap ' +
+    'any square, empty or not, and every piece attacking it is ringed, with a line drawn ' +
+    'from the ones that attack along a line. To change the position instead, tap a piece ' +
+    'in a tray and then tap squares - it stays selected, so eight pawns are eight taps, ' +
+    'and tapping it again puts it down. <em>Move</em> carries a piece from one square to ' +
+    'another and <em>Erase</em> takes it off. Nothing here has to be legal.</p>' +
 
     edHeatControls() +
 
@@ -692,7 +777,7 @@ function wireEditor(data){
 
   var st = { pos: {}, turn: 'w', castle: { K:false, Q:false, k:false, q:false },
              ep: '-', half: '0', full: '1' };
-  var tool = 'move', pick = null, flip = false, flash = '';
+  var tool = 'inspect', pick = null, probe = null, flip = false, flash = '';
   var heat = false, heatAll = false, showBadges = true;
   var showSide = { w: true, b: true };
   var strNotes = [], errors = [];
@@ -782,6 +867,93 @@ function wireEditor(data){
     }
   }
 
+  /* Inspect. One square's answer, drawn whether or not the survey is on - and
+     better without it, because forty painted squares are noise when the question
+     is about one of them.
+
+     The probed square gets the wash and the badges it would get in the survey,
+     even if the survey is off and even if it is empty: "what covers d5 before I
+     put a knight there" is the most useful version of the question, so Inspect
+     never asks you to tick All squares first. Its attackers are ringed in their
+     own side's colour, and the ones that attack along a line get the line. */
+  function paintProbe(){
+    if(tool !== 'inspect' || !probe || !(showSide.w || showSide.b)) return;
+    var counts = edAttackCounts(st.pos);
+    var all = counts[probe] || { w: 0, b: 0 };
+    var c = { w: showSide.w ? all.w : 0, b: showSide.b ? all.b : 0 };
+    var cell = host.querySelector('[data-sq="' + probe + '"]');
+
+    /* Its own marker rather than the picked-up piece's ring. The square you
+       asked about is the one square guaranteed to be carrying the deepest wash
+       on the board - eight attackers is very nearly black - and a navy ring
+       disappears into it. A pale ring with a navy edge is the pair that survives
+       both ends of the ramp, and being a different mark from the one Move uses
+       is worth having anyway: the two mean different things. */
+    if(cell){
+      var here = document.createElement('span');
+      here.className = 'probe';
+      cell.appendChild(here);
+    }
+
+    if(cell && (c.w + c.b) && !cell.querySelector('.heat')){
+      var wash = document.createElement('span');
+      wash.className = 'heat';
+      wash.style.background = edHeat(c.w, c.b, cell.classList.contains('d'));
+      cell.insertBefore(wash, cell.firstChild);
+    }
+    if(cell && showBadges && !cell.querySelector('.atk')){
+      var corner = [[flip ? 'w' : 'b', 'top'], [flip ? 'b' : 'w', 'bot']];
+      corner.forEach(function(pair){
+        if(!c[pair[0]]) return;
+        var badge = document.createElement('span');
+        badge.className = 'atk ' + pair[1] + ' ' + pair[0];
+        badge.textContent = c[pair[0]];
+        cell.appendChild(badge);
+      });
+    }
+
+    var from = edAttackersOf(counts, probe, showSide), lines = [];
+    var at0 = edCellXY(probe, flip);
+    from.forEach(function(a){
+      var at = host.querySelector('[data-sq="' + a.sq + '"]');
+      if(at){
+        var ring = document.createElement('span');
+        ring.className = 'from';
+        ring.style.borderColor = edSideColour(a.side);
+        at.appendChild(ring);
+        at.setAttribute('aria-label', at.getAttribute('aria-label') +
+          ', attacking ' + probe);
+      }
+      if(!a.ray) return;
+      var xy = edCellXY(a.sq, flip);
+      lines.push({ x1: xy.x + 0.5, y1: xy.y + 0.5, x2: at0.x + 0.5, y2: at0.y + 0.5,
+                   side: a.side });
+    });
+
+    /* One overlay for every line rather than a border trick per cell: a line
+       between two squares does not belong to either of them. It sits over the
+       washes and under the pieces, which is where a line of attack goes - the
+       pieces are what it is about. */
+    if(lines.length){
+      var svg = '<svg class="rays" viewBox="0 0 8 8" preserveAspectRatio="none" ' +
+        'aria-hidden="true">' + lines.map(function(l){
+          var d = 'x1="' + l.x1 + '" y1="' + l.y1 + '" x2="' + l.x2 + '" y2="' + l.y2 + '"';
+          /* drawn twice: a pale halo under a coloured line, the way the pips are
+             separated from the square they sit on */
+          return '<line ' + d + ' class="halo"/><line ' + d + ' stroke="' +
+            edSideColour(l.side) + '"/>';
+        }).join('') + '</svg>';
+      host.insertAdjacentHTML('beforeend', svg);
+    }
+
+    /* The whole answer, in a sentence, in the live region that already exists.
+       A ring and a line are no answer at all to a reader who is not looking. */
+    flash = from.length
+      ? probe + ' is ' + edAttackWords(all, showSide.w, showSide.b) + ' \u2014 from ' +
+        edList(from.map(function(a){ return edWords(a.piece) + ' on ' + a.sq; })) + '.'
+      : probe + ' is ' + edAttackWords(all, showSide.w, showSide.b) + '.';
+  }
+
   /* The key is filled from edHeat rather than from a stylesheet, so the swatch a
      reader matches against cannot drift from the square it is explaining. It is
      rebuilt on every draw for the same reason: with the badges off, a key that
@@ -851,6 +1023,8 @@ function wireEditor(data){
       ? 'Offered where a capture is actually available.'
       : 'No double pawn push to capture past.';
 
+    document.getElementById('edinspect').setAttribute('aria-pressed',
+      tool === 'inspect' ? 'true' : 'false');
     document.getElementById('edmove').setAttribute('aria-pressed', tool === 'move' ? 'true' : 'false');
     document.getElementById('ederase').setAttribute('aria-pressed', tool === 'erase' ? 'true' : 'false');
     document.getElementById('edatk').setAttribute('aria-pressed', heat ? 'true' : 'false');
@@ -885,16 +1059,21 @@ function wireEditor(data){
     host.innerHTML = boardHTML(fen, { flip: flip, tappable: true, sel: pick ? [pick] : [] });
     label();
     paintHeat();
+    paintProbe();
     var view = document.getElementById('edview');
     view.className = 'viewlbl' + (flip ? ' flip' : '');
     view.textContent = flip ? 'Black at the bottom' : 'White at the bottom';
-    say((tool === 'move'
-      ? (pick ? 'Moving the ' + edWords(st.pos[pick]) + ' on ' + pick + ' - tap where it goes.'
-              : 'Tap a piece, then tap where it goes.')
-      : tool === 'erase'
-        ? 'Erasing - tap a piece to take it off.'
-        : 'Placing ' + edWords(tool) + ' - tap squares. It stays selected.') +
-      (flash ? ' ' + flash : ''));
+    var line = tool === 'inspect'
+      /* With a square probed, paintProbe has already put the whole answer in
+         `flash`, and prefixing it with the instruction would bury it. */
+      ? (probe ? '' : 'Tap any square to see what attacks it.')
+      : tool === 'move'
+        ? (pick ? 'Moving the ' + edWords(st.pos[pick]) + ' on ' + pick + ' - tap where it goes.'
+                : 'Tap a piece, then tap where it goes.')
+        : tool === 'erase'
+          ? 'Erasing - tap a piece to take it off.'
+          : 'Placing ' + edWords(tool) + ' - tap squares. It stays selected.';
+    say([line, flash].filter(Boolean).join(' '));
     flash = '';
     showWhy();
     syncControls();
@@ -906,6 +1085,7 @@ function wireEditor(data){
      here and only here - pasted input keeps whatever it said, and gets a note. */
   function edited(){
     strNotes = []; errors = [];
+    probe = null;
     ED_RIGHTS.forEach(function(r){
       if(st.castle[r] && !edRightAvailable(st.pos, r)) st.castle[r] = false;
     });
@@ -918,11 +1098,16 @@ function wireEditor(data){
     var parsed = edParse(text);
     errors = parsed.errors;
     strNotes = parsed.notes;
-    if(parsed.state){ st = parsed.state; pick = null; }
+    if(parsed.state){ st = parsed.state; pick = null; probe = null; }
     draw(keepText);
   }
 
   function onSquare(sq){
+    if(tool === 'inspect'){
+      probe = (probe === sq) ? null : sq;
+      draw(false);
+      return;
+    }
     if(tool === 'erase'){
       if(st.pos[sq]) delete st.pos[sq];
       else flash = 'Nothing on ' + sq + '.';
@@ -955,14 +1140,20 @@ function wireEditor(data){
     if(cell) onSquare(cell.getAttribute('data-sq'));
   });
 
-  /* Tapping the latched tool again releases it, and released means Move: the tool
-     that latches is the one that changes the board on a single tap, so there has
-     to be a way to put it down that is not "pick a different one". Move is the
-     resting state rather than a fourth thing to be in, which is why tapping Move
-     while it is already on does nothing. */
+  /* Tapping the latched tool again releases it, and released means Inspect: a
+     tool that changes the board on a single tap needs a way to be put down that
+     is not "pick a different one".
+
+     Inspect is the resting state rather than a fifth thing to be in, and it is
+     where the page opens. Most visits arrive on a ?fen= link from a board
+     somewhere else in the glossary, and that reader came to read a position, not
+     to edit one - so the mode that answers questions about the board is the one
+     you get without asking, and changing the board is the deliberate act. That
+     is why tapping Inspect while it is already on does nothing. */
   function latch(next){
-    tool = (tool === next) ? 'move' : next;
+    tool = (tool === next) ? 'inspect' : next;
     pick = null;
+    probe = null;
     draw(false);
   }
 
@@ -971,8 +1162,11 @@ function wireEditor(data){
     cell.addEventListener('click', function(){ latch(cell.getAttribute('data-tool')); });
   });
 
+  document.getElementById('edinspect').addEventListener('click', function(){
+    tool = 'inspect'; pick = null; draw(false);
+  });
   document.getElementById('edmove').addEventListener('click', function(){
-    tool = 'move'; pick = null; draw(false);
+    latch('move');
   });
   document.getElementById('ederase').addEventListener('click', function(){
     latch('erase');
@@ -1003,7 +1197,7 @@ function wireEditor(data){
   [].forEach.call(document.querySelectorAll('[data-preset]'), function(btn){
     btn.addEventListener('click', function(){
       var preset = data.presets[+btn.getAttribute('data-preset')];
-      tool = tool === 'erase' ? 'move' : tool;
+      tool = tool === 'erase' ? 'inspect' : tool;
       load(preset.fen, false);
     });
   });
@@ -1035,8 +1229,13 @@ function wireEditor(data){
   /* One drawing, two files: the PNG is this SVG rasterised, so a raster that
      disagrees with the vector is not a thing that can happen. */
   function currentSVG(){
+    /* The probe travels and the pick does not. Both are rings on a square, but
+       one is an answer about the position - here is what attacks e5 - and the
+       other is "I am halfway through moving something", which is a fact about
+       this tab and no use to anyone opening the file. */
     return edBoardSVG(st, { flip: flip, heat: heat, heatAll: heatAll,
-      badges: showBadges, sides: { w: showSide.w, b: showSide.b } }, edPalette());
+      badges: showBadges, sides: { w: showSide.w, b: showSide.b },
+      probe: tool === 'inspect' ? probe : null }, edPalette());
   }
 
   function saved(text){ document.getElementById('edsaid').textContent = text; }
