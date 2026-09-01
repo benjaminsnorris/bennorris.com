@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Windmill - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=tactical-method">Tactical method</a></p>
+<h1>Windmill</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"tactical-method","kind":"look-up","chips":["sourced"],"term":"Windmill","slug":"windmill","also":["see-saw"],"definition":"A rook that takes something with a discovered check, gets checked back into place, and takes something else - over and over, with the enemy king forced to shuffle between two squares while the harvest goes on. It is the most one-sided mechanism in chess, and it needs a battery already built.","precision":[{"against":"being a series of checks","text":"Every move of a windmill is check and the checks are not the point - the captures between them are. What makes it work is that the discovered check is answerable in only one way, so the defender never gets a move of their own to save anything. It stops when the rook runs out of things to take."},{"against":"needing a rook and a bishop","text":"That is the famous version, from Torre-Lasker, Moscow 1925, and any battery does it: what the mechanism needs is one piece that checks along a line and one that can step off the line to capture and step back. The example here is a rook in front of a queen."}],"boards":[{"fen":"3r2k1/pp5p/1q4p1/3R1p2/PP1b4/6BP/Q4PPK/2r5 w - - 1 29","corpus":"drill","ref":"4hv5wozp","caption":"White's queen on a2 points at g8 along a2-b3-c4-d5-e6-f7-g8, and White's own rook on d5 is standing on the diagonal. Every time the rook leaves d5 it is check, and it can leave with a capture: Rxd4 takes a bishop, Rxf5 takes a pawn. Whatever Black does about the check, the rook can come back to the diagonal with check again. That holds against every reply in 5 of the 10,000 drill-corpus positions, and this is one of them.","highlight":["a2","d5","g8","d4","f5"],"render_fen":"3r2k1/pp5p/1q4p1/3R1p2/PP1b4/6BP/Q4PPK/2r5 w - - 1 29","highlight_squares":["a2","d5","g8","d4","f5"]}],"drill":{"mode":"none","why":"unbalanced","note":"Computable and almost absent: a capture that is also a discovered check occurs in 0 of the 2,100 certified positions - which threw out every position where anybody was in check - and 17 of the 10,000 drill-corpus ones. Five of those seventeen also let the capturing piece come back to the line with check whatever the reply, which is the windmill proper."},"links":["discovered-check","battery","discovered-attack","double-check","combination","sacrifice"],"reading":[{"title":"Windmill (chess)","url":"https://en.wikipedia.org/wiki/Windmill_(chess)"}],"links_resolved":[{"label":"Discovered check","href":"/glossary/discovered-check/"},{"label":"Battery","href":"/glossary/battery/"},{"label":"Discovered attack","href":"/glossary/discovered-attack/"},{"label":"Double check","href":"/glossary/double-check/"},{"label":"Combination","href":"/glossary/combination/"},{"label":"Sacrifice","href":"/glossary/sacrifice/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

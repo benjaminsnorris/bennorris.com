@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Discovered check - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=tactical-method">Tactical method</a></p>
+<h1>Discovered check</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"tactical-method","kind":"look-up","chips":["sourced"],"term":"Discovered check","slug":"discovered-check","definition":"Moving one piece out of the way so that another one gives check. The piece that moves is not the piece that checks, which is what makes it so strong: it can go anywhere at all, including somewhere it would normally be taken, because the check has to be answered first.","precision":[{"against":"a discovered attack","text":"The same mechanism with the king as the target, and the difference in force is enormous. A discovered attack can be met by defending or counter-attacking; a discovered check cannot be ignored for even one move, so the piece that moved is free to take anything, ignore anything, or walk into anything."},{"against":"a double check","text":"A double check is a discovered check where the moving piece also checks. That extra half is what removes the last two answers - you cannot capture both checkers and you cannot block both lines - so the king has to move. `double-check` has that case."}],"boards":[{"fen":"2krr3/ppp1n1p1/3q3p/5P2/3P2QP/P1P3P1/8/R1B1KR2 w Q - 1 24","corpus":"positions","ref":"92lsbhkt","caption":"White's queen on g4 already looks at c8 along g4-f5-e6-d7-c8, and White's own pawn on f5 is standing in the way. Pushing it to f6 discovers the check and attacks e7 and g7 into the bargain - one move, one check that has to be answered, and a pawn attacking two pieces while it is being answered.","highlight":["g4","f5","c8","e7","g7"],"render_fen":"2krr3/ppp1n1p1/3q3p/5P2/3P2QP/P1P3P1/8/R1B1KR2 w Q - 1 24","highlight_squares":["g4","f5","c8","e7","g7"]}],"drill":{"mode":"none","why":"unbalanced","note":"Exactly computable and almost absent: a discovered check is available to the side to move in 0.2% of the 2,100 certified positions, which is 5 of them, and 0.5% of the drill corpus. It is rare because it needs a battery already pointed at the king with one of your own men in the way, and the certified corpus additionally threw out every position where anyone was in check. Measured over `positions.json`: 2,100 engine-checked positions, materially level, plies 16 to 60 - which is to say middlegames, the part of the game these words are about. Club games: the median rating is 1627 and both players were between 1200 and 1800 in 67% of them."},"links":["discovered-attack","double-check","check","discoverable","battery","windmill"],"reading":[{"title":"Discovered check, in Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess#discovered_check"}],"links_resolved":[{"label":"Discovered attack","href":"/glossary/discovered-attack/"},{"label":"Double check","href":"/glossary/double-check/"},{"label":"Check","href":"/glossary/check/"},{"label":"Discoverable","href":"/glossary/discoverable/"},{"label":"Battery","href":"/glossary/battery/"},{"label":"Windmill","href":"/glossary/windmill/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
