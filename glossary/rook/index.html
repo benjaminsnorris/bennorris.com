@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rook - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=pieces-and-rules">The pieces, and the rules of the game</a></p>
+<h1>Rook</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"pieces-and-rules","kind":"look-up","chips":["sourced"],"term":"Rook","slug":"rook","also":["castle"],"definition":"A line piece that moves any distance along a rank or a file, and the only piece besides the king involved in castling. Worth about five pawns - more than a knight or a bishop, less than two of them - and it is the piece that most needs the board to open, because it does nothing at all through a wall of pawns.","precision":[{"against":"the rook being strong from the start","text":"It is the slowest piece to become one. In the position below all four rooks together have six legal moves at move nine, while one knight has eight. A rook's five points are a claim on the endgame rather than a description of what it is doing now, which is why rooks are developed last and why an ending with rooks is the commonest ending there is."},{"against":"open files being the whole story","text":"Half of it. A rook stands on a file with no pawns on it in 39.0% of the drill corpus, so the file is usually available to somebody; what decides the game is whether the rook can get anywhere along it. `seventh-rank` is what an open file is normally for."}],"boards":[{"fen":"r1bqk2r/pp2bppp/2n2n2/2pN4/3p4/1B1P1N2/PPP1QPPP/R1B1K2R b KQkq - 1 9","corpus":"positions","ref":"ohichd29","caption":"Move nine, thirty men, and every file has a pawn on it. The four rooks have six legal moves between them - a1 one, h1 two, a8 one, h8 two - while the knight on d5 alone has eight. Twenty points of material doing almost nothing, which is normal at this stage and is what castling is for.","highlight":["a1","h1","a8","h8","d5"],"render_fen":"r1bqk2r/pp2bppp/2n2n2/2pN4/3p4/1B1P1N2/PPP1QPPP/R1B1K2R b KQkq - 1 9","highlight_squares":["a1","h1","a8","h8","d5"]}],"drill":{"mode":"computed","predicate":"rook_on_open_file","corpus":"drill","question":"Is a rook, of either colour, standing on a file with no pawns of either colour on it?","note":"Look for the empty files first, then see whether a rook is on one - going the other way, rook by rook, takes four checks instead of one or two. Related to the drill on `open-file` and not the same question: that one asks whether an open file exists at all and measures 62.5% on the certified corpus, while this asks whether anybody has taken it. Ten positions from the drill corpus: 10,000 relaxed, uncertified positions sampled from whole games between players rated 1200 to 1800, endings included. Answer revealed after each, no gate.","base_rate_pct":39.0,"base_rate_n":10000,"items":[{"fen":"4Qk2/p5pp/5p2/2P5/1P1p4/P7/1B3RP1/6K1 b - - 0 32","ref":"jbu77kio","answer":false,"flip":true},{"fen":"r1b1k2r/ppp1nppp/4p3/4P3/4p3/P1P5/2P2PPP/R1BK1B1R w kq - 1 10","ref":"b28xwfpc","answer":false,"flip":false},{"fen":"r2qk2r/pp1nppbp/2p3p1/3pN3/2PPbB2/1Q2P3/PP2BPPP/R3K2R b KQkq - 1 10","ref":"3v1szpcs","answer":false,"flip":true},{"fen":"1q1r2k1/4r3/2p3pp/P1Pp4/1P2pPP1/2P1Q3/6K1/R2R4 b - - 0 40","ref":"fa3tbo96","answer":false,"flip":true},{"fen":"r4rk1/ppp3p1/2nbp2p/4p3/4P2B/P1P2N2/1P3PPP/R2R2K1 b - - 0 14","ref":"il90hkn9","answer":true,"flip":true},{"fen":"8/8/3k4/3p4/2pK2r1/2P5/8/8 w - - 4 62","ref":"3dijg5wu","answer":true,"flip":false},{"fen":"r4rk1/1p3p2/3p3p/p1p5/2B1P3/3PbR1P/PPP3P1/R6K b - - 1 18","ref":"afsm614m","answer":false,"flip":true},{"fen":"6k1/pp1r1p2/3p3p/3P4/4n1P1/P1N4P/1P3P2/4R1K1 w - - 0 24","ref":"4pgy0abx","answer":true,"flip":false},{"fen":"2r2n2/4rP1k/6pp/1R1Q4/6P1/8/5R1P/6K1 w - - 3 68","ref":"jbtw12o7","answer":true,"flip":false},{"fen":"rn2k2r/b3nppp/p1pp4/P3P3/Q1B1q3/2P5/5P1P/RNB2RK1 b kq - 0 15","ref":"f0niylm8","answer":false,"flip":true}]},"links":["open-file","seventh-rank","rook-endgame","line-piece","material","castling","queen"],"reading":[{"title":"Rook (chess)","url":"https://en.wikipedia.org/wiki/Rook_(chess)"}],"links_resolved":[{"label":"Open file","href":"/glossary/open-file/"},{"label":"Rook on the seventh","href":"/glossary/seventh-rank/"},{"label":"Rook endgame","href":"/glossary/rook-endgame/"},{"label":"Line piece","href":"/glossary/line-piece/"},{"label":"Material","href":"/glossary/material/"},{"label":"Castling","href":"/glossary/castling/"},{"label":"Queen","href":"/glossary/queen/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

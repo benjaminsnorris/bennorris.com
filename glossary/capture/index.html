@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Capture - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=pieces-and-rules">The pieces, and the rules of the game</a></p>
+<h1>Capture</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"pieces-and-rules","kind":"look-up","chips":["sourced"],"term":"Capture","slug":"capture","also":["take"],"definition":"Removing an enemy man from the board by moving onto its square. Every piece captures the way it moves, with two exceptions: a pawn moves forward and captures diagonally, and en passant is the one capture that does not land on the square the captured pawn was standing on.","precision":[{"against":"having to capture","text":"You never have to. Chess has no compulsory capture, which is what makes a sacrifice possible at all and what makes zugzwang possible in the endgame - if capturing were forced, having to move would not be a burden. Draughts and several chess variants do require it; this game does not."},{"against":"a capture winning something","text":"A capture is legal for the side to move in 69.3% of the drill corpus. An *even* capture - one where the recapture leaves material level - is available in 28.0% of it. Most of the difference is captures that lose material, and telling the two apart is what `attacker-count` is for."}],"boards":[{"fen":"1Bbk1bnr/3q1ppp/p3p3/1p6/2pP4/2N2B2/1P3PPP/R2QK2R b KQ - 0 15","corpus":"drill","ref":"sqqmlgta","caption":"Black is to move, has twenty-nine legal moves, and exactly one of them is a capture: Qxd4. Nothing else on the board can take anything. That is rarer than it looks and still not rare - exactly one legal capture is on offer in 20.9% of the drill corpus.","highlight":["d7","d4"],"render_fen":"1Bbk1bnr/3q1ppp/p3p3/1p6/2pP4/2N2B2/1P3PPP/R2QK2R b KQ - 0 15","highlight_squares":["d7","d4"]}],"drill":{"mode":"computed","predicate":"capture_available","corpus":"drill","question":"Can the side to move capture something?","note":"Scan the enemy men and ask what reaches them, rather than scanning your own and asking where they go - there are usually fewer enemy men than moves. En passant counts. Measured on the drill corpus, where it is 69.3%: 10,000 relaxed, uncertified positions from whole games between players rated 1200 to 1800, endings and checks included. The certified corpus cannot ask this - it required twelve men and material within a pawn, so a capture is available in 90.5% of it, far outside the band. Ten positions, answer revealed after each, no gate.","base_rate_pct":69.3,"base_rate_n":10000,"items":[{"fen":"1r4k1/2pbqppp/Bb6/3p4/3Pn3/2B1P3/P4PPP/RN2R1K1 w - - 1 22","ref":"yrs5jdvf","answer":false,"flip":false},{"fen":"8/7p/3R4/3p4/1k6/4P2b/7P/5r1K w - - 0 30","ref":"k99ex5sz","answer":false,"flip":false},{"fen":"1r3rk1/3p1ppp/3Q1n2/3PN3/4q3/1P6/2P1KPPP/3R3R w - - 0 22","ref":"18fcziln","answer":false,"flip":false},{"fen":"r2qk2r/1pp2ppp/p1p2n2/4p3/1b2P3/2NP1Q1P/PPP2PP1/R1B1K2R w KQkq - 3 9","ref":"y5dd9drd","answer":true,"flip":false},{"fen":"1k1r3r/Rp1b4/7p/6p1/6B1/1PQ1B3/5PPK/1N6 w - - 1 31","ref":"gg7qnaw3","answer":true,"flip":false},{"fen":"r3k2r/pbp1npbp/1pn1p1p1/4P3/2B2B2/2N2N2/PPP2PPP/3R1RK1 w kq - 1 11","ref":"7a3qvnkb","answer":true,"flip":false},{"fen":"r4rk1/p1p3pp/npQ1p1q1/8/2PP4/P4N2/5PPP/RN3RK1 w - - 1 19","ref":"ogt2qjjn","answer":true,"flip":false},{"fen":"rn1q1rk1/pp3pp1/2b2b2/2p2P1p/3p4/2NPBN1P/PPPQ2B1/R3K2R w KQ - 0 15","ref":"obm07gic","answer":true,"flip":false},{"fen":"r3r1k1/p4p1p/1p4p1/2p5/5n1P/2PB4/P1P2P2/2KR3R b - - 0 23","ref":"6pq835i0","answer":true,"flip":true},{"fen":"4r1k1/2p2p1p/6q1/5Q1p/P2P4/2P4P/6P1/5RK1 b - - 0 29","ref":"w49mkxh7","answer":true,"flip":true}]},"links":["recapture","trade","attacker-count","en-passant","material","en-prise"],"reading":[{"title":"Capture, in Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess#capture"}],"links_resolved":[{"label":"Recapture","href":"/glossary/recapture/"},{"label":"Trade","href":"/glossary/trade/"},{"label":"Attacker count","href":"/glossary/attacker-count/"},{"label":"En passant","href":"/glossary/en-passant/"},{"label":"Material","href":"/glossary/material/"},{"label":"En prise","href":"/glossary/en-prise/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

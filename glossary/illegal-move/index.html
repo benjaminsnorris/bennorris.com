@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Illegal move - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=pieces-and-rules">The pieces, and the rules of the game</a></p>
+<h1>Illegal move</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"pieces-and-rules","kind":"look-up","chips":["sourced"],"term":"Illegal move","slug":"illegal-move","definition":"A move the rules do not allow: moving into check, leaving your own king in check, moving a pinned piece off the pinning line, castling out of or through check, or moving a piece in a way it does not move. Online you cannot make one at all; over the board the first one costs you time and a second one loses the game.","precision":[{"against":"illegal moves being obvious","text":"The commonest one looks perfectly normal: moving a piece that is pinned against its own king. `absolute-pin` is exactly this case - the piece looks free and is not - and it is why a beginner's first illegal move is usually made in a position they thought they understood."},{"against":"legality being a property of the position","text":"It is a property of a move, which is why nothing here drills it: every pool in this project is a set of positions, and *is this legal* needs a move to ask about. The position-level version - how much choice does the side to move actually have - is measurable, and the side to move has exactly one legal move in 1.1% of the drill corpus."}],"boards":[{"fen":"1Q3k1r/2p1rppp/1p1p4/8/8/8/P1P2K1P/7b b - - 2 28","corpus":"drill","ref":"z2feiq8y","caption":"Black is in check from the queen on b8 and has ten men on the board, of which nine are frozen: the rook on h8, the bishop on h1 and all six pawns have no legal move, and neither has the king. There is exactly one legal move in the whole position, Re8. Every other move anybody might reach for here is illegal.","highlight":["b8","e7","e8","f8"],"render_fen":"1Q3k1r/2p1rppp/1p1p4/8/8/8/P1P2K1P/7b b - - 2 28","highlight_squares":["b8","e7","e8","f8"]}],"drill":{"mode":"none","why":"impossible","note":"Legality belongs to a move and every pool here holds positions, so there is no yes/no question about a FEN that asks it. The nearest thing that is measurable is how constrained the side to move is, and that lands at 1.1% of the drill corpus for the extreme case of a single legal move."},"links":["absolute-pin","touch-move","check","castling","blunder","fen"],"reading":[{"title":"Illegal move, in Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess#illegal_move"}],"links_resolved":[{"label":"Absolute pin","href":"/glossary/absolute-pin/"},{"label":"Touch-move","href":"/glossary/touch-move/"},{"label":"Check","href":"/glossary/check/"},{"label":"Castling","href":"/glossary/castling/"},{"label":"Blunder","href":"/glossary/blunder/"},{"label":"FEN","href":"/glossary/fen/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
