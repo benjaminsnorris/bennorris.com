@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Candidate passed pawn - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=positional">Positional vocabulary</a></p>
+<h1>Candidate passed pawn</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"positional","kind":"look-up","chips":["sourced"],"term":"Candidate passed pawn","slug":"candidate-passed-pawn","also":["candidate"],"definition":"A pawn in a majority that can become a passed pawn if the majority is pushed properly. It is the reason a majority is worth anything: the pawns advance, one of them ends up with no enemy pawn able to stop it, and that one queens.","precision":[{"against":"being the same as a passed pawn","text":"It is the pawn that will be one. A passed pawn already has no enemy pawn on its file or the two beside it; a candidate has none on its own file and still has neighbours to get past, which is what the majority is for. Turning one into the other is the whole technique of a queenside majority."},{"against":"the count being enough","text":"Having a majority does not mean having a candidate, and this is the exact gap `pawn-majority` records as not computable. The geometric half is computable: a pawn with no enemy pawn ahead of it on its own file, in a majority on that wing. Whether it can actually be pushed through depends on the pieces, and no yes/no question about a position asks that."}],"boards":[{"fen":"3r4/pp3k2/2p1bbp1/4Bp1p/3P3P/2P5/PP3PP1/1B2R1K1 w - - 4 30","corpus":"positions","ref":"tg34i2ha","caption":"White has four pawns to three on the queenside - a2, b2, c3 and d4 against a7, b7 and c6 - and d4 has no black pawn ahead of it on the d-file. That is the candidate: push the majority and the d-pawn is the one that gets through. Material is level and this is the whole of White's long-term advantage.","highlight":["a2","b2","c3","d4","a7","b7","c6"],"render_fen":"3r4/pp3k2/2p1bbp1/4Bp1p/3P3P/2P5/PP3PP1/1B2R1K1 w - - 4 30","highlight_squares":["a2","b2","c3","d4","a7","b7","c6"]}],"drill":{"mode":"none","why":"unbalanced","note":"The geometric reading - a pawn with no enemy pawn ahead of it on its own file, not already passed - is exactly computable and comes out at 80.6% of the certified corpus and 78.2% of the drill corpus, both above the ceiling. It is that common because a half-open file in front of a pawn is ordinary; what makes a candidate real is the majority behind it, and requiring that is a threshold somebody chose. Measured over `positions.json`: 2,100 engine-checked positions, materially level, plies 16 to 60 - which is to say middlegames, the part of the game these words are about. Club games: the median rating is 1627 and both players were between 1200 and 1800 in 67% of them."},"links":["passed-pawn","pawn-majority","queening","pawn-break","outside-passed-pawn","endgame"],"reading":[{"title":"Passed pawn","url":"https://en.wikipedia.org/wiki/Passed_pawn"}],"links_resolved":[{"label":"Passed pawn","href":"/glossary/passed-pawn/"},{"label":"Pawn majority","href":"/glossary/pawn-majority/"},{"label":"Queening","href":"/glossary/queening/"},{"label":"Pawn break","href":"/glossary/pawn-break/"},{"label":"Outside passed pawn","href":"/glossary/outside-passed-pawn/"},{"label":"Endgame","href":"/glossary/endgame/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

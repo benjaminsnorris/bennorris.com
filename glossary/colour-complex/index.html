@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Colour complex - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=positional">Positional vocabulary</a></p>
+<h1>Colour complex</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"positional","kind":"look-up","chips":["sourced"],"term":"Colour complex","slug":"colour-complex","also":["color complex","light squares","dark squares"],"definition":"All the squares of one colour, treated as a single weakness. Because a pawn only ever guards squares of the colour it does not stand on, pushing your pawns onto one colour leaves the other colour permanently undefendable - and if the bishop that travels there has been traded, nothing you own can guard them at all.","precision":[{"against":"being about one weak square","text":"A weak square is a hole you can occupy; a colour complex is every hole at once, joined up. The difference matters because a single weak square can be covered by a piece, and a whole colour cannot - the opponent's pieces simply travel between the squares faster than yours can follow."},{"against":"needing a bishop to be traded","text":"Trading the bishop is what makes it permanent, and the complex exists before that. Measured on the 2,100 certified positions, a side with three or more pawns has them all on one colour in 6.7% of them - rare enough that when it happens the game is usually about it."}],"boards":[{"fen":"r5k1/5pp1/r2qp2p/P2p4/4n3/1N2P1P1/3Q1P1P/RR3K2 w - - 1 24","corpus":"positions","ref":"ufluomku","caption":"Every one of White's five pawns - a5, e3, f2, g3, h2 - stands on a dark square, so not one of them guards a light one. White has no light-squared bishop either, and no bishop at all: the knight on b3 and the two rooks are the whole defence of the light squares around a king on f1, which is itself a light square. Black's knight is already on e4.","highlight":["a5","e3","f2","g3","h2","e4","f1"],"render_fen":"r5k1/5pp1/r2qp2p/P2p4/4n3/1N2P1P1/3Q1P1P/RR3K2 w - - 1 24","highlight_squares":["a5","e3","f2","g3","h2","e4","f1"]}],"drill":{"mode":"none","why":"unbalanced","note":"The computable version - does one side have three or more pawns and all of them on one colour - is 6.7% of the certified corpus and 11.3% of the drill corpus, both far under the floor. The version that would matter, whether the complex can actually be invaded, is a judgement about pieces rather than a count of pawns. Measured over `positions.json`: 2,100 engine-checked positions, materially level, plies 16 to 60 - which is to say middlegames, the part of the game these words are about. Club games: the median rating is 1627 and both players were between 1200 and 1800 in 67% of them."},"links":["weak-square","good-and-bad-bishop","bishop","wrong-coloured-bishop","king-safety","pawn-structure"],"reading":[{"title":"Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess"}],"links_resolved":[{"label":"Weak square","href":"/glossary/weak-square/"},{"label":"Good and bad bishop","href":"/glossary/good-and-bad-bishop/"},{"label":"Bishop","href":"/glossary/bishop/"},{"label":"Wrong-coloured bishop","href":"/glossary/wrong-coloured-bishop/"},{"label":"King safety","href":"/glossary/king-safety/"},{"label":"Pawn structure","href":"/glossary/pawn-structure/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

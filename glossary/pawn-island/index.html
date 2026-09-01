@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pawn island - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=positional">Positional vocabulary</a></p>
+<h1>Pawn island</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"positional","kind":"look-up","chips":["sourced"],"term":"Pawn island","slug":"pawn-island","also":["pawn islands"],"definition":"A group of your pawns standing on files next to each other, with a gap before the next group. Count them: the side with fewer has the more compact structure, because pawns on adjacent files defend each other and pawns with a gap between them cannot.","precision":[{"against":"the count being the whole assessment","text":"It is a first look, not a verdict. Three islands against one is a real long-term liability and it is also what you accept when you take an open file in return. What makes the count useful is how fast it is: it takes two seconds and it tells you which side wants the endgame."},{"against":"islands being rare","text":"The median position has two of them a side. Measured on the 2,100 certified positions, the mean is 2.12 islands per side and three or more turns up for somebody in 39.3% of them, so a broken structure is normal rather than a disaster - what matters is the difference between the two sides, and that is 40.4%."}],"boards":[{"fen":"rn1qk2r/pbp2pp1/1p2p2p/3p4/2PP4/P4N2/3P1PPP/R1BQR1K1 w kq - 0 12","corpus":"positions","ref":"theahqcl","caption":"Three islands against one. White's pawns fall into a, c-d and f-g-h; Black's eight run unbroken from a to h. Material is level and it is the same number of pawns each - what differs is that White has a lone a-pawn and a doubled d-pawn to look after and Black has neither.","highlight":["a3","c4","d4","d2","f2","g2","h2"],"render_fen":"rn1qk2r/pbp2pp1/1p2p2p/3p4/2PP4/P4N2/3P1PPP/R1BQR1K1 w kq - 0 12","highlight_squares":["a3","c4","d4","d2","f2","g2","h2"]}],"drill":{"mode":"computed","predicate":"islands_differ","corpus":"positions","question":"Do the two sides have a different number of pawn islands?","note":"Read the files, not the pawns: run left to right and count how many times you cross a gap. A side with pawns on a, c, d, f, g and h has three islands whatever is stacked on those files, and doubled pawns do not make a second one. Measured over `positions.json`: 2,100 engine-checked positions, materially level, plies 16 to 60 - which is to say middlegames, the part of the game these words are about. Club games: the median rating is 1627 and both players were between 1200 and 1800 in 67% of them.","base_rate_pct":40.4,"base_rate_n":2100,"items":[{"fen":"r1bq1rk1/pppp1ppp/2n5/4P3/2P2P2/2N5/PP4PP/R3KQNR w KQ - 3 10","ref":"04qp3p6b","answer":false,"flip":false},{"fen":"1n2k1nr/p1p2ppp/3p4/3bp2q/1PPbP3/P4PP1/1B1P3P/R2QK1NR w KQk - 0 13","ref":"qd4o170h","answer":true,"flip":false},{"fen":"r3k2r/ppp2ppp/2n5/q3p3/4n1b1/2N1PN2/PPP1B1PP/1R1Q1RK1 b kq - 4 13","ref":"6voyk1t8","answer":true,"flip":true},{"fen":"rnb1k2r/ppp2ppp/5n2/4P3/4p3/4P3/PPP3PP/RNBK1B1R w kq - 1 9","ref":"wosanrxb","answer":true,"flip":false},{"fen":"r2q1r1k/6pp/1p1p2n1/pPpQp1b1/2P1P3/P4BB1/5PPP/R3R1K1 w - - 3 24","ref":"50yaehkg","answer":false,"flip":false},{"fen":"r1br2k1/p4ppp/1p1Pp3/8/2P5/2P5/P3BPPP/2KR3R b - - 1 15","ref":"olxrk15p","answer":true,"flip":true},{"fen":"1b6/p4kpp/1p2pp2/1N1b4/1N6/1P2P3/P4PPP/6K1 b - - 7 30","ref":"gtxqx0t0","answer":false,"flip":true},{"fen":"r1bqr1k1/ppp2pbp/2np1np1/8/2P5/1PB1P1P1/P4PBP/RN1QK1NR w KQ - 3 10","ref":"x50ygem5","answer":false,"flip":false},{"fen":"r1b1kb1r/pp2qppp/3p1n2/2p1p3/2B1P3/1PPP1Q2/P2N1PPP/R1B2RK1 b kq - 0 9","ref":"ya0a7rwt","answer":false,"flip":true},{"fen":"3kr3/p3b2p/2b5/1q4Q1/8/P2NPPPN/1Pr4P/n1BR2K1 w - - 3 26","ref":"rg3zl63u","answer":false,"flip":false}]},"links":["pawn-structure","isolated-pawn","doubled-pawns","pawn-chain","connected-pawns","backward-pawn"],"reading":[{"title":"Pawn island, in Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess#pawn_island"}],"links_resolved":[{"label":"Pawn structure","href":"/glossary/pawn-structure/"},{"label":"Isolated pawn","href":"/glossary/isolated-pawn/"},{"label":"Doubled pawns","href":"/glossary/doubled-pawns/"},{"label":"Pawn chain","href":"/glossary/pawn-chain/"},{"label":"Connected pawns","href":"/glossary/connected-pawns/"},{"label":"Backward pawn","href":"/glossary/backward-pawn/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

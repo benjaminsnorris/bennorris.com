@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simplification - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=positional">Positional vocabulary</a></p>
+<h1>Simplification</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"positional","kind":"look-up","chips":["sourced"],"term":"Simplification","slug":"simplification","also":["trading down","simplifying"],"definition":"Trading pieces to make the position smaller, usually because you are ahead. Every trade takes the same amount off both sides, so the same lead is worth more with less left on the board - a pawn up in a four-piece endgame is winning where a pawn up in the middlegame is barely anything.","precision":[{"against":"trade when you are ahead being the whole rule","text":"The rule is trade *pieces* when ahead in material, and trade *pawns* when ahead in pieces. They point opposite ways for a reason: pieces coming off magnifies a material lead, and pawns coming off can leave a lead that cannot mate - which is what `insufficient-material` and the wrong-coloured bishop are about."},{"against":"simplification being safe","text":"It is the commonest way a winning position becomes a drawn one. Every trade is a decision about the position that comes after it, and a defender's best practical chance is very often to offer trades that reach an ending the extra material cannot win."}],"no_board":"A single position cannot show a trade. Simplification is a comparison between a position and the one three moves later, and every corpus here holds positions rather than pairs of them - the same limit `trade` and `recapture` describe from the other end, and the reason both of those are illustrated by the capture that is available rather than by the exchange itself.","drill":{"mode":"none","why":"impossible","note":"Whether trading is right here needs the position after the trade, so it is a comparison rather than a property, and no pool in this project stores pairs of positions. The nearest computable questions are drilled elsewhere: `trade` asks whether an even capture is on offer, at 35.0% of the certified corpus, and `material` asks who is ahead."},"links":["trade","material","endgame","insufficient-material","wrong-coloured-bishop","recapture"],"reading":[{"title":"Simplification, in Glossary of chess","url":"https://en.wikipedia.org/wiki/Glossary_of_chess#simplification"}],"boards":[],"links_resolved":[{"label":"Trade","href":"/glossary/trade/"},{"label":"Material","href":"/glossary/material/"},{"label":"Endgame","href":"/glossary/endgame/"},{"label":"Insufficient material","href":"/glossary/insufficient-material/"},{"label":"Wrong-coloured bishop","href":"/glossary/wrong-coloured-bishop/"},{"label":"Recapture","href":"/glossary/recapture/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
