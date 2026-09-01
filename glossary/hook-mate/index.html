@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hook mate - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=mating-patterns">Named mating patterns</a></p>
+<h1>Hook mate</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"mating-patterns","kind":"look-up","chips":["sourced"],"term":"Hook mate","slug":"hook-mate","definition":"A rook checking from the square beside the king, protected by a knight, which is itself protected by a pawn - three pieces hooked together so that nothing in the chain can be taken. The knight covers the escape squares the rook does not.","precision":[{"against":"being a rook mate","text":"It is a knight mate with a rook attached. Take the knight away and the king captures the rook; take the pawn away and the king captures the knight. All three links are load-bearing, which is unusual - most named mates have one piece that could be swapped for another."},{"against":"happening on the back rank","text":"It is a mate against a king that has come up the board or been driven there, not one sitting at home, and that is what distinguishes it from the mates in the same family. The king's own advanced pawns usually supply one or two of the blocked squares."}],"boards":[{"fen":"7r/6R1/p4pk1/Kp3Np1/6P1/8/7P/8 b - - 2 41","corpus":"drill","ref":"rmp4g3ih","caption":"The hook, complete: the rook on g7 gives check from next door, the knight on f5 defends the rook, and the pawn on g4 defends the knight. The king on g6 is walled in by its own pawns on f6 and g5, and the knight covers h6 and h4 besides. White's king is on a5, right across the board, and is not involved.","highlight":["g6","g7","f5","g4","f6","g5"],"render_fen":"7r/6R1/p4pk1/Kp3Np1/6P1/8/7P/8 b - - 2 41","highlight_squares":["g6","g7","f5","g4","f6","g5"]}],"drill":{"mode":"none","why":"unbalanced","note":"5 of the 1,153 checkmates in the drill corpus are this exact chain of rook, knight and pawn. The predicate is three lines and the answer would be no about two hundred and thirty times out of two hundred and thirty-one."},"links":["checkmate","knight","rook","arabian-mate","exposed-king","pawn"],"reading":[{"title":"Checkmate pattern","url":"https://en.wikipedia.org/wiki/Checkmate_pattern"}],"links_resolved":[{"label":"Checkmate","href":"/glossary/checkmate/"},{"label":"Knight","href":"/glossary/knight/"},{"label":"Rook","href":"/glossary/rook/"},{"label":"Arabian mate","href":"/glossary/arabian-mate/"},{"label":"Exposed king","href":"/glossary/exposed-king/"},{"label":"Pawn","href":"/glossary/pawn/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

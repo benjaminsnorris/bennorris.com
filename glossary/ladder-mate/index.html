@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ladder mate - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=mating-patterns">Named mating patterns</a></p>
+<h1>Ladder mate</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"mating-patterns","kind":"look-up","chips":["sourced"],"term":"Ladder mate","slug":"ladder-mate","also":["lawnmower mate","rolling mate","two-rook mate"],"definition":"Two heavy pieces walking a king to the edge of the board, one line at a time: one holds the rank the king is standing on, the other takes the next one, and they alternate until there is no board left. It is the mate taught with two rooks and it works the same way with a queen and a rook.","precision":[{"against":"needing calculation","text":"It needs none, which is why it is the first mate to learn. Every move follows one rule - hold the line the king is on, take the next line with the other piece, and if the king walks towards a piece, slide that piece to the far end of its line and carry on. No variation has to be checked."},{"against":"needing two rooks","text":"What it needs is two lines. A queen and a rook do it identically and faster; a queen alone does it with its own king playing the part of the second piece, which is the mate everybody learns second. Two bishops cannot, because neither of them can hold a whole rank."}],"boards":[{"fen":"5k1Q/6R1/5K2/8/8/8/8/8 b - - 0 58","corpus":"drill","ref":"sq49aogv","caption":"The last rung. The rook on g7 holds the seventh rank, taking e7 and f7 away, and the queen on h8 takes the eighth - check along the rank, and g8 with it. The white king on f6 is doing nothing except defending the rook, which is the whole point of the method: it works without the king's help.","highlight":["f8","g7","h8"],"render_fen":"5k1Q/6R1/5K2/8/8/8/8/8 b - - 0 58","highlight_squares":["f8","g7","h8"]}],"drill":{"mode":"none","why":"unbalanced","note":"Exactly computable and far too rare to drill: 10 of the 1,153 checkmates in the 10,000-position drill corpus are this - four men on the board, the king on an edge, and two heavy pieces on the last two lines. Mate itself is 11.5% of that corpus and outside the band; a single named pattern inside it is out of reach of any pool this project holds."},"links":["checkmate","back-rank-mate","rook","queen","endgame","opera-mate"],"reading":[{"title":"Checkmate pattern","url":"https://en.wikipedia.org/wiki/Checkmate_pattern"}],"links_resolved":[{"label":"Checkmate","href":"/glossary/checkmate/"},{"label":"Back-rank mate","href":"/glossary/back-rank-mate/"},{"label":"Rook","href":"/glossary/rook/"},{"label":"Queen","href":"/glossary/queen/"},{"label":"Endgame","href":"/glossary/endgame/"},{"label":"Opera mate","href":"/glossary/opera-mate/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fool's mate - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=mating-patterns">Named mating patterns</a></p>
+<h1>Fool's mate</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"mating-patterns","kind":"look-up","chips":["sourced"],"term":"Fool's mate","slug":"fools-mate","definition":"The shortest checkmate there is: White plays two pawn moves that open the diagonal from h4 to e1, and Black's queen arrives on h4. It cannot happen unless White cooperates, which is the only reason it is worth knowing at all.","precision":[{"against":"being a risk","text":"Nobody will hand it to you. It needs two specific and purposeless White moves in a row, and it is in the books because it is the extreme case, not because it happens. What it teaches is the diagonal: f2 and g2 are what keeps the white king's corner shut, and moving them stays dangerous for another thirty moves."},{"against":"the move order being the thing","text":"It is the diagonal, not the order. The corpus's one instance did not go 1.f3 e5 2.g4 as the books give it - it went 1.g4 e6 2.f4, reaching the same open diagonal the other way round. That is the opposite of a named opening, where the move order *is* the identity."}],"boards":[{"fen":"rnbqkbnr/pppp1ppp/4p3/8/5PP1/8/PPPPP2P/RNBQKBNR b KQkq - 0 2","corpus":"opening","ref":"wqm8zuhg","moves":["d8h4"],"caption":"After 1.g4 e6 2.f4, and the mate played: Qh4. Nothing on the board has been captured and White's king is already lost - d1, e2, f1 and d2 all hold White's own men, and the two pawn moves have opened h4-g3-f2-e1 for the queen with nothing able to block or take her.","highlight":["h4","e1","f4","g4"],"render_fen":"rnb1kbnr/pppp1ppp/4p3/8/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3","highlight_squares":["h4","e1","f4","g4"]}],"drill":{"mode":"none","why":"unbalanced","note":"Mate is available in one move in 2 of the 7,905 opening-corpus positions, and this is one of the two; the other is `scholars-mate`. Between them the two mates every beginner is shown are the entire supply of mate-in-one in a census of every distinct position from plies two to six of 121,332 games."},"links":["scholars-mate","checkmate","opening-trap","king-safety","diagonal","queen"],"reading":[{"title":"Fool's mate","url":"https://en.wikipedia.org/wiki/Fool's_mate"}],"links_resolved":[{"label":"Scholar's mate","href":"/glossary/scholars-mate/"},{"label":"Checkmate","href":"/glossary/checkmate/"},{"label":"Opening trap","href":"/glossary/opening-trap/"},{"label":"King safety","href":"/glossary/king-safety/"},{"label":"Diagonal","href":"/glossary/diagonal/"},{"label":"Queen","href":"/glossary/queen/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
