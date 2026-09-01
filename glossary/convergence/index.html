@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Convergence - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=coinages">Words this sequence uses</a></p>
+<h1>Convergence</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"coinages","kind":"look-up","chips":["sourced"],"term":"Convergence","slug":"convergence","definition":"How many seeds land on the same square. One piece that is loose and aligned and underguarded is a target; three seeds scattered across three pieces are not. The course's block 5 asks for one answer - the square carrying the most - and it is the step that turns the scan from a list into a number.","precision":[{"against":"counting seeds on the board","text":"Count them on the target. A position with eight seeds spread evenly is quieter than a position with four on one square, and the course records tapping the piece with the most *attackers* rather than the most seeds as a rule error worth naming - attacker count is one seed among twelve, not the whole scan."},{"against":"the top square being where the tactic is","text":"It is where the odds are, which is a different claim. In this glossary's own recomputation of the course's measurement, a top square carrying four or more seeds means the position is tactical 85.2% of the time - but that band is 3.9% of all positions. The number is a filter, not a finding."}],"boards":[{"fen":"1r4n1/p1pk3p/2ppb3/6b1/4NR2/1P1P4/P1PK4/R1B5 b - - 2 24","corpus":"positions","ref":"icpftzia","caption":"Five seeds land on f4, the white rook: it is loose, it is cheap to attack, it is aligned with other white pieces, it is underguarded, and it stands on an open line to the white king. No other square carries more than three. The engine agrees: this is one of the positions the corpus labels tactical.","highlight":["f4"],"render_fen":"1r4n1/p1pk3p/2ppb3/6b1/4NR2/1P1P4/P1PK4/R1B5 b - - 2 24","highlight_squares":["f4"]}],"drill":{"mode":"none","why":"taught-elsewhere","note":"The seeds course drills this, as one of the twelve, and a second drill here would teach the shape rather than the search. This entry exists so the word can be looked up. Block 5 is convergence, capped at forty seconds, and the answer is a single square."},"links":["seed","scan","band","rule-in-rule-out","middle-band","attacker-count","/courses/chess-seeds/"],"links_resolved":[{"label":"Seed","href":"/glossary/seed/"},{"label":"Scan","href":"/glossary/scan/"},{"label":"Band","href":"/glossary/band/"},{"label":"Rule-in / rule-out","href":"/glossary/rule-in-rule-out/"},{"label":"Middle band","href":"/glossary/middle-band/"},{"label":"Attacker count","href":"/glossary/attacker-count/"},{"label":"Seeds of tactical destruction","href":"/courses/chess-seeds/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

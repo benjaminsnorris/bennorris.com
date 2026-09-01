@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scan - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=coinages">Words this sequence uses</a></p>
+<h1>Scan</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"coinages","kind":"look-up","chips":["sourced"],"term":"Scan","slug":"scan","definition":"The seeds course's procedure: go through a position naming every seed that is present against one side, without calculating anything. It is a reading of the board rather than a search of the moves, and it is timed - the course caps it at sixty seconds and then takes the board away.","precision":[{"against":"being a search","text":"Nothing is calculated. A search asks what happens if I play this; a scan asks what is true right now. The whole design rests on that split, because what is true right now can be read reliably at speed and what happens next cannot."},{"against":"the scan answering the question","text":"It does not, and the course says so out loud in its own last blocks. The scan produces a list; deciding whether to search on it is a separate step with a measured ceiling of 78% balanced accuracy - see `middle-band`. A scan that finds five seeds and a scan that finds one are worth very different amounts, which is what `convergence` is for."}],"boards":[{"fen":"2kr3r/1b1pn1pp/1p6/pB2p3/8/P1P1P3/1B3PPP/3R1RK1 b - - 1 19","corpus":"positions","ref":"zp6r6vr6","caption":"A scan of this position against White returns three names and no more: loose piece, on b5 and b2; back rank, for a king on g1 with f2, g2 and h2 unmoved; and aligned, five of White's own pieces sharing lines. Twenty-two men on the board and the answer is three words, which is the point of the exercise.","highlight":"auto:seed:loose_piece","render_fen":"2kr3r/1b1pn1pp/1p6/pB2p3/8/P1P1P3/1B3PPP/3R1RK1 b - - 1 19","highlight_squares":["b2","b5","e7"]}],"drill":{"mode":"none","why":"taught-elsewhere","note":"The seeds course drills this, as one of the twelve, and a second drill here would teach the shape rather than the search. This entry exists so the word can be looked up. Blocks 1 to 4 of the course are the scan, worked up from three seeds to all twelve from memory."},"links":["seed","convergence","band","middle-band","/courses/chess-seeds/"],"links_resolved":[{"label":"Seed","href":"/glossary/seed/"},{"label":"Convergence","href":"/glossary/convergence/"},{"label":"Band","href":"/glossary/band/"},{"label":"Middle band","href":"/glossary/middle-band/"},{"label":"Seeds of tactical destruction","href":"/courses/chess-seeds/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
