@@ -87,6 +87,14 @@
 .rays{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:visible}
 .rays line{stroke-width:.075;stroke-linecap:round;fill:none}
 .rays line.halo{stroke:var(--pip-edge);stroke-width:.14;opacity:.85}
+/* Solid where a square lies between the two, so something could come and stand
+   in the way; dotted where nothing can. Both are pointers rather than paths -
+   see edCanInterpose for why the test is the attack and not the piece. */
+/* Tighter and fatter than a plain dash would be: the shortest of these lines
+   crosses a single square, and at the spacing a long line wants it would arrive
+   as two dots and read as nothing. */
+.rays line.nogap{stroke-dasharray:.02 .17;stroke-width:.1}
+.rays line.halo.nogap{stroke-width:.175}
 
 .edheat{margin-top:1.5em;border-top:1px solid var(--rule);padding-top:1.2em}
 .edheat > .lbl,.edpresets > .lbl{display:block;font-family:var(--mono);font-size:.62rem;

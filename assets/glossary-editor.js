@@ -314,10 +314,17 @@ var ED_SLIDE = { r: ED_ROOKDIR, b: ED_BISHDIR, q: ED_ROOKDIR.concat(ED_BISHDIR) 
 
    `from` names the pieces behind the number - {sq, piece, side, ray} - because
    Inspect has to point at them, and a second function that worked out "which
-   pieces" separately from "how many" is two answers that can disagree. `ray` is
-   true for the sliders, whose attack is a line you can draw and something can
-   stand in; a knight's is not a line, and drawing one would be a lie about how
-   it moves. */
+   pieces" separately from "how many" is two answers that can disagree.
+
+   `ray` is true for the sliders. Every attacker gets a line - an earlier version
+   drew them for the sliders only, on the theory that a straight line from a
+   knight is a lie about how it moves, and that was wrong twice over: it left the
+   answer full of holes, and it was not even consistent, because a bishop one
+   square away drew a stub of a line for the same geometry a pawn one square away
+   drew nothing for. The line is a pointer, not a path.
+
+   `ray` therefore picks the *kind* of line, and not on its own: see
+   edCanInterpose. */
 function edAttackCounts(pos){
   var out = {}, sq, source;
 
@@ -359,6 +366,23 @@ function edAttackersOf(counts, target, sides){
   if(!cell) return [];
   return cell.from.filter(function(a){ return sides[a.side]; })
     .sort(function(a, b){ return a.sq < b.sq ? -1 : a.sq > b.sq ? 1 : 0; });
+}
+
+/* Whether a square lies between these two - which is the whole of what a solid
+   line means, and the only thing about an attack that a picture of it can add.
+
+   Piece kind is the wrong test on its own, and the first version of this used it:
+   it made a bishop on d4 hitting e5 solid, when nothing can come between two
+   squares that touch. It is also what made "jumps or steps" impossible to say
+   out loud, because a king's step and an adjacent bishop's attack are the same
+   geometry and were being drawn two different ways. So the question is asked
+   about the attack rather than about the piece: a slider more than one square
+   off draws solid, because that is exactly when something could come and stand
+   in the way, and everything else draws dotted. */
+function edCanInterpose(from, to){
+  var df = Math.abs(ED_FILES.indexOf(from.charAt(0)) - ED_FILES.indexOf(to.charAt(0)));
+  var dr = Math.abs(+from.charAt(1) - +to.charAt(1));
+  return Math.max(df, dr) > 1;
 }
 
 /* Where a square sits on the drawn board, in cells from the top-left corner.
@@ -568,14 +592,19 @@ function edBoardSVG(st, view, pal){
       var at = edCellXY(a.sq, view.flip);
       marks.push(edSvgRing(at.x * ED_CELL, at.y * ED_CELL, ED_CELL * 0.07,
         edSideColour(a.side), 3, pal['pip-edge']));
-      if(!a.ray) return;
       var d = 'x1="' + edRound((at.x + 0.5) * ED_CELL) + '" y1="' +
         edRound((at.y + 0.5) * ED_CELL) + '" x2="' + edRound((probeAt.x + 0.5) * ED_CELL) +
         '" y2="' + edRound((probeAt.y + 0.5) * ED_CELL) + '"';
-      rays.push('<line ' + d + ' stroke="' + edXml(pal['pip-edge']) +
-        '" stroke-width="' + edRound(ED_CELL * 0.14) + '" stroke-linecap="round" ' +
-        'opacity="0.85"/><line ' + d + ' stroke="' + edSideColour(a.side) +
-        '" stroke-width="' + edRound(ED_CELL * 0.075) + '" stroke-linecap="round"/>');
+      /* the dots the stylesheet draws, in the drawing's own units */
+      var open = a.ray && edCanInterpose(a.sq, view.probe);
+      var dash = open ? '' :
+        ' stroke-dasharray="' + edRound(ED_CELL * 0.02) + ' ' + edRound(ED_CELL * 0.17) + '"';
+      rays.push('<line ' + d + dash + ' stroke="' + edXml(pal['pip-edge']) +
+        '" stroke-width="' + edRound(ED_CELL * (open ? 0.14 : 0.175)) +
+        '" stroke-linecap="round" opacity="0.85"/>' +
+        '<line ' + d + dash + ' stroke="' + edSideColour(a.side) +
+        '" stroke-width="' + edRound(ED_CELL * (open ? 0.075 : 0.1)) +
+        '" stroke-linecap="round"/>');
     });
     /* The square you asked about, last, so nothing sits on top of it. */
     marks.push(edSvgRing(probeAt.x * ED_CELL, probeAt.y * ED_CELL, ED_CELL * 0.04,
@@ -732,8 +761,10 @@ function renderEditorShell(data){
        whose whole gesture is "tap a thing, then tap a square" do not need to be
        the first thing over it. */
     '<p class="edhow" id="edhow" hidden><em>Inspect</em> is where the page starts: tap ' +
-    'any square, empty or not, and every piece attacking it is ringed, with a line drawn ' +
-    'from the ones that attack along a line. To change the position instead, tap a piece ' +
+    'any square, empty or not, and every piece attacking it is ringed, with a line back to ' +
+    'it: solid where a square lies between the two, so something could come and block it, ' +
+    'and dotted where nothing can. ' +
+    'To change the position instead, tap a piece ' +
     'in a tray and then tap squares - it stays selected, so eight pawns are eight taps, ' +
     'and tapping it again puts it down. <em>Move</em> carries a piece from one square to ' +
     'another and <em>Erase</em> takes it off. Nothing here has to be legal.</p>' +
@@ -924,10 +955,9 @@ function wireEditor(data){
         at.setAttribute('aria-label', at.getAttribute('aria-label') +
           ', attacking ' + probe);
       }
-      if(!a.ray) return;
       var xy = edCellXY(a.sq, flip);
       lines.push({ x1: xy.x + 0.5, y1: xy.y + 0.5, x2: at0.x + 0.5, y2: at0.y + 0.5,
-                   side: a.side });
+                   side: a.side, nogap: !(a.ray && edCanInterpose(a.sq, probe)) });
     });
 
     /* One overlay for every line rather than a border trick per cell: a line
@@ -938,9 +968,13 @@ function wireEditor(data){
       var svg = '<svg class="rays" viewBox="0 0 8 8" preserveAspectRatio="none" ' +
         'aria-hidden="true">' + lines.map(function(l){
           var d = 'x1="' + l.x1 + '" y1="' + l.y1 + '" x2="' + l.x2 + '" y2="' + l.y2 + '"';
-          /* drawn twice: a pale halo under a coloured line, the way the pips are
-             separated from the square they sit on */
-          return '<line ' + d + ' class="halo"/><line ' + d + ' stroke="' +
+          var kind = l.nogap ? ' nogap' : '';
+          /* Drawn twice: a pale halo under a coloured line, the way the pips are
+             separated from the square they sit on. One class attribute per line -
+             two of them and the parser keeps the first, which silently cost the
+             halo its `halo` class and drew every dotted line twice. */
+          return '<line ' + d + ' class="halo' + kind + '"/>' +
+            '<line ' + d + ' class="mark' + kind + '" stroke="' +
             edSideColour(l.side) + '"/>';
         }).join('') + '</svg>';
       host.insertAdjacentHTML('beforeend', svg);
