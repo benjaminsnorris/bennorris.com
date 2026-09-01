@@ -161,6 +161,10 @@ function boardCell(b){
       (b.awkward ? '<span class="awk">awkward case</span>' : '') +
     '<div class="prov">' + esc(b.corpus) + ' &middot; ' + esc(b.ref) +
       (b.moves && b.moves.length ? ' &middot; after ' + esc(b.moves.join(' ')) : '') +
+      /* A composed position has no game behind it, so it names its source
+         instead. The citation comes from the corpus item rather than from the
+         entry, which is what makes it impossible to leave off. */
+      (b.cite ? ' &middot; <a href="' + esc(b.cite.url) + '">' + esc(b.cite.work) + '</a>' : '') +
     '</div></div></div>';
 }
 
