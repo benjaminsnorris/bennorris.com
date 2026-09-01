@@ -293,13 +293,30 @@ function edPosNotes(st){
    stood there. So a defended friendly piece counts - "who is hitting e5" and
    "who could take on e5" are different questions, and the first is the one that
    explains a position. A pawn's push squares are not attacks; its two diagonals
-   are, whether or not anything is on them. A slider stops on the first piece it
-   meets: that square is attacked, the ones behind it are not, and no x-ray is
-   claimed here because an x-ray is a different idea with its own entry.
+   are, whether or not anything is on them.
+
+   X-RAYS COUNT, and this is the rule the rest of the file is built around.
+   Board vision unit 3 rule 3: a queen, rook or bishop stops at the first piece
+   in the way, "unless that piece is one of yours that attacks the same square.
+   Then both count: a rook behind a rook on an open file... this is a *battery*,
+   and the piece behind is an *x-ray* attacker."
+
+   python-chess stops at the blocker and so did the first version of this, which
+   made the editor disagree with the course it belongs to: a white rook on f1
+   behind a white queen on f3 reported one attacker on f7 where board vision
+   reports two, and f7 stopped being underguarded. seeds.py says why that
+   matters out loud - "undercounting by exactly one on a battery is the specific
+   error unit 3 exists to drill" - so an editor that undercounts it is teaching
+   against the unit.
+
+   Only *friendly* pieces in front are lifted, which is the rule's own wording:
+   the piece behind counts when the blocker is one of yours that attacks the
+   same square. A slider behind an enemy piece is not an attacker of the square,
+   it is an x-ray in the other sense, and that is a different idea with its own
+   entry.
 
    Legality is not consulted, for the same reason the rest of the page does not
-   consult it: a pinned knight still attacks what it attacks, and this editor
-   draws what it is told to. */
+   consult it: a pinned knight still attacks what it attacks. */
 
 var ED_LEAP = {
   n: [[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]],
@@ -307,21 +324,90 @@ var ED_LEAP = {
 };
 var ED_ROOKDIR = [[1,0],[-1,0],[0,1],[0,-1]];
 var ED_BISHDIR = [[1,1],[1,-1],[-1,1],[-1,-1]];
-var ED_SLIDE = { r: ED_ROOKDIR, b: ED_BISHDIR, q: ED_ROOKDIR.concat(ED_BISHDIR) };
 
-/* {square: {w: n, b: n, from: [...]}} for every square either side hits. Squares
-   nobody hits are absent rather than zero, so a caller can ask `if(counts[sq])`.
+function edSqAt(f, r){
+  if(f < 0 || f > 7 || r < 0 || r > 7) return null;
+  return ED_FILES.charAt(f) + (r + 1);
+}
 
-   `from` names the pieces behind the number - {sq, piece, side, ray} - because
-   Inspect has to point at them, and a second function that worked out "which
-   pieces" separately from "how many" is two answers that can disagree.
+/* Every piece attacking `target` right now, ignoring anything in `gone`.
 
-   `ray` is true for the sliders. Every attacker gets a line - an earlier version
-   drew them for the sliders only, on the theory that a straight line from a
-   knight is a lie about how it moves, and that was wrong twice over: it left the
-   answer full of holes, and it was not even consistent, because a bishop one
-   square away drew a stub of a line for the same geometry a pawn one square away
-   drew nothing for. The line is a pointer, not a path.
+   Asked from the target outwards rather than from each piece inwards, because
+   the x-ray rule needs to re-ask the same question with a piece lifted, and one
+   primitive asked repeatedly cannot drift from itself the way two implementations
+   of "who attacks this" would. */
+function edAttackersAt(pos, target, gone){
+  gone = gone || {};
+  var out = [], f = ED_FILES.indexOf(target.charAt(0)), r = +target.charAt(1) - 1;
+  function at(nm){ return (nm && !gone[nm]) ? pos[nm] : null; }
+  function add(nm, pc, ray){
+    out.push({ sq: nm, piece: pc, side: edWhite(pc) ? 'w' : 'b', ray: ray });
+  }
+  /* A white pawn attacking this square stands a rank below it, diagonally. */
+  [[-1, 'P'], [1, 'p']].forEach(function(p){
+    [-1, 1].forEach(function(df){
+      var nm = edSqAt(f + df, r + p[0]);
+      if(at(nm) === p[1]) add(nm, p[1], false);
+    });
+  });
+  ['n', 'k'].forEach(function(t){
+    ED_LEAP[t].forEach(function(d){
+      var nm = edSqAt(f + d[0], r + d[1]), pc = at(nm);
+      if(pc && pc.toLowerCase() === t) add(nm, pc, false);
+    });
+  });
+  [[ED_ROOKDIR, 'r'], [ED_BISHDIR, 'b']].forEach(function(pair){
+    pair[0].forEach(function(d){
+      var step = 1, nm, pc, t;
+      for(;;){
+        nm = edSqAt(f + d[0] * step, r + d[1] * step);
+        if(!nm) return;
+        pc = at(nm);
+        if(pc){
+          t = pc.toLowerCase();
+          if(t === 'q' || t === pair[1]) add(nm, pc, true);
+          return;
+        }
+        step += 1;
+      }
+    });
+  });
+  return out;
+}
+
+/* One square's attackers, x-rays included, per board vision unit 3 rule 3.
+
+   Lift each attacker found and ask again, which is the rule's own phrasing made
+   into a loop. Per colour, and lifting only that colour's pieces: White's
+   battery is not unblocked by removing a black piece that happens to be in it. */
+function edAttackersOfSquare(pos, target){
+  var all = [], count = { w: 0, b: 0 };
+  ['w', 'b'].forEach(function(side){
+    var gone = {}, seen = {}, depth = 0, fresh;
+    for(;;){
+      fresh = edAttackersAt(pos, target, gone).filter(function(a){
+        return a.side === side && !seen[a.sq];
+      });
+      if(!fresh.length) return;
+      fresh.forEach(function(a){
+        seen[a.sq] = true;
+        gone[a.sq] = true;
+        a.behind = depth > 0;
+        count[side] += 1;
+        all.push(a);
+      });
+      depth += 1;
+    }
+  });
+  return { w: count.w, b: count.b, from: all };
+}
+
+/* {square: {w, b, from}} for every square either side hits. Squares nobody hits
+   are absent rather than zero, so a caller can ask `if(counts[sq])`.
+
+   `from` names the pieces behind the number - {sq, piece, side, ray, behind} -
+   because Inspect has to point at them, and working out "which pieces"
+   separately from "how many" is two answers that can disagree.
 
    `ray` picks the kind of line, and it is the whole test. A solid line is the
    attack: the piece really does bear along that diagonal or that file, and the
@@ -330,41 +416,15 @@ var ED_SLIDE = { r: ED_ROOKDIR, b: ED_BISHDIR, q: ED_ROOKDIR.concat(ED_BISHDIR) 
    does a pawn or a king - those three attack particular squares rather than
    along anything.
 
-   A version in between tested "could something come and stand in the way",
-   which made a bishop draw dotted when it happened to be touching the square it
-   attacked. That reads as a claim that the bishop is not a line attacker, which
-   is false, and it is the thing a reader notices first. Whether an attack can be
-   blocked is worth knowing, but the picture already shows it: a solid line with
-   room in it has room in it. */
+   `behind` is the x-ray flag: this one only reaches the square once its own side
+   steps out of the way. It still counts, and its line is drawn straight through
+   the piece in front, which is what a battery looks like. */
 function edAttackCounts(pos){
-  var out = {}, sq, source;
-
-  /* Counts one square for one side, and answers the only question a ray has:
-     stop here? Off the board and occupied both stop it; only the second counts. */
-  function hit(f, r, side){
-    if(f < 0 || f > 7 || r < 0 || r > 7) return true;
-    var nm = ED_FILES.charAt(f) + (r + 1);
-    var cell = out[nm] || (out[nm] = { w: 0, b: 0, from: [] });
-    cell[side] += 1;
-    cell.from.push(source);
-    return !!pos[nm];
-  }
-
-  for(sq in pos){
-    if(!Object.prototype.hasOwnProperty.call(pos, sq)) continue;
-    var pc = pos[sq], side = edWhite(pc) ? 'w' : 'b', t = pc.toLowerCase();
-    var f = ED_FILES.indexOf(sq.charAt(0)), r = +sq.charAt(1) - 1;
-    if(f < 0 || !(r >= 0 && r <= 7)) continue;
-    source = { sq: sq, piece: pc, side: side, ray: !!ED_SLIDE[t] };
-    if(t === 'p'){
-      var dr = side === 'w' ? 1 : -1;
-      hit(f - 1, r + dr, side);
-      hit(f + 1, r + dr, side);
-    } else if(ED_LEAP[t]){
-      edEachStep(ED_LEAP[t], f, r, side, hit, false);
-    } else if(ED_SLIDE[t]){
-      edEachStep(ED_SLIDE[t], f, r, side, hit, true);
-    }
+  var out = {}, f, r, nm, cell;
+  for(f = 0; f < 8; f++) for(r = 0; r < 8; r++){
+    nm = ED_FILES.charAt(f) + (r + 1);
+    cell = edAttackersOfSquare(pos, nm);
+    if(cell.w + cell.b) out[nm] = cell;
   }
   return out;
 }
@@ -392,17 +452,6 @@ function edCellXY(nm, flip){
 function edSideColour(side){
   var c = side === 'w' ? ED_HEAT_W : ED_HEAT_B;
   return 'rgb(' + c.join(', ') + ')';
-}
-
-/* Pulled out of edAttackCounts so the loop body is not a closure built inside a
-   loop: one step for a leaper, and steps until something stops it for a slider. */
-function edEachStep(dirs, f, r, side, hit, slide){
-  var i, step, d;
-  for(i = 0; i < dirs.length; i++){
-    d = dirs[i];
-    step = 1;
-    while(!hit(f + d[0] * step, r + d[1] * step, side) && slide) step += 1;
-  }
 }
 
 /* The heat scale, and the one place in this project that names colours instead
@@ -758,6 +807,8 @@ function renderEditorShell(data){
     'any square, empty or not, and every piece attacking it is ringed, with a line back to ' +
     'it: solid from a piece that attacks along a line, so the line is the attack, and ' +
     'dotted from a knight, pawn or king, which attack a square rather than along anything. ' +
+    'A piece behind one of its own that attacks the same square counts as well - that is a ' +
+    'battery, and its line runs straight through the piece in front. ' +
     'To change the position instead, tap a piece ' +
     'in a tray and then tap squares - it stays selected, so eight pawns are eight taps, ' +
     'and tapping it again puts it down. <em>Move</em> carries a piece from one square to ' +
@@ -920,6 +971,14 @@ function wireEditor(data){
       cell.appendChild(here);
     }
 
+    /* With the survey off paintHeat never reached this square, so the label is
+       still just what is standing on it. The sentence goes to the live region
+       either way, but a reader tabbing the board should get the answer from the
+       square itself too. */
+    if(cell && !/attacked by/.test(cell.getAttribute('aria-label') || ''))
+      cell.setAttribute('aria-label', cell.getAttribute('aria-label') + ', ' +
+        edAttackWords(all, showSide.w, showSide.b));
+
     if(cell && (c.w + c.b) && !cell.querySelector('.heat')){
       var wash = document.createElement('span');
       wash.className = 'heat';
@@ -976,10 +1035,16 @@ function wireEditor(data){
 
     /* The whole answer, in a sentence, in the live region that already exists.
        A ring and a line are no answer at all to a reader who is not looking. */
-    flash = from.length
-      ? probe + ' is ' + edAttackWords(all, showSide.w, showSide.b) + ' \u2014 from ' +
-        edList(from.map(function(a){ return edWords(a.piece) + ' on ' + a.sq; })) + '.'
-      : probe + ' is ' + edAttackWords(all, showSide.w, showSide.b) + '.';
+    /* The pieces behind get their own clause. A battery is the thing unit 3
+       drills, so "and white rook on f1 behind" is the sentence earning its
+       keep - lumping it in with the rest would hide exactly what is worth
+       seeing. */
+    var direct = from.filter(function(a){ return !a.behind; });
+    var back = from.filter(function(a){ return a.behind; });
+    var name = function(a){ return edWords(a.piece) + ' on ' + a.sq; };
+    flash = probe + ' is ' + edAttackWords(all, showSide.w, showSide.b) +
+      (direct.length ? ' \u2014 from ' + edList(direct.map(name)) : '') +
+      (back.length ? ', with ' + edList(back.map(name)) + ' behind' : '') + '.';
   }
 
   /* The key is filled from edHeat rather than from a stylesheet, so the swatch a
