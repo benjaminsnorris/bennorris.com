@@ -3,8 +3,12 @@
    `.btn`, and a latched tool wears the same `[aria-pressed]` treatment as the
    seeds checkboxes. Built here rather than upstream for the overlay's reason -
    extract_upstream.py lifts tokens, and this is a new component. */
+/* Shut by default and opened by the ? in the tool row, directly above it. */
 .edhow{background:var(--panel);border-radius:8px;padding:10px 12px;font-size:.88rem;
-  color:var(--ink-soft);margin:0 0 1.1em}
+  color:var(--ink-soft);margin:.9em auto 0;max-width:34rem}
+.btn.info{padding:0;width:44px;border-radius:999px;font-size:1.05rem;font-weight:700}
+.btn.info[aria-expanded="true"]{background:var(--good-bg);color:var(--good);
+  border-color:var(--good)}
 .editor{margin:1.4em 0}
 .fenio{margin:0 0 1.5em}
 .fenio .lbl{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;
@@ -66,7 +70,8 @@
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:.55em;
   text-align:center}
 .edheat [hidden]{display:none}
-.edheatrow{margin:0;justify-content:center;gap:10px}
+.edheatrow{margin:0;justify-content:center;gap:10px 14px}
+.edopts{display:flex;flex-wrap:wrap;align-items:center;gap:0 18px}
 .edheatrow .edcheck{min-height:44px}
 .edkey{display:flex;flex-wrap:wrap;gap:7px 16px;justify-content:center;margin-top:.95em;
   font-family:var(--sans);font-size:.79rem;line-height:1.5;color:var(--ink-soft)}
@@ -81,11 +86,17 @@
    in the row directly below three outlined buttons. */
 .edpresets{margin-top:1.5em;border-top:1px solid var(--rule);padding-top:1.2em}
 .edresets{margin:0;justify-content:center;gap:8px}
-.edload{font-family:var(--sans);font-size:.84rem;font-weight:600;min-height:44px;
+.edload,.edsave{font-family:var(--sans);font-size:.84rem;font-weight:600;min-height:44px;
   padding:0 16px;cursor:pointer;background:var(--panel);color:var(--ink-soft);
   border:1px solid var(--rule);border-radius:999px;
   -webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent}
-.edload:hover{background:var(--surface);color:var(--ink);border-color:var(--rule-strong)}
+.edload:hover,.edsave:hover{background:var(--surface);color:var(--ink);
+  border-color:var(--rule-strong)}
+/* two files, one drawing - so they are one pair, narrower than the four presets */
+.edsave{min-width:5.5rem;font-family:var(--mono);letter-spacing:.06em}
+.edsaid{min-height:1.4em;margin:.7em 0 0;text-transform:none;letter-spacing:0;
+  font-family:var(--sans);font-size:.82rem;color:var(--ink-soft)}
+.edsaid:empty{min-height:0}
 
 /* The three fields that are position rather than bookkeeping. The two counters
    have no control here on purpose - see the note in _editor.js. */

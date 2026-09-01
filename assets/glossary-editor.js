@@ -387,13 +387,153 @@ function edHeat(w, b, dark){
 /* What the badges say, in words, for the label a screen reader reads. The two
    badges are the whole point of the badges - a heat map that is only a colour is
    a heat map two readers in a hundred cannot use - and an aria-label is the same
-   promise kept for a reader who is not looking at it at all. */
-function edAttackWords(c){
+   promise kept for a reader who is not looking at it at all.
+
+   It takes the side filter rather than just the counts, because "attacked by
+   nothing" is a lie about a square a hidden side is standing on. With only one
+   side shown, an empty square is empty of that side. */
+function edAttackWords(c, showW, showB){
   var parts = [];
-  if(c && c.w) parts.push(c.w + ' white');
-  if(c && c.b) parts.push(c.b + ' black');
-  if(!parts.length) return 'attacked by nothing';
-  return 'attacked by ' + edList(parts);
+  if(showW && c.w) parts.push(c.w + ' white');
+  if(showB && c.b) parts.push(c.b + ' black');
+  if(parts.length) return 'attacked by ' + edList(parts);
+  if(showW && showB) return 'attacked by nothing';
+  return 'attacked by no ' + (showW ? 'white' : 'black') + ' piece';
+}
+
+/* ---------- taking the board away with you ----------
+
+   SVG first and PNG out of the SVG, because there is only one drawing either
+   way: rasterising the vector cannot disagree with it, and two independent
+   renderers would.
+
+   What is exported is the position and the view - orientation, the heat, the
+   badges - and not the editing state. The selection ring says which piece you
+   have picked up, which is a fact about this tab and not about the position, so
+   it does not travel.
+
+   The palette is passed in rather than named here, for the reason the heat scale
+   gives for doing the opposite: these are the board's own colours, they already
+   exist as tokens, and a copy of them in JavaScript is a copy that drifts. It is
+   read off the live document by edPalette, which also means an export matches
+   the theme the reader is actually looking at. */
+
+var ED_SVG = 512;                 /* the drawing's own units; PNG scales it */
+var ED_CELL = ED_SVG / 8;
+var ED_GLYPH = ED_CELL * 0.714;   /* the ratio the stylesheet uses: 30px on a 42px square */
+/* the per-piece sizes from _upstream.css, which exist because these glyphs are
+   not drawn to one optical size */
+var ED_GSCALE = { p:0.80, r:0.92, n:1.00, b:1.06, q:1.02, k:1.04 };
+var ED_TOKENS = ['sq-l', 'sq-d', 'pc-w', 'pc-b', 'pc-w-edge', 'pc-b-edge', 'rule-strong'];
+/* Named font stacks rather than the page's --mono and --sans: an exported file
+   is opened somewhere else, where this document's variables do not exist. The
+   pieces are Unicode, so the glyph stack is the one place this export depends on
+   the machine that opens it - every stack below ships with its platform. */
+var ED_SVG_MONO = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+var ED_SVG_GLYPHFONT = '"Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols 2", ' +
+  'DejaVu Sans, sans-serif';
+
+function edRound(n){ return Math.round(n * 100) / 100; }
+
+/* The board's colours, off the live document, so the export follows the theme. */
+function edPalette(){
+  var out = {}, css = null;
+  try { css = getComputedStyle(document.documentElement); } catch(err){ /* no document */ }
+  ED_TOKENS.forEach(function(name){
+    out[name] = css ? String(css.getPropertyValue('--' + name) || '').trim() : '';
+  });
+  return out;
+}
+
+function edXml(s){
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/* One badge: a rounded box in its own army's colours, with its own army's ring,
+   exactly as the CSS draws it. */
+function edSvgBadge(x, y, n, side, pal, anchorRight){
+  var fs = ED_GLYPH * 0.38;
+  var w = Math.max(fs * 1.3, fs * (0.62 * String(n).length + 0.66)), h = fs * 1.35;
+  var fill = side === 'w' ? pal['pc-w'] : pal['pc-b'];
+  var edge = side === 'w' ? pal['pc-w-edge'] : pal['pc-b-edge'];
+  if(anchorRight) x -= w;
+  return '<rect x="' + edRound(x) + '" y="' + edRound(y) + '" width="' + edRound(w) +
+    '" height="' + edRound(h) + '" rx="3" fill="' + edXml(fill) + '" stroke="' +
+    edXml(edge) + '" stroke-width="1.5"/>' +
+    '<text x="' + edRound(x + w / 2) + '" y="' + edRound(y + h / 2) + '" dy="0.36em" ' +
+    'text-anchor="middle" font-family="' + edXml(ED_SVG_MONO) + '" font-size="' +
+    edRound(fs) + '" font-weight="700" fill="' + edXml(edge) + '">' + n + '</text>';
+}
+
+/* The board as one self-contained SVG. `view` is {flip, heat, heatAll, badges,
+   sides} - the same switches the page is set to, so what is saved is what is on
+   screen. */
+function edBoardSVG(st, view, pal){
+  view = view || {};
+  var sides = view.sides || { w: true, b: true };
+  var counts = (view.heat && (sides.w || sides.b)) ? edAttackCounts(st.pos) : {};
+  var top = view.flip ? 'w' : 'b', bottom = view.flip ? 'b' : 'w';
+  var out = [], vr, vf, r, f, nm, dark, pc, c, x, y;
+
+  for(vr = 0; vr < 8; vr++){
+    for(vf = 0; vf < 8; vf++){
+      r = view.flip ? 7 - vr : vr;
+      f = view.flip ? 7 - vf : vf;
+      nm = ED_FILES.charAt(f) + (8 - r);
+      dark = !!((r + f) % 2);
+      x = vf * ED_CELL; y = vr * ED_CELL;
+      out.push('<rect x="' + x + '" y="' + y + '" width="' + ED_CELL + '" height="' +
+        ED_CELL + '" fill="' + edXml(pal[dark ? 'sq-d' : 'sq-l']) + '"/>');
+
+      c = null;
+      if(view.heat && (view.heatAll || st.pos[nm])){
+        var all = counts[nm] || { w: 0, b: 0 };
+        c = { w: sides.w ? all.w : 0, b: sides.b ? all.b : 0 };
+        if(c.w + c.b)
+          out.push('<rect x="' + x + '" y="' + y + '" width="' + ED_CELL + '" height="' +
+            ED_CELL + '" fill="' + edHeat(c.w, c.b, dark) + '"/>');
+        else c = null;
+      }
+
+      pc = st.pos[nm];
+      if(pc){
+        var t = pc.toLowerCase(), white = edWhite(pc);
+        var fs = ED_GLYPH * (ED_GSCALE[t] || 1);
+        out.push('<text x="' + edRound(x + ED_CELL / 2) + '" y="' +
+          edRound(y + ED_CELL / 2) + '" dy="0.34em" text-anchor="middle" ' +
+          'font-family="' + edXml(ED_SVG_GLYPHFONT) + '" font-size="' + edRound(fs) +
+          '" fill="' + edXml(pal[white ? 'pc-w' : 'pc-b']) + '" stroke="' +
+          edXml(pal[white ? 'pc-w-edge' : 'pc-b-edge']) + '" stroke-width="' +
+          edRound(fs / 21) + '" paint-order="stroke fill" stroke-linejoin="round">' +
+          edXml(GLYPH[t]) + '</text>');
+      }
+
+      if(c && view.badges){
+        if(c[top])
+          out.push(edSvgBadge(x + ED_CELL * 0.03, y + ED_CELL * 0.02, c[top], top, pal, false));
+        if(c[bottom])
+          out.push(edSvgBadge(x + ED_CELL * 0.97,
+            y + ED_CELL * 0.98 - ED_GLYPH * 0.38 * 1.35, c[bottom], bottom, pal, true));
+      }
+    }
+  }
+
+  /* The border the stylesheet draws, drawn inside the box so it is not clipped. */
+  out.push('<rect x="0.5" y="0.5" width="' + (ED_SVG - 1) + '" height="' + (ED_SVG - 1) +
+    '" rx="6" fill="none" stroke="' + edXml(pal['rule-strong']) + '" stroke-width="1"/>');
+
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="' + ED_SVG + '" height="' +
+    ED_SVG + '" viewBox="0 0 ' + ED_SVG + ' ' + ED_SVG + '" role="img">' +
+    '<title>' + edXml(edFen(st)) + '</title>' +
+    '<clipPath id="b"><rect width="' + ED_SVG + '" height="' + ED_SVG + '" rx="6"/></clipPath>' +
+    '<g clip-path="url(#b)">' + out.join('') + '</g></svg>';
+}
+
+/* A filename someone can tell apart in a folder a week later. The placement is
+   the position; the slash is the one character in it a filesystem refuses. */
+function edFileName(st, ext){
+  return 'board-' + edPlacement(st.pos).replace(/\//g, '-') + '.' + ext;
 }
 
 /* ---------- the page ---------- */
@@ -434,16 +574,30 @@ function edFieldControls(){
    arrives with - what is hitting my pieces, and what am I hitting - and painting
    all sixty-four at once turns the answer into wallpaper. The whole board is one
    checkbox away for the times the question is about the empty squares: where a
-   king may not step, which squares a knight can never be dislodged from. */
+   king may not step, which squares a knight can never be dislodged from.
+
+   Every box is on except the one that widens the scope, so the view a reader
+   gets without touching anything is the whole answer to the question they came
+   with - and each box takes something away rather than adding it. Dropping a
+   side is what the two colour boxes are for: with Black off, the board is what
+   White covers and nothing else, which is the way to see a square that only
+   looks contested. */
 function edHeatControls(){
+  var box = function(id, label, on){
+    return '<label class="edcheck"><input type="checkbox" id="' + id + '"' +
+      (on ? ' checked' : '') + '><span>' + label + '</span></label>';
+  };
   return '<div class="edheat">' +
     '<span class="lbl">Attack view</span>' +
     '<div class="row edheatrow">' +
       '<button type="button" class="btn ghost flag" id="edatk" aria-pressed="false">' +
         'Show attacks</button>' +
-      '<label class="edcheck" id="edscope" hidden>' +
-        '<input type="checkbox" id="edall">' +
-        '<span>Every square, not just the occupied ones</span></label>' +
+      '<span class="edopts" id="edscope" hidden>' +
+        box('edwhite', 'White attacks', true) +
+        box('edblack', 'Black attacks', true) +
+        box('edall', 'All squares', false) +
+        box('edbadge', 'Badges', true) +
+      '</span>' +
     '</div>' +
     '<div class="edkey" id="edkey" hidden></div>' +
     '</div>';
@@ -471,10 +625,6 @@ function renderEditorShell(data){
     '</div>' +
 
     '<div class="edboard">' +
-      '<p class="edhow">Tap a piece in a tray, then tap squares - it stays selected, ' +
-      'so eight pawns are eight taps, and tapping it again puts it down. <em>Move</em> ' +
-      'carries a piece from one square to another and <em>Erase</em> takes it off. ' +
-      'Nothing here has to be legal.</p>' +
       '<p class="viewlbl" id="edview"></p>' +
       edTray('b') +
       '<div class="board tappable" id="edb" role="group" aria-label="Editable board"></div>' +
@@ -486,7 +636,22 @@ function renderEditorShell(data){
       '<button type="button" class="btn ghost flag" id="edmove" aria-pressed="true">Move</button>' +
       '<button type="button" class="btn ghost flag" id="ederase" aria-pressed="false">Erase</button>' +
       '<button type="button" class="btn ghost" id="edflip">Flip</button>' +
+      /* A disclosure, not a mode, so it says aria-expanded rather than
+         aria-pressed - and it names the thing it opens, because a lone "?" is
+         only a question mark to a screen reader. */
+      '<button type="button" class="btn ghost info" id="edinfo" aria-expanded="false" ' +
+        'aria-controls="edhow" aria-label="How the editor works" ' +
+        'title="How the editor works">?</button>' +
     '</div>' +
+
+    /* Under the three buttons it is about, and shut. A reader who followed a
+       board's link here came to look at a position; the instructions for a tool
+       whose whole gesture is "tap a thing, then tap a square" do not need to be
+       the first thing over it. */
+    '<p class="edhow" id="edhow" hidden>Tap a piece in a tray, then tap squares - it ' +
+    'stays selected, so eight pawns are eight taps, and tapping it again puts it down. ' +
+    '<em>Move</em> carries a piece from one square to another and <em>Erase</em> takes ' +
+    'it off. Nothing here has to be legal.</p>' +
 
     edHeatControls() +
 
@@ -496,7 +661,16 @@ function renderEditorShell(data){
        the position away and load another. So they are labelled as what they are
        and drawn as a different family - filled pills rather than outlined
        controls - and they sit under a heading instead of floating loose. */
-    '<div class="edpresets"><span class="lbl">Load a position</span>' +
+    /* Save and Load are the same kind of act pointed in two directions, so they
+       are neighbours and wear the same pill. */
+    '<div class="edpresets edsaveblock"><span class="lbl">Save the board</span>' +
+      '<div class="row edresets">' +
+        '<button type="button" class="edsave" id="edsvg">SVG</button>' +
+        '<button type="button" class="edsave" id="edpng">PNG</button>' +
+      '</div>' +
+      '<p class="picked edsaid" id="edsaid" aria-live="polite"></p></div>' +
+
+    '<div class="edpresets edloadblock"><span class="lbl">Load a position</span>' +
       '<div class="row edresets">' + presets + '</div></div>' +
 
     edFieldControls() +
@@ -519,7 +693,8 @@ function wireEditor(data){
   var st = { pos: {}, turn: 'w', castle: { K:false, Q:false, k:false, q:false },
              ep: '-', half: '0', full: '1' };
   var tool = 'move', pick = null, flip = false, flash = '';
-  var heat = false, heatAll = false;
+  var heat = false, heatAll = false, showBadges = true;
+  var showSide = { w: true, b: true };
   var strNotes = [], errors = [];
 
   function say(text){
@@ -569,22 +744,34 @@ function wireEditor(data){
      depths, which is a comparison and not a count, and a shade of red is nothing
      at all to a reader who cannot separate it from a shade of blue. */
   function paintHeat(){
-    if(!heat) return;
+    /* Both sides hidden is a legitimate thing to have asked for and there is
+       nothing to draw for it - not even a label, which would be describing a
+       board nobody is being shown. */
+    if(!heat || !(showSide.w || showSide.b)) return;
     var counts = edAttackCounts(st.pos);
     var corner = [[flip ? 'w' : 'b', 'top'], [flip ? 'b' : 'w', 'bot']];
-    var cells = host.querySelectorAll('[data-sq]'), i, j, sq, cell, c, wash, badge;
+    var cells = host.querySelectorAll('[data-sq]'), i, j, sq, cell, all, c, wash, badge;
     for(i = 0; i < cells.length; i++){
       cell = cells[i];
       sq = cell.getAttribute('data-sq');
       if(!heatAll && !st.pos[sq]) continue;
-      c = counts[sq] || { w: 0, b: 0 };
-      cell.setAttribute('aria-label',
-        cell.getAttribute('aria-label') + ', ' + edAttackWords(c));
+      all = counts[sq] || { w: 0, b: 0 };
+      /* A hidden side is not counted anywhere downstream - not in the colour,
+         not in a badge, not in the label. Dropping it here rather than at each
+         of the three is what keeps them from disagreeing. */
+      c = { w: showSide.w ? all.w : 0, b: showSide.b ? all.b : 0 };
+      cell.setAttribute('aria-label', cell.getAttribute('aria-label') + ', ' +
+        edAttackWords(all, showSide.w, showSide.b));
       if(!(c.w + c.b)) continue;
       wash = document.createElement('span');
       wash.className = 'heat';
       wash.style.background = edHeat(c.w, c.b, cell.classList.contains('d'));
       cell.insertBefore(wash, cell.firstChild);
+      /* The badges come off the picture, never off the square: the aria-label
+         above is written before this test and is not subject to it. A reader who
+         turned them off wanted a cleaner board, and a reader who is not looking
+         at the board at all did not ask for anything. */
+      if(!showBadges) continue;
       for(j = 0; j < corner.length; j++){
         if(!c[corner[j][0]]) continue;
         badge = document.createElement('span');
@@ -596,16 +783,33 @@ function wireEditor(data){
   }
 
   /* The key is filled from edHeat rather than from a stylesheet, so the swatch a
-     reader matches against cannot drift from the square it is explaining. */
+     reader matches against cannot drift from the square it is explaining. It is
+     rebuilt on every draw for the same reason: with the badges off, a key that
+     still explains them is describing a board that is not there. */
   function fillKey(){
     var key = document.getElementById('edkey');
-    var swatches = [[2, 0, 'White attacks'], [0, 2, 'Black attacks'], [1, 1, 'Both']];
+    if(!(showSide.w || showSide.b)){
+      key.innerHTML = '<span class="kk">Both sides are hidden. Tick <em>White ' +
+        'attacks</em> or <em>Black attacks</em> to paint the board.</span>';
+      return;
+    }
+    /* Only the swatches that can actually appear. A key offering a purple the
+       board can no longer produce is a key you have to disbelieve. */
+    var swatches = [];
+    if(showSide.w) swatches.push([2, 0, 'White attacks']);
+    if(showSide.b) swatches.push([0, 2, 'Black attacks']);
+    if(showSide.w && showSide.b) swatches.push([1, 1, 'Both']);
+    var badges = [];
+    if(showBadges && showSide.w) badges.push('<b class="atk w">2</b> White');
+    if(showBadges && showSide.b) badges.push('<b class="atk b">1</b> Black');
     key.innerHTML = swatches.map(function(s){
       return '<span class="kk"><i style="background:' + edHeat(s[0], s[1], false) +
         '"></i>' + s[2] + '</span>';
     }).join('') +
-      '<span class="kk">Deeper is more attackers &mdash; and the badges are the count: ' +
-      '<b class="atk w">2</b> White, <b class="atk b">1</b> Black.</span>';
+      '<span class="kk">Deeper is more attackers' + (badges.length
+        ? ' &mdash; and the badges are the count: ' + edList(badges) + '.'
+        : '. With the badges off, the counts are still in each square\'s label.') +
+      '</span>';
   }
 
   function showWhy(){
@@ -655,6 +859,10 @@ function wireEditor(data){
     document.getElementById('edscope').hidden = !heat;
     document.getElementById('edkey').hidden = !heat;
     document.getElementById('edall').checked = heatAll;
+    document.getElementById('edbadge').checked = showBadges;
+    document.getElementById('edwhite').checked = showSide.w;
+    document.getElementById('edblack').checked = showSide.b;
+    fillKey();
     var cells = document.querySelectorAll('[data-tool]');
     for(i = 0; i < cells.length; i++)
       cells[i].setAttribute('aria-pressed',
@@ -672,6 +880,7 @@ function wireEditor(data){
   function draw(keepText){
     var fen = edFen(st);
     document.getElementById('edcopied').textContent = '';
+    document.getElementById('edsaid').textContent = '';
     if(!keepText) box.value = fen;
     host.innerHTML = boardHTML(fen, { flip: flip, tappable: true, sel: pick ? [pick] : [] });
     label();
@@ -771,11 +980,24 @@ function wireEditor(data){
   document.getElementById('edflip').addEventListener('click', function(){
     flip = !flip; draw(false);
   });
+  document.getElementById('edinfo').addEventListener('click', function(){
+    var how = document.getElementById('edhow'), btn = this;
+    how.hidden = !how.hidden;
+    btn.setAttribute('aria-expanded', how.hidden ? 'false' : 'true');
+  });
   document.getElementById('edatk').addEventListener('click', function(){
     heat = !heat; draw(false);
   });
   document.getElementById('edall').addEventListener('change', function(ev){
     heatAll = !!ev.target.checked; draw(false);
+  });
+  document.getElementById('edbadge').addEventListener('change', function(ev){
+    showBadges = !!ev.target.checked; draw(false);
+  });
+  [['edwhite', 'w'], ['edblack', 'b']].forEach(function(pair){
+    document.getElementById(pair[0]).addEventListener('change', function(ev){
+      showSide[pair[1]] = !!ev.target.checked; draw(false);
+    });
   });
 
   [].forEach.call(document.querySelectorAll('[data-preset]'), function(btn){
@@ -810,6 +1032,80 @@ function wireEditor(data){
      other five fields appear as the note said they would. */
   box.addEventListener('blur', function(){ if(!errors.length) draw(false); });
 
+  /* One drawing, two files: the PNG is this SVG rasterised, so a raster that
+     disagrees with the vector is not a thing that can happen. */
+  function currentSVG(){
+    return edBoardSVG(st, { flip: flip, heat: heat, heatAll: heatAll,
+      badges: showBadges, sides: { w: showSide.w, b: showSide.b } }, edPalette());
+  }
+
+  function saved(text){ document.getElementById('edsaid').textContent = text; }
+
+  /* A download is the one thing on this page that can fail for reasons that have
+     nothing to do with the position, so every path out of it says what happened
+     rather than leaving a button that looks broken. */
+  function offer(blob, name){
+    var url;
+    try {
+      url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.parentNode.removeChild(a);
+      saved('Saved ' + name);
+    } catch(err){
+      saved('This browser would not start the download.');
+    }
+    if(url) setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+
+  document.getElementById('edsvg').addEventListener('click', function(){
+    saved('');
+    try {
+      offer(new Blob([currentSVG()], { type: 'image/svg+xml;charset=utf-8' }),
+            edFileName(st, 'svg'));
+    } catch(err){ saved('Could not draw the board as SVG.'); }
+  });
+
+  /* Rasterised through an <img>, which is the only way to get a browser to lay
+     the glyphs out: a canvas cannot draw an SVG string, and drawing the pieces
+     as canvas text would be a second renderer to keep in step with the first. */
+  document.getElementById('edpng').addEventListener('click', function(){
+    saved('Drawing\u2026');
+    var img = new Image(), url, done = false;
+    function fail(){
+      if(done) return;
+      done = true;
+      if(url) URL.revokeObjectURL(url);
+      saved('Could not make a PNG here \u2014 the SVG will save.');
+    }
+    try {
+      url = URL.createObjectURL(new Blob([currentSVG()],
+        { type: 'image/svg+xml;charset=utf-8' }));
+    } catch(err){ fail(); return; }
+    img.onerror = fail;
+    img.onload = function(){
+      if(done) return;
+      try {
+        var scale = 2, canvas = document.createElement('canvas');
+        canvas.width = ED_SVG * scale;
+        canvas.height = ED_SVG * scale;
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        url = null;
+        canvas.toBlob(function(blob){
+          if(done) return;
+          done = true;
+          if(blob) offer(blob, edFileName(st, 'png'));
+          else fail();
+        }, 'image/png');
+      } catch(err){ fail(); }
+    };
+    img.src = url;
+  });
+
   document.getElementById('edcopy').addEventListener('click', function(){
     var note = document.getElementById('edcopied'), fen = edFen(st);
     function fallback(){
@@ -827,7 +1123,6 @@ function wireEditor(data){
     fallback();
   });
 
-  fillKey();
   load(edStartingText(), false);
 }
 
