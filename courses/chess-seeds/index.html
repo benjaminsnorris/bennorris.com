@@ -1281,8 +1281,16 @@ function refreshPacketCount(){
     S.packet.length + ' item' + (S.packet.length === 1 ? '' : 's');
 }
 function reachedLine(){
-  var top = 0, glossary = false;
+  var top = 0, glossary = false, total = 0;
   UNITS.forEach(function(u){
+    /* The preamble is a block so that clicking its nav entry changes the page,
+       but it is not a unit of instruction: it carries no number. Counting it
+       put "unit undefined of 9" in the packet the moment anyone opened the
+       course without finishing a block, and the tutor gates the tactic names on
+       this line. Skipped for the numerator and the denominator both, so the
+       count is the eight numbered units the contract describes. */
+    if(!u.n) return;
+    total += 1;
     if(covered(u.key)){ top = u.n; if(u.kind === 'words') glossary = true; }
   });
   /* The tutor keys off this line to decide whether the tactic names may be
@@ -1290,7 +1298,7 @@ function reachedLine(){
      having read it and can be wrong both ways - the glossary is a public page.
      Said as 'opened' rather than 'read' so the contract is not claiming more
      than the course can see. */
-  return 'unit ' + top + ' of ' + UNITS.length +
+  return 'unit ' + top + ' of ' + total +
          (glossary ? '; glossary opened' : '; glossary not opened');
 }
 function buildPacket(){
