@@ -87,15 +87,15 @@
 .rays{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:visible}
 .rays line{stroke-width:.075;stroke-linecap:round;fill:none}
 .rays line.halo{stroke:var(--pip-edge);stroke-width:.14;opacity:.85}
-/* Solid from a piece that attacks along a line, where the line drawn is the
-   attack itself; dotted from a knight, pawn or king, where it is only a pointer
-   at a square. Distance has nothing to do with it - a bishop touching the square
-   it attacks is still attacking along a diagonal. */
+/* Solid is an attack: this piece can capture on that square now. Dotted is the
+   piece behind one of its own on the same line, which counts toward the attacker
+   count without attacking - board vision unit 3's battery. Piece kind is not
+   what the style carries; you can already see it is a knight. */
 /* Tighter and fatter than a plain dash would be: the shortest of these lines
    crosses a single square, and at the spacing a long line wants it would arrive
    as two dots and read as nothing. */
-.rays line.noray{stroke-dasharray:.02 .17;stroke-width:.1}
-.rays line.halo.noray{stroke-width:.175}
+.rays line.behind{stroke-dasharray:.02 .17;stroke-width:.1}
+.rays line.halo.behind{stroke-width:.175}
 
 .edheat{margin-top:1.5em;border-top:1px solid var(--rule);padding-top:1.2em}
 .edheat > .lbl,.edpresets > .lbl{display:block;font-family:var(--mono);font-size:.62rem;

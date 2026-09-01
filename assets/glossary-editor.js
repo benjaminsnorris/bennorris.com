@@ -409,16 +409,22 @@ function edAttackersOfSquare(pos, target){
    because Inspect has to point at them, and working out "which pieces"
    separately from "how many" is two answers that can disagree.
 
-   `ray` picks the kind of line, and it is the whole test. A solid line is the
-   attack: the piece really does bear along that diagonal or that file, and the
-   drawing is telling the truth about its geometry. A dotted one is a pointer and
-   says so, because a knight does not travel the line drawn from it, and neither
-   does a pawn or a king - those three attack particular squares rather than
-   along anything.
+   `behind` is the x-ray flag, and it is what the line style carries: this one
+   only reaches the square once its own side steps out of the way. Solid means
+   the piece attacks the square now, in the sense the laws of chess use and every
+   engine implements. Dotted means it counts toward the attacker count without
+   attacking - the battery behind the battery.
 
-   `behind` is the x-ray flag: this one only reaches the square once its own side
-   steps out of the way. It still counts, and its line is drawn straight through
-   the piece in front, which is what a battery looks like. */
+   An earlier version spent the same axis on slider-against-leaper, so a bishop
+   drew solid and a knight dotted. That was redundant: the ring is around a
+   knight, and you can see it is a knight. What you cannot see is that one of
+   these lines is not an attack yet, and that is the distinction board vision
+   unit 3 turns on - so the axis is spent on the fact the picture does not
+   otherwise carry.
+
+   `ray` is still recorded because it is true and cheap, but nothing draws with
+   it: the squares between an attacker and its target are not interesting, so a
+   bishop's line and a knight's line do not need to look different. */
 function edAttackCounts(pos){
   var out = {}, f, r, nm, cell;
   for(f = 0; f < 8; f++) for(r = 0; r < 8; r++){
@@ -639,7 +645,7 @@ function edBoardSVG(st, view, pal){
         edRound((at.y + 0.5) * ED_CELL) + '" x2="' + edRound((probeAt.x + 0.5) * ED_CELL) +
         '" y2="' + edRound((probeAt.y + 0.5) * ED_CELL) + '"';
       /* the dots the stylesheet draws, in the drawing's own units */
-      var open = a.ray;
+      var open = !a.behind;
       var dash = open ? '' :
         ' stroke-dasharray="' + edRound(ED_CELL * 0.02) + ' ' + edRound(ED_CELL * 0.17) + '"';
       rays.push('<line ' + d + dash + ' stroke="' + edXml(pal['pip-edge']) +
@@ -741,7 +747,7 @@ function edHeatControls(){
       (on ? ' checked' : '') + '><span>' + label + '</span></label>';
   };
   return '<div class="edheat">' +
-    '<span class="lbl">Attack view</span>' +
+    '<span class="lbl">Attacker count</span>' +
     '<div class="row edheatrow">' +
       '<button type="button" class="btn ghost flag" id="edatk" aria-pressed="false">' +
         'Show attacks</button>' +
@@ -805,10 +811,10 @@ function renderEditorShell(data){
        the first thing over it. */
     '<p class="edhow" id="edhow" hidden><em>Inspect</em> is where the page starts: tap ' +
     'any square, empty or not, and every piece attacking it is ringed, with a line back to ' +
-    'it: solid from a piece that attacks along a line, so the line is the attack, and ' +
-    'dotted from a knight, pawn or king, which attack a square rather than along anything. ' +
-    'A piece behind one of its own that attacks the same square counts as well - that is a ' +
-    'battery, and its line runs straight through the piece in front. ' +
+    'it. A solid line is a piece attacking the square now. A dotted one is a piece ' +
+    'behind one of its own on the same line: it cannot reach the square yet, but it ' +
+    'captures next, so it counts. That is a battery, and its line runs straight through ' +
+    'the piece in front. ' +
     'To change the position instead, tap a piece ' +
     'in a tray and then tap squares - it stays selected, so eight pawns are eight taps, ' +
     'and tapping it again puts it down. <em>Move</em> carries a piece from one square to ' +
@@ -1010,7 +1016,7 @@ function wireEditor(data){
       }
       var xy = edCellXY(a.sq, flip);
       lines.push({ x1: xy.x + 0.5, y1: xy.y + 0.5, x2: at0.x + 0.5, y2: at0.y + 0.5,
-                   side: a.side, noray: !a.ray });
+                   side: a.side, behind: !!a.behind });
     });
 
     /* One overlay for every line rather than a border trick per cell: a line
@@ -1021,7 +1027,7 @@ function wireEditor(data){
       var svg = '<svg class="rays" viewBox="0 0 8 8" preserveAspectRatio="none" ' +
         'aria-hidden="true">' + lines.map(function(l){
           var d = 'x1="' + l.x1 + '" y1="' + l.y1 + '" x2="' + l.x2 + '" y2="' + l.y2 + '"';
-          var kind = l.noray ? ' noray' : '';
+          var kind = l.behind ? ' behind' : '';
           /* Drawn twice: a pale halo under a coloured line, the way the pips are
              separated from the square they sit on. One class attribute per line -
              two of them and the parser keeps the first, which silently cost the
@@ -1072,7 +1078,8 @@ function wireEditor(data){
         '"></i>' + s[2] + '</span>';
     }).join('') +
       '<span class="kk">Deeper is more attackers' + (badges.length
-        ? ' &mdash; and the badges are the count: ' + edList(badges) + '.'
+        ? ' &mdash; and the badges are the attacker count: ' + edList(badges) +
+          '. A piece behind one of its own counts too, and its line is dotted.'
         : '. With the badges off, the counts are still in each square\'s label.') +
       '</span>';
   }
