@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Evaluation symbols - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=notation">Notation and annotation</a></p>
+<h1>Evaluation symbols</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"notation","kind":"look-up","term":"Evaluation symbols","slug":"evaluation-symbols","also":["\u00b1","\u2213","=","\u221e","assessment symbols"],"chips":["sourced"],"definition":"The marks that judge the position rather than the move: = equal, \u2a72 and \u2a71 a slight edge to White or to Black, \u00b1 and \u2213 a clear advantage, +\u2212 and \u2212+ winning, \u221e unclear. Seven or eight points on a scale, written after a move to say what the position is now like. `annotation-symbols` are the other set, and they judge the move.","precision":[{"against":"them being centipawns","text":"There is no threshold. An annotator's \u00b1 is a judgement about what a position is like to play, and it can sit on a position an engine calls level - a bind, an attack that has not landed, a structure the other side has to defend for forty moves. `centipawn` is the engine's answer to the same question and the two are different claims."},{"against":"reading \u00b1 as \"plus or minus\"","text":"It is not a range and not an error bar. It is one symbol meaning White stands clearly better, and its mirror \u2213 means Black does. The pairs run the same way throughout: the sign on top is the side who is better."},{"against":"\u221e meaning equal","text":"Equal means the chances balance. Unclear means the annotator cannot say, which is a claim about the annotator and an honest one - it is usually written on positions where the material is lopsided and the play is sharp, exactly where a symbol would be most useful and least defensible."},{"against":"measuring them against this glossary\u2019s corpus","text":"The certified corpus cannot show the far end of the scale, because it was built not to. Its filters keep only positions with the material within one pawn and only positions whose second-best move scores within 100 centipawns of level, so it is made of positions where the choice is between moves of similar value. A rate measured on a filtered attribute measures the filter, so this entry shows what = looks like and does not claim to show +\u2212."}],"origin":{"text":"The same source as the move symbols: the set in general use is Chess Informant's, and Wikipedia cites Volume 14 of 1973 for the definitions without naming who devised them.","chip":"sourced","source":"Wikipedia, Chess annotation symbols, citing Chess Informant Vol. 14 (1973), pp. 8-9. The primary was not consulted."},"boards":[{"fen":"r2q1rk1/1pbn1ppp/p1p1pn2/2Pp4/1P1P2b1/P3PN2/1B1NBPPP/R2QK2R w KQ - 2 11","corpus":"positions","ref":"fa66hlg7","caption":"All 32 men still on the board at move eleven. Black has castled, White still may, the pawns are locked in the centre and nothing is hanging: the engine's best move here is worth 2 centipawns and its second-best is worth minus 7. This is what = means - not that the position is dull, but that neither side can point at anything yet.","render_fen":"r2q1rk1/1pbn1ppp/p1p1pn2/2Pp4/1P1P2b1/P3PN2/1B1NBPPP/R2QK2R w KQ - 2 11"}],"drill":{"mode":"none","why":"impossible","note":"An assessment is a judgement, and the point of the symbols is that no predicate settles them. The engine's number is a different claim about the same position, and drilling against it would teach the number."},"links":["annotation","annotation-symbols","engine","centipawn","compensation","initiative","material","closed-position"],"reading":[{"title":"Chess annotation symbols","url":"https://en.wikipedia.org/wiki/Chess_annotation_symbols#Position_evaluation_symbols"}],"links_resolved":[{"label":"Annotation","href":"/glossary/annotation/"},{"label":"Annotation symbols","href":"/glossary/annotation-symbols/"},{"label":"Compensation","href":"/glossary/compensation/"},{"label":"Initiative","href":"/glossary/initiative/"},{"label":"Material","href":"/glossary/material/"},{"label":"Closed position","href":"/glossary/closed-position/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Annotation symbols - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=notation">Notation and annotation</a></p>
+<h1>Annotation symbols</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"notation","kind":"look-up","term":"Annotation symbols","slug":"annotation-symbols","also":["!","?","!?","?!","!!","??","move symbols"],"chips":["sourced"],"definition":"The marks an annotator writes after a move to say what they think of it. ! a good move, ? a mistake, !! outstanding, ?? a blunder, !? interesting and probably not best, ?! dubious but with something in it. They judge the move that was played. The symbols that judge the position it produced are a separate set - see `evaluation-symbols`.","precision":[{"against":"! meaning the best move","text":"It means a good move that was hard to find. In a position where three moves win, the one that was played gets no symbol; a `quiet-move` that looks like nothing and turns out to be the only way through can get a ! for being found at all. The symbol is a comment on the player as much as on the move, which is exactly why an engine cannot award it."},{"against":"!? and ?! being opposites","text":"Both mean the annotator is not sure, and the order says which way they lean: ! first is a move they like and cannot quite justify, ? first is one they distrust and cannot quite refute. Sources differ on the exact wording, which tells you how soft the distinction is."},{"against":"the engine deciding it","text":"The board below is the case where a machine and an annotator would agree, and it is not the normal case. Most moves that get a ? are not losing, and most moves that get a ! are not the only move: they are the ones that were surprising, and surprise is not in the position."}],"origin":{"text":"The standard set is Chess Informant's. Wikipedia cites Volume 14, published in 1973, pages 8-9, edited by Aleksander Matanovi\u0107, for the definitions, and does not say who first used the symbols - so who invented them is not recorded here rather than guessed at.","chip":"sourced","source":"Wikipedia, Chess annotation symbols, citing Chess Informant Vol. 14 (1973), pp. 8-9. The primary was not consulted."},"boards":[{"fen":"r4rk1/pp1n1ppp/2pbp3/8/q2PQ3/2BB4/P1P2PPP/R4RK1 w - - 1 19","corpus":"positions","ref":"3ist96pe","caption":"White has 40 legal moves here and exactly 1 of them ends the game: Qxh7 is mate, the queen landing on a defended-looking square with the bishop on d3 behind her. The engine's second-best move is worth 2 centipawns - level, as far as depth 14 can see. So this one position holds both ends of the scale: a ! for the move that mates, and a ?? for any of the other 39, which throw away a forced win and keep a drawn game.","highlight":["e4","h7","d3"],"render_fen":"r4rk1/pp1n1ppp/2pbp3/8/q2PQ3/2BB4/P1P2PPP/R4RK1 w - - 1 19","highlight_squares":["e4","h7","d3"]}],"drill":{"mode":"none","why":"impossible","note":"A symbol is one person's opinion of a move and two annotators disagree by design. There is no answer key, and a set built from engine agreement would be drilling the engine rather than the symbol."},"links":["annotation","evaluation-symbols","blunder","quiet-move","checkmate","engine","combination","sacrifice"],"reading":[{"title":"Chess annotation symbols","url":"https://en.wikipedia.org/wiki/Chess_annotation_symbols"}],"links_resolved":[{"label":"Annotation","href":"/glossary/annotation/"},{"label":"Evaluation symbols","href":"/glossary/evaluation-symbols/"},{"label":"Blunder","href":"/glossary/blunder/"},{"label":"Quiet move","href":"/glossary/quiet-move/"},{"label":"Checkmate","href":"/glossary/checkmate/"},{"label":"Combination","href":"/glossary/combination/"},{"label":"Sacrifice","href":"/glossary/sacrifice/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

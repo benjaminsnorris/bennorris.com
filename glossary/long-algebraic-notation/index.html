@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Long algebraic notation - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=notation">Notation and annotation</a></p>
+<h1>Long algebraic notation</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"notation","kind":"look-up","term":"Long algebraic notation","slug":"long-algebraic-notation","also":["coordinate notation","UCI notation"],"chips":["sourced"],"definition":"Writes where the piece came from as well as where it went: Ng1-f3, or g1f3 with the piece letter dropped as well. It never needs disambiguating and never asks the reader to work out which piece could have got there, which is why software uses it and books do not. It is longer, and it reads worse.","precision":[{"against":"being a different language","text":"It records the same moves. Nf3 and g1f3 are one move written twice, and this glossary's own source data holds both: every board stores its moves the coordinate way and every caption prints them the short way. When a move list here looks like g1f3, that is not a different notation for a different audience - it is the same notation the engine and the database speak."},{"against":"the two carrying the same information","text":"The coordinate form engines use drops what the short form adds. It names two squares and, for a promotion, a letter; it does not say that a capture happened, that the move was check, or which piece moved. The board below is the extreme case."},{"against":"castling","text":"The one move where the two disagree completely. Algebraic writes O-O, which names no square at all; the coordinate form writes the king's two squares, e1g1, and does not mention the rook. Neither is wrong and software has to know both. There is no example to show here: the puzzle bank's 2,770 solution moves contain 0 castling moves."}],"boards":[{"fen":"3Q4/6k1/8/1P5p/P1Q2pp1/5r2/3pp1KP/4R3 b - - 0 54","corpus":"puzzles","ref":"8NGrX","caption":"The same move twice over. In algebraic it is dxe1=N+: the d-pawn takes on e1, promotes to a knight, and gives check. In the coordinate form this corpus stores it is d2e1n - the square it left, the square it reached, and a letter for what it became. The capture, the check, and the fact that a pawn did it are all left for the reader to work out.","highlight":["d2","e1"],"render_fen":"3Q4/6k1/8/1P5p/P1Q2pp1/5r2/3pp1KP/4R3 b - - 0 54","highlight_squares":["d2","e1"]}],"drill":{"mode":"none","why":"impossible","note":"Which notation a move is written in is a fact about the page rather than about the position. Nothing on a board decides it."},"links":["algebraic-notation","disambiguation","fen","pgn","under-promotion","castling","engine"],"reading":[{"title":"Algebraic notation (chess)","url":"https://en.wikipedia.org/wiki/Algebraic_notation_(chess)#Long_algebraic_notation"}],"links_resolved":[{"label":"Algebraic notation","href":"/glossary/algebraic-notation/"},{"label":"Disambiguation","href":"/glossary/disambiguation/"},{"label":"FEN","href":"/glossary/fen/"},{"label":"PGN","href":"/glossary/pgn/"},{"label":"Under-promotion","href":"/glossary/under-promotion/"},{"label":"Castling","href":"/glossary/castling/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PGN - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=notation">Notation and annotation</a></p>
+<h1>PGN</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"notation","kind":"look-up","term":"PGN","slug":"pgn","also":["Portable Game Notation"],"chips":["sourced"],"definition":"The standard file for a whole game: a block of tagged lines saying who played, where, when and how it finished, then the moves in algebraic notation. It is plain text, so a PGN can be read by a person and by every piece of chess software there is. That is the entire point of it, and it is why chess has one interchange format rather than one per program.","precision":[{"against":"a FEN","text":"A FEN is one position and a PGN is one game, so the two are not alternatives - a PGN can contain a FEN. A game that does not start from the initial position carries the starting position in a tag, which is how a puzzle or a study ships as a PGN at all. `fen` argues the same distinction from the other side."},{"against":"the tags being decoration","text":"Seven of them are mandatory for archival storage: Event, Site, Date, Round, White, Black and Result. A file missing them is still readable by most software and is not a conforming PGN, which matters because the tags are the only place the game says what it was - the moves cannot tell you whether they were played in a world championship or a bullet game at two in the morning."},{"against":"castling being zeros","text":"The specification says O-O with the letter O. Printed books very commonly use 0-0 with zeros, and they look identical in most typefaces, so a move list copied out of a book and pasted into software that follows the spec can be rejected for a reason nobody can see."}],"origin":{"text":"Devised by Steven J. Edwards in 1993 and specified the following year in the \"Standard: Portable Game Notation Specification and Implementation Guide\". It was worked out in public, on the Usenet newsgroup rec.games.chess, which is part of why it was adopted rather than competed with.","chip":"sourced","source":"Wikipedia, Portable Game Notation. The primary - Edwards's 1994 specification, which is freely available - was not consulted."},"boards":[{"fen":"r1bqkbnr/pp2pppp/2np4/2p5/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 4","corpus":"opening","ref":"7h7nr2ya","caption":"1.e4 c5 2.Nf3 d6 3.Bc4 Nc6, six plies into a Sicilian. A PGN of this game would be these moves, written exactly as they appear here, under a block of tags naming the players, the date and the result. The corpus behind this glossary stores the same two halves a PGN does - the moves, and the identity of the game they came from - and that is precisely what lets a board here be checked against the game it claims.","render_fen":"r1bqkbnr/pp2pppp/2np4/2p5/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 4"}],"drill":{"mode":"none","why":"impossible","note":"A file format is not a property of a position."},"links":["fen","algebraic-notation","result-notation","annotation","move-number","long-algebraic-notation","sicilian-defence"],"reading":[{"title":"Portable Game Notation","url":"https://en.wikipedia.org/wiki/Portable_Game_Notation"}],"links_resolved":[{"label":"FEN","href":"/glossary/fen/"},{"label":"Algebraic notation","href":"/glossary/algebraic-notation/"},{"label":"Result notation","href":"/glossary/result-notation/"},{"label":"Annotation","href":"/glossary/annotation/"},{"label":"Move number","href":"/glossary/move-number/"},{"label":"Long algebraic notation","href":"/glossary/long-algebraic-notation/"},{"label":"Sicilian Defence","href":"/glossary/sicilian-defence/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

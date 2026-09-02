@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Move number - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=notation">Notation and annotation</a></p>
+<h1>Move number</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"notation","kind":"look-up","term":"Move number","slug":"move-number","also":["full move","the ellipsis"],"chips":["sourced"],"definition":"A move is one turn by each player, so move 3 means White's third and Black's third together. The number goes before White's move - 3.Nc3 - and to write Black's on its own you repeat the number and add three dots: 3...Nf6. A game of forty moves is eighty turns.","precision":[{"against":"a move being one player's turn","text":"Everywhere else in chess a move is what one player does: you make a move, it is your move. In the numbering it is what both players do, and the notation follows the numbering. The word for one player's turn is `ply`, and that is the one engines and databases count in."},{"against":"the three dots meaning \"and so on\"","text":"They are not an abbreviation and nothing has been left out. The ellipsis says only that the move being written is Black's, and it is needed whenever Black's move is not sitting to the right of White's on the page: at the start of an excerpt, under a diagram, or inside a bracketed variation. 3.Nf6 and 3...Nf6 are claims about two different players."},{"against":"a FEN needing them","text":"A FEN carries the same fact in two separate fields - its last number is the move number and its second field is the side to move - so \"3\" and \"b\" together say what \"3...\" says. Notation needs the dots because a list of moves has nowhere to put whose turn it is. Only a position does."}],"boards":[{"fen":"rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 3","corpus":"opening","ref":"pkacb0rf","caption":"1.e4 e6 2.d4 d5 3.Nc3 - a French, three moves in, Black to play. The FEN's last field is 3 and its side-to-move field is b, so Black's reply here is written 3...Nf6 or 3...Bb4, never 3.Nf6: White has already had the third move.","render_fen":"rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 3"}],"drill":{"mode":"none","why":"unbalanced","note":"Whether the position is one where Black is to move is exactly computable and as well balanced as a question can be - 48.9% of the 10,000 relaxed-harvest positions - and it is refused on judgement, following `queen` and `knight`. The answer is the second field of the FEN. Reading a field is not a skill."},"links":["ply","algebraic-notation","fen","pgn","annotation","variation","french-defence"],"reading":[{"title":"Algebraic notation (chess)","url":"https://en.wikipedia.org/wiki/Algebraic_notation_(chess)"}],"links_resolved":[{"label":"Ply","href":"/glossary/ply/"},{"label":"Algebraic notation","href":"/glossary/algebraic-notation/"},{"label":"FEN","href":"/glossary/fen/"},{"label":"PGN","href":"/glossary/pgn/"},{"label":"Annotation","href":"/glossary/annotation/"},{"label":"Variation","href":"/glossary/variation/"},{"label":"French Defence","href":"/glossary/french-defence/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

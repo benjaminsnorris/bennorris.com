@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ply - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=notation">Notation and annotation</a></p>
+<h1>Ply</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"notation","kind":"look-up","term":"Ply","slug":"ply","also":["half-move"],"chips":["sourced"],"definition":"One turn by one player. Two plies make a move, so a game at ply 40 is at move twenty, and an engine searching to depth 14 is looking fourteen plies ahead - seven moves for each side, not fourteen moves. It is the unit engines, databases and this glossary's own corpora count in, because it is the only one that needs no convention about whose turn it is.","precision":[{"against":"a ply being the same as a move","text":"They differ by a factor of two, and ordinary speech calls both of them moves. This matters most when reading about engines: depth 14 is fourteen plies, which is a much shallower claim than fourteen moves would be. See `move-number` for the other half of the confusion."},{"against":"the FEN's counters","text":"A FEN carries two numbers and neither is the ply. The last is the move number, which counts moves; the one before it is the halfmove clock, which counts plies since the last pawn move or capture and exists for the fifty-move rule. The ply is recoverable from the move number and the side to move: double the move number, subtract two, and add one if Black is to play."},{"against":"it being a chess word","text":"It is a computing word that chess took, and the corpora here use it because a harvester walks a game one turn at a time. Every position in this glossary is stamped with the ply it was taken at, which is why the opening corpus can be described as plies 2 to 6 rather than as \"the first three moves, roughly\"."}],"origin":{"text":"Borrowed from computing rather than from chess. Arthur Samuel used it for a level of a game tree in his 1959 checkers paper, and it reached chess through the programs. What he meant was not quite what it now means: he defined a ply as \"the number of moves ahead, where a ply of two consists of one proposed move by the machine and one anticipated reply\", so Samuel's ply of two is what chess now counts as two plies.","chip":"sourced","source":"Wikipedia, Ply (game theory), which quotes and cites Samuel, A. L., \"Some Studies in Machine Learning Using the Game of Checkers\", IBM Journal of Research and Development 3(3): 210-229, 1959. The primary was not consulted."},"boards":[{"fen":"8/4kB2/6P1/8/K7/p7/Pb6/8 b - - 77 102","corpus":"endgame","ref":"r067zker","caption":"Ply 203, and the position states three different counts of the same game. The FEN's last field, 102, is the move number: White has played 102 moves and Black 101, which is where 203 comes from. The field before it, 77, is the halfmove clock - 77 plies since the last pawn move or capture, against the 100 the fifty-move rule wants. The corpus stores the ply, because it is the only one of the three that counts turns.","render_fen":"8/4kB2/6P1/8/K7/p7/Pb6/8 b - - 77 102"}],"drill":{"mode":"none","why":"unbalanced","note":"The same refusal as `move-number`, and for the same reason: the parity of the ply is 48.9% of the 10,000 relaxed-harvest positions, dead centre of the band, and it is read off the FEN rather than seen on the board."},"links":["move-number","fen","fifty-move-rule","engine","tablebase","algebraic-notation"],"reading":[{"title":"Ply (game theory)","url":"https://en.wikipedia.org/wiki/Ply_(game_theory)"}],"links_resolved":[{"label":"Move number","href":"/glossary/move-number/"},{"label":"FEN","href":"/glossary/fen/"},{"label":"Fifty-move rule","href":"/glossary/fifty-move-rule/"},{"label":"Tablebase","href":"/glossary/tablebase/"},{"label":"Algebraic notation","href":"/glossary/algebraic-notation/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

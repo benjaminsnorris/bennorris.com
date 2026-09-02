@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Disambiguation - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=notation">Notation and annotation</a></p>
+<h1>Disambiguation</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"notation","kind":"look-up","term":"Disambiguation","slug":"disambiguation","also":["disambiguating a move"],"chips":["sourced"],"definition":"The extra letter or number in Nbd2 or R1f7. Algebraic notation names the piece and the square it went to, which is enough until two pieces of the same kind could both have gone there - and then the move has to say which one. The rule has an order: the file it came from if that separates them, the rank if the files are the same, and both only if neither works alone.","precision":[{"against":"the extra letter being a square","text":"In Nbd2 the b is not a square, not a capture and not a typo: it is the file the knight came from. An algebraic move always ends at the square it reached, so the destination is the last two characters and everything before them describes the piece. A pawn capture looks similar for a different reason - exd5 names the pawn's file because a pawn capture is the one move whose starting file cannot be worked out from where it landed."},{"against":"how often you will meet it","text":"Rarely, and that is why it looks like a misprint when it appears. Of the 40,241 moves stored in SAN in the opening corpus, 34 need a disambiguator; of the 2,770 moves in the puzzle bank's solutions, 15 do. The third rule, both file and rank, fires in 0 of the opening corpus's moves and 0 of the puzzle bank's - a rule you have to know to read chess and will probably never see used."},{"against":"any piece that could reach the square counting","text":"Only legal moves count. A pinned knight cannot go to d2 at all, so if one of the two knights is pinned the move is written Nd2 with nothing added, even though two knights are sitting there looking as though they could. This is the corner that catches software rather than readers."}],"boards":[{"fen":"r7/ppq3k1/3b3r/4p1p1/3pQpP1/PB1P1P2/1PP1R3/R5K1 b - - 9 33","corpus":"puzzles","ref":"05ya7","caption":"Black has rooks on a8 and h6 and both can reach h8, so the move is written Rah8: rook, from the a-file, to h8. Rh8 alone would not say which rook moved. The files differ, so the file is what gets written - this is the first rule, and it is the one that fires almost every time. From the puzzle bank's quiet-move set.","highlight":["a8","h6","h8"],"render_fen":"r7/ppq3k1/3b3r/4p1p1/3pQpP1/PB1P1P2/1PP1R3/R5K1 b - - 9 33","highlight_squares":["a8","h6","h8"]},{"fen":"4r1k1/p5bp/1q2N1p1/2pPrp2/1pP5/6PP/P4QB1/1R3RK1 b - - 3 25","corpus":"puzzles","ref":"00eWz","caption":"Both black rooks stand on the e-file, e8 and e5, so naming the file would separate nothing and the move is written R5xe6: the rook from the fifth rank takes on e6. This is the second rule, and it applies only because the first one cannot. From the puzzle bank's clearance set.","highlight":["e8","e5","e6"],"render_fen":"4r1k1/p5bp/1q2N1p1/2pPrp2/1pP5/6PP/P4QB1/1R3RK1 b - - 3 25","highlight_squares":["e8","e5","e6"]}],"drill":{"mode":"none","why":"unbalanced","note":"Exactly computable and nowhere near drillable. It is also a property of a move rather than of a position, which no drill here is built for, and the rate settles it either way: 34 of the 40,241 SAN moves in the opening corpus and 15 of the 2,770 in the puzzle solutions. A yes/no set at that rate teaches a learner to say no ten times."},"links":["algebraic-notation","long-algebraic-notation","pgn","pin","quiet-move","clearance","rook","file","rank"],"reading":[{"title":"Algebraic notation (chess)","url":"https://en.wikipedia.org/wiki/Algebraic_notation_(chess)#Disambiguating_moves"}],"links_resolved":[{"label":"Algebraic notation","href":"/glossary/algebraic-notation/"},{"label":"Long algebraic notation","href":"/glossary/long-algebraic-notation/"},{"label":"PGN","href":"/glossary/pgn/"},{"label":"Pin","href":"/glossary/pin/"},{"label":"Quiet move","href":"/glossary/quiet-move/"},{"label":"Clearance","href":"/glossary/clearance/"},{"label":"Rook","href":"/glossary/rook/"},{"label":"File","href":"/glossary/file/"},{"label":"Rank","href":"/glossary/rank/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
