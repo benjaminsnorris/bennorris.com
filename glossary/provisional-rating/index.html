@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Provisional rating - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=tournament">Tournament, club and clock</a></p>
+<h1>Provisional rating</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"tournament","kind":"look-up","term":"Provisional rating","slug":"provisional-rating","also":["provisional","the question mark"],"chips":["sourced"],"definition":"The rating a system is not yet confident in, usually shown with a question mark after it. On Lichess the mark appears while the Glicko-2 deviation is above 110 - a new account, or one that has not played for a long time. It is not a lesser rating; it is the same rating with a note saying the estimate is still moving.","precision":[{"against":"it meaning you are unranked","text":"You are rated and the system says so; what it is flagging is its own uncertainty rather than your standing. The practical effect is the opposite of a penalty - your results move your number faster, so a provisional rating converges on a real one in a handful of games instead of a hundred."},{"against":"it going away when you have played enough games","text":"It goes away when the deviation drops, which is not quite the same. Deviation also grows back with time away from the board, so a settled rating can become provisional again by doing nothing at all. That is the system saying a two-year-old estimate is a weaker claim than a two-week-old one, which is true."},{"against":"the number being meaningless until it settles","text":"It is the system's best estimate at every point, and it is usually not far out after a dozen games. What is genuinely unreliable is a provisional rating used as evidence about somebody - which is exactly when people reach for it, in an argument about whether an opponent was really that strong."}],"no_board":"Nothing in a position, and nothing in this project's data either: the corpora store each player's rating at the time of the game and not its deviation, so a position here cannot say whether either number was provisional.","boards":[],"drill":{"mode":"none","why":"impossible","note":"A property of a rating, not of a position."},"links":["rating","glicko","elo","fide","cheat-detection"],"reading":[{"title":"Lichess FAQ","url":"https://lichess.org/faq"}],"links_resolved":[{"label":"Rating","href":"/glossary/rating/"},{"label":"Glicko","href":"/glossary/glicko/"},{"label":"Elo","href":"/glossary/elo/"},{"label":"FIDE","href":"/glossary/fide/"},{"label":"Cheat detection","href":"/glossary/cheat-detection/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

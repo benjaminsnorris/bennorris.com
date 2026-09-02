@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elo - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=tournament">Tournament, club and clock</a></p>
+<h1>Elo</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"tournament","kind":"look-up","term":"Elo","slug":"elo","also":["Elo rating","Elo points"],"chips":["sourced"],"definition":"FIDE's rating system, and the one most people mean by \"rating\". Each game moves points from the loser to the winner, and how many depends on the gap between them: beat somebody far above you and you gain a lot, lose to somebody far below and you lose a lot. It is named after the man who devised it and it is not an acronym.","precision":[{"against":"ELO being initials","text":"It is a surname. Arpad Elo was a Hungarian-American physics professor and chess master, and the system is his; writing it in capitals is the commonest mistake in chess vocabulary and it is worth not making. \"Elo\", like \"Glicko\", is a person."},{"against":"the points being awarded","text":"They are transferred. Elo is zero-sum between the two players: the winner takes exactly what the loser gives, so a rating pool cannot inflate by anybody winning. The number that decides how much moves in one game is the K-factor, and a system choosing a high one is choosing to react fast and be noisy."},{"against":"a rating difference meaning a strength difference","text":"It means an expected score, which is the only thing it was built to mean. 100 points of difference is an expected 64% for the stronger player; 200 points is 76%. Note what that says about the underdog: at 200 points down you are still expected to take about a quarter of the points, so losing to somebody 200 above you is the system working rather than a verdict."}],"origin":{"text":"Devised by Arpad Elo, implemented by the United States Chess Federation in 1960 and adopted by FIDE in 1970. It replaced systems that ranked players in classes; Elo's contribution was to model a result as a probability and let the ratings be the parameters of it.","chip":"sourced","source":"Wikipedia, Elo rating system. The primary - Elo's *The Rating of Chessplayers, Past and Present* - was not consulted."},"no_board":"Same reason as `rating`, which measured it: nothing in a position carries the players' numbers. This entry is about the arithmetic behind the number rather than about anything that happens on a board.","boards":[],"drill":{"mode":"none","why":"impossible","note":"Arithmetic on results, with no position in it."},"links":["rating","glicko","fide","title","norm","provisional-rating"],"reading":[{"title":"Elo rating system","url":"https://en.wikipedia.org/wiki/Elo_rating_system"}],"links_resolved":[{"label":"Rating","href":"/glossary/rating/"},{"label":"Glicko","href":"/glossary/glicko/"},{"label":"FIDE","href":"/glossary/fide/"},{"label":"Title","href":"/glossary/title/"},{"label":"Norm","href":"/glossary/norm/"},{"label":"Provisional rating","href":"/glossary/provisional-rating/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

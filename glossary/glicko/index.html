@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Glicko - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=tournament">Tournament, club and clock</a></p>
+<h1>Glicko</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"tournament","kind":"look-up","term":"Glicko","slug":"glicko","also":["Glicko-2","rating deviation","RD"],"chips":["sourced"],"definition":"The rating system the big chess sites use, Lichess among them. Its addition to Elo is that it keeps a second number beside your rating - the deviation, how sure it is - and moves your rating fast while it is unsure and slowly once it is not. That is why a new account's rating swings hundreds of points and a settled one barely moves.","precision":[{"against":"Glicko being Elo","text":"They are different systems by different people and they do not produce the same numbers. FIDE uses `elo`; Lichess states plainly that \"ratings are calculated using the Glicko-2 rating method developed by Mark Glickman\". Two ratings from the two systems are not convertible and not comparable, which is the practical half of `rating`'s first note."},{"against":"the deviation being an error bar you can ignore","text":"It is the working part. Elo has one dial for how fast ratings move and applies it to everybody; Glicko gives each player their own, derived from how much it has seen of them and how recently. A player back after two years has a wide deviation and their first few games count for a great deal, which feels unfair and is the system correctly admitting it does not know."},{"against":"it rating people","text":"It rates anything that can win and lose, and this glossary's own evidence base contains the odd case. The 768 puzzles in the bank each carry a rating, 900 to 1748 with a median of 1350, and the database explains why: \"each attempt to solve is considered as a Glicko2 rated game between the player and the puzzle\". A puzzle wins when you fail it. So the number on a puzzle is its difficulty measured on the same scale as a person's strength, which is elegant and is not a claim about any player at all."}],"origin":{"text":"Developed by Mark Glickman; Glicko-2 is the revision in general use online. Its point of difference from Elo is the rating deviation, a per-player measure of confidence that governs how far one result moves the rating.","chip":"sourced","source":"Lichess's FAQ, which names the system and its author, and the Lichess puzzle database documentation for the puzzle ratings. The primaries - Glickman's papers - were not consulted."},"no_board":"Nothing positional. Worth recording what this project's own data does and does not hold: the puzzle database publishes a rating deviation beside every puzzle rating, and `puzzles.json` here keeps only the rating - so the glossary can quote a puzzle's difficulty and not how sure the system is of it.","boards":[],"drill":{"mode":"none","why":"impossible","note":"A rating algorithm. The nearest thing to a drill in it is the puzzle bank itself, which is rating you while you use it."},"links":["rating","elo","provisional-rating","fide","time-control","accuracy"],"reading":[{"title":"Glicko rating system","url":"https://en.wikipedia.org/wiki/Glicko_rating_system"}],"links_resolved":[{"label":"Rating","href":"/glossary/rating/"},{"label":"Elo","href":"/glossary/elo/"},{"label":"Provisional rating","href":"/glossary/provisional-rating/"},{"label":"FIDE","href":"/glossary/fide/"},{"label":"Time control","href":"/glossary/time-control/"},{"label":"Accuracy","href":"/glossary/accuracy/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
