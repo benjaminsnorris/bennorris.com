@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Centipawn - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=online">Engines and online play</a></p>
+<h1>Centipawn</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"online","kind":"look-up","term":"Centipawn","slug":"centipawn","also":["cp"],"chips":["sourced"],"definition":"The unit an engine scores in: one hundredth of a pawn. An evaluation of +1.32 is 132 centipawns and means the engine reckons that side is worth about a pawn and a third more - not that it has a pawn and a third more. The hundredths exist so a program can tell two positions apart, not because a third of a pawn is a thing you can point at on a board.","precision":[{"against":"reading the second decimal place","text":"There is usually nothing there. Over the 2,070 certified positions that carry two real scores, the median distance between the best move and the second best is **23 centipawns** - under a quarter of a pawn - so in half of them the engine's top two moves are closer together than the rounding you are reading. The board below is the case in the open: two moves, both scored 13, a gap of 0."},{"against":"a mate being a big number of centipawns","text":"It is not a number of centipawns at all. **30 of the 2,100 certified positions** carry a mate score in place of an evaluation, and they run from 29,991 to 29,999 - which is 30,000 minus the number of moves to mate, so 29,999 is mate in one and 29,991 is mate in nine. A forced mate is a different kind of answer wearing the same field, which is why a screen reading +9.5 and a screen reading M5 are not comparable: one is an estimate and the other is a fact."},{"against":"the unit being a fact about chess","text":"It is a fact about programs. A centipawn is a scoring function's output, and that function counts king safety, structure, mobility and a hundred other things in the same currency as material - so \"a pawn\" in an evaluation is a rate of exchange rather than a pawn. Which is also why an engine's evaluation and an annotator's `evaluation-symbols` disagree without either being wrong."}],"origin":{"text":"A programmer's unit, chosen for arithmetic rather than for chess: \"a score unit which corresponds approximately to one hundredth of a pawn unit\". Robert Hyatt, of Crafty, records trying three grain sizes - decipawns, millipawns and centipawns - and settling on hundredths because tenths lose positional nuance and thousandths cost search speed without buying accuracy.","chip":"sourced","source":"chessprogramming.org, Centipawns, which quotes Hyatt directly. The page does not credit any program with the convention first and this entry does not either. The primary - Hyatt's own posts - was not consulted."},"boards":[{"fen":"3r4/ppp2k1p/5b1B/2P2P2/8/8/PPK4R/8 b - - 0 30","corpus":"positions","ref":"voc3zz9u","caption":"Black to move, 14 men, and Stockfish 18 at depth 14 scores its best two moves identically: 13 centipawns each, a gap of 0. It cannot separate them. There is no thirteen-hundredths of a pawn anywhere on this board to correspond to the 13 - the number is what a scoring function produced, and at this size it is how the program breaks ties rather than a description of the position.","render_fen":"3r4/ppp2k1p/5b1B/2P2P2/8/8/PPK4R/8 b - - 0 30"}],"drill":{"mode":"none","why":"impossible","note":"A unit of measurement is not a feature of a position, and the thing it measures is the engine's opinion. There is no answer key that is not the engine's own output."},"links":["engine","depth","evaluation-bar","evaluation-symbols","accuracy","material","principal-variation","checkmate"],"reading":[{"title":"Glossary of chess: centipawn","url":"https://en.wikipedia.org/wiki/Glossary_of_chess#centipawn"}],"links_resolved":[{"label":"Engine","href":"/glossary/engine/"},{"label":"Depth","href":"/glossary/depth/"},{"label":"Evaluation bar","href":"/glossary/evaluation-bar/"},{"label":"Evaluation symbols","href":"/glossary/evaluation-symbols/"},{"label":"Accuracy","href":"/glossary/accuracy/"},{"label":"Material","href":"/glossary/material/"},{"label":"Principal variation","href":"/glossary/principal-variation/"},{"label":"Checkmate","href":"/glossary/checkmate/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Principal variation - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=online">Engines and online play</a></p>
+<h1>Principal variation</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"online","kind":"look-up","term":"Principal variation","slug":"principal-variation","also":["PV","best line","the engine's line"],"chips":["sourced"],"definition":"The line the engine expects: its best move, the best reply to it, the best answer to that, and onward - \"a sequence of moves that programs consider best and therefore expect to be played\". The number the engine reports is its evaluation of the position at the *end* of that line, which is why an engine can score a quiet-looking position at +5 and need eight moves to explain why.","precision":[{"against":"the PV being a prediction","text":"It is what happens if both sides play the engine's best, and neither side will. A PV is the argument behind the number rather than a forecast of the game, and quoting one as what \"will\" happen is the commonest way of misusing an analysis board."},{"against":"the whole line being equally reliable","text":"The first move is the part the search worked hardest on. Every move further along was reached fewer times, examined at a shallower remaining depth, and is likelier to be replaced when the engine is given another second. Read the first move as an answer and the tail as an illustration."},{"against":"this glossary being able to show you one from its own corpus","text":"It cannot, and the reason is a decision that was taken before anybody wanted this entry. The certification ran at multipv 3 and stored the three **scores** - `best`, `second` and the gap - and discarded the lines that produced them. So every engine number quoted anywhere in this glossary is a score whose principal variation is gone, and the board below is the nearest honest substitute: a puzzle solution, which is a short PV that somebody has already checked."}],"boards":[{"fen":"6k1/5R2/pp4p1/2p4p/7P/1P6/P2rr1PK/5R2 w - - 1 39","corpus":"puzzles","ref":"00gNl","caption":"39.Rf8+ Kh7 40.R1f7+ Kh6 41.Rh8# - five plies, both sides playing best, and the shape of a principal variation in miniature. The branching is the part worth seeing: White chose from 32 legal moves and then from 33, while Black was down to 2 replies and then to 1. A PV is one path through that, and the score at the end of this one is mate.","highlight":["f7","f1","g8"],"render_fen":"6k1/5R2/pp4p1/2p4p/7P/1P6/P2rr1PK/5R2 w - - 1 39","highlight_squares":["f7","f1","g8"]}],"drill":{"mode":"none","why":"impossible","note":"The principal variation is whatever the engine's search produced, so an answer key would be the engine's output and the drill would be testing agreement with a program rather than a skill. The puzzle bank is the version of this that is worth doing, and the courses drill it."},"links":["engine","depth","centipawn","disambiguation","checkmate","combination","variation","annotation"],"reading":[{"title":"Principal variation","url":"https://www.chessprogramming.org/Principal_Variation"}],"links_resolved":[{"label":"Engine","href":"/glossary/engine/"},{"label":"Depth","href":"/glossary/depth/"},{"label":"Centipawn","href":"/glossary/centipawn/"},{"label":"Disambiguation","href":"/glossary/disambiguation/"},{"label":"Checkmate","href":"/glossary/checkmate/"},{"label":"Combination","href":"/glossary/combination/"},{"label":"Variation","href":"/glossary/variation/"},{"label":"Annotation","href":"/glossary/annotation/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

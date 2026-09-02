@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Accuracy - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=online">Engines and online play</a></p>
+<h1>Accuracy</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"online","kind":"look-up","term":"Accuracy","slug":"accuracy","also":["accuracy score","game review","computer analysis"],"chips":["sourced","vendor-framing"],"definition":"The percentage a site gives you after a game, for how close your moves came to an engine's. It is built from how much each move cost - the engine's evaluation before it against the evaluation after it - and then run through a curve so the result reads like a school mark. It measures something real. It is not a rating, and it is not comparable to anybody else's.","precision":[{"against":"accuracy being centipawn loss","text":"Not directly, and the reason is a good one. Lichess converts each evaluation to a win percentage first, on the grounds that \"centipawns are great for developing chess engines... but not so much for human comprehension\" and that \"a loss of 300 centipawns means vastly different things depending on position context\" - three pawns thrown away in a level position is a disaster and in a won one is nothing. Accuracy then compares the win percentage before and after each move, so it is measured in chances rather than in pawns."},{"against":"two accuracy scores being comparable","text":"They are comparable only within one site, in one version. Lichess's own page says plainly that \"different websites use different formulas, engines and analysis depths\", that it calibrates against games among 2300-rated players, and that its equations \"might change in the future\". So an accuracy score is a reading from one instrument, and comparing yours to a friend's on another site is comparing two instruments."},{"against":"a high score meaning you played well","text":"It means you did not go wrong, which is not the same. A simple position offers few chances to lose any, so a quiet game trades down to a draw at 95% and a sharp game you eventually win can score in the seventies. The number rewards not erring, and most of learning to play is about what to look at rather than what to avoid."}],"no_board":"Accuracy is a property of a game and not of a position: computing one needs the engine's evaluation before and after every move that was played. Every corpus here stores single positions - this project could not compute an accuracy for its own 2,100 certified positions, which come from 2,074 different games and are one position each. The same limit `simplification` runs into, from the other end.","boards":[],"drill":{"mode":"none","why":"impossible","note":"Nothing to drill and nothing to draw: see above. The score is a summary of a game the corpora do not hold."},"links":["engine","centipawn","blunder","evaluation-bar","depth","annotation","simplification","cheat-detection"],"reading":[{"title":"Lichess: how accuracy is computed","url":"https://lichess.org/page/accuracy"}],"links_resolved":[{"label":"Engine","href":"/glossary/engine/"},{"label":"Centipawn","href":"/glossary/centipawn/"},{"label":"Blunder","href":"/glossary/blunder/"},{"label":"Evaluation bar","href":"/glossary/evaluation-bar/"},{"label":"Depth","href":"/glossary/depth/"},{"label":"Annotation","href":"/glossary/annotation/"},{"label":"Simplification","href":"/glossary/simplification/"},{"label":"Cheat detection","href":"/glossary/cheat-detection/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Evaluation bar - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=online">Engines and online play</a></p>
+<h1>Evaluation bar</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"online","kind":"look-up","term":"Evaluation bar","slug":"evaluation-bar","also":["eval bar","the bar"],"chips":["sourced","vendor-framing"],"definition":"The strip beside the board on a chess site, filling white from one end and black from the other, showing an engine's current evaluation as a picture. One number, drawn - and the number is whatever engine that site runs, at whatever depth it runs it at.","precision":[{"against":"the bar showing who is winning","text":"It shows what an engine scores the position at **assuming best play from both sides**, and neither player is going to supply that. A bar leaning hard one way in a club game says the position would be won by somebody who could find the moves. That is a different claim from who is going to win, and the gap between the two is most of what makes chess a game."},{"against":"the bar being a property of the position","text":"It moves when you move, and it can move a long way. On the board below the engine's best move is worth +2.75 to Black and its second best is worth -0.92 - so the bar sits well over to Black's end if Black finds one move and slightly the other way if Black plays the next-best thing. Three and two thirds of a pawn of bar, for a choice between two reasonable-looking moves."},{"against":"two sites agreeing","text":"They routinely do not, and none of them is broken. Different engines, different depths, different hardware and different time limits all give different numbers on the same position, and the difference is largest exactly where the bar is nearest the middle. See `engine` for the measured version of this on this project's own corpus."}],"boards":[{"fen":"r1b1kb1r/pp1n1ppp/2n1p3/q1p1P3/3p1P2/2NP2P1/PPPB2BP/R2QK1NR b KQkq - 1 10","corpus":"positions","ref":"c463s3iq","caption":"Black to move on move ten, with all 32 men still on the board. Stockfish 18 at depth 14 scores Black's best move at 275 centipawns and its second best at -92. A bar drawn from the first number and a bar drawn from the second are pictures of two different games, and the position is identical in both - which is the thing the bar cannot show you. It is not displaying the position; it is displaying the move you have not played yet.","render_fen":"r1b1kb1r/pp1n1ppp/2n1p3/q1p1P3/3p1P2/2NP2P1/PPPB2BP/R2QK1NR b KQkq - 1 10"}],"drill":{"mode":"none","why":"impossible","note":"The bar is a rendering of an engine's number, so a drill on it would be a drill on the engine. `good-and-bad-bishop` and the other computed drills are the alternative this glossary chose: a question a learner can settle by looking."},"links":["engine","centipawn","depth","evaluation-symbols","accuracy","blunder","principal-variation"],"reading":[{"title":"Evaluation function","url":"https://en.wikipedia.org/wiki/Evaluation_function"}],"links_resolved":[{"label":"Engine","href":"/glossary/engine/"},{"label":"Centipawn","href":"/glossary/centipawn/"},{"label":"Depth","href":"/glossary/depth/"},{"label":"Evaluation symbols","href":"/glossary/evaluation-symbols/"},{"label":"Accuracy","href":"/glossary/accuracy/"},{"label":"Blunder","href":"/glossary/blunder/"},{"label":"Principal variation","href":"/glossary/principal-variation/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

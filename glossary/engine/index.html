@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Engine - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=online">Engines and online play</a></p>
+<h1>Engine</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"online","kind":"look-up","term":"Engine","slug":"engine","also":["chess engine","the computer"],"chips":["sourced"],"definition":"A program that searches a position and reports what it found: a number for how good the position is, and the line it expects. Every analysis board, every evaluation bar and every accuracy score on a chess site is an engine underneath. This glossary's own evidence base is one - 2,100 positions certified by Stockfish 18 at depth 14, and its labels are the engine's numbers with a threshold applied.","precision":[{"against":"the engine's number being the truth about the position","text":"It is the result of one search, and a search is defined by its settings rather than by the position. Measured on this project's own corpus: the stored evaluations reproduce exactly when Stockfish 18 is re-run at depth 14 with the options the certifier set - one thread and a 32 MB hash table - **12 of 12** on a seeded sample. Change nothing but the hash size, to the 16 MB a fresh engine defaults to, and **5 of the same 12** come back different. Same engine, same position, same depth, different number."},{"against":"that making the numbers useless","text":"It does not, and where the drift lives is the useful part. Every one of the five that moved was within a pawn of level, and every one moved by between 1 and 10 centipawns. The four decisive positions in the sample - scoring 5.01, 4.72, 4.51 and 2.75 - came back identical to the digit under both settings. **The first digit of an engine evaluation is usually information and the last one never is**, which is the whole argument of `centipawn`."},{"against":"the engine understanding chess","text":"It searches and it scores. It has no plan, offers no reason, and cannot tell you which of its moves you would have found - so an engine line is not an `annotation` and reading one is a different skill from being taught. What it is unbeatably good at is saying that a move loses, which is why it is the right tool for checking work and the wrong one for learning what to look at."}],"boards":[{"fen":"5rk1/p4p1p/q5p1/4R3/8/2n2Q1P/3p1PP1/3R2K1 b - - 1 28","corpus":"positions","ref":"8562hjdp","caption":"What an engine actually reports, on one position out of this glossary's own corpus. Stockfish 18 at depth 14, asked for its best three moves: for Black, the best is worth 501 centipawns and the second best 18. The 483 between them is what got this position labelled tactical rather than quiet. The engine says which move and by how much; it does not say what Black is doing.","render_fen":"5rk1/p4p1p/q5p1/4R3/8/2n2Q1P/3p1PP1/3R2K1 b - - 1 28"}],"drill":{"mode":"none","why":"impossible","note":"An engine is a program, not a feature of a position. Every computed drill in this glossary is the opposite arrangement - a predicate a learner could apply by looking - and the reason those exist at all is that the engine was used to build the pool rather than to mark the answers."},"links":["centipawn","depth","principal-variation","evaluation-bar","accuracy","tablebase","annotation","evaluation-symbols","blunder","ply"],"reading":[{"title":"Chess engine","url":"https://en.wikipedia.org/wiki/Chess_engine"}],"links_resolved":[{"label":"Centipawn","href":"/glossary/centipawn/"},{"label":"Depth","href":"/glossary/depth/"},{"label":"Principal variation","href":"/glossary/principal-variation/"},{"label":"Evaluation bar","href":"/glossary/evaluation-bar/"},{"label":"Accuracy","href":"/glossary/accuracy/"},{"label":"Tablebase","href":"/glossary/tablebase/"},{"label":"Annotation","href":"/glossary/annotation/"},{"label":"Evaluation symbols","href":"/glossary/evaluation-symbols/"},{"label":"Blunder","href":"/glossary/blunder/"},{"label":"Ply","href":"/glossary/ply/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

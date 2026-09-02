@@ -388,3 +388,52 @@ concluded the term could never be drilled, on a 24.4% figure that is now 29.3%;
 and the `zugzwang` scan was redone across 456 positions of four to nine men, each
 evaluated twice at depth 14 — the obligation to move costs a pawn or more in 19 of
 them and **reverses the result in none**.
+
+---
+
+## 2026-09-02 — the certified corpus re-checked, and what the metadata was missing
+
+**No corpus changed.** This is a verification run, prompted by the glossary's
+`online` batch: those entries wanted to say that an engine evaluation is
+reproducible, and the project's rule is that a claim which can be checked gets
+checked.
+
+**Command:** `python3 verify/check_engine.py` in `~/Developer/chess-glossary`,
+which draws a 12-position sample from `positions.json` with seed 20260902 and
+re-analyses each with Stockfish 18 at depth 14, multipv 3.
+
+| | |
+|---|---|
+| with `Threads 1`, `Hash 32` — the options `certify.py` sets | **12 of 12 reproduce exactly** |
+| with the engine's own defaults (`Hash 16`) | **5 of the same 12 differ** |
+| size of the difference | 1 to 10 centipawns |
+| which positions | all five are within a pawn of level; the four decisive ones in the sample (+5.01, +4.72, +4.51, +2.75) reproduce to the digit under both |
+
+**So the corpus is deterministic and its metadata did not say how.** The `engine`
+field records `"Stockfish 18, depth 14, multipv 3"` — the depth and the multipv,
+but not the two options that turn out to matter. `positions.json` now carries an
+`engine_options` block alongside it. Nothing in the positions changed; this is a
+label on the jar.
+
+### The August hash bug, in a new place
+
+The `game=fen` fix recorded on 2026-08-22 is right for `certify.py`, which walks
+a stream of different positions. It is **wrong for anything that analyses the
+same position twice in a row**: python-chess sends `ucinewgame` only when the
+`game` argument *changes*, so a second call with the same FEN inherits the first
+call's hash table.
+
+`check_engine.py` hit this on its first run — checking two claims about one board
+reported a selective depth of 27 cold and 18 warm. It now passes a fresh token
+per analysis. **If anything else here ever re-analyses one position, pass
+something that changes.**
+
+### One entry corrected in the glossary as a result
+
+`zugzwang`'s first board claimed "the same position with Black to move is mate in
+16". It is not a mate at all at depth 16 — the depth the caption's other number
+(+974, which does reproduce) was taken at — where it scores -1269. Cold, the mate
+appears as a mate in 12 at depth 24 and shortens to 11 at depth 36. The caption
+now claims a forced mate and no distance, because there is no single distance to
+claim. This is the first error the engine numbers have been caught in, and until
+this run nothing had ever re-measured one.

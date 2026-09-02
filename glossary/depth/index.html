@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Depth - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=online">Engines and online play</a></p>
+<h1>Depth</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"online","kind":"look-up","term":"Depth","slug":"depth","also":["search depth","seldepth"],"chips":["sourced"],"definition":"How far ahead the engine looked, counted in plies. Depth 14 means fourteen half-moves - seven moves for each side - as the nominal target of the search. An evaluation quoted without its depth is not a claim about anything much: the same engine on the same position answers differently at depth 10 and at depth 30.","precision":[{"against":"depth being counted in moves","text":"Depth 20 is ten moves each, not twenty. This is `ply`'s confusion arriving where it does the most damage, because it makes engine analysis sound about twice as deep as it is."},{"against":"the nominal depth being how far it actually looked","text":"It is a target, not a ceiling. Engines **extend** forcing lines - \"to extend a move, its search depth is incremented by some amount, typically one ply\" - and checks, captures, recaptures and mate threats are all standard extensions. The board below is a depth-14 search returning a mate 17 plies away: three plies past the depth it was asked for, and every move in the line a check."},{"against":"deeper being merely more of the same","text":"Depth can change the answer in kind rather than in degree, and `zugzwang`'s first board is the case. With Black to move rather than White, Stockfish 18 scores it -1269 at depth 16 - a bad position, no more - finds a forced mate in 12 from depth 24, and shortens that to 11 only at depth 36. Nothing about the position changed. A shallow number is not a smaller version of the deep answer; sometimes it is the wrong kind of answer."},{"against":"selective depth meaning one thing","text":"The protocol that carries it defines it only as \"selective search depth in plies\", and implementations differ over whether that means the deepest line reached or the plies added past the nominal depth. Worse, it is not stable: on the board below the same engine at the same depth reports a different selective depth when asked for three lines than for one, and a different one again if it has already looked at the position. It is a progress indicator, not a measurement, and this glossary quotes no figure for it."}],"boards":[{"fen":"3k4/pbp1r3/1p4Qp/6p1/3q4/PB1p3P/1PP3P1/2K2R2 w - - 0 29","corpus":"positions","ref":"5lih8rz8","caption":"White to move. Stockfish 18 at a nominal depth of 14 returns a forced mate in nine - 17 plies, three past the depth it was asked for. Every white move in the line is a check, which is precisely the kind of line an engine extends. Its second-best move scores exactly 0: this position is a forced win or a dead draw, and one move decides which.","render_fen":"3k4/pbp1r3/1p4Qp/6p1/3q4/PB1p3P/1PP3P1/2K2R2 w - - 0 29"}],"drill":{"mode":"none","why":"impossible","note":"Depth is a property of a search. Nothing in a position has one."},"links":["engine","ply","centipawn","principal-variation","zugzwang","tablebase","checkmate","accuracy"],"reading":[{"title":"Depth (chess programming)","url":"https://www.chessprogramming.org/Depth"}],"links_resolved":[{"label":"Engine","href":"/glossary/engine/"},{"label":"Ply","href":"/glossary/ply/"},{"label":"Centipawn","href":"/glossary/centipawn/"},{"label":"Principal variation","href":"/glossary/principal-variation/"},{"label":"Zugzwang","href":"/glossary/zugzwang/"},{"label":"Tablebase","href":"/glossary/tablebase/"},{"label":"Checkmate","href":"/glossary/checkmate/"},{"label":"Accuracy","href":"/glossary/accuracy/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

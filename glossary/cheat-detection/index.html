@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cheat detection - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=online">Engines and online play</a></p>
+<h1>Cheat detection</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"online","kind":"look-up","term":"Cheat detection","slug":"cheat-detection","also":["fair play","engine assistance"],"chips":["sourced","inference"],"definition":"How a site decides that a player was being fed moves. It is a statistical judgement made across many games rather than a proof about any single move, and the sites do not publish their methods - so what this entry can tell you honestly is the shape of the problem rather than the mechanism.","precision":[{"against":"one suspiciously good move being evidence","text":"Everybody finds one. A club player who spots a queen sacrifice once has done what club players do, and any test that flagged it would flag most of the membership - so detection works on distributions over hundreds of moves, where a human's uneven performance and an engine's even one look different. The corollary matters more for a beginner: being accused after a good game is a thing that happens, and being good at one position is not a pattern."},{"against":"the sites explaining how it works","text":"They deliberately do not. Lichess's fair play page defines the offence - \"use of any external assistance used whilst a game you are involved in is ongoing, which has the effect of improving your knowledge, calculation ability, or otherwise gives you an unfair advantage over your opponent\" - and says nothing whatever about detection, because a published method is a method to work around. **This entry is marked as an inference for that reason**: the two signals commonly discussed in public are how often the moves match an engine's choices and how the time spent tracks the difficulty, and no source consulted here confirms what any site actually uses."},{"against":"accuracy being the test","text":"It is not, and `accuracy` says why: a simple game scores high because it offered nothing to get wrong. A single high accuracy is a fact about the position more than about the player, which is exactly why detection is a question about many games."}],"no_board":"Cheating is a fact about how a move was produced, not about the move. Two identical positions with the same move played differ only in what the player was looking at, and no corpus of positions records that - the FEN, the ply, the ratings and the engine's own score are all indifferent to it. `annotation` reaches the same wall from the other side: the interesting thing is not in the position.","boards":[],"drill":{"mode":"none","why":"impossible","note":"There is no answer key. A drill would be asking a learner to guess at somebody's honesty from a diagram, which is both impossible and a bad habit to build."},"links":["engine","accuracy","centipawn","annotation","blunder","resign","time-control"],"reading":[{"title":"Cheating in chess","url":"https://en.wikipedia.org/wiki/Cheating_in_chess"}],"links_resolved":[{"label":"Engine","href":"/glossary/engine/"},{"label":"Accuracy","href":"/glossary/accuracy/"},{"label":"Centipawn","href":"/glossary/centipawn/"},{"label":"Annotation","href":"/glossary/annotation/"},{"label":"Blunder","href":"/glossary/blunder/"},{"label":"Resign","href":"/glossary/resign/"},{"label":"Time control","href":"/glossary/time-control/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Opening explorer - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=online">Engines and online play</a></p>
+<h1>Opening explorer</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"online","kind":"look-up","term":"Opening explorer","slug":"opening-explorer","also":["explorer","opening database"],"chips":["sourced","vendor-framing"],"definition":"A database you can walk into. Play the moves of an opening and it tells you how many recorded games reached this position, which moves were played from it, and how each of them scored. It is how a beginner discovers that the move they invented has been played eleven thousand times and does badly.","precision":[{"against":"the explorer telling you what is good","text":"It tells you what was popular and what scored, in whichever population it was built from - and the population is the whole question. A line that scores well among 1200-rated players may be a trap that stops working at 1600, and a line the masters avoid may be perfectly good against anybody you will actually meet. An explorer that does not let you choose the rating band is answering a question you did not ask."},{"against":"this glossary having one","text":"It has the shape of one with both useful columns missing. The corpus behind the opening boards is 7,905 distinct positions from plies 2 to 6 of 121,332 games, each carrying the moves that made it and Lichess's own classification - but each position is kept **once**, however many games produced it, and no game's result was stored. So it can tell you what a position is called and cannot tell you how often anyone reached it or what happened afterwards, which are the two things an explorer exists for."},{"against":"the names being the position's own","text":"They are the database's, applied to the game rather than to the position - see `eco-code`, where the same corpus files 1.Nc3 Nf6 under a code for a king's pawn opening. An explorer inherits that: the label on a row is a classification somebody made, and early positions get labels from games that transposed."}],"boards":[{"fen":"r1bqkbnr/1ppp1ppp/p1n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4","corpus":"opening","ref":"cndw3ifd","caption":"1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 - three moves into the Ruy Lopez, and exactly the position an explorer earns its keep on. Black has asked the bishop a question and White has several respectable answers; an explorer would say which ones club players actually pick and how they fare. This glossary's corpus holds the position, the moves that made it and the name C80, and neither of those two numbers.","render_fen":"r1bqkbnr/1ppp1ppp/p1n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4"}],"drill":{"mode":"none","why":"impossible","note":"How many games reached a position is a fact about a database rather than about the position, and this corpus is a census that kept each position once. It could not answer the question even as a rate."},"links":["opening","eco-code","opening-book","theory","repertoire","ruy-lopez","main-line","transposition","novelty"],"reading":[{"title":"Chess database","url":"https://en.wikipedia.org/wiki/Chess_database"}],"links_resolved":[{"label":"Opening","href":"/glossary/opening/"},{"label":"ECO code","href":"/glossary/eco-code/"},{"label":"Opening book","href":"/glossary/opening-book/"},{"label":"Theory","href":"/glossary/theory/"},{"label":"Repertoire","href":"/glossary/repertoire/"},{"label":"Ruy Lopez","href":"/glossary/ruy-lopez/"},{"label":"Main line","href":"/glossary/main-line/"},{"label":"Transposition","href":"/glossary/transposition/"},{"label":"Novelty","href":"/glossary/novelty/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
