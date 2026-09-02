@@ -21,6 +21,36 @@ before the store existed.
 skips the store entirely rather than showing a "saved on this device" badge on a
 page that saves nothing.
 
+## Which pages under `courses/` have an upstream
+
+Most courses here are published artifacts: the HTML in this repo *is* the
+source, and editing it in place is the right thing to do. Two surfaces are not,
+and both were built by a project that owns them:
+
+| Path in this repo | Upstream | Publish with |
+|---|---|---|
+| `courses/chess-seeds/` | `benjaminsnorris/seeds-course` | its `./publish.sh` |
+| `glossary/`, `assets/glossary*` | `benjaminsnorris/chess-glossary` | its `./publish.sh` |
+| `courses/board-vision*/` | none - written here | edit in place |
+
+**Never hand-edit a generated page.** Each one opens with a `GENERATED FILE`
+comment naming its upstream, so the check is `head -12 <file>`. Editing one is
+worse than losing the change: `chess-glossary`'s publish begins
+`rm -rf "$SITE/glossary"`, and an edit to the seeds course is invisible to the
+item-bank assertions and smoke tests that exist to keep that page honest.
+
+That is not hypothetical. The seeds course page was edited here directly - a
+real feature landed, practice and the check split into separate blocks, the
+preamble became a block, the persisted state schema went to 3 - and none of it
+went back upstream. The generated page fell four kilobytes behind the live one,
+so the project's verifiers were guarding output nobody shipped, and one of them
+would have caught a bug that was live the whole time: the tutor packet read
+`reached: unit undefined of 9`, which is the line the tutor gates the tactic
+names on. A rebuild would also have rolled the state schema from 3 back to 2.
+
+If you find yourself wanting to edit a generated page, the upstream is a clone
+away and its `publish.sh` will refuse to clobber work it does not recognise.
+
 ## What the tool does
 
 1. Wraps bare fragments in a document shell (some artifacts start straight at
