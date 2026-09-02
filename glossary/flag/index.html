@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flag - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=tournament">Tournament, club and clock</a></p>
+<h1>Flag</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"tournament","kind":"look-up","term":"Flag","slug":"flag","also":["flag fall","flagging","losing on time","running out of time"],"chips":["sourced"],"definition":"Running out of time, and the word for it. Mechanical clocks had a small flag that the minute hand lifted and dropped at the hour, so \"the flag fell\" meant your time was gone - the clocks are digital now and the word stayed. Your flag falling normally loses the game whatever the position, and there is one exception that is worth knowing.","precision":[{"against":"the flag always losing","text":"The exception is positional, and it is the one rule in this group that a board can show. The Laws: \"if a player correctly claims flag-fall, that player wins. But if the claiming player is out of time, or could not still theoretically checkmate the opponent, the game is a draw.\" So a bare king cannot win on time no matter how long you take - and this is not a curiosity. In **990 of the 3,435 endgame-corpus positions** one of the two sides could not deliver mate by any legal sequence at all; in the relaxed harvest it is **246 of 10,000**, and in the certified corpus **0 of 2,100**, which is the \u226512-piece filter rather than a fact about chess."},{"against":"the clock enforcing itself over the board","text":"It does not: flag-fall is a *claim*, like a repetition. Over the board a fallen flag that nobody notices is a game that carries on, and the arbiter rules when somebody stops the clock and says so. Online is the opposite - the server calls it the instant it happens - which is why `premove` and time scrambles are a different sport from the ones with wooden clocks."},{"against":"flagging being cheating","text":"It is playing the game that was agreed. If you sat down to five minutes each, the five minutes are part of the position - and deliberately playing on in a lost position to win on time is legal, common, and the reason increments were invented. `increment` is the rule that takes the tactic away."}],"boards":[{"fen":"1K6/6k1/8/5p2/8/8/8/8 b - - 0 63","corpus":"endgame","ref":"lm3ha9c3","caption":"Three men. Black is winning trivially - the pawn walks to f1 and becomes a queen - and White has a bare king. If Black's flag falls here, White does not win: White cannot checkmate by any legal sequence, so the game is a draw. Being completely winning and being able to lose on time are different questions, and this is the position where they come apart.","highlight":["b8","f5"],"render_fen":"1K6/6k1/8/5p2/8/8/8/8 b - - 0 63","highlight_squares":["b8","f5"]}],"drill":{"mode":"none","why":"unbalanced","note":"The computable question - could this side mate at all - is exactly the one above, and its rate is the problem: 28.8% of the endgame corpus, 2.5% of the drill corpus and 0% of the certified one. The endgame figure is nearly in band, but the pool was harvested for passed pawns rather than for material, so the rate measures that harvest rather than chess. Left as a measurement instead."},"links":["time-control","increment","time-trouble","insufficient-material","draw","arbiter","premove","resign","berserk"],"reading":[{"title":"Rules of chess","url":"https://en.wikipedia.org/wiki/Rules_of_chess"}],"links_resolved":[{"label":"Time control","href":"/glossary/time-control/"},{"label":"Increment","href":"/glossary/increment/"},{"label":"Time trouble","href":"/glossary/time-trouble/"},{"label":"Insufficient material","href":"/glossary/insufficient-material/"},{"label":"Draw","href":"/glossary/draw/"},{"label":"Arbiter","href":"/glossary/arbiter/"},{"label":"Premove","href":"/glossary/premove/"},{"label":"Resign","href":"/glossary/resign/"},{"label":"Berserk","href":"/glossary/berserk/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
