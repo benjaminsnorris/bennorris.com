@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE - do not edit this copy.
+
+  Built from the chess-glossary project (github.com/benjaminsnorris/chess-glossary)
+  and published with its ./publish.sh, which deletes and rewrites this whole
+  directory. Edit the entries and templates there and republish.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luft - chess glossary</title>
+<link rel="stylesheet" href="/assets/glossary.css">
+</head>
+<body>
+<div class="wrap">
+<p class="meta"><a href="/glossary/">Chess glossary</a> &rsaquo; <a href="/glossary/?cat=slang">Slang and informal</a></p>
+<h1>Luft</h1>
+
+<div id="out"></div>
+<footer class="pagefoot">
+<p><a href="/glossary/">Chess glossary</a> &middot; <a href="/glossary/start/">Course words</a>
+&middot; <a href="/glossary/core/">Core vocabulary</a> &middot; <a href="/glossary/board-editor/">Board
+editor</a> &middot; <a href="/courses/">Courses</a></p>
+<p class="small">Illustrations come from a corpus of 2,100 engine-checked positions and 768 tagged
+puzzles, both from the <a href="https://database.lichess.org/" rel="noopener">Lichess open
+database</a> (CC0).</p>
+</footer>
+</div>
+<script type="application/json" id="data">{"tier":3,"group":"slang","kind":"look-up","term":"Luft","slug":"luft","also":["making luft","giving the king air"],"chips":["sourced"],"definition":"German for air: the escape square a pawn move makes for a castled king, so that a check on the back rank is not mate. Usually it is one of the three pawns in front of the king moving a single square - h3 for White, h6 for Black - and it is the standard cure for the weakness `back-rank` describes.","precision":[{"against":"making luft being automatic","text":"It costs a move and it makes a hole. The pawn that steps forward is no longer defending the square it left, and h3 in particular gives an attacker something to aim at - so the question is always *when*, not whether. The rule of thumb is that you make luft when you have a spare move and before you need one, because the moment you need it you will not have time."},{"against":"it being rare to be without it","text":"It is commoner than you would guess and it is measurable. Of the kings sitting on their own back rank with escape squares to have, **76.5% have luft in the 2,100 certified positions and 23.5% do not**; in the relaxed harvest it is 80.3% against 19.7%. So roughly one castled king in four or five is one back-rank check away from a problem, at club level, at any given moment."},{"against":"the word being decorative","text":"It is load-bearing in this project's own code, which is how the entry came to be written. `src/_seeds_preds.py` decides whether the back-rank seed fires, and when it does it emits the note **\"no luft\"** - so the codebase has been using the word since the courses were built while the glossary defined it nowhere. `back-rank` mentions it in a precision note; this entry is where it finally has a page."}],"boards":[{"fen":"r4r1k/3q2pp/8/p1p5/2Qp4/1P5P/5PP1/R4RK1 w - - 3 26","corpus":"positions","ref":"dqwp6eni","caption":"Both kings, one difference. White has played h3 at some point and the king on g1 can step to h2 - that is luft. Black's king on h8 has pawns on g7 and h7 and nowhere to go, so a rook or queen arriving on the eighth rank is mate rather than check. White has two rooks and a queen; Black has one move to spare and a decision to make about which pawn to push.","highlight":["g1","h2","h8","g7","h7"],"render_fen":"r4r1k/3q2pp/8/p1p5/2Qp4/1P5P/5PP1/R4RK1 w - - 3 26","highlight_squares":["g1","h2","h8","g7","h7"]}],"drill":{"mode":"none","why":"unbalanced","note":"Exactly computable and just outside the gate. Among kings on their own back rank with escape squares, the ones without luft are 23.5% of the certified corpus and 19.7% of the drill corpus - both under the 25% floor, the closest miss in the whole of tier 3. The related question is drilled already: `back-rank` is a seed the courses teach, and it fires on this same condition plus an attacker."},"links":["back-rank","back-rank-mate","castling","king-safety","exposed-king","pawn-storm","zugzwang","kibitz"],"reading":[{"title":"Glossary of chess: luft","url":"https://en.wikipedia.org/wiki/Glossary_of_chess#luft"}],"links_resolved":[{"label":"Back rank","href":"/glossary/back-rank/"},{"label":"Back-rank mate","href":"/glossary/back-rank-mate/"},{"label":"Castling","href":"/glossary/castling/"},{"label":"King safety","href":"/glossary/king-safety/"},{"label":"Exposed king","href":"/glossary/exposed-king/"},{"label":"Pawn storm","href":"/glossary/pawn-storm/"},{"label":"Zugzwang","href":"/glossary/zugzwang/"},{"label":"Kibitz","href":"/glossary/kibitz/"}],"home":null}</script>
+<script src="/assets/glossary.js"></script>
+<script>renderOne();</script>
+</body>
+</html>
