@@ -398,6 +398,11 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
 .rows .k{font-family:var(--mono);font-size:.58rem;letter-spacing:.07em;text-transform:uppercase;
   color:var(--ink-mute);margin-left:.5em}
 .count{font-family:var(--mono);font-size:.65rem;color:var(--ink-mute)}
+/* Said out loud while the search index is still on its way, or did not
+   arrive. A search that had quietly stopped reaching the precision notes
+   would look like a working search returning fewer answers. */
+.narrow{font-family:var(--mono);font-size:.65rem;color:var(--ink-mute);
+  border-left:2px solid var(--rule);padding-left:.6em;margin:.2em 0 .6em}
 
 .chips{margin:0 0 1em;display:flex;flex-wrap:wrap;gap:6px}
 .seealso{border-top:1px solid var(--rule);margin-top:1.6em;padding-top:.9em}

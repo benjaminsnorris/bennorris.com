@@ -533,14 +533,68 @@ function renderIndex(){
       '<ul class="rows">' + mine.map(row).join('') + '</ul></details>';
   }
 
+  /* The haystack is not in the page - see the comment in build_entries.py where
+     it is written out. Until it arrives, a search runs over the fields the row
+     already carries: the term, its aliases and the first sentence. That is a
+     narrower search and a real one, so the box answers on the first keystroke
+     rather than showing a spinner, and it widens when the file lands.
+
+     Which of the two is running is on the input as `data-index`, and said in
+     words above the results when it is the narrow one. A search that quietly
+     stopped reaching the precision notes would be the worst outcome here: the
+     whole reason to index them is that searching "pin" finds "skewer". */
+  var HAY = null, state = 'titles', tries = 0;
+
+  function narrow(r){
+    return (r.term + ' ' + (r.also || []).join(' ') + ' ' + r.definition).toLowerCase();
+  }
+  function matches(r, needle){
+    return (HAY ? (HAY[r.slug] || narrow(r)) : narrow(r)).indexOf(needle) >= 0;
+  }
+
+  function give_up(){
+    state = 'failed'; q.dataset.index = state; draw();
+  }
+
+  function attempt(){
+    tries++;
+    fetch(data.search).then(function(res){
+      if(!res.ok) throw new Error(res.status);
+      return res.json();
+    }).then(function(json){
+      HAY = json; state = 'full'; q.dataset.index = state; draw();
+    }).catch(function(){
+      /* One retry, straight away. A flaky first request is much the likeliest
+         failure; retrying on every later keystroke instead would hammer a server
+         that is down, and would leave the notice promising an index that is not
+         coming for however long the reader keeps typing. Two tries, then say so
+         and stay on the narrow search. */
+      if(tries < 2) attempt(); else give_up();
+    });
+  }
+
+  function loadIndex(){
+    /* Nothing to fetch, or nothing to fetch with. Say so rather than leaving the
+       notice promising an index that is never coming. */
+    if(!data.search || typeof fetch !== 'function'){ if(state === 'titles') give_up(); return; }
+    if(state === 'full' || tries) return;
+    attempt();
+  }
+
   function draw(){
     var needle = (q.value || '').trim().toLowerCase();
-    var hits = data.rows.filter(function(r){ return !needle || r.h.indexOf(needle) >= 0; });
+    var hits = data.rows.filter(function(r){ return !needle || matches(r, needle); });
+    var note = needle && state !== 'full'
+      ? '<p class="narrow">' + (state === 'failed'
+          ? 'Searching titles and first lines only - the full index did not load.'
+          : 'Searching titles and first lines while the full index loads.') + '</p>'
+      : '';
     if(!hits.length){
-      out.innerHTML = '<p class="count">Nothing matches &ldquo;' + esc(q.value) + '&rdquo;.</p>';
+      out.innerHTML = note +
+        '<p class="count">Nothing matches &ldquo;' + esc(q.value) + '&rdquo;.</p>';
       return;
     }
-    var h = '';
+    var h = note;
     if(needle) h += '<p class="count">' + hits.length + ' of ' + data.rows.length + '</p>';
     data.sections.forEach(function(sec){
       var cats = sec.groups.map(function(key){
@@ -559,7 +613,12 @@ function renderIndex(){
       el.addEventListener('toggle', function(){ setOpen(el.dataset.cat, el.open); });
     });
   }
-  q.addEventListener('input', draw);
+  /* Fetched on the first sign of interest rather than on load, which is the
+     entire point of moving it out. Focus counts as interest: the file is usually
+     there before the first keystroke finishes. */
+  q.dataset.index = state;
+  q.addEventListener('focus', loadIndex);
+  q.addEventListener('input', function(){ loadIndex(); draw(); });
   draw();
   /* Arriving from a term's breadcrumb: put its category on screen, once. After
      that the reader is browsing and the scroll is theirs. */
