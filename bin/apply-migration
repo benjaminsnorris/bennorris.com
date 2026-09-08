@@ -1,0 +1,310 @@
+#!/usr/bin/env python3
+"""Apply a supabase/migrations/*.sql file to the live Supabase project.
+
+    bin/apply-migration                    # what exists, and what is applied
+    bin/apply-migration --dry-run 0003     # show what would run
+    bin/apply-migration 0003               # apply one
+    bin/apply-migration --all              # apply everything pending, in order
+
+There is no `supabase` CLI here, no psql, no config.toml, no linked project and
+no .env -- and there deliberately isn't, for a site whose whole backend is two
+tables. This talks to the Management API instead, using the personal access
+token already at ~/.supabase/access-token (or $SUPABASE_ACCESS_TOKEN).
+
+What it does that a raw curl does not:
+
+  1. Confirms the project ref belongs to the project it expects. The same token
+     also reaches the Bookshelf project, and a migration landing in the wrong
+     database is the expensive mistake here.
+
+  2. Runs each migration and its bookkeeping row in ONE transaction, so a
+     failure half way leaves nothing behind -- no half-built table, and no
+     policy whose predicate reads a table that never got created.
+
+  3. Records what it applied in supabase_migrations.schema_migrations, which is
+     the same table the Supabase CLI keeps. Nothing tracked migration state
+     before this; "is 0001 applied?" had to be answered by reading pg_tables
+     and pg_policies by hand. If the CLI is ever adopted it will read this
+     table and skip what is already done, rather than trying to replay it.
+
+  4. Notices when an applied migration's file has since been edited. The stored
+     copy is compared against the file on disk, so a migration that was changed
+     after it ran is reported rather than silently disagreeing with the
+     database.
+
+Read-only by default: with no arguments it only reports.
+"""
+
+import argparse
+import hashlib
+import json
+import os
+import pathlib
+import sys
+import urllib.error
+import urllib.request
+
+REPO = pathlib.Path(__file__).resolve().parent.parent
+MIGRATIONS = REPO / 'supabase' / 'migrations'
+API = 'https://api.supabase.com/v1'
+
+# The Courses project -- the one in assets/js/course-store.js. Pinned rather
+# than passed in: this repo has exactly one backend, and a flag here would only
+# be an opportunity to point it somewhere else by accident.
+PROJECT_REF = 'haetugdidypkmgpmtyxj'
+PROJECT_NAME = 'Courses'
+
+TOKEN_FILE = pathlib.Path.home() / '.supabase' / 'access-token'
+
+
+def die(msg):
+    sys.exit('error: %s' % msg)
+
+
+def token():
+    env = os.environ.get('SUPABASE_ACCESS_TOKEN')
+    if env:
+        return env.strip()
+    if not TOKEN_FILE.is_file():
+        die(
+            'no Supabase token. Put a personal access token in %s, or set\n'
+            '  SUPABASE_ACCESS_TOKEN. Create one at\n'
+            '  https://supabase.com/dashboard/account/tokens' % TOKEN_FILE
+        )
+    return TOKEN_FILE.read_text().strip()
+
+
+def api(path, payload=None):
+    """GET, or POST when payload is given. Returns parsed JSON."""
+    request = urllib.request.Request(
+        API + path,
+        data=json.dumps(payload).encode() if payload is not None else None,
+        headers={
+            'Authorization': 'Bearer %s' % token(),
+            'Content-Type': 'application/json',
+            # Cloudflare sits in front of the Management API and answers
+            # urllib's default Python-urllib/3.x User-Agent with a 403
+            # (error code 1010) before the request ever reaches Supabase.
+            'User-Agent': 'bennorris-apply-migration/1.0',
+        },
+        method='POST' if payload is not None else 'GET',
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=60) as response:
+            return json.loads(response.read().decode() or 'null')
+    except urllib.error.HTTPError as err:
+        body = err.read().decode()
+        # The token is in the request headers, never in the body, so echoing
+        # the body back is safe.
+        try:
+            body = json.loads(body).get('message', body)
+        except ValueError:
+            pass
+        die('API %s: %s' % (err.code, body))
+    except urllib.error.URLError as err:
+        die('cannot reach the Supabase API: %s' % err.reason)
+
+
+def sql(query, read_only=False):
+    """Run SQL. Returns the last statement's rows.
+
+    read_only is worth setting for inspection: it also blocks SET ROLE, which
+    is how you find out you meant to be writing.
+    """
+    payload = {'query': query}
+    if read_only:
+        payload['read_only'] = True
+    result = api('/projects/%s/database/query' % PROJECT_REF, payload)
+    return result if isinstance(result, list) else []
+
+
+def check_project():
+    """Refuse to write to anything but the project this repo belongs to."""
+    for project in api('/projects'):
+        if project['id'] == PROJECT_REF:
+            if project['name'] != PROJECT_NAME:
+                die(
+                    'project %s is named %r, expected %r. Refusing to write to\n'
+                    '  a database this script cannot identify.'
+                    % (PROJECT_REF, project['name'], PROJECT_NAME)
+                )
+            return project
+    die(
+        'this token cannot see project %s. It reaches: %s'
+        % (PROJECT_REF, ', '.join(p['name'] for p in api('/projects')))
+    )
+
+
+def ensure_tracking():
+    """Create the CLI's bookkeeping table if it is not there yet.
+
+    Bootstrapped here rather than shipped as a migration of its own: a
+    migration that records migrations cannot be tracked before it runs, and the
+    ordering puzzle that creates is not worth a file. `if not exists`
+    throughout, so this is a no-op on every run after the first, and does not
+    fight the Supabase CLI if it ever creates the table itself.
+    """
+    sql(
+        """
+        create schema if not exists supabase_migrations;
+        create table if not exists supabase_migrations.schema_migrations (
+          version    text primary key,
+          statements text[],
+          name       text
+        );
+        """
+    )
+
+
+def applied():
+    """version -> {'name', 'statements'} for everything recorded as applied."""
+    rows = sql(
+        'select version, name, statements from '
+        'supabase_migrations.schema_migrations order by version;',
+        read_only=True,
+    )
+    return {r['version']: r for r in rows}
+
+
+def on_disk():
+    """[(version, name, path, text), ...] in filename order."""
+    out = []
+    for path in sorted(MIGRATIONS.glob('*.sql')):
+        stem = path.stem
+        version, _, name = stem.partition('_')
+        if not version.isdigit():
+            die(
+                '%s does not start with a numeric version. Migrations are '
+                'applied in filename order, so the prefix is what orders them.'
+                % path.name
+            )
+        out.append((version, name or stem, path, path.read_text(encoding='utf-8')))
+    return out
+
+
+def short(text):
+    return hashlib.sha256(text.encode()).hexdigest()[:12]
+
+
+def stored_text(row):
+    """The migration text as it was when applied, or None if not recorded."""
+    statements = row.get('statements') or []
+    return statements[0] if statements else None
+
+
+def report(files, done):
+    print('project: %s (%s)' % (PROJECT_NAME, PROJECT_REF))
+    print()
+    drifted = pending = 0
+    for version, name, path, text in files:
+        row = done.get(version)
+        if row is None:
+            state, note = 'PENDING', ''
+            pending += 1
+        else:
+            was = stored_text(row)
+            if was is not None and was != text:
+                state = 'APPLIED*'
+                note = '  file edited since it ran (%s on disk, %s applied)' % (
+                    short(text),
+                    short(was),
+                )
+                drifted += 1
+            else:
+                state, note = 'applied', ''
+        print('  %-9s %s%s' % (state, path.name, note))
+
+    orphans = sorted(set(done) - {v for v, _, _, _ in files})
+    for version in orphans:
+        print('  %-9s %s  recorded in the database, no file here'
+              % ('ORPHAN', done[version].get('name') or version))
+
+    print()
+    if drifted:
+        print('* An applied migration was edited afterwards. The database still')
+        print('  has what originally ran. Write a new migration to change it --')
+        print('  editing the old file changes only the record, not the schema.')
+    if pending:
+        print('%d pending. Apply with: bin/apply-migration --all' % pending)
+    elif not drifted and not orphans:
+        print('Everything on disk is applied.')
+
+
+def apply_one(version, name, path, text, dry_run):
+    if dry_run:
+        print('--- would apply %s (%s) ---' % (path.name, short(text)))
+        print(text)
+        return
+
+    print('applying %s ...' % path.name, end=' ', flush=True)
+    # The migration and its bookkeeping row commit together or not at all.
+    # $mig$ ... $mig$ is a dollar-quoted literal, so the migration's own quotes
+    # and $$ blocks pass through untouched.
+    sql(
+        'begin;\n'
+        + text
+        + '\ninsert into supabase_migrations.schema_migrations '
+        '(version, name, statements) values ($mig_v$%s$mig_v$, '
+        '$mig_n$%s$mig_n$, array[$mig$%s$mig$]);\ncommit;'
+        % (version, name, text)
+    )
+    print('ok')
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('version', nargs='?',
+                        help='version prefix or filename, e.g. 0003')
+    parser.add_argument('--all', action='store_true',
+                        help='apply every pending migration, in order')
+    parser.add_argument('--dry-run', action='store_true',
+                        help='print the SQL instead of running it')
+    args = parser.parse_args()
+
+    if not MIGRATIONS.is_dir():
+        die('no %s' % MIGRATIONS)
+
+    files = on_disk()
+    if not files:
+        die('no migrations in %s' % MIGRATIONS)
+
+    check_project()
+    ensure_tracking()
+    done = applied()
+
+    if not args.version and not args.all:
+        report(files, done)
+        return
+
+    if args.all:
+        todo = [f for f in files if f[0] not in done]
+        if not todo:
+            print('nothing pending.')
+            return
+    else:
+        wanted = args.version.removesuffix('.sql')
+        todo = [f for f in files
+                if f[0] == wanted or f[2].stem == wanted or f[2].name == args.version]
+        if not todo:
+            die('no migration matching %r. Run with no arguments to list them.'
+                % args.version)
+        if len(todo) > 1:
+            die('%r matches %s' % (args.version, ', '.join(f[2].name for f in todo)))
+        if todo[0][0] in done and not args.dry_run:
+            die(
+                '%s is already applied. Migrations are not re-run: write a new\n'
+                '  one instead, so the database and this directory keep telling\n'
+                '  the same story.' % todo[0][2].name
+            )
+
+    for version, name, path, text in todo:
+        apply_one(version, name, path, text, args.dry_run)
+
+    if not args.dry_run:
+        print()
+        report(on_disk(), applied())
+
+
+if __name__ == '__main__':
+    main()
