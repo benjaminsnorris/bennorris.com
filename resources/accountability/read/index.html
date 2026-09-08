@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Check-in — shared with you</title>
+<!-- Unlisted, like the form it reads. See the `resources` scope in _config.yml. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232F5D7C'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' stroke='%23fff' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+  /* Deliberately the same palette as ../index.html, so the pair reads as one
+     thing rather than two pages that happen to share a URL prefix. */
+  :root {
+    color-scheme: light;
+
+    --paper: #FDFCFA;
+    --ink: #1B2430;
+    --ink-soft: #626C7A;
+    --rule: #D8DCE1;
+    --pen: #2F5D7C;
+    --pen-wash: #E8EFF4;
+    --field: #FFFFFF;
+    --on-pen: #FFFFFF;
+    --placeholder: #A6AEB8;
+    --series-a: #2F5D7C;
+    --series-b: #8B6B9E;
+    --bad: #8E3122;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+
+      --paper: #12161C;
+      --ink: #E7EBF0;
+      --ink-soft: #A0AAB6;
+      --rule: #2C3540;
+      --pen: #7FB4D6;
+      --pen-wash: #1B2C38;
+      --field: #191F27;
+      --on-pen: #0E1319;
+      --placeholder: #78838F;
+      --series-a: #7FB4D6;
+      --series-b: #B79AD0;
+      --bad: #EC9784;
+    }
+  }
+
+  html, body { margin: 0; background: var(--paper); }
+
+  #root {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 100vh;
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 0 1.15rem 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  #root * { box-sizing: border-box; }
+
+  .serif {
+    font-family: Iowan Old Style, Palatino, "Palatino Linotype", Georgia, serif;
+  }
+
+  .masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.4rem 0 1rem;
+    border-bottom: 1px solid var(--rule);
+    flex-wrap: wrap;
+  }
+
+  .masthead h1 {
+    font-family: Iowan Old Style, Palatino, "Palatino Linotype", Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .who { font-size: 0.85rem; color: var(--ink-soft); }
+
+  .lede {
+    font-family: Iowan Old Style, Palatino, "Palatino Linotype", Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 1.4rem 0 0;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--rule);
+  }
+
+  /* sign-in */
+  .gate { max-width: 22rem; margin-top: 2.5rem; }
+  .gate label { display: block; font-size: 0.88rem; color: var(--ink-soft); margin: 1rem 0 0.35rem; }
+
+  input[type="email"], input[type="password"] {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 0.7rem 0.75rem;
+  }
+  input:focus {
+    outline: none;
+    border-color: var(--pen);
+    box-shadow: 0 0 0 3px var(--pen-wash);
+  }
+  ::placeholder { color: var(--placeholder); opacity: 1; }
+
+  .primary {
+    font: inherit;
+    font-weight: 600;
+    color: var(--on-pen);
+    background: var(--pen);
+    border: 0;
+    border-radius: 4px;
+    padding: 0.8rem 1.5rem;
+    margin-top: 1.4rem;
+    cursor: pointer;
+  }
+  .primary:disabled { opacity: 0.45; cursor: default; }
+
+  .ghost {
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--pen);
+    background: none;
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+  }
+
+  .link {
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .err { color: var(--bad); font-size: 0.9rem; margin-top: 1rem; }
+
+  .empty {
+    margin-top: 3rem;
+    font-family: Iowan Old Style, Palatino, "Palatino Linotype", Georgia, serif;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  /* charts and entries — matched to the form's history view */
+  .chart-card { margin-top: 2.2rem; }
+  .chart-card h3 {
+    font-family: Iowan Old Style, Palatino, "Palatino Linotype", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 0.6rem;
+  }
+  .legend { display: flex; gap: 1rem; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 0.5rem; flex-wrap: wrap; }
+  .swatch { display: inline-block; width: 0.9rem; height: 0.15rem; vertical-align: middle; margin-right: 0.35rem; }
+  .swatch.s-a { background: var(--series-a); }
+  .swatch.s-b {
+    background: repeating-linear-gradient(
+      to right, var(--series-b) 0 0.22rem, transparent 0.22rem 0.36rem);
+  }
+  svg { display: block; width: 100%; height: auto; }
+  .cg { stroke: var(--rule); }
+  .ct { fill: var(--ink-soft); }
+  .s-a polyline { stroke: var(--series-a); }
+  .s-a circle { fill: var(--series-a); }
+  .s-b polyline { stroke: var(--series-b); stroke-dasharray: 5 3; }
+  .s-b circle { fill: var(--series-b); }
+
+  .theme {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.95rem;
+  }
+  .theme-meta { color: var(--ink-soft); font-size: 0.85rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  .entry {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--field);
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .entry-date { font-family: Iowan Old Style, Palatino, "Palatino Linotype", Georgia, serif; font-weight: 600; }
+  .entry-scores { font-size: 0.85rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .entry-body { margin-top: 0.9rem; font-size: 0.95rem; }
+  .entry-body p { margin: 0 0 0.6rem; }
+  .entry-item { padding: 0.7rem 0; border-top: 1px solid var(--rule); }
+  .sev { font-variant-numeric: tabular-nums; color: var(--pen); font-weight: 600; }
+  .whisper { color: var(--ink-soft); font-size: 0.88rem; }
+
+  .toolbar { display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap; align-items: center; }
+</style>
+</head>
+<body>
+<div id="root">
+  <header class="masthead">
+    <h1>Check-in</h1>
+    <span class="who" id="who"></span>
+  </header>
+  <main id="main">
+    <p class="lede" id="status">Loading&hellip;</p>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/*
+ * Read-only view of check-ins someone has shared with this account.
+ *
+ * Not built on course-store.js on purpose. That file's whole job is to shadow
+ * window.localStorage and defer the page's own scripts so a *writing* artifact
+ * boots on synced state; this page writes nothing and has no artifact to defer.
+ * It does reuse the store's three constants, and in particular its auth
+ * storageKey -- so a session started on any course or on the check-in form
+ * itself is already a session here, and vice versa.
+ *
+ * Everything it can see is decided by RLS, not by this code: state_share tells
+ * it which (owner, slug, keys) it has been granted, and course_state refuses
+ * every row no policy admits. The explicit .eq() filters below are for
+ * correctness of the query, not for access control.
+ */
+(function () {
+  'use strict';
+
+  var SUPABASE_URL = 'https://haetugdidypkmgpmtyxj.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_FNtvYmVmouTVt0Cnh3cl3g_hbJBpwoN';
+  var AUTH_KEY = 'bn-course:auth'; // shared with course-store.js
+  var SLUG = 'accountability';
+  var ENTRIES_KEY = 'checkin:entries';
+
+  var main = document.getElementById('main');
+  var who = document.getElementById('who');
+  var client = null;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function say(html) {
+    main.innerHTML = html;
+  }
+
+  /* ---------- chart ---------- */
+  // Same geometry as the form's history view, so a trend looks the same to
+  // both of you.
+
+  function lineChart(series, labels) {
+    var W = 640, H = 220, padL = 26, padR = 26, padT = 12, padB = 26;
+    // padR matches padL so the last x-axis tick, which is centred on a
+    // point at W - padR, still fits inside the viewBox. At the original 12
+    // it overflowed by a couple of px and the final date rendered clipped.
+    var n = Math.max(labels.length, 2);
+    var x = function (i) { return padL + (i * (W - padL - padR)) / (n - 1); };
+    var y = function (v) { return padT + (10 - v) * (H - padT - padB) / 10; };
+
+    var grid = '';
+    [0, 5, 10].forEach(function (v) {
+      grid += '<line class="cg" x1="' + padL + '" y1="' + y(v) + '" x2="' + (W - padR) +
+              '" y2="' + y(v) + '" stroke-width="1"/>' +
+              '<text class="ct" x="' + (padL - 7) + '" y="' + (y(v) + 4) +
+              '" text-anchor="end" font-size="11">' + v + '</text>';
+    });
+
+    var paths = series.map(function (s) {
+      var pts = [], dots = '';
+      s.values.forEach(function (v, i) {
+        if (v === null || v === undefined) return;
+        pts.push(x(i) + ',' + y(v));
+        dots += '<circle cx="' + x(i) + '" cy="' + y(v) + '" r="3.5"/>';
+      });
+      if (!pts.length) return '';
+      return '<g class="' + s.cls + '"><polyline points="' + pts.join(' ') +
+             '" fill="none" stroke-width="2" stroke-linejoin="round" ' +
+             'stroke-linecap="round"/>' + dots + '</g>';
+    }).join('');
+
+    var ticks = labels.map(function (l, i) {
+      if (labels.length > 6 && i % Math.ceil(labels.length / 5) !== 0 && i !== labels.length - 1) return '';
+      return '<text class="ct" x="' + x(i) + '" y="' + (H - 6) +
+             '" text-anchor="middle" font-size="11">' + esc(l) + '</text>';
+    }).join('');
+
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img">' + grid + paths + ticks + '</svg>';
+  }
+
+  function fmtDate(iso) {
+    var d = new Date(iso);
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  /* ---------- render ---------- */
+
+  function renderEntries(label, entries) {
+    if (!entries.length) {
+      return '<p class="empty">Nothing saved yet.</p>';
+    }
+
+    var sorted = entries.slice().sort(function (a, b) { return new Date(a.date) - new Date(b.date); });
+    var labels = sorted.map(function (e) {
+      return new Date(e.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    });
+    var pick = function (k) { return sorted.map(function (e) { return e[k] === undefined ? null : e[k]; }); };
+
+    var html = '<p class="lede">' + esc(label) + ' &mdash; ' + sorted.length +
+               (sorted.length === 1 ? ' entry' : ' entries') + ', most recent ' +
+               esc(fmtDate(sorted[sorted.length - 1].date)) + '.</p>';
+
+    html += '<div class="chart-card"><h3>How the relationship feels</h3>' +
+      '<div class="legend">' +
+        '<span><span class="swatch s-a"></span>How it is</span>' +
+        '<span><span class="swatch s-b"></span>How satisfied</span>' +
+      '</div>' +
+      lineChart([
+        { values: pick('quality'), cls: 's-a' },
+        { values: pick('satisfaction'), cls: 's-b' }
+      ], labels) + '</div>';
+
+    html += '<div class="chart-card"><h3>Accountability taken</h3>' +
+      '<div class="legend">' +
+        '<span><span class="swatch s-a"></span>Unprompted</span>' +
+        '<span><span class="swatch s-b"></span>After being told</span>' +
+      '</div>' +
+      lineChart([
+        { values: pick('unprompted'), cls: 's-a' },
+        { values: pick('pointedOut'), cls: 's-b' }
+      ], labels) + '</div>';
+
+    var themes = {};
+    sorted.forEach(function (e) {
+      (e.items || []).forEach(function (it) {
+        var key = (it.label || '').trim().toLowerCase();
+        if (!key) return;
+        if (!themes[key]) themes[key] = { name: it.label.trim(), count: 0, sum: 0, rated: 0 };
+        themes[key].count++;
+        if (typeof it.severity === 'number') { themes[key].sum += it.severity; themes[key].rated++; }
+      });
+    });
+    var themeList = Object.keys(themes).map(function (k) { return themes[k]; })
+      .sort(function (a, b) { return b.count - a.count || b.sum / (b.rated || 1) - a.sum / (a.rated || 1); });
+
+    if (themeList.length) {
+      html += '<div class="chart-card"><h3>What keeps coming back</h3>';
+      themeList.forEach(function (t) {
+        var avg = t.rated ? (t.sum / t.rated).toFixed(1) : '—';
+        html += '<div class="theme"><span>' + esc(t.name) + '</span>' +
+                '<span class="theme-meta">' + t.count + '× · avg ' + avg + '</span></div>';
+      });
+      html += '</div>';
+    }
+
+    html += '<div class="chart-card"><h3>Entries</h3>';
+    sorted.slice().reverse().forEach(function (e) {
+      html += '<div class="entry"><div class="entry-head">' +
+        '<span class="entry-date">' + esc(fmtDate(e.date)) + '</span>' +
+        '<span class="entry-scores">' +
+          (e.quality !== null && e.quality !== undefined ? 'is ' + esc(e.quality) : '') +
+          (e.satisfaction !== null && e.satisfaction !== undefined ? ' · sat ' + esc(e.satisfaction) : '') +
+        '</span></div><div class="entry-body">';
+
+      if (e.contributor) html += '<p>' + esc(e.contributor) + '</p>';
+
+      (e.items || []).forEach(function (it) {
+        html += '<div class="entry-item">' +
+          (typeof it.severity === 'number' ? '<span class="sev">' + esc(it.severity) + '</span> · ' : '') +
+          esc(it.what || '') +
+          (it.longstanding ? ' <span class="whisper">(longstanding)</span>' : '') +
+          (it.wanted ? '<p class="whisper" style="margin-top:.4rem">Wanted: ' + esc(it.wanted) + '</p>' : '') +
+          '</div>';
+      });
+
+      html += '</div></div>';
+    });
+    html += '</div>';
+
+    html += '<div class="toolbar">' +
+            '<button type="button" class="ghost" id="copy-all">Copy everything for the session</button>' +
+            '<button type="button" class="link" id="out">Sign out</button>' +
+            '</div>';
+    return html;
+  }
+
+  function asMarkdown(entries) {
+    var sorted = entries.slice().sort(function (a, b) { return new Date(a.date) - new Date(b.date); });
+    return sorted.map(function (e) {
+      var s = '## ' + fmtDate(e.date) + '\n\n' +
+        '- Relationship: ' + (e.quality ?? '—') + '/10, satisfaction: ' + (e.satisfaction ?? '—') + '/10\n' +
+        '- Accountability unprompted: ' + (e.unprompted ?? '—') + '/10, after being told: ' + (e.pointedOut ?? '—') + '/10\n';
+      if (e.contributor) s += '\nBiggest thing holding us back: ' + e.contributor + '\n';
+      (e.items || []).forEach(function (it, i) {
+        s += '\n' + (i + 1) + '. [' + (it.severity ?? '—') + '/10]' + (it.label ? ' (' + it.label + ')' : '') +
+             (it.longstanding ? ' (longstanding)' : '') + ' ' + (it.what || '');
+        if (it.wanted) s += '\n   Wanted: ' + it.wanted;
+        s += '\n';
+      });
+      return s;
+    }).join('\n---\n\n');
+  }
+
+  function wireAfterRender(entries) {
+    var copyBtn = document.getElementById('copy-all');
+    if (copyBtn) copyBtn.addEventListener('click', function () {
+      navigator.clipboard.writeText(asMarkdown(entries)).then(function () {
+        copyBtn.textContent = 'Copied';
+        setTimeout(function () { copyBtn.textContent = 'Copy everything for the session'; }, 2000);
+      }, function () {
+        copyBtn.textContent = "Couldn't copy — select the text above instead";
+      });
+    });
+    var out = document.getElementById('out');
+    if (out) out.addEventListener('click', signOut);
+  }
+
+  /* ---------- auth ---------- */
+
+  function describeAuthError(err) {
+    var msg = (err && err.message) || '';
+    var name = (err && err.name) || '';
+    if (/invalid login credentials/i.test(msg)) return 'That email and password do not match.';
+    if (/email not confirmed/i.test(msg)) return 'That account has not been confirmed yet.';
+    if (/rate|too many/i.test(msg)) return 'Too many attempts. Try again in a minute.';
+    if (/AuthRetryableFetchError/.test(name) || /fetch|network|load failed/i.test(msg)) {
+      return 'Cannot reach the sync server.';
+    }
+    return msg || 'Sign-in failed.';
+  }
+
+  function showGate(error) {
+    who.textContent = '';
+    say(
+      '<p class="lede">Sign in to read the check-ins shared with your account.</p>' +
+      '<form class="gate" id="f">' +
+      '<label for="e">Email</label>' +
+      '<input id="e" type="email" required autocomplete="username" placeholder="you@example.com">' +
+      '<label for="p">Password</label>' +
+      '<input id="p" type="password" required autocomplete="current-password" placeholder="Password">' +
+      '<button class="primary" type="submit" id="go">Sign in</button>' +
+      (error ? '<div class="err" role="alert">' + esc(error) + '</div>' : '') +
+      '</form>'
+    );
+
+    document.getElementById('f').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var btn = document.getElementById('go');
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+      client.auth
+        .signInWithPassword({
+          email: document.getElementById('e').value,
+          password: document.getElementById('p').value
+        })
+        .then(function (r) {
+          if (r.error) { showGate(describeAuthError(r.error)); return; }
+          load();
+        })
+        .catch(function (e) { showGate(describeAuthError(e)); });
+    });
+  }
+
+  function signOut() {
+    client.auth.signOut().then(function () { window.location.reload(); });
+  }
+
+  /* ---------- load ---------- */
+
+  function load() {
+    say('<p class="lede">Loading&hellip;</p>');
+
+    client.auth.getSession().then(function (res) {
+      var session = res && res.data && res.data.session;
+      if (!session) { showGate(''); return; }
+
+      who.textContent = session.user.email || '';
+
+      // RLS (state_share_reader_select) restricts this to rows naming us, so
+      // no reader_id filter is needed -- or trusted.
+      return client
+        .from('state_share')
+        .select('owner_id,course_slug,shared_keys,owner_label')
+        .eq('course_slug', SLUG)
+        .then(function (r) {
+          if (r.error) {
+            say('<p class="lede">Could not load: ' + esc(r.error.message) + '</p>' +
+                '<div class="toolbar"><button type="button" class="link" id="out">Sign out</button></div>');
+            wireAfterRender([]);
+            return;
+          }
+
+          var shares = (r.data || []).filter(function (s) {
+            return (s.shared_keys || []).indexOf(ENTRIES_KEY) !== -1;
+          });
+
+          if (!shares.length) {
+            say(
+              '<p class="empty">Nothing has been shared with this account yet.' +
+              '<br><br>A share is one row in <code>state_share</code>; the SQL to add ' +
+              'it is at the bottom of <code>supabase/migrations/0002_state_share.sql</code>.' +
+              '</p>' +
+              '<div class="toolbar"><button type="button" class="link" id="out">Sign out</button></div>'
+            );
+            wireAfterRender([]);
+            return;
+          }
+
+          // One request per owner. Sequential rather than parallel: the
+          // realistic count is one, and a Promise.all here would trade
+          // legibility for nothing.
+          var all = [];
+          var chain = Promise.resolve();
+          shares.forEach(function (share) {
+            chain = chain.then(function () {
+              return client
+                .from('course_state')
+                .select('key,value')
+                .eq('user_id', share.owner_id)
+                .eq('course_slug', SLUG)
+                .eq('key', ENTRIES_KEY)
+                .then(function (rr) {
+                  var row = !rr.error && rr.data && rr.data[0];
+                  var entries = [];
+                  if (row) {
+                    try {
+                      var parsed = JSON.parse(row.value);
+                      if (Array.isArray(parsed)) entries = parsed;
+                    } catch (e) { /* leave empty; a bad blob is not a crash */ }
+                  }
+                  all.push({
+                    label: share.owner_label || 'Shared with you',
+                    entries: entries
+                  });
+                });
+            });
+          });
+
+          return chain.then(function () {
+            var flat = [];
+            var html = all.map(function (a) {
+              flat = flat.concat(a.entries);
+              return renderEntries(a.label, a.entries);
+            }).join('');
+            say(html);
+            wireAfterRender(flat);
+          });
+        });
+    }).catch(function (e) {
+      say('<p class="lede">Could not load: ' + esc((e && e.message) || 'unknown error') + '</p>');
+    });
+  }
+
+  if (!window.supabase || !window.supabase.createClient) {
+    say('<p class="lede">Could not reach the sync library. Reload to try again.</p>');
+    return;
+  }
+
+  client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: {
+      storageKey: AUTH_KEY,
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: false
+    }
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>

@@ -433,7 +433,15 @@
 
         return client
           .from(TABLE)
+          // user_id is redundant against course_state_owner and deliberately
+          // not: migration 0002 adds a second, additive SELECT policy so one
+          // account can read another's rows for a shared slug. Without this
+          // filter, a signed-in reader hydrating that slug would receive both
+          // sets of rows -- two values for the same `key` -- and the artifact
+          // would boot on whichever arrived last. Reading someone else's
+          // entries is the reader page's job, with an explicit user_id.
           .select('key,value')
+          .eq('user_id', userId)
           .eq('course_slug', SLUG)
           .then(function (r) {
             if (r.error) return false;
@@ -924,6 +932,14 @@
       return Promise.resolve({ key: String(key) });
     }
   };
+  // The runtime API these artifacts are generated against is not consistent
+  // about the name -- some call remove(), some delete(). The accountability
+  // check-in calls delete() to clear its draft after saving an entry, inside a
+  // try/catch, so the missing method degraded to "the draft is never cleared"
+  // and the just-saved entry came back as a draft on the next load. Aliasing
+  // is cheaper than patching each artifact, and cannot break one that already
+  // uses remove().
+  window.storage.delete = window.storage.remove;
 
   window.CourseStore = {
     slug: SLUG,
