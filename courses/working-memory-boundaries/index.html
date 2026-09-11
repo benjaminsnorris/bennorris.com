@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="working-memory-boundaries"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Working Memory and Boundaries — An Orientation</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #fbfaf8;
+  --surface: #ffffff;
+  --surface-2: #f2efe9;
+  --ink: #1c1a17;
+  --ink-2: #4a463f;
+  --ink-3: #746e63;
+  --rule: #948a7b;
+  --hairline: #ddd8cd;
+  --accent: #7a4b2a;
+  --accent-soft: #f0e4d8;
+  --sourced: #2f6b4f;
+  --sourced-bg: #e3f0e8;
+  --inference: #3d5a8a;
+  --inference-bg: #e2e9f4;
+  --contested: #8a5a1f;
+  --contested-bg: #f6e9d5;
+  --vendor: #8a2f3d;
+  --vendor-bg: #f6dfe2;
+  --single: #5c4b7a;
+  --single-bg: #eae4f3;
+  --measure: 34rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14130f;
+    --surface: #1c1b17;
+    --surface-2: #24231d;
+    --ink: #eeebe3;
+    --ink-2: #c3bdb0;
+    --ink-3: #918a7c;
+    --rule: #716c61;
+    --hairline: #33312a;
+    --accent: #d99b6c;
+    --accent-soft: #2e2318;
+    --sourced: #7fc6a2;
+    --sourced-bg: #1a2c22;
+    --inference: #8fb0e0;
+    --inference-bg: #1a2331;
+    --contested: #d9a75c;
+    --contested-bg: #2e2617;
+    --vendor: #e08b98;
+    --vendor-bg: #2f1c20;
+    --single: #b5a3d9;
+    --single-bg: #241f2e;
+  }
+}
+[data-theme="dark"] {
+  --bg: #14130f;
+  --surface: #1c1b17;
+  --surface-2: #24231d;
+  --ink: #eeebe3;
+  --ink-2: #c3bdb0;
+  --ink-3: #918a7c;
+  --rule: #716c61;
+  --hairline: #33312a;
+  --accent: #d99b6c;
+  --accent-soft: #2e2318;
+  --sourced: #7fc6a2;
+  --sourced-bg: #1a2c22;
+  --inference: #8fb0e0;
+  --inference-bg: #1a2331;
+  --contested: #d9a75c;
+  --contested-bg: #2e2617;
+  --vendor: #e08b98;
+  --vendor-bg: #2f1c20;
+  --single: #b5a3d9;
+  --single-bg: #241f2e;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  font-size: 17px;
+  line-height: 1.62;
+  overflow-x: hidden;
+}
+.wrap { max-width: var(--measure); margin: 0 auto; padding: 1.25rem 1.15rem 5rem; }
+
+h1, h2, h3, .ui {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+h1 { font-size: 1.6rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 .4rem; }
+h2 {
+  font-size: 1.12rem; line-height: 1.3; letter-spacing: -0.01em;
+  margin: 3rem 0 .9rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
+}
+h3 { font-size: .97rem; margin: 1.9rem 0 .5rem; color: var(--ink); }
+p { margin: 0 0 1.05rem; }
+strong { color: var(--ink); }
+em { color: var(--ink-2); }
+
+.kicker {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: .7rem; text-transform: uppercase; letter-spacing: .13em;
+  color: var(--ink-3); margin: 0 0 .7rem;
+}
+.standfirst { color: var(--ink-2); font-size: 1.02rem; margin-bottom: 1.6rem; }
+
+.box {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 10px; padding: 1rem 1.05rem; margin: 1.4rem 0;
+}
+.box.warn { background: var(--accent-soft); border-color: var(--accent); }
+.box h3 { margin-top: 0; }
+.box p:last-child, .box ul:last-child { margin-bottom: 0; }
+
+ul, ol { margin: 0 0 1.05rem; padding-left: 1.15rem; }
+li { margin-bottom: .5rem; }
+
+.chip {
+  display: inline-block; font-family: -apple-system, sans-serif;
+  font-size: .63rem; text-transform: uppercase; letter-spacing: .07em;
+  padding: .13rem .42rem; border-radius: 4px; vertical-align: .09em;
+  white-space: nowrap; font-weight: 600;
+}
+.src { background: var(--sourced-bg); color: var(--sourced); }
+.infer { background: var(--inference-bg); color: var(--inference); }
+.contested { background: var(--contested-bg); color: var(--contested); }
+.vendor { background: var(--vendor-bg); color: var(--vendor); }
+.single { background: var(--single-bg); color: var(--single); }
+
+.sid {
+  font-family: ui-monospace, Menlo, monospace; font-size: .72rem;
+  color: var(--accent); text-decoration: none; padding: 0 .1rem;
+  border-bottom: 1px dotted var(--accent);
+}
+
+.tier {
+  border-left: 3px solid var(--accent); padding-left: .9rem; margin: 1.5rem 0;
+}
+.tier .lab {
+  font-family: -apple-system, sans-serif; font-size: .68rem;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--accent);
+  margin-bottom: .3rem;
+}
+
+.scroller { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.2rem 0; }
+table { border-collapse: collapse; font-size: .82rem; min-width: 100%;
+  font-family: -apple-system, sans-serif; }
+th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--hairline);
+  vertical-align: top; }
+th { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink-3); font-weight: 600; }
+td.num { font-family: ui-monospace, Menlo, monospace; white-space: nowrap; }
+
+.pull {
+  font-size: 1.1rem; line-height: 1.45; color: var(--ink);
+  border-left: 3px solid var(--rule); padding-left: 1rem; margin: 1.8rem 0;
+}
+
+.readaloud {
+  background: var(--surface-2); border: 1px solid var(--rule);
+  border-radius: 10px; padding: 1.1rem; margin: 1.4rem 0;
+  font-size: .97rem;
+}
+
+.sources { font-size: .85rem; font-family: -apple-system, sans-serif; line-height: 1.5; }
+.sources li { margin-bottom: .95rem; }
+.sources .meta { color: var(--ink-3); font-size: .78rem; display: block; margin-top: .2rem; }
+
+.toggle {
+  position: fixed; top: .6rem; right: .6rem; z-index: 20;
+  background: var(--surface); color: var(--ink-2); border: 1px solid var(--rule);
+  border-radius: 999px; width: 44px; height: 44px; font-size: 1rem;
+  cursor: pointer; line-height: 1; display: flex; align-items: center;
+  justify-content: center;
+}
+.toc { font-family: -apple-system, sans-serif; font-size: .85rem; }
+.toc ol { padding-left: 1.2rem; }
+.toc a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--hairline); }
+
+footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
+  color: var(--ink-3); font-size: .78rem; font-family: -apple-system, sans-serif; }
+
+@media (min-width: 700px) {
+  body { font-size: 18px; }
+  .wrap { padding: 2.5rem 1.5rem 6rem; }
+  h1 { font-size: 2.1rem; }
+  h2 { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+<button class="toggle ui" id="themeToggle" aria-label="Toggle dark mode">◐</button>
+
+<div class="wrap">
+
+<p class="kicker">Orientation &middot; ~1–2 hours &middot; no progress tracking</p>
+<h1>The rule wasn't in the room</h1>
+<p class="standfirst">Working memory, ADHD, and why agreements between two people who both have it fail in a particular and predictable way.</p>
+
+<div class="box warn">
+<h3>What this is not</h3>
+<ul>
+<li><strong>It does not touch the feedback document.</strong> Nothing here references or responds to anything Tatum wrote. This is factory, not ore. It should read the same whether you've opened that document or not.</li>
+<li><strong>It is not another protocol.</strong> You've run timers, cues, and scheduled talks, and read Arbinger, NVC, Radical Candor, and Fisher. A ninth technique would be the wrong deliverable. This tries to explain why that whole class of thing underperforms.</li>
+<li><strong>It is not a diagnosis</strong>, of you or of Tatum, and it isn't a case for either of you being right.</li>
+<li><strong>It does not settle the question.</strong> An Orientation ends with a map and a decision, not a capability. The decision at the end is which tier to build machinery for first.</li>
+</ul>
+</div>
+
+<div class="box toc">
+<h3>Contents</h3>
+<ol>
+<li><a href="#evidence">The state of the evidence</a></li>
+<li><a href="#wm">What working memory actually is</a></li>
+<li><a href="#tiers">The three tiers, and where the load lands</a></li>
+<li><a href="#complication">The complication that breaks the tidy story</a></li>
+<li><a href="#both">When both partners have it</a></li>
+<li><a href="#why">Why the protocols underperformed</a></li>
+<li><a href="#shelf">The practitioner shelf</a></li>
+<li><a href="#answer">The answer to bring back</a></li>
+<li><a href="#open">Open questions for Joshua</a></li>
+<li><a href="#sources">Sources</a></li>
+</ol>
+</div>
+
+<h3>How to read the markers</h3>
+<p>Every load-bearing claim carries one of these. They exist because the evidence here is genuinely uneven, and a brief that flattened it would be more persuasive and less true.</p>
+<ul>
+<li><span class="chip src">Sourced</span> Traceable to a numbered source below.</li>
+<li><span class="chip infer">Inference</span> My reasoning or application. In no source.</li>
+<li><span class="chip contested">Contested</span> The field genuinely disagrees.</li>
+<li><span class="chip single">Single study</span> Real, but unreplicated or small.</li>
+<li><span class="chip vendor">Vendor framing</span> Possibly true, but authored by someone selling the answer.</li>
+</ul>
+
+<h2 id="evidence">1. The state of the evidence</h2>
+
+<p>Three things are worth knowing before any of the content, because they change how much weight each section can carry.</p>
+
+<h3>"Boundaries" is not a research construct</h3>
+<p><span class="chip infer">Inference</span> No one has run a study on working memory and boundary adherence, because boundaries aren't operationalized anywhere in the cognitive literature. The word belongs to clinical and practitioner vocabulary. Everything in this brief is therefore a translation: from constructs that <em>are</em> studied (working memory, inhibition, emotion regulation, delay aversion) to a construct that isn't. The translation is mine. Treat the mechanism sections as well-sourced and the bridges between them as argued.</p>
+
+<h3>Almost all of the core evidence is about children</h3>
+<p><span class="chip src">Sourced</span> The foundational working memory meta-analysis covers children and adolescents <a class="sid" href="#S2">S2</a>. So does most of the theory. <span class="chip contested">Contested</span> Adult studies find broadly similar impairments <a class="sid" href="#S3">S3</a>, but you are a forty-year-old man applying a pediatric literature to your marriage, and that extrapolation is doing real work throughout. It is the single biggest structural weakness in this brief.</p>
+
+<h3>The accessible material is heavily commercial</h3>
+<p><span class="chip vendor">Vendor framing</span> A large share of what comes up when you search ADHD and marriage is attached to eight-week seminars, coaching programs, and therapy practices. Some of it is good. All of it has an incentive to make the mechanism feel more settled and more solvable than the research supports. <span class="chip infer">Inference</span> This matters especially for <em>rejection sensitive dysphoria</em>, which is ubiquitous in that material and would fit your situation suspiciously well, but which does not have a primary evidence base proportionate to its popularity. I've left it out rather than hand you a satisfying idea with nothing under it.</p>
+
+<p>One more, worth naming because I nearly used it: I'm deliberately <em>not</em> building on self-control as a depletable resource. There is ADHD-specific work applying it to partner communication <a class="sid" href="#S11">S11</a>, but the underlying ego-depletion literature has replication problems severe enough that the conclusion would feel satisfying and rest on sand.</p>
+
+<h2 id="wm">2. What working memory actually is</h2>
+
+<p>The everyday usage — "bad memory," forgetting things — is close to the opposite of the technical meaning. Working memory is not storage. It's the system that <strong>holds something active while you do something else</strong>. The standard model splits it three ways: a central executive that allocates attention, plus two short-term subsystems, one for verbal material and one for visual and spatial material <a class="sid" href="#S2">S2</a>.</p>
+
+<p><span class="chip infer">Inference</span> The relevant piece for your question is the central executive. A boundary, once agreed, is a rule that has to stay active <em>during</em> a competing demand. The demand is the whole point. A rule that only has to be recalled in calm conditions isn't a boundary; it's a preference.</p>
+
+<h3>The meta-analytic picture</h3>
+<p><span class="chip src">Sourced</span> Twenty-six studies, pooled. Children with ADHD showed deficits across multiple working memory components, independent of language learning disorders and of general intellectual ability <a class="sid" href="#S2">S2</a>. But the effects are not uniform, and the pattern is the interesting part:</p>
+
+<div class="scroller">
+<table>
+<thead><tr><th>Component</th><th>Effect size</th><th>95% CI</th></tr></thead>
+<tbody>
+<tr><td>Spatial central executive</td><td class="num">1.06</td><td class="num">0.72 – 1.39</td></tr>
+<tr><td>Spatial storage</td><td class="num">0.85</td><td class="num">0.62 – 1.08</td></tr>
+<tr><td>Verbal storage</td><td class="num">0.47</td><td class="num">0.36 – 0.59</td></tr>
+<tr><td>Verbal central executive</td><td class="num">0.43</td><td class="num">0.24 – 0.62</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:.8rem;color:var(--ink-3);font-family:-apple-system,sans-serif;margin-top:-.6rem;">Martinussen et al. 2005 <a class="sid" href="#S2">S2</a>. Children and adolescents. Assume the true effects are somewhat smaller than published.</p>
+
+<p>Hold onto the bottom row. It comes back in section 4 and it does not say what a tidy version of this brief would want it to say.</p>
+
+<h2 id="tiers">3. The three tiers, and where the load lands</h2>
+
+<p>Joshua's taxonomy turns out to sort the mechanisms cleanly, which is a good sign for the taxonomy. Each tier makes a different cognitive demand, so each fails differently.</p>
+
+<div class="tier">
+<p class="lab">Tier 1 · Individual boundaries</p>
+<p>Enforceable over yourself, your possessions, and access to those. <span class="chip infer">Inference</span> Cognitively this is the <em>easiest</em> tier and the one least implicated in your stated problem. It requires holding one rule against one impulse, with no second person's state to track. When individual boundaries fail in ADHD it's usually a straightforward inhibition or delay story — and there is a serious model saying exactly that, which I'll get to.</p>
+</div>
+
+<div class="tier">
+<p class="lab">Tier 2 · Relational boundaries (contracts)</p>
+<p>Require shared agreement, set precedent case by case. <span class="chip infer">Inference</span> This is where most of the damage happens, and it's a <em>dual-load</em> problem. You have to hold your own position active while simultaneously processing what the other person is saying, under affective arousal. That's not one working memory demand, it's two competing for the same central executive, in the exact condition that degrades it.</p>
+<p><span class="chip src">Sourced</span> And the affective part isn't incidental. Emotion dysregulation is prevalent in ADHD across the lifespan and is a major contributor to impairment — not a side effect but a primary source of the damage. It appears to arise partly from difficulty orienting toward, recognizing, and allocating attention to emotional stimuli, implicating a striato-amygdalo-medial prefrontal network <a class="sid" href="#S4">S4</a>.</p>
+<p><span class="chip contested">Contested</span> How emotion dysregulation <em>relates</em> to ADHD is unsettled. The same review lays out three live models: correlated but distinct dimensions, a core diagnostic feature, or the combination forming its own entity <a class="sid" href="#S4">S4</a>. This matters practically. If it's a core feature, you work on it as ADHD. If it's a distinct dimension, it needs its own handle.</p>
+</div>
+
+<div class="tier">
+<p class="lab">Tier 3 · Meta boundaries</p>
+<p>Rules about how you make rules. <span class="chip infer">Inference</span> The hardest tier, and the one with the longest gap between agreement and application. A meta boundary is agreed in a calm moment and has to govern behavior in a hot one, possibly weeks later. Nothing about the moment of agreement is present at the moment of use. Every property that makes it powerful also makes it fragile.</p>
+</div>
+
+<h3>The theory that maps onto tier 3</h3>
+<p><span class="chip src">Sourced</span> Barkley's 1997 model proposes that ADHD is fundamentally a deficit in behavioral inhibition, which then degrades four executive functions that depend on it: working memory, self-regulation of affect and motivation, <strong>internalization of speech</strong>, and reconstitution <a class="sid" href="#S1">S1</a>.</p>
+<p>Internalization of speech is the mechanism by which spoken agreements become internal rules that govern later behavior. <span class="chip infer">Inference</span> If you wanted a cognitive theory purpose-built to explain why meta boundaries don't stick, you would build that one. The fit is close enough that I want to be suspicious of it, which brings us to the next part.</p>
+
+<div class="box">
+<h3>Why Barkley is scaffolding here and not foundation</h3>
+<p><span class="chip contested">Contested</span> The 1997 paper is among the most cited in the field, and citation count is popularity, not truth. A 2022 critique argues that Barkley's account of behavioral inhibition is unclear about where and what the deficit actually is, treating it as something that exists independently somewhere in prefrontal cortex, and reports that scrutiny of his supporting literature found only twelve cited studies bearing on impulsivity at all <a class="sid" href="#S5">S5</a>.</p>
+<p><span class="chip src">Sourced</span> The field has also moved. Dual-pathway models propose two dissociable routes — executive dysfunction and delay aversion, the latter being a motivational disposition to escape the negative affect that delay itself evokes — with the explicit claim that each affects some patients and not others <a class="sid" href="#S6">S6</a>. Later work adds temporal processing as a third dissociable component <a class="sid" href="#S7">S7</a>. <span class="chip contested">Contested</span> Even delay aversion doesn't replicate cleanly; some studies find group differences and others don't <a class="sid" href="#S8">S8</a>.</p>
+<p><span class="chip vendor">Vendor framing</span> Worth noting on the triple-pathway paper: the lead author disclosed serving on a speakers' bureau and as a consultant for a pharmaceutical company <a class="sid" href="#S7">S7</a>. That doesn't invalidate the work. It's the kind of thing you'd want flagged rather than discovered.</p>
+<p><strong>Net:</strong> use Barkley for vocabulary and structure. Don't let any conclusion rest on him alone. The heterogeneity finding is arguably more useful to you anyway — it means "we both have ADHD" does not imply you have the same deficits.</p>
+</div>
+
+<h2 id="complication">4. The complication that breaks the tidy story</h2>
+
+<p>Here is where the research declines to cooperate, and I think this is the most valuable thing in the brief.</p>
+
+<p>The tidy story would be: verbal agreements don't stick because verbal working memory is impaired. It's clean, it maps onto internalization of speech, and it would explain everything you described.</p>
+
+<p><span class="chip src">Sourced</span> But verbal central executive working memory showed the <em>smallest</em> effect of the four components measured — 0.43, against 1.06 for its spatial counterpart <a class="sid" href="#S2">S2</a>. The verbal deficit is real, but it is the weakest link in the chain, not the strongest.</p>
+
+<p class="pull">If the problem were simply that ADHD brains can't hold verbal rules, the effect sizes would point the other way. Something else is doing most of the work.</p>
+
+<p><span class="chip infer">Inference</span> My reading, offered as argument rather than finding: the failure is probably not in <em>storing</em> the rule but in <em>accessing</em> it under affective load. That's a different claim, and it points at the emotion dysregulation evidence <a class="sid" href="#S4">S4</a> rather than the working memory evidence as the primary driver. Working memory sets the ceiling. Emotional arousal is what drives you into it.</p>
+
+<p>This has a practical consequence. If the rule is intact but unreachable when it's hot, then interventions that <em>strengthen</em> the rule — repetition, clearer wording, more emphatic agreement — are aimed at the wrong variable. Interventions that reduce arousal, or that make the rule available without requiring retrieval, are aimed at the right one.</p>
+
+<h2 id="both">5. When both partners have it</h2>
+
+<p>I went looking for research on dyads where both partners have ADHD, expecting to find nothing. Close to right, but with one genuinely useful finding along the way.</p>
+
+<h3>The pairing is not a coincidence</h3>
+<p><span class="chip src">Sourced</span> Assortative mating — people selecting partners with similar traits — is documented across the full spectrum of mental disorders in population-scale registry data, including a Finnish study covering over 1.2 million partnerships <a class="sid" href="#S9">S9</a>. Earlier Swedish and Norwegian registry work found ADHD among the <em>strongest</em> within-disorder partner correlations <a class="sid" href="#S9">S9</a>.</p>
+<p><span class="chip contested">Contested</span> Though not settled: a large cross-country analysis found ADHD showed wide swings that were not significant after strict statistical correction <a class="sid" href="#S12">S12</a>. And partner similarity has at least three possible causes — active preference for similarity, convergence over years of shared life, or social homogamy from shared environments — which registry data struggles to separate <a class="sid" href="#S9">S9</a>.</p>
+
+<h3>The one study aimed squarely at this</h3>
+<p><span class="chip single">Single study</span> Steele, Wymbs and Capps compared 94 adults without ADHD, 43 with childhood histories but no current symptoms, and 27 with childhood histories and elevated current symptoms. Assortative mating was notably common in the persisting group <a class="sid" href="#S10">S10</a>. <span class="chip infer">Inference</span> Note the limitation, which is significant: partners' symptoms were rated by the participant, not independently assessed. A person with ADHD reporting that their partner also has it is not the same as two independent assessments.</p>
+
+<h3>What's actually missing</h3>
+<p><span class="chip infer">Inference</span> The main marital studies use one-partner-with-ADHD designs — 33 married adults and their spouses in the earliest <a class="sid" href="#S13">S13</a>, 28 couples in a more recent one <a class="sid" href="#S14">S14</a>. The literature is largely built around an ADHD partner and a non-ADHD partner who compensates. <strong>Your configuration is barely studied.</strong> I'd bring that to Joshua as a finding rather than let it pass silently, because much of the accessible advice assumes a compensating partner who, in your case, doesn't exist.</p>
+
+<div class="box">
+<h3>One finding to sit with before the next session</h3>
+<p><span class="chip single">Single study</span> In that earliest marital study, adults with ADHD rated the health of their marriages and families <em>more negatively</em> than their spouses did <a class="sid" href="#S13">S13</a>.</p>
+<p><span class="chip infer">Inference</span> Small sample, one study, don't over-read it. But if it generalizes even slightly, it complicates the assumption that the partner with ADHD is the one underestimating the damage. It may run the other way. That's worth holding lightly and raising with Joshua rather than concluding.</p>
+</div>
+
+<h2 id="why">6. Why the protocols underperformed</h2>
+
+<p>You've tried timers, cues, scheduled conversations, and four or five well-built communication frameworks. The futility feeling is information, not failure of effort.</p>
+
+<p><span class="chip infer">Inference</span> Here's the pattern I'd argue for. Nearly every one of those interventions shares a hidden requirement: <strong>at the moment of highest emotional load, someone has to remember to deploy the technique.</strong> Radical Candor requires recalling the framework mid-conflict. NVC requires assembling a four-part structure under arousal. A timer requires someone to have set it while calm and both parties to respect it while not. Each one is a rule that must be retrieved precisely when retrieval is most degraded.</p>
+
+<p>The design principle that follows is narrow but, I think, load-bearing:</p>
+
+<p class="pull">Interventions that require retrieval under load are asking the deficit to fix itself. Interventions that make the rule <em>present</em> — so retrieval isn't required — route around it.</p>
+
+<p><span class="chip infer">Inference</span> Externalization is the general form. A written document is present. A physical object is present. A third party is present. None of these ask working memory to do anything. This is also, notably, what Joshua has already been doing: a written feedback document and an explicit meta-boundary layer are both externalizations. The sequencing instinct — build the factory before processing the ore — is the same move.</p>
+
+<p><span class="chip infer">Inference</span> The honest caveat: I could not find intervention trials testing this in ADHD couples. The reviews say the same — clinical trials testing interventions for romantic relationship functioning in adult ADHD are a recognized gap <a class="sid" href="#S15">S15</a>. So this is a mechanism-derived prediction, not a validated technique. Bring it as a hypothesis.</p>
+
+
+<h2 id="shelf">7. The practitioner shelf</h2>
+
+<p>A different field type, and it needs saying plainly: <strong>this section is craft, not evidence.</strong> Books and blogs by clinicians and consultants are accumulated practice wisdom. Some of it is excellent and some of it is confident invention, and from the outside they read identically. The useful ones here are the ones whose claims you can trace back to something in sections 2 through 6.</p>
+
+<h3>Start here: the convergence</h3>
+
+<p><span class="chip src">Sourced fact <a href="#S16">S16</a></span> John Gottman's decades of observational work on married couples produced a construct he calls <strong>flooding</strong>, or diffuse physiological arousal. Heart rate climbing past roughly 100 bpm, sympathetic activation, perceptual narrowing. His claim is that a flooded person becomes physiologically incapable of the listening and problem-solving that conflict resolution requires <a class="sid" href="#S20">S20</a>, and that flooding is the engine driving couples down what he calls the distance and isolation cascade <a class="sid" href="#S16">S16</a>.</p>
+
+<p class="pull">This is a completely separate research tradition — marital observation and physiology, no ADHD in the frame — arriving at the same conclusion as section 4.</p>
+
+<p><span class="chip infer">Inference</span> That convergence is the most valuable thing I found. The ADHD literature says emotion dysregulation is a major source of impairment and involves difficulty allocating attention under emotional load <a class="sid" href="#S4">S4</a>. Gottman, working on ordinary couples with entirely different methods, says the same thing in physiological terms: past a threshold of arousal, the capacity for the conversation is simply gone. Two unrelated literatures converging is stronger evidence than either one alone, and it means the mechanism I argued for isn't ADHD-specific. <strong>ADHD probably lowers the threshold rather than creating the phenomenon.</strong></p>
+
+<p><span class="chip src">Sourced fact <a href="#S20">S20</a></span> It also yields the one intervention in this entire brief that isn't a retrieval-under-load protocol. Heart rate returns to baseline in roughly twenty minutes — but only if the person actively distracts themselves. Spend the break rehearsing your case or replaying the argument and the arousal doesn't drop <a class="sid" href="#S20">S20</a>. <span class="chip infer">Inference</span> Note why this fits the design principle from section 6: a time-out agreed in advance requires one move at the moment of load, not the recall and execution of a framework. It's physiological rather than cognitive. It routes around the deficit instead of asking it to cooperate.</p>
+
+<div class="box">
+<h3>How to read Gottman honestly</h3>
+<p><span class="chip contested">Contested</span> The famous accuracy figures — 94%, "predicts divorce from the first three minutes" — are the weakest part of his work and the part most repeated. The standard methodological critique is Heyman and Smith Slep's <em>The hazards of predicting divorce without cross-validation</em> <a class="sid" href="#S17">S17</a>, and the objection is that a model fitted to a sample and evaluated on that same sample is describing, not predicting.</p>
+<p><span class="chip vendor">Vendor framing</span> The Gottman Institute's own research FAQ concedes the 94% claim has become a source of confusion, and traces it to a single 1992 study <a class="sid" href="#S18">S18</a>. Worth knowing that the institute sells therapy training, certification, and consumer programs.</p>
+<p><strong>Net:</strong> the flooding physiology is well-observed and directly useful. The prediction statistics are where the field pushes back. Take the first, leave the second.</p>
+</div>
+
+<h3>The ADHD-and-couples shelf</h3>
+
+<p><span class="chip vendor">Vendor framing</span> Almost everything here is written by someone who also sells a program, and I'd rather say that once, up front, than repeat it per entry.</p>
+
+<ul>
+<li><strong>Melissa Orlov, <em>The ADHD Effect on Marriage</em></strong> (2010) and <em>The Couple's Guide to Thriving with ADHD</em> (2014, with Nancie Kohlenberger) <a class="sid" href="#S19">S19</a>. The standard recommendation in this space. She blogs at adhdmarriage.com and at Psychology Today. She is a marriage consultant rather than a clinician-researcher, and she sells an eight-week seminar and a membership community — the books are also the funnel. Reviewers consistently single out her even-handedness toward both partners, which is the thing you said matters. <span class="chip infer">Inference</span> The caveat is structural: her framework is built on the one-partner-with-ADHD model, which is exactly the gap from section 5.</li>
+<li><strong>Gina Pera, <em>Is It You, Me, or Adult A.D.D.?</em></strong> <a class="sid" href="#S21">S21</a>. Blogs at ADHD Roller Coaster. Sharper-edged than Orlov and more oriented to the non-ADHD partner's experience.</li>
+<li><strong>Russell Barkley, <em>Taking Charge of Adult ADHD</em></strong> (Guilford) and <em>When an Adult You Love Has ADHD</em> (APA LifeTools) <a class="sid" href="#S22">S22</a>. <span class="chip infer">Inference</span> Worth reading specifically <em>because</em> you've now seen his 1997 theory paper and its critique. Watching a researcher translate a contested model into confident practical advice is an education in how much firms up in the crossing. That's not a knock on him. It's the gap between theory and craft, visible in one author.</li>
+<li><strong>Hallowell &amp; Ratey, <em>ADHD 2.0</em></strong> and <em>Driven to Distraction</em> <a class="sid" href="#S23">S23</a>. The popular canon. Warm, strengths-oriented, light on sourcing.</li>
+</ul>
+
+<h3>The boundaries shelf</h3>
+
+<p><span class="chip infer">Inference</span> One observation here is worth more than the reading list, so I'll lead with it. <strong>The mainstream boundaries books categorize by domain. Joshua categorizes by enforceability.</strong></p>
+
+<p><span class="chip src">Sourced fact <a href="#S25">S25</a></span> Nedra Glover Tawwab's <em>Set Boundaries, Find Peace</em> — probably the most-recommended current title — sorts boundaries into six types: physical, sexual, intellectual, emotional, material, and time <a class="sid" href="#S25">S25</a>. Henry Cloud and John Townsend's <em>Boundaries</em> is the enduring classic in the category, written from an explicitly Christian frame <a class="sid" href="#S24">S24</a>.</p>
+
+<p><span class="chip infer">Inference</span> Joshua's cut — individual, relational, meta — is organized by <em>who has to agree for the rule to hold</em>. I think that's the better cut for a marriage, and worth telling him so. Domain taxonomies answer "what kind of boundary is this," which is rarely the hard question. Enforceability answers "can I hold this alone, or does it require a negotiation," which is precisely where the cognitive load lands. His taxonomy sorts the mechanisms; theirs doesn't. That's a real point of overlap to raise, and a question worth asking him: where did his three tiers come from?</p>
+
+<h3>The one I nearly left out</h3>
+
+<p>An earlier draft of this brief excluded <em>rejection sensitive dysphoria</em> in one line, on the grounds that it was everywhere in commercial ADHD content and absent from the primary literature. That call was half right, and the half that was wrong cost something specific.</p>
+
+<p><strong>The half that was right.</strong> <span class="chip vendor">Vendor framing</span> RSD is not a diagnosis. It does not appear in DSM-5-TR, has no validated diagnostic criteria, no validated instrument, and no peer-reviewed prevalence estimate <a class="sid" href="#S26">S26</a>. The term was coined and popularized by psychiatrist William Dodson, emerged from clinical observation rather than a research programme, and spread through magazine coverage and social media — which is why it is now far better known than the evidence behind it <a class="sid" href="#S26">S26</a>. <span class="chip single">Single study</span> Dodson and colleagues published a small case series in 2024 arguing the pattern isn't explained by depression, anxiety, or a personality disorder <a class="sid" href="#S27">S27</a>, and there is qualitative work on lived experience <a class="sid" href="#S28">S28</a>. A case series and some qualitative work is early-stage evidence, not a settled construct. <span class="chip infer">Inference</span> So any percentage you see attached to RSD should be treated as invented until sourced.</p>
+
+<p><strong>The half that was wrong, and it matters.</strong> Underneath the branded term sits a properly researched construct with a thirty-year literature, and by excluding the label I nearly cost you the thing underneath it.</p>
+
+<div class="box warn">
+<h3>Downey &amp; Feldman, 1996</h3>
+<p><span class="chip src">Sourced fact <a href="#S29">S29</a></span> <em>Rejection sensitivity</em> is defined as a cognitive-affective disposition to anxiously expect, readily perceive, and intensely react to rejection. The foundational paper is four studies in the <em>Journal of Personality and Social Psychology</em>, and it is specifically about intimate relationships <a class="sid" href="#S29">S29</a>.</p>
+<p>Study 2 provides experimental evidence that people who anxiously expect rejection readily perceive <strong>intentional</strong> rejection in the ambiguous behavior of others. Study 3 shows the same thing inside romantic relationships: they readily perceive <strong>intentional</strong> rejection in a partner's insensitive behavior. Study 4 finds that rejection-sensitive people <em>and their partners</em> are dissatisfied with the relationship <a class="sid" href="#S29">S29</a>.</p>
+<p><span class="chip infer">Inference</span> I'd read Study 3 twice. Not because it describes you — one paper cannot do that — but because the construct it measures is the perception of <em>intent</em> in ambiguous behavior, which is the precise place a conversation is most likely to fracture. It also suggests that "did you mean it that way" may be a harder question for some people to answer accurately than it feels from the inside, in either direction.</p>
+<p><span class="chip contested">Contested</span> A 2023 systematic review and meta-analysis confirms rejection sensitivity has real associations with romantic relationship outcomes, while noting the usual caveats about publication bias in this literature <a class="sid" href="#S30">S30</a>.</p>
+</div>
+
+<p><span class="chip infer">Inference</span> Two things follow. First, this is the third independent construct in this brief — alongside emotion dysregulation and flooding — that is <strong>not ADHD-specific</strong>. Rejection sensitivity is a general disposition studied in the general population. That keeps reinforcing the same conclusion: ADHD is probably modulating shared human machinery rather than producing an exotic mechanism of its own.</p>
+
+<p>Second, a note on my own error, since you may want to apply the same test to anything else here. I excluded RSD because the <em>label</em> was commercial. That was a reasonable filter and it misfired, because a weakly-evidenced popular term had a well-evidenced academic construct sitting directly underneath it. <strong>The right move with vendor-framed material is to trace it down a level, not to discard it.</strong> Discarding is faster and it silently loses things. If Joshua raises a concept that pattern-matches to self-help, that's the question to ask: what is this a popular name for, and who studied that?</p>
+
+<h2 id="answer">8. The answer to bring back</h2>
+
+<p>Joshua asked how working memory in ADHD brains affects boundary-setting and adherence. Here is the compressed version, in a form you can read aloud.</p>
+
+<div class="readaloud">
+<p><strong>Short answer:</strong> less than I expected, and less directly. Working memory sets a ceiling on how much can be held active during conflict, but the verbal component — the one that would most obviously explain agreements failing — shows the <em>smallest</em> measured deficit of the four. So the story isn't that we can't hold the rule.</p>
+<p><strong>The better-supported story</strong> is that emotion dysregulation is doing most of the work. It's prevalent in ADHD across the lifespan, it's a major source of impairment in its own right, and it involves difficulty allocating attention to emotional material. The rule is probably intact. It's unreachable while arousal is high.</p>
+<p><strong>Which sorts onto your three tiers:</strong> individual boundaries are least affected. Relational contracts are worst hit, because they demand holding my position while processing hers, under arousal — two loads on one system. Meta boundaries are structurally fragile because nothing about the calm moment of agreement is present in the hot moment of use.</p>
+<p><strong>What that implies:</strong> every protocol we've tried requires retrieving a technique at peak load. That's asking the deficit to repair itself. Externalizing the rule so it's present rather than remembered is the move that routes around it — which is what you're already doing with the written document and the meta-boundary layer.</p>
+<p><strong>The part I'd most want your read on:</strong> Gottman's flooding work gets to the same place from a completely different direction — ordinary couples, physiological measurement, no ADHD involved. Past about 100 bpm the capacity for the conversation is just gone. If two unrelated literatures converge there, then ADHD probably lowers the threshold rather than creating the problem. And his twenty-minute time-out is the only intervention I found that doesn't require remembering a technique mid-conflict.</p>
+<p><strong>One thing I want to bring you rather than conclude:</strong> there's a construct called rejection sensitivity — measured since 1996, not ADHD-specific — where the finding is that people high in it readily perceive <em>intentional</em> rejection in ambiguous or insensitive behavior. Given that the word "intention" is exactly where we got stuck, that seems worth looking at together.</p>
+<p><strong>Two caveats I don't want to skip.</strong> Most of this evidence is pediatric, and I'm extrapolating to two adults in a long marriage. And the couples research almost entirely studies one partner with ADHD and one without. Our configuration is barely studied, which means a lot of standard advice assumes a compensating partner we don't have.</p>
+</div>
+
+<h2 id="open">9. Open questions for Joshua</h2>
+
+<p>These are the decisions the map doesn't make for you.</p>
+<ol>
+<li><strong>Which tier first?</strong> The research suggests tier 2 is where the damage concentrates but tier 3 is what makes tier 2 repeatable. That's a sequencing judgment, and it's his call more than mine.</li>
+<li><strong>Is emotion regulation a separate workstream?</strong> The field hasn't settled whether it's a core feature of ADHD or a distinct dimension <a class="sid" href="#S4">S4</a>. If distinct, it may need its own handle rather than being folded into the boundary work.</li>
+<li><strong>Does the heterogeneity finding change the approach?</strong> If ADHD involves dissociable pathways affecting some people and not others <a class="sid" href="#S6">S6</a>, then you and Tatum may have meaningfully different deficits. A shared framework built on a shared label could be built on a false assumption.</li>
+<li><strong>How do you externalize without weaponizing?</strong> A written rule that's present in the room is also a rule that can be pointed at. I don't have a good answer for this and I think it's the real risk of the whole approach.</li>
+</ol>
+
+<div class="box warn">
+<h3>The decision this Orientation ends with</h3>
+<p>Not "do I understand ADHD and boundaries." The decision is: <strong>does the externalization principle deserve the next several weeks of effort, or is it protocol number nine wearing a better hat?</strong></p>
+<p>The case for: it's mechanism-derived rather than borrowed, it explains the prior failures rather than ignoring them, and it matches what Joshua independently arrived at.</p>
+<p>The case against: it is untested in this population, the mechanism story rests on an inference I made rather than a finding I found, and the pediatric-to-adult extrapolation underneath it is real.</p>
+</div>
+
+<h2 id="sources">10. Sources</h2>
+
+<ol class="sources">
+<li id="S1">Barkley, R. A. (1997). Behavioral inhibition, sustained attention, and executive functions: constructing a unifying theory of ADHD. <em>Psychological Bulletin</em>, 121(1), 65–94.
+<span class="meta">Theory paper, not evidence. Heavily cited; see S5. Used here for structure only.</span></li>
+
+<li id="S2">Martinussen, R., Hayden, J., Hogg-Johnson, S., &amp; Tannock, R. (2005). A meta-analysis of working memory impairments in children with ADHD. <em>Journal of the American Academy of Child &amp; Adolescent Psychiatry</em>, 44(4), 377–384.
+<span class="meta">26 studies, 1997–2003. Children and adolescents. The effect-size table above comes from here.</span></li>
+
+<li id="S3">Alderson, R. M., Kasper, L. J., et al. (2013), on working memory in adults with ADHD.
+<span class="meta">Cited here secondhand as the adult-extrapolation bridge. I have not opened the primary. Treat as unverified until I do.</span></li>
+
+<li id="S4">Shaw, P., Stringaris, A., Nigg, J., &amp; Leibenluft, E. (2014). Emotion dysregulation in attention deficit hyperactivity disorder. <em>American Journal of Psychiatry</em>, 171(3), 276–293.
+<span class="meta">The strongest pillar in this brief. Quantitative and qualitative review with meta-analytic components.</span></li>
+
+<li id="S5">Frontiers in Psychiatry (2022). The scientific integrity of ADHD: a critical examination of the underpinning theoretical constructs.
+<span class="meta">The refutation source. Included deliberately — a brief that only cited Barkley's supporters would be amplification, not research.</span></li>
+
+<li id="S6">Sonuga-Barke, E. J. (2002). Psychological heterogeneity in AD/HD: a dual pathway model of behaviour and cognition. <em>Behavioural Brain Research</em>, 130, 29–36.</li>
+
+<li id="S7">Sonuga-Barke, E. J., Bitsakou, P., &amp; Thompson, M. (2010). Beyond the dual pathway model. <em>JAACAP</em>. 71 probands, 71 siblings, 50 controls.
+<span class="meta">Author disclosed speakers' bureau and consultancy with a pharmaceutical company.</span></li>
+
+<li id="S8">Multiple deficits in ADHD: executive dysfunction, delay aversion, reaction time variability, and emotional deficits.
+<span class="meta">Reports failure to find delay-aversion group differences; only 14% of the ADHD children were impaired on it categorically. The non-replication.</span></li>
+
+<li id="S9">Assortative mating across the full spectrum of mental disorders: a nationwide Finnish register study (2025). 964,017 men and 957,207 women, 1,271,242 partnerships.</li>
+
+<li id="S10">Steele, C. M., Wymbs, B. T., &amp; Capps, R. E. (2022). Birds of a feather. <em>Journal of Attention Disorders</em>, 26(2), 296–306.
+<span class="meta">Partner symptoms rated by the participant, not independently assessed. Groups of 94 / 43 / 27.</span></li>
+
+<li id="S11">Wymbs, B. T. (2021). Investigating self-control resource depletion as a situational risk factor for aversive interpartner communication by young adults with ADHD. <em>Journal of Attention Disorders</em>, 25, 199–208.
+<span class="meta">Listed for completeness. Deliberately not built on, given replication problems in the underlying depletion literature.</span></li>
+
+<li id="S12">Cross-country registry analysis of spousal correlation across nine psychiatric diagnoses (Taiwan, Denmark, Sweden).
+<span class="meta">Reports ADHD showing large swings not significant after strict correction. The counterweight to S9.</span></li>
+
+<li id="S13">Eakin, L., et al. (2004/2005). The marital and family functioning of adults with ADHD and their spouses. 33 married adults with ADHD and spouses, 26 controls.</li>
+
+<li id="S14">Kahveci Öncü &amp; Tutarel Kişlak (2022). Marital adjustment and marital conflict in individuals diagnosed with ADHD and their spouses. 28 couples, 28 comparison couples.</li>
+
+<li id="S15">Wymbs, B. T., Canu, W. H., Sacchetti, G. M., &amp; Ranson, L. M. (2021). Adult ADHD and romantic relationships: what we know and what we can do to help. <em>Journal of Marital and Family Therapy</em>, 47, 664–681.
+<span class="meta">Review. Good route into the couples literature; identifies intervention trials as a gap.</span></li>
+
+<li id="S16">Gottman, J. M. A theory of marital dissolution and stability. Flooding as the driving force of the distance and isolation cascade.</li>
+
+<li id="S17">Heyman, R. E., &amp; Smith Slep, A. M. (2001). The hazards of predicting divorce without cross-validation. <em>Journal of Marriage and Family</em>, 63(2), 473–479.
+<span class="meta">The standard methodological critique of the divorce-prediction figures. Located via citation, abstract not opened.</span></li>
+
+<li id="S18">The Gottman Institute, research FAQ.
+<span class="meta">Their own account of the 94% figure, traced to Buehlman, Gottman &amp; Katz (1992). Primary party with a commercial interest.</span></li>
+
+<li id="S19">Orlov, M. (2010). <em>The ADHD Effect on Marriage</em>. Orlov, M., &amp; Kohlenberger, N. (2014). <em>The Couple's Guide to Thriving with ADHD</em>. Blog: adhdmarriage.com.
+<span class="meta">Craft, not evidence. Author sells seminars and a membership community.</span></li>
+
+<li id="S20">Secondary summary of Gottman's flooding construct: threshold heart rate, sympathetic activation, perceptual narrowing, and the ~20-minute recovery conditional on active distraction rather than rumination.
+<span class="meta">The 20-minute/distraction detail comes from a summary rather than the primary. Verify before relying on the exact number.</span></li>
+
+<li id="S21">Pera, G. <em>Is It You, Me, or Adult A.D.D.?</em> Blog: ADHD Roller Coaster.</li>
+
+<li id="S22">Barkley, R. A. <em>Taking Charge of Adult ADHD</em> (Guilford). <em>When an Adult You Love Has ADHD</em> (APA LifeTools).</li>
+
+<li id="S23">Hallowell, E. M., &amp; Ratey, J. J. <em>ADHD 2.0</em>; <em>Driven to Distraction</em>.</li>
+
+<li id="S24">Cloud, H., &amp; Townsend, J. <em>Boundaries</em>.</li>
+
+<li id="S26">Summary sources on the status of rejection sensitive dysphoria: not in DSM-5-TR, no validated criteria, no validated instrument, no peer-reviewed prevalence figure; coined and popularized by William Dodson.
+<span class="meta">Secondary clinical summaries, consistent across several independent sources. Not a primary methodological review.</span></li>
+
+<li id="S27">Dodson, W. W., Modestino, E. J., Ceritoğlu, H. T., &amp; Zayed, B. (2024). Rejection sensitivity dysphoria in attention-deficit/hyperactivity disorder: a case series.
+<span class="meta">Case series, reported as very small. Located via citation; not opened.</span></li>
+
+<li id="S28">Rowney-Smith, A., Sutton, B., Quadt, L., &amp; Eccles, J. A. The lived experience of rejection sensitivity in ADHD: a qualitative exploration. <em>PLOS One</em>.
+<span class="meta">Publication year is reported inconsistently across the sources citing it. Verify before quoting.</span></li>
+
+<li id="S29">Downey, G., &amp; Feldman, S. I. (1996). Implications of rejection sensitivity for intimate relationships. <em>Journal of Personality and Social Psychology</em>, 70(6), 1327–1343.
+<span class="meta">Four studies. Abstract read directly; full text available open access. The load-bearing source for this subsection.</span></li>
+
+<li id="S30">Rejection sensitivity and romantic relationships: a systematic review and meta-analysis (2023). <em>Personality and Individual Differences</em>.</li>
+
+<li id="S25">Tawwab, N. G. (2021). <em>Set Boundaries, Find Peace</em>. Penguin.
+<span class="meta">Six boundary types: physical, sexual, intellectual, emotional, material, time.</span></li>
+</ol>
+
+<div class="box">
+<h3>Verification status, stated plainly</h3>
+<p>S1, S2, S4, S5, S6, S7, S8, S9, S10, S12 were located and their claims confirmed against abstracts or full text. <strong>S3 was not opened</strong> and is cited secondhand — it is the weakest link, and it happens to be the one carrying the child-to-adult extrapolation. S13, S14 and S15 were confirmed to exist with the sample sizes stated; I read abstracts, not full text. In the practitioner section, S16 and S18 were read directly. <strong>S17 and S20 were not opened</strong> — S17 is cited from a reference list, and S20 is a secondary summary carrying the 20-minute figure. The books, S19 and S21–S25, are craft sources: verified to exist as described, not evaluated for accuracy. On rejection sensitivity: S29 and S30 were located and their abstracts confirmed; <strong>S27 and S28 were not opened</strong>, and S28 has an unresolved publication year. S26 is a set of agreeing secondary summaries rather than a primary review — the DSM status is not in dispute, but treat the "no validated instrument" claim as well-attested rather than independently verified by me.</p>
+<p>Assume the empirical effects are smaller than published. Roughly a third of psychology findings replicate significantly in the same direction.</p>
+</div>
+
+<footer>
+<p>Orientation archetype: no thresholds, no progress tracking, ends with a map and a decision. Built for the session with Joshua. Does not reference the feedback document. Sections 2–6 are empirical; section 7 is craft and is marked as such.</p>
+</footer>
+
+</div>
+
+<script type="text/course-deferred">
+(function () {
+  var KEY = 'theme';
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+  } catch (e) { /* private mode: fall through to system preference */ }
+
+  btn.addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme');
+    if (!cur) {
+      cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
