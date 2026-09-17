@@ -5,7 +5,7 @@
    here that does not exist is skipped, not fatal - but it is still a bug.
 */
 
-const VERSION = "gaps-v8";
+const VERSION = "gaps-v9";
 
 const ASSETS = [
   "./",
@@ -26,7 +26,11 @@ const ASSETS = [
   "./data/ask-decks.json",
   "./data/memorize-seeds.json",
   "./data/chess-motifs.json",
-  "./data/chess-puzzles.json"
+  "./data/chess-puzzles.json",
+  // Outside this worker's scope, but same-origin and fetched by the footer
+  // link. Without it a cold offline start falls through to the navigation
+  // fallback and the mark renders broken.
+  "/assets/images/logo-48.png"
 ];
 
 /* Cache each asset on its own. addAll() is all-or-nothing: one 404 rejects the

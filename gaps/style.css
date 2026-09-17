@@ -343,6 +343,13 @@ textarea::placeholder{color:var(--ghost)}
   grid-column:2;grid-row:1;
   display:grid;
   grid-template-columns:repeat(8,1fr);
+  /* Rows must be declared too. Without this the eight rows are implicit and
+     auto-sized, so a rank holding no piece collapses to the height of the
+     whitespace in its buttons -- the board comes out striped, and the rank
+     labels in the gutter (evenly spaced by flex:1) stop lining up with the
+     squares they name. aspect-ratio fixes the board's height, not how that
+     height is divided. */
+  grid-template-rows:repeat(8,1fr);
   aspect-ratio:1/1;
   width:100%;
   border:1px solid var(--line);
@@ -515,3 +522,32 @@ textarea::placeholder{color:var(--ghost)}
 .tiers button[data-f="1"]:hover{color:var(--on-moss)}
 
 :focus-visible{outline:2px solid var(--moss);outline-offset:3px}
+
+/* ---- back to the site ----
+   Gaps installs to a home screen, so it is the one page here that can be a
+   whole session. The link opens in a new tab on purpose: in standalone display
+   a same-tab navigation to / leaves the app's scope, and a standalone window
+   has no back button to return with. Mono and uppercase to match the rail --
+   the courses' button is serif because their pages are.
+   Bottom spacing comes from body's safe-area padding, so there is none here. */
+.sitefoot{
+  display:flex;
+  justify-content:center;
+  padding-top:22px;
+}
+.homelink{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-decoration:none;
+  border:1px solid var(--line);
+  border-radius:2px;
+  padding:7px 12px;
+}
+.homelink:hover{color:var(--moss);border-color:var(--moss)}
+.homelink img{width:16px;height:16px;flex:none}
