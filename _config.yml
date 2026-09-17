@@ -42,6 +42,40 @@ category_archive_path: /
 
 # Build settings
 markdown: kramdown
+
+# Sass deprecations.
+#
+# slash-div, strict-unary and the deprecated colour functions are fixed in the
+# source, in this theme and in the two vendored libraries under
+# _sass/basically-basic/vendor. They are listed as fatal so they cannot creep
+# back in unnoticed -- everything they warned about goes away in Dart Sass 2.0,
+# which is the next one to land.
+#
+# The three that are silenced are all Dart Sass 3.0, and neither is a matter of
+# editing a line:
+#
+#   import          The theme skin is chosen by Liquid in main.scss and sets its
+#                   colours by landing in the global scope ahead of
+#                   _variables.scss's own !defaults. @use has no global scope,
+#                   so the skins would have to pass their values through
+#                   `@use ... with ()` -- and they override between 1 and 23
+#                   variables each, so every skin would have to declare the
+#                   whole surface. That is a redesign of how a skin is written,
+#                   not a migration.
+#
+#   global-builtin  Inside Susy 2 and Breakpoint, both unmaintained since 2017.
+#   if-function     Same. Rewriting either one's internals to the module system
+#                   means forking a dead library, and the grid maths is load
+#                   bearing.
+sass:
+  fatal_deprecations:
+    - slash-div
+    - strict-unary
+    - color-functions
+  silence_deprecations:
+    - import
+    - global-builtin
+    - if-function
 search: true
 search_full_content: true
 plugins: # previsously gems
