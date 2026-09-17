@@ -102,7 +102,16 @@ to `TOOLS` in `spec.py` and regenerating.
 2. Drop it in `bin/badge-assets/logos/`.
 3. Add an entry to `TOOLS` in `spec.py`: the label as the vendor spells it, the
    plate colour for light and dark grounds, the mark colour on each, and the
-   bleed (how large the mark draws relative to the 22px plate).
+   bleed.
+
+`bleed` is the size of the mark's own ink as a fraction of the plate's
+diameter, measured from the path's bounding box rather than the `viewBox`. That
+distinction is the whole point: vendors pad their exports differently — the
+Claude spark fills 99.6% of its box and the OpenAI blossom 49.5% — so sizing
+against the `viewBox` would draw one at half the weight of the other, and an
+off-centre export would sit off-centre on the plate. Both marks use `13/22`,
+which is what the original board drew. Above `1.0` the ink runs past the plate
+and is clipped to the circle.
 4. Regenerate, and check the new badges on both grounds.
 
 Marks are used nominatively — to name the tool that did the work — which is why

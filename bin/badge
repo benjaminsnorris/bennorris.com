@@ -48,8 +48,10 @@ sys.path.insert(0, str(ASSETS))
 try:
     import uharfbuzz as hb
     from fontTools.misc.transform import Transform
+    from fontTools.pens.boundsPen import BoundsPen
     from fontTools.pens.svgPathPen import SVGPathPen
     from fontTools.pens.transformPen import TransformPen
+    from fontTools.svgLib.path import parse_path
     from fontTools.ttLib import TTFont
 except ImportError:
     sys.exit(
@@ -138,7 +140,17 @@ _VIEWBOX = re.compile(r'viewBox="([\d.\s-]+)"')
 
 
 class Mark:
-    """A vendor logo, reduced to the one path it is and a box to fit it in."""
+    """A vendor logo, reduced to the one path it is and the ink it actually covers.
+
+    What matters for placing a mark is where its ink is, not how much room the
+    vendor left around it. The two logos here are both centred in their own
+    viewBoxes, but they are padded very differently -- the Claude spark fills
+    99.6% of its box and the OpenAI blossom 49.5% -- so sizing against the
+    viewBox would draw one at half the weight of the other, and any vendor who
+    ships an off-centre export would sit off-centre on the plate. Measuring the
+    path itself makes `bleed` mean one thing for every mark: how big the ink is
+    relative to the plate it sits on.
+    """
 
     _cache = {}
 
@@ -150,11 +162,21 @@ class Mark:
         if len(paths) > 1:
             raise SystemExit(f"{path}: expected a single path, found {len(paths)}")
         self.d = paths[0]
-        box = _VIEWBOX.search(svg)
-        if not box:
-            raise SystemExit(f"{path}: no viewBox")
-        _, _, w, h = (float(v) for v in box.group(1).split())
-        self.w, self.h = w, h
+
+        pen = BoundsPen(None)
+        parse_path(self.d, pen)
+        if pen.bounds is None:
+            raise SystemExit(f"{path}: the path draws nothing")
+        self.x0, self.y0, self.x1, self.y1 = pen.bounds
+
+    @property
+    def size(self):
+        """The larger side of the ink, which is what gets fitted to the plate."""
+        return max(self.x1 - self.x0, self.y1 - self.y0)
+
+    @property
+    def centre(self):
+        return (self.x0 + self.x1) / 2, (self.y0 + self.y1) / 2
 
     @classmethod
     def load(cls, path):
@@ -168,8 +190,19 @@ class Mark:
 
 
 def _n(v):
-    """Trim a float to something an SVG can read without noise."""
+    """Trim a length to something an SVG can read without noise."""
     return f"{v:.2f}".rstrip("0").rstrip(".")
+
+
+def _s(v):
+    """Trim a scale factor.
+
+    Deliberately not _n: these are small numbers where two decimal places are
+    not rounding but distortion. Fitting a 355-unit mark onto a 13px plate is a
+    scale of 0.0363, which _n would write as 0.04 -- the mark drawn a tenth too
+    large, and no longer centred on anything.
+    """
+    return f"{v:.8f}".rstrip("0").rstrip(".")
 
 
 def measure(verb, prep, tool_key, size="md", font=None):
@@ -225,17 +258,18 @@ def _shapes(verb, prep, tool_key, ident, face, geo):
     cy = ring + pt + spec.PLATE / 2
 
     mark = Mark.load(ASSETS / "logos" / tool["logo"])
-    unit = spec.PLATE * tool["bleed"] / max(mark.w, mark.h)
-    mx = cx - mark.w * unit / 2
-    my = cy - mark.h * unit / 2
+    unit = spec.PLATE * tool["bleed"] / mark.size
+    ink_x, ink_y = mark.centre
+    mx = cx - ink_x * unit
+    my = cy - ink_y * unit
 
     d, _ = face.typeset(geo["label"], spec.FONT_SIZE)
     tx = ring + pl + spec.PLATE + spec.GAP
     ty = ring + geo["inner_h"] / 2 + (face.cap_height / face.upm * spec.FONT_SIZE) / 2
 
     defs = [
-        f'<g id="{ident}-mark" transform="translate({_n(mx)} {_n(my)}) '
-        f'scale({_n(unit)})"><path d="{mark.d}"/></g>',
+        f'<g id="{ident}-mark" transform="translate({_s(mx)} {_s(my)}) '
+        f'scale({_s(unit)})"><path d="{mark.d}"/></g>',
         f'<g id="{ident}-text" transform="translate({_n(tx)} {_n(ty)})">'
         f'<path d="{d}"/></g>',
     ]
