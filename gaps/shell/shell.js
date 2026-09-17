@@ -20,6 +20,7 @@
 import { Store } from "./store.js";
 import { Log } from "./log.js";
 import { mergeAll } from "./merge.js";
+import * as Sync from "./sync.js";
 
 export const SHAPES = {
   screen:  { label: "At a screen",  hint: "Bathroom, before a call" },
@@ -29,6 +30,22 @@ export const SHAPES = {
 };
 
 const SHELL_KEY = "shell-state";
+
+/* Never sent to the server. "device-id" is what lets a merged log say which
+   device an event came from, so two devices sharing one would corrupt the exact
+   signal it exists to provide - merge.js refuses to adopt it for the same
+   reason. "shell-state" is only lastShape, and where you physically are is not
+   a thing a laptop should learn from a phone. */
+const LOCAL_ONLY = new Set(["device-id", "shell-state"]);
+
+const esc = s => String(s).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+
+// Merged remote work that arrived while a session was running. Applying it
+// under a live module would leave the screen disagreeing with the store, and
+// the module's next save would write its pre-merge copy straight back over it,
+// so it waits for the picker - the one screen that is not a session.
+let pendingSync = null;
+let syncNote = "";
 
 const CARET = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:8px;height:8px;margin-left:5px"><path d="M2 4.5 6 8.5l4-4"/></svg>`;
 
@@ -227,12 +244,159 @@ function importData(btn){
   input.click();
 }
 
+/* ---- sync ----
+
+   The same merge the Import button uses, with Supabase in place of the file.
+   That is the whole idea: merge.js already decides what happens when two
+   devices disagree, and those rules are argued in its header and proved in
+   tests/test-merge.js. Nothing about reconciliation is re-decided here.
+
+   Pull, merge, write locally, push back only what the server does not already
+   have. A failed pull returns null rather than {}, and is not the same as an
+   empty account: merging against {} would be a no-op, but pushing after one
+   would be fine, so the distinction only matters for the report.
+*/
+async function syncNow(){
+  if(!Sync.current()) return null;
+  const remote = await Sync.pull();
+  if(remote === null) return { ok: false };
+
+  await Log.flush();
+  const local = await Store.dump();
+  const { writes, report } = mergeAll(local, remote);
+
+  // What the server should hold afterwards is the local state with the merge
+  // applied over it. Only the keys that actually differ go up: the log can run
+  // to LOG_CAP events, and re-sending it every sync would be the whole request.
+  const after = Object.assign({}, local, writes);
+  const changed = {};
+  for(const [k, v] of Object.entries(after)){
+    if(LOCAL_ONLY.has(k)) continue;
+    if(JSON.stringify(v) !== JSON.stringify(remote[k])) changed[k] = v;
+  }
+  const pushed = await Sync.push(changed);
+
+  const applicable = Object.keys(writes).length ? writes : null;
+  return { ok: true, writes: applicable, report, pushed };
+}
+
+async function applySync(writes){
+  for(const [key, value] of Object.entries(writes)){
+    // Log.replace rather than Store.save: the in-memory buffer was loaded
+    // before the merge and would otherwise flush over the merged copy.
+    if(key === "log") await Log.replace(value);
+    else await Store.save(key, value);
+  }
+}
+
+/* Run at boot and from the Sync button. Writes are applied immediately when a
+   picker is on screen and held otherwise, because every route out of the
+   picker remounts a module and mount() reloads from the store. */
+async function runSync({ quiet = false } = {}){
+  let r;
+  try{ r = await syncNow(); }
+  catch(e){ return null; }
+  if(!r) return null;
+  if(!r.ok){
+    syncNote = quiet ? "" : "Couldn't reach your other devices.";
+    return r;
+  }
+  if(r.writes){
+    if(picking){
+      await applySync(r.writes);
+      Log.add("sync", { changes: r.report.length });
+    }else{
+      pendingSync = r;
+      return r;
+    }
+  }
+  syncNote = r.report.length ? r.report.join(" \u00b7 ") : (quiet ? "" : "Already in sync.");
+  return r;
+}
+
+/* ---- the account ---- */
+function renderAccount(note){
+  setRail([]);
+  countEl.innerHTML = "&nbsp;";
+  picking = true;
+  completed = false;
+  card.className = "card fade";
+  const who = Sync.current();
+  const line = note ? `<div class="empty">${esc(note)}</div>` : "";
+
+  if(!Sync.canSync){
+    card.innerHTML = `<div class="picktitle">Sync</div>
+      <div class="scroll"><p class="teach">This device won't keep you signed in, so progress stays here. Export still works.</p></div>
+      <div class="foot"><button class="skip" id="backShape">Back</button><span></span></div>`;
+  }else if(who){
+    card.innerHTML = `<div class="picktitle">Sync</div>
+      <div class="scroll">
+        <p class="teach">Signed in as ${esc(who.email)}. The same account as the courses on bennorris.com.</p>
+        ${line}
+      </div>
+      <div class="foot"><button class="skip" id="backShape">Back</button><button class="skip" id="signOut">Sign out</button><button class="save" id="syncGo">Sync now</button></div>`;
+  }else{
+    card.innerHTML = `<div class="picktitle">Sync</div>
+      <div class="scroll">
+        <p class="teach">Sign in to carry progress between devices. The same account as the courses on bennorris.com.</p>
+        <input class="field" id="acctEmail" type="email" placeholder="Email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" />
+        <input class="field" id="acctPass" type="password" placeholder="Password" autocomplete="current-password" />
+        ${line}
+      </div>
+      <div class="foot"><button class="skip" id="backShape">Back</button><button class="save" id="signIn">Sign in</button></div>`;
+  }
+
+  const back = card.querySelector("#backShape");
+  if(back) back.addEventListener("click", () => renderShapePicker());
+
+  const go = card.querySelector("#syncGo");
+  if(go) go.addEventListener("click", async ev => {
+    ev.currentTarget.textContent = "Syncing";
+    const r = await runSync();
+    if(r && r.ok && r.writes && !picking) { /* held; picker will apply it */ }
+    renderAccount(syncNote || "Synced.");
+  });
+
+  const out = card.querySelector("#signOut");
+  if(out) out.addEventListener("click", async () => {
+    await Sync.signOut();
+    renderAccount("Signed out. Your progress is still on this device.");
+  });
+
+  const inBtn = card.querySelector("#signIn");
+  if(inBtn) inBtn.addEventListener("click", async ev => {
+    const email = (card.querySelector("#acctEmail").value || "").trim();
+    const pass = card.querySelector("#acctPass").value || "";
+    if(!email || !pass) return renderAccount("Email and password, please.");
+    ev.currentTarget.textContent = "Signing in";
+    const r = await Sync.signIn(email, pass);
+    if(r.error) return renderAccount(r.error);
+    Log.add("signin", {});
+    await runSync();
+    // picking is true on this screen, so anything merged has already landed.
+    renderAccount(syncNote || "Signed in.");
+  });
+}
+
 function renderShapePicker(note){
   setRail([]);
   countEl.innerHTML = "&nbsp;";
   picking = true;
   completed = false;
   card.className = "card fade";
+
+  // Remote work that landed mid-session applies here, where nothing is running
+  // to disagree with it. Re-entering the picker is the only way back to a
+  // module, so this cannot be skipped past.
+  if(pendingSync){
+    const held = pendingSync;
+    pendingSync = null;
+    applySync(held.writes).then(() => {
+      Log.add("sync", { changes: held.report.length });
+      if(held.report.length) renderShapePicker(held.report.join(" \u00b7 "));
+    });
+    return;
+  }
 
   // Switching activity is offered here, one level in, and only when more than
   // one module fits the moment you're already in. Rendering it against a
@@ -249,7 +413,7 @@ function renderShapePicker(note){
     ${typeof note === "string" && note ? `<div class="empty">${note}</div>` : ""}
     <div class="foot"><button class="skip" id="skipShape">Just ask me</button>${
       canSwitch ? `<button class="skip" id="otherMod">Something else</button>` : ``
-    }<button class="skip" id="dumpAll">Export</button><button class="skip" id="loadAll">Import</button></div>`;
+    }<button class="skip" id="dumpAll">Export</button><button class="skip" id="loadAll">Import</button><button class="skip" id="acct">${Sync.current() ? "Sync" : "Sign in"}</button></div>`;
 
   card.querySelectorAll(".pick").forEach(b => b.addEventListener("click", () => go(b.dataset.shape, "picked")));
   card.querySelector("#skipShape").addEventListener("click", () => go(lastShape, "kept"));
@@ -262,6 +426,9 @@ function renderShapePicker(note){
   // next session sees.
   card.querySelector("#dumpAll").addEventListener("click", ev => exportData(ev.currentTarget));
   card.querySelector("#loadAll").addEventListener("click", ev => importData(ev.currentTarget));
+  // Sync sits beside them for the same reason: this is the one screen that is
+  // not a session, so opening it cannot interrupt one.
+  card.querySelector("#acct").addEventListener("click", () => renderAccount());
 }
 
 function renderModulePicker(){
@@ -341,6 +508,14 @@ export async function start(){
   await Log.init();
   const shell = await Store.load(SHELL_KEY);
   if(shell && shell.lastShape) lastShape = shell.lastShape;
+
+  /* Deliberately not awaited. Gaps is for the two minutes outside the vet's,
+     and the service worker is cache-first because that is where signal is
+     worst -- so the app renders from local storage now and reconciles when the
+     network gets round to it. A merge that lands mid-session is held by
+     runSync and applied at the next picker. */
+  Sync.init().then(who => { if(who) runSync({ quiet: true }); });
+
   if(shapeMatters()) return renderShapePicker();
   await run(choose(null));
 }

@@ -43,6 +43,9 @@ style.css                tokens and shared classes
 shell/
   shell.js               moments, routing, rail
   store.js               storage adapter
+  merge.js               reconciling two devices; pure functions, tested
+  log.js                 the event log
+  sync.js                optional Supabase tier, same account as the courses
 modules/
   ask.js                 one question, one short answer
   memorize.js            a passage in lines, spaced review
@@ -79,7 +82,19 @@ That's the whole integration. If your module's `shapes` differ from the others, 
 
 Keys are namespaced with `gaps:`. A module built and tested inside a Claude artifact drops in here unchanged.
 
-Data is local to the device and never leaves it. There's no sync — two devices means two sets of answers. `copy(await gaps.export())` in the console dumps everything as markdown if you want it somewhere durable.
+Data is local first and works signed out, offline, forever. `copy(await gaps.export())` in the console dumps everything as markdown if you want it somewhere durable.
+
+Signing in adds a fourth tier. **Sign in** on the shape picker uses the same account as the courses on bennorris.com — the same Supabase project, the same `course_state` table, and the same session key (`bn-course:auth`), so signing in on either signs you in on both. Gaps stores under slug `gaps`; the table is deliberately schemaless in the shape of a course's progress, so this needed no migration. Accounts are made by hand in the Supabase dashboard — there is no sign-up.
+
+Sync is `shell/sync.js` plus about forty lines of `shell.js`, because the hard part was already done: it reuses `mergeAll` from `merge.js`, the same reconciliation the Import button runs, with Supabase in place of the file. Conflict rules are argued in that file's header and proved in `tests/test-merge.js`; nothing about them is re-decided for the network.
+
+Three things worth knowing:
+
+- It is **not** `/assets/js/course-store.js`, which is how the courses sync. That works by shadowing `localStorage` and syncing key by key, asking you to pick a side on any divergence — which would discard the semantic merge, and "which copy of your log?" is not an answerable question. Its shim exists because artifacts read storage synchronously at init; `Store` here is already async, so there is nothing to defer.
+- The boot sync is **not awaited**. This app is for the two minutes outside the vet's, and the service worker is cache-first for the same reason. A merge that lands mid-session is held and applied at the next picker, because writing it under a running module would leave the screen disagreeing with the store.
+- `device-id` and `shell-state` are never uploaded. Sharing a device id would make two devices look like one in the log, and `lastShape` is about where you physically are.
+
+One known edge, left deliberately: `state.due` is the only thing Gaps ever deletes (a puzzle leaves the review queue when you re-solve it cleanly), and `mergeChess` unions dues on purpose — "keeping it is the conservative side: the puzzle resurfaces". Under continuous sync that means a cleanly-solved puzzle can come back, because the copy you merge against still records the original miss. It costs a repetition, not correctness.
 
 ## Status
 

@@ -5,7 +5,7 @@
    here that does not exist is skipped, not fatal - but it is still a bug.
 */
 
-const VERSION = "gaps-v9";
+const VERSION = "gaps-v10";
 
 const ASSETS = [
   "./",
@@ -19,6 +19,7 @@ const ASSETS = [
   "./shell/store.js",
   "./shell/log.js",
   "./shell/merge.js",
+  "./shell/sync.js",
   "./modules/ask.js",
   "./modules/memorize.js",
   "./modules/chess.js",
