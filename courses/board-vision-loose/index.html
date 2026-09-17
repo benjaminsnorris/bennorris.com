@@ -208,6 +208,28 @@ nav.units [aria-current]{background:var(--signal);color:var(--btn-fg);border-col
 .hidden{display:none}
 footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--rule);
   color:var(--ink-mute);font-size:.85rem}
+
+/* Footer button back to the course index. Colour rides on currentColor so one
+   rule holds across every course palette; the bare currentColor line is the
+   fallback for engines without color-mix. The logo keeps a white plate -- the
+   artwork is dark-on-transparent and sinks into a dark page without one. */
+.sitelink-row { margin: 1.1rem 0 0; }
+.sitelink {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .42rem .72rem; border-radius: .45rem;
+  border: 1px solid currentColor;
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+  color: inherit; text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: .78rem; line-height: 1; opacity: .8;
+  transition: opacity .15s, background-color .15s;
+}
+.sitelink:hover, .sitelink:focus-visible {
+  opacity: 1; background: color-mix(in srgb, currentColor 8%, transparent);
+}
+.sitelink img {
+  width: 18px; height: 18px; border-radius: 4px; background: #fff; flex: none;
+}
 </style>
 </head>
 <body>
@@ -276,6 +298,7 @@ footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--rule);
 <footer>
   <p>Unit 4 of four, plus a final mixed check. Each unit is a separate page and keeps its own progress and its own packet.</p>
   <p style="margin-bottom:0">Every answer on this page was computed from the position, not written by hand.</p>
+<p class="sitelink-row"><a class="sitelink" href="/courses/"><img src="/assets/images/logo-48.png" width="18" height="18" alt=""><span>Course by Ben Norris</span></a></p>
 </footer>
 
 </div>

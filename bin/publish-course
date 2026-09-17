@@ -4,17 +4,20 @@
     bin/publish-course ~/Downloads/artifact.html "Linear Algebra Crash Course"
     bin/publish-course ~/Downloads/artifact.html --slug linear-algebra
 
-Writes courses/<slug>/index.html, having made exactly two changes to the
+Writes courses/<slug>/index.html, having made exactly three changes to the
 artifact:
 
   1. Injected a deferred course-store.js tag near the top of <head>, carrying
      the course slug.
   2. Retagged the artifact's own inline scripts as type="text/course-deferred",
      so course-store.js can run them after remote progress has loaded.
+  3. Added the "Course by Ben Norris" button to the footer, so the page is not
+     a dead end. Artifacts arrive with no way back to the site.
 
 Nothing else about the artifact is touched -- its markup, styles and logic ship
 verbatim, which is what keeps this a copy-and-push operation rather than a
-port. Re-running against an already-published course is safe.
+port. Re-running against an already-published course is safe: all three steps
+detect their own output and skip.
 
 This is also the retrofit path for artifacts that predate the store: run it
 once per file and they gain sync without edits of their own.
@@ -365,6 +368,70 @@ def inject_store(html, slug):
     return tags.lstrip('\n') + '\n' + html
 
 
+COLOPHON_CSS = """
+/* Footer button back to the course index. Colour rides on currentColor so one
+   rule holds across every course palette; the bare currentColor line is the
+   fallback for engines without color-mix. The logo keeps a white plate -- the
+   artwork is dark-on-transparent and sinks into a dark page without one. */
+.sitelink-row { margin: 1.1rem 0 0; }
+.sitelink {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .42rem .72rem; border-radius: .45rem;
+  border: 1px solid currentColor;
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+  color: inherit; text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: .78rem; line-height: 1; opacity: .8;
+  transition: opacity .15s, background-color .15s;
+}
+.sitelink:hover, .sitelink:focus-visible {
+  opacity: 1; background: color-mix(in srgb, currentColor 8%, transparent);
+}
+.sitelink img {
+  width: 18px; height: 18px; border-radius: 4px; background: #fff; flex: none;
+}
+.sitelink-foot { max-width: 1300px; margin: 0 auto; padding: 0 1.1rem 2.5rem; }
+"""
+
+COLOPHON_HTML = (
+    '<p class="sitelink-row"><a class="sitelink" href="/courses/">'
+    '<img src="/assets/images/logo-48.png" width="18" height="18" alt="">'
+    '<span>Course by Ben Norris</span></a></p>'
+)
+
+
+def inject_colophon(html):
+    """Add the "Course by Ben Norris" button so no course is a dead end.
+
+    Artifacts arrive with no way back to the site: before this, not one page
+    under courses/ linked home. The button goes in the artifact's own footer
+    when it has one so it inherits the surrounding type, and only falls back to
+    a footer of its own when there is nowhere else. Colour rides on
+    currentColor, so one rule survives every artifact's palette.
+
+    Returns (html, where) -- where is None when the page already carries it.
+    """
+    if 'sitelink-row' in html:
+        return html, None
+
+    close_style = html.rfind('</style>')
+    if close_style != -1:
+        html = html[:close_style] + COLOPHON_CSS + html[close_style:]
+    else:
+        # No stylesheet to extend: carry the rules in one of our own.
+        head = HEAD_OPEN.search(html)
+        at = head.end() if head else 0
+        html = html[:at] + '\n<style>' + COLOPHON_CSS + '</style>' + html[at:]
+
+    for closer, wrap in (('</footer>', '%s'),
+                         ('</main>', '<footer>%s</footer>'),
+                         ('</body>', '<footer class="sitelink-foot">%s</footer>')):
+        at = html.find(closer)
+        if at != -1:
+            return html[:at] + wrap % COLOPHON_HTML + '\n' + html[at:], closer
+    return html + wrap % COLOPHON_HTML, 'end of file'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source', help='path to the artifact HTML file')
@@ -416,6 +483,12 @@ def main():
             '  progress in memory or IndexedDB rather than localStorage, the\n'
             '  store has nothing to intercept and it needs a real edit.'
         )
+
+    html, colophon_at = inject_colophon(html)
+    if colophon_at:
+        print('- added the "Course by Ben Norris" button before %s' % colophon_at)
+    else:
+        print('- colophon already present; left as it is')
 
     target = REPO / 'courses' / slug / 'index.html'
     target.parent.mkdir(parents=True, exist_ok=True)

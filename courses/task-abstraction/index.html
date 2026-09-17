@@ -479,6 +479,28 @@ footer.foot { border-top: 1px solid var(--rule); margin-top: 3rem; padding: 2rem
 .srclist .tier { font-family: var(--mono); font-size: .64rem; color: var(--ink-mute); display: block; margin-top: .2rem; }
 
 .reset { margin-top: 1.4rem; }
+
+/* Footer button back to the course index. Colour rides on currentColor so one
+   rule holds across every course palette; the bare currentColor line is the
+   fallback for engines without color-mix. The logo keeps a white plate -- the
+   artwork is dark-on-transparent and sinks into a dark page without one. */
+.sitelink-row { margin: 1.1rem 0 0; }
+.sitelink {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .42rem .72rem; border-radius: .45rem;
+  border: 1px solid currentColor;
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+  color: inherit; text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: .78rem; line-height: 1; opacity: .8;
+  transition: opacity .15s, background-color .15s;
+}
+.sitelink:hover, .sitelink:focus-visible {
+  opacity: 1; background: color-mix(in srgb, currentColor 8%, transparent);
+}
+.sitelink img {
+  width: 18px; height: 18px; border-radius: 4px; background: #fff; flex: none;
+}
 </style>
 </head>
 <body>
@@ -2054,6 +2076,7 @@ Would you use it again, and on what kind of material?"></textarea></div>
   <p class="small">Progress is stored in your browser and syncs if you are signed in. Nothing here
   is sent anywhere else.</p>
   <p class="reset"><button type="button" class="btn ghost" id="resetall">Erase my progress</button></p>
+<p class="sitelink-row"><a class="sitelink" href="/courses/"><img src="/assets/images/logo-48.png" width="18" height="18" alt=""><span>Course by Ben Norris</span></a></p>
 </footer>
 
 </main>
