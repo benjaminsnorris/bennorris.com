@@ -1,0 +1,48 @@
+/* ==========================================================================
+   AI attribution badges
+   ========================================================================== */
+
+/*
+   The badge itself is a finished SVG -- all of its colour, type and geometry
+   is baked in by bin/badge, and the file adapts to prefers-color-scheme on its
+   own. Everything here is about how it sits in the flow of a page.
+
+   The SVG carries its own intrinsic width and height, and the include repeats
+   them on the <img>, so the only sizing rule needed is the one that keeps a
+   badge from overflowing a narrow column.
+*/
+
+.ai-badge {
+  display: inline-block;
+  vertical-align: -0.34em; // sits the pill on the text baseline, not below it
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.ai-badge-link {
+  display: inline-block;
+  border: 0;
+  text-decoration: none;
+
+  &:hover .ai-badge,
+  &:focus-visible .ai-badge {
+    opacity: 0.82;
+  }
+
+  .ai-badge {
+    transition: opacity 0.15s ease;
+  }
+}
+
+/* A badge on its own line -- an article's colophon, an app's about panel --
+   wants air around it rather than a paragraph's leading. */
+.ai-badge-block {
+  margin: 1.5em 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-badge-link .ai-badge {
+    transition: none;
+  }
+}
