@@ -178,9 +178,14 @@ DEFAULT_FONT = "duo"
 # Each tool contributes a name and a mark. The spectrum belongs to the system,
 # not the vendor, so the plate is the only place a brand colour appears.
 #
-# `bleed` scales the mark relative to the plate: 1.0 sits the mark inside the
-# plate, above 1.0 crops it to the plate's edge. The OpenAI blossom carries
-# enough internal air that it wants the bleed.
+# `bleed` is how large the mark's own ink draws, as a fraction of the plate's
+# diameter -- it is measured against the path's bounding box, never the
+# viewBox, so it means the same thing whatever padding a vendor shipped around
+# their logo. At 1.0 the ink exactly spans the plate; above 1.0 it runs past
+# the edge and is clipped to the circle.
+#
+# 13/22 is the figure the original board drew, and both marks take it: the
+# spark and the blossom have roughly the same visual weight at the same size.
 
 TOOLS = {
     "claude": {
@@ -195,6 +200,6 @@ TOOLS = {
         "logo": "openai.svg",
         "plate": {"light": "#181C22", "dark": "#FFFFFF"},
         "mark": {"light": "#FFFFFF", "dark": "#181C22"},
-        "bleed": 26.0 / 22.0,
+        "bleed": 13.0 / 22.0,
     },
 }

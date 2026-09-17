@@ -48,3 +48,5 @@ This principle is deep. I have merely scratched the surface of understanding.
 Grace allows us to be human. Accountability helps us grow. But together? They create connection and unlock potential.
 
 If you have seen this in your life, I’d love to learn more. What did it look like? What difference did it make? I can’t wait to hear from you, via {% include icon-email.html email=site.email %} or on {% include icon-linkedin.html username=site.linkedin_username label='LinkedIn' %}. Thank you!
+
+{% include ai-badge.html verb="edited" prep="with" tool="chatgpt" %}
