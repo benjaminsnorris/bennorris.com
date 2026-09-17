@@ -201,8 +201,9 @@ li[id]:target{background:var(--signal-bg);border-radius:6px}
 
 /* Footer button back to the course index. Colour rides on currentColor so one
    rule holds across every course palette; the bare currentColor line is the
-   fallback for engines without color-mix. The logo keeps a white plate -- the
-   artwork is dark-on-transparent and sinks into a dark page without one. */
+   fallback for engines without color-mix. The logo keeps its transparency: on
+   a dark ground the pale face carries the shape on its own, and a plate behind
+   it reads as a lit square. */
 .sitelink-row { margin: 1.1rem 0 0; }
 .sitelink {
   display: inline-flex; align-items: center; gap: .45rem;
@@ -218,7 +219,7 @@ li[id]:target{background:var(--signal-bg);border-radius:6px}
   opacity: 1; background: color-mix(in srgb, currentColor 8%, transparent);
 }
 .sitelink img {
-  width: 18px; height: 18px; border-radius: 4px; background: #fff; flex: none;
+  width: 18px; height: 18px; flex: none;
 }
 </style>
 </head>
