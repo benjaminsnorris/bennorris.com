@@ -29,6 +29,21 @@ jobs:
           ruby-version: "3.4"
           bundler-cache: true
 
+      # The attribution badges under badge/ are generated from
+      # bin/badge-assets/spec.py, and committed so the site stays a static
+      # build. This catches the case where the spec moved and the SVGs did not.
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: bin/badge-assets/requirements.txt
+
+      - name: Check generated badges are current
+        run: |
+          pip install -r bin/badge-assets/requirements.txt
+          python bin/badge --check
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
