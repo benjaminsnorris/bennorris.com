@@ -1,0 +1,12 @@
+# Dependencies for bin/badge.
+#
+#     python3 -m venv .venv
+#     .venv/bin/pip install -r bin/badge-assets/requirements.txt
+#     .venv/bin/python bin/badge
+#
+# fonttools reads the font and hands back glyph outlines; brotli lets it open
+# woff2; uharfbuzz shapes the label so kerning is right before the outlines are
+# taken.
+fonttools>=4.53
+brotli>=1.1
+uharfbuzz>=0.39

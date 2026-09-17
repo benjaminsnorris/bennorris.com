@@ -1,0 +1,507 @@
+#!/usr/bin/env python3
+"""Generate the AI attribution badge set as static SVGs.
+
+    bin/badge                      # write the whole matrix into badge/
+    bin/badge --one written with claude
+    bin/badge --check              # regenerate into a temp dir and diff
+
+The badges say how a piece of work was made. Two axes carry the meaning: the
+preposition says who led (`with` keeps the colour on the edge, `by` floods the
+badge), and the verb says how much of the thing the tool brought into being
+(edited is quiet, created is loud). The design lives in bin/badge-assets/spec.py.
+
+Every badge is a self-contained SVG with no external dependencies at all --
+type is converted to outlines, the logo is an inlined path, and the only
+colour is flat fills and gradients. That matters because an SVG used as an
+<img> (a GitHub README, a Markdown post, anywhere outside a page's own DOM)
+cannot fetch a webfont, run script, or load a stylesheet. Outlining is what
+lets the badge keep its typeface instead of falling back to whatever the viewer
+happens to have -- and what makes every copy of a badge the same width.
+
+Output layout, published straight from the repo root:
+
+    badge/<verb>-<prep>/<tool>.svg            adapts to prefers-color-scheme
+    badge/<verb>-<prep>/<tool>-light.svg      pinned light
+    badge/<verb>-<prep>/<tool>-dark.svg       pinned dark
+    badge/<verb>-<prep>/<tool>-sm.svg         and -lg, each with the same trio
+
+A manifest of every badge and its dimensions is written to
+_data/ai_badges.yml, which is what _includes/ai-badge.html reads so the
+markup can carry width and height and not shift the page as it loads.
+"""
+
+import argparse
+import hashlib
+import io
+import math
+import pathlib
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+ASSETS = ROOT / "bin" / "badge-assets"
+sys.path.insert(0, str(ASSETS))
+
+try:
+    import uharfbuzz as hb
+    from fontTools.misc.transform import Transform
+    from fontTools.pens.svgPathPen import SVGPathPen
+    from fontTools.pens.transformPen import TransformPen
+    from fontTools.ttLib import TTFont
+except ImportError:
+    sys.exit(
+        "bin/badge needs fonttools and uharfbuzz:\n"
+        "    python3 -m venv .venv && .venv/bin/pip install fonttools brotli uharfbuzz\n"
+        "    .venv/bin/python bin/badge"
+    )
+
+import spec  # noqa: E402  (bin/badge-assets/spec.py, added to the path above)
+
+OUT = ROOT / "badge"
+MANIFEST = ROOT / "_data" / "ai_badges.yml"
+
+
+# --- Colour ----------------------------------------------------------------
+
+
+def _rgb(hexstr):
+    h = hexstr.lstrip("#")
+    return tuple(int(h[i : i + 2], 16) for i in (0, 2, 4))
+
+
+def over(colour, alpha, ground):
+    """Flatten `colour` at `alpha` onto `ground`, so no SVG needs opacity."""
+    c, g = _rgb(colour), _rgb(ground)
+    return "#%02X%02X%02X" % tuple(
+        round(c[i] * alpha + g[i] * (1 - alpha)) for i in range(3)
+    )
+
+
+# --- Type ------------------------------------------------------------------
+
+
+class Face:
+    """One weight of one typeface, ready to turn a string into a path."""
+
+    _cache = {}
+
+    def __init__(self, path):
+        ttf = TTFont(path)
+        ttf.flavor = None  # HarfBuzz cannot read woff; hand it raw sfnt
+        raw = io.BytesIO()
+        ttf.save(raw)
+
+        self.ttf = ttf
+        self.glyphset = ttf.getGlyphSet()
+        self.order = ttf.getGlyphOrder()
+        self.upm = ttf["head"].unitsPerEm
+
+        os2 = ttf["OS/2"]
+        self.cap_height = getattr(os2, "sCapHeight", None) or round(self.upm * 0.7)
+
+        face = hb.Face(raw.getvalue())
+        self.hbfont = hb.Font(face)
+        self.hbfont.scale = (self.upm, self.upm)
+
+    @classmethod
+    def load(cls, path):
+        key = str(path)
+        if key not in cls._cache:
+            cls._cache[key] = cls(path)
+        return cls._cache[key]
+
+    def typeset(self, text, size):
+        """Return (path data with the baseline at y=0, advance width in px)."""
+        buf = hb.Buffer()
+        buf.add_str(text)
+        buf.guess_segment_properties()
+        hb.shape(self.hbfont, buf, {"kern": True, "liga": True})
+
+        unit = size / self.upm
+        pen = SVGPathPen(self.glyphset, ntos=lambda v: f"{v:.2f}".rstrip("0").rstrip("."))
+        x = 0.0
+        for info, pos in zip(buf.glyph_infos, buf.glyph_positions):
+            name = self.order[info.codepoint]
+            draw = Transform(unit, 0, 0, -unit, (x + pos.x_offset) * unit, -pos.y_offset * unit)
+            self.glyphset[name].draw(TransformPen(pen, draw))
+            x += pos.x_advance
+        return pen.getCommands(), x * unit
+
+
+# --- Marks -----------------------------------------------------------------
+
+_PATH_D = re.compile(r'<path[^>]*\sd="([^"]+)"', re.S)
+_VIEWBOX = re.compile(r'viewBox="([\d.\s-]+)"')
+
+
+class Mark:
+    """A vendor logo, reduced to the one path it is and a box to fit it in."""
+
+    _cache = {}
+
+    def __init__(self, path):
+        svg = pathlib.Path(path).read_text()
+        paths = _PATH_D.findall(svg)
+        if not paths:
+            raise SystemExit(f"{path}: no <path d> found")
+        if len(paths) > 1:
+            raise SystemExit(f"{path}: expected a single path, found {len(paths)}")
+        self.d = paths[0]
+        box = _VIEWBOX.search(svg)
+        if not box:
+            raise SystemExit(f"{path}: no viewBox")
+        _, _, w, h = (float(v) for v in box.group(1).split())
+        self.w, self.h = w, h
+
+    @classmethod
+    def load(cls, path):
+        key = str(path)
+        if key not in cls._cache:
+            cls._cache[key] = cls(path)
+        return cls._cache[key]
+
+
+# --- The badge itself ------------------------------------------------------
+
+
+def _n(v):
+    """Trim a float to something an SVG can read without noise."""
+    return f"{v:.2f}".rstrip("0").rstrip(".")
+
+
+def measure(verb, prep, tool_key, size="md", font=None):
+    """Geometry only -- the same maths the renderer uses, without the markup."""
+    t = spec.TREATMENTS[(verb, prep)]
+    tool = spec.TOOLS[tool_key]
+    faces = spec.FONTS[font or spec.DEFAULT_FONT]
+    face = Face.load(ROOT / faces[t["weight"]])
+
+    label = f"{verb.capitalize()} {prep} {tool['label']}"
+    _, text_w = face.typeset(label, spec.FONT_SIZE)
+
+    pt, pr, pb, pl = t["pad"]
+    inner_w = pl + spec.PLATE + spec.GAP + text_w + pr
+    inner_h = pt + spec.PLATE + pb
+    ring = t["ring"]
+    k = spec.SIZES[size]
+
+    return {
+        "label": label,
+        "scale": k,
+        "ring": ring,
+        "inner_w": inner_w,
+        "inner_h": inner_h,
+        "width": (inner_w + 2 * ring) * k,
+        "height": (inner_h + 2 * ring) * k,
+    }
+
+
+def _gradient(ident, stops):
+    steps = "".join(
+        f'<stop offset="{_n(i / (len(stops) - 1) * 100)}%" stop-color="{c}"/>'
+        for i, c in enumerate(stops)
+    )
+    return f'<linearGradient id="{ident}" x1="0" y1="0" x2="1" y2="0">{steps}</linearGradient>'
+
+
+def _shapes(verb, prep, tool_key, ident, face, geo):
+    """Geometry that does not vary by theme: the mark and the label, as paths.
+
+    Both are large -- a vendor logo is a couple of kilobytes and a line of
+    outlined type is a couple more -- and a badge that carries both a light and
+    a dark treatment would otherwise ship each of them twice. Defining them
+    once and pointing `<use>` at them, with only the fill differing, is what
+    keeps the adaptive file roughly the size of a fixed one.
+    """
+    t = spec.TREATMENTS[(verb, prep)]
+    tool = spec.TOOLS[tool_key]
+    pt, _pr, _pb, pl = t["pad"]
+    ring = t["ring"]
+
+    cx = ring + pl + spec.PLATE / 2
+    cy = ring + pt + spec.PLATE / 2
+
+    mark = Mark.load(ASSETS / "logos" / tool["logo"])
+    unit = spec.PLATE * tool["bleed"] / max(mark.w, mark.h)
+    mx = cx - mark.w * unit / 2
+    my = cy - mark.h * unit / 2
+
+    d, _ = face.typeset(geo["label"], spec.FONT_SIZE)
+    tx = ring + pl + spec.PLATE + spec.GAP
+    ty = ring + geo["inner_h"] / 2 + (face.cap_height / face.upm * spec.FONT_SIZE) / 2
+
+    defs = [
+        f'<g id="{ident}-mark" transform="translate({_n(mx)} {_n(my)}) '
+        f'scale({_n(unit)})"><path d="{mark.d}"/></g>',
+        f'<g id="{ident}-text" transform="translate({_n(tx)} {_n(ty)})">'
+        f'<path d="{d}"/></g>',
+    ]
+    if tool["bleed"] > 1:
+        defs.append(
+            f'<clipPath id="{ident}-plate"><circle cx="{_n(cx)}" cy="{_n(cy)}" '
+            f'r="{_n(spec.PLATE / 2)}"/></clipPath>'
+        )
+    return defs, cx, cy
+
+
+def _body(verb, prep, tool_key, theme, ident, face, geo):
+    """The drawn badge for one theme, at scale 1, as a list of SVG elements."""
+    t = spec.TREATMENTS[(verb, prep)]
+    tool = spec.TOOLS[tool_key]
+    th = spec.THEMES[theme]
+
+    pt, _pr, _pb, pl = t["pad"]
+    ring = t["ring"]
+    w, h = geo["inner_w"] + 2 * ring, geo["inner_h"] + 2 * ring
+    out = []
+
+    # The ring, when there is one: a gradient capsule the inner pill sits on.
+    if ring:
+        ring_stops = (
+            spec.BRIGHT
+            if t["ring_alpha"] >= 1
+            else [over(c, t["ring_alpha"], th["ground"]) for c in spec.BRIGHT]
+        )
+        out.append(
+            f'<rect x="0" y="0" width="{_n(w)}" height="{_n(h)}" rx="{_n(h / 2)}" '
+            f'fill="url(#{ident}-ring-{theme})"/>'
+        )
+    else:
+        ring_stops = None
+
+    # The pill.
+    fill = t["fill"]
+    inner = (
+        f'<rect x="{_n(ring)}" y="{_n(ring)}" width="{_n(geo["inner_w"])}" '
+        f'height="{_n(geo["inner_h"])}" rx="{_n(geo["inner_h"] / 2)}" '
+    )
+    if fill == "ground":
+        out.append(inner + f'fill="{th["ground"]}"/>')
+    elif fill == "deep":
+        out.append(inner + f'fill="url(#{ident}-fill-{theme})"/>')
+    else:
+        _, alpha = fill
+        washed = [over(c, alpha, th["ground"]) for c in spec.BRIGHT]
+        out.append(inner + f'fill="url(#{ident}-wash-{theme})"/>')
+
+    # The logo plate, and the mark laid into it.
+    cx = ring + pl + spec.PLATE / 2
+    cy = ring + pt + spec.PLATE / 2
+    out.append(
+        f'<circle cx="{_n(cx)}" cy="{_n(cy)}" r="{_n(spec.PLATE / 2)}" '
+        f'fill="{tool["plate"][theme]}"/>'
+    )
+    clip = f' clip-path="url(#{ident}-plate)"' if tool["bleed"] > 1 else ""
+    out.append(f'<use href="#{ident}-mark"{clip} fill="{tool["mark"][theme]}"/>')
+
+    # The label.
+    colour = {"ink": th["ink"], "muted": th["muted"], "filled": th["filled_text"]}[t["text"]]
+    out.append(f'<use href="#{ident}-text" fill="{colour}"/>')
+
+    # A pill with no ring of its own needs an edge on a dark ground, or it
+    # reads as a smudge rather than a badge. The hairline is stroked inside the
+    # shape so it costs no width or height.
+    edge = th.get("edge") and not ring
+    if edge:
+        out.append(
+            f'<rect x="0.5" y="0.5" width="{_n(w - 1)}" height="{_n(h - 1)}" '
+            f'rx="{_n((h - 1) / 2)}" fill="none" '
+            f'stroke="url(#{ident}-edge-{theme})" stroke-width="1"/>'
+        )
+
+    defs = []
+    if ring_stops:
+        defs.append(_gradient(f"{ident}-ring-{theme}", ring_stops))
+    if edge:
+        defs.append(_gradient(f"{ident}-edge-{theme}", spec.BRIGHT))
+    if fill == "deep":
+        defs.append(_gradient(f"{ident}-fill-{theme}", th["filled_stops"]))
+    elif fill != "ground":
+        defs.append(_gradient(f"{ident}-wash-{theme}", washed))
+
+    return defs, out
+
+
+def render(verb, prep, tool_key, size="md", theme="auto", font=None):
+    """One badge, as a complete SVG document."""
+    t = spec.TREATMENTS[(verb, prep)]
+    faces = spec.FONTS[font or spec.DEFAULT_FONT]
+    face = Face.load(ROOT / faces[t["weight"]])
+    geo = measure(verb, prep, tool_key, size, font)
+
+    # A short, stable prefix for this badge's element ids. It has to be derived
+    # from the badge's identity rather than from Python's own hash(), which is
+    # salted per process and would make every run produce different files --
+    # enough to defeat --check and to churn the diff on every regeneration.
+    ident = "b" + hashlib.blake2s(
+        f"{verb}-{prep}-{tool_key}-{size}".encode(), digest_size=3
+    ).hexdigest()
+    k = geo["scale"]
+    w, h = geo["width"], geo["height"]
+
+    themes = ["light", "dark"] if theme == "auto" else [theme]
+    defs, groups = _shapes(verb, prep, tool_key, ident, face, geo)[0], []
+    for th in themes:
+        d, body = _body(verb, prep, tool_key, th, ident, face, geo)
+        defs += d
+        cls = f' class="{th}"' if theme == "auto" else ""
+        groups.append(f"<g{cls}>{''.join(body)}</g>")
+
+    # One file that follows the reader's own setting. The dark group is hidden
+    # by default so anything that ignores the media query -- an old renderer, a
+    # PDF export -- still gets a correct light badge rather than both at once.
+    style = ""
+    if theme == "auto":
+        style = (
+            "<style>.dark{display:none}"
+            "@media (prefers-color-scheme:dark){"
+            ".light{display:none}.dark{display:inline}}</style>"
+        )
+
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" '
+        f'width="{_n(w)}" height="{_n(h)}" viewBox="0 0 {_n(w)} {_n(h)}" '
+        f'role="img" aria-label="{geo["label"]}">'
+        f"<title>{geo['label']}</title>"
+        f"{style}"
+        f"<defs>{''.join(defs)}</defs>"
+        f'<g transform="scale({_n(k)})">{"".join(groups)}</g>'
+        "</svg>\n"
+    )
+
+
+# --- Writing the set -------------------------------------------------------
+
+
+def filename(tool_key, size, theme):
+    parts = [tool_key]
+    if size != spec.DEFAULT_SIZE:
+        parts.append(size)
+    if theme != "auto":
+        parts.append(theme)
+    return "-".join(parts) + ".svg"
+
+
+def build(out_dir, manifest_path, font=None):
+    out_dir = pathlib.Path(out_dir)
+    if out_dir.exists():
+        shutil.rmtree(out_dir)
+
+    rows = []
+    count = 0
+    for verb in spec.VERBS:
+        for prep in spec.PREPOSITIONS:
+            folder = out_dir / f"{verb}-{prep}"
+            folder.mkdir(parents=True, exist_ok=True)
+            for tool_key in spec.TOOLS:
+                for size in spec.SIZES:
+                    geo = measure(verb, prep, tool_key, size, font)
+                    for theme in ("auto", "light", "dark"):
+                        name = filename(tool_key, size, theme)
+                        (folder / name).write_text(
+                            render(verb, prep, tool_key, size, theme, font)
+                        )
+                        count += 1
+                    rows.append(
+                        {
+                            "key": f"{verb}-{prep}-{tool_key}-{size}",
+                            "verb": verb,
+                            "preposition": prep,
+                            "tool": tool_key,
+                            "size": size,
+                            "label": geo["label"],
+                            "path": f"/badge/{verb}-{prep}/{filename(tool_key, size, 'auto')}",
+                            # The <img> width and height attributes take
+                            # integers, and rounding up rather than down keeps
+                            # the reserved box from cropping the badge by a
+                            # fraction of a pixel.
+                            "width": math.ceil(geo["width"]),
+                            "height": math.ceil(geo["height"]),
+                        }
+                    )
+
+    if manifest_path:
+        lines = [
+            "# Generated by bin/badge -- do not edit.",
+            "# Read by _includes/ai-badge.html, so badge markup can carry its own",
+            "# width and height and not shift the page as it loads, and by",
+            "# badges.html, which builds the picker from it.",
+            "verbs:",
+        ]
+        lines += [f"  - {v}" for v in spec.VERBS]
+        lines.append("prepositions:")
+        lines += [f"  - {p}" for p in spec.PREPOSITIONS]
+        lines.append("sizes:")
+        lines += [f"  - {s}" for s in spec.SIZES]
+        lines.append("tools:")
+        for key, tool in spec.TOOLS.items():
+            lines.append(f"  - key: {key}")
+            lines.append(f'    label: "{tool["label"]}"')
+        lines.append("badges:")
+        for r in rows:
+            lines.append(f"  - key: {r['key']}")
+            for field in ("verb", "preposition", "tool", "size", "path"):
+                lines.append(f"    {field}: {r[field]}")
+            lines.append(f'    label: "{r["label"]}"')
+            lines.append(f"    width: {r['width']}")
+            lines.append(f"    height: {r['height']}")
+        pathlib.Path(manifest_path).write_text("\n".join(lines) + "\n")
+
+    return count, len(rows)
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    p.add_argument("--one", nargs=3, metavar=("VERB", "PREP", "TOOL"),
+                   help="write a single badge to stdout")
+    p.add_argument("--size", default=spec.DEFAULT_SIZE, choices=list(spec.SIZES))
+    p.add_argument("--theme", default="auto", choices=["auto", "light", "dark"])
+    p.add_argument("--font", default=spec.DEFAULT_FONT, choices=list(spec.FONTS))
+    p.add_argument("--out", default=str(OUT), help="output directory")
+    p.add_argument("--check", action="store_true",
+                   help="build into a temp dir and report whether badge/ is stale")
+    args = p.parse_args()
+
+    if args.one:
+        verb, prep, tool_key = args.one
+        if (verb, prep) not in spec.TREATMENTS:
+            sys.exit(f"no such combination: {verb} {prep}")
+        if tool_key not in spec.TOOLS:
+            sys.exit(f"unknown tool: {tool_key} (have {', '.join(spec.TOOLS)})")
+        sys.stdout.write(render(verb, prep, tool_key, args.size, args.theme, args.font))
+        return
+
+    if args.check:
+        with tempfile.TemporaryDirectory() as tmp:
+            fresh = pathlib.Path(tmp) / "badge"
+            manifest = pathlib.Path(tmp) / "ai_badges.yml"
+            build(fresh, manifest, args.font)
+
+            stale = []
+            diff = subprocess.run(
+                ["diff", "-rq", str(OUT), str(fresh)], capture_output=True, text=True
+            )
+            if diff.returncode != 0:
+                stale.append(diff.stdout.strip() or diff.stderr.strip())
+            if not MANIFEST.exists():
+                stale.append(f"{MANIFEST.relative_to(ROOT)} is missing")
+            elif MANIFEST.read_text() != manifest.read_text():
+                stale.append(f"{MANIFEST.relative_to(ROOT)} does not match the spec")
+
+            if stale:
+                print("\n".join(stale))
+                print("\nRun bin/badge and commit the result.")
+                sys.exit(1)
+            print(f"badge/ and {MANIFEST.relative_to(ROOT)} are up to date")
+        return
+
+    files, badges = build(args.out, MANIFEST, args.font)
+    print(f"{files} files for {badges} badges -> {args.out}")
+    print(f"manifest -> {MANIFEST.relative_to(ROOT)}")
+
+
+if __name__ == "__main__":
+    main()

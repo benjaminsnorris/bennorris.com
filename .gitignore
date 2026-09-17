@@ -13,3 +13,6 @@ example/_site
 node_modules
 npm-debug.log*
 /vendor/
+# bin/badge runs in a local virtualenv (see bin/badge-assets/requirements.txt)
+.venv/
+__pycache__/
