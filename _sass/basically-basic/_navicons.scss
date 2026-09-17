@@ -2,14 +2,16 @@
    Navicons
    ========================================================================== */
 
+@use "sass:math";
+
 .navicon-button {
   display: inline-block;
   position: relative;
   padding: 0.90625rem 0;
   margin-right: 0.25rem;
   min-height: $site-image-height;
-  -webkit-transition: $navicon-duration / 2;
-  transition: $navicon-duration / 2;
+  -webkit-transition: math.div($navicon-duration, 2);
+  transition: math.div($navicon-duration, 2);
   border: 0;
   border-radius: $navicon-height;
   outline: none;
@@ -27,8 +29,8 @@
 
   .navicon::before,
   .navicon::after {
-    -webkit-transition-duration: $navicon-duration / 2;
-    transition-duration: $navicon-duration / 2;
+    -webkit-transition-duration: math.div($navicon-duration, 2);
+    transition-duration: math.div($navicon-duration, 2);
   }
 
   &:hover {
@@ -37,8 +39,8 @@
 
     .navicon::before,
     .navicon::after {
-      -webkit-transition-duration: $navicon-duration / 2;
-      transition-duration: $navicon-duration / 2;
+      -webkit-transition-duration: math.div($navicon-duration, 2);
+      transition-duration: math.div($navicon-duration, 2);
     }
 
     .navicon::before {
@@ -59,7 +61,7 @@
   border-radius: $navicon-width;
   background: $navicon-content-bg;
   // background: none;
-  // border: ($navicon-height / 2) solid $navicon-content-bg;
+  // border: math.div($navicon-height, 2) solid $navicon-content-bg;
 
   &::before,
   &::after {
@@ -67,12 +69,12 @@
     position: absolute;
     width: $navicon-width;
     height: $navicon-height;
-    -webkit-transition-duration: $navicon-duration $navicon-duration / 2;
-    transition-duration: $navicon-duration $navicon-duration / 2;
+    -webkit-transition-duration: $navicon-duration math.div($navicon-duration, 2);
+    transition-duration: $navicon-duration math.div($navicon-duration, 2);
     border-radius: $navicon-width;
     background: $navicon-content-bg;
     // background: none;
-    // border: ($navicon-height / 2) solid $navicon-content-bg;
+    // border: math.div($navicon-height, 2) solid $navicon-content-bg;
     content: "";
   }
 
