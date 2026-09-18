@@ -558,3 +558,26 @@ th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
   color:var(--ink-soft);font-size:.92rem}
 .noboard .lbl{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;
   text-transform:uppercase;color:var(--ink-mute);margin-bottom:.2em}
+
+/* ---- AI attribution ----
+   Two fixed variants rather than /badge/written-by/claude.svg, whose own
+   <style> switches on prefers-color-scheme alone. Every glossary page can be
+   forced to a theme against the system one (see [data-theme] in
+   _upstream.css), and the auto badge would then sit dark-plated on a light
+   page. These rules follow the same order the palette does: media query first,
+   explicit override after.
+
+   The SVGs are generated in the site repo by bin/badge from
+   bin/badge-assets/spec.py, and CI fails the deploy if they drift from it. */
+.ai-badge-row{margin:1.1em 0 0}
+.ai-badge-link{display:inline-block;line-height:0;border:0}
+.ai-badge{display:block;height:auto;max-width:100%}
+.ai-badge-dark{display:none}
+@media (prefers-color-scheme:dark){
+  .ai-badge-light{display:none}
+  .ai-badge-dark{display:block}
+}
+[data-theme="light"] .ai-badge-light{display:block}
+[data-theme="light"] .ai-badge-dark{display:none}
+[data-theme="dark"] .ai-badge-light{display:none}
+[data-theme="dark"] .ai-badge-dark{display:block}
