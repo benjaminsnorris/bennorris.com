@@ -490,8 +490,11 @@ def inject_colophon(html):
         at = head.end() if head else 0
         html = html[:at] + '\n<style>' + css + '</style>' + html[at:]
 
+    # Deliberately not </main>. record-linkage rebuilds main.innerHTML on load,
+    # which silently ate both the button and the badge -- they were in the file
+    # and gone from the page. Anything inside the element an artifact renders
+    # into is the artifact's to destroy, so the footer goes after it.
     for closer, wrap in (('</footer>', '%s'),
-                         ('</main>', '<footer>%s</footer>'),
                          ('</body>', '<footer class="sitelink-foot">%s</footer>')):
         at = html.find(closer)
         if at != -1:

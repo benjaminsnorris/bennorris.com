@@ -6,12 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Instrument Log — Classical Psychometrics for Eval Rubrics</title>
 <meta name="description" content="A seven-week course in classical psychometrics for people building LLM evaluation rubrics: reliability, agreement, generalizability, validity, rater effects, IRT, and standard setting.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E9EBE3'/%3E%3Crect x='4' y='14' width='24' height='1' fill='%23C6CABE'/%3E%3Crect x='8' y='11' width='13' height='7' fill='%234A6FA5' opacity='0.35'/%3E%3Crect x='8' y='10' width='1' height='9' fill='%234A6FA5'/%3E%3Crect x='20' y='10' width='1' height='9' fill='%234A6FA5'/%3E%3Crect x='13' y='8' width='2' height='13' fill='%23A02C2C'/%3E%3C/svg%3E">
 <style>
   html,body{margin:0;padding:0;background:#E9EBE3}
+  @media (prefers-color-scheme:dark){
+    html,body{background:#141713}
+    .boot{color:#9AA398}
+  }
   #root{min-height:100vh}
   .boot{
     padding:4rem 2rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -62,6 +66,53 @@
 .ai-badge-link { display: inline-block; line-height: 0; border: 0; }
 .ai-badge { display: block; height: auto; max-width: 100%; }
 .ai-badge-dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  .ai-badge-light { display: none; }
+  .ai-badge-dark { display: block; }
+}
+[data-theme="light"] .ai-badge-light { display: block; }
+[data-theme="light"] .ai-badge-dark { display: none; }
+[data-theme="dark"] .ai-badge-light { display: none; }
+[data-theme="dark"] .ai-badge-dark { display: block; }
+</style>
+
+<style>
+/* Dark mode for instrument-log.
+
+   The palette this page actually uses is defined inside the published React
+   bundle, on a `.root` CLASS rather than :root, and the bundle is minified --
+   so this is an override layer, not an edit. `.root.root` is specificity
+   (0,2,0) against the bundle's (0,1,0), which wins no matter which stylesheet
+   the bundle injects itself into or when. Nothing below reaches into the JS.
+
+   The light design is ink on warm parchment with a sage cast, so the dark one
+   is ink on a warm near-black rather than a neutral: dropping the green out
+   would make it a different instrument.
+
+   Three rules pair a hardcoded foreground with a token background and so must
+   flip together -- .md-code sets colour against var(--ink), and .v-p / .v-r put
+   #fff on --band and --marker, both of which lighten here.
+
+   NOTE: a re-publish of this artifact from a new Claude export will drop this,
+   because publish-course copies the artifact verbatim. Re-apply it then. */
+@media (prefers-color-scheme: dark) {
+  .root.root {
+    --ground:#141713; --panel:#1C201B; --ink:#E9EBE3; --ink2:#B4BBB2;
+    --ink3:#909A86; --rule:#363C34; --marker:#DE8B7F; --band:#83A9DA;
+    --band-soft:rgba(131,169,218,0.20);
+  }
+  .root.root .md-code { background:#0C0F0B; color:#DDE3DA; }
+  .root.root .v-p { color:#0B1016; }
+  .root.root .v-r { color:#1B0E0C; }
+}
+[data-theme="dark"] .root.root {
+  --ground:#141713; --panel:#1C201B; --ink:#E9EBE3; --ink2:#B4BBB2;
+  --ink3:#909A86; --rule:#363C34; --marker:#DE8B7F; --band:#83A9DA;
+  --band-soft:rgba(131,169,218,0.20);
+}
+[data-theme="dark"] .root.root .md-code { background:#0C0F0B; color:#DDE3DA; }
+[data-theme="dark"] .root.root .v-p { color:#0B1016; }
+[data-theme="dark"] .root.root .v-r { color:#1B0E0C; }
 </style>
 </head>
 <body>
