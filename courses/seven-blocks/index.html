@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <script src="/assets/js/course-store.js" defer data-course-slug="seven-blocks"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Seven Blocks</title>
+<style>
+:root{
+  color-scheme: light dark;
+  --ground:#F4F6F7; --surface:#FFFFFF; --panel:#EAEFF1; --panel2:#DFE7EA;
+  --ink:#131A1D; --ink-soft:#3F4B50; --ink-mute:#5E696E;
+  --rule:#D5DFE3; --rule-strong:#818B90; --btn-fg:#FFFFFF;
+  --signal:#14646E; --signal-soft:#E0F0F1; --signal-deep:#0C4A52;
+  --fact:#1D6E45; --fact-bg:#E2F1E9;
+  --infer:#8A5409; --infer-bg:#F6EBD8;
+  --vendor:#5F3F97; --vendor-bg:#EDE6F7;
+  --contest:#A03C2E; --contest-bg:#F8E6E2;
+  --single:#2A5A8C; --single-bg:#E3EDF7;
+  --muck:#8B8258; --clear:#2E8C99;
+  --warn-bg:#FBF0E4; --warn-rule:#D8A45C;
+  --shadow:0 1px 2px rgba(19,26,29,.06),0 4px 14px rgba(19,26,29,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1315; --surface:#161D20; --panel:#1C2529; --panel2:#243036;
+    --ink:#E9EFF1; --ink-soft:#B6C3C8; --ink-mute:#8C9CA3;
+    --rule:#2C383D; --rule-strong:#617076; --btn-fg:#07100F;
+    --signal:#4FBFCB; --signal-soft:#123338; --signal-deep:#8FDCE4;
+    --fact:#6FD49E; --fact-bg:#10301F;
+    --infer:#E0B364; --infer-bg:#34260D;
+    --vendor:#B79BE8; --vendor-bg:#241B38;
+    --contest:#F0958A; --contest-bg:#361914;
+    --single:#8FBCE8; --single-bg:#132437;
+    --muck:#8A8260; --clear:#4FBFCB;
+    --warn-bg:#2E230F; --warn-rule:#8A6524;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+[data-theme="light"]{
+  --ground:#F4F6F7; --surface:#FFFFFF; --panel:#EAEFF1; --panel2:#DFE7EA;
+  --ink:#131A1D; --ink-soft:#3F4B50; --ink-mute:#5E696E;
+  --rule:#D5DFE3; --rule-strong:#818B90; --btn-fg:#FFFFFF;
+  --signal:#14646E; --signal-soft:#E0F0F1; --signal-deep:#0C4A52;
+  --fact:#1D6E45; --fact-bg:#E2F1E9;
+  --infer:#8A5409; --infer-bg:#F6EBD8;
+  --vendor:#5F3F97; --vendor-bg:#EDE6F7;
+  --contest:#A03C2E; --contest-bg:#F8E6E2;
+  --single:#2A5A8C; --single-bg:#E3EDF7;
+  --muck:#8B8258; --clear:#2E8C99;
+  --warn-bg:#FBF0E4; --warn-rule:#D8A45C;
+  --shadow:0 1px 2px rgba(19,26,29,.06),0 4px 14px rgba(19,26,29,.05);
+}
+[data-theme="dark"]{
+  --ground:#0E1315; --surface:#161D20; --panel:#1C2529; --panel2:#243036;
+  --ink:#E9EFF1; --ink-soft:#B6C3C8; --ink-mute:#8C9CA3;
+  --rule:#2C383D; --rule-strong:#617076; --btn-fg:#07100F;
+  --signal:#4FBFCB; --signal-soft:#123338; --signal-deep:#8FDCE4;
+  --fact:#6FD49E; --fact-bg:#10301F;
+  --infer:#E0B364; --infer-bg:#34260D;
+  --vendor:#B79BE8; --vendor-bg:#241B38;
+  --contest:#F0958A; --contest-bg:#361914;
+  --single:#8FBCE8; --single-bg:#132437;
+  --muck:#8A8260; --clear:#4FBFCB;
+  --warn-bg:#2E230F; --warn-rule:#8A6524;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 12px);-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:ui-serif,Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+  font-size:17px;line-height:1.62;
+  padding:0 16px 132px;
+}
+.wrap{max-width:44rem;margin:0 auto}
+h1,h2,h3,h4,.ui{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font-size:1.9rem;line-height:1.16;letter-spacing:-.02em;margin:.4em 0 .25em}
+h2{font-size:1.35rem;line-height:1.24;letter-spacing:-.012em;margin:2.2em 0 .5em}
+h3{font-size:1.06rem;line-height:1.3;margin:1.8em 0 .4em}
+h4{font-size:.94rem;margin:1.4em 0 .3em;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute)}
+p{margin:0 0 1em}
+a{color:var(--signal)}
+strong{font-weight:660}
+em{font-style:italic}
+hr{border:0;border-top:1px solid var(--rule);margin:2.4em 0}
+ul,ol{padding-left:1.25em;margin:0 0 1em}
+li{margin:.3em 0}
+small{font-size:.86rem;color:var(--ink-mute)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:var(--panel);padding:.1em .35em;border-radius:4px}
+
+header.masthead{padding:28px 0 8px;border-bottom:1px solid var(--rule);margin-bottom:8px}
+.kicker{font-family:system-ui,sans-serif;font-size:.74rem;text-transform:uppercase;letter-spacing:.14em;color:var(--signal);font-weight:650}
+.dek{font-size:1.06rem;color:var(--ink-soft);margin:.2em 0 1em}
+.byline{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 14px}
+.byline img{display:block;height:32px;width:auto;max-width:100%}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 0}
+button,.btn{
+  font-family:system-ui,sans-serif;font-size:.86rem;font-weight:560;
+  min-height:44px;padding:9px 14px;border-radius:9px;
+  border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);
+  cursor:pointer;line-height:1.2;
+}
+button:hover{border-color:var(--signal)}
+button.primary{background:var(--signal);color:var(--btn-fg);border-color:var(--signal)}
+button.tiny{min-height:36px;padding:6px 10px;font-size:.8rem}
+
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:16px;margin:1.4em 0;box-shadow:var(--shadow)}
+.panel{background:var(--panel);border-radius:12px;padding:14px 16px;margin:1.3em 0}
+.warn{background:var(--warn-bg);border-left:3px solid var(--warn-rule);border-radius:0 10px 10px 0;padding:13px 16px;margin:1.4em 0}
+.pull{border-left:3px solid var(--signal);padding:2px 0 2px 16px;margin:1.5em 0;color:var(--ink-soft);font-size:1.03rem}
+
+.chip{
+  display:inline-flex;align-items:center;gap:.3em;
+  font-family:system-ui,sans-serif;font-size:.68rem;font-weight:640;
+  text-transform:uppercase;letter-spacing:.045em;
+  padding:.16em .5em;border-radius:5px;vertical-align:.08em;white-space:nowrap;
+}
+.chip a{text-decoration:none;color:inherit;border-bottom:1px solid currentColor;opacity:.8}
+.chip.src{background:var(--fact-bg);color:var(--fact)}
+.chip.infer{background:var(--infer-bg);color:var(--infer)}
+.chip.vendor{background:var(--vendor-bg);color:var(--vendor)}
+.chip.contested{background:var(--contest-bg);color:var(--contest)}
+.chip.single{background:var(--single-bg);color:var(--single)}
+
+.legend{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0 0}
+@media(min-width:560px){.legend{grid-template-columns:1fr 1fr}}
+.legend div{font-size:.88rem;color:var(--ink-soft)}
+
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.3em 0;border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:30rem;font-family:system-ui,sans-serif;font-size:.88rem}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{background:var(--panel);font-weight:650;color:var(--ink-soft)}
+
+.blocks{display:grid;grid-template-columns:1fr;gap:10px;margin:1.3em 0}
+@media(min-width:620px){.blocks{grid-template-columns:1fr 1fr}}
+.blk{background:var(--panel);border-radius:11px;padding:11px 13px}
+.blk .lab{font-family:system-ui,sans-serif;font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--signal);font-weight:650}
+.blk .t{font-family:system-ui,sans-serif;font-weight:620;font-size:.95rem;margin:2px 0}
+.blk .m{font-size:.88rem;color:var(--ink-soft)}
+
+details{border:1px solid var(--rule);border-radius:11px;padding:0;margin:1.1em 0;background:var(--surface)}
+details>summary{
+  cursor:pointer;list-style:none;padding:13px 15px;min-height:44px;
+  font-family:system-ui,sans-serif;font-weight:600;font-size:.92rem;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+details>summary::-webkit-details-marker{display:none}
+details>summary::after{content:"+";color:var(--signal);font-size:1.2rem;line-height:1}
+details[open]>summary::after{content:"\2212"}
+details .body{padding:0 15px 14px;border-top:1px solid var(--rule);padding-top:12px}
+
+textarea{
+  width:100%;min-height:90px;resize:vertical;padding:11px 12px;border-radius:10px;
+  border:1px solid var(--rule-strong);background:var(--ground);color:var(--ink);
+  font-family:inherit;font-size:.97rem;line-height:1.5;
+}
+textarea:focus,input:focus,button:focus-visible{outline:2px solid var(--signal);outline-offset:1px}
+label.fld{display:block;font-family:system-ui,sans-serif;font-size:.8rem;font-weight:620;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 5px}
+
+.confrow{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:10px 0}
+.confrow .lbl{font-family:system-ui,sans-serif;font-size:.8rem;color:var(--ink-mute);width:100%}
+.conf{min-height:44px;min-width:44px;padding:8px 0;flex:1 1 44px;border-radius:9px;text-align:center}
+.conf[aria-pressed="true"]{background:var(--signal);color:var(--btn-fg);border-color:var(--signal)}
+.reveal{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--rule-strong)}
+.reveal.on{display:block}
+.gap{font-family:system-ui,sans-serif;font-size:.84rem;font-weight:620;margin-top:9px}
+.gap.good{color:var(--fact)} .gap.bad{color:var(--contest)}
+.scorerow{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+.item{background:var(--panel);border-radius:12px;padding:14px 15px;margin:1.2em 0}
+.item .q{font-family:system-ui,sans-serif;font-weight:620;font-size:.95rem;margin-bottom:8px}
+.tagline{font-family:system-ui,sans-serif;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);font-weight:640;margin-bottom:6px}
+
+.unit{border-top:1px solid var(--rule);padding-top:26px;margin-top:34px}
+.unitbar{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between}
+.unitno{font-family:system-ui,sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
+.time{font-family:system-ui,sans-serif;font-size:.78rem;color:var(--ink-mute)}
+.blocks-time{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.tb{font-family:system-ui,sans-serif;font-size:.76rem;background:var(--panel2);color:var(--ink-soft);padding:4px 9px;border-radius:20px}
+.evidence{background:var(--signal-soft);border-radius:11px;padding:12px 14px;margin:1em 0;font-size:.95rem}
+.evidence .h{font-family:system-ui,sans-serif;font-size:.72rem;font-weight:680;letter-spacing:.09em;text-transform:uppercase;color:var(--signal);margin-bottom:4px}
+.liminal{font-family:system-ui,sans-serif;font-size:.88rem;color:var(--ink-soft);background:var(--panel);border-radius:10px;padding:11px 13px;margin:1.2em 0}
+.liminal b{color:var(--ink)}
+.done{display:flex;align-items:center;gap:10px;margin:1.6em 0 .4em}
+.done button{min-height:48px;flex:1}
+
+/* creek meter */
+#meter{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:color-mix(in srgb,var(--ground) 92%,transparent);
+  backdrop-filter:saturate(1.3) blur(8px);
+  border-bottom:1px solid var(--rule);
+  margin:0 -16px;padding:7px 16px 6px;
+}
+.creek{display:flex;align-items:center;gap:3px;max-width:44rem;margin:0 auto}
+.pool{flex:1 1 0;min-width:0;height:26px;border-radius:5px;background:var(--panel2);position:relative;overflow:hidden;border:1px solid var(--rule)}
+.pool .fill{position:absolute;inset:auto 0 0 0;height:0%;transition:height .5s ease,background .5s ease;background:var(--muck)}
+.pool .pn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;font-size:.62rem;font-weight:700;color:var(--ink);mix-blend-mode:normal;opacity:.72}
+.flowline{max-width:44rem;margin:4px auto 0;display:flex;justify-content:space-between;align-items:baseline;font-family:system-ui,sans-serif;font-size:.7rem;color:var(--ink-mute)}
+.flowline b{color:var(--ink);font-size:.78rem}
+
+.srclist{font-size:.9rem}
+.srclist li{margin:.6em 0}
+.srclist .vstat{font-family:system-ui,sans-serif;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);font-weight:640}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--rule);color:var(--ink-mute);font-size:.88rem}
+
+/* Footer button back to the course index. Colour rides on currentColor so one
+   rule holds across every course palette; the bare currentColor line is the
+   fallback for engines without color-mix. The logo keeps its transparency: on
+   a dark ground the pale face carries the shape on its own, and a plate behind
+   it reads as a lit square. */
+.sitelink-row { margin: 1.1rem 0 0; }
+.sitelink {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .42rem .72rem; border-radius: .45rem;
+  border: 1px solid currentColor;
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+  color: inherit; text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: .78rem; line-height: 1; opacity: .8;
+  transition: opacity .15s, background-color .15s;
+}
+.sitelink:hover, .sitelink:focus-visible {
+  opacity: 1; background: color-mix(in srgb, currentColor 8%, transparent);
+}
+.sitelink img {
+  width: 18px; height: 18px; flex: none;
+}
+.sitelink-foot { max-width: 1300px; margin: 0 auto; padding: 0 1.1rem 2.5rem; }
+</style>
+</head>
+<body>
+
+<div id="meter" aria-label="Creek flow — course progress">
+  <div class="creek" id="creek"></div>
+  <div class="flowline">
+    <span>Downstream flow <b id="flowpct">0%</b></span>
+    <span id="clarity">clarity —</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker">A self-study course</div>
+  <h1>The Seven Blocks</h1>
+  <p class="dek">What a children's cartoon gets right about emotion, where its map actually came from, and how to build your own.</p>
+  <div class="byline">
+    <img src="/badge/created-by/claude.svg" alt="Created by Claude" width="161" height="32" loading="lazy">
+  </div>
+  <div class="toolbar">
+    <button id="themebtn" class="ui">Theme: auto</button>
+    <button id="resetbtn" class="ui">Reset progress</button>
+  </div>
+</header>
+
+<section id="start">
+
+<p>In one episode of <em>Avatar: The Last Airbender</em>, an old man shows a twelve-year-old a creek clogged with algae. Clear the clogs, he says, and the water moves. Your body has seven pools like this, each one blocked by a specific kind of emotional muck, and you cannot stop once you start. <span class="chip src">Sourced fact <a href="#S22">S22</a></span></p>
+
+<p>A therapist told the person this course was built for that this scene explains well over half of what therapy does. That claim is worth taking seriously — and worth taking apart. Some of it is right for reasons the show's writers could not have known. Some of it is an artifact of a specific afternoon in Big Sur in 1977. And one part of it is advice you should not follow.</p>
+
+<h2>What you will be able to do</h2>
+
+<p class="pull"><strong>At the end, you can produce a written map of your own seven blocks</strong> — each one named at the level of a specific recurring situation rather than a feeling word, matched to a redirect that fits that particular affect, with the evidence behind the redirect marked, and the conditions under which it fails written in.</p>
+
+<p>Not "understand the chakras." A document, revised five times, that you could hand to someone who has to work with you.</p>
+
+<h2>Non-goals</h2>
+
+<p>Stated plainly, on the first screen, because scope that is not bounded is not scope.</p>
+
+<ul>
+<li><strong>This is not therapy and does not substitute for it.</strong> It is a conceptual course with self-directed writing exercises. If you are working with a therapist, tell them you are doing this.</li>
+<li><strong>This does not teach the chakra system as a live metaphysical practice.</strong> It treats the seven-pool map as a metaphor and a mnemonic. Unit 2 explains why that framing is the historically honest one, not a hedge.</li>
+<li><strong>This is not a survey of psychotherapy.</strong> It covers the emotion-processing half. It says almost nothing about skills training, behavioral activation, sleep, medication, or executive-function scaffolding — which together are a large share of what actually helps people.</li>
+<li><strong>It does not follow the guru's pacing rule.</strong> "You cannot stop once you begin" is the one piece of the episode that is straightforwardly bad advice. Unit 6 covers why, and what replaces it.</li>
+<li><strong>It does not attempt authority on Indian religious traditions.</strong> Unit 2 is a history of transmission and alteration, sourced to a historian of that transmission — not an account of what the practice means to practitioners.</li>
+</ul>
+
+<h2>Where you are starting from</h2>
+
+<div class="panel">
+<p style="margin-bottom:.5em"><strong>This course assumes you:</strong></p>
+<ul style="margin-bottom:0">
+<li>Have seen <em>Avatar: The Last Airbender</em>, or are willing to watch one 22-minute episode (Book 2, Chapter 19, "The Guru").</li>
+<li>Have <strong>no exposure to chakras</strong> — no Sanskrit terms, no yoga-studio vocabulary, no prior view on whether any of it is real.</li>
+<li>Are comfortable with <strong>structured communication frameworks</strong> — the kind of thing found in <em>Crucial Conversations</em>, <em>Radical Candor</em>, or Gottman's speaker–listener technique. You have run hard conversations on purpose and thought about how they went.</li>
+<li>Have <strong>no formal training in psychology</strong> and read research mostly through secondary summaries.</li>
+<li>Write easily and will actually keep a document up to date. The whole artifact depends on this.</li>
+</ul>
+</div>
+
+<p>If the third bullet is wrong for you — if structured hard conversations are new — the course still works, but Units 3 through 7 will take longer than the estimates, because you will be building the raw material and the map at the same time.</p>
+
+<h2>The three thresholds</h2>
+
+<p>Eight units, but only three ideas you have to actually cross. The seven pools are scaffolding. These are the load.</p>
+
+<div class="blocks">
+  <div class="blk"><div class="lab">Threshold 1 — Unit 3</div><div class="t">Not showing it and not feeling it are different operations</div><div class="m">They have close to opposite cost profiles, and almost everyone treats them as one thing called "holding it in."</div></div>
+  <div class="blk"><div class="lab">Threshold 2 — Units 4–5</div><div class="t">The block is specific to the pool</div><div class="m">Shame and guilt are the same family and produce opposite behaviour. A redirect that fixes one makes the other worse.</div></div>
+  <div class="blk"><div class="lab">Threshold 3 — Unit 6</div><div class="t">Naming is an intervention, not an observation</div><div class="m">Putting a feeling into words changes it. That is the mechanism, the benefit, and the hazard, all at once.</div></div>
+</div>
+
+<h2>Time</h2>
+
+<p>Roughly <strong>22 hours</strong> across eight units. That figure already has a 2.5× multiplier applied to the honest estimate, because learners consistently take about that much longer than planned. Each unit is broken into labelled blocks with their own estimates, so you can open one, close it, and stop.</p>
+
+<p>Do not do this in two sittings. Units 4 and 6 both contain retrieval that only works if it is delayed — a few days between units is doing real work.</p>
+
+<h2>How claims are marked</h2>
+
+<p>Every load-bearing claim carries a chip. The taxonomy is not decoration; it is the second thing this course teaches, and Unit 2 is where you will need it most.</p>
+
+<div class="panel">
+<div class="legend">
+<div><span class="chip src">Sourced fact <a href="#sources">S#</a></span> Traceable to a numbered source below.</div>
+<div><span class="chip infer">Inference</span> Reasoning or application. In no source.</div>
+<div><span class="chip contested">Contested</span> The field genuinely disagrees.</div>
+<div><span class="chip single">Single study</span> Real, but not replicated.</div>
+<div><span class="chip vendor">Vendor framing</span> True, but authored by someone selling the thing.</div>
+</div>
+<p style="margin:12px 0 0"><small>The sources list at the end also records <strong>how far each one was actually verified</strong> — read in full, abstract only, or reached through a secondary source. A course that teaches provenance and hides its own would be teaching a discipline it does not practise.</small></p>
+</div>
+
+<h2>The creek at the top of the screen</h2>
+
+<p>Seven pools. Each one fills as you complete its unit — but the water starts <em>muddy</em> and only clears as your confidence ratings start matching your actual answers. Downstream flow is the product of both.</p>
+
+<p>This is deliberate. Reading something is not knowing it, and the single defining failure of studying alone is that fluency feels like understanding. A meter that filled up just because you scrolled would be lying to you in exactly the way this course is about.</p>
+
+</section>
+
+<section class="unit" id="u1">
+<div class="unitbar"><span class="unitno">Unit 1</span><span class="time">~1 hr 40 min</span></div>
+<h2>The bad first map</h2>
+<div class="blocks-time"><span class="tb">Watch ~25 min</span><span class="tb">Read ~20 min</span><span class="tb">Map ~45 min</span><span class="tb">Check ~10 min</span></div>
+
+<div class="evidence"><div class="h">What this unit produces</div>A complete, crude, embarrassing version of the final artifact: all seven blocks named, in one sitting, before you know anything. You will revise it in every later unit.</div>
+
+<p>Most courses open with orientation and save the real thing for the end. That is the atomistic model wearing a project costume, and it is also why people quit in week two. So the whole task comes first, badly.</p>
+
+<h3>Watch</h3>
+
+<p>Watch <em>Avatar: The Last Airbender</em>, Book 2, Chapter 19, "The Guru" (2006). If you cannot, the summary below is enough to proceed, but the episode is 22 minutes and the visual of the creek does work that prose does not.</p>
+
+<p>The Avatar, Aang, wants to control a state of overwhelming power that currently only triggers when he is in extreme distress. A guru named Pathik tells him that to master it he must first open seven chakras — pools of energy running up the body, each blocked by a specific emotion. Pathik demonstrates with a creek clogged by algae: remove the clogs and the water flows. He warns that the process cannot be halted once begun. Aang opens six. The seventh requires releasing his attachment to Katara. He sees a vision of her in danger, refuses, and leaves — locking himself out of the power entirely. <span class="chip src">Sourced fact <a href="#S22">S22</a></span></p>
+
+<h3>The seven, as the show gives them</h3>
+
+<div class="scroller">
+<table>
+<thead><tr><th>Pool</th><th>Location</th><th>Governs</th><th>Blocked by</th></tr></thead>
+<tbody>
+<tr><td>Earth</td><td>Base of spine</td><td>Survival</td><td>Fear</td></tr>
+<tr><td>Water</td><td>Sacrum</td><td>Pleasure</td><td>Guilt</td></tr>
+<tr><td>Fire</td><td>Stomach</td><td>Willpower</td><td>Shame</td></tr>
+<tr><td>Air</td><td>Heart</td><td>Love</td><td>Grief</td></tr>
+<tr><td>Sound</td><td>Throat</td><td>Truth</td><td>Lies</td></tr>
+<tr><td>Light</td><td>Forehead</td><td>Insight</td><td>Illusion</td></tr>
+<tr><td>Thought</td><td>Crown</td><td>Cosmic energy</td><td>Earthly attachment</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><span class="chip src">Sourced fact <a href="#S22">S22</a></span> for the pairings themselves. Whether any of this corresponds to Indian tradition is Unit 2's problem, and the answer will surprise you.</p>
+
+<h3>Map — the actual work</h3>
+
+<p>Forty-five minutes, one pass, no research. For each of the seven, write the <strong>most specific recurring situation you can name</strong> in which that emotion seems to be costing you something. Not "I feel shame sometimes." A situation with a room in it.</p>
+
+<p>Here is a filled-in example for one pool — a full worked example, because you have no basis yet for doing this cold.</p>
+
+<div class="card">
+<div class="tagline">Worked example — Fire (willpower / shame)</div>
+<p style="margin:.4em 0"><strong>Situation:</strong> Giving corrective feedback to someone who reports to me, when the thing I am correcting is something I also do badly. It happens maybe monthly. I schedule the conversation, then move it twice, then deliver it in a softened form that does not land.</p>
+<p style="margin:.4em 0"><strong>What I currently do:</strong> Rehearse the wording repeatedly, which feels like preparation and is actually delay. Then over-qualify in the room.</p>
+<p style="margin:.4em 0"><strong>Guess at the redirect:</strong> No idea yet. Something about separating "I am a hypocrite" from "this behaviour needs to change."</p>
+<p style="margin:.4em 0"><strong>Where I think this map is wrong already:</strong> I am not sure the thing slowing me down is shame. It might be conflict avoidance, which is fear, which is a different pool.</p>
+</div>
+
+<p>That last line is the most valuable one in the example. Write it every time.</p>
+
+<div class="liminal"><b>Expect this to feel wrong.</b> Four of the seven will be easy and three will feel like you are inventing them to fill a box. That is correct and you should still fill them. The invented ones are the interesting data — they are either pools that genuinely do not apply to you, or the ones you cannot see. Unit 8 comes back for them.</div>
+
+<div id="map-u1"></div>
+
+<h3>Check</h3>
+<div class="item" data-item="u1-q1">
+  <div class="tagline">Self-explanation</div>
+  <div class="q">Before you look at anything else: why do you think this course made you write the map before teaching you anything? Give a reason, not a guess at what the answer is supposed to be.</div>
+  <textarea data-note="u1-q1" placeholder="Two or three sentences."></textarea>
+  <div class="confrow"><span class="lbl">How confident are you that your reason is the actual one? (1 = not at all, 5 = certain)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0">Three reasons, and the third is the one people miss.</p>
+    <p style="margin:.4em 0">First, half of all dropout in self-paced courses happens in the first two weeks, so unit one has to hand you something real rather than orientation. <span class="chip src">Sourced fact <a href="#S25">S26</a></span></p>
+    <p style="margin:.4em 0">Second, producing an answer yourself — even a wrong one — produces better retention than being handed a right one. <span class="chip src">Sourced fact <a href="#S26">S27</a></span></p>
+    <p style="margin:.4em 0">Third: <strong>the map you wrote today is evidence.</strong> In Unit 8 you will compare it against your final map, and the differences are the only direct measurement you will get of whether the course changed anything. If you had written it after learning the material, it would measure nothing. <span class="chip infer">Inference</span></p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did your reason hold up?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="done"><button class="ui donebtn" data-unit="u1">Mark Unit 1 complete</button></div>
+</section>
+
+<section class="unit" id="u2">
+<div class="unitbar"><span class="unitno">Unit 2</span><span class="time">~2 hr 30 min</span></div>
+<h2>Where the map actually came from</h2>
+<div class="blocks-time"><span class="tb">Read ~50 min</span><span class="tb">Trace ~40 min</span><span class="tb">Retrieval ~20 min</span><span class="tb">Revise map ~40 min</span></div>
+
+<div class="evidence"><div class="h">What this unit produces</div>A one-paragraph provenance note at the top of your map stating what the seven-pool frame is and is not — written by you, defensible to a historian.</div>
+
+<p>You would reasonably assume the show is drawing on something ancient. The lineage is stranger and much shorter than that, and knowing it changes what you are allowed to do with the map.</p>
+
+<h3>What the Indian sources actually say</h3>
+
+<p>Chakras originate in Indian tantric traditions, as focal points in a subtle body, activated through demanding meditative and ritual practice. <span class="chip src">Sourced fact <a href="#S7">S7</a></span> Three things about the source material tend to surprise people:</p>
+
+<ul>
+<li><strong>The number is not seven.</strong> Systems in the Indian material range from as few as four chakras to as many as forty-nine. <span class="chip src">Sourced fact <a href="#S7">S7</a></span> Seven is one option among many, and it is the one the West standardised on.</li>
+<li><strong>There is no rainbow.</strong> The chakras carry colours in the source texts, but not the spectrum order. <span class="chip src">Sourced fact <a href="#S7">S7</a></span></li>
+<li><strong>"Balancing" is not a thing.</strong> The idea of balanced chakras is never mentioned in the scriptures. The chakras are to be pierced, dissolved and transcended, in pursuit of liberation — not tuned into an emotionally well-adjusted lifestyle. <span class="chip src">Sourced fact <a href="#S7">S7</a></span></li>
+</ul>
+
+<p>Hold that third point. The therapeutic use of the chakra map — the use this entire course is about — is not a variation on the traditional use. It is close to its opposite. <span class="chip infer">Inference</span></p>
+
+<h3>The actual lineage</h3>
+
+<p>The historian of this transmission is Kurt Leland, whose <em>Rainbow Body</em> traces how the Western version assembled itself. <span class="chip src">Sourced fact <a href="#S7">S7</a></span> The components arrived separately, over about a century:</p>
+
+<div class="scroller">
+<table>
+<thead><tr><th>When</th><th>What was added</th><th>By whom</th></tr></thead>
+<tbody>
+<tr><td>1880s</td><td>The seven-chakra base; each chakra tied to a nerve plexus</td><td>Blavatsky and the Theosophical Society, in India</td></tr>
+<tr><td>1919</td><td>First scholarly English publication of one version</td><td>Sir John Woodroffe, writing as "Arthur Avalon," <em>The Serpent Power</em></td></tr>
+<tr><td>1920s</td><td>Non-Sanskrit names; association with endocrine glands</td><td>Theosophical writers; Leadbeater's <em>The Chakras</em> (1927)</td></tr>
+<tr><td>1930s</td><td>Single colours in spectrum order</td><td>Colour therapists, not yogis</td></tr>
+<tr><td>1930s–70s</td><td>Psychological reading of the system</td><td>Zimmer, Jung, Campbell; then Esalen and the human potential movement</td></tr>
+<tr><td>1977</td><td><strong>The colour scheme and the qualities list fused in print for the first time</strong></td><td>Ken Dychtwald, <em>Bodymind</em>, June 1977, and a <em>Yoga Journal</em> article that summer</td></tr>
+<tr><td>1980s</td><td>Consolidation into the version now treated as canonical</td><td>Anodea Judith, <em>Wheels of Life</em></td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="chip src">Sourced fact <a href="#S7">S7</a></span> for the whole table.</p>
+
+<p>The single-word list of qualities most people know — survival, sexuality, power, love, communication, insight, cosmic consciousness — emerged at the Esalen Institute in Big Sur out of a fusion of two Indian teachers' work, and reached print in 1977. <span class="chip src">Sourced fact <a href="#S7">S7</a></span></p>
+
+<p class="pull">Compare that list to Pathik's: survival, pleasure, willpower, love, truth, insight, cosmic energy. The 2006 cartoon is not transmitting ancient tantra. It is transmitting the 1977 Esalen synthesis, most likely by way of Judith. <span class="chip infer">Inference</span></p>
+
+<p>That inference is mine, not Leland's — he is not writing about the show. But the correspondence is close enough, and the 1977 list specific enough, that the alternative is coincidence.</p>
+
+<div class="warn">
+<p style="margin:0 0 .5em"><strong>Why this is not a debunking.</strong></p>
+<p style="margin:0">Leland's own conclusion is not that the Western system is fake. He argues the same selection-and-recombination process probably describes how tantric teaching spread through East Asia over centuries, and that the result embodies a real and widely shared archetype. <span class="chip src">Sourced fact <a href="#S7">S7</a></span> A framework being recent and assembled does not make it useless. It makes it a <em>metaphor with a documented author</em> rather than an ancient anatomy — which is a better thing to have, because you can argue with it.</p>
+</div>
+
+<h3>Trace</h3>
+
+<p>Forty minutes. Pick any chakra chart you can find — a yoga studio's wall, a wellness brand's product page, a search result. Identify, for each element on it, roughly when that element entered the Western system using the table above. Then find one claim on the chart that is not accounted for anywhere in the lineage, and write down where you think it came from.</p>
+
+<p>This is the course's first real provenance exercise and the skill transfers well past chakras.</p>
+
+<h3>Write the provenance note</h3>
+
+<p>Add a paragraph to the top of your map. It should state what the seven-pool frame is, when it dates from, what you are using it for, and what you are not claiming. Yours, in your words — but it should survive a reader who knows the history.</p>
+
+<textarea data-note="u2-prov" placeholder="The provenance note for the top of your map."></textarea>
+
+<h3>Retrieval</h3>
+
+<div class="item" data-item="u2-q1">
+  <div class="tagline">Discrimination</div>
+  <div class="q">Someone says: "the chakra system is thousands of years old, so the emotional associations have stood the test of time." Which specific part of that sentence is false, and which part is true?</div>
+  <textarea data-note="u2-q1" placeholder="Separate the two clauses."></textarea>
+  <div class="confrow"><span class="lbl">Confidence (1–5)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0"><strong>True:</strong> chakras as such are genuinely old, and come out of Indian tantric practice. <span class="chip src">Sourced fact <a href="#S7">S7</a></span></p>
+    <p style="margin:.4em 0"><strong>False:</strong> the emotional associations. The single-word qualities list dates to Esalen and reached print in 1977; the rainbow arrived in the 1930s from colour therapy; the glands in the 1920s. <span class="chip src">Sourced fact <a href="#S7">S7</a></span> Nothing about the emotional list has been tested by time, because it has only existed for about fifty years.</p>
+    <p style="margin:.4em 0">The sentence is doing a specific thing: borrowing the age of the container to certify the contents. Worth watching for — it is not unique to chakras.</p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did you separate them correctly?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="item" data-item="u2-q2">
+  <div class="tagline">Method choice</div>
+  <div class="q">You are reading a wellness site that says the throat chakra governs communication and is blocked by dishonesty. Which chip does that claim get — sourced fact, inference, contested, single study, or vendor framing — and why?</div>
+  <div class="confrow"><span class="lbl">Confidence (1–5)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0">It depends entirely on what the site is, and noticing that <em>is</em> the answer.</p>
+    <p style="margin:.4em 0">As a claim about what the Western chakra system holds, it is a <span class="chip src">Sourced fact</span> — traceable to the post-1977 list. As a claim about what is true of human communication, it is unsupported and belongs nowhere on the taxonomy. And if the site sells throat-chakra oils, the framing is <span class="chip vendor">Vendor framing</span> regardless of accuracy: the claim is shaped by needing a product-shaped problem to exist.</p>
+    <p style="margin:.4em 0">Vendor framing is the category people forget, because vendor-written material is often the clearest writing available on a subject.</p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did you catch that it depends on the claim being made?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="done"><button class="ui donebtn" data-unit="u2">Mark Unit 2 complete</button></div>
+</section>
+
+<section class="unit" id="u3">
+<div class="unitbar"><span class="unitno">Unit 3 — Threshold 1</span><span class="time">~3 hr 30 min</span></div>
+<h2>Three things called "holding it in"</h2>
+<div class="blocks-time"><span class="tb">Read ~60 min</span><span class="tb">Worked example ~25 min</span><span class="tb">Completion problem ~50 min</span><span class="tb">Log ~45 min</span><span class="tb">Delayed retrieval ~30 min</span></div>
+
+<div class="evidence"><div class="h">What this unit produces</div>Three logged episodes from your own week, each classified by <em>which</em> of the three suppressions you performed — plus the first honest column in your map: what the block is actually costing.</div>
+
+<p>The guru's claim is that a blocked pool stops the flow and the cost is ongoing. That is close to something real, and the real version is more useful than the metaphor because it makes a distinction the metaphor cannot.</p>
+
+<h3>The standard finding</h3>
+
+<p>James Gross's process model separates strategies by <em>when</em> they act in the unfolding of an emotion. <strong>Reappraisal</strong> acts early: you change how the situation is construed, so less emotion is generated. <strong>Suppression</strong> acts late: the emotion has already happened and you inhibit the outward signs of it. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+
+<p>The consequences differ sharply:</p>
+
+<div class="scroller">
+<table>
+<thead><tr><th></th><th>Reappraisal</th><th>Suppression</th></tr></thead>
+<tbody>
+<tr><td>Outward expression</td><td>Decreased</td><td>Decreased</td></tr>
+<tr><td>Felt experience</td><td>Decreased</td><td><strong>Not decreased</strong></td></tr>
+<tr><td>Memory for the event</td><td>No impact</td><td><strong>Impaired</strong></td></tr>
+<tr><td>Physiological load</td><td>No increase</td><td><strong>Increased — in you and in the other person</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="chip src">Sourced fact <a href="#S1">S1</a></span> The memory finding comes from three separate studies: suppression during film viewing produced worse recall of the film's details; in a slide-viewing study only suppression, not reappraisal, hurt memory; and habitual suppressors showed poorer memory on both self-report and objective measures. <span class="chip src">Sourced fact <a href="#S2">S2</a></span></p>
+
+<p>That last row is the one that should stop you. It is not only that suppression costs you. It raises physiological responding in the person you are talking to, who did not choose it and cannot see you doing it. <span class="chip src">Sourced fact <a href="#S1">S1</a></span></p>
+
+<p class="pull">Read that table against a hard conversation you have had. The version of you who stayed composed and could not afterwards remember what the other person actually said was not failing to pay attention. That is the documented signature of the strategy you used.</p>
+
+<h3>Now the refutation, which is where the threshold actually is</h3>
+
+<p>The skill of reading this literature is looking for the paper that complicates the clean finding. Here it is.</p>
+
+<p>A meta-analysis of 306 experimental comparisons found only modest overall differences between <em>types</em> of strategy. Attentional strategies like distraction produced no overall effect; response modulation such as suppression had a small effect; cognitive change such as reappraisal had small-to-moderate effects. The robust results were comparisons <em>within</em> a strategy — and two of them cut directly against the received view. <span class="chip src">Sourced fact <a href="#S3">S3</a></span> <span class="chip contested">Contested</span></p>
+
+<ul>
+<li><strong>Against "suppression is nearly always maladaptive":</strong> suppressing the <em>expression</em> of emotion generally proved effective. Suppressing the <em>experience</em> of the emotion, and suppressing <em>thoughts</em> of what caused it, generally did not. <span class="chip src">Sourced fact <a href="#S3">S3</a></span></li>
+<li><strong>Against "reappraisal is nearly always adaptive":</strong> reappraising the emotional <em>response</em> was less effective than reappraising the <em>stimulus</em>, or taking a different perspective on it. <span class="chip src">Sourced fact <a href="#S3">S3</a></span></li>
+</ul>
+
+<div class="warn"><p style="margin:0"><strong>Provenance warning on the paragraph you just read.</strong> I reached that meta-analysis through a later review that summarises it, not by reading the original. That is <em>amplification</em> — the specific failure where a claim gains authority by travelling through papers that present no data on it, and it is the characteristic mistake of people writing courses from secondary sources. Treat the two bullets as strong but one level removed, and go to the original before you build anything load-bearing on them. The sources list marks this. <span class="chip infer">Inference</span></p></div>
+
+<h3>The threshold</h3>
+
+<p class="pull"><strong>"Holding it in" is at least three different operations, and they do not have the same price.</strong> Holding your <em>face</em> is comparatively cheap and often works. Holding the <em>feeling</em> does not work — the feeling stays and you pay interest. Holding the <em>thought</em> does not work either, and tends to make the thought louder.</p>
+
+<p>Almost everyone, including almost everyone writing about this, collapses the three into one thing and then argues about whether it is good or bad. The argument is unresolvable because the question is malformed.</p>
+
+<p>So the guru's advice — clear the block, let it flow — is right about the second and third and wrong about the first. You do not owe every room your face. <span class="chip infer">Inference</span></p>
+
+<div class="liminal"><b>This is the stuck stretch.</b> Most people read the three-way split, agree with it immediately, and then keep using "I held it together" as a single category for the rest of the week. The crossing is not agreeing. The crossing is the first time you catch yourself mid-conversation and can say which of the three you are doing. Expect that to take several days and to feel like nothing is happening in between.</div>
+
+<h3>Two more complications you need before you can use this</h3>
+
+<p><strong>Context decides.</strong> The flexibility literature argues the question is not which strategy is best but whether you can match strategy to situation. <span class="chip src">Sourced fact <a href="#S4">S4</a></span> Reappraisal appears more adaptive under <em>uncontrollable</em> stress — where the emotion is the only thing available to change — and less so when the situation itself can be changed, where acting on the problem beats reframing your feelings about it. <span class="chip src">Sourced fact <a href="#S5">S5</a></span> <span class="chip single">Single study</span></p>
+
+<p><strong>The social costs of suppression are not universal.</strong> Whether suppressing emotion carries interpersonal cost is moderated by cultural context. <span class="chip src">Sourced fact <a href="#S6">S6</a></span> Most of the base literature is built on Western samples, and the size of these effects should be assumed smaller than published — in a large replication project, 36% of psychology findings replicated significantly in the same direction. <span class="chip src">Sourced fact <a href="#S21">S21</a></span></p>
+
+<h3>Worked example</h3>
+
+<div class="card">
+<div class="tagline">Fully worked — one episode, classified</div>
+<p style="margin:.4em 0"><strong>Episode:</strong> Performance review. My manager raised something I thought was unfair. I said "that's fair, I'll look at it," kept my voice even, and moved on.</p>
+<p style="margin:.4em 0"><strong>Face:</strong> Suppressed. Deliberately. <em>Assessment: reasonable.</em> A visible flash of anger would have changed what the rest of the meeting could be about, and the expression channel is the one where suppression tends to work. <span class="chip src">Sourced fact <a href="#S3">S3</a></span></p>
+<p style="margin:.4em 0"><strong>Feeling:</strong> Also suppressed — I tried to stop being angry. <em>Assessment: this is the expensive one.</em> The anger did not go anywhere; it surfaced that evening, aimed at someone unrelated. And I could not reconstruct the second half of the meeting afterwards, which is the memory signature. <span class="chip src">Sourced fact <a href="#S1">S1</a>, <a href="#S2">S2</a></span></p>
+<p style="margin:.4em 0"><strong>Thought:</strong> Suppressed, then not. I tried not to think about it for two hours and then thought about nothing else. <em>Assessment: predictably backfired.</em></p>
+<p style="margin:.4em 0"><strong>Available redirect:</strong> Keep the face. Drop the other two. Concretely: "I want to take that seriously, and I have a reaction to it I don't trust yet — can I come back to you Thursday?" That holds expression, refuses to fake the experience, and gives the thought somewhere to go.</p>
+<p style="margin:.4em 0"><strong>Where this could be wrong:</strong> If this manager reads a delay as evasion, the redirect costs more than the suppression did. Controllability matters and I have not tested it. <span class="chip src">Sourced fact <a href="#S5">S5</a></span></p>
+</div>
+
+<h3>Completion problem</h3>
+
+<p>Here is a second episode, partly filled in. Complete the empty rows. This is one fading step down from the worked example — you get the structure and the first classification, and you supply the rest.</p>
+
+<div class="card">
+<div class="tagline">Completion problem — finish this</div>
+<p style="margin:.4em 0"><strong>Episode:</strong> A colleague took credit in a meeting for work that was mostly yours. You said nothing at the time and were unusually agreeable for the rest of the meeting.</p>
+<p style="margin:.4em 0"><strong>Face:</strong> Suppressed. <em>Provided for you.</em></p>
+<label class="fld">Feeling — suppressed or not? What is your evidence from the description?</label>
+<textarea data-note="u3-cp-feel" placeholder="Note: 'unusually agreeable' is a clue. What does it suggest?"></textarea>
+<label class="fld">Thought — what would you need to know to classify this one?</label>
+<textarea data-note="u3-cp-thought"></textarea>
+<label class="fld">Which single suppression, if you undid it, would change the most? Why that one?</label>
+<textarea data-note="u3-cp-redirect"></textarea>
+</div>
+
+<details><summary>Model answer — open only after you have written all three</summary>
+<div class="body">
+<p style="margin:.4em 0"><strong>Feeling:</strong> Almost certainly suppressed, and the tell is "unusually agreeable." Over-accommodation after a slight is expression management that has spilled into trying not to feel the slight. Note what is <em>not</em> evidence: staying quiet. Silence alone is only the face.</p>
+<p style="margin:.4em 0"><strong>Thought:</strong> Unclassifiable from the description, and that is the point of the question. You would need to know what happened in the next two hours. If it was replayed repeatedly, the thought was not suppressed — it was ruminated, which is a third thing again and the subject of Unit 6. If it was pushed away and then intruded, that is thought suppression.</p>
+<p style="margin:.4em 0"><strong>Highest-value undo:</strong> the feeling. The face was doing legitimate work in a room with other people in it. The thought cannot be addressed until you know which pattern it is. The feeling is both expensive and directly actionable — and "I'm annoyed about that and I want to raise it properly" is a sentence you can say later, to one person, with your face entirely composed.</p>
+<p style="margin:.4em 0">If you answered "the face" — that it should have been challenged in the room — that is defensible and it is a values position, not an emotion-regulation one. Worth noticing which of the two you were actually reasoning about.</p>
+</div>
+</details>
+
+<h3>Log — the real work of this unit</h3>
+
+<p>Over the next several days, catch three episodes and classify each one across the three channels. Written down, within a few hours. Three is enough; the point is not volume but catching yourself while the classification is still hard.</p>
+
+<textarea data-note="u3-log" placeholder="Episode 1 — face / feeling / thought / what it cost / what you would try instead"></textarea>
+
+<h3>Delayed retrieval</h3>
+
+<div class="item" data-item="u3-q1">
+  <div class="tagline">Reaches back to Unit 2</div>
+  <div class="q">Unit 2 established that the emotional associations in the chakra map date from the 1970s. Given what you now know about how suppression actually works — does that recency make the map more useful for this course, less useful, or neither? Argue it.</div>
+  <textarea data-note="u3-q1"></textarea>
+  <div class="confrow"><span class="lbl">Confidence (1–5)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0">There is a defensible answer in each direction, and the failure is picking one without seeing the other.</p>
+    <p style="margin:.4em 0"><strong>More useful:</strong> the 1970s list was assembled by people doing psychological work, so it is already a psychological taxonomy wearing Sanskrit. That is why it maps onto the research at all. An actual tantric system, organised around liberation rather than wellbeing, would map far worse.</p>
+    <p style="margin:.4em 0"><strong>Less useful:</strong> a taxonomy assembled by intuition in a decade has no more claim on carving emotion at its joints than any other list of seven. Its fit with the research may be selection — we notice the pairs that work and skip the ones that don't. Unit 7 tests exactly that.</p>
+    <p style="margin:.4em 0"><strong>The integrating move:</strong> the map's value was never as evidence. It is a <em>retrieval structure</em> — seven labelled hooks that make you check seven distinct places instead of the two you would have checked. Any seven-item taxonomy with decent coverage would do the same job; this one has the advantage that you can already remember it. <span class="chip infer">Inference</span></p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did you get both directions?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="item" data-item="u3-q2">
+  <div class="tagline">Method choice</div>
+  <div class="q">Your flight is cancelled and you are furious at a gate agent who had nothing to do with it. Which move: reappraise the stimulus, reappraise your response, suppress expression, or act on the situation? Pick one and say why the other three lose.</div>
+  <div class="confrow"><span class="lbl">Confidence (1–5)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0">The question is a trap in a useful way: the best answer is a <em>sequence</em>, and picking any single move means you missed the controllability split.</p>
+    <p style="margin:.4em 0"><strong>Suppress expression — yes, immediately.</strong> This is the channel where suppression works, and the person in front of you is not the cause. <span class="chip src">Sourced fact <a href="#S3">S3</a></span></p>
+    <p style="margin:.4em 0"><strong>Act on the situation — yes, and this is the main move.</strong> The stressor is partly controllable: there are other flights. Reappraisal is the more adaptive choice under <em>uncontrollable</em> stress; where you can change the situation, changing it beats reframing your feelings about it. <span class="chip src">Sourced fact <a href="#S5">S5</a></span></p>
+    <p style="margin:.4em 0"><strong>Reappraise the stimulus — third, for the part that is genuinely fixed.</strong> And note the finding that reappraising the stimulus or shifting perspective outperforms reappraising your own emotional response. <span class="chip src">Sourced fact <a href="#S3">S3</a></span></p>
+    <p style="margin:.4em 0"><strong>Reappraise your response — the weakest option here,</strong> and the one most people reach for, because "I shouldn't be this angry" feels like maturity.</p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did you notice controllability was the deciding variable?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="done"><button class="ui donebtn" data-unit="u3">Mark Unit 3 complete</button></div>
+</section>
+
+<section class="unit" id="u4">
+<div class="unitbar"><span class="unitno">Unit 4 — Threshold 2, part 1</span><span class="time">~3 hr</span></div>
+<h2>Water and Fire: guilt is not small shame</h2>
+<div class="blocks-time"><span class="tb">Read ~45 min</span><span class="tb">Sort ~40 min</span><span class="tb">Completion problem ~40 min</span><span class="tb">Revise map ~35 min</span><span class="tb">Delayed retrieval ~20 min</span></div>
+
+<div class="evidence"><div class="h">What this unit produces</div>Two map entries — Water and Fire — each with a redirect chosen <em>because of</em> which emotion it is, plus the sorting rule you will use on the rest.</div>
+
+<p>Unit 3 was about the channel. This unit is about the content, and it is where the seven-pool structure starts earning its place instead of decorating the course.</p>
+
+<h3>The cleanest evidence for block-specificity</h3>
+
+<p>The show puts guilt on the second pool and shame on the third — different pools, different governed capacities. Most people treat shame and guilt as the same feeling at different volumes. They are not, and the difference is the best-established finding in this whole area.</p>
+
+<p>The distinction, originating with Helen Block Lewis and developed by June Tangney and colleagues, is about the <em>object</em> of the negative evaluation. Guilt is about a behaviour: <em>I did something bad</em>. Shame is about the self: <em>I am bad</em>. <span class="chip src">Sourced fact <a href="#S12">S12</a>, <a href="#S13">S13</a></span></p>
+
+<p>Because guilt's object is a modifiable action, the self-concept stays intact, and the behavioural output is reparative — apology, correction, repair. Shame's object is the self, which cannot be edited on the spot, and the output is concealment and withdrawal. <span class="chip src">Sourced fact <a href="#S12">S12</a></span></p>
+
+<div class="scroller">
+<table>
+<thead><tr><th></th><th>Guilt</th><th>Shame</th></tr></thead>
+<tbody>
+<tr><td>Object</td><td>A specific behaviour</td><td>The whole self</td></tr>
+<tr><td>Thought</td><td>"I did a bad thing"</td><td>"I am a bad thing"</td></tr>
+<tr><td>Typical output</td><td>Repair, apology, correction</td><td>Hide, withdraw, sometimes attack</td></tr>
+<tr><td>Useful?</td><td>Generally yes — it points at an action</td><td>Generally not — it points at nothing you can do</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="chip src">Sourced fact <a href="#S12">S12</a></span></p>
+
+<p class="pull"><strong>The threshold:</strong> these two feel nearly identical from the inside and produce opposite behaviour. So an intervention matched to one is actively wrong for the other. Telling a guilty person "don't be so hard on yourself" removes a signal that was pointing at a fixable action. Telling an ashamed person "so go fix it" hands them a task their current state makes impossible.</p>
+
+<h3>Now complicate it, because it is not as clean as that table</h3>
+
+<p>Two real problems with the standard account. <span class="chip contested">Contested</span></p>
+
+<ul>
+<li><strong>People cannot reliably tell them apart.</strong> Tangney's own group found that participants have trouble distinguishing shame from guilt — notably more trouble than distinguishing shame from embarrassment. If the two states are hard to separate introspectively, a self-report map has a hard floor on its accuracy. <span class="chip src">Sourced fact <a href="#S14">S14</a></span></li>
+<li><strong>The "cultivate guilt, fight shame" conclusion is criticised as too simple.</strong> The boundary is blurrier than the self/behaviour split suggests, and the account rests on treating "moral" as roughly equal to "prosocial," which is not obviously right. <span class="chip src">Sourced fact <a href="#S14">S14</a></span> There is also work arguing shame can drive self-improvement rather than only withdrawal. <span class="chip contested">Contested</span></li>
+</ul>
+
+<p>This matters for how you write your map. The right entry is not "my Fire block is shame." It is a described situation plus a sorting attempt plus the reason you might be wrong. <span class="chip infer">Inference</span></p>
+
+<h3>The sorting rule</h3>
+
+<p>One question, asked about a specific episode rather than in general:</p>
+
+<p class="pull">If someone handed you a way to fix the thing right now, with no witnesses and no cost, would the feeling go away?</p>
+
+<p>Mostly yes → guilt. The feeling was tracking a fixable action. Mostly no, or the relief feels hollow → shame. The feeling was tracking something about you that the fix does not touch. <span class="chip infer">Inference</span></p>
+
+<h3>Completion problem</h3>
+
+<div class="card">
+<div class="tagline">Completion problem — three episodes, one is a trap</div>
+<p style="margin:.4em 0"><strong>A.</strong> You forgot a direct report's one-on-one for the third time this quarter. You feel bad every time you see their name in the calendar.</p>
+<p style="margin:.4em 0"><strong>B.</strong> You gave a presentation that went badly and you have replayed one specific sentence for a week.</p>
+<p style="margin:.4em 0"><strong>C.</strong> You snapped at your kid and apologised within the hour, and they were fine, and you still feel bad three days later.</p>
+<label class="fld">Apply the sorting rule to each. Which is guilt, which is shame, and which does not sort cleanly?</label>
+<textarea data-note="u4-cp" placeholder="A / B / C — and say what the redirect is for each."></textarea>
+</div>
+
+<details><summary>Model answer</summary>
+<div class="body">
+<p style="margin:.4em 0"><strong>A is guilt</strong>, and it is doing its job. A fix exists — protect the slot, or tell them honestly that the recurring time does not work and change it. The feeling should resolve when the behaviour does. The redirect is action, and the error would be treating this as a self-worth problem and going looking for its childhood origins.</p>
+<p style="margin:.4em 0"><strong>B is shame</strong>, and the tell is the replaying. There is no available fix for a sentence already said to a room that has dispersed. The feeling is tracking exposure, not repair. Reparative moves are unavailable, which is exactly why the mind loops.</p>
+<p style="margin:.4em 0"><strong>C is the trap and does not sort cleanly.</strong> The repair happened, was accepted, and the feeling persisted. On the rule, that is shame — but the object could also be a self-concept about being a certain kind of parent, in which case the apology was never addressed to the thing that hurt. Or it is guilt with a slow decay, which the sorting rule cannot see because it is a binary applied to something continuous.</p>
+<p style="margin:.4em 0">If you forced C into a category, notice that. The map's value is in the situation descriptions and the redirects; the seven labels are hooks, and a hook you have to hammer something onto is telling you the map is wrong at that point.</p>
+</div>
+</details>
+
+<h3>Revise the map</h3>
+<p>Rewrite your Water and Fire entries below with the sorting rule applied and a redirect that follows from the sort.</p>
+
+<h3>Delayed retrieval</h3>
+<div class="item" data-item="u4-q1">
+  <div class="tagline">Reaches back to Unit 3</div>
+  <div class="q">Cross the two frames. If someone is in shame rather than guilt, which of the three suppressions from Unit 3 are they most likely running, and which is the one to leave alone?</div>
+  <div class="confrow"><span class="lbl">Confidence (1–5)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0">Shame's signature output is hiding. <span class="chip src">Sourced fact <a href="#S12">S12</a></span> Hiding is a face operation — so the <em>expression</em> channel is the one running hardest, and it is also the one where suppression is comparatively effective. <span class="chip src">Sourced fact <a href="#S3">S3</a></span></p>
+    <p style="margin:.4em 0">Which produces a counterintuitive result: <strong>leave the face alone.</strong> Demanding that an ashamed person show the feeling adds exposure to a state whose entire content is exposure. The intervention goes to the other two channels — the felt experience and the looping thought — neither of which requires an audience.</p>
+    <p style="margin:.4em 0">This is the clearest single payoff from crossing both thresholds. Threshold 1 alone says suppression is a channel question. Threshold 2 alone says the emotion determines the redirect. Together they say: <em>which channel to open depends on which emotion it is</em>, and for shame the answer inverts the usual advice. <span class="chip infer">Inference</span></p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did you get that the face should be left alone?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="done"><button class="ui donebtn" data-unit="u4">Mark Unit 4 complete</button></div>
+</section>
+
+<section class="unit" id="u5">
+<div class="unitbar"><span class="unitno">Unit 5 — Threshold 2, part 2</span><span class="time">~3 hr</span></div>
+<h2>Earth and Air: one of these is not a block</h2>
+<div class="blocks-time"><span class="tb">Read ~45 min</span><span class="tb">Independent problem ~55 min</span><span class="tb">Revise map ~40 min</span><span class="tb">Delayed retrieval ~25 min</span></div>
+
+<div class="evidence"><div class="h">What this unit produces</div>Earth and Air map entries — and, for one of them, a documented argument with the source material.</div>
+
+<h3>Earth: fear, and why avoidance is the engine</h3>
+
+<p>The base pool governs survival and is blocked by fear. <span class="chip src">Sourced fact <a href="#S22">S22</a></span> This is the pairing with the strongest correspondence to clinical practice, and the mechanism is not the fear itself.</p>
+
+<p>The operative concept is <strong>experiential avoidance</strong>: the attempt to avoid or escape unwanted internal experiences — thoughts, feelings, sensations — and the situations that occasion them. It is proposed as a transdiagnostic mechanism, meaning it turns up across many different presentations rather than belonging to one. <span class="chip src">Sourced fact <a href="#S24">S24</a></span></p>
+
+<p>The clinical shape of this is well known: avoiding the feared thing reduces fear right now and strengthens it over time, because the avoidance prevents any new learning about whether the feared outcome actually occurs. Exposure-based treatment works by removing the avoidance, not by arguing with the fear. <span class="chip src">Sourced fact <a href="#S19">S19</a></span> <span class="chip infer">Inference</span> on my compression of it.</p>
+
+<p>Which makes the show unusually accurate here. Pathik does not tell Aang his fears are unfounded. He tells him to let them become clear, and let them go — which is much closer to exposure than to reassurance. <span class="chip infer">Inference</span></p>
+
+<h3>Air: grief, and where the map is simply wrong</h3>
+
+<p>The heart pool governs love and is blocked by grief. Aang's grief is the loss of his entire people, and he is instructed to release it. <span class="chip src">Sourced fact <a href="#S22">S22</a></span></p>
+
+<p>This is the pairing to argue with, and the argument is not a quibble.</p>
+
+<p>Twentieth-century grief models did treat the work of mourning as severing the bond with the deceased, with continued attachment read as pathology. That framing was substantially revised. The <em>continuing bonds</em> literature holds that maintaining an ongoing, transformed relationship with the person who died is a normal and often adaptive part of bereavement rather than a failure to complete it. <span class="chip src">Sourced fact <a href="#S23">S23</a></span></p>
+
+<p class="pull">So the instruction "let the grief flow out and release the attachment" encodes a model of mourning the field moved away from. Grief is not muck in the pipe. In most cases it is what love does when its object is gone, and the goal is not clearance. <span class="chip infer">Inference</span></p>
+
+<p>Notice what this does to the metaphor. Six pools can take a blockage-and-flow reading. This one cannot without saying something false. That is worth more to you than six clean fits — <strong>a map you have found the edge of is a map you can use</strong>, because you now know where to stop trusting it.</p>
+
+<h3>Independent problem</h3>
+
+<p>No worked example and no partial fill this time. The scaffolding is gone on purpose — if the exercises in this unit looked like Unit 3's, the fading never happened and by now the guidance would be getting in your way.</p>
+
+<div class="card">
+<p style="margin:.4em 0"><strong>The task.</strong> Take the two pools you found <em>hardest</em> to fill in during Unit 1 — the ones that felt invented. For each, decide between three possibilities and defend the choice with evidence from your own week:</p>
+<ol style="margin:.4em 0">
+<li>The pool genuinely does not apply to you.</li>
+<li>It applies, and you cannot see it — which means someone else probably can.</li>
+<li>The pool is a bad category and what is happening there actually belongs to a different pool.</li>
+</ol>
+<p style="margin:.4em 0">Then do the thing that makes this real: for whichever pool you assigned to option 2, <strong>ask one person who would know.</strong> Write down what they say verbatim before you interpret it.</p>
+<textarea data-note="u5-ind" placeholder="Pool 1 — which option, and the evidence. Pool 2 — same. Then what the person actually said."></textarea>
+</div>
+
+<div class="liminal"><b>The verbatim instruction is not decoration.</b> Writing down what someone said before interpreting it is the same operation as the whole course: it separates the signal from your processing of it. It is also uncomfortable in a way that reading is not, and that discomfort is most of why this unit takes three hours rather than one.</div>
+
+<h3>Delayed retrieval</h3>
+<div class="item" data-item="u5-q1">
+  <div class="tagline">Method choice — reaches back to Units 2, 3 and 4</div>
+  <div class="q">A colleague says they have been "avoiding a conversation for weeks and feel terrible about it." Name the two most likely pools, the question that separates them, and the different redirect each implies.</div>
+  <textarea data-note="u5-q1"></textarea>
+  <div class="confrow"><span class="lbl">Confidence (1–5)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0"><strong>Earth (fear) or Water (guilt).</strong> "Avoiding" points at Earth; "feel terrible about it" points at Water. Both fit and they need opposite handling.</p>
+    <p style="margin:.4em 0"><strong>Separating question:</strong> is the bad feeling about <em>the conversation ahead</em> or about <em>the delay already caused</em>? Forward-looking dread is fear. Backward-looking about the cost of the delay is guilt — and the sorting rule confirms it: if they could have the conversation tonight with no consequences, does the feeling lift? For guilt, yes.</p>
+    <p style="margin:.4em 0"><strong>If fear:</strong> the avoidance is the mechanism, not the symptom, and every week of delay strengthens it. <span class="chip src">Sourced fact <a href="#S24">S24</a></span> The redirect is reducing the size of the exposure, not reducing the fear first — a five-minute version this week beats a full version someday.</p>
+    <p style="margin:.4em 0"><strong>If guilt:</strong> the feeling is already pointing at the fix and does not need reframing. <span class="chip src">Sourced fact <a href="#S12">S12</a></span> The redirect is scheduling. Reassurance here is the error — it removes the signal.</p>
+    <p style="margin:.4em 0"><strong>And the trap:</strong> if they say "I'm the kind of person who always does this," you have left both pools. That is Fire, and neither redirect works, because the object of the feeling is no longer the conversation. <span class="chip src">Sourced fact <a href="#S12">S12</a></span></p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did you name both pools and a separating question?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="done"><button class="ui donebtn" data-unit="u5">Mark Unit 5 complete</button></div>
+</section>
+
+<section class="unit" id="u6">
+<div class="unitbar"><span class="unitno">Unit 6 — Threshold 3</span><span class="time">~3 hr 15 min</span></div>
+<h2>Sound: naming changes the thing it names</h2>
+<div class="blocks-time"><span class="tb">Read ~50 min</span><span class="tb">Practice ~60 min</span><span class="tb">Independent problem ~45 min</span><span class="tb">Delayed retrieval ~25 min</span></div>
+
+<div class="evidence"><div class="h">What this unit produces</div>A written pacing rule for your own map — replacing the guru's — and the distinction that makes it necessary.</div>
+
+<p>The throat pool governs truth and is blocked by lies. <span class="chip src">Sourced fact <a href="#S22">S22</a></span> Read as being honest with other people, it is a platitude. Read as what happens when you put an internal state into words, it is the most mechanically interesting claim in the set.</p>
+
+<h3>Affect labeling</h3>
+
+<p>An fMRI study found that labelling the emotion in an affective image — as against other ways of encoding it — reduced the response of the amygdala and other limbic regions, while increasing activity in one region, the right ventrolateral prefrontal cortex. <span class="chip src">Sourced fact <a href="#S15">S15</a></span></p>
+
+<p>The decade of work after it framed this as <em>implicit</em> emotion regulation: it produces regulatory effects even when it is not experienced as an attempt to regulate anything. <span class="chip src">Sourced fact <a href="#S16">S16</a></span> Two behavioural findings from that review make it concrete: people with spider phobia could physically approach a spider more closely after vocalising their emotions than after reappraisal, distraction, or exposure alone; and students who wrote about their anxiety immediately before a high-stakes maths exam performed better on it. <span class="chip src">Sourced fact <a href="#S16">S16</a></span></p>
+
+<div class="warn"><p style="margin:0"><strong>Do not inflate this.</strong> The effect is a reduction in intensity, not an off-switch — the amygdala response drops, the person keeps feeling the thing. "Name it to tame it" overstates it in the direction people want to believe. Treat the size as modest, and recall that psychology effects should be assumed smaller than published. <span class="chip src">Sourced fact <a href="#S21">S21</a></span></p></div>
+
+<h3>The threshold</h3>
+
+<p class="pull"><strong>Naming is an intervention, not an observation.</strong> There is no neutral act of noticing what you feel. The noticing changes it — usually downward, reliably enough to be a tool, and never invisibly.</p>
+
+<p>Which means the whole exercise of this course is not a survey of your emotional landscape. Every entry you have written has already altered the thing it describes. That is not a flaw in the method. It is the method.</p>
+
+<p>And it is why the guru's warning has a real referent under it. Once a block is named, the mind does not return to not having named it. <span class="chip infer">Inference</span></p>
+
+<h3>The hazard, which is specific</h3>
+
+<p>Here is the distinction the research does not make for you, and the one this unit exists to install.</p>
+
+<div class="scroller">
+<table>
+<thead><tr><th></th><th>Labelling</th><th>Rumination</th></tr></thead>
+<tbody>
+<tr><td>Form</td><td>Naming the state</td><td>Working out why the state is there</td></tr>
+<tr><td>Length</td><td>Seconds. Bounded.</td><td>Unbounded</td></tr>
+<tr><td>Ends when</td><td>The word is found</td><td>It doesn't</td></tr>
+<tr><td>Feels like</td><td>Slight release</td><td>Productive effort</td></tr>
+<tr><td>Effect</td><td>Reduces reactivity</td><td>Maintains and amplifies it</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="chip infer">Inference</span> on the table as a comparison; the labelling column is <span class="chip src">sourced <a href="#S15">S15</a>, <a href="#S16">S16</a></span> and the rumination column <span class="chip src">sourced <a href="#S20">S20</a></span>.</p>
+
+<p>Rumination — repetitive focus on the causes and consequences of your distress — is implicated in the onset and maintenance of symptoms across depression, anxiety, and others. <span class="chip src">Sourced fact <a href="#S20">S20</a></span> There is evidence it fuels intrusive thoughts, which in turn drive dysregulated behaviour. <span class="chip src">Sourced fact <a href="#S20">S20</a></span> <span class="chip single">Single study</span></p>
+
+<p>"I'm angry" and "why am I angry" look like the same activity performed at different depths. They are not. The first is bounded and lowers reactivity; the second is unbounded and can raise it. <strong>This course is built almost entirely out of the second one</strong>, which is why it needs a pacing rule that the show does not supply. <span class="chip infer">Inference</span></p>
+
+<h3>Replacing "you cannot stop once you begin"</h3>
+
+<p>That instruction is the one thing in the episode you should actively refuse. Flooding is a risk, not a requirement, and a process you are forbidden to pause is a process with no brakes.</p>
+
+<p>Write your own rule. It should specify at minimum: how long a single map session runs, what the signal is that you have moved from labelling into rumination, and what you do when you hit it. Mine would say something like: forty minutes, stop at the timer regardless; the signal is the third time the same sentence is rewritten; the response is to close the file and go do something with your hands. Yours will differ. Write it before you do another map session.</p>
+
+<textarea data-note="u6-pacing" placeholder="Your pacing rule. Duration. Signal. Response."></textarea>
+
+<h3>Practice</h3>
+
+<p>Over the next few days, sixty minutes total, spread out. Catch five emotional moments and label each in <strong>under five words, in under five seconds</strong>, then stop. No causes. No analysis. If you find yourself reaching for why, that is the boundary you are learning to feel.</p>
+
+<textarea data-note="u6-practice" placeholder="Five labels. Under five words each. Plus: what happened when you tried to stop."></textarea>
+
+<h3>Independent problem</h3>
+
+<div class="card">
+<p style="margin:.4em 0">Go back through every map entry you have written so far and mark each one <strong>L</strong> or <strong>R</strong> — whether writing it functioned as labelling or as rumination. Be honest; some of the entries you are proudest of will be R.</p>
+<p style="margin:.4em 0">Then answer: does an R entry still belong in the map?</p>
+<textarea data-note="u6-lr" placeholder="Counts, and the argument."></textarea>
+</div>
+
+<details><summary>What I would say — read after you have written yours</summary>
+<div class="body">
+<p style="margin:.4em 0">Yes, an R entry belongs — but the R is information about you, not about the pool.</p>
+<p style="margin:.4em 0">A pool where writing the entry turned into rumination is a pool where the material is live. That is worth flagging in the map itself, because it predicts what will happen when you use that entry in a real conversation. The entry stays; a note goes next to it saying this one runs long.</p>
+<p style="margin:.4em 0">The move that does not work is deleting the R entries to keep the map clean. A map that only contains the parts you can write about calmly is a map of your calm parts. <span class="chip infer">Inference</span></p>
+</div>
+</details>
+
+<h3>Delayed retrieval</h3>
+<div class="item" data-item="u6-q1">
+  <div class="tagline">Reaches back to Unit 4</div>
+  <div class="q">Unit 4's model answer said an ashamed person's looping thought is a legitimate target. This unit says analysing why you feel something can make it worse. Resolve the contradiction.</div>
+  <textarea data-note="u6-q1"></textarea>
+  <div class="confrow"><span class="lbl">Confidence (1–5)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0">There is no contradiction once you separate <em>targeting</em> the loop from <em>entering</em> it.</p>
+    <p style="margin:.4em 0">Unit 4 says the looping thought is where the intervention goes. This unit says the intervention cannot be more looping. Those are compatible and the combination is quite narrow: you address the loop by naming it as a loop — bounded, five words, "this is the presentation thing again" — rather than by working out why the presentation went badly, which is more loop wearing a lab coat.</p>
+    <p style="margin:.4em 0">If you answered that Unit 4 was simply wrong, check whether you read "target" as "analyse." Most people do, and that conflation is the failure this unit is about. <span class="chip infer">Inference</span></p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did you separate targeting from entering?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="done"><button class="ui donebtn" data-unit="u6">Mark Unit 6 complete</button></div>
+</section>
+
+<section class="unit" id="u7">
+<div class="unitbar"><span class="unitno">Unit 7</span><span class="time">~2 hr 45 min</span></div>
+<h2>Light and Thought: the top of the creek</h2>
+<div class="blocks-time"><span class="tb">Read ~45 min</span><span class="tb">Independent problem ~60 min</span><span class="tb">Revise map ~40 min</span><span class="tb">Retrieval ~20 min</span></div>
+
+<div class="evidence"><div class="h">What this unit produces</div>The last two map entries, and a position on the question the show gets wrong on purpose.</div>
+
+<h3>Light: insight, blocked by illusion</h3>
+
+<p>The sixth pool governs insight and is blocked by illusion. <span class="chip src">Sourced fact <a href="#S22">S22</a></span> The obvious reading is cognitive restructuring: identify the distorted belief, test it, replace it. That reading is fine as far as it goes, and it is not where the interesting content is.</p>
+
+<p>The interesting content is that you have spent six units building an instrument out of self-report, and this pool is the one that asks whether the instrument works.</p>
+
+<p>Recall Unit 4: people have difficulty distinguishing shame from guilt in their own experience. <span class="chip src">Sourced fact <a href="#S14">S14</a></span> Recall Unit 6: naming a state changes it. <span class="chip src">Sourced fact <a href="#S15">S15</a></span> Put those together and your map is an instrument with a known resolution limit that perturbs what it measures. <span class="chip infer">Inference</span></p>
+
+<p>That is not a reason to stop. Physics works fine with instruments like that. It is a reason for the map to carry error bars, which is what this pool contributes: for each entry, <strong>what would I expect to observe if this entry were wrong?</strong> An entry with no answer to that question is not a finding. It is a preference.</p>
+
+<h3>Thought: attachment, and Aang's refusal</h3>
+
+<p>The seventh pool requires letting go of earthly attachment. Aang refuses, because the attachment is a person he loves, and the refusal locks the pool. <span class="chip src">Sourced fact <a href="#S22">S22</a></span></p>
+
+<p>This is where the map's inherited philosophy and contemporary therapy diverge hardest, and you should have a position on it.</p>
+
+<p>The renunciation framing comes from the source tradition, where the chakras are pierced and transcended in pursuit of liberation. <span class="chip src">Sourced fact <a href="#S7">S7</a></span> There is a genuine and much-studied idea in that neighbourhood — that a fused, unexamined relationship to your own thoughts and feelings drives suffering, and loosening it helps. That is roughly the experiential-avoidance and defusion territory. <span class="chip src">Sourced fact <a href="#S24">S24</a></span></p>
+
+<p>But it is not the same claim as "release your attachment to the people you love," and most contemporary therapy treats secure attachment as an outcome to build rather than an obstacle to clear. <span class="chip infer">Inference</span> <span class="chip contested">Contested</span> — traditions genuinely disagree here and I am not going to pretend otherwise.</p>
+
+<p class="pull">Read as psychology rather than as soteriology, Aang makes the right call. The cost he pays is real, and the thing he refuses to give up is the thing worth having. That the show frames this as a failure is the clearest evidence that its map is carrying a metaphysics it never declares.</p>
+
+<h3>Independent problem</h3>
+
+<div class="card">
+<p style="margin:.4em 0">Two tasks, no scaffolding.</p>
+<p style="margin:.4em 0"><strong>One.</strong> Add an error bar to every entry in your map: what you would expect to observe if that entry were wrong. Entries where you cannot write one get flagged, not deleted.</p>
+<p style="margin:.4em 0"><strong>Two.</strong> Write your position on the seventh pool. Is there anything in your life you are attached to in a way that costs you, where the honest answer is that you are keeping it anyway? Name it, and say what it costs, without resolving it.</p>
+<textarea data-note="u7-ind" placeholder="Error bars summary, then the seventh-pool position."></textarea>
+</div>
+
+<div class="liminal"><b>The second task has no resolution and is not supposed to.</b> If you find yourself writing toward either "and so I will let it go" or "and so the cost is worth it," you have converted an open question into a tidy one. Sit with it unresolved; it is the only exercise here that asks you to.</div>
+
+<h3>Retrieval</h3>
+<div class="item" data-item="u7-q1">
+  <div class="tagline">Interleaved — any unit</div>
+  <div class="q">Of the seven pairings, which one has the <em>weakest</em> correspondence to anything in the research you have seen? Name it and say what you would put in its place.</div>
+  <textarea data-note="u7-q1"></textarea>
+  <div class="confrow"><span class="lbl">Confidence (1–5)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0">There are two strong candidates and no single right answer.</p>
+    <p style="margin:.4em 0"><strong>Air / grief</strong> is the one this course argued with directly: the instruction to clear grief encodes a severing model of mourning that the continuing-bonds literature revised. <span class="chip src">Sourced fact <a href="#S23">S23</a></span></p>
+    <p style="margin:.4em 0"><strong>Water / guilt blocking pleasure</strong> is arguably weaker still, and quieter about it. Guilt's documented output is reparative action. <span class="chip src">Sourced fact <a href="#S12">S12</a></span> Nothing in that literature connects guilt specifically to a loss of pleasure — that link is closer to depression's anhedonia, which is a different thing wearing a similar face. The pairing may be inherited from the second chakra's older association with sexuality, where a guilt connection has cultural rather than empirical grounding. <span class="chip infer">Inference</span></p>
+    <p style="margin:.4em 0">If you named Sound / lies, that is defensible too but for a different reason: it is not weakly supported, it is <em>mis-labelled</em>. The mechanism there is about articulation, not honesty, and the label sends people looking in the wrong place.</p>
+    <p style="margin:.4em 0">What matters is whether you had a reason. This question has been sitting under the course since Unit 2, when the list turned out to be fifty years old rather than ancient.</p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did you give a mechanism-level reason?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="done"><button class="ui donebtn" data-unit="u7">Mark Unit 7 complete</button></div>
+</section>
+
+<section class="unit" id="u8">
+<div class="unitbar"><span class="unitno">Unit 8</span><span class="time">~2 hr 40 min</span></div>
+<h2>Where the map breaks</h2>
+<div class="blocks-time"><span class="tb">Read ~50 min</span><span class="tb">Compare ~35 min</span><span class="tb">Final revision ~55 min</span><span class="tb">Retrieval ~20 min</span></div>
+
+<div class="evidence"><div class="h">What this unit produces</div>The finished artifact: seven entries, error bars, pacing rule, provenance note — plus a closing section naming the conditions under which you should not trust your own map.</div>
+
+<p>Seven units of building an instrument. This one is about its failure modes, and two of them are structural rather than incidental.</p>
+
+<h3>Failure one: the map assumes the pipe is fine</h3>
+
+<p>Every pool in the creek metaphor holds the same assumption — that the channel is intact and something has clogged it. Clear the muck, restore the flow. Remove the obstruction and the system returns to baseline.</p>
+
+<p>For some people the channel itself is built differently, and then the metaphor quietly blames them for its own mismatch.</p>
+
+<p><strong>ADHD</strong> is the clearest case. Emotion dysregulation is prevalent in ADHD across the lifespan and is a major contributor to impairment — not an occasional complication. <span class="chip src">Sourced fact <a href="#S17">S17</a></span> A systematic review of adult ADHD goes further, arguing it should be treated as a core feature rather than a comorbidity, and that models built only on executive dysfunction are insufficient to explain the full range of impairment. <span class="chip src">Sourced fact <a href="#S18">S18</a></span></p>
+
+<p>The mechanism matters here more than the prevalence. The dysregulation may arise from deficits in <em>orienting toward, recognising, and allocating attention to emotional stimuli</em>, implicating a striato-amygdalo-medial prefrontal network. <span class="chip src">Sourced fact <a href="#S17">S17</a></span></p>
+
+<p class="pull">Read that against the method of this course. Every unit depends on detection: catch the moment, classify the channel, name the affect. If attention allocation to emotional stimuli is itself atypical, <strong>the impairment is in the step the map cannot see</strong>, because the map only begins after you have noticed something. <span class="chip infer">Inference</span></p>
+
+<p>What follows practically: the map is still usable, but it is a <em>retrospective</em> instrument rather than a real-time one, and it should be built from written records rather than recall. The failure to catch things in the moment is not a lack of diligence to be corrected by trying harder, and a course that implies otherwise is adding shame to a wiring difference — which, per Unit 4, blocks exactly the capacity you would need to act on it. <span class="chip infer">Inference</span></p>
+
+<h3>Failure two: for some people, this course is a compulsion</h3>
+
+<p>This is the one to take most seriously, and it is not a caveat.</p>
+
+<p>The cognitive model of <strong>OCD</strong> holds that a pathological obsession forms when a normal intrusive thought is misinterpreted as threatening, morally objectionable, or predictive of some future outcome — which provokes distress that is then regulated by compulsion. <span class="chip src">Sourced fact <a href="#S19">S19</a></span> Compulsions are not only external behaviours; they include <em>internal mental acts</em> that provide short-term relief. <span class="chip src">Sourced fact <a href="#S19">S19</a></span></p>
+
+<p>And in OCD specifically, rumination is typically activated by obsessive thoughts, in the sense that the person tries to understand their causes and consequences. <span class="chip src">Sourced fact <a href="#S20">S20</a></span> One study found that the tendency to misinterpret unwanted intrusive thoughts as meaningful moderated rumination's effect on obsessive-compulsive symptoms. <span class="chip src">Sourced fact <a href="#S20">S20</a></span> <span class="chip single">Single study</span></p>
+
+<p>Now describe this course in those terms. It instructs you to notice internal states, treat them as meaningful, work out what they are about, and resolve them thoroughly. For someone prone to treating intrusions as significant, <strong>that is a description of the mechanism, not the treatment.</strong> <span class="chip infer">Inference</span></p>
+
+<p>Exposure and response prevention runs the other direction: toward the thought and away from neutralising it. A well-executed map, done by the wrong person, is a well-executed mental compulsion — and it will feel like progress the entire time, because compulsions relieve distress in the short term. That is what makes them sticky. <span class="chip src">Sourced fact <a href="#S19">S19</a></span></p>
+
+<div class="warn">
+<p style="margin:0 0 .5em"><strong>Three signals that this has happened to you.</strong></p>
+<ul style="margin:0">
+<li>You have revised the same entry many times and each revision feels necessary rather than optional.</li>
+<li>Not having the map fully accurate produces anxiety that the map is supposed to be reducing.</li>
+<li>Your pacing rule from Unit 6 has been quietly abandoned, with good reasons each time.</li>
+</ul>
+<p style="margin:.6em 0 0">If any of these fit, the correct move is to stop and take this to a clinician — not to write a better entry about why it is happening. That last sentence is the whole point.</p>
+</div>
+
+<h3>Failure three: the map covers less than half of it</h3>
+
+<p>The claim that started this course was that the chakra scene explains well over half of what therapy does. Having gone through it, here is the honest assessment.</p>
+
+<div class="scroller">
+<table>
+<thead><tr><th>What the map covers</th><th>What it is silent on</th></tr></thead>
+<tbody>
+<tr><td>Identifying an affect</td><td>Skills you do not yet have</td></tr>
+<tr><td>Matching a response to it</td><td>Behavioural activation and scheduling</td></tr>
+<tr><td>The cost of avoidance</td><td>Sleep, exercise, substances</td></tr>
+<tr><td>Why insight alone is not enough</td><td>Medication</td></tr>
+<tr><td>Where self-report goes wrong</td><td>Executive-function scaffolding</td></tr>
+<tr><td></td><td>The relationship with the therapist, which is a large part of what works</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>So: a strong map of the emotion-processing half, silent on the skills half, and actively misleading on pacing. "Over half" is generous. <span class="chip infer">Inference</span> As a claim made conversationally by a therapist to a client who watches the show, it is doing something different from what a textbook claim does — it is building a shared vocabulary fast, which is its own legitimate purpose and one this course has been trading on for eight units.</p>
+
+<h3>Compare</h3>
+
+<p>Open your Unit 1 map — the crude one, written before you knew anything. Read it beside your current one.</p>
+
+<p>This is the only direct measurement the course offers. Answer specifically: which entries survived unchanged, which reversed, and which pool moved the most? Then the harder question — <strong>is the new map better, or just longer?</strong></p>
+
+<textarea data-note="u8-compare" placeholder="Survived / reversed / moved most. Then: better, or longer?"></textarea>
+
+<h3>Final revision</h3>
+
+<p>Finish the artifact. Seven entries, each with a situation, a redirect that follows from the affect, an error bar, and a note where the pool does not fit. Plus the provenance note from Unit 2 at the top, the pacing rule from Unit 6, and a closing section listing the conditions under which you should not trust this document.</p>
+
+<h3>Final retrieval</h3>
+<div class="item" data-item="u8-q1">
+  <div class="tagline">Interleaved — all three thresholds</div>
+  <div class="q">Someone tells you: "I've realised I have a shame block around asking for help, so I'm going to journal about it every night until I get to the bottom of it." Three things are wrong or risky in that sentence. Name them.</div>
+  <textarea data-note="u8-q1"></textarea>
+  <div class="confrow"><span class="lbl">Confidence (1–5)</span>
+    <button class="conf ui" data-conf="1">1</button><button class="conf ui" data-conf="2">2</button><button class="conf ui" data-conf="3">3</button><button class="conf ui" data-conf="4">4</button><button class="conf ui" data-conf="5">5</button>
+  </div>
+  <button class="tiny ui revealbtn">Reveal</button>
+  <div class="reveal">
+    <p style="margin:.4em 0"><strong>One — "a shame block" is asserted, not sorted.</strong> Asking for help could be shame (I am the kind of person who should not need this) or fear (they will say no) or guilt (I am taking their time). People cannot reliably distinguish shame from guilt introspectively. <span class="chip src">Sourced fact <a href="#S14">S14</a></span> The sorting question is unasked.</p>
+    <p style="margin:.4em 0"><strong>Two — "get to the bottom of it" is rumination wearing a plan.</strong> Bounded naming lowers reactivity; unbounded working-out of causes maintains it. <span class="chip src">Sourced fact <a href="#S15">S15</a>, <a href="#S20">S20</a></span> "Every night until" has no stop condition, which is the defining feature of the wrong one.</p>
+    <p style="margin:.4em 0"><strong>Three — if it is shame, insight is not the bottleneck.</strong> Shame's output is withdrawal. <span class="chip src">Sourced fact <a href="#S12">S12</a></span> More private reflection about not asking for help is more not asking for help. The redirect that matches the affect is to ask one person for one small thing this week — an exposure, not an analysis.</p>
+    <p style="margin:.4em 0"><em>Credit for a fourth:</em> the sentence contains no error bar. Nothing in it could show the diagnosis was wrong.</p>
+    <div class="scorerow"><span class="lbl ui" style="font-size:.82rem;color:var(--ink-mute)">Did you get all three?</span><button class="tiny ui mark" data-mark="1">Yes</button><button class="tiny ui mark" data-mark="0">No</button></div>
+    <div class="gap"></div>
+  </div>
+</div>
+
+<div class="done"><button class="ui donebtn" data-unit="u8">Mark Unit 8 complete</button></div>
+</section>
+
+<section class="unit" id="mapsection">
+<h2>Your map</h2>
+<p>One document, edited throughout. Everything saves as you type and syncs across your devices.</p>
+<div id="mapbuild"></div>
+<div class="toolbar" style="margin-top:16px"><button id="exportbtn" class="primary ui">Copy map as Markdown</button><span id="exportmsg" class="time"></span></div>
+</section>
+
+<section class="unit" id="sources">
+<h2>Sources</h2>
+
+<p>Each entry records <strong>how far it was actually verified</strong>. "Full" means the source itself was read. "Abstract" means only the abstract or publisher summary. "Secondary" means the claim was reached through another source that summarises it — which is amplification, and is flagged in the text wherever a claim rests on one.</p>
+
+<ol class="srclist">
+<li id="S1">Gross, J.J. (2002). Emotion regulation: affective, cognitive, and social consequences. <em>Psychophysiology</em> 39, 281–291. <span class="vstat">— Abstract + review summaries</span></li>
+<li id="S2">Richards, J.M. &amp; Gross, J.J. (2000). Emotion regulation and memory: the cognitive costs of keeping one's cool. <em>Journal of Personality and Social Psychology</em> 79(3), 410–424. <span class="vstat">— Abstract</span></li>
+<li id="S3">Webb, T.L., Miles, E. &amp; Sheeran, P. (2012). Dealing with feeling: a meta-analysis of the effectiveness of strategies derived from the process model of emotion regulation. <em>Psychological Bulletin</em> 138(4), 775–808. <span class="vstat">— SECONDARY, via S4. Amplification risk; flagged in Unit 3. Read the original before relying on it.</span></li>
+<li id="S4">Bonanno, G.A. &amp; Burton, C.L. (2013). Regulatory flexibility: an individual differences perspective on coping and emotion regulation. <em>Perspectives on Psychological Science</em> 8(6), 591–612. <span class="vstat">— Partial full text</span></li>
+<li id="S5">Troy, A.S. et al. (2013). A person-by-situation approach to emotion regulation: cognitive reappraisal can either help or hurt, depending on the context. <em>Psychological Science</em> 24(12). <span class="vstat">— Abstract + secondary</span></li>
+<li id="S6">Butler, E.A., Lee, T.L. &amp; Gross, J.J. (2007). Emotion regulation and culture: are the social consequences of emotion suppression culture-specific? <em>Emotion</em> 7(1), 30–48. <span class="vstat">— Citation only</span></li>
+<li id="S7">Leland, K. (2016). <em>Rainbow Body: A History of the Western Chakra System from Blavatsky to Brennan.</em> Ibis Press. And Leland, K. (2017), "The Rainbow Body: How the Western Chakra System Came to Be," <em>Quest</em> 105.2, 25–29. <span class="vstat">— Article read in full; book not read. All Unit 2 history claims rest on the article.</span></li>
+<li id="S8">Woodroffe, J. ["Arthur Avalon"] (1919). <em>The Serpent Power.</em> <span class="vstat">— Not read; cited via S7</span></li>
+<li id="S9">Leadbeater, C.W. (1927). <em>The Chakras.</em> <span class="vstat">— Not read; cited via S7</span></li>
+<li id="S10">Dychtwald, K. (1977). <em>Bodymind.</em> <span class="vstat">— Not read; cited via S7</span></li>
+<li id="S11">Judith, A. <em>Wheels of Life</em> and <em>Eastern Body, Western Mind.</em> <span class="vstat">— Publisher and review summaries only</span></li>
+<li id="S12">Tangney, J.P. &amp; Dearing, R.L. (2002). <em>Shame and Guilt.</em> Guilford. Plus Tangney (1995), "Constructive and destructive aspects of shame and guilt." <span class="vstat">— Abstract + multiple independent secondary reviews</span></li>
+<li id="S13">Lewis, H.B. (1971). <em>Shame and Guilt in Neurosis.</em> <span class="vstat">— Not read; the originating reference for the self/behaviour distinction</span></li>
+<li id="S14">Critique of TOSCA-based shame research: "Intersubjectivity and interaction as crucial for understanding the moral role of shame." <span class="vstat">— Partial full text. The source for both the blurriness of the boundary and the finding that people struggle to distinguish shame from guilt.</span></li>
+<li id="S15">Lieberman, M.D. et al. (2007). Putting feelings into words: affect labeling disrupts amygdala activity in response to affective stimuli. <em>Psychological Science</em> 18(5), 421–428. <span class="vstat">— Abstract + partial full text</span></li>
+<li id="S16">Torre, J.B. &amp; Lieberman, M.D. (2018). Putting feelings into words: affect labeling as implicit emotion regulation. <em>Emotion Review</em> 10(2), 116–124. <span class="vstat">— Abstract + secondary summaries. The spider and exam findings are secondary.</span></li>
+<li id="S17">Shaw, P., Stringaris, A., Nigg, J. &amp; Leibenluft, E. (2014). Emotion dysregulation in attention deficit hyperactivity disorder. <em>American Journal of Psychiatry</em> 171(3), 276–293. <span class="vstat">— Abstract (full manuscript open at PMC4282137)</span></li>
+<li id="S18">Soler-Gutiérrez, A.M., Pérez-González, J.C. &amp; Mayas, J. (2023). Evidence of emotion dysregulation as a core symptom of adult ADHD: a systematic review. <em>PLoS ONE</em> 18(1), e0280131. <span class="vstat">— Secondary summary</span></li>
+<li id="S19">Rachman, S. (1997) and the cognitive model of OCD as summarised in contemporary reviews. <span class="vstat">— Secondary. The intrusive-thought-misinterpretation account and the point that compulsions include internal mental acts.</span></li>
+<li id="S20">Rumination and OCD: Nolen-Hoeksema, Wisco &amp; Lyubomirsky (2008) on rumination; and the 2024 reanalysis on moderators of rumination's effect on OC symptoms (<em>International Journal of Cognitive Therapy</em>). <span class="vstat">— Abstracts</span></li>
+<li id="S21">Open Science Collaboration (2015). Estimating the reproducibility of psychological science. <em>Science</em> 349. <span class="vstat">— Widely reported headline figures</span></li>
+<li id="S22">DiMartino, M.D. &amp; Konietzko, B. (2006). <em>Avatar: The Last Airbender</em>, Book 2 Chapter 19, "The Guru." Nickelodeon. <span class="vstat">— Primary text; episode content verified against two independent episode references</span></li>
+<li id="S23">Klass, D., Silverman, P.R. &amp; Nickman, S.L., eds. (1996). <em>Continuing Bonds: New Understandings of Grief.</em> <span class="vstat">— Not read; the canonical reference for the revision of severing models</span></li>
+<li id="S24">Hayes, S.C. et al. (1996). Experiential avoidance and behavioral disorders: a functional dimensional approach. <em>Journal of Consulting and Clinical Psychology</em> 64(6). <span class="vstat">— Not read; canonical reference</span></li>
+<li id="S25">Jordan, K. (2015). MOOC completion rates revisited: assessment, length and attrition. <span class="vstat">— Secondary, via this course's own pedagogy reference</span></li>
+<li id="S26">Bjork, R.A. &amp; Bjork, E.L. (2011). Making things hard on yourself, but in a good way. <span class="vstat">— Secondary, via this course's own pedagogy reference</span></li>
+</ol>
+
+<div class="warn"><p style="margin:0">Counting the entries above: a substantial minority were not read in the original. That is a real limitation of this course and it is listed rather than hidden. The claims marked SECONDARY are the ones to check first if you intend to build anything on them.</p></div>
+</section>
+
+<footer>
+<p>A self-study course. Built to the threshold-concept model: three thresholds, eight units, roughly 22 hours.</p>
+<p>Progress is stored in your browser and synced to your account if you are signed in. Nothing you write here is visible to anyone else.</p>
+<p><img src="/badge/created-by/claude.svg" alt="Created by Claude" width="161" height="32" loading="lazy"></p>
+<p class="sitelink-row"><a class="sitelink" href="/courses/"><img src="/assets/images/logo-48.png" width="18" height="18" alt=""><span>Course by Ben Norris</span></a></p>
+</footer>
+
+</div>
+
+<script type="text/course-deferred">
+/* ---- state ---------------------------------------------------------- */
+window.SB = {};
+SB.KEY = 'state';
+SB.POOLS = [
+  {id:'earth',  n:'Earth',   g:'survival',      b:'fear'},
+  {id:'water',  n:'Water',   g:'pleasure',      b:'guilt'},
+  {id:'fire',   n:'Fire',    g:'willpower',     b:'shame'},
+  {id:'air',    n:'Air',     g:'love',          b:'grief'},
+  {id:'sound',  n:'Sound',   g:'truth',         b:'lies'},
+  {id:'light',  n:'Light',   g:'insight',       b:'illusion'},
+  {id:'thought',n:'Thought', g:'cosmic energy', b:'attachment'}
+];
+SB.UNITS = ['u1','u2','u3','u4','u5','u6','u7','u8'];
+SB.GLOBAL = ['u1','u2','u3','u8'];
+SB.POOLUNIT = {earth:'u5', water:'u4', fire:'u4', air:'u5', sound:'u6', light:'u7', thought:'u7'};
+
+SB.fresh = function(){
+  return {v:1, theme:null, units:{}, items:{}, map:{}, notes:{}};
+};
+SB.migrate = function(s){
+  if(!s || typeof s !== 'object') return SB.fresh();
+  if(!s.v) s.v = 1;
+  s.units = s.units || {}; s.items = s.items || {};
+  s.map = s.map || {};   s.notes = s.notes || {};
+  if(!('theme' in s)) s.theme = null;
+  return s;
+};
+SB.load = async function(){
+  try{
+    if(window.storage && typeof window.storage.get === 'function'){
+      const r = await window.storage.get(SB.KEY);
+      return SB.migrate(JSON.parse(r.value));
+    }
+    return SB.migrate(JSON.parse(localStorage.getItem(SB.KEY)));
+  }catch(e){ return SB.fresh(); }
+};
+SB._t = null;
+SB.save = function(){
+  clearTimeout(SB._t);
+  SB._t = setTimeout(function(){
+    const json = JSON.stringify(SB.state);
+    try{
+      if(window.storage && typeof window.storage.set === 'function'){
+        window.storage.set(SB.KEY, json).catch(function(){});
+      } else {
+        localStorage.setItem(SB.KEY, json);
+      }
+    }catch(e){}
+  }, 400);
+};
+</script>
+
+<script type="text/course-deferred">
+/* ---- creek meter ---------------------------------------------------- */
+SB.poolFill = function(pid){
+  const need = SB.GLOBAL.concat([SB.POOLUNIT[pid]]);
+  let got = 0;
+  need.forEach(function(u){ if(SB.state.units[u] && SB.state.units[u].done) got++; });
+  return got / need.length;
+};
+SB.clarity = function(){
+  const ks = Object.keys(SB.state.items);
+  let n = 0, err = 0;
+  ks.forEach(function(k){
+    const it = SB.state.items[k];
+    if(it && typeof it.conf === 'number' && typeof it.mark === 'number'){
+      err += Math.abs((it.conf - 1) / 4 - it.mark);
+      n++;
+    }
+  });
+  if(!n) return null;
+  return Math.max(0, 1 - err / n);
+};
+SB.mix = function(a, b, t){
+  const p = function(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; };
+  const A = p(a), B = p(b);
+  return 'rgb(' + A.map(function(v,i){ return Math.round(v + (B[i]-v)*t); }).join(',') + ')';
+};
+SB.buildCreek = function(){
+  const c = document.getElementById('creek');
+  c.innerHTML = '';
+  SB.POOLS.forEach(function(p){
+    const d = document.createElement('div');
+    d.className = 'pool';
+    d.id = 'pool-' + p.id;
+    d.title = p.n + ' — ' + p.g + ', blocked by ' + p.b;
+    d.innerHTML = '<div class="fill"></div><div class="pn">' + p.n.slice(0,2) + '</div>';
+    c.appendChild(d);
+  });
+};
+SB.renderCreek = function(){
+  const cs = getComputedStyle(document.documentElement);
+  const muck = cs.getPropertyValue('--muck').trim() || '#8B8258';
+  const clear = cs.getPropertyValue('--clear').trim() || '#2E8C99';
+  const cl = SB.clarity();
+  const t = cl === null ? 0 : cl;
+  let sum = 0;
+  SB.POOLS.forEach(function(p){
+    const f = SB.poolFill(p.id);
+    sum += f;
+    const el = document.querySelector('#pool-' + p.id + ' .fill');
+    if(el){
+      el.style.height = (f * 100) + '%';
+      el.style.background = SB.mix(muck, clear, t);
+    }
+  });
+  const avg = sum / SB.POOLS.length;
+  const flow = Math.round(avg * (0.5 + 0.5 * t) * 100);
+  document.getElementById('flowpct').textContent = flow + '%';
+  document.getElementById('clarity').textContent =
+    cl === null ? 'clarity — not measured yet' : 'clarity ' + Math.round(cl * 100) + '%';
+};
+</script>
+
+<script type="text/course-deferred">
+/* ---- map builder ---------------------------------------------------- */
+SB.FIELDS = [
+  {k:'situation', l:'The situation — specific, with a room in it', ph:'When does this actually happen?'},
+  {k:'current',   l:'What I currently do',                          ph:'Including the parts that look like preparation.'},
+  {k:'redirect',  l:'The redirect, and why it follows from this affect', ph:'Not a general coping tip. One that fits this emotion.'},
+  {k:'wrong',     l:'What I would observe if this entry were wrong', ph:'No answer here means it is a preference, not a finding.'}
+];
+SB.mapVal = function(pid, k){
+  return (SB.state.map[pid] && SB.state.map[pid][k]) || '';
+};
+SB.setMap = function(pid, k, v){
+  SB.state.map[pid] = SB.state.map[pid] || {};
+  SB.state.map[pid][k] = v;
+  document.querySelectorAll('[data-map="' + pid + '.' + k + '"]').forEach(function(t){
+    if(t.value !== v) t.value = v;
+  });
+  SB.save();
+};
+SB.ta = function(pid, f, compact){
+  const t = document.createElement('textarea');
+  t.setAttribute('data-map', pid + '.' + f.k);
+  t.placeholder = f.ph;
+  t.value = SB.mapVal(pid, f.k);
+  if(compact) t.style.minHeight = '64px';
+  t.addEventListener('input', function(){ SB.setMap(pid, f.k, t.value); });
+  return t;
+};
+SB.buildMap = function(){
+  const crude = document.getElementById('map-u1');
+  if(crude){
+    const h = document.createElement('div');
+    h.className = 'card';
+    h.innerHTML = '<div class="tagline">Your crude map — one line each, 45 minutes, no research</div>';
+    SB.POOLS.forEach(function(p){
+      const lab = document.createElement('label');
+      lab.className = 'fld';
+      lab.textContent = p.n + ' — ' + p.g + ', blocked by ' + p.b;
+      h.appendChild(lab);
+      h.appendChild(SB.ta(p.id, SB.FIELDS[0], true));
+    });
+    const note = document.createElement('p');
+    note.innerHTML = '<small>These are the same fields as the full map below. Anything you write here appears there.</small>';
+    h.appendChild(note);
+    crude.appendChild(h);
+  }
+  const full = document.getElementById('mapbuild');
+  if(full){
+    SB.POOLS.forEach(function(p){
+      const d = document.createElement('details');
+      const s = document.createElement('summary');
+      s.textContent = p.n + ' — ' + p.g + ', blocked by ' + p.b;
+      d.appendChild(s);
+      const b = document.createElement('div');
+      b.className = 'body';
+      SB.FIELDS.forEach(function(f){
+        const lab = document.createElement('label');
+        lab.className = 'fld';
+        lab.textContent = f.l;
+        b.appendChild(lab);
+        b.appendChild(SB.ta(p.id, f, false));
+      });
+      d.appendChild(b);
+      full.appendChild(d);
+    });
+  }
+};
+SB.exportMd = function(){
+  let out = '# My seven blocks\n\n';
+  const prov = SB.state.notes['u2-prov'];
+  if(prov) out += '## Provenance\n\n' + prov + '\n\n';
+  const pace = SB.state.notes['u6-pacing'];
+  if(pace) out += '## Pacing rule\n\n' + pace + '\n\n';
+  SB.POOLS.forEach(function(p){
+    out += '## ' + p.n + ' — ' + p.g + ', blocked by ' + p.b + '\n\n';
+    SB.FIELDS.forEach(function(f){
+      const v = SB.mapVal(p.id, f.k);
+      out += '**' + f.l + '**\n\n' + (v ? v : '_(empty)_') + '\n\n';
+    });
+  });
+  const cmp = SB.state.notes['u8-compare'];
+  if(cmp) out += '## Compared against the first map\n\n' + cmp + '\n';
+  return out;
+};
+</script>
+
+<script type="text/course-deferred">
+/* ---- notes, items, units, theme ------------------------------------- */
+SB.bindNotes = function(){
+  document.querySelectorAll('textarea[data-note]').forEach(function(t){
+    const k = t.getAttribute('data-note');
+    if(SB.state.notes[k]) t.value = SB.state.notes[k];
+    t.addEventListener('input', function(){
+      SB.state.notes[k] = t.value;
+      SB.save();
+    });
+  });
+};
+SB.paintItem = function(box){
+  const k = box.getAttribute('data-item');
+  const it = SB.state.items[k] || {};
+  box.querySelectorAll('.conf').forEach(function(b){
+    b.setAttribute('aria-pressed', String(Number(b.dataset.conf) === it.conf));
+  });
+  const rev = box.querySelector('.reveal');
+  if(rev && it.revealed) rev.classList.add('on');
+  const gap = box.querySelector('.gap');
+  if(gap && typeof it.conf === 'number' && typeof it.mark === 'number'){
+    const pred = Math.round((it.conf - 1) / 4 * 100);
+    const act = it.mark * 100;
+    const d = Math.abs(pred - act);
+    gap.textContent = 'Predicted ' + pred + '% · actual ' + act + '% · calibration gap ' + d + ' points';
+    gap.className = 'gap ' + (d <= 25 ? 'good' : 'bad');
+  }
+  box.querySelectorAll('.mark').forEach(function(b){
+    b.setAttribute('aria-pressed', String(Number(b.dataset.mark) === it.mark));
+    b.classList.toggle('primary', Number(b.dataset.mark) === it.mark);
+  });
+};
+SB.bindItems = function(){
+  document.querySelectorAll('[data-item]').forEach(function(box){
+    const k = box.getAttribute('data-item');
+    SB.state.items[k] = SB.state.items[k] || {};
+    box.querySelectorAll('.conf').forEach(function(b){
+      b.addEventListener('click', function(){
+        SB.state.items[k].conf = Number(b.dataset.conf);
+        SB.save(); SB.paintItem(box); SB.renderCreek();
+      });
+    });
+    const rb = box.querySelector('.revealbtn');
+    if(rb) rb.addEventListener('click', function(){
+      if(typeof SB.state.items[k].conf !== 'number'){
+        rb.textContent = 'Rate your confidence first';
+        setTimeout(function(){ rb.textContent = 'Reveal'; }, 1800);
+        return;
+      }
+      SB.state.items[k].revealed = true;
+      box.querySelector('.reveal').classList.add('on');
+      SB.save();
+    });
+    box.querySelectorAll('.mark').forEach(function(b){
+      b.addEventListener('click', function(){
+        SB.state.items[k].mark = Number(b.dataset.mark);
+        SB.state.items[k].ts = Date.now();
+        SB.save(); SB.paintItem(box); SB.renderCreek();
+      });
+    });
+    SB.paintItem(box);
+  });
+};
+SB.bindUnits = function(){
+  document.querySelectorAll('.donebtn').forEach(function(b){
+    const u = b.dataset.unit;
+    const paint = function(){
+      const d = SB.state.units[u] && SB.state.units[u].done;
+      b.classList.toggle('primary', !!d);
+      b.textContent = d ? ('Unit ' + u.slice(1) + ' complete \u2713 — tap to undo') : ('Mark Unit ' + u.slice(1) + ' complete');
+    };
+    b.addEventListener('click', function(){
+      const d = SB.state.units[u] && SB.state.units[u].done;
+      SB.state.units[u] = {done: !d, ts: Date.now()};
+      SB.save(); paint(); SB.renderCreek();
+    });
+    paint();
+  });
+};
+SB.applyTheme = function(){
+  const t = SB.state.theme;
+  if(t) document.documentElement.setAttribute('data-theme', t);
+  else document.documentElement.removeAttribute('data-theme');
+  const b = document.getElementById('themebtn');
+  if(b) b.textContent = 'Theme: ' + (t || 'auto');
+};
+SB.bindChrome = function(){
+  document.getElementById('themebtn').addEventListener('click', function(){
+    const order = [null, 'light', 'dark'];
+    SB.state.theme = order[(order.indexOf(SB.state.theme) + 1) % 3];
+    SB.applyTheme(); SB.save();
+    setTimeout(SB.renderCreek, 30);
+  });
+  document.getElementById('resetbtn').addEventListener('click', function(){
+    if(!confirm('Erase all progress, notes and map entries? This cannot be undone.')) return;
+    SB.state = SB.fresh();
+    SB.save();
+    setTimeout(function(){ location.reload(); }, 500);
+  });
+  const ex = document.getElementById('exportbtn');
+  if(ex) ex.addEventListener('click', function(){
+    const md = SB.exportMd();
+    const msg = document.getElementById('exportmsg');
+    const ok = function(){ msg.textContent = 'Copied.'; setTimeout(function(){ msg.textContent = ''; }, 2500); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(md).then(ok, function(){ msg.textContent = 'Copy failed — select the page text instead.'; });
+    } else {
+      msg.textContent = 'Clipboard unavailable in this browser.';
+    }
+  });
+};
+
+(async function init(){
+  SB.state = await SB.load();
+  SB.applyTheme();
+  SB.buildCreek();
+  SB.buildMap();
+  SB.bindNotes();
+  SB.bindItems();
+  SB.bindUnits();
+  SB.bindChrome();
+  SB.renderCreek();
+  if(window.matchMedia){
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){
+      setTimeout(SB.renderCreek, 30);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
