@@ -411,7 +411,12 @@ BADGE_CSS = """
 .ai-badge-row { margin: 1.15rem 0 0; }
 .ai-badge-link { display: inline-block; line-height: 0; border: 0; }
 .ai-badge { display: block; height: auto; max-width: 100%; }
-.ai-badge-dark { display: none; }
+/* Both classes in each selector on purpose. An artifact is free to carry its
+   own `.byline img { display: block }`, which is (0,1,1) and beats a single
+   .ai-badge-light at (0,1,0) -- the badge then shows in both themes at once.
+   Doubling the class makes it (0,2,0), which wins. The Seven Blocks does
+   exactly this. */
+.ai-badge.ai-badge-dark { display: none; }
 """
 
 # Only for artifacts that actually have a dark palette. Emitting a
@@ -419,13 +424,13 @@ BADGE_CSS = """
 # on a page that never goes dark -- which is what happens on a reader whose OS
 # is dark, so it is not a rare case.
 BADGE_CSS_DARK = """@media (prefers-color-scheme: dark) {
-  .ai-badge-light { display: none; }
-  .ai-badge-dark { display: block; }
+  .ai-badge.ai-badge-light { display: none; }
+  .ai-badge.ai-badge-dark { display: block; }
 }
-[data-theme="light"] .ai-badge-light { display: block; }
-[data-theme="light"] .ai-badge-dark { display: none; }
-[data-theme="dark"] .ai-badge-light { display: none; }
-[data-theme="dark"] .ai-badge-dark { display: block; }
+[data-theme="light"] .ai-badge.ai-badge-light { display: block; }
+[data-theme="light"] .ai-badge.ai-badge-dark { display: none; }
+[data-theme="dark"] .ai-badge.ai-badge-light { display: none; }
+[data-theme="dark"] .ai-badge.ai-badge-dark { display: block; }
 """
 
 BADGE_IMG = (
@@ -445,10 +450,12 @@ BADGE_HTML = (
 # An artifact with neither of these never renders dark, whatever the OS says.
 DARK_PALETTE = re.compile(r'prefers-color-scheme\s*:\s*dark|\[data-theme="dark"\]')
 
-# Some artifacts are built with an attribution badge already in them. Adding a
-# second one states a different claim about the same work a few lines below the
-# first, so the artifact's own wins and this tool keeps its hands off.
-BADGE_PRESENT = re.compile(r'/badge/[a-z-]+/(?:claude|chatgpt)')
+# Some artifacts are built with an attribution badge already in them. Appending
+# a second one states a different claim about the same work a few lines below
+# the first, so the artifact's own wins and this tool keeps its hands off. If a
+# course should carry a different badge than the one its artifact shipped with,
+# that is a one-off edit to the published page.
+BADGE_PRESENT = re.compile(r'/badge/[a-z-]+/(?:claude|chatgpt)[a-z-]*\.svg"')
 
 
 COLOPHON_HTML = (
@@ -473,13 +480,13 @@ def inject_colophon(html):
         return html, None
 
     own_badge = bool(BADGE_PRESENT.search(html))
-    css = COLOPHON_CSS
-    block = COLOPHON_HTML
-    if not own_badge:
-        css += BADGE_CSS
-        if DARK_PALETTE.search(html):
-            css += BADGE_CSS_DARK
-        block += BADGE_HTML
+
+    css = COLOPHON_CSS + BADGE_CSS
+    if DARK_PALETTE.search(html):
+        css += BADGE_CSS_DARK
+    # An artifact that already placed a badge has it where it wanted it -- a
+    # masthead byline, say. Appending another to the footer would be two.
+    block = COLOPHON_HTML + ('' if own_badge else BADGE_HTML)
 
     close_style = html.rfind('</style>')
     if close_style != -1:
@@ -498,8 +505,9 @@ def inject_colophon(html):
                          ('</body>', '<footer class="sitelink-foot">%s</footer>')):
         at = html.find(closer)
         if at != -1:
-            return (html[:at] + wrap % block + '\n' + html[at:],
-                    closer + ('' if not own_badge else ' (kept the artifact\'s own badge)'))
+            note = ('' if not own_badge
+                    else " (kept the artifact's own badge)")
+            return html[:at] + wrap % block + '\n' + html[at:], closer + note
     return html + wrap % block, 'end of file'
 
 
