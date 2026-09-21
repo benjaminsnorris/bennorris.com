@@ -144,6 +144,18 @@ collections:
 
 # Front Matter Defaults
 defaults:
+  # bank/resources/ is build scaffolding, not content: two pages that render the
+  # icon and the preview art at size so they can be captured into the PNGs next
+  # to them. Both PNGs are checked in, so the pages have already done their job
+  # and have no reason to be in sitemap.xml offering themselves as pages.
+  #
+  # They are static HTML with no front matter of their own. Jekyll 4 still
+  # resolves defaults for a StaticFile (as :pages), which is the documented way
+  # to set `sitemap: false` on one -- so the scope needs no type.
+  - scope:
+      path: "bank/resources"
+    values:
+      sitemap: false
   # _posts
   - scope:
       path: "_posts"
