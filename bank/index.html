@@ -1,0 +1,2446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bank - Dice Game Scorekeeper</title>
+  <meta name="description" content="A beautiful scorekeeper app for the Bank dice game. Track scores, roll virtual dice, and enjoy family game night!">
+  <meta name="theme-color" content="#059669">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bennorris.com/bank/">
+  <meta property="og:title" content="Bank - Dice Game Scorekeeper">
+  <meta property="og:description" content="A beautiful, intuitive scorekeeper for the Bank dice game. Perfect for family game night!">
+  <meta property="og:image" content="https://bennorris.com/bank/assets/bank-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://bennorris.com/bank/">
+  <meta name="twitter:title" content="Bank - Dice Game Scorekeeper">
+  <meta name="twitter:description" content="A beautiful, intuitive scorekeeper for the Bank dice game. Perfect for family game night!">
+  <meta name="twitter:image" content="https://bennorris.com/bank/assets/bank-preview.png">
+  
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Bank">
+  <link rel="apple-touch-icon" href="assets/bank-icon.png">
+  <link rel="icon" type="image/png" href="assets/bank-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script><style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { -webkit-tap-highlight-color: transparent; }
+    :root {
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --bg-primary: #f0fdf4;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --bg-safe: linear-gradient(135deg, #d1fae5 0%, #ccfbf1 100%);
+      --bg-danger: linear-gradient(135deg, #fef3c7 0%, #ffedd5 100%);
+      --bg-dice: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --text-accent: #059669;
+      --border-color: #e2e8f0;
+      --header-bg: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    }
+    .dark {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --bg-safe: linear-gradient(135deg, rgba(6,78,59,0.4) 0%, rgba(17,94,89,0.4) 100%);
+      --bg-danger: linear-gradient(135deg, rgba(120,53,15,0.4) 0%, rgba(124,45,18,0.4) 100%);
+      --bg-dice: linear-gradient(135deg, rgba(6,78,59,0.5) 0%, rgba(5,150,105,0.3) 100%);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-accent: #34d399;
+      --border-color: #334155;
+      --header-bg: linear-gradient(135deg, #047857 0%, #0f766e 100%);
+    }
+
+    /* Party Mode Theme - Neon Disco */
+    .party {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #1a1a2e;
+      --bg-tertiary: #252540;
+      --bg-safe: linear-gradient(135deg, rgba(0,255,136,0.2) 0%, rgba(0,212,255,0.2) 100%);
+      --bg-danger: linear-gradient(135deg, rgba(255,0,128,0.25) 0%, rgba(255,102,0,0.25) 100%);
+      --bg-dice: linear-gradient(135deg, rgba(138,43,226,0.4) 0%, rgba(0,212,255,0.3) 100%);
+      --text-primary: #ffffff;
+      --text-secondary: #b8b8d0;
+      --text-accent: #00ff88;
+      --border-color: #3d3d5c;
+      --header-bg: linear-gradient(270deg, #ff0080, #ff8c00, #ffff00, #00ff88, #00d4ff, #8a2be2, #ff0080);
+      --header-bg-size: 400% 400%;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -2px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -4px rgba(0,0,0,0.3);
+    }
+
+    /* Animated rainbow header for party mode */
+    .party .header {
+      background: linear-gradient(270deg, #ff0080, #ff8c00, #ffff00, #00ff88, #00d4ff, #8a2be2, #ff0080);
+      background-size: 400% 400%;
+      animation: party-gradient 8s ease infinite;
+    }
+
+    @keyframes party-gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Neon glow on buttons */
+    .party .btn-primary {
+      background: linear-gradient(135deg, #ff0080 0%, #8a2be2 100%);
+      box-shadow: 0 0 20px rgba(255,0,128,0.4), 0 0 40px rgba(138,43,226,0.2);
+    }
+    .party .btn-primary:not(:disabled):hover {
+      box-shadow: 0 0 30px rgba(255,0,128,0.6), 0 0 60px rgba(138,43,226,0.3);
+    }
+
+    /* Pulsing glow on bank button */
+    .party .bank-btn {
+      background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+      color: #0a0a0f;
+      box-shadow: 0 0 20px rgba(0,255,136,0.4), 0 0 40px rgba(0,212,255,0.2);
+      animation: party-pulse 2s ease-in-out infinite;
+    }
+    .party .bank-btn:not(:disabled):hover {
+      box-shadow: 0 0 30px rgba(0,255,136,0.6), 0 0 60px rgba(0,212,255,0.4);
+    }
+    .party .bank-btn:disabled {
+      background: var(--bg-tertiary);
+      box-shadow: none;
+      animation: none;
+    }
+
+    @keyframes party-pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(0,255,136,0.4), 0 0 40px rgba(0,212,255,0.2); }
+      50% { box-shadow: 0 0 30px rgba(0,255,136,0.6), 0 0 60px rgba(0,212,255,0.4); }
+    }
+
+    /* Rainbow shimmer border on cards */
+    .party .card {
+      position: relative;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+    .party .card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: linear-gradient(270deg, #ff0080, #ff8c00, #ffff00, #00ff88, #00d4ff, #8a2be2, #ff0080);
+      background-size: 400% 400%;
+      animation: party-gradient 8s ease infinite;
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    /* Neon dice glow */
+    .party .dice-container {
+      background: linear-gradient(135deg, rgba(138,43,226,0.3) 0%, rgba(0,212,255,0.2) 100%);
+      box-shadow: 0 0 20px rgba(138,43,226,0.3), 0 0 40px rgba(0,212,255,0.2);
+    }
+    .party .dice-container:not(.disabled):hover {
+      box-shadow: 0 0 30px rgba(138,43,226,0.5), 0 0 60px rgba(0,212,255,0.3);
+    }
+    .party .die {
+      box-shadow: 0 0 15px rgba(255,255,255,0.3), var(--shadow-lg);
+    }
+
+    /* Neon keypad buttons */
+    .party .keypad-btn {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(138,43,226,0.3);
+      box-shadow: 0 0 10px rgba(138,43,226,0.2);
+    }
+    .party .keypad-btn:not(:disabled):hover {
+      border-color: rgba(0,212,255,0.6);
+      box-shadow: 0 0 15px rgba(0,212,255,0.4);
+    }
+    .party .keypad-btn-seven-safe {
+      background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+      color: #0a0a0f;
+      box-shadow: 0 0 15px rgba(0,255,136,0.4);
+    }
+    .party .keypad-btn-seven-danger {
+      background: linear-gradient(135deg, #ff0080 0%, #ff3366 100%);
+      box-shadow: 0 0 15px rgba(255,0,128,0.4);
+    }
+    .party .keypad-btn-doubles {
+      background: linear-gradient(135deg, #ffff00 0%, #ff8c00 100%);
+      color: #0a0a0f;
+      box-shadow: 0 0 15px rgba(255,255,0,0.4);
+    }
+
+    /* Player card glow for current turn */
+    .party .player-card.current-turn {
+      background: rgba(0,255,136,0.15);
+      border-color: #00ff88;
+      box-shadow: 0 0 15px rgba(0,255,136,0.3);
+    }
+    .party .player-card-indicator {
+      background: #00ff88;
+      box-shadow: 0 0 10px rgba(0,255,136,0.5);
+    }
+
+    /* Neon toggle */
+    .party .toggle.active {
+      background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+      box-shadow: 0 0 10px rgba(0,255,136,0.4);
+    }
+
+    /* Party mode effect pills */
+    .party .effect-pill.safe { background: rgba(0,255,136,0.2); color: #00ff88; }
+    .party .effect-pill.danger { background: rgba(255,0,128,0.2); color: #ff0080; }
+    .party .effect-pill.doubles { background: rgba(255,255,0,0.2); color: #ffff00; }
+
+    /* Header round badge */
+    .party .header-round { background: rgba(0,0,0,0.3); }
+    .party .header-round.final {
+      background: linear-gradient(135deg, #ff0080 0%, #ff3366 100%);
+      animation: party-pulse-danger 2s ease-in-out infinite;
+    }
+    @keyframes party-pulse-danger {
+      0%, 100% { box-shadow: 0 0 10px rgba(255,0,128,0.5); }
+      50% { box-shadow: 0 0 20px rgba(255,0,128,0.8); }
+    }
+
+    /* Modal styling for party mode */
+    .party .modal-header {
+      background: linear-gradient(270deg, #ff0080, #8a2be2, #00d4ff);
+      background-size: 200% 200%;
+      animation: party-gradient 4s ease infinite;
+    }
+
+    /* Party mode indicator */
+    .party-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.25rem 0.625rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.15);
+      animation: party-indicator-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes party-indicator-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Confetti canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .party .header,
+      .party .card::before,
+      .party .bank-btn,
+      .party .modal-header,
+      .party-indicator {
+        animation: none;
+      }
+      .party .header { background: linear-gradient(135deg, #8a2be2 0%, #00d4ff 100%); }
+      .party .card::before { background: linear-gradient(135deg, #8a2be2 0%, #00d4ff 100%); }
+    }
+
+    html, body, #root { height: 100%; overflow: hidden; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); overscroll-behavior: none; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    body.modal-open { overflow: hidden; }
+    
+    .app-container { height: 100%; display: flex; flex-direction: column; background: var(--bg-primary); }
+    .header { background: var(--header-bg); color: white; padding: 0.75rem 1rem; box-shadow: var(--shadow-md); flex-shrink: 0; }
+    .header-content { max-width: 72rem; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .header-left { display: flex; align-items: center; gap: 1rem; }
+    .header-brand { display: flex; align-items: center; gap: 0.5rem; }
+    .header-title { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.05em; }
+    .header-round { font-size: 1.125rem; font-weight: 600; opacity: 0.95; background: rgba(255,255,255,0.15); padding: 0.25rem 0.75rem; border-radius: 0.5rem; transition: all 0.3s ease; }
+    .header-round.final { background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%); color: white; animation: pulse-glow 2s ease-in-out infinite; font-weight: 700; letter-spacing: 0.05em; }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 8px rgba(220, 38, 38, 0.4); } 50% { box-shadow: 0 0 16px rgba(220, 38, 38, 0.7); } }
+    .header-right { display: flex; align-items: center; gap: 0.5rem; }
+    
+    .brand-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; }
+    
+    .icon-btn { background: transparent; border: none; color: inherit; padding: 0.5rem; border-radius: 0.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .icon-btn:hover { background: rgba(255,255,255,0.15); }
+    .icon-btn-subtle { color: var(--text-secondary); }
+    .icon-btn-subtle:hover { background: rgba(0,0,0,0.05); color: var(--text-primary); }
+    .dark .icon-btn-subtle:hover { background: rgba(255,255,255,0.1); }
+
+    /* Settings popover */
+    .settings-popover-wrapper { position: relative; }
+    .settings-popover { position: absolute; top: 100%; right: 0; margin-top: 0.5rem; background: var(--bg-secondary); border-radius: 0.75rem; box-shadow: var(--shadow-lg); min-width: 14rem; z-index: 100; border: 1px solid var(--border-color); overflow: hidden; }
+    .settings-popover-backdrop { position: fixed; inset: 0; z-index: 99; }
+    .settings-item { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; gap: 1rem; }
+    .settings-item:not(:last-child) { border-bottom: 1px solid var(--border-color); }
+    .settings-item-label { font-size: 0.875rem; font-weight: 500; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; }
+    .settings-item-sublabel { font-size: 0.75rem; color: var(--text-secondary); }
+    .settings-item-danger { color: #dc2626; }
+    .settings-item-btn { background: none; border: none; padding: 0.75rem 1rem; width: 100%; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500; color: var(--text-primary); font-family: inherit; }
+    .settings-item-btn:hover { background: var(--bg-tertiary); }
+    .settings-item-btn.danger { color: #dc2626; }
+    .settings-item-btn.danger:hover { background: rgba(220, 38, 38, 0.1); }
+
+    /* Toggle switch */
+    .toggle { position: relative; width: 2.5rem; height: 1.5rem; background: var(--bg-tertiary); border-radius: 0.75rem; cursor: pointer; transition: background 0.2s; border: 2px solid var(--border-color); }
+    .toggle.active { background: var(--text-accent); border-color: var(--text-accent); }
+    .toggle-knob { position: absolute; top: 2px; left: 2px; width: 1rem; height: 1rem; background: white; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .toggle.active .toggle-knob { transform: translateX(1rem); }
+
+    /* Theme selector */
+    .theme-selector { display: flex; background: var(--bg-tertiary); border-radius: 0.5rem; padding: 0.25rem; gap: 0.25rem; }
+    .theme-selector-btn { flex: 1; display: flex; align-items: center; justify-content: center; padding: 0.375rem 0.5rem; border: none; background: transparent; border-radius: 0.375rem; cursor: pointer; color: var(--text-secondary); transition: all 0.15s; }
+    .theme-selector-btn:hover { color: var(--text-primary); }
+    .theme-selector-btn.active { background: var(--bg-secondary); color: var(--text-accent); box-shadow: var(--shadow-sm); }
+
+    /* Rounds stepper */
+    .rounds-stepper { display: flex; align-items: center; gap: 0.5rem; }
+    .rounds-stepper-btn { width: 1.75rem; height: 1.75rem; border-radius: 0.375rem; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 600; }
+    .rounds-stepper-btn:hover:not(:disabled) { background: var(--bg-secondary); border-color: var(--text-accent); }
+    .rounds-stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .rounds-stepper-value { min-width: 2rem; text-align: center; font-weight: 600; font-size: 0.875rem; }
+    
+    .card { background: var(--bg-secondary); border-radius: 1rem; box-shadow: var(--shadow-md); }.input { width: 100%; padding: 0.75rem 1rem; border-radius: 0.75rem; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); font-size: 1rem; font-family: inherit; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .input:focus { border-color: var(--text-accent); box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15); }
+    .input::placeholder { color: var(--text-secondary); }
+    .input-small { padding: 0.5rem 0.75rem; width: 5rem; text-align: center; font-weight: 600; }
+    
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border-radius: 0.75rem; font-weight: 600; font-size: 1rem; font-family: inherit; border: none; cursor: pointer; transition: all 0.2s; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary { background: linear-gradient(135deg, #059669 0%, #0d9488 100%); color: white; }
+    .btn-primary:not(:disabled):hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-secondary { background: var(--bg-tertiary); color: var(--text-primary); }
+    .btn-danger { background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%); color: white; }
+    .btn-amber { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; }
+    .btn-ghost { background: transparent; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--bg-tertiary); }
+    .btn-large { padding: 1rem 1.5rem; font-size: 1.125rem; }
+    
+    .bank-btn { width: 100%; max-width: 28rem; padding: 1.125rem 1.5rem; border-radius: 1rem; font-weight: 700; font-size: 1.125rem; font-family: inherit; border: none; cursor: pointer; background: linear-gradient(135deg, #059669 0%, #0d9488 100%); color: white; box-shadow: var(--shadow-lg); transition: all 0.2s; }
+    .bank-btn:not(:disabled):hover { filter: brightness(1.1); transform: translateY(-2px); }
+    .bank-btn:disabled { background: var(--bg-tertiary); color: var(--text-secondary); cursor: not-allowed; box-shadow: none; }
+    
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 0; border-bottom: 1px solid var(--border-color); }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-label { display: flex; align-items: center; gap: 0.75rem; }
+    .toggle-label svg { color: var(--text-accent); }
+    .toggle { width: 3rem; height: 1.5rem; border-radius: 9999px; background: var(--border-color); border: none; cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0; }
+    .toggle.active { background: #059669; }
+    .toggle-knob { position: absolute; top: 2px; left: 2px; width: 1.25rem; height: 1.25rem; border-radius: 9999px; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; }
+    .toggle.active .toggle-knob { transform: translateX(1.5rem); }
+    
+    .zone-safe { background: var(--bg-safe); }
+    .zone-danger { background: var(--bg-danger); }
+    
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 50; padding: 1rem; }
+    .modal-content { background: var(--bg-secondary); border-radius: 1.25rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); width: 100%; max-width: 24rem; max-height: calc(100vh - 2rem); overflow: hidden; display: flex; flex-direction: column; animation: modal-in 0.2s ease-out; }
+    @keyframes modal-in { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .modal-header { background: linear-gradient(135deg, #059669 0%, #0d9488 100%); color: white; padding: 1.25rem 1.5rem; flex-shrink: 0; }
+    .modal-header-bust { background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%); }
+    .modal-body { padding: 1rem 1.5rem; overflow-y: auto; flex: 1; min-height: 0; }
+    .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); flex-shrink: 0; }.round-result-row { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-radius: 0.5rem; margin-bottom: 0.5rem; background: var(--bg-tertiary); }
+    .round-result-row:last-child { margin-bottom: 0; }
+    .round-result-row.winner { background: #fef9c3; }
+    .dark .round-result-row.winner { background: rgba(250,204,21,0.15); }
+    .round-result-name { display: flex; align-items: center; gap: 0.5rem; font-weight: 500; }
+    .round-result-score { font-weight: 700; }
+    .round-result-score.positive { color: #059669; }
+    .round-result-score.zero { color: #dc2626; }
+
+    .auto-dismiss-btn { position: relative; overflow: hidden; }
+    .auto-dismiss-progress { position: absolute; top: 0; left: 0; height: 100%; background: rgba(255,255,255,0.2); pointer-events: none; }
+    .auto-dismiss-content { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 0.25rem; }
+
+    .player-card { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; border-radius: 0.75rem; background: var(--bg-tertiary); transition: all 0.2s; position: relative; border: 2px solid transparent; }
+    .player-card.banked { opacity: 1; }
+    .player-card.current-turn { background: rgba(5, 150, 105, 0.15); border-color: var(--text-accent); }
+    .player-card.dragging { opacity: 0.8; box-shadow: var(--shadow-lg); z-index: 10; transform: scale(1.02); }
+    .player-card.drag-over { border-color: var(--text-accent); border-style: dashed; }
+    .player-card-indicator { position: absolute; left: -2px; top: 50%; transform: translateY(-50%); width: 4px; height: 2rem; background: var(--text-accent); border-radius: 2px; }
+
+    /* Turn order badge */
+    .turn-badge { width: 1.5rem; height: 1.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; background: var(--bg-secondary); color: var(--text-secondary); border: 2px solid var(--bg-secondary); flex-shrink: 0; }
+    .turn-badge.current { background: var(--text-accent); color: white; border-color: var(--text-accent); }
+    .turn-badge.banked { opacity: 0.5; }
+
+    /* Score display */
+    .score-section { text-align: right; min-width: 4.5rem; }
+    .score-main { font-size: 1.25rem; font-weight: 700; line-height: 1.2; color: var(--text-primary); }
+    .score-secondary { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.3; }
+    .score-secondary.projected { font-style: italic; }
+    .score-secondary.banked { color: var(--text-accent); font-weight: 600; }
+    .drag-handle { color: var(--text-secondary); cursor: grab; touch-action: none; padding: 0.25rem; display: flex; align-items: center; user-select: none; -webkit-user-select: none; }
+    .drag-handle:active { cursor: grabbing; }
+    .player-card.pointer-dragging { opacity: 0.5; }
+    
+    /* Bank score card with inline effect */
+    .bank-card { position: relative; }
+    .bank-card-header { position: absolute; top: 0.75rem; right: 0.75rem; }
+    .bank-score-row { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+    .bank-number { font-family: var(--font-mono); font-size: 4rem; font-weight: 700; line-height: 1; color: var(--text-primary); }
+    
+    /* Updated keypad styles */
+    .keypad-container { width: 100%; max-width: 24rem; margin: 0 auto; height: 8.5rem; }
+    .keypad-grid { display: grid; gap: 0.5rem; height: 100%; }
+    .keypad-grid-safe { grid-template-columns: repeat(5, 1fr) minmax(3.5rem, 1fr); grid-template-rows: 1fr 1fr; }
+    .keypad-grid-danger { grid-template-columns: repeat(5, 1fr); grid-template-rows: 1fr 1fr; }
+    .keypad-btn { border-radius: 0.75rem; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; background: var(--bg-secondary); color: var(--text-primary); box-shadow: var(--shadow-md); transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
+    .keypad-btn:not(:disabled):hover { transform: translateY(-1px); }
+    .keypad-btn:not(:disabled):active { transform: scale(0.98); }
+    .keypad-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .keypad-btn-seven { grid-column: 6; grid-row: 1 / 3; flex-direction: column; gap: 0.25rem; }
+    .keypad-btn-seven-safe { background: linear-gradient(135deg, #059669 0%, #0d9488 100%); color: white; }
+    .keypad-btn-seven-danger { background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%); color: white; flex-direction: column; gap: 0.25rem; }
+    .keypad-btn-doubles { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; flex-direction: column; gap: 0.25rem; }
+
+    /* Special button typography */
+    .keypad-btn-label { font-size: 1.5rem; font-weight: 700; line-height: 1; }
+    .keypad-btn-subtitle { font-size: 0.625rem; font-weight: 600; opacity: 0.9; line-height: 1; }
+    .keypad-btn-seven-danger .keypad-btn-label, .keypad-btn-doubles .keypad-btn-label { font-size: 1rem; }
+    .keypad-btn-seven-danger .lucide, .keypad-btn-doubles .lucide { width: 1rem; height: 1rem; }
+    
+    /* Dice container */
+    .dice-container { display: flex; gap: 1.5rem; padding: 1rem 1.5rem; border-radius: 1rem; background: var(--bg-dice); cursor: pointer; transition: all 0.2s; width: 100%; max-width: 24rem; height: 8.5rem; align-items: center; justify-content: center; box-shadow: var(--shadow-md); }
+    .dice-container:not(.disabled):hover { transform: scale(1.02); box-shadow: var(--shadow-lg); }
+    .dice-container.disabled { opacity: 0.5; cursor: not-allowed; }
+    .die { width: 5.5rem; height: 5.5rem; border-radius: 0.75rem; background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); box-shadow: var(--shadow-lg); position: relative; transition: transform 0.3s; }
+    .dark .die { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+    .die.rolling { animation: dice-shake 0.1s infinite; }
+    @keyframes dice-shake { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    .pip { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: #1e293b; transform: translate(-50%, -50%); }.turn-indicator { font-size: 1.25rem; color: var(--text-secondary); }
+    .turn-indicator strong { color: var(--text-accent); font-weight: 600; }
+    
+    .effect-pill { display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 1rem; font-weight: 700; }
+    .effect-pill.safe { background: rgba(5, 150, 105, 0.15); color: #059669; }
+    .effect-pill.danger { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
+    .effect-pill.doubles { background: rgba(245, 158, 11, 0.15); color: #d97706; }
+    .effect-pill.normal { background: var(--bg-tertiary); color: var(--text-secondary); }
+    
+    .select-btn { width: 100%; padding: 0.875rem 1rem; border-radius: 0.75rem; background: var(--bg-tertiary); border: 2px solid transparent; color: var(--text-primary); font-size: 1rem; font-weight: 500; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.15s; }
+    .select-btn:hover { border-color: var(--border-color); }
+    .select-btn.selected { background: rgba(5, 150, 105, 0.1); border-color: #059669; }
+    
+    .round-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .round-option { padding: 0.625rem 1rem; border-radius: 0.75rem; border: 2px solid var(--border-color); font-weight: 600; font-size: 1rem; font-family: inherit; cursor: pointer; background: var(--bg-secondary); color: var(--text-primary); transition: all 0.15s; min-width: 3.5rem; text-align: center; }
+    .round-option:hover { border-color: var(--text-accent); }
+    .round-option.active { background: linear-gradient(135deg, #059669 0%, #0d9488 100%); color: white; border-color: transparent; box-shadow: var(--shadow-md); }
+    .custom-rounds-input { display: flex; align-items: center; gap: 0.5rem; }
+    
+    .stat-card { text-align: center; padding: 1rem; border-radius: 0.75rem; background: var(--bg-tertiary); }
+    .stat-value { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; }
+    .stat-label { font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.25rem; }
+    .award-card { position: relative; padding-top: 1.5rem; }
+    .award-emoji { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .winner-circle { width: 6rem; height: 6rem; border-radius: 50%; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); margin: 0 auto 1rem; }
+    .podium-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; border-radius: 0.75rem; background: var(--bg-tertiary); margin-bottom: 0.5rem; }
+    .podium-item:last-child { margin-bottom: 0; }
+    .podium-item.gold { background: #fef9c3; }
+    .podium-item.silver { background: #f3e8ff; }
+    .podium-item.bronze { background: #ffedd5; }
+    .dark .podium-item.gold { background: rgba(250,204,21,0.15); }
+    .dark .podium-item.silver { background: rgba(147,51,234,0.15); }
+    .dark .podium-item.bronze { background: rgba(234,88,12,0.15); }
+
+    /* Shareable results for image generation */
+    .shareable-results { background: var(--bg-primary); padding: 1rem; border-radius: 1rem; }
+    .shareable-footer { display: flex; align-items: center; justify-content: center; gap: 0.25rem; padding-top: 1rem; font-size: 0.875rem; color: var(--text-secondary); }
+
+    /* Game layout */
+    .game-layout { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 1rem; gap: 1rem; }
+    .game-main { display: flex; flex-direction: column; gap: 0.75rem; flex-shrink: 0; }
+    .game-controls { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+    .game-sidebar { flex: 1; min-height: 0; overflow-y: auto; }
+    
+    @media (min-width: 768px) {
+      .game-layout { flex-direction: row !important; }
+      .game-main { flex: 1; flex-shrink: 1; }
+      .game-sidebar { width: 280px; flex-shrink: 0; flex: none; }
+    }
+
+    /* Landscape mobile - two column layout with both scrollable */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .header { padding: 0.375rem 0.75rem; }
+      .header-title { font-size: 1.125rem; }
+      .header-round { font-size: 0.875rem; padding: 0.125rem 0.5rem; }
+      .brand-icon { width: 24px; height: 24px; }
+
+      .game-layout {
+        flex-direction: row !important;
+        padding: 0.5rem;
+        gap: 0.5rem;
+      }
+      .game-main {
+        flex: 1;
+        flex-shrink: 1;
+        overflow-y: auto;
+        min-height: 0;
+      }
+      .game-sidebar {
+        width: 200px;
+        flex-shrink: 0;
+        flex: none;
+        overflow-y: auto;
+      }
+      .game-sidebar.card { padding: 0.5rem; }
+      .game-sidebar h2 { font-size: 0.875rem; margin-bottom: 0.375rem; }
+
+      /* Compact bank card */
+      .bank-card { padding: 0.5rem !important; }
+      .bank-number { font-size: 2.5rem; }
+      .bank-card-header { top: 0.25rem; right: 0.25rem; }
+
+      /* Compact controls */
+      .game-controls { gap: 0.375rem; }
+      .turn-indicator { font-size: 0.875rem; }
+      .keypad-container { height: 5rem; max-width: 18rem; }
+      .keypad-btn { font-size: 0.875rem; padding: 0.25rem; }
+      .keypad-btn-label { font-size: 1rem; }
+      .keypad-btn-subtitle { font-size: 0.5rem; }
+      .keypad-btn-seven-danger .keypad-btn-label, .keypad-btn-doubles .keypad-btn-label { font-size: 0.75rem; }
+      .keypad-btn-seven-danger .lucide, .keypad-btn-doubles .lucide { width: 0.75rem; height: 0.75rem; }
+      .dice-container { height: 5rem; max-width: 18rem; padding: 0.5rem; gap: 0.75rem; }
+      .die { width: 3.5rem; height: 3.5rem; }
+      .pip { width: 8px; height: 8px; }
+      .bank-btn { padding: 0.5rem 1rem; font-size: 0.875rem; }
+
+      /* Compact player cards */
+      .player-card { padding: 0.5rem; gap: 0.5rem; }
+      .turn-badge { width: 1.25rem; height: 1.25rem; font-size: 0.625rem; }
+      .score-section { min-width: 3.5rem; }
+      .score-main { font-size: 1rem; }
+      .score-secondary { font-size: 0.8rem; }
+    }
+
+    /* Extra short landscape (very limited height) */
+    @media (orientation: landscape) and (max-height: 380px) {
+      .header { padding: 0.25rem 0.5rem; }
+      .bank-number { font-size: 2rem; }
+      .keypad-container { height: 4rem; }
+      .dice-container { height: 4rem; }
+      .die { width: 2.75rem; height: 2.75rem; }
+      .pip { width: 6px; height: 6px; }
+    }
+
+    /* Tablet and larger screens - bigger controls */
+    @media (min-width: 768px) and (min-height: 600px) {
+      .game-layout { padding: 1.5rem; gap: 1.5rem; }
+      .game-main { gap: 1.25rem; }
+      .game-controls { gap: 1rem; }
+
+      /* Larger bank display */
+      .bank-card { padding: 2rem !important; }
+      .bank-number { font-size: 5rem; }
+      .bank-score-row { gap: 1.25rem; }
+      .effect-pill { font-size: 1rem; padding: 0.375rem 0.75rem; }
+
+      /* Larger keypad */
+      .keypad-container { max-width: 32rem; height: 12rem; }
+      .keypad-grid { gap: 0.75rem; }
+      .keypad-btn { font-size: 1.5rem; border-radius: 1rem; }
+      /* Special button typography scaling */
+      .keypad-btn-label { font-size: 2rem; }
+      .keypad-btn-subtitle { font-size: 0.75rem; }
+      .keypad-btn-seven-danger .keypad-btn-label, .keypad-btn-doubles .keypad-btn-label { font-size: 1.25rem; }
+      .keypad-btn-seven-danger .lucide, .keypad-btn-doubles .lucide { width: 1.25rem; height: 1.25rem; }
+
+      /* Larger dice */
+      .dice-container { max-width: 32rem; height: 12rem; gap: 2rem; padding: 1.5rem 2rem; border-radius: 1.25rem; }
+      .die { width: 7rem; height: 7rem; border-radius: 1rem; }
+      .pip { width: 14px; height: 14px; }
+
+      /* Larger bank button */
+      .bank-btn { max-width: 32rem; padding: 1.5rem 2rem; font-size: 1.375rem; border-radius: 1.25rem; }
+
+      /* Larger turn indicator */
+      .turn-indicator { font-size: 1.5rem; }
+
+      /* Larger player cards */
+      .game-sidebar { width: 320px; }
+      .game-sidebar.card { padding: 1.25rem; }
+      .game-sidebar h2 { font-size: 1.25rem; }
+      .player-card { padding: 1rem; gap: 1rem; }
+      .turn-badge { width: 2rem; height: 2rem; font-size: 0.875rem; }
+      .score-main { font-size: 1.5rem; }
+      .score-secondary { font-size: 1.1rem; }
+    }
+
+    /* Extra large screens - even bigger */
+    @media (min-width: 1024px) and (min-height: 700px) {
+      .game-layout { padding: 2rem; gap: 2rem; }
+
+      .bank-card { padding: 2.5rem !important; }
+      .bank-number { font-size: 6rem; }
+
+      .keypad-container { max-width: 36rem; height: 14rem; }
+      .keypad-btn { font-size: 1.75rem; }
+      .keypad-btn-label { font-size: 2.5rem; }
+      .keypad-btn-subtitle { font-size: 0.875rem; }
+      .keypad-btn-seven-danger .keypad-btn-label, .keypad-btn-doubles .keypad-btn-label { font-size: 1.5rem; }
+      .keypad-btn-seven-danger .lucide, .keypad-btn-doubles .lucide { width: 1.5rem; height: 1.5rem; }
+
+      .dice-container { max-width: 36rem; height: 14rem; }
+      .die { width: 8rem; height: 8rem; }
+      .pip { width: 16px; height: 16px; }
+
+      .bank-btn { max-width: 36rem; padding: 1.75rem 2.5rem; font-size: 1.5rem; }
+
+      .game-sidebar { width: 360px; }
+    }
+
+    /* Footer - positioned inside game-main */
+    .app-footer { padding: 0.75rem 0 0; display: flex; justify-content: center; }
+    .footer-link { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.625rem; border-radius: 0.375rem; background: transparent; border: none; color: var(--text-secondary); font-size: 0.75rem; font-family: inherit; cursor: pointer; transition: all 0.2s; text-decoration: none; opacity: 0.7; }
+    .footer-link:hover { background: rgba(0,0,0,0.05); opacity: 1; }
+    .dark .footer-link:hover { background: rgba(255,255,255,0.05); }
+    .footer-logo { width: 16px; height: 16px; border-radius: 3px; object-fit: contain; }
+
+    /* On desktop, push footer to bottom of game-main */
+    @media (min-width: 768px) {
+      .app-footer { margin-top: auto; padding-bottom: 0.5rem; }
+    }
+
+    /* Hide Players heading on small mobile screens */
+    @media (max-width: 600px) and (max-height: 750px) {
+      .game-sidebar h2 { display: none; }
+    }
+    
+    .flex { display: flex; } .flex-col { flex-direction: column; } .flex-1 { flex: 1; } .items-center { align-items: center; } .justify-center { justify-content: center; } .justify-between { justify-content: space-between; } .gap-2 { gap: 0.5rem; } .gap-3 { gap: 0.75rem; } .gap-4 { gap: 1rem; } .grid { display: grid; } .grid-cols-2 { grid-template-columns: repeat(2, 1fr); } .grid-cols-4 { grid-template-columns: repeat(4, 1fr); } .grid-cols-5 { grid-template-columns: repeat(5, 1fr); } .col-span-2 { grid-column: span 2; } .w-full { width: 100%; } .min-w-0 { min-width: 0; } .p-4 { padding: 1rem; } .p-5 { padding: 1.25rem; } .p-6 { padding: 1.5rem; } .mb-2 { margin-bottom: 0.5rem; } .mb-3 { margin-bottom: 0.75rem; } .mb-4 { margin-bottom: 1rem; } .mb-6 { margin-bottom: 1.5rem; } .mt-3 { margin-top: 0.75rem; } .text-sm { font-size: 0.875rem; } .text-lg { font-size: 1.125rem; } .text-xl { font-size: 1.25rem; } .text-2xl { font-size: 1.5rem; } .text-3xl { font-size: 1.875rem; } .text-4xl { font-size: 2.25rem; } .text-5xl { font-size: 3rem; } .font-medium { font-weight: 500; } .font-semibold { font-weight: 600; } .font-bold { font-weight: 700; } .text-center { text-align: center; } .text-right { text-align: right; } .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .rounded-lg { border-radius: 0.5rem; } .rounded-xl { border-radius: 0.75rem; } .overflow-y-auto { overflow-y: auto; } .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+
+    /* Fullscreen Instructions Modal */
+    .fullscreen-modal-backdrop { position: fixed; inset: 0; background: var(--bg-primary); z-index: 200; display: flex; flex-direction: column; overflow: hidden; }
+    .fullscreen-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; background: var(--header-bg); color: white; flex-shrink: 0; }
+    .fullscreen-modal-title { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.75rem; }
+    .fullscreen-modal-close { background: rgba(255,255,255,0.15); border: none; color: white; padding: 0.5rem; border-radius: 0.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .fullscreen-modal-close:hover { background: rgba(255,255,255,0.25); }
+    .fullscreen-modal-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 1.5rem; }
+    .fullscreen-modal-content { flex: 1; display: flex; gap: 1.5rem; min-height: 0; }
+    .fullscreen-modal-content.single-column { flex-direction: column; overflow-y: auto; }
+    .fullscreen-modal-content.three-columns { flex-direction: row; }
+    .fullscreen-modal-zone { flex: 1; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; min-height: 0; }
+    .fullscreen-modal-content.three-columns .fullscreen-modal-zone { overflow-y: auto; }
+    .fullscreen-modal-content.single-column .fullscreen-modal-zone { flex: none; }
+    .fullscreen-modal-zone-safe { background: var(--bg-safe); }
+    .fullscreen-modal-zone-danger { background: var(--bg-danger); }
+    .fullscreen-modal-zone-bank { background: linear-gradient(135deg, rgba(5,150,105,0.15) 0%, rgba(13,148,136,0.15) 100%); border: 3px solid var(--text-accent); }
+    .fullscreen-modal-zone-title { font-weight: 700; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .fullscreen-modal-zone-safe .fullscreen-modal-zone-title { color: #059669; }
+    .dark .fullscreen-modal-zone-safe .fullscreen-modal-zone-title { color: #34d399; }
+    .fullscreen-modal-zone-danger .fullscreen-modal-zone-title { color: #dc2626; }
+    .dark .fullscreen-modal-zone-danger .fullscreen-modal-zone-title { color: #f87171; }
+    .fullscreen-modal-zone-bank .fullscreen-modal-zone-title { color: var(--text-accent); }
+    .fullscreen-modal-item { display: flex; align-items: center; gap: 0.75rem; color: var(--text-primary); padding: 0.375rem 0; }
+    .fullscreen-modal-badge { display: inline-flex; align-items: center; justify-content: center; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-weight: 700; flex-shrink: 0; }
+    .fullscreen-modal-badge-safe { background: rgba(5,150,105,0.2); color: #059669; }
+    .dark .fullscreen-modal-badge-safe { background: rgba(52,211,153,0.2); color: #34d399; }
+    .fullscreen-modal-badge-danger { background: rgba(220,38,38,0.2); color: #dc2626; }
+    .dark .fullscreen-modal-badge-danger { background: rgba(248,113,113,0.2); color: #f87171; }
+    .fullscreen-modal-badge-double { background: rgba(217,119,6,0.2); color: #d97706; }
+    .dark .fullscreen-modal-badge-double { background: rgba(251,191,36,0.2); color: #fbbf24; }
+
+    /* Setup player card with virtual dice toggle */
+    .setup-player-card { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; border-radius: 0.75rem; background: var(--bg-tertiary); position: relative; }
+    .setup-player-card.dragging { opacity: 0.8; box-shadow: var(--shadow-lg); z-index: 10; transform: scale(1.02); }
+    .setup-player-card.drag-over { border: 2px dashed var(--text-accent); }
+    .setup-player-card.pointer-dragging { opacity: 0.5; }
+    .setup-player-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+    .setup-player-name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .setup-player-dice-toggle { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--text-secondary); }
+    .setup-player-dice-toggle svg { width: 12px; height: 12px; }
+    .toggle-small { width: 2rem; height: 1rem; border-radius: 9999px; background: var(--border-color); border: none; cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0; }
+    .toggle-small.active { background: #059669; }
+    .toggle-small-knob { position: absolute; top: 2px; left: 2px; width: 0.75rem; height: 0.75rem; border-radius: 9999px; background: white; box-shadow: var(--shadow-sm); transition: transform 0.2s; }
+    .toggle-small.active .toggle-small-knob { transform: translateX(1rem); }
+
+    /* Setup players list */
+    .setup-players-grid { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    /* Two-column layout for setup screen on wider screens */
+    .setup-layout { display: flex; flex-direction: column; gap: 1.5rem; max-width: 56rem; margin: 0 auto; }
+    .setup-column { display: flex; flex-direction: column; }
+    @media (min-width: 768px) {
+      .setup-layout { flex-direction: row; align-items: flex-start; }
+      .setup-column { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">var useState = React.useState;
+    var useReducer = React.useReducer;
+    var useEffect = React.useEffect;
+    var useCallback = React.useCallback;
+    var useRef = React.useRef;
+
+    // Icons
+    function Icon(props) {
+      var size = props.size || 20;
+      return React.createElement('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round', width: size, height: size, style: props.style }, props.children);
+    }
+    function Trophy(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M6 9H4.5a2.5 2.5 0 0 1 0-5H6'}), React.createElement('path', {d: 'M18 9h1.5a2.5 2.5 0 0 0 0-5H18'}), React.createElement('path', {d: 'M4 22h16'}), React.createElement('path', {d: 'M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22'}), React.createElement('path', {d: 'M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'}), React.createElement('path', {d: 'M18 2H6v7a6 6 0 0 0 12 0V2Z'})); }
+    function Crown(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'm2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14'})); }
+    function Medal(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15'}), React.createElement('path', {d: 'M11 12 5.12 2.2'}), React.createElement('path', {d: 'm13 12 5.88-9.8'}), React.createElement('path', {d: 'M8 7h8'}), React.createElement('circle', {cx: 12, cy: 17, r: 5}), React.createElement('path', {d: 'M12 18v-2h-.5'})); }
+    function Award(p) { return React.createElement(Icon, p, React.createElement('circle', {cx: 12, cy: 8, r: 6}), React.createElement('path', {d: 'M15.477 12.89 17 22l-5-3-5 3 1.523-9.11'})); }
+    function GripVertical(p) { return React.createElement(Icon, p, React.createElement('circle', {cx: 9, cy: 12, r: 1}), React.createElement('circle', {cx: 9, cy: 5, r: 1}), React.createElement('circle', {cx: 9, cy: 19, r: 1}), React.createElement('circle', {cx: 15, cy: 12, r: 1}), React.createElement('circle', {cx: 15, cy: 5, r: 1}), React.createElement('circle', {cx: 15, cy: 19, r: 1})); }
+    function Check(p) { return React.createElement(Icon, p, React.createElement('polyline', {points: '20 6 9 17 4 12'})); }
+    function Lock(p) { return React.createElement(Icon, p, React.createElement('rect', {width: 18, height: 11, x: 3, y: 11, rx: 2}), React.createElement('path', {d: 'M7 11V7a5 5 0 0 1 10 0v4'})); }
+    function AlertTriangle(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'm21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z'}), React.createElement('line', {x1: 12, y1: 9, x2: 12, y2: 13}), React.createElement('line', {x1: 12, y1: 17, x2: 12.01, y2: 17})); }
+    function Skull(p) { return React.createElement(Icon, p, React.createElement('circle', {cx: 9, cy: 12, r: 1}), React.createElement('circle', {cx: 15, cy: 12, r: 1}), React.createElement('path', {d: 'M8 20v2h8v-2'}), React.createElement('path', {d: 'm12.5 17-.5-1-.5 1h1z'}), React.createElement('path', {d: 'M16 20a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20'})); }
+    function ShieldCheck(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'}), React.createElement('path', {d: 'm9 12 2 2 4-4'})); }
+    function Shield(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'})); }
+    function Plus(p) { return React.createElement(Icon, p, React.createElement('line', {x1: 12, y1: 5, x2: 12, y2: 19}), React.createElement('line', {x1: 5, y1: 12, x2: 19, y2: 12})); }
+    function Trash2(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M3 6h18'}), React.createElement('path', {d: 'M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'}), React.createElement('path', {d: 'M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'}), React.createElement('line', {x1: 10, y1: 11, x2: 10, y2: 17}), React.createElement('line', {x1: 14, y1: 11, x2: 14, y2: 17})); }
+    function Settings(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z'}), React.createElement('circle', {cx: 12, cy: 12, r: 3})); }
+    function RotateCcw(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'}), React.createElement('path', {d: 'M3 3v5h5'})); }
+    function Share2(p) { return React.createElement(Icon, p, React.createElement('circle', {cx: 18, cy: 5, r: 3}), React.createElement('circle', {cx: 6, cy: 12, r: 3}), React.createElement('circle', {cx: 18, cy: 19, r: 3}), React.createElement('line', {x1: 8.59, y1: 13.51, x2: 15.42, y2: 17.49}), React.createElement('line', {x1: 15.41, y1: 6.51, x2: 8.59, y2: 10.49})); }
+    function Dices(p) { return React.createElement(Icon, p, React.createElement('rect', {width: 12, height: 12, x: 2, y: 10, rx: 2}), React.createElement('path', {d: 'm17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6'}), React.createElement('path', {d: 'M6 18h.01'}), React.createElement('path', {d: 'M10 14h.01'}), React.createElement('path', {d: 'M15 6h.01'}), React.createElement('path', {d: 'M18 9h.01'})); }
+    function Sun(p) { return React.createElement(Icon, p, React.createElement('circle', {cx: 12, cy: 12, r: 4}), React.createElement('path', {d: 'M12 2v2'}), React.createElement('path', {d: 'M12 20v2'}), React.createElement('path', {d: 'm4.93 4.93 1.41 1.41'}), React.createElement('path', {d: 'm17.66 17.66 1.41 1.41'}), React.createElement('path', {d: 'M2 12h2'}), React.createElement('path', {d: 'M20 12h2'}), React.createElement('path', {d: 'm6.34 17.66-1.41 1.41'}), React.createElement('path', {d: 'm19.07 4.93-1.41 1.41'})); }
+    function Moon(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z'})); }
+    function Monitor(p) { return React.createElement(Icon, p, React.createElement('rect', {width: 20, height: 14, x: 2, y: 3, rx: 2}), React.createElement('line', {x1: 8, y1: 21, x2: 16, y2: 21}), React.createElement('line', {x1: 12, y1: 17, x2: 12, y2: 21})); }
+    function Play(p) { return React.createElement(Icon, p, React.createElement('polygon', {points: '5 3 19 12 5 21 5 3'})); }
+    function Users(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'}), React.createElement('circle', {cx: 9, cy: 7, r: 4}), React.createElement('path', {d: 'M22 21v-2a4 4 0 0 0-3-3.87'}), React.createElement('path', {d: 'M16 3.13a4 4 0 0 1 0 7.75'})); }
+    function X(p) { return React.createElement(Icon, p, React.createElement('line', {x1: 18, y1: 6, x2: 6, y2: 18}), React.createElement('line', {x1: 6, y1: 6, x2: 18, y2: 18})); }
+    function ChevronRight(p) { return React.createElement(Icon, p, React.createElement('polyline', {points: '9 18 15 12 9 6'})); }
+    function ChevronDown(p) { return React.createElement(Icon, p, React.createElement('polyline', {points: '6 9 12 15 18 9'})); }
+    function HelpCircle(p) { return React.createElement(Icon, p, React.createElement('circle', {cx: 12, cy: 12, r: 10}), React.createElement('path', {d: 'M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'}), React.createElement('path', {d: 'M12 17h.01'})); }
+    function Sparkles(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'm12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z'}), React.createElement('path', {d: 'M5 3v4'}), React.createElement('path', {d: 'M19 17v4'}), React.createElement('path', {d: 'M3 5h4'}), React.createElement('path', {d: 'M17 19h4'})); }
+    function Home(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'm3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'}), React.createElement('polyline', {points: '9 22 9 12 15 12 15 22'})); }
+    function RefreshCw(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'}), React.createElement('path', {d: 'M21 3v5h-5'}), React.createElement('path', {d: 'M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'}), React.createElement('path', {d: 'M8 16H3v5'})); }
+    function BankIcon(p) { var size = p.size || 20; return React.createElement('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2.5, strokeLinecap: 'square', strokeLinejoin: 'round', width: size, height: size, style: p.style }, React.createElement('circle', {cx: 12, cy: 12, r: 8}), React.createElement('path', {d: 'M12 6v2'}), React.createElement('path', {d: 'M12 16v2'}), React.createElement('path', {d: 'M8 10h8'}), React.createElement('path', {d: 'M8 14h8'})); }
+    function ExternalLink(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'}), React.createElement('polyline', {points: '15 3 21 3 21 9'}), React.createElement('line', {x1: 10, y1: 14, x2: 21, y2: 3})); }
+    function Hash(p) { return React.createElement(Icon, p, React.createElement('line', {x1: 4, y1: 9, x2: 20, y2: 9}), React.createElement('line', {x1: 4, y1: 15, x2: 20, y2: 15}), React.createElement('line', {x1: 10, y1: 3, x2: 8, y2: 21}), React.createElement('line', {x1: 16, y1: 3, x2: 14, y2: 21})); }
+    function Download(p) { return React.createElement(Icon, p, React.createElement('path', {d: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'}), React.createElement('polyline', {points: '7 10 12 15 17 10'}), React.createElement('line', {x1: 12, y1: 15, x2: 12, y2: 3})); }
+    function ImageIcon(p) { return React.createElement(Icon, p, React.createElement('rect', {width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2}), React.createElement('circle', {cx: 9, cy: 9, r: 2}), React.createElement('path', {d: 'm21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21'})); }
+
+    // Constants
+    var ROUND_PRESETS = [10, 15, 20];
+    var MAX_PLAYERS = 20;
+    var MIN_PLAYERS = 2;
+    var STORAGE_KEY = 'bank-game-state';
+
+    // Initial state
+    var initialGameState = {
+      phase: 'setup',
+      players: [],
+      roundConfig: 20,
+      isCustomRounds: false,
+      currentRound: 1,
+      rollCount: 0,
+      bankTotal: 0,
+      currentPlayerIndex: 0,
+      lastRoll: null,
+      lastRollEffect: null,
+      history: [],
+      stats: { totalSevens: 0, totalDoubles: 0, biggestBank: 0, biggestBankPlayer: null },
+      settings: { virtualDice: false, theme: 'system', partyMode: false }
+    };
+
+    // Confetti animation system for party mode
+    var confettiColors = ['#ff0080', '#ff8c00', '#ffff00', '#00ff88', '#00d4ff', '#8a2be2'];
+
+    function launchConfetti(intensity) {
+      intensity = intensity || 'normal';
+      var canvas = document.getElementById('confetti-canvas');
+      if (!canvas) {
+        canvas = document.createElement('canvas');
+        canvas.id = 'confetti-canvas';
+        document.body.appendChild(canvas);
+      }
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      var ctx = canvas.getContext('2d');
+
+      var particleCount = intensity === 'big' ? 150 : 80;
+      var particles = [];
+
+      for (var i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          vx: (Math.random() - 0.5) * 8,
+          vy: Math.random() * 3 + 2,
+          color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+          size: Math.random() * 8 + 4,
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 10,
+          shape: Math.random() > 0.5 ? 'rect' : 'circle'
+        });
+      }
+
+      var animationFrame;
+      var startTime = Date.now();
+      var duration = intensity === 'big' ? 3000 : 2000;
+
+      function animate() {
+        var elapsed = Date.now() - startTime;
+        if (elapsed > duration) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          cancelAnimationFrame(animationFrame);
+          return;
+        }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(function(p) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.1;
+          p.rotation += p.rotationSpeed;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = Math.max(0, 1 - (elapsed / duration) * 0.5);
+
+          if (p.shape === 'rect') {
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          ctx.restore();
+        });
+
+        animationFrame = requestAnimationFrame(animate);
+      }
+
+      // Check for reduced motion preference
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        animate();
+      }
+    }
+
+    // Load state from localStorage
+    function loadState() {
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return initialGameState;
+        var parsed = JSON.parse(saved);
+        // Migrate old darkMode boolean to new theme setting
+        var settings = Object.assign({}, initialGameState.settings, parsed.settings || {});
+        if (parsed.settings && typeof parsed.settings.darkMode === 'boolean' && !parsed.settings.theme) {
+          settings.theme = parsed.settings.darkMode ? 'dark' : 'light';
+          delete settings.darkMode;
+        }
+        // Merge with initialGameState to handle any missing keys from updates
+        return Object.assign({}, initialGameState, parsed, {
+          settings: settings,
+          stats: Object.assign({}, initialGameState.stats, parsed.stats || {})
+        });
+      } catch (e) {
+        console.warn('Failed to load state from localStorage:', e);
+        return initialGameState;
+      }
+    }
+
+    // Save state to localStorage
+    function saveState(state) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        console.warn('Failed to save state to localStorage:', e);
+      }
+    }
+
+    // Game Reducer
+    function gameReducer(state, action) {
+      switch (action.type) {
+        case 'ADD_PLAYER':
+          if (state.players.length >= MAX_PLAYERS) return state;
+          // Default virtual dice based on majority of existing players (default off if no players or equal split)
+          var virtualDiceCount = state.players.filter(function(p) { return p.virtualDice; }).length;
+          var defaultVirtualDice = state.players.length > 0 && virtualDiceCount > state.players.length / 2;
+          return Object.assign({}, state, {
+            players: state.players.concat([{ id: Date.now(), name: action.name, cumulativeScore: 0, roundScore: null, hasBanked: false, doublesRolled: 0, sevensRolled: 0, bankRolls: [], virtualDice: defaultVirtualDice }])
+          });
+        case 'TOGGLE_PLAYER_VIRTUAL_DICE':
+          return Object.assign({}, state, {
+            players: state.players.map(function(p) {
+              if (p.id === action.playerId) return Object.assign({}, p, { virtualDice: !p.virtualDice });
+              return p;
+            })
+          });
+        case 'REMOVE_PLAYER':
+          return Object.assign({}, state, { players: state.players.filter(function(p) { return p.id !== action.id; }) });
+        case 'REORDER_PLAYERS':
+          return Object.assign({}, state, { players: action.players });
+        case 'SET_ROUND_CONFIG':
+          return Object.assign({}, state, { roundConfig: action.rounds, isCustomRounds: action.isCustom || false });
+        case 'TOGGLE_SETTING':
+          var newSettings = Object.assign({}, state.settings);
+          newSettings[action.setting] = !newSettings[action.setting];
+          return Object.assign({}, state, { settings: newSettings });
+        case 'SET_THEME':
+          return Object.assign({}, state, { settings: Object.assign({}, state.settings, { theme: action.theme }) });
+        case 'TOGGLE_PARTY_MODE':
+          return Object.assign({}, state, { settings: Object.assign({}, state.settings, { partyMode: !state.settings.partyMode }) });
+        case 'START_GAME':
+          return Object.assign({}, state, {
+            phase: 'playing', currentRound: 1, rollCount: 0, bankTotal: 0, currentPlayerIndex: 0,
+            lastRoll: null, lastRollEffect: null, history: [],
+            players: state.players.map(function(p) { return Object.assign({}, p, { cumulativeScore: 0, roundScore: null, hasBanked: false, doublesRolled: 0, sevensRolled: 0, bankRolls: [] }); }),
+            stats: { totalSevens: 0, totalDoubles: 0, biggestBank: 0, biggestBankPlayer: null }
+          });
+        case 'ROLL': {
+          var sum = action.die1 + action.die2;
+          var isDoubles = action.die1 === action.die2;
+          var isSeven = sum === 7;
+          var isInSafeZone = state.rollCount < 3;
+          var newRollCount = state.rollCount + 1;
+          var newBankTotal = state.bankTotal;
+          var rollEffect = null;
+          var newPhase = state.phase;
+          var newStats = Object.assign({}, state.stats);
+          var currentPlayerId = state.players[state.currentPlayerIndex].id;
+
+          // Update per-player stats for doubles/sevens
+          var newPlayers = state.players.map(function(p) {
+            if (p.id === currentPlayerId) {
+              var updates = {};
+              if (isSeven) updates.sevensRolled = (p.sevensRolled || 0) + 1;
+              if (isDoubles) updates.doublesRolled = (p.doublesRolled || 0) + 1;
+              if (Object.keys(updates).length > 0) return Object.assign({}, p, updates);
+            }
+            return p;
+          });
+
+          if (isSeven) {
+            newStats.totalSevens++;
+            if (isInSafeZone) { newBankTotal += 70; rollEffect = '+70'; }
+            else { rollEffect = 'BUST!'; newPhase = 'roundEnd'; }
+          } else if (isDoubles) {
+            newStats.totalDoubles++;
+            if (isInSafeZone) { newBankTotal += sum; rollEffect = '+' + sum; }
+            else { newBankTotal *= 2; rollEffect = '\u00d72'; }
+          } else { newBankTotal += sum; rollEffect = '+' + sum; }
+
+          var nextPlayerIndex = state.currentPlayerIndex;
+          var activePlayers = newPlayers.filter(function(p) { return !p.hasBanked; });
+          if (activePlayers.length > 0 && newPhase !== 'roundEnd') {
+            var currPlayer = newPlayers[state.currentPlayerIndex];
+            var currentActiveIndex = activePlayers.findIndex(function(p) { return p.id === (currPlayer ? currPlayer.id : null); });
+            var nextActiveIndex = (currentActiveIndex + 1) % activePlayers.length;
+            nextPlayerIndex = newPlayers.findIndex(function(p) { return p.id === activePlayers[nextActiveIndex].id; });
+          }
+
+          return Object.assign({}, state, {
+            players: newPlayers, rollCount: newRollCount, bankTotal: newBankTotal, lastRoll: { die1: action.die1, die2: action.die2 },
+            lastRollEffect: rollEffect, currentPlayerIndex: nextPlayerIndex, phase: newPhase, stats: newStats,
+            history: state.history.concat([{ type: 'roll', prevState: { bankTotal: state.bankTotal, rollCount: state.rollCount, currentPlayerIndex: state.currentPlayerIndex, stats: state.stats }, prevPlayers: state.players }])
+          });
+        }
+        case 'KEYPAD_INPUT': {
+          var isInSafeZone = state.rollCount < 3;
+          var newRollCount = state.rollCount + 1;
+          var newBankTotal = state.bankTotal;
+          var rollEffect = null;
+          var newPhase = state.phase;
+          var newStats = Object.assign({}, state.stats);
+          var currentPlayerId = state.players[state.currentPlayerIndex].id;
+
+          // Update per-player stats for doubles/sevens
+          var newPlayers = state.players.map(function(p) {
+            if (p.id === currentPlayerId) {
+              var updates = {};
+              if (action.isSeven) updates.sevensRolled = (p.sevensRolled || 0) + 1;
+              if (action.isDoubles) updates.doublesRolled = (p.doublesRolled || 0) + 1;
+              if (Object.keys(updates).length > 0) return Object.assign({}, p, updates);
+            }
+            return p;
+          });
+
+          if (action.isSeven) {
+            newStats.totalSevens++;
+            if (isInSafeZone) { newBankTotal += 70; rollEffect = '+70'; }
+            else { rollEffect = 'BUST!'; newPhase = 'roundEnd'; }
+          } else if (action.isDoubles) {
+            newStats.totalDoubles++;
+            newBankTotal *= 2; rollEffect = '\u00d72';
+          } else { newBankTotal += action.sum; rollEffect = '+' + action.sum; }
+
+          var nextPlayerIndex = state.currentPlayerIndex;
+          var activePlayers = newPlayers.filter(function(p) { return !p.hasBanked; });
+          if (activePlayers.length > 0 && newPhase !== 'roundEnd') {
+            var currPlayer = newPlayers[state.currentPlayerIndex];
+            var currentActiveIndex = activePlayers.findIndex(function(p) { return p.id === (currPlayer ? currPlayer.id : null); });
+            var nextActiveIndex = (currentActiveIndex + 1) % activePlayers.length;
+            nextPlayerIndex = newPlayers.findIndex(function(p) { return p.id === activePlayers[nextActiveIndex].id; });
+          }
+
+          return Object.assign({}, state, {
+            players: newPlayers, rollCount: newRollCount, bankTotal: newBankTotal, lastRoll: null, lastRollEffect: rollEffect,
+            currentPlayerIndex: nextPlayerIndex, phase: newPhase, stats: newStats,
+            history: state.history.concat([{ type: 'roll', prevState: { bankTotal: state.bankTotal, rollCount: state.rollCount, currentPlayerIndex: state.currentPlayerIndex, stats: state.stats }, prevPlayers: state.players }])
+          });
+        }
+        case 'BANK_PLAYERS': {
+          var newStats = Object.assign({}, state.stats);
+          var newPlayers = state.players.map(function(p) {
+            if (action.playerIds.indexOf(p.id) !== -1 && !p.hasBanked) {
+              if (state.bankTotal > newStats.biggestBank) { newStats.biggestBank = state.bankTotal; newStats.biggestBankPlayer = p.name; }
+              // Track which roll they banked on for conservative/risky calculation
+              var updatedBankRolls = (p.bankRolls || []).concat([state.rollCount]);
+              return Object.assign({}, p, { roundScore: state.bankTotal, hasBanked: true, bankRolls: updatedBankRolls });
+            }
+            return p;
+          });
+          var allBanked = newPlayers.every(function(p) { return p.hasBanked; });
+          var activePlayers = newPlayers.filter(function(p) { return !p.hasBanked; });
+          var nextPlayerIndex = state.currentPlayerIndex;
+          // Only advance turn if the current player is among those who just banked
+          var currentPlayerId = state.players[state.currentPlayerIndex].id;
+          var currentPlayerBanked = action.playerIds.indexOf(currentPlayerId) !== -1;
+          if (currentPlayerBanked && activePlayers.length > 0) {
+            for (var i = 1; i <= newPlayers.length; i++) {
+              var checkIndex = (state.currentPlayerIndex + i) % newPlayers.length;
+              if (!newPlayers[checkIndex].hasBanked) { nextPlayerIndex = checkIndex; break; }
+            }
+          }
+          return Object.assign({}, state, { players: newPlayers, phase: allBanked ? 'roundEnd' : state.phase, currentPlayerIndex: nextPlayerIndex, stats: newStats,
+            history: state.history.concat([{ type: 'bank', prevPlayers: state.players, prevStats: state.stats }])
+          });
+        }
+        case 'END_ROUND': {
+          var newPlayers = state.players.map(function(p) { return Object.assign({}, p, { cumulativeScore: p.cumulativeScore + (p.roundScore || 0), roundScore: null, hasBanked: false }); });
+          var isGameOver = state.currentRound >= state.roundConfig;
+          var nextPlayerIndex = (state.currentPlayerIndex + 1) % newPlayers.length;
+          return Object.assign({}, state, { players: newPlayers, phase: isGameOver ? 'gameOver' : 'playing', currentRound: isGameOver ? state.currentRound : state.currentRound + 1, rollCount: 0, bankTotal: 0, currentPlayerIndex: nextPlayerIndex, lastRoll: null, lastRollEffect: null, history: [] });
+        }
+        case 'UNDO':
+          if (state.history.length === 0) return state;
+          var lastEntry = state.history[state.history.length - 1];
+          var newHistory = state.history.slice(0, -1);
+          if (lastEntry.type === 'roll') return Object.assign({}, state, { players: lastEntry.prevPlayers || state.players, bankTotal: lastEntry.prevState.bankTotal, rollCount: lastEntry.prevState.rollCount, currentPlayerIndex: lastEntry.prevState.currentPlayerIndex, stats: lastEntry.prevState.stats, lastRoll: null, lastRollEffect: null, phase: 'playing', history: newHistory });
+          if (lastEntry.type === 'bank') return Object.assign({}, state, { players: lastEntry.prevPlayers, stats: lastEntry.prevStats, phase: 'playing', history: newHistory });
+          return state;
+        case 'NEW_GAME_SAME_PLAYERS':
+          return Object.assign({}, state, { phase: 'playing', currentRound: 1, rollCount: 0, bankTotal: 0, currentPlayerIndex: 0, lastRoll: null, lastRollEffect: null, history: [],
+            players: state.players.map(function(p) { return Object.assign({}, p, { cumulativeScore: 0, roundScore: null, hasBanked: false, doublesRolled: 0, sevensRolled: 0, bankRolls: [] }); }),
+            stats: { totalSevens: 0, totalDoubles: 0, biggestBank: 0, biggestBankPlayer: null }
+          });
+        case 'GO_TO_SETUP':
+          return Object.assign({}, initialGameState, { settings: state.settings, players: state.players.map(function(p) { return Object.assign({}, p, { cumulativeScore: 0, roundScore: null, hasBanked: false }); }) });
+        case 'NEW_GAME':
+          return Object.assign({}, initialGameState, { settings: state.settings });
+        default:
+          return state;
+      }
+    }
+
+    // Scroll lock hook
+    function useScrollLock(locked) {
+      useEffect(function() {
+        if (locked) document.body.classList.add('modal-open');
+        else document.body.classList.remove('modal-open');
+        return function() { document.body.classList.remove('modal-open'); };
+      }, [locked]);
+    }
+
+    // Animated number component
+    function AnimatedNumber(props) {
+      var value = props.value;
+      var displayValueState = useState(value);
+      var displayValue = displayValueState[0];
+      var setDisplayValue = displayValueState[1];
+      var prevValue = useRef(value);
+
+      useEffect(function() {
+        if (prevValue.current !== value) {
+          var start = prevValue.current;
+          var end = value;
+          var duration = 400;
+          var startTime = Date.now();
+          var animate = function() {
+            var elapsed = Date.now() - startTime;
+            var progress = Math.min(elapsed / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            setDisplayValue(Math.round(start + (end - start) * eased));
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+          prevValue.current = value;
+        }
+      }, [value]);
+
+      return React.createElement('span', null, displayValue);
+    }
+
+    // Die component
+    function Die(props) {
+      var value = props.value;
+      var rolling = props.rolling;
+      var pipPositions = {
+        1: [[50, 50]], 2: [[25, 25], [75, 75]], 3: [[25, 25], [50, 50], [75, 75]],
+        4: [[25, 25], [75, 25], [25, 75], [75, 75]], 5: [[25, 25], [75, 25], [50, 50], [25, 75], [75, 75]],
+        6: [[25, 25], [75, 25], [25, 50], [75, 50], [25, 75], [75, 75]]
+      };
+      var pips = pipPositions[value] || [];
+      return React.createElement('div', { className: 'die' + (rolling ? ' rolling' : '') },
+        pips.map(function(pos, i) { return React.createElement('div', { key: i, className: 'pip', style: { left: pos[0] + '%', top: pos[1] + '%' } }); })
+      );
+    }// Virtual Dice
+    function VirtualDice(props) {
+      var onRoll = props.onRoll;
+      var disabled = props.disabled;
+      var rollingState = useState(false);
+      var rolling = rollingState[0];
+      var setRolling = rollingState[1];
+      var diceState = useState([1, 1]);
+      var dice = diceState[0];
+      var setDice = diceState[1];
+
+      var handleRoll = useCallback(function() {
+        if (disabled || rolling) return;
+        setRolling(true);
+        var count = 0;
+        var interval = setInterval(function() {
+          setDice([Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1]);
+          count++;
+          if (count > 15) {
+            clearInterval(interval);
+            var finalDie1 = Math.floor(Math.random() * 6) + 1;
+            var finalDie2 = Math.floor(Math.random() * 6) + 1;
+            setDice([finalDie1, finalDie2]);
+            setRolling(false);
+            setTimeout(function() { onRoll(finalDie1, finalDie2); }, 400);
+          }
+        }, 60);
+      }, [disabled, rolling, onRoll]);
+
+      return React.createElement('div', {
+        className: 'dice-container' + (disabled ? ' disabled' : ''),
+        onClick: handleRoll, role: 'button', tabIndex: disabled ? -1 : 0
+      }, React.createElement(Die, { value: dice[0], rolling: rolling }), React.createElement(Die, { value: dice[1], rolling: rolling }));
+    }
+
+    // Safe Zone Keypad - Two rows with 7 button on right spanning both rows
+    function SafeZoneKeypad(props) {
+      var onInput = props.onInput;
+      var disabled = props.disabled;
+      return React.createElement('div', { className: 'keypad-container' },
+        React.createElement('div', { className: 'keypad-grid keypad-grid-safe' },
+          // Row 1: 2, 3, 4, 5, 6
+          [2, 3, 4, 5, 6].map(function(num) { 
+            return React.createElement('button', { 
+              key: num, 
+              onClick: function() { onInput(num); }, 
+              disabled: disabled, 
+              className: 'keypad-btn' 
+            }, num); 
+          }),
+          // 7 button spanning both rows
+          React.createElement('button', { 
+            key: 7,
+            onClick: function() { onInput(7, true); }, 
+            disabled: disabled, 
+            className: 'keypad-btn keypad-btn-seven keypad-btn-seven-safe'
+          },
+            React.createElement('span', { className: 'keypad-btn-label' }, '7'),
+            React.createElement('span', { className: 'keypad-btn-subtitle' }, '+70')
+          ),
+          // Row 2: 8, 9, 10, 11, 12
+          [8, 9, 10, 11, 12].map(function(num) { 
+            return React.createElement('button', { 
+              key: num, 
+              onClick: function() { onInput(num); }, 
+              disabled: disabled, 
+              className: 'keypad-btn' 
+            }, num); 
+          })
+        )
+      );
+    }
+
+    // Danger Zone Keypad - FIXED: 5 columns, no empty gaps
+    function DangerZoneKeypad(props) {
+      var onInput = props.onInput;
+      var disabled = props.disabled;
+      return React.createElement('div', { className: 'keypad-container' },
+        React.createElement('div', { className: 'keypad-grid keypad-grid-danger' },
+          // Row 1: 3, 4, 5, 6, 7 (bust)
+          [3, 4, 5, 6].map(function(num) { 
+            return React.createElement('button', { 
+              key: num, 
+              onClick: function() { onInput(num); }, 
+              disabled: disabled, 
+              className: 'keypad-btn' 
+            }, num); 
+          }),
+          // 7 button (bust)
+          React.createElement('button', { 
+            key: 7,
+            onClick: function() { onInput(7, true); }, 
+            disabled: disabled, 
+            className: 'keypad-btn keypad-btn-seven-danger'
+          },
+            React.createElement(Skull, null),
+            React.createElement('span', { className: 'keypad-btn-label' }, '7')
+          ),
+          // Row 2: 8, 9, 10, 11, Doubles
+          [8, 9, 10, 11].map(function(num) { 
+            return React.createElement('button', { 
+              key: num, 
+              onClick: function() { onInput(num); }, 
+              disabled: disabled, 
+              className: 'keypad-btn' 
+            }, num); 
+          }),
+          // Doubles button
+          React.createElement('button', { 
+            key: 'doubles',
+            onClick: function() { onInput('doubles'); }, 
+            disabled: disabled, 
+            className: 'keypad-btn keypad-btn-doubles'
+          },
+            React.createElement(Sparkles, null),
+            React.createElement('span', { className: 'keypad-btn-label' }, '\u00d72')
+          )
+        )
+      );
+    }// Player Card for setup - with pointer-based drag implementation and virtual dice toggle
+    function SetupPlayerCard(props) {
+      var player = props.player;
+      var index = props.index;
+      var onRemove = props.onRemove;
+      var onToggleVirtualDice = props.onToggleVirtualDice;
+      var onPointerDragStart = props.onPointerDragStart;
+      var onPointerMove = props.onPointerMove;
+      var onPointerDragEnd = props.onPointerDragEnd;
+      var isDragging = props.isDragging;
+      var isDragOver = props.isDragOver;
+      var isAnyDragging = props.isAnyDragging;
+
+      var handlePointerDown = function(e) {
+        // Only handle primary button (left click / single touch)
+        if (e.button !== 0) return;
+        e.preventDefault();
+        e.target.setPointerCapture(e.pointerId);
+        onPointerDragStart(index, e.pointerId);
+      };
+
+      var handlePointerMove = function(e) {
+        if (!isAnyDragging) return;
+        // Find element under pointer (excluding current dragging element)
+        var elem = document.elementFromPoint(e.clientX, e.clientY);
+        if (elem) {
+          var card = elem.closest('.setup-player-card');
+          if (card) {
+            var cards = Array.from(document.querySelectorAll('.setup-player-card'));
+            var targetIndex = cards.indexOf(card);
+            if (targetIndex !== -1) onPointerMove(targetIndex);
+          }
+        }
+      };
+
+      var handlePointerUp = function(e) {
+        e.target.releasePointerCapture(e.pointerId);
+        onPointerDragEnd();
+      };
+
+      var virtualDice = player.virtualDice !== false; // Default to true if undefined
+
+      return React.createElement('div', {
+        className: 'setup-player-card' + (isDragging ? ' dragging pointer-dragging' : '') + (isDragOver ? ' drag-over' : ''),
+        'data-index': index
+      },
+        React.createElement('div', {
+          className: 'drag-handle',
+          onPointerDown: handlePointerDown,
+          onPointerMove: handlePointerMove,
+          onPointerUp: handlePointerUp,
+          onPointerCancel: handlePointerUp
+        },
+          React.createElement(GripVertical, { size: 20 })
+        ),
+        React.createElement('div', { className: 'setup-player-info' },
+          React.createElement('span', { className: 'setup-player-name' }, player.name),
+          React.createElement('div', { className: 'setup-player-dice-toggle' },
+            React.createElement(Dices, null),
+            React.createElement('span', null, 'Virtual dice'),
+            React.createElement('button', {
+              onClick: function(e) { e.stopPropagation(); onToggleVirtualDice(player.id); },
+              className: 'toggle-small' + (virtualDice ? ' active' : '')
+            },
+              React.createElement('div', { className: 'toggle-small-knob' })
+            )
+          )
+        ),
+        React.createElement('button', {
+          onClick: function(e) { e.stopPropagation(); onRemove(player.id); },
+          className: 'icon-btn',
+          style: { color: 'var(--text-secondary)' }
+        },
+          React.createElement(Trash2, { size: 18 })
+        )
+      );
+    }
+
+    // Player Card for game
+    function PlayerCard(props) {
+      var player = props.player;
+      var rank = props.rank;
+      var isCurrentTurn = props.isCurrentTurn;
+      var bankTotal = props.bankTotal;
+
+      var baseScore = player.cumulativeScore;
+      var hasBanked = player.hasBanked;
+      var roundGain = hasBanked ? player.roundScore : bankTotal;
+      var totalScore = baseScore + roundGain;
+
+      var rankBadgeClass = 'turn-badge' + (isCurrentTurn && !hasBanked ? ' current' : '') + (hasBanked ? ' banked' : '');
+      var cardClass = 'player-card' + (hasBanked ? ' banked' : '') + (isCurrentTurn && !hasBanked ? ' current-turn' : '');
+
+      return React.createElement('div', { className: cardClass },
+        isCurrentTurn && !hasBanked && React.createElement('div', { className: 'player-card-indicator' }),
+        // Rank badge (based on cumulative score coming into round)
+        React.createElement('div', { className: rankBadgeClass }, rank),
+        // Name and status
+        React.createElement('div', { className: 'flex-1 min-w-0' },
+          React.createElement('div', { className: 'flex items-center gap-2' },
+            React.createElement('span', { className: 'font-semibold truncate' }, player.name),
+            hasBanked && React.createElement(Lock, { size: 14, style: { color: 'var(--text-accent)' } })
+          )
+        ),
+        // Score section
+        React.createElement('div', { className: 'score-section' },
+          React.createElement('div', { className: 'score-main' },
+            hasBanked ? totalScore : baseScore
+          ),
+          React.createElement('div', { className: 'score-secondary' + (hasBanked ? ' banked' : ' projected') },
+            hasBanked ? '+' + roundGain : totalScore
+          )
+        )
+      );
+    }
+
+    // Footer component
+    function AppFooter() {
+      return React.createElement('footer', { className: 'app-footer' },
+        React.createElement('a', { 
+          href: 'https://bennorris.com', 
+          target: '_blank', 
+          rel: 'noopener noreferrer',
+          className: 'footer-link'
+        },
+          React.createElement('img', { 
+            src: 'https://bennorris.com/assets/images/logo.png', 
+            alt: 'Ben Norris', 
+            className: 'footer-logo'
+          }),
+          React.createElement('span', null, 'App by Ben Norris')
+        )
+      );
+    }
+
+    // Game Settings Popover
+    function GameSettingsPopover(props) {
+      var isOpen = props.isOpen;
+      var onClose = props.onClose;
+      var state = props.state;
+      var dispatch = props.dispatch;
+      var onRestart = props.onRestart;
+      var onShowInstructions = props.onShowInstructions;
+
+      // Check if party mode has been discovered (stored in localStorage)
+      var partyDiscovered = false;
+      try { partyDiscovered = localStorage.getItem('bank-party-discovered') === 'true'; } catch (e) { /* ignore */ }
+
+      if (!isOpen) return null;
+
+      var minRounds = state.currentRound;
+      var maxRounds = 99;
+
+      var handleRoundsChange = function(delta) {
+        var newRounds = Math.max(minRounds, Math.min(maxRounds, state.roundConfig + delta));
+        if (newRounds !== state.roundConfig) {
+          dispatch({ type: 'SET_ROUND_CONFIG', rounds: newRounds, isCustom: true });
+        }
+      };
+
+      return React.createElement(React.Fragment, null,
+        React.createElement('div', { className: 'settings-popover-backdrop', onClick: onClose }),
+        React.createElement('div', { className: 'settings-popover' },
+          // Virtual Dice toggle - global override for all players
+          React.createElement('div', { className: 'settings-item' },
+            React.createElement('div', null,
+              React.createElement('div', { className: 'settings-item-label' }, React.createElement(Dices, { size: 16 }), 'Virtual Dice'),
+              React.createElement('div', { className: 'settings-item-sublabel' }, state.settings.virtualDice ? 'On for all players' : 'Per player setting')
+            ),
+            React.createElement('div', {
+              className: 'toggle' + (state.settings.virtualDice ? ' active' : ''),
+              onClick: function() { dispatch({ type: 'TOGGLE_SETTING', setting: 'virtualDice' }); }
+            },
+              React.createElement('div', { className: 'toggle-knob' })
+            )
+          ),
+          // Theme selector
+          React.createElement('div', { className: 'settings-item' },
+            React.createElement('div', null,
+              React.createElement('div', { className: 'settings-item-label' },
+                state.settings.theme === 'dark' ? React.createElement(Moon, { size: 16 }) :
+                state.settings.theme === 'light' ? React.createElement(Sun, { size: 16 }) :
+                React.createElement(Monitor, { size: 16 }),
+                'Theme'
+              )
+            ),
+            React.createElement('div', { className: 'theme-selector' },
+              React.createElement('button', {
+                className: 'theme-selector-btn' + (state.settings.theme === 'light' ? ' active' : ''),
+                onClick: function() { dispatch({ type: 'SET_THEME', theme: 'light' }); },
+                title: 'Light'
+              }, React.createElement(Sun, { size: 16 })),
+              React.createElement('button', {
+                className: 'theme-selector-btn' + (state.settings.theme === 'system' ? ' active' : ''),
+                onClick: function() { dispatch({ type: 'SET_THEME', theme: 'system' }); },
+                title: 'System'
+              }, React.createElement(Monitor, { size: 16 })),
+              React.createElement('button', {
+                className: 'theme-selector-btn' + (state.settings.theme === 'dark' ? ' active' : ''),
+                onClick: function() { dispatch({ type: 'SET_THEME', theme: 'dark' }); },
+                title: 'Dark'
+              }, React.createElement(Moon, { size: 16 }))
+            )
+          ),
+          // Party Mode toggle (show if discovered or active)
+          (partyDiscovered || state.settings.partyMode) && React.createElement('div', { className: 'settings-item' },
+            React.createElement('div', null,
+              React.createElement('div', { className: 'settings-item-label' }, '\uD83C\uDF89', 'Party Mode'),
+              React.createElement('div', { className: 'settings-item-sublabel' }, 'Neon disco theme')
+            ),
+            React.createElement('div', {
+              className: 'toggle' + (state.settings.partyMode ? ' active' : ''),
+              onClick: function() { dispatch({ type: 'TOGGLE_PARTY_MODE' }); }
+            },
+              React.createElement('div', { className: 'toggle-knob' })
+            )
+          ),
+          // Rounds stepper
+          React.createElement('div', { className: 'settings-item' },
+            React.createElement('div', null,
+              React.createElement('div', { className: 'settings-item-label' }, React.createElement(Hash, { size: 16 }), 'Rounds'),
+              React.createElement('div', { className: 'settings-item-sublabel' }, 'Min: ' + minRounds + ' (current)')
+            ),
+            React.createElement('div', { className: 'rounds-stepper' },
+              React.createElement('button', {
+                className: 'rounds-stepper-btn',
+                onClick: function() { handleRoundsChange(-1); },
+                disabled: state.roundConfig <= minRounds
+              }, '−'),
+              React.createElement('span', { className: 'rounds-stepper-value' }, state.roundConfig),
+              React.createElement('button', {
+                className: 'rounds-stepper-btn',
+                onClick: function() { handleRoundsChange(1); },
+                disabled: state.roundConfig >= maxRounds
+              }, '+')
+            )
+          ),
+          // How to Play button
+          React.createElement('button', {
+            className: 'settings-item-btn',
+            onClick: function() { onClose(); onShowInstructions(); }
+          },
+            React.createElement(HelpCircle, { size: 16 }),
+            'How to Play'
+          ),
+          // Divider
+          React.createElement('div', { style: { borderTop: '1px solid var(--border-color)', margin: '0.5rem 0' } }),
+          // Restart button
+          React.createElement('button', {
+            className: 'settings-item-btn danger',
+            onClick: function() { onClose(); onRestart(); }
+          },
+            React.createElement(Home, { size: 16 }),
+            'End Game'
+          ),
+          // Footer link
+          React.createElement('a', {
+            href: 'https://bennorris.com',
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            className: 'settings-item-btn',
+            style: { justifyContent: 'center', borderTop: '1px solid var(--border-color)' }
+          },
+            React.createElement('img', {
+              src: 'https://bennorris.com/assets/images/logo.png',
+              alt: 'Ben Norris',
+              className: 'footer-logo'
+            }),
+            'App by Ben Norris'
+          )
+        )
+      );
+    }
+
+    // Fullscreen Instructions Modal
+    function FullscreenInstructionsModal(props) {
+      var onClose = props.onClose;
+      var containerRef = useRef(null);
+      var sizeState = useState({ fontSize: 16, iconSize: 20, badgeFontSize: 14, isThreeColumn: true });
+      var sizes = sizeState[0];
+      var setSizes = sizeState[1];
+
+      useScrollLock(true);
+
+      useEffect(function() {
+        var calculateSizes = function() {
+          if (!containerRef.current) return;
+
+          var container = containerRef.current;
+          var rect = container.getBoundingClientRect();
+          var width = rect.width;
+          var height = rect.height;
+
+          // Determine layout mode
+          var isThreeColumn = width >= 900;
+
+          // Calculate optimal font size to fill the space
+          // In 3-column mode: each column has ~1/3 width, content needs to fit vertically
+          // In single-column mode: full width, content stacks vertically with scroll
+
+          var baseFontSize;
+          if (isThreeColumn) {
+            // For 3 columns, optimize for the available height
+            // Each zone has: title + 2-3 items
+            // Estimate: need about 8 lines of content per column
+            var availableHeight = height - 48; // minus padding
+            baseFontSize = Math.min(
+              Math.floor(availableHeight / 10), // vertical constraint
+              Math.floor(width / 45), // horizontal constraint per column
+              48 // max font size
+            );
+          } else {
+            // For single column, we have scroll, so optimize for width
+            baseFontSize = Math.min(
+              Math.floor(width / 25),
+              Math.floor(height / 20),
+              36
+            );
+          }
+
+          baseFontSize = Math.max(baseFontSize, 14); // minimum font size
+
+          setSizes({
+            fontSize: baseFontSize,
+            iconSize: Math.max(Math.floor(baseFontSize * 1.2), 16),
+            badgeFontSize: Math.max(Math.floor(baseFontSize * 0.85), 12),
+            isThreeColumn: isThreeColumn
+          });
+        };
+
+        calculateSizes();
+        window.addEventListener('resize', calculateSizes);
+        return function() { window.removeEventListener('resize', calculateSizes); };
+      }, []);
+
+      var titleStyle = { fontSize: sizes.fontSize * 1.1 + 'px' };
+      var itemStyle = { fontSize: sizes.fontSize + 'px' };
+      var badgeStyle = { fontSize: sizes.badgeFontSize + 'px', padding: (sizes.badgeFontSize * 0.2) + 'px ' + (sizes.badgeFontSize * 0.6) + 'px' };
+
+      return React.createElement('div', { className: 'fullscreen-modal-backdrop' },
+        React.createElement('div', { className: 'fullscreen-modal-header' },
+          React.createElement('div', { className: 'fullscreen-modal-title' },
+            React.createElement(HelpCircle, { size: 24 }),
+            'How to Play Bank'
+          ),
+          React.createElement('button', { className: 'fullscreen-modal-close', onClick: onClose, title: 'Close' },
+            React.createElement(X, { size: 24 })
+          )
+        ),
+        React.createElement('div', { className: 'fullscreen-modal-body', ref: containerRef },
+          React.createElement('div', { className: 'fullscreen-modal-content ' + (sizes.isThreeColumn ? 'three-columns' : 'single-column') },
+            // Safe Zone
+            React.createElement('div', { className: 'fullscreen-modal-zone fullscreen-modal-zone-safe' },
+              React.createElement('div', { className: 'fullscreen-modal-zone-title', style: titleStyle },
+                React.createElement(Shield, { size: sizes.iconSize }),
+                'Safe Zone (First 3 Rolls)'
+              ),
+              React.createElement('div', { className: 'fullscreen-modal-item', style: itemStyle },
+                React.createElement('span', { className: 'fullscreen-modal-badge fullscreen-modal-badge-safe', style: badgeStyle }, '7'),
+                'Lucky! Get +70 bonus points'
+              ),
+              React.createElement('div', { className: 'fullscreen-modal-item', style: itemStyle },
+                'Other rolls add to the bank'
+              )
+            ),
+            // Danger Zone
+            React.createElement('div', { className: 'fullscreen-modal-zone fullscreen-modal-zone-danger' },
+              React.createElement('div', { className: 'fullscreen-modal-zone-title', style: titleStyle },
+                React.createElement(AlertTriangle, { size: sizes.iconSize }),
+                'Danger Zone (4+ Rolls)'
+              ),
+              React.createElement('div', { className: 'fullscreen-modal-item', style: itemStyle },
+                React.createElement('span', { className: 'fullscreen-modal-badge fullscreen-modal-badge-danger', style: badgeStyle }, '7'),
+                'BUST! Lose everything this round'
+              ),
+              React.createElement('div', { className: 'fullscreen-modal-item', style: itemStyle },
+                React.createElement('span', { className: 'fullscreen-modal-badge fullscreen-modal-badge-double', style: badgeStyle }, 'Doubles'),
+                'Double the bank total!'
+              )
+            ),
+            // Bank It
+            React.createElement('div', { className: 'fullscreen-modal-zone fullscreen-modal-zone-bank' },
+              React.createElement('div', { className: 'fullscreen-modal-zone-title', style: titleStyle },
+                React.createElement(BankIcon, { size: sizes.iconSize }),
+                'Bank It!'
+              ),
+              React.createElement('div', { className: 'fullscreen-modal-item', style: itemStyle },
+                'Tap BANK anytime to lock in your points'
+              ),
+              React.createElement('div', { className: 'fullscreen-modal-item', style: itemStyle },
+                'Highest score after all rounds wins!'
+              )
+            )
+          )
+        )
+      );
+    }
+
+    // Banking Modal
+    function BankingModal(props) {
+      var players = props.players;
+      var bankTotal = props.bankTotal;
+      var onConfirm = props.onConfirm;
+      var onClose = props.onClose;
+      var selectedState = useState([]);
+      var selectedPlayers = selectedState[0];
+      var setSelectedPlayers = selectedState[1];
+      var availablePlayers = players.filter(function(p) { return !p.hasBanked; });
+
+      useScrollLock(true);
+
+      var togglePlayer = function(playerId) {
+        setSelectedPlayers(function(prev) {
+          if (prev.indexOf(playerId) !== -1) return prev.filter(function(id) { return id !== playerId; });
+          return prev.concat([playerId]);
+        });
+      };
+
+      var handleBackdropClick = function(e) { if (e.target === e.currentTarget) onClose(); };
+
+      return React.createElement('div', { className: 'modal-backdrop', onClick: handleBackdropClick },
+        React.createElement('div', { className: 'modal-content', onClick: function(e) { e.stopPropagation(); } },
+          React.createElement('div', { className: 'modal-header' },
+            React.createElement('div', { className: 'flex items-center justify-between' },
+              React.createElement('h2', { className: 'text-xl font-bold' }, 'Bank Points'),
+              React.createElement('button', { onClick: onClose, className: 'icon-btn' }, React.createElement(X, { size: 24 }))
+            ),
+            React.createElement('div', { className: 'text-4xl font-bold', style: { fontFamily: 'var(--font-mono)', marginTop: '0.5rem' } }, bankTotal)
+          ),
+          React.createElement('div', { className: 'modal-body' },
+            React.createElement('p', { style: { color: 'var(--text-secondary)', marginBottom: '1rem' } }, 'Select players to bank this amount:'),
+            React.createElement('div', { className: 'flex flex-col gap-2' },
+              availablePlayers.map(function(player) {
+                var isSelected = selectedPlayers.indexOf(player.id) !== -1;
+                return React.createElement('button', { key: player.id, onClick: function() { togglePlayer(player.id); }, className: 'select-btn' + (isSelected ? ' selected' : '') },
+                  React.createElement('span', { className: 'font-medium' }, player.name),
+                  isSelected && React.createElement(Check, { size: 20, style: { color: 'var(--text-accent)' } })
+                );
+              })
+            )
+          ),
+          React.createElement('div', { className: 'modal-footer' },
+            React.createElement('button', { onClick: function() { onConfirm(selectedPlayers); }, disabled: selectedPlayers.length === 0, className: 'btn btn-primary w-full', style: { padding: '0.875rem 1.5rem' } },
+              'Confirm Bank (' + selectedPlayers.length + ' player' + (selectedPlayers.length !== 1 ? 's' : '') + ')'
+            )
+          )
+        )
+      );
+    }
+
+    // Round End Modal
+    function RoundEndModal(props) {
+      var players = props.players;
+      var roundNumber = props.roundNumber;
+      var isBust = props.isBust;
+      var onContinue = props.onContinue;
+      var sortedPlayers = players.slice().sort(function(a, b) { return (b.roundScore || 0) - (a.roundScore || 0); });
+      var topScore = sortedPlayers[0] ? sortedPlayers[0].roundScore : 0;
+
+      var AUTO_DISMISS_MS = 4000;
+      var progressState = useState(100);
+      var progress = progressState[0];
+      var setProgress = progressState[1];
+      var startTimeRef = useRef(Date.now());
+
+      useScrollLock(true);
+
+      useEffect(function() {
+        var animationId;
+        var startTime = startTimeRef.current;
+
+        function animate() {
+          var elapsed = Date.now() - startTime;
+          var remaining = Math.max(0, AUTO_DISMISS_MS - elapsed);
+          var newProgress = (remaining / AUTO_DISMISS_MS) * 100;
+
+          if (remaining <= 0) {
+            onContinue();
+            return;
+          }
+
+          setProgress(newProgress);
+          animationId = requestAnimationFrame(animate);
+        }
+
+        animationId = requestAnimationFrame(animate);
+        return function() { cancelAnimationFrame(animationId); };
+      }, [onContinue]);
+
+      var displaySeconds = Math.ceil((progress / 100) * (AUTO_DISMISS_MS / 1000));
+
+      return React.createElement('div', { className: 'modal-backdrop' },
+        React.createElement('div', { className: 'modal-content' },
+          React.createElement('div', { className: 'modal-header' + (isBust ? ' modal-header-bust' : '') },
+            React.createElement('div', { className: 'flex items-center gap-3' },
+              isBust ? React.createElement(Skull, { size: 32 }) : React.createElement(Trophy, { size: 32 }),
+              React.createElement('div', null,
+                React.createElement('h2', { className: 'text-xl font-bold' }, 'Round ' + roundNumber + ' Complete'),
+                React.createElement('p', { style: { opacity: 0.9 } }, isBust ? 'Someone rolled a 7!' : 'Everyone banked!')
+              )
+            )
+          ),
+          React.createElement('div', { className: 'modal-body' },
+            sortedPlayers.map(function(player) {
+              var isWinner = player.roundScore > 0 && player.roundScore === topScore;
+              var scoreClass = player.roundScore > 0 ? 'positive' : 'zero';
+              return React.createElement('div', {
+                key: player.id,
+                className: 'round-result-row' + (isWinner ? ' winner' : '')
+              },
+                React.createElement('div', { className: 'round-result-name' },
+                  isWinner && React.createElement(Crown, { size: 16, style: { color: '#d97706' } }),
+                  React.createElement('span', null, player.name)
+                ),
+                React.createElement('span', { className: 'round-result-score ' + scoreClass }, '+' + (player.roundScore || 0))
+              );
+            })
+          ),
+          React.createElement('div', { className: 'modal-footer' },
+            React.createElement('button', { onClick: onContinue, className: 'btn btn-primary w-full auto-dismiss-btn' },
+              React.createElement('span', { className: 'auto-dismiss-progress', style: { width: progress + '%' } }),
+              React.createElement('span', { className: 'auto-dismiss-content' },
+                'Continue (' + displaySeconds + 's) ', React.createElement(ChevronRight, { size: 20 })
+              )
+            )
+          )
+        )
+      );
+    }// Final Results
+    function FinalResults(props) {
+      var players = props.players;
+      var stats = props.stats;
+      var onPlayAgain = props.onPlayAgain;
+      var onNewGame = props.onNewGame;
+      var sortedPlayers = players.slice().sort(function(a, b) { return b.cumulativeScore - a.cumulativeScore; });
+      var winner = sortedPlayers[0];
+      var today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+      // Calculate player awards
+      var mostDoublesPlayer = players.reduce(function(best, p) {
+        var count = p.doublesRolled || 0;
+        if (!best || count > best.count) return { name: p.name, count: count };
+        return best;
+      }, null);
+
+      var mostSevensPlayer = players.reduce(function(best, p) {
+        var count = p.sevensRolled || 0;
+        if (!best || count > best.count) return { name: p.name, count: count };
+        return best;
+      }, null);
+
+      // Calculate conservative (lowest avg bank roll) and risky (highest avg bank roll)
+      var playersWithBanks = players.filter(function(p) { return p.bankRolls && p.bankRolls.length > 0; });
+      var conservativePlayer = null;
+      var riskyPlayer = null;
+      if (playersWithBanks.length > 0) {
+        var playerAvgs = playersWithBanks.map(function(p) {
+          var sum = p.bankRolls.reduce(function(a, b) { return a + b; }, 0);
+          return { name: p.name, avg: sum / p.bankRolls.length };
+        });
+        conservativePlayer = playerAvgs.reduce(function(best, p) {
+          if (!best || p.avg < best.avg) return p;
+          return best;
+        }, null);
+        riskyPlayer = playerAvgs.reduce(function(best, p) {
+          if (!best || p.avg > best.avg) return p;
+          return best;
+        }, null);
+        // Don't show if they're the same person
+        if (conservativePlayer && riskyPlayer && conservativePlayer.name === riskyPlayer.name) {
+          conservativePlayer = null;
+          riskyPlayer = null;
+        }
+      }
+
+      var shareableRef = useRef(null);
+      var shareStatusState = useState(null);
+      var shareStatus = shareStatusState[0];
+      var setShareStatus = shareStatusState[1];
+      var isGeneratingState = useState(false);
+      var isGenerating = isGeneratingState[0];
+      var setIsGenerating = isGeneratingState[1];
+
+      var generateImage = function() {
+        if (!shareableRef.current || isGenerating) return Promise.resolve(null);
+        setIsGenerating(true);
+        var element = shareableRef.current;
+        var isDark = document.body.classList.contains('dark');
+        return html2canvas(element, {
+          backgroundColor: isDark ? '#0f172a' : '#f0fdf4',
+          scale: 2,
+          useCORS: true,
+          logging: false
+        }).then(function(canvas) {
+          setIsGenerating(false);
+          return new Promise(function(resolve) {
+            canvas.toBlob(function(blob) { resolve(blob); }, 'image/png');
+          });
+        }).catch(function(err) {
+          setIsGenerating(false);
+          console.error('Failed to generate image:', err);
+          return null;
+        });
+      };
+
+      var downloadImage = function() {
+        generateImage().then(function(blob) {
+          if (!blob) {
+            setShareStatus('error');
+            setTimeout(function() { setShareStatus(null); }, 2000);
+            return;
+          }
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'bank-results-' + today.replace(/[^a-zA-Z0-9]/g, '-') + '.png';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          setShareStatus('downloaded');
+          setTimeout(function() { setShareStatus(null); }, 2000);
+        });
+      };
+
+      var shareResults = function() {
+        var lines = ['🎲 BANK GAME RESULTS', today, '', '🏆 FINAL STANDINGS'];
+        sortedPlayers.forEach(function(p, i) {
+          var prefix = i === 0 ? '🥇 1st' : i === 1 ? '🥈 2nd' : i === 2 ? '🥉 3rd' : (i + 1) + 'th';
+          lines.push(prefix + ' ' + p.name + ': ' + p.cumulativeScore);
+        });
+        lines.push('', '📊 STATS', 'Total Sevens: ' + stats.totalSevens, 'Total Doubles: ' + stats.totalDoubles);
+        if (mostSevensPlayer && mostSevensPlayer.count > 0) lines.push('Lucky 7 Magnet: ' + mostSevensPlayer.name + ' (' + mostSevensPlayer.count + ')');
+        if (mostDoublesPlayer && mostDoublesPlayer.count > 0) lines.push('Double Trouble: ' + mostDoublesPlayer.name + ' (' + mostDoublesPlayer.count + ')');
+        if (stats.biggestBankPlayer) lines.push('Biggest Bank: ' + stats.biggestBank + ' (' + stats.biggestBankPlayer + ')');
+        if (conservativePlayer) lines.push('🛡️ The Safe Player: ' + conservativePlayer.name);
+        if (riskyPlayer) lines.push('🔥 The Daredevil: ' + riskyPlayer.name);
+        lines.push('', 'Play Bank: https://bennorris.com/bank');
+        var text = lines.join('\n');
+
+        // Try to share with image first
+        generateImage().then(function(blob) {
+          if (blob && navigator.canShare && navigator.canShare({ files: [new File([blob], 'bank-results.png', { type: 'image/png' })] })) {
+            var file = new File([blob], 'bank-results.png', { type: 'image/png' });
+            navigator.share({
+              title: 'Bank Game Results',
+              text: text,
+              files: [file]
+            }).then(function() {
+              setShareStatus('shared');
+              setTimeout(function() { setShareStatus(null); }, 2000);
+            }).catch(function(err) {
+              if (err.name !== 'AbortError') shareTextOnly(text);
+            });
+          } else {
+            shareTextOnly(text);
+          }
+        });
+      };
+
+      var shareTextOnly = function(text) {
+        if (navigator.share) {
+          navigator.share({ title: 'Bank Game Results', text: text }).then(function() {
+            setShareStatus('shared');
+            setTimeout(function() { setShareStatus(null); }, 2000);
+          }).catch(function(err) {
+            if (err.name !== 'AbortError') fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      };
+
+      var fallbackCopy = function(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function() {
+            setShareStatus('copied');
+            setTimeout(function() { setShareStatus(null); }, 2000);
+          }).catch(function() { textareaCopy(text); });
+        } else {
+          textareaCopy(text);
+        }
+      };
+
+      var textareaCopy = function(text) {
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          setShareStatus('copied');
+          setTimeout(function() { setShareStatus(null); }, 2000);
+        } catch (e) {
+          setShareStatus('error');
+          setTimeout(function() { setShareStatus(null); }, 2000);
+        }
+        document.body.removeChild(textarea);
+      };
+
+      var getShareButtonText = function() {
+        if (isGenerating) return ' Generating...';
+        if (shareStatus === 'copied') return ' Copied!';
+        if (shareStatus === 'shared') return ' Shared!';
+        if (shareStatus === 'downloaded') return ' Downloaded!';
+        if (shareStatus === 'error') return ' Failed';
+        return ' Share';
+      };
+
+      return React.createElement('div', { className: 'app-container' },
+        React.createElement('div', { style: { flex: 1, overflowY: 'auto', padding: '1rem' } },
+          React.createElement('div', { style: { maxWidth: '28rem', margin: '0 auto' } },
+            // Shareable content area with ref
+            React.createElement('div', { ref: shareableRef, className: 'shareable-results' },
+              React.createElement('div', { className: 'text-center py-8' },
+                React.createElement('div', { className: 'winner-circle' }, React.createElement(Trophy, { size: 48, style: { color: 'white' } })),
+                React.createElement('h1', { className: 'text-3xl font-bold mb-2' }, winner.name + ' Wins!'),
+                React.createElement('div', { className: 'text-5xl font-bold', style: { fontFamily: 'var(--font-mono)', color: 'var(--text-accent)' } }, winner.cumulativeScore)
+              ),
+              React.createElement('div', { className: 'card p-5 mb-4' },
+                React.createElement('h2', { className: 'text-lg font-bold mb-4 flex items-center gap-2' }, React.createElement(Award, { size: 20, style: { color: 'var(--text-accent)' } }), ' Final Standings'),
+                React.createElement('div', null,
+                  sortedPlayers.map(function(player, idx) {
+                    var podiumClass = idx === 0 ? 'gold' : idx === 1 ? 'silver' : idx === 2 ? 'bronze' : '';
+                    return React.createElement('div', { key: player.id, className: 'podium-item ' + podiumClass },
+                      React.createElement('div', { style: { width: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+                        idx === 0 ? React.createElement(Crown, { size: 24, style: { color: '#d97706' } }) :
+                        idx === 1 ? React.createElement(Medal, { size: 24, style: { color: '#9333ea' } }) :
+                        idx === 2 ? React.createElement(Award, { size: 24, style: { color: '#ea580c' } }) :
+                        React.createElement('span', { style: { color: 'var(--text-secondary)', fontWeight: 700 } }, idx + 1)
+                      ),
+                      React.createElement('span', { className: 'flex-1 font-medium' }, player.name),
+                      React.createElement('span', { className: 'text-xl font-bold' }, player.cumulativeScore)
+                    );
+                  })
+                )
+              ),
+              React.createElement('div', { className: 'card p-5 mb-4' },
+                React.createElement('h2', { className: 'text-lg font-bold mb-4 flex items-center gap-2' }, React.createElement(Sparkles, { size: 20, style: { color: 'var(--text-accent)' } }), ' Game Stats'),
+                React.createElement('div', { className: 'grid grid-cols-2 gap-4' },
+                  React.createElement('div', { className: 'stat-card' }, React.createElement('div', { className: 'stat-value' }, stats.totalSevens), React.createElement('div', { className: 'stat-label' }, 'Sevens Rolled')),
+                  React.createElement('div', { className: 'stat-card' }, React.createElement('div', { className: 'stat-value' }, stats.totalDoubles), React.createElement('div', { className: 'stat-label' }, 'Doubles Rolled')),
+                  // Most sevens/doubles player awards
+                  mostSevensPlayer && mostSevensPlayer.count > 0 && React.createElement('div', { className: 'stat-card', style: { background: 'rgba(234, 88, 12, 0.1)' } },
+                    React.createElement('div', { className: 'stat-value', style: { fontSize: '1.25rem', color: '#ea580c' } }, mostSevensPlayer.name),
+                    React.createElement('div', { className: 'stat-label' }, 'Lucky 7 Magnet (' + mostSevensPlayer.count + ')')
+                  ),
+                  mostDoublesPlayer && mostDoublesPlayer.count > 0 && React.createElement('div', { className: 'stat-card', style: { background: 'rgba(147, 51, 234, 0.1)' } },
+                    React.createElement('div', { className: 'stat-value', style: { fontSize: '1.25rem', color: '#9333ea' } }, mostDoublesPlayer.name),
+                    React.createElement('div', { className: 'stat-label' }, 'Double Trouble (' + mostDoublesPlayer.count + ')')
+                  ),
+                  stats.biggestBankPlayer && React.createElement('div', { className: 'col-span-2 stat-card', style: { background: 'rgba(5, 150, 105, 0.1)' } },
+                    React.createElement('div', { className: 'stat-value', style: { color: 'var(--text-accent)' } }, stats.biggestBank),
+                    React.createElement('div', { className: 'stat-label' }, 'Biggest Bank (' + stats.biggestBankPlayer + ')')
+                  ),
+                  // Conservative/Risky player awards
+                  conservativePlayer && React.createElement('div', { className: 'stat-card award-card', style: { background: 'rgba(59, 130, 246, 0.1)' } },
+                    React.createElement('div', { className: 'award-emoji' }, '\uD83D\uDEE1\uFE0F'),
+                    React.createElement('div', { className: 'stat-value', style: { fontSize: '1.25rem', color: '#3b82f6' } }, conservativePlayer.name),
+                    React.createElement('div', { className: 'stat-label' }, 'The Safe Player')
+                  ),
+                  riskyPlayer && React.createElement('div', { className: 'stat-card award-card', style: { background: 'rgba(239, 68, 68, 0.1)' } },
+                    React.createElement('div', { className: 'award-emoji' }, '\uD83D\uDD25'),
+                    React.createElement('div', { className: 'stat-value', style: { fontSize: '1.25rem', color: '#ef4444' } }, riskyPlayer.name),
+                    React.createElement('div', { className: 'stat-label' }, 'The Daredevil')
+                  )
+                )
+              ),
+              React.createElement('div', { className: 'shareable-footer' },
+                React.createElement('span', null, today),
+                React.createElement('span', null, ' • '),
+                React.createElement('span', { style: { fontWeight: 600 } }, 'bennorris.com/bank')
+              )
+            ),
+            // Action buttons (outside shareable area)
+            React.createElement('div', { className: 'flex flex-col gap-3 mt-6' },
+              React.createElement('div', { className: 'grid grid-cols-2 gap-3' },
+                React.createElement('button', { onClick: shareResults, disabled: isGenerating, className: 'btn btn-secondary' },
+                  React.createElement(Share2, { size: 20 }),
+                  getShareButtonText()
+                ),
+                React.createElement('button', { onClick: downloadImage, disabled: isGenerating, className: 'btn btn-secondary' },
+                  React.createElement(Download, { size: 20 }),
+                  ' Save Image'
+                )
+              ),
+              React.createElement('button', { onClick: onPlayAgain, className: 'btn btn-primary w-full btn-large' }, React.createElement(RotateCcw, { size: 20 }), ' Play Again'),
+              React.createElement('button', { onClick: onNewGame, className: 'btn btn-ghost w-full' }, 'Edit Players')
+            )
+          )
+        ),
+        React.createElement(AppFooter)
+      );
+    }
+
+    // Setup Screen
+    function SetupScreen(props) {
+      var state = props.state;
+      var dispatch = props.dispatch;
+      var nameState = useState('');
+      var newPlayerName = nameState[0];
+      var setNewPlayerName = nameState[1];
+      var inputRef = useRef(null);
+      var customInputState = useState('');
+      var customRoundsInput = customInputState[0];
+      var setCustomRoundsInput = customInputState[1];
+      var dragState = useState({ draggingIndex: null, dragOverIndex: null });
+      var dragInfo = dragState[0];
+      var setDragInfo = dragState[1];
+
+      var addPlayer = function() {
+        var name = newPlayerName.trim();
+        // Secret party mode activation
+        if (name.toLowerCase() === 'party mode') {
+          // Store discovery flag so toggle appears in settings from now on
+          try { localStorage.setItem('bank-party-discovered', 'true'); } catch (e) { /* ignore */ }
+          if (!state.settings.partyMode) {
+            dispatch({ type: 'TOGGLE_PARTY_MODE' });
+            launchConfetti('big');
+          }
+          setNewPlayerName('');
+          if (inputRef.current) inputRef.current.focus();
+          return;
+        }
+        if (name && state.players.length < MAX_PLAYERS) {
+          dispatch({ type: 'ADD_PLAYER', name: name });
+          setNewPlayerName('');
+          if (inputRef.current) inputRef.current.focus();
+        }
+      };
+
+      var handlePointerDragStart = function(index, pointerId) {
+        setDragInfo({ draggingIndex: index, dragOverIndex: null, pointerId: pointerId });
+      };
+
+      var handlePointerMove = function(index) {
+        if (dragInfo.draggingIndex !== null && dragInfo.draggingIndex !== index) {
+          setDragInfo(function(prev) { return Object.assign({}, prev, { dragOverIndex: index }); });
+        }
+      };
+
+      var handlePointerDragEnd = function() {
+        if (dragInfo.draggingIndex !== null && dragInfo.dragOverIndex !== null && dragInfo.draggingIndex !== dragInfo.dragOverIndex) {
+          var newPlayers = state.players.slice();
+          var item = newPlayers.splice(dragInfo.draggingIndex, 1)[0];
+          newPlayers.splice(dragInfo.dragOverIndex, 0, item);
+          dispatch({ type: 'REORDER_PLAYERS', players: newPlayers });
+        }
+        setDragInfo({ draggingIndex: null, dragOverIndex: null, pointerId: null });
+      };
+
+      var handlePresetClick = function(rounds) {
+        dispatch({ type: 'SET_ROUND_CONFIG', rounds: rounds, isCustom: false });
+        setCustomRoundsInput('');
+      };
+
+      var handleCustomClick = function() {
+        dispatch({ type: 'SET_ROUND_CONFIG', rounds: state.roundConfig, isCustom: true });
+      };
+
+      var handleCustomInputChange = function(e) {
+        var val = e.target.value.replace(/[^0-9]/g, '');
+        setCustomRoundsInput(val);
+        var num = parseInt(val, 10);
+        if (num && num >= 1 && num <= 99) {
+          dispatch({ type: 'SET_ROUND_CONFIG', rounds: num, isCustom: true });
+        }
+      };
+
+      return React.createElement('div', { className: 'app-container' },
+        React.createElement('div', { className: 'header' },
+          React.createElement('div', { className: 'header-content' },
+            React.createElement('div', { className: 'header-left' },
+              React.createElement('div', { className: 'header-brand' },
+                React.createElement('div', { className: 'brand-icon' }, React.createElement(BankIcon, { size: 22 })),
+                React.createElement('h1', { className: 'header-title' }, 'BANK')
+              ),
+              state.settings.partyMode && React.createElement('span', { className: 'party-indicator' }, '\uD83C\uDF89 Party Mode')
+            ),
+            React.createElement('button', { onClick: function() {
+                var nextTheme = state.settings.theme === 'system' ? 'light' : state.settings.theme === 'light' ? 'dark' : 'system';
+                dispatch({ type: 'SET_THEME', theme: nextTheme });
+              }, className: 'icon-btn', title: 'Theme: ' + state.settings.theme },
+              state.settings.theme === 'dark' ? React.createElement(Moon, { size: 20 }) :
+              state.settings.theme === 'light' ? React.createElement(Sun, { size: 20 }) :
+              React.createElement(Monitor, { size: 20 })
+            )
+          )
+        ),
+        React.createElement('div', { style: { flex: 1, overflowY: 'auto', padding: '1rem' } },
+          React.createElement('div', { className: 'setup-layout' },
+            // Left column - Players
+            React.createElement('div', { className: 'setup-column' },
+              React.createElement('div', { className: 'card p-5' },
+                React.createElement('h2', { className: 'text-lg font-bold mb-4 flex items-center gap-2' }, React.createElement(Users, { size: 20, style: { color: 'var(--text-accent)' } }), ' Players (' + state.players.length + ')'),
+                React.createElement('div', { className: 'flex gap-2 mb-4' },
+                  React.createElement('input', { ref: inputRef, type: 'text', value: newPlayerName, onChange: function(e) { setNewPlayerName(e.target.value); }, onKeyPress: function(e) { if (e.key === 'Enter') addPlayer(); }, placeholder: 'Enter player name', maxLength: 20, className: 'input', style: { flex: 1 } }),
+                  React.createElement('button', { onClick: addPlayer, disabled: !newPlayerName.trim() || state.players.length >= MAX_PLAYERS, className: 'btn btn-primary', style: { padding: '0.75rem' } },
+                    React.createElement(Plus, { size: 20 })
+                  )
+                ),
+                React.createElement('div', { className: 'setup-players-grid' },
+                  state.players.length === 0 ?
+                    React.createElement('div', { className: 'text-center py-8', style: { color: 'var(--text-secondary)' } }, 'Add at least ' + MIN_PLAYERS + ' players to start') :
+                    state.players.map(function(player, index) {
+                      return React.createElement(SetupPlayerCard, {
+                        key: player.id,
+                        player: player,
+                        index: index,
+                        onRemove: function(id) { dispatch({ type: 'REMOVE_PLAYER', id: id }); },
+                        onToggleVirtualDice: function(playerId) { dispatch({ type: 'TOGGLE_PLAYER_VIRTUAL_DICE', playerId: playerId }); },
+                        onPointerDragStart: handlePointerDragStart,
+                        onPointerMove: handlePointerMove,
+                        onPointerDragEnd: handlePointerDragEnd,
+                        isDragging: dragInfo.draggingIndex === index,
+                        isDragOver: dragInfo.dragOverIndex === index,
+                        isAnyDragging: dragInfo.draggingIndex !== null
+                      });
+                    })
+                )
+              )
+            ),
+            // Right column - Game Settings and Start button
+            React.createElement('div', { className: 'setup-column' },
+              React.createElement('div', { className: 'card p-5 mb-4' },
+                React.createElement('h2', { className: 'text-lg font-bold mb-4 flex items-center gap-2' }, React.createElement(Settings, { size: 20, style: { color: 'var(--text-accent)' } }), ' Game Settings'),
+                React.createElement('div', null,
+                  React.createElement('label', { style: { display: 'block', fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', marginBottom: '0.5rem' } }, 'Number of Rounds'),
+                  React.createElement('div', { className: 'round-options' },
+                    ROUND_PRESETS.map(function(rounds) {
+                      var isActive = !state.isCustomRounds && state.roundConfig === rounds;
+                      return React.createElement('button', { key: rounds, onClick: function() { handlePresetClick(rounds); }, className: 'round-option' + (isActive ? ' active' : '') }, rounds);
+                    }),
+                    React.createElement('button', { onClick: handleCustomClick, className: 'round-option' + (state.isCustomRounds ? ' active' : '') }, 'Custom')
+                  ),
+                  state.isCustomRounds && React.createElement('div', { className: 'custom-rounds-input mt-3' },
+                    React.createElement('input', {
+                      type: 'text',
+                      inputMode: 'numeric',
+                      value: customRoundsInput || (state.isCustomRounds && ROUND_PRESETS.indexOf(state.roundConfig) === -1 ? state.roundConfig : ''),
+                      onChange: handleCustomInputChange,
+                      placeholder: '#',
+                      maxLength: 2,
+                      className: 'input input-small'
+                    }),
+                    React.createElement('span', { style: { color: 'var(--text-secondary)' } }, 'rounds')
+                  )
+                )
+              ),
+              React.createElement('button', { onClick: function() { dispatch({ type: 'START_GAME' }); }, disabled: state.players.length < MIN_PLAYERS, className: 'btn btn-primary btn-large w-full' },
+                React.createElement(Play, { size: 24 }), ' Start Game'
+              )
+            )
+          )
+        ),
+        React.createElement(AppFooter)
+      );
+    }// Game Screen - Updated with inline effect pill and undo button in bank card header
+    function GameScreen(props) {
+      var state = props.state;
+      var dispatch = props.dispatch;
+      var bankModalState = useState(false);
+      var showBankModal = bankModalState[0];
+      var setShowBankModal = bankModalState[1];
+      var restartState = useState(false);
+      var showRestartConfirm = restartState[0];
+      var setShowRestartConfirm = restartState[1];
+      var settingsState = useState(false);
+      var showSettings = settingsState[0];
+      var setShowSettings = settingsState[1];
+      var instructionsState = useState(false);
+      var showInstructions = instructionsState[0];
+      var setShowInstructions = instructionsState[1];
+      var wideScreenState = useState(window.innerWidth >= 768);
+      var isWideScreen = wideScreenState[0];
+      var setIsWideScreen = wideScreenState[1];
+
+      useEffect(function() {
+        var handleResize = function() { setIsWideScreen(window.innerWidth >= 768); };
+        window.addEventListener('resize', handleResize);
+        return function() { window.removeEventListener('resize', handleResize); };
+      }, []);
+
+      // Trigger confetti on doubles in party mode
+      useEffect(function() {
+        if (state.settings.partyMode && state.lastRollEffect === '\u00d72') {
+          launchConfetti('normal');
+        }
+      }, [state.lastRollEffect, state.settings.partyMode, state.rollCount]);
+
+      var isInSafeZone = state.rollCount < 3;
+      var currentPlayer = state.players[state.currentPlayerIndex];
+      var activePlayers = state.players.filter(function(p) { return !p.hasBanked; });
+      var canBank = state.rollCount > 0 && activePlayers.length > 0;
+
+      var handleRoll = function(die1, die2) { dispatch({ type: 'ROLL', die1: die1, die2: die2 }); };
+
+      var handleKeypadInput = function(value, isSeven) {
+        if (value === 'doubles') dispatch({ type: 'KEYPAD_INPUT', sum: 0, isDoubles: true, isSeven: false });
+        else if (isSeven) dispatch({ type: 'KEYPAD_INPUT', sum: 7, isDoubles: false, isSeven: true });
+        else dispatch({ type: 'KEYPAD_INPUT', sum: value, isDoubles: false, isSeven: false });
+      };
+
+      var handleBank = function(playerIds) { dispatch({ type: 'BANK_PLAYERS', playerIds: playerIds }); setShowBankModal(false); };
+
+      var getEffectPillClass = function() {
+        if (state.lastRollEffect === 'BUST!') return 'effect-pill danger';
+        if (state.lastRollEffect === '\u00d72') return 'effect-pill doubles';
+        if (state.lastRollEffect === '+70') return 'effect-pill safe';
+        return 'effect-pill normal';
+      };
+
+      return React.createElement('div', { className: 'app-container' },
+        React.createElement('div', { className: 'header' },
+          React.createElement('div', { className: 'header-content' },
+            React.createElement('div', { className: 'header-left' },
+              React.createElement('div', { className: 'header-brand' },
+                React.createElement('div', { className: 'brand-icon' }, React.createElement(BankIcon, { size: 22 })),
+                React.createElement('h1', { className: 'header-title' }, 'BANK')
+              ),
+              state.settings.partyMode && React.createElement('span', { className: 'party-indicator' }, '\uD83C\uDF89'),
+              (function() {
+                var isFinalRound = state.currentRound === state.roundConfig && state.phase !== 'setup' && state.phase !== 'gameOver';
+                return React.createElement('div', { className: 'header-round' + (isFinalRound ? ' final' : '') },
+                  isFinalRound ? 'FINAL ROUND' : 'Round ' + state.currentRound + '/' + state.roundConfig
+                );
+              })()
+            ),
+            React.createElement('div', { className: 'header-right settings-popover-wrapper' },
+              React.createElement('button', { onClick: function() { setShowSettings(!showSettings); }, className: 'icon-btn', title: 'Settings' }, React.createElement(Settings, { size: 18 })),
+              React.createElement(GameSettingsPopover, {
+                isOpen: showSettings,
+                onClose: function() { setShowSettings(false); },
+                state: state,
+                dispatch: dispatch,
+                onRestart: function() { setShowRestartConfirm(true); },
+                onShowInstructions: function() { setShowInstructions(true); }
+              }
+              )
+            )
+          )
+        ),
+        React.createElement('div', { className: 'game-layout' },
+          // Main game area
+          React.createElement('div', { className: 'game-main' },
+            // Bank card with undo button in header and inline effect pill
+            React.createElement('div', { className: 'card p-5 text-center bank-card ' + (isInSafeZone ? 'zone-safe' : 'zone-danger') },
+              // Undo button in top right corner
+              state.history.length > 0 && React.createElement('div', { className: 'bank-card-header' },
+                React.createElement('button', { 
+                  onClick: function() { dispatch({ type: 'UNDO' }); }, 
+                  className: 'icon-btn icon-btn-subtle',
+                  title: 'Undo last action'
+                },
+                  React.createElement(RotateCcw, { size: 18 })
+                )
+              ),
+              // Zone indicator row
+              React.createElement('div', { className: 'flex items-center justify-center gap-2 mb-2' },
+                isInSafeZone ?
+                  React.createElement(React.Fragment, null, React.createElement(ShieldCheck, { size: 18, style: { color: '#059669' } }), React.createElement('span', { style: { fontSize: '0.875rem', fontWeight: 500, color: '#059669' } }, 'Safe Zone')) :
+                  React.createElement(React.Fragment, null, React.createElement(AlertTriangle, { size: 18, style: { color: '#d97706' } }), React.createElement('span', { style: { fontSize: '0.875rem', fontWeight: 500, color: '#d97706' } }, 'Danger Zone')),
+                React.createElement('span', { style: { color: 'var(--text-secondary)' } }, '\u2022'),
+                React.createElement('span', { style: { fontSize: '0.875rem', color: 'var(--text-secondary)' } }, 'Roll #' + (state.rollCount + 1))
+              ),
+              // Bank number with inline effect pill
+              React.createElement('div', { className: 'bank-score-row' },
+                React.createElement('div', { className: 'bank-number' }, React.createElement(AnimatedNumber, { value: state.bankTotal })),
+                state.lastRollEffect && React.createElement('div', { className: getEffectPillClass() }, state.lastRollEffect)
+              )
+            ),
+            // Turn indicator
+            currentPlayer && !currentPlayer.hasBanked && React.createElement('div', { className: 'turn-indicator text-center' },
+              React.createElement('strong', null, currentPlayer.name), "'s turn to roll"
+            ),
+            // Controls area - use global override if enabled, otherwise per-player setting
+            React.createElement('div', { className: 'game-controls' },
+              (function() {
+                // Global override takes precedence
+                var useVirtualDice = state.settings.virtualDice;
+                // If no global override, use current player's setting
+                if (!useVirtualDice && currentPlayer) {
+                  useVirtualDice = currentPlayer.virtualDice !== false; // Default to true if undefined
+                }
+                return useVirtualDice ?
+                  React.createElement(VirtualDice, { onRoll: handleRoll, disabled: activePlayers.length === 0 }) :
+                  isInSafeZone ?
+                    React.createElement(SafeZoneKeypad, { onInput: handleKeypadInput, disabled: activePlayers.length === 0 }) :
+                    React.createElement(DangerZoneKeypad, { onInput: handleKeypadInput, disabled: activePlayers.length === 0 });
+              })(),
+              React.createElement('button', { onClick: function() { setShowBankModal(true); }, disabled: !canBank, className: 'bank-btn' },
+                React.createElement('div', { className: 'flex items-center justify-center gap-3' },
+                  React.createElement(Lock, { size: 20 }),
+                  React.createElement('span', null, 'BANK ' + state.bankTotal)
+                )
+              )
+            ),
+            React.createElement(AppFooter)
+          ),
+          // Player sidebar - sorted by actual score, with rank badges showing position coming into round
+          React.createElement('div', { className: 'game-sidebar card p-4' },
+            React.createElement('h2', { className: 'text-lg font-bold flex items-center gap-2 mb-3' }, React.createElement(Users, { size: 20, style: { color: 'var(--text-accent)' } }), ' Players'),
+            React.createElement('div', { className: 'flex flex-col gap-2' },
+              (function() {
+                // Calculate ranks based on cumulative score (position coming into round)
+                var rankMap = {};
+                state.players.slice().sort(function(a, b) {
+                  return b.cumulativeScore - a.cumulativeScore;
+                }).forEach(function(player, index) {
+                  rankMap[player.id] = index + 1;
+                });
+                // Sort by actual score for display, pass pre-calculated rank
+                return state.players
+                  .map(function(player, index) { return { player: player, originalIndex: index }; })
+                  .sort(function(a, b) {
+                    var scoreA = a.player.cumulativeScore + (a.player.hasBanked ? a.player.roundScore : 0);
+                    var scoreB = b.player.cumulativeScore + (b.player.hasBanked ? b.player.roundScore : 0);
+                    return scoreB - scoreA;
+                  })
+                  .map(function(item) {
+                    var player = item.player;
+                    var originalIndex = item.originalIndex;
+                    return React.createElement(PlayerCard, {
+                      key: player.id,
+                      player: player,
+                      rank: rankMap[player.id],
+                      isCurrentTurn: originalIndex === state.currentPlayerIndex,
+                      bankTotal: state.bankTotal
+                    });
+                  });
+              })()
+            )
+          )
+        ),
+        showBankModal && React.createElement(BankingModal, { players: state.players, bankTotal: state.bankTotal, onConfirm: handleBank, onClose: function() { setShowBankModal(false); } }),
+        showRestartConfirm && React.createElement('div', { className: 'modal-backdrop', onClick: function() { setShowRestartConfirm(false); } },
+          React.createElement('div', { className: 'modal-content', style: { maxWidth: '20rem' }, onClick: function(e) { e.stopPropagation(); } },
+            React.createElement('div', { className: 'p-6 text-center' },
+              React.createElement(RefreshCw, { size: 48, style: { color: 'var(--text-accent)', margin: '0 auto 1rem' } }),
+              React.createElement('h2', { className: 'text-xl font-bold mb-2' }, 'Restart Game?'),
+              React.createElement('p', { style: { color: 'var(--text-secondary)', marginBottom: '1.5rem' } }, 'This will end the current game and return to setup. Your players will be kept.'),
+              React.createElement('div', { className: 'flex gap-3' },
+                React.createElement('button', { onClick: function() { setShowRestartConfirm(false); }, className: 'btn btn-secondary flex-1' }, 'Cancel'),
+                React.createElement('button', { onClick: function() { dispatch({ type: 'GO_TO_SETUP' }); }, className: 'btn btn-danger flex-1' }, 'End Game')
+              )
+            )
+          )
+        ),
+        showInstructions && React.createElement(FullscreenInstructionsModal, { onClose: function() { setShowInstructions(false); } })
+      );
+    }// Main App
+    function BankApp() {
+      var stateResult = useReducer(gameReducer, null, loadState);
+      var state = stateResult[0];
+      var dispatch = stateResult[1];
+      var roundEndState = useState(false);
+      var showRoundEnd = roundEndState[0];
+      var setShowRoundEnd = roundEndState[1];
+      var bustState = useState(false);
+      var wasBust = bustState[0];
+      var setWasBust = bustState[1];
+
+      // Save state to localStorage whenever it changes
+      useEffect(function() {
+        saveState(state);
+      }, [state]);
+
+      // Apply theme based on setting (light, dark, or system)
+      useEffect(function() {
+        var applyTheme = function(isDark) {
+          if (isDark) document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+        };
+
+        var theme = state.settings.theme;
+        if (theme === 'dark') {
+          applyTheme(true);
+        } else if (theme === 'light') {
+          applyTheme(false);
+        } else {
+          // System preference
+          var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          applyTheme(mediaQuery.matches);
+          var handler = function(e) { applyTheme(e.matches); };
+          mediaQuery.addEventListener('change', handler);
+          return function() { mediaQuery.removeEventListener('change', handler); };
+        }
+      }, [state.settings.theme]);
+
+      // Apply party mode class
+      useEffect(function() {
+        if (state.settings.partyMode) {
+          document.documentElement.classList.add('party');
+        } else {
+          document.documentElement.classList.remove('party');
+        }
+      }, [state.settings.partyMode]);
+
+      useEffect(function() {
+        if (state.phase === 'roundEnd') { setWasBust(state.lastRollEffect === 'BUST!'); setShowRoundEnd(true); }
+      }, [state.phase, state.lastRollEffect]);
+
+      var handleRoundContinue = function() { setShowRoundEnd(false); dispatch({ type: 'END_ROUND' }); };
+
+      if (state.phase === 'setup') return React.createElement(SetupScreen, { state: state, dispatch: dispatch });
+      if (state.phase === 'gameOver') return React.createElement(FinalResults, { players: state.players, stats: state.stats, onPlayAgain: function() { dispatch({ type: 'NEW_GAME_SAME_PLAYERS' }); }, onNewGame: function() { dispatch({ type: 'GO_TO_SETUP' }); } });
+
+      return React.createElement(React.Fragment, null,
+        React.createElement(GameScreen, { state: state, dispatch: dispatch }),
+        showRoundEnd && React.createElement(RoundEndModal, { players: state.players, roundNumber: state.currentRound, isBust: wasBust, onContinue: handleRoundContinue })
+      );
+    }
+
+    var root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(React.createElement(BankApp));
+  </script>
+</body>
+</html>

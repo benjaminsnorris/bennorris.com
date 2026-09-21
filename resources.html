@@ -1,0 +1,90 @@
+---
+title: Resources
+layout: page
+permalink: /resources/
+description: Small apps and tools built for a real need and left on the site.
+---
+
+{%- comment -%}
+  Built to match /courses/ deliberately: same list shape, same currentColor
+  styling, same absence from _data/theme.yml navigation_pages -- reachable by
+  URL, not advertised in the nav.
+
+  Entries come from _data/resources.yml, which is maintained by hand. These are
+  not published artifacts, so there is no tool that writes this index the way
+  bin/publish-course writes the courses one.
+
+  /apps/ is a different list and stays one: that is a career portfolio, mostly
+  iOS work done for other people. This is the small stuff built here.
+
+  Styling stays on currentColor and opacity rather than fixed colours so it
+  holds up across the theme skins.
+{%- endcomment -%}
+
+<style>
+  .resource-index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .resource-index > li {
+    padding: 1.25em 0;
+    border-bottom: 1px solid;
+    border-color: currentColor;
+    border-color: color-mix(in srgb, currentColor 15%, transparent);
+  }
+
+  .resource-index > li:first-child {
+    border-top: 1px solid;
+    border-color: currentColor;
+    border-color: color-mix(in srgb, currentColor 15%, transparent);
+  }
+
+  .resource-index h2 {
+    margin: 0 0 0.3em;
+    font-size: 1.25em;
+    line-height: 1.3;
+  }
+
+  .resource-index p {
+    margin: 0;
+    max-width: 34em;
+  }
+
+  .resource-index .resource-meta {
+    margin-top: 0.5em;
+    font-size: 0.8em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+</style>
+
+<p>
+  Small apps built because I wanted them to exist. Each one runs in the browser,
+  keeps whatever it needs on the device rather than on a server, and stays at the
+  address it already has.
+</p>
+
+<p>
+  For the apps I have built professionally, mostly for other people, see
+  <a href="{{ '/apps/' | relative_url }}">apps</a>. For the things built to learn
+  a topic properly, see <a href="{{ '/courses/' | relative_url }}">courses</a>.
+</p>
+
+<ul class="resource-index">
+  {%- for resource in site.data.resources %}
+  <li>
+    <h2>
+      <a href="{{ resource.url | relative_url }}">{{ resource.title | escape }}</a>
+    </h2>
+    {%- if resource.description %}
+    <p>{{ resource.description | escape }}</p>
+    {%- endif %}
+    {%- if resource.meta %}
+    <p class="resource-meta">{{ resource.meta | escape }}</p>
+    {%- endif %}
+  </li>
+  {%- endfor %}
+</ul>

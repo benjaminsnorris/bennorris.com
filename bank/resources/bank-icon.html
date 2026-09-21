@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank App Icon</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #ccc; padding: 40px; display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; }
+
+    .icon {
+      width: 512px;
+      height: 512px;
+      background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+      border-radius: 114px; /* iOS icon radius ratio */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle shine effect */
+    .icon::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 50%);
+    }
+
+    .icon-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .coin {
+      width: 280px;
+      height: 280px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+
+    .coin svg {
+      color: white;
+    }
+
+    .label {
+      display: none; /* Hidden for cleaner icon, enable if desired */
+      font-family: 'Space Mono', monospace;
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.1em;
+      margin-top: 1rem;
+    }
+
+    /* Preview at actual sizes */
+    .preview-row {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .preview-label {
+      font-family: system-ui;
+      font-size: 14px;
+      color: #666;
+    }
+    .icon-180 {
+      width: 180px;
+      height: 180px;
+      border-radius: 40px;
+    }
+    .icon-180 .coin {
+      width: 100px;
+      height: 100px;
+    }
+    .icon-180 .coin svg {
+      width: 60px;
+      height: 60px;
+    }
+    .icon-120 {
+      width: 120px;
+      height: 120px;
+      border-radius: 27px;
+    }
+    .icon-120 .coin {
+      width: 66px;
+      height: 66px;
+    }
+    .icon-120 .coin svg {
+      width: 40px;
+      height: 40px;
+    }
+    .icon-60 {
+      width: 60px;
+      height: 60px;
+      border-radius: 13px;
+    }
+    .icon-60 .coin {
+      width: 33px;
+      height: 33px;
+    }
+    .icon-60 .coin svg {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main 512x512 icon for export -->
+  <div>
+    <div class="icon">
+      <div class="icon-content">
+        <div class="coin">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="round" width="168" height="168">
+            <circle cx="12" cy="12" r="8"/>
+            <path d="M12 6v2"/>
+            <path d="M12 16v2"/>
+            <path d="M8 10h8"/>
+            <path d="M8 14h8"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <p class="preview-label" style="margin-top: 10px; text-align: center;">512x512 (export this one)</p>
+  </div>
+
+  <!-- Previews at actual device sizes -->
+  <div class="preview-row">
+    <div>
+      <div class="icon icon-180">
+        <div class="icon-content">
+          <div class="coin">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="8"/>
+              <path d="M12 6v2"/>
+              <path d="M12 16v2"/>
+              <path d="M8 10h8"/>
+              <path d="M8 14h8"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p class="preview-label">180x180 (iPhone @3x)</p>
+    </div>
+    <div>
+      <div class="icon icon-120">
+        <div class="icon-content">
+          <div class="coin">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="8"/>
+              <path d="M12 6v2"/>
+              <path d="M12 16v2"/>
+              <path d="M8 10h8"/>
+              <path d="M8 14h8"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p class="preview-label">120x120 (iPhone @2x)</p>
+    </div>
+    <div>
+      <div class="icon icon-60">
+        <div class="icon-content">
+          <div class="coin">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="8"/>
+              <path d="M12 6v2"/>
+              <path d="M12 16v2"/>
+              <path d="M8 10h8"/>
+              <path d="M8 14h8"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p class="preview-label">60x60 (actual size)</p>
+    </div>
+  </div>
+</body>
+</html>

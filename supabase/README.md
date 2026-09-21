@@ -1,8 +1,13 @@
 # Supabase
 
-The backend for `/courses/<slug>/` and `/resources/<slug>/`: one table of saved
-state, and one table saying who may read whose. `assets/js/course-store.js` is
-the only thing on the site that talks to it.
+The backend for `/courses/<slug>/` and `/gaps/`: one table of saved
+state, and one table saying who may read whose.
+
+Two things on the site talk to it, and they share an account rather than a
+mechanism. `assets/js/course-store.js` mirrors a course's localStorage key by
+key. `gaps/shell/sync.js` does not: Gaps reconciles with its own `mergeAll`
+and only borrows the session, which lives under the same `bn-course:auth` key
+so signing in on either signs you in on both.
 
 Project **Courses**, ref `haetugdidypkmgpmtyxj`. The URL and publishable key are
 in `course-store.js` — they are public by design, and every rule that matters is
@@ -78,7 +83,17 @@ Two traps worth knowing:
 | Migration | What it does |
 |---|---|
 | `0001_course_state.sql` | `course_state`, one row per (user, slug, key). Owner-only RLS. |
-| `0002_state_share.sql` | `state_share` + an additive SELECT policy, so a named reader can read named keys of one slug. Backs `/resources/accountability/`. |
+| `0002_state_share.sql` | `state_share` + an additive SELECT policy, so a named reader can read named keys of one slug. Was built for `/resources/accountability/`, which no longer exists. |
+
+`/resources/accountability/` was removed from the site on 2026-09-20. The
+migration stays — it is applied, and rewriting history in `supabase/migrations`
+would put this repo out of step with `supabase_migrations.schema_migrations`.
+The mechanism is general and the next shared surface can use it as is.
+
+**The data was not touched.** The `course_state` rows under slug
+`accountability` and the `state_share` grant that points at them are still in
+the database. Deleting a page does not delete what people wrote into it; clear
+them deliberately, or leave them.
 
 Sharing is granted by inserting a `state_share` row — the SQL is at the bottom of
 `0002`. It is narrow on three axes (who, which slug, which keys) so that, for the

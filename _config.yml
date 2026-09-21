@@ -144,18 +144,6 @@ collections:
 
 # Front Matter Defaults
 defaults:
-  # /resources/ pages are unlisted: reachable with the URL, never advertised.
-  # They carry their own <meta name="robots" content="noindex, nofollow">, and
-  # this keeps them out of sitemap.xml so nothing invites a crawler to go and
-  # read the noindex in the first place.
-  #
-  # These are static HTML files with no front matter of their own. Jekyll 4
-  # still resolves defaults for a StaticFile (as :pages), which is the
-  # documented way to set `sitemap: false` on one -- so the scope needs no type.
-  - scope:
-      path: "resources"
-    values:
-      sitemap: false
   # _posts
   - scope:
       path: "_posts"

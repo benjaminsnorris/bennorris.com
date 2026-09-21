@@ -1,0 +1,49 @@
+# Index for /resources/.
+#
+# Hand-maintained, unlike _data/courses.yml -- there is no bin/publish-resource,
+# because these are not published artifacts. Each one is a small app built for a
+# real need and left on the site at a URL that must not move.
+#
+# url:   the address it already has. Never change one to tidy this list; these
+#        get bookmarked and installed to home screens.
+# meta:  one short honest line about where its data lives, mirroring the
+#        "Progress saved" / "Reading" line on /courses/.
+
+- title: Bank
+  url: /bank/
+  description: >-
+    A scorekeeper for the Bank dice game — running totals, a virtual roll, and
+    the bookkeeping that otherwise falls to whoever is worst at declining it.
+  meta: Saved in this browser
+
+- title: Counter
+  url: /counter/
+  description: >-
+    Attendance, counted room by room on the way round rather than added up
+    afterwards. Set out the rooms, walk them in order, and each count is kept
+    against the room it belongs to.
+  meta: Saved in this browser
+
+- title: Gaps
+  url: /gaps/
+  description: >-
+    Something worth doing with the scattered minutes — a question to answer, a
+    passage to hold, or a chess motif, chosen to fit the shape of the gap you
+    are actually in rather than the one you wish you had.
+  meta: Installs to a phone · signs in to sync
+
+- title: Board editor
+  url: /glossary/board-editor/
+  description: >-
+    Set up a chess position and read it back: who attacks what, how many times,
+    and which lines are only open because something could interpose. Built
+    alongside the glossary, and exports the diagram it draws.
+  meta: Nothing to save
+
+- title: AI attribution badges
+  url: /badges/
+  description: >-
+    A small set of badges for saying how AI was actually used in a piece of
+    work — the preposition says who led, the verb says how much of the thing
+    the tool brought into being. Free to take.
+  meta: SVG · six wordings, two tools
