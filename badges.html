@@ -177,7 +177,7 @@ description: A small set of badges for saying how AI was actually used in a piec
 </div>
 
 <ul class="badge-grid">
-  {%- assign notes = "You used the tool to help edit your work.|You did the work and had the tool edit it for you.|The prose came out of the exchange, with you steering.|The tool wrote it; you commissioned and checked it.|You collaborated with the tool to build out the artifact together.|You defined what you wanted and asked the tool to create it." | split: "|" -%}
+  {%- assign notes = "Lightest weight AI involvement; you used the tool to edit your work.|You did the work and had the tool to the editing before publishing.|You worked with the tool to come up with the actual prose.|The tool wrote it; you commissioned and checked it.|You collaborated with the tool to build out the artifact together.|You defined what you wanted and asked the tool to create it." | split: "|" -%}
   {%- assign i = 0 -%}
   {%- for verb in site.data.ai_badges.verbs -%}
   {%- for prep in site.data.ai_badges.prepositions -%}
@@ -185,7 +185,7 @@ description: A small set of badges for saying how AI was actually used in a piec
     <h3>{{ verb | capitalize }} {{ prep }}</h3>
     <p class="badge-note">{{ notes[i] }}</p>
     <span class="badge-stage"></span>
-    <button type="button" class="badge-copy" data-snippet=""></button>
+    <!-- <button type="button" class="badge-copy" data-snippet=""></button> -->
   </li>
   {%- assign i = i | plus: 1 -%}
   {%- endfor -%}
